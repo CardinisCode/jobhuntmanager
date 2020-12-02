@@ -7,6 +7,9 @@ from flask_session import Session
 from datetime import datetime, date
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
+from tempfile import mkdtemp
+
+from helpers_from_cs50_finance import login_required, apology
 
 from repo.users import UserRepository
 
@@ -24,8 +27,8 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-# Custom filter
-app.jinja_env.filters["usd"] = usd
+# # Custom filter
+# app.jinja_env.filters["usd"] = usd
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
@@ -37,13 +40,8 @@ Session(app)
 db = sqlite3.connect('jhmanager.db')
 userRepo = UserRepository(db)
 
-# Make sure API key is set
-if not os.environ.get("API_KEY"):
-    raise RuntimeError("API_KEY not set")
-
 @app.route("/register", methods=["GET", "POST"])
 def register_user():
-    user_id = session["user_id"]
     """Provide registration form to user"""
     if request.method == "GET":
         return render_template("register.html")
@@ -52,6 +50,7 @@ def register_user():
 
 
 # Taken from CS50's Finance source code & modified
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -77,3 +76,15 @@ def logout():
 
     # Redirect user to login form
     return redirect("/login")
+
+@app.route("/")
+@login_required
+def index():
+    """ Home page for user """
+    user_id = session["user_id"]
+    return render_template("home.html")
+
+
+
+
+

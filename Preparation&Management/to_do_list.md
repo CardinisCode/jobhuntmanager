@@ -29,9 +29,9 @@ Project Management
 
 #2: [ ] Registration   
         [X]     Create registration.py
-        [ ]     Add registration router & function
-                [ ]     GET 
-                [ ]     POST
+        [x]     Add registration router & function
+                [x]     GET 
+                [x]     POST
         [ ]     Verify user details dont already exist
                 [ ]     username
                 [ ]     email address

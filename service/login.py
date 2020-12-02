@@ -2,16 +2,16 @@ from flask import Flask, flash, redirect, request, session
 from flask_session import Session
 
 def post_login(session, userRepo):
-    # Ensure username was submitted
-        if not request.form.get("username"):
-            return apology("must provide username", 403)
+    # Ensure email was submitted
+        if not request.form.get("email"):
+            return apology("must provide email address", 403)
 
         # Ensure password was submitted
         elif not request.form.get("password"):
             return apology("must provide password", 403)
 
         # Query database for username
-        user = userRepo.getByUserName(request.form.get("username"))
+        user = userRepo.getByUserName(request.form.get("email"))
 
         # Ensure username exists and password is correct
         if user is None or not check_password_hash(user["hash"], request.form.get("password")):
