@@ -1,23 +1,34 @@
 Project Management
 
 #1: [ ] Setup:
-        [ ] Connect directory to Github
-        [ ] Create repo directory
-        [ ] Create service directory
-        [ ] Create style directory
-
+        [X] Connect directory to Github
+        [X] Create repo directory
+        [X] Create service directory
+        [X] Create style directory
 
         [ ] Set up SQLite3 database
-                [ ]     Create db
+                [X]     Create db
                 [ ]     Create connection to db
-                [ ]     Create file consisting of classes to perform various SQL queries
-                [ ]     Create repo for users
+
+        [X]     Create repo for users
+                [X]     Within Users:
+                        Create file consisting of classes to perform various SQL queries
+
+        [X] Create templates directory
+                -> Create files:
+                [x]     layout.html
+                [x]     register.html 
+                [x]     home.html
+                [x]     applications.html
+                [x]     interviews.html
+                [x]     calendar.html
+                [x]     tipsandadvise.html
+                [x]     userprofile.html
 
 ------------------------------------------------------------------------------
 
 #2: [ ] Registration   
-        [ ]     Create register.html
-        [ ]     Create registration.py
+        [X]     Create registration.py
         [ ]     Add registration router & function
                 [ ]     GET 
                 [ ]     POST

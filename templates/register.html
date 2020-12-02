@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <h1> Register </h1>
+    <br/>
+    <form action="/register" method="POST">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="confirmation" placeholder="Confirm Password" type="password">
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="email" placeholder="Email Address" type="text">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+
+    <br/>
+    <h2 class="left"> Requirements</h2>
+    <br/>
+    <p class="left"> Your Username should: </p>
+    <ul class="left">
+        <li> Have 6 characters or more </li>
+        <li> NOT start with a digit </li>
+        <li> At least 1 number: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</li>
+    </ul>
+    <br/>
+
+    <p class="left"> Your password should have: </p>
+    <ul class="left"> 
+        <li> 6 characters or more </li>
+        <li> At least 1 special character: !, #, $, %, ^, &, *</li>
+        <li> At least 1 number: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</li>
+
+    </ul>
+{% endblock %}
