@@ -32,7 +32,7 @@ Project Management
         [x]     Add registration router & function
                 [x]     GET 
                 [x]     POST
-        [ ]     Verify user details dont already exist
+        [X]     Verify user details dont already exist
                 [ ]     username
                 [ ]     email address
         [ ]     Create rules for password 

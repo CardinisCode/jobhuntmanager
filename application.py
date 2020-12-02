@@ -13,6 +13,7 @@ from helpers_from_cs50_finance import login_required, apology
 
 from repo.users import UserRepository
 from service.registration import post_registration
+from service.homepage import create_homepage_content
 
 # Configure application
 app = Flask(__name__)
@@ -83,7 +84,7 @@ def logout():
 def index():
     """ Home page for user """
     user_id = session["user_id"]
-    return render_template("home.html")
+    return create_homepage_content(session, user_id)
 
 
 

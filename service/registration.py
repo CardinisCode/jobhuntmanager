@@ -107,10 +107,12 @@ def post_registration(session, userRepo):
         return redirect("/register")
 
     email = request.form.get("email")
+    valid = validate_email(email, userRepo)
     if not valid: 
         return redirect("/register")
 
     password = request.form.get("password")
+    valid = validate_password(password, userRepo)
     if not valid: 
         return redirect("/register")
 
@@ -128,7 +130,10 @@ def post_registration(session, userRepo):
     hashed_password = generate_password_hash(password)
 
     # Now we have the hashed password, let's store the username and password in our database
-    session["user_id"] = userRepo.createUser(username, hashed_password, email)
+    result = userRepo.createUser(username, hashed_password, email)
+    if result == None:
+        raise ValueError("Your user has not been successfully added to users.")
+    session["user_id"] = result
 
     flash('Registration Complete!')
     return redirect("/")
