@@ -6,25 +6,23 @@ class UserRepository:
         return self.db.execute("SELECT * FROM users WHERE id = :user_id", user_id=user_id)
 
     def getByUserName(self, username):
-        user = self.db.execute(
-            "SELECT * FROM users WHERE username = :username",
-            username=username
-            )
-        if len(user) == 0:
+        cursor = self.db.execute("SELECT * FROM users WHERE username=?", (username,))
+        user = cursor.fetchone()
+        if not user:
             return None
         return user[0]
 
     def getByUserEmail(self, email):
-        user = self.db.execute(
-            "SELECT * FROM users WHERE email = :email",
-            email=email
-        )
-        if len(user) == 0:
+        cursor = self.db.execute("SELECT * FROM users WHERE email=?", (email,))
+        user = cursor.fetchone()
+        if not user:
             return None
         return user[0]
 
     def createUser(self, username, hashed_password, email):
-        return self.db.execute("INSERT INTO users (username, hash, email) VALUES (:username, :hash, :email)", username=username, hash=hashed_password, email=email)
+        result = self.db.execute("INSERT INTO users (username, hash, email) VALUES (?, ?, ?)", (username, hashed_password, email))
+        return result.fetchall()
+    
 
     # Possible method to update password hash
     #    def updateCashById(self, user_id, hash):

@@ -12,6 +12,7 @@ from tempfile import mkdtemp
 from helpers_from_cs50_finance import login_required, apology
 
 from repo.users import UserRepository
+from service.registration import post_registration
 
 # Configure application
 app = Flask(__name__)
@@ -46,7 +47,7 @@ def register_user():
     if request.method == "GET":
         return render_template("register.html")
     else:
-        return post_registration(session, userRepo, user_id)
+        return post_registration(session, userRepo)
 
 
 # Taken from CS50's Finance source code & modified
