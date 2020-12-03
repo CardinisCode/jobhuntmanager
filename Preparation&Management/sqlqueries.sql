@@ -9,4 +9,15 @@ VALUES ('marypoppins1', 'pbkdf2:sha256:150000$USxcihqi$866e1852c8cc6936a41405ebe
 
 ALTER TABLE users ADD date datetime;
 
+cursor = self.db.execute("SELECT * FROM users WHERE email=?", (email,))
+
+cursor = self.db.execute("ALTER TABLE company_directory ADD column=? datatype=?", (name, datatype,)) ??? Valid? 
+user = cursor.fetchone()
+
+CREATE TABLE IF NOT EXISTS 'company_directory' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'company_name' TEXT NOT NULL);
+CREATE UNIQUE INDEX 'company_id' ON "company_directory" ("id");
+
+CREATE TABLE IF NOT EXISTS 'application_history' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'company_name' TEXT NOT NULL, 'date' DATETIME NOT NULL, 'job_role' TEXT NOT NULL, 'platform' TEXT NOT NULL, 'interview_stage' TEXT NOT NULL, 'contact_received' TEXT NOT NULL);
+CREATE UNIQUE INDEX 'app_id' ON "application_history" ("id");
+
 

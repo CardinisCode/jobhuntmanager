@@ -86,12 +86,29 @@ Project Management
                         [X]     POST:
                                 -> refer to create_homepage_content function in services directory
 
-        [ ]     In index.html 
+        [x]     In index.html 
                 [x]     Design layout of headings, messages & links
                 [x]     Design layout for tables & add headings:
                         [x]     Interviews
                         [x]     Applications
                         [x]     Job Offers
+
+
+                [x]     Create Company Directory table
+                        [x]     id (AUTOINCREMENT) 
+                        [x]     Company name TEXT (From add_application)
+                        
+                [x]     Create Company Repo
+                                [X]     Create a method to Add a new company to the profile 
+                                        -> Returns the company Id
+                [X]     Add Repo to application.py
+
+
+        [ ]     Come back to this after completing:
+                [ ]     Job applications
+                [ ]     Job interviews
+                [ ]     Job offers
+        
 
         [ ]     In create_homepage_content -> All content displayed to Index.html
                 [ ]     Pull all interviews by current date
@@ -119,50 +136,55 @@ Project Management
                                 [ ]     Add button / link: 
                                         [ ]     Add an application
 
-                [ ]     
-                                
-
-                
 
 ------------------------------------------------------------------------------
 
 #7: [ ] Nav bar 
         [ ]     import relevant library for icons
         [ ]     import libraries for css styles
-        [ ]     Left: 
-                [ ]     Home
-                        [ ]     Add house icon
-                        [ ]     linked to homepage.html
-                [ ]     (Job) Applications
-                        [ ]     Add applicable icon
-                        [ ]     Linked to job_applications.html
-                [ ]     Interviews      
-                        [ ]     Add icon
-                        [ ]     linked to interviews.html
-                [ ]     Calendar
-                        [ ]     Add icon
-                        [ ]     linked to calendar.html
-                
-        [ ]     right
-                [ ]     Before Logged in:
-                        [ ]     Login   
-                                [ ]     Add icon with door
-                                [ ]     linked to login.html
-                        [ ]     Register 
-                                [ ]     Add icon (pref usericon with a plus)
-                                [ ]     linked to register.html
-                
-                [ ]     After logged out
-                        [ ]     User account 
-                                [ ]     add icon
-                                [ ]     linked to user_account.html
-                        [ ]     Logout 
-                                [ ]     Add icon (closing door)
-                                [ ]     linked to login.html
+        [ ]     Create structure for Nav bar:
+                [ ]     Left: 
+                        [ ]     Home
+                                [ ]     Add house icon
+                                [ ]     linked to homepage.html
+                        [ ]     (Job) Applications
+                                [ ]     Add applicable icon
+                                [ ]     Linked to job_applications.html
+                        [ ]     Interviews      
+                                [ ]     Add icon
+                                [ ]     linked to interviews.html
+                        [ ]     Calendar
+                                [ ]     Add icon
+                                [ ]     linked to calendar.html
+                        
+                [ ]     right
+                        [ ]     Before Logged in:
+                                [ ]     Login   
+                                        [ ]     Add icon with door
+                                        [ ]     linked to login.html
+                                [ ]     Register 
+                                        [ ]     Add icon (pref usericon with a plus)
+                                        [ ]     linked to register.html
+                        
+                        [ ]     After logged out
+                                [ ]     User account 
+                                        [ ]     add icon
+                                        [ ]     linked to user_account.html
+                                [ ]     Logout 
+                                        [ ]     Add icon (closing door)
+                                        [ ]     linked to login.html
         
  ------------------------------------------------------------------------------
 
 #8: [ ] View job Applications page
+        [x]     Create Applications table
+                [x]     app_id (AUTOINCREMENT) 
+                [x]     Company name -> send to company directory table
+                [x]     company_id -> From company directory table
+                [x]     Job role
+                [x]     Job platform
+                [x]     Interview Stage
+                [x]     Received contact Y/N
         [ ]     set up SQL db:
                 [ ]     Create an application history table
                         [ ]     Unique identifier (job_id)
@@ -229,6 +251,17 @@ Project Management
   ------------------------------------------------------------------------------               
 
 #10: [ ] Interviews
+        [ ]     Create Interviews table
+                [ ]     id (AUTOINCREMENT) 
+                [ ]     Company name
+                [ ]     company_id -> From company directory table
+                [ ]     Status:
+                        -> Lined up
+                        -> Had interview
+                        -> Postponed -> Add once all basic requirements met
+                        -> Cancelled
+        
+
         [ ]     Add option to view application history
                 -> redirects to interview_history.html
         [ ]     Create InterviewHistoryRepository 
@@ -437,6 +470,17 @@ Project Management
   ------------------------------------------------------------------------------ 
 
 #22: [ ] Potential extra features
+        [ ]     Add Option to postpone an interview
+        [ ]     Add Option to Add technical testing Interview (prior to actual Interview)
+        [ ]     Add Option to Add research for a company
+                [ ]     Add to: Company Directory table
+                        [ ]     Main HR person TEXT (From research)
+                        [ ]     Company Core values (from research)
+                        [ ]     GlassDoor review url ( TEXT ) (from research)
+                        [ ]     Website url TEXT (From research)
+                [ ]     Display this directory to the Home page (in table)
+                [ ]     Add column to ApplicationHistory: 
+                        -> Website URL
         [ ]     User account 
                 [ ]     Option to deactivate certain features
                 [ ]     dark / light colour scheme
