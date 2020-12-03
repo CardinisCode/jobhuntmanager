@@ -10,14 +10,15 @@ class UserRepository:
         user = cursor.fetchone()
         if not user:
             return None
-        return user[0]
+
+        return user
 
     def getByUserEmail(self, email):
         cursor = self.db.execute("SELECT * FROM users WHERE email=?", (email,))
         user = cursor.fetchone()
         if not user:
             return None
-        return user[0]
+        return user
 
     def createUser(self, username, hashed_password, email, date):
         cursor = self.db.cursor()
