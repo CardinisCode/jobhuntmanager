@@ -18,6 +18,7 @@ class UserRepository:
         user = cursor.fetchone()
         if not user:
             return None
+            
         return user
 
     def createUser(self, username, hashed_password, email, date):

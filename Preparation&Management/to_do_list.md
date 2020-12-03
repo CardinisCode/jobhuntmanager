@@ -49,8 +49,8 @@ Project Management
 
 #3: [ ] Login
         [ ]     Create a service page login.py
-                [ ]     Create post_login functionality
-                        [ ]     Verify email address against db
+                [x]     Create post_login functionality
+                        [x]     Verify email address against db
                                 [ ]     search db for email address provided
                                 [ ]     hash login password provided
                         [ ]     hash login password & compare to hashed password for that user

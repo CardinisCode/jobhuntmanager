@@ -1,4 +1,4 @@
-from flask import Flask, flash, redirect, request, session
+from flask import Flask, flash, redirect, request, session, render_template
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -16,7 +16,7 @@ def validate_user(username, password, userRepo):
 
         # Query database for username
     user_by_username = userRepo.getByUserName(request.form.get("username"))
-    user_by_email = userRepo.getByUserEmail(request.form.get("email"))
+    user_by_email = userRepo.getByUserEmail(request.form.get("username"))
 
     # Check username/email matches any user in the database
     if user_by_username == None and user_by_email == None:
@@ -32,7 +32,7 @@ def validate_user(username, password, userRepo):
         user = user_by_email
 
     # To ensure the password is correct
-    if not check_password_hash(user[2], request.form.get("password")):
+    if not check_password_hash(user[2], password):
         flash("Incorrect password.")
         return (valid, user)
 
