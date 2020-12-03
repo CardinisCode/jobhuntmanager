@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Interview Preparation
+{% endblock %}
+
+{% block main %}
+    <h1> Prepare for your next Interview </h1>
+    <br/>
+    <p> Not sure where to start?</p>
+    <!-- Refer user to certain page listing all sites offering Interview prep advice Incl. Reed-->
+    <br/>
+    <!-- 'Select' drop down list -->
+    <!-- Will list all the interviews lined up by company name-->
+
+    <form action="/interview_prep" method="POST">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username / Email Address" type="text">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password" type="password">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Save</button>
+
+{% endblock %}

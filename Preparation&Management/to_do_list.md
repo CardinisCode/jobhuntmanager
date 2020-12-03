@@ -48,61 +48,81 @@ Project Management
 ------------------------------------------------------------------------------
 
 #3: [ ] Login
-        [ ]     Create a service page login.py
+        [x]     Create a service page login.py
                 [x]     Create post_login functionality
                         [x]     Verify email address against db
-                                [ ]     search db for email address provided
-                                [ ]     hash login password provided
-                        [ ]     hash login password & compare to hashed password for that user
+                                [x]     search db for email address provided
+                                [x]     hash login password provided
+                        [x]     hash login password & compare to hashed password for that user
 
-        [ ]     If valid: login in user
-                [ ]     Take user to home page
-        [ ]     If invalid:
-                [ ]     username doesn't exist:
-                        [ ]     provide error message to login page
-                [ ]     password doesn't match password on system for that user
-                        [ ]     provide error message to login page
-
-------------------------------------------------------------------------------
-
-#4: [ ] Logout
-
-
-
+        [x]     If valid: login in user
+                [x]     Take user to home page
+        [x]     If invalid:
+                [x]     username doesn't exist:
+                        [x]     provide error message to login page
+                [x]     password doesn't match password on system for that user
+                        [x]     provide error message to login page
+                        [ ]     fix problem -> it displays error message 2x 
 
 ------------------------------------------------------------------------------
 
-#5: [ ] Layout.html
-        [ ]     Create a root templates folder
-        [ ]     Create the Layout template 
-        [ ]     Add the necessary libraries
-        [ ]     Include a banner to display notifications to user
-        [ ]     Include a footer 
+#4: [x] Layout.html
+        [x]     Create a root templates folder
+        [x]     Create the Layout template 
+        [x]     Add the necessary libraries
+        [x]     Include a banner to display notifications to user
+        [x]     Include a footer 
 
 ------------------------------------------------------------------------------
 
 
-#6: [ ] Home page
-        [ ]     Create homepage.html
-        [ ]     Create route for homepage.html 
-                [ ]     include the @login decorator
-                [ ]     Create create_homepage function
-        [ ]     Applications
-                [ ]     View applications -> redirects user to view_applications.html
-                        [ ]     Create view_applications.html
-                [ ]     Add application -> redirects user to add_application.html
-                        [ ]     Create add_application.html
-        [ ]     Interviews 
-                [ ]     Interview history -> redirects user to interview_history.html
-                        [ ]     Create interview_history.html
-                [ ]     Add interview   -> redirects user to add_interview.html
-                        [ ]     Create add_interview.html
-        [ ]     Update details on an interview 
-                [ ]     Redirects user to update_interview_details.html page
-                        [ ]     Create update_interview_details.html
-        [ ]     Calendar
-                [ ]     Create calendar file/page
-                [ ]     Display calendar / button for calendar
+#5: [ ] Home page
+        [x]     Create homepage.html
+        [x]     Create route for index.html 
+                [x]     include the @login decorator
+                [X]     Create index function
+                        [X]     GET:
+                                -> render template to display index.html
+                        [X]     POST:
+                                -> refer to create_homepage_content function in services directory
+
+        [ ]     In index.html 
+                [x]     Design layout of headings, messages & links
+                [x]     Design layout for tables & add headings:
+                        [x]     Interviews
+                        [x]     Applications
+                        [x]     Job Offers
+
+        [ ]     In create_homepage_content -> All content displayed to Index.html
+                [ ]     Pull all interviews by current date
+                        [ ] Save how many items were returned & display to user
+                                EG: "You have {{ X }} number of Interviews today" 
+                        [ ]     If interviews lined up = True
+                                [ ]     Offer user option to Prepare for the interview:
+                                        -> Will direct user to relevant page (interview_prep.html)
+
+                        [ ] IF no interviews lined up today: 
+                                EG: "You have {{ X }} number of Interviews today" 
+                                [ ]     Add option to add lined up interview
+                                        "Have a lined up Interview? Add it!"
+                                [ ]     Pull interviews in the next 7 days
+                                        [ ]     Display Interviews (10 items max) 
+                                        [ ]     Option to "view more" -> Directs user to interviews.html  
+
+
+                [ ]     Pull all applications made today
+                        [ ]     Display to page:
+                                EG: "You have made {{ X }} number of applications today"
+                        [ ]     If no applications made today: 
+                                [ ]     Display message to user:
+                                                "Have you had any applications yet?" 
+                                [ ]     Add button / link: 
+                                        [ ]     Add an application
+
+                [ ]     
+                                
+
+                
 
 ------------------------------------------------------------------------------
 
@@ -209,7 +229,6 @@ Project Management
   ------------------------------------------------------------------------------               
 
 #10: [ ] Interviews
-        [ ]     Display user achievements
         [ ]     Add option to view application history
                 -> redirects to interview_history.html
         [ ]     Create InterviewHistoryRepository 
@@ -342,10 +361,17 @@ Project Management
   ------------------------------------------------------------------------------ 
 
 #17: [ ] User Profile
-        [ ] Change password -> redirect user to change_password.html
+        [ ]     Add option for user to add more details: 
+                [ ]     Create form: add_extra_user_details.html
+                        [ ]     Industry of preference
+                        [ ]     Job title
+                        [ ]     Companies of interest (10)
+                        [ ]     Country -> For currency
+        [ ]     Change password -> redirect user to change_password.html
                 [ ]     create change_password.html
-        [ ] Delete account -> Redirect user to delete_account.html
+        [ ]     Delete account -> Redirect user to delete_account.html
                 [ ]     create delete_account.html
+        
 
   ------------------------------------------------------------------------------ 
 
@@ -430,5 +456,15 @@ Project Management
                 ->      LI Networking 
                         ->      advise sites
                         ->      Recommendations on who to follow on LI
+        [ ]     Progress bar for user profile 
+                EG You have completed x% of your user profile 
+                [ ]     Displayed on Home page
+                [ ]     Give option to update user profile details -> refer user to add_extra_user_details.html (form)
+        [ ]     Add 'Interests' to add_extra_user_details.html form
 
+        [ ]     Add advertising
+                [ ]     Customize to user's industry or even job title 
+                        -> Based on what user provides in user profile
+                [ ]     If user doesn't provide Industry or Job role or Interests
+                        -> General advertising
         

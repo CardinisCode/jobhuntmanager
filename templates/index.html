@@ -5,6 +5,100 @@
 {% endblock %}
 
 {% block main %}
-    <h1> Welcome </h1>
+    <h1> Welcome username </h1>
+    <br/>
+    <h2> Interviews</h2>
+    <br/>
+    <div class="horizontal">
+        <li class="left_button"> You have X number of Interviews lined up today!</li>
+        <li class="middle_button"> You have X number of Interviews lined up this week!</li>
+    </div>
+    <br/>
+    
+    <h3> Interviews Lined up:</h3>
+    <table class="Table"> 
+        <tr> 
+            <th> Time</th>
+            <th> Company name</th>
+            <th> Platform</th>
+            <th> Job role</th>
+        </tr>
+        <tr> 
+            <td> x:x:x</td>
+            <td> X PTY LTD </td>
+            <td> Zoom </td>
+            <td> Jnr Software Dev</td>
+        </tr>
+    </table>
+
+
+    <br/>
+    <div class="horizontal_buttons">
+        <a href="templates/add_interview.html" class="button left_button">Add Interview</a>
+        <a href="templates/interview_prep.html" class="button middle_button">Prep for an Interview</a>
+        <a href="templates/interview_prep.html" class="button right_button">Review your Interview Prep</a>
+    </div>
+    
+    <br/>
+    <br/>
+
+    <h2> Applications</h2>
+    <br/>
+    <div class="horizontal">
+        <li class="left_button"> You have made X number of applications today!</li>
+        <li class="middle_button"> You have made X number of applications this week!</li>
+    </div>
+    <br/>
+    <h3> Your Applications:</h3>
+    <table class="Table"> 
+        <tr> 
+            <th> Date</th>
+            <th> Company name</th>
+            <th> Job role</th>
+            <th> Job platform</th>
+            <th> Interview Stage</th> 
+            <th> Received Contact (Y/N)</th>
+            
+        </tr>
+        <tr> 
+            <td> x:x:x</td>
+            <td> X PTY LTD </td>
+            <td> Jnr Software Dev</td>
+            <td> Linkedin </td>
+            <td> Application Made</td>
+            <td> Y / N</td>
+        </tr>
+    </table>
+    <br/>
+    <div class="horizontal_buttons">
+        <a href="templates/add_job_application.html" class="button left_button">Add Application</a>
+        <a href="templates/applications.html" class="button middle_button">View Application</a>
+    </div>
+
+    <br/>
+
+    <h2> Job Offers</h2>
+    <br/>
+    <p> You have received X job offers! </p>
+
+    <table class="Table"> 
+        <tr> 
+            <th> Date of Offer</th>
+            <th> Company name</th>
+            <th> Job role</th>
+            <th> Salary Offered</th>
+            <th> Expected Start date</th>
+        </tr>
+        <tr> 
+            <td> x:x:x</td>
+            <td> X PTY LTD </td>
+            <td> Jnr Software Dev </td>
+            <td> value </td>
+            <td> x:x:x</td>
+        </tr>
+    </table>
+    <br/>
+    <br/>
+
 
 {% endblock %}
