@@ -11,7 +11,7 @@ def post_login(session, userRepo):
             return apology("must provide password", 403)
 
         # Query database for username
-        user = userRepo.getByUserName(request.form.get("email"))
+        username = userRepo.getByUserName(request.form.get("email"))
 
         # Ensure username exists and password is correct
         if user is None or not check_password_hash(user["hash"], request.form.get("password")):

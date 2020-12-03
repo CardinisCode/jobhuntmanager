@@ -14,6 +14,7 @@ from helpers_from_cs50_finance import login_required, apology
 from repo.users import UserRepository
 from service.registration import post_registration
 from service.homepage import create_homepage_content
+from service.login import post_login
 
 # Configure application
 app = Flask(__name__)

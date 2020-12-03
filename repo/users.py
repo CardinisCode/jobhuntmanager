@@ -19,9 +19,9 @@ class UserRepository:
             return None
         return user[0]
 
-    def createUser(self, username, hashed_password, email):
+    def createUser(self, username, hashed_password, email, date):
         cursor = self.db.cursor()
-        result = cursor.execute("INSERT INTO users (username, hash, email) VALUES (?, ?, ?)", (username, hashed_password, email,))
+        result = cursor.execute("INSERT INTO users (username, hash, email, date) VALUES (?, ?, ?, ?)", (username, hashed_password, email, date,))
         # this was needed. It is a modification to the database and the way that sql works it needs to commit those changes (transaction)
         # which means it saves it to the database. otherwise it forgets the change. This is done to protect the database from corrupting
         # changes

@@ -27,31 +27,33 @@ Project Management
 
 ------------------------------------------------------------------------------
 
-#2: [ ] Registration   
+#2: [x] Registration   
         [X]     Create registration.py
         [x]     Add registration router & function
                 [x]     GET 
                 [x]     POST
         [X]     Verify user details dont already exist
-                [ ]     username
-                [ ]     email address
-        [ ]     Create rules for password 
-                [ ]     Add these requirements on the html page
-                [ ]     Verify that the password provided meets those requirements
+                [x]     username
+                [X]     email address
+        [X]     Create rules for password 
+                [X]     Add these requirements on the html page
+                [X]     Verify that the password provided meets those requirements
 
-        [ ]     Add user to user table (sqlite3 database)
-                [ ]     username ??
-                [ ]     hash password
-                [ ]     email address
-                [ ]     date & time account was created
+        [X]     Add user to user table (sqlite3 database)
+                [X]     username
+                [X]     hash password
+                [X]     email address
+                [X]     date & time account was created
 
 ------------------------------------------------------------------------------
 
 #3: [ ] Login
-        [ ]     Verify email address against db
-                [ ]     search db for email address provided
-                [ ]     hash login password provided
-                [ ]     check hashed 
+        [ ]     Create a service page login.py
+                [ ]     Create post_login functionality
+                        [ ]     Verify email address against db
+                                [ ]     search db for email address provided
+                                [ ]     hash login password provided
+                        [ ]     hash login password & compare to hashed password for that user
 
         [ ]     If valid: login in user
                 [ ]     Take user to home page

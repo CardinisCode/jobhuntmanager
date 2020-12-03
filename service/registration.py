@@ -1,6 +1,7 @@
 from flask import request, render_template, redirect, flash
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers_from_cs50_finance import apology
+from datetime import datetime, date
 
 
 def valid_username(username, userRepo):
@@ -75,8 +76,13 @@ def validate_email(email, userRepo):
 
 def validate_password(password, userRepo):
     valid = False
-    if len(password) < 6:
+
+    if not password:
         flash('You must provide a password.')
+        return valid
+
+    if len(password) < 6:
+        flash("Your password doesn't meet the minimal requirements.")
         return valid
 
     allowed_characters = ["!", "#", "$", "%", "^", "&", "*", "~"]
@@ -129,10 +135,13 @@ def post_registration(session, userRepo):
     # We don't want to store the actual password so let's hash the password they provide
     hashed_password = generate_password_hash(password)
 
+    todays_date = datetime.today()
+    str_date = todays_date.strftime('%Y-%m-%d-%X')
+
     # Now we have the hashed password, let's store the username and password in our database
-    result = userRepo.createUser(username, hashed_password, email)
-    if result == None:
-        raise ValueError("Your user has not been successfully added to users.")
+    result = userRepo.createUser(username, hashed_password, email, str_date)
+    # if result == None:
+    #     raise ValueError("Your user has not been successfully added to users.")
     session["user_id"] = result
 
     flash('Registration Complete!')
