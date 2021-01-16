@@ -20,4 +20,5 @@ CREATE UNIQUE INDEX 'company_id' ON "company_directory" ("id");
 CREATE TABLE IF NOT EXISTS 'application_history' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'company_name' TEXT NOT NULL, 'date' DATETIME NOT NULL, 'job_role' TEXT NOT NULL, 'platform' TEXT NOT NULL, 'interview_stage' TEXT NOT NULL, 'contact_received' TEXT NOT NULL);
 CREATE UNIQUE INDEX 'app_id' ON "application_history" ("id");
 
-
+CREATE TABLE IF NOT EXISTS 'interview_history' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'company_name' TEXT NOT NULL, 'date' DATETIME NOT NULL, 'time' DATETIME NOT NULL,'job_role' TEXT NOT NULL, 'interview_stage' TEXT NOT NULL, 'user_id' INTEGER NOT NULL, 'status' TEXT NOT NULL);
+CREATE UNIQUE INDEX 'interview_id' ON "interview_history" ("id");

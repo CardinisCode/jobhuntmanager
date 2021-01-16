@@ -110,8 +110,27 @@ Project Management
                 [ ]     Job offers
         
 
-        [ ]     In create_homepage_content -> All content displayed to Index.html
-                [ ]     Pull all interviews by current date
+        [ ]     In service/homepage, update create_homepage_content (function) 
+                -> All content displayed to Index.html
+
+                [x]     Grab today's date
+                [x]     Display Today's date on index.html
+                For Applications:
+                [ ]     Create a SQL query to pull together all applications made today / current day. 
+                [ ]     Count the number of applications and save that to a variable
+                        [x]     Display to page:
+                                EG: "You have made {{ X }} number of applications today"
+                        [ ]     If no applications made today: 
+                                [ ]     Display message to user:
+                                                "Have you had any applications yet?" 
+                                [ ]     Add button / link: 
+                                        [ ]     Add an application
+
+                For Interviews:
+                [x]     Set up a Repo for Interview History
+                [x]     Connect to this new repo in your applications.py
+                [ ]     Create a SQL query to pull all interviews for current date
+                [ ]     Pull all the day current_day interviews to a variable
                         [ ] Save how many items were returned & display to user
                                 EG: "You have {{ X }} number of Interviews today" 
                         [ ]     If interviews lined up = True
@@ -125,16 +144,6 @@ Project Management
                                 [ ]     Pull interviews in the next 7 days
                                         [ ]     Display Interviews (10 items max) 
                                         [ ]     Option to "view more" -> Directs user to interviews.html  
-
-
-                [ ]     Pull all applications made today
-                        [ ]     Display to page:
-                                EG: "You have made {{ X }} number of applications today"
-                        [ ]     If no applications made today: 
-                                [ ]     Display message to user:
-                                                "Have you had any applications yet?" 
-                                [ ]     Add button / link: 
-                                        [ ]     Add an application
 
 
 ------------------------------------------------------------------------------
@@ -511,4 +520,15 @@ Project Management
                         -> Based on what user provides in user profile
                 [ ]     If user doesn't provide Industry or Job role or Interests
                         -> General advertising
+
+        [ ]     Preparing a Cover letter
+        [ ]     Add option to allow user to plan contents of their CV section by section
+                [ ]     Allow user to customize CV per application   
+
+        [ ]     Offer user option to save their top 10 favourite businesses
+                [ ]     Display job offers from these companies
+                [ ]     Display news on that company
+
+        [ ]     Add option for user to contact the HR recruiter at the company they've just had an interview at
+                -> Via email / LI
         

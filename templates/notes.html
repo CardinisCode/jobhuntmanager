@@ -1,8 +1,13 @@
+{% extends "layout.html" %}
 
-<!-- Using a form to create a button-->
-<form action="https://google.com">
-    <input type="submit" value="Go to Google" />
-</form>
+{% block title %}
+    Personal Notes
+{% endblock %}
 
-<!-- Using a 'a' reference and just style it to look like a button-->
-<a href="https://google.com" class="button">Go to Google</a>
+{% block main %}
+<h1> Hello ....</h1>
+<hr/>
+<p> Your notes...</p>
+
+
+{% endblock %}

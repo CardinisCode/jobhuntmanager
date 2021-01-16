@@ -9,13 +9,10 @@ class ApplicationsHistoryRepository:
 
         return result.lastrowid
 
+    
+    def searchApplicationHistory(self, todays_date, user_id):
+        cursor = self.db.cursor()
+        result = cursor.execute("SELECT * FROM application_history WHERE date = ? AND user_id = ?", (todays_date, user_id,))
+        self.db.commit()
 
-    # def createUser(self, username, hashed_password, email, date):
-    #     cursor = self.db.cursor()
-    #     result = cursor.execute("INSERT INTO users (username, hash, email, date) VALUES (?, ?, ?, ?)", (username, hashed_password, email, date,))
-    #     # this was needed. It is a modification to the database and the way that sql works it needs to commit those changes (transaction)
-    #     # which means it saves it to the database. otherwise it forgets the change. This is done to protect the database from corrupting
-    #     # changes
-    #     self.db.commit()
-
-    #     return result.lastrowid
+        return result.lastrowid

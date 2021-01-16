@@ -14,10 +14,12 @@ from helpers_from_cs50_finance import login_required, apology
 from repo.users import UserRepository
 from repo.company_directory import CompanyRepository
 from repo.applications_history import ApplicationsHistoryRepository
+from repo.interviewsHistory import InterviewsHistoryRepository
 
 from service.registration import post_registration
 from service.homepage import create_homepage_content
 from service.login import post_login
+
 
 # Configure application
 app = Flask(__name__)
@@ -43,10 +45,11 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure sqlite3 Library to use SQLite database
-db = sqlite3.connect('jhmanager.db')
+db = sqlite3.connect('jhmanager.db', check_same_thread=False)
 userRepo = UserRepository(db)
 companyRepo = CompanyRepository(db)
 applicationsRepo = ApplicationsHistoryRepository(db)
+interviewsRepo = InterviewsHistoryRepository(db)
 
 @app.route("/register", methods=["GET", "POST"])
 def register_user():
@@ -93,9 +96,50 @@ def logout():
 def index():
     """ Home page for user """
     user_id = session["user_id"]
-    return create_homepage_content(session, user_id)
+    return create_homepage_content(session, user_id, applicationsRepo, interviewsRepo)
 
 
+@app.route("/applications")
+@login_required
+def display_applications():
+    """ Display User's Job Applications """
+    return render_template("applications.html")
 
+
+@app.route("/interviews")
+@login_required
+def display_interviews():
+    """ Display User's Job Interviews """
+    return render_template("interviews.html")
+
+@app.route("/add_interview")
+@login_required
+def add_interview():
+    """ Display Form to let user Add an interview """
+    return render_template("add_interview.html")
+
+@app.route("/add_job_application")
+@login_required
+def add_application():
+    """ Display Form to let user Add a job Application """
+    return render_template("add_job_application.html")
+
+@app.route("/userprofile")
+@login_required
+def display_user_profile():
+    """ Display User Profile """
+    return render_template("userprofile.html")
+
+@app.route("/calendar")
+@login_required
+def display_caledar():
+    """ Display User's calendar """
+    return render_template("calendar.html")
+
+@app.route("/tipsandadvise")
+@login_required
+def display_tips_and_advise():
+    """ Display Tips and Advise to users """
+    return render_template("tipsandadvise.html")
 
 

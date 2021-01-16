@@ -7,10 +7,60 @@
 {% block main %}
     <h1> Welcome username </h1>
     <br/>
+    <br/>
+    <p> Today's date {{ render_info.current_date }} </p>
+
+    <h2> Your Applications: </h2>
+    <br/>
+    <p> Applications today: {{ render_info.applications_today }} </p>
+
+    <div class="horizontal">
+        {% if render_info.applications_today == 0 %}
+            <li> You have not submitted any applications today.</li>
+        {% else %}
+            <li class="left_button"> You have made X number of applications today!</li>
+        {% endif %}
+        <li class="middle_button"> You have made X number of applications this week!</li>
+    </div>
+    <br/>
+    <h3> View Your Applications history:</h3>
+    <!-- Drop down to view table-->
+    <table class="Table"> 
+        <tr> 
+            <th> Date</th>
+            <th> Company name</th>
+            <th> Job role</th>
+            <th> Job platform</th>
+            <th> Interview Stage</th> 
+            <th> Received Contact (Y/N)</th>
+            
+        </tr>
+        <tr> 
+            <td> x:x:x</td>
+            <td> X PTY LTD </td>
+            <td> Jnr Software Dev</td>
+            <td> Linkedin </td>
+            <td> Application Made</td>
+            <td> Y / N</td>
+        </tr>
+    </table>
+    <br/>
+    <div class="horizontal_buttons">
+        <a href="templates/add_job_application.html" class="button left_button">Add Application</a>
+        <a href="templates/applications.html" class="button middle_button">View Application</a>
+    </div>
+    <br/>
+
     <h2> Interviews</h2>
     <br/>
+    <p> Interviews Today: {{ render_info.interviews_today }} </p>
+
     <div class="horizontal">
-        <li class="left_button"> You have X number of Interviews lined up today!</li>
+        {% if render_info.interviews_today == 0 %}
+            <li class="left_button"> You have no Interviews lined up today.</li>
+        {% else %}
+            <li class="left_button"> You have {{ render_info.applications_today }} number of Interviews lined up today!</li>
+        {% endif %}
         <li class="middle_button"> You have X number of Interviews lined up this week!</li>
     </div>
     <br/>
@@ -43,42 +93,6 @@
         <a href="templates/interviews.html" class="button right_button">View Your Interview History</a>
     </div>
     <br/>
-    <br/>
-
-    <h2> Applications</h2>
-    <br/>
-    <div class="horizontal">
-        <li class="left_button"> You have made X number of applications today!</li>
-        <li class="middle_button"> You have made X number of applications this week!</li>
-    </div>
-    <br/>
-    <h3> View Your Applications:</h3>
-    <!-- Drop down to view table-->
-    <table class="Table"> 
-        <tr> 
-            <th> Date</th>
-            <th> Company name</th>
-            <th> Job role</th>
-            <th> Job platform</th>
-            <th> Interview Stage</th> 
-            <th> Received Contact (Y/N)</th>
-            
-        </tr>
-        <tr> 
-            <td> x:x:x</td>
-            <td> X PTY LTD </td>
-            <td> Jnr Software Dev</td>
-            <td> Linkedin </td>
-            <td> Application Made</td>
-            <td> Y / N</td>
-        </tr>
-    </table>
-    <br/>
-    <div class="horizontal_buttons">
-        <a href="templates/add_job_application.html" class="button left_button">Add Application</a>
-        <a href="templates/applications.html" class="button middle_button">View Application</a>
-    </div>
-
     <br/>
 
     <h2> Job Offers</h2>
