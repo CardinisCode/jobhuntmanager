@@ -9,7 +9,6 @@ class ApplicationsHistoryRepository:
 
         return result.lastrowid
 
-    
     def grabTodaysApplicationCount(self, todays_date, user_id):
         cursor = self.db.cursor()
         result = cursor.execute("SELECT * FROM application_history WHERE date = ? AND user_id = ?", (todays_date, user_id,))

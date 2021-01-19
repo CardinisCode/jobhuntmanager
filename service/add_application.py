@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request
+from flask import Flask, render_template, session, request, redirect
 import datetime
 
 def grab_users_application_and_add_to_sql_database(session, user_id, applicationsRepo):
@@ -54,5 +54,5 @@ def grab_users_application_and_add_to_sql_database(session, user_id, application
 
     applicationsRepo.insertApplicationDetailsToApplicationHistory(user_id, todays_date, employment_type, location, job_description, user_notes, job_role, company_name, platform, job_perks, company_description_on_spec, tech_stack, job_url, interview_stage, contact_received)
 
-    return 
+    return redirect("applications.html")
 

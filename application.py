@@ -115,8 +115,8 @@ def add_job_application():
         return render_template("add_job_application.html") 
     
     """ Grab user's input and add it to SQL database for that user """
-
-    return redirect("applications.html")
+    user_id = session["user_id"]
+    return grab_users_application_and_add_to_sql_database(session, user_id, applicationsRepo)
 
 
 

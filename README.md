@@ -26,10 +26,16 @@ flask run
 </form>
 ```
 
-# Using a 'a' reference and just style it to look like a button
+# Using an 'a' (anchor) reference and just style it to look like a button
 
 ```
 <a href="https://google.com" class="button">Go to Google</a>
+```
+
+# Setting up a link to another page on your website:
+```
+<a href="/html_file_name">Page Name</a>
+EG: <a href="/add_job_application" class="button left_button">Add Application</a>
 ```
 
 # Adding a column to an existing table in SQLite3
@@ -42,3 +48,4 @@ EG: ALTER TABLE application_history ADD "job_url" TEXT NOT NULL DEFAULT "N/A";
 ```
 "INSERT INTO users (username, hash, email) VALUES (?, ?, ?)", (username, hashed_password, email))
 ```
+
