@@ -19,6 +19,7 @@ from repo.interviewsHistory import InterviewsHistoryRepository
 from service.registration import post_registration
 from service.homepage import create_homepage_content
 from service.login import post_login
+from service.add_application import grab_users_application_and_add_to_sql_database
 
 
 # Configure application
@@ -114,7 +115,7 @@ def add_job_application():
         return render_template("add_job_application.html") 
     
     """ Grab user's input and add it to SQL database for that user """
-    
+
     return redirect("applications.html")
 
 

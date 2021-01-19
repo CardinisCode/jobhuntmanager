@@ -35,4 +35,10 @@ flask run
 # Adding a column to an existing table in SQLite3
 ```
 ALTER TABLE users ADD date datetime;
+EG: ALTER TABLE application_history ADD "job_url" TEXT NOT NULL DEFAULT "N/A";
+```
+
+# Adding values to a table in SQLite3
+```
+"INSERT INTO users (username, hash, email) VALUES (?, ?, ?)", (username, hashed_password, email))
 ```
