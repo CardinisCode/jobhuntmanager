@@ -10,9 +10,18 @@ class ApplicationsHistoryRepository:
         return result.lastrowid
 
     
-    def searchApplicationHistory(self, todays_date, user_id):
+    def grabTodaysApplicationCount(self, todays_date, user_id):
         cursor = self.db.cursor()
         result = cursor.execute("SELECT * FROM application_history WHERE date = ? AND user_id = ?", (todays_date, user_id,))
         self.db.commit()
 
         return result.lastrowid
+
+    def grabApplicationHistory(self, user_id):
+        cursor = self.db.cursor()
+        result = cursor.execute("SELECT * FROM application_history WHERE user_id = ?", (user_id,))
+        self.db.commit()
+
+        return result.lastrowid
+
+    

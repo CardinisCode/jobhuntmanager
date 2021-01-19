@@ -3,6 +3,7 @@ This Should detail what your project is about and what problem your program will
 ## Getting Started
 
 Setup environment variables, in the terminal copy and enter these lines of code:
+(**** You'll need to do this every time you close and reopen this project. ***)
 
 ```
 export FLASK_ENV=development                      

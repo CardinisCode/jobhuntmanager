@@ -106,6 +106,20 @@ def display_applications():
     return render_template("applications.html")
 
 
+@app.route("/add_job_application", methods=["GET", "POST"])
+@login_required
+def add_job_application():
+    "Display a form to user that takes input from user"
+    if request.method == "GET":
+        return render_template("add_job_application.html") 
+    
+    """ Grab user's input and add it to SQL database for that user """
+    
+    return redirect("applications.html")
+
+
+
+
 @app.route("/interviews")
 @login_required
 def display_interviews():

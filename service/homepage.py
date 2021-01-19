@@ -3,7 +3,7 @@ import datetime
 
 def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo):
     current_date = datetime.date.today()
-    applications_today = applicationsRepo.searchApplicationHistory(current_date, user_id)
+    applications_today = applicationsRepo.grabTodaysApplicationCount(current_date, user_id)
     interviews_today = interviewsRepo.grabTodaysInterviewCount(current_date, user_id)
     message = "All good!"
 
