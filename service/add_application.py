@@ -1,8 +1,10 @@
 from flask import Flask, render_template, session, request, redirect
-import datetime
+from datetime import datetime
 
 def grab_users_application_and_add_to_sql_database(session, user_id, applicationsRepo):
-    todays_date = datetime.date.today()
+    todays_date = datetime.now()
+    # todays_date_and_time = todays_date.strftime("%d/%m/%y %H:%M")
+    todays_date_and_time = todays_date
 
     employment_type = request.form.get("employment_type")
     location = request.form.get("location")
@@ -53,7 +55,7 @@ def grab_users_application_and_add_to_sql_database(session, user_id, application
     contact_received = "N/A"
 
     application_details = {
-        "todays_date": todays_date,
+        "todays_date": todays_date_and_time,
         "job_role": job_role, 
         "job_description": job_description,
         "employment_type": employment_type,  
