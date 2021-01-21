@@ -119,6 +119,11 @@ def add_job_application():
     return grab_users_application_and_add_to_sql_database(session, user_id, applicationsRepo)
 
 
+@app.route("/application_details")
+@login_required
+def display_application_details():
+    "Display the application details provided by user"
+    return render_template("application_details.html")
 
 
 @app.route("/interviews")
