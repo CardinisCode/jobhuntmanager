@@ -20,6 +20,7 @@ from service.registration import post_registration
 from service.homepage import create_homepage_content
 from service.login import post_login
 from service.add_application import grab_users_application_and_add_to_sql_database
+from service.display_applications import display_all_applications_current_user
 
 
 # Configure application
@@ -92,6 +93,7 @@ def logout():
     # Redirect user to login form
     return redirect("/login")
 
+
 @app.route("/")
 @login_required
 def index():
@@ -104,7 +106,8 @@ def index():
 @login_required
 def display_applications():
     """ Display User's Job Applications """
-    return render_template("applications.html")
+    user_id = session["user_id"]
+    return display_all_applications_current_user(session, user_id, applicationsRepo)
 
 
 @app.route("/add_job_application", methods=["GET", "POST"])

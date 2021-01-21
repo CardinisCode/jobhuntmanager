@@ -7,7 +7,31 @@
 {% block main %}
 <h1> Hello ....</h1>
 <hr/>
-<p> Your Application History....</p>
+<h2> Your Application History: </h2>
+
+<table class="center"> 
+    <tr class="border-bottom">
+        <th> </th>
+        <th> Date</th>
+        <th> Company</th>
+        <th> Role</th>
+        <th> Platform</th>
+        <th> Employment</th>
+    </tr>
+
+    {% for key, value in display_details.items() %}
+        <tr class="border-bottom border-right border-left">
+            
+                <td class="border-right border-left"> {{ key }} </p>
+                <td class="border-right border-left"> {{ value.app_date }} </td>
+                <td class="border-right border-left"> {{ value.company_name }}</td>
+                <td class="border-right border-left"> {{ value.job_role }}</td>
+                <td class="border-right border-left"> {{ value.platform }}</td>
+                <td class="border-right border-left"> {{ value.employment_type }}</td>
+        </tr>
+    {% endfor %}
+
+    
 
 
 {% endblock %}

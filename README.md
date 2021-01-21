@@ -49,3 +49,8 @@ EG: ALTER TABLE application_history ADD "job_url" TEXT NOT NULL DEFAULT "N/A";
 "INSERT INTO users (username, hash, email) VALUES (?, ?, ?)", (username, hashed_password, email))
 ```
 
+# Grabbing application details for user_id 2:
+``` 
+"select id, job_role, date from application_history WHERE user_id = 2 ORDER BY id DESC;"
+
+```

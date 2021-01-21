@@ -18,10 +18,10 @@ class ApplicationsHistoryRepository:
 
     def grabApplicationHistory(self, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT * FROM application_history WHERE user_id = ?", (user_id,))
+        result = cursor.execute("SELECT * FROM application_history WHERE user_id = ? ORDER BY id", (user_id,))
         self.db.commit()
 
-        return result.lastrowid
+        return result
 
     def insertApplicationDetailsToApplicationHistory(self, user_id, date, employment_type, location, job_description, notes, role, company_name, platform, perks, company_description, tech_stack, url, stage, contact_received):
         cursor = self.db.cursor()
