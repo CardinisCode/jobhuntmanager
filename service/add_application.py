@@ -49,8 +49,8 @@ def grab_users_application_and_add_to_sql_database(session, user_id, application
     if not job_role:
         job_role = "N/A"
 
-    # interview_stage = "N/A"
-    # contact_received = "N/A"
+    interview_stage = "N/A"
+    contact_received = "N/A"
 
     application_details = {
         "todays_date": todays_date,
@@ -67,7 +67,7 @@ def grab_users_application_and_add_to_sql_database(session, user_id, application
         "user_notes":  user_notes, 
     }
 
-    # applicationsRepo.insertApplicationDetailsToApplicationHistory(user_id, todays_date, employment_type, location, job_description, user_notes, job_role, company_name, platform, job_perks, company_description_on_spec, tech_stack, job_url, interview_stage, contact_received)
+    applicationsRepo.insertApplicationDetailsToApplicationHistory(user_id, todays_date, employment_type, location, job_description, user_notes, job_role, company_name, platform, job_perks, company_description_on_spec, tech_stack, job_url, interview_stage, contact_received)
 
     return render_template("application_details.html", application_details=application_details)
 
