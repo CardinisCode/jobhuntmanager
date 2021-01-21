@@ -5,33 +5,31 @@
 {% endblock %}
 
 {% block main %}
-<h1> Hello ....</h1>
+<h1> Job Applications </h1>
 <hr/>
 <h2> Your Application History: </h2>
 
 <table class="center"> 
-    <tr class="border-bottom">
-        <th> </th>
+    <tr class="border-bottom border-right border-left border-top">
         <th> Date</th>
         <th> Company</th>
         <th> Role</th>
         <th> Platform</th>
-        <th> Employment</th>
+        <th> Employment Type</th>
+        <th> Key Skills</th>
     </tr>
 
     {% for key, value in display_details.items() %}
-        <tr class="border-bottom border-right border-left">
-            
-                <td class="border-right border-left"> {{ key }} </p>
-                <td class="border-right border-left"> {{ value.app_date }} </td>
-                <td class="border-right border-left"> {{ value.company_name }}</td>
-                <td class="border-right border-left"> {{ value.job_role }}</td>
-                <td class="border-right border-left"> {{ value.platform }}</td>
-                <td class="border-right border-left"> {{ value.employment_type }}</td>
-        </tr>
+        {% for item in value %}
+            <tr class="border-bottom border-right border-left"></tr>
+                {% for i in item %}
+                    <td class="border-right border-left border-bottom"> {{ i }} </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
     {% endfor %}
 
-    
+
 
 
 {% endblock %}
