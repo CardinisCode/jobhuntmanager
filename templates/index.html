@@ -18,7 +18,7 @@
         {% if render_info.applications_today == 0 %}
             <li> You have not submitted any applications today.</li>
         {% else %}
-            <li class="left_button"> You have made X number of applications today!</li>
+            <li class="left_button"> You have made {{ render_info.applications_today }} number of applications today!</li>
         {% endif %}
         <li class="middle_button"> You have made X number of applications this week!</li>
     </div>
