@@ -76,6 +76,7 @@ def grab_users_application_and_add_to_sql_database(session, user_id, application
 
     application_details = {
         "todays_date": todays_date_and_time,
+        "job_ref": job_ref,
         "job_role": job_role, 
         "job_description": job_description,
         "employment_type": employment_type,  
