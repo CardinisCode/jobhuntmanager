@@ -9,7 +9,6 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
 
     # for application in users_applications:
     #     app_date = application[0]
-    #     raise ValueError("Date type:", type(app_date))
     #     company_name = application[1]
     #     job_role = application[2]
     #     platform = application[3]

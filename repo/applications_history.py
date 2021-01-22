@@ -23,15 +23,12 @@ class ApplicationsHistoryRepository:
 
         return result
 
-
     def grabTop5ApplicationsFromHistory(self, user_id):
         cursor = self.db.cursor()
         result = cursor.execute("SELECT date, job_ref, company_name, job_role, platform, employment_type, interview_stage, contact_received FROM application_history WHERE user_id = ? ORDER BY date DESC LIMIT 5", (user_id,))
         self.db.commit()
 
         return result
-
-
 
     def insertApplicationDetailsToApplicationHistory(self, user_id, date, employment_type, location, job_description, notes, role, company_name, platform, perks, company_description, tech_stack, url, stage, contact_received):
         cursor = self.db.cursor()

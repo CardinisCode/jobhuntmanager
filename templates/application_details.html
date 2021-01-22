@@ -6,31 +6,34 @@
 
 {% block main %}
     <h1> Application Details: </h1>
-    <ul> 
-        <li> Date of Application: {{ application_details.todays_date }} </li>
-        {% if application_details.location == 'N/A' %}
-            <li> Location: {{ application_details.location }} </li>
-        {% endif %}
-        <li> Platform: {{ application_details.platform }} </li>
-        <li> Job Role: {{ application_details.job_role }} </li>
-        <br/>
-        <li> Job Description: {{ application_details.job_description }} </li>
-        <br/>
-        <li> Job Perks: {{ application_details.job_perks }} </li>
-        <br/>
-        <li> Employment Type: {{ application_details.employment_type }} </li>
-        <br/>
-        <li> Key Skills: {{ application_details.tech_stack }} </li>
-        <br/>
-        <li> Company Name: {{ application_details.company_name }} </li>
-        <br/>
-        <li> Company Description: {{ application_details.company_description }} </li>
-        <br/>
-        <li> Job Url: {{ application_details.job_url }} </li>
-        <br/>
-        <li> User Notes: {{ application_details.user_notes }} </li>
-        <br/>
-    </ul>
+
+    <table class="center"> 
+        <tr class="border-bottom border-right border-left border-top">
+            <th> Date</th>
+            <th> Job Ref</th>
+            <th> Employment Type</th>
+            <th> Platform</th>
+            <th> Company</th>
+            <th> Location</th>
+            <th> Role</th>
+            <th> Job Perks</th>
+            <th> Tech Stack</th>
+        </tr>
+
+        <tr class="border-bottom border-right border-left border-top"> 
+            <td> {{ application_details.todays_date }} </td>
+            <td> {{ application_details.job_ref }} </td>
+            <td> {{ application_details.employment_type }} </td>
+            <td> {{ application_details.platform }} </td>
+            <td> {{ application_details.company_name }} </td>
+            <td> {{ application_details.location }} </td>
+            <td> {{ application_details.job_role }} </td>
+            <td> {{ application_details.job_perks }} </td>
+            <td> {{ application_details.tech_stack }} </td>
+            <td> {{ application_details.user_notes }} </td>
+        </tr>
+
+    </table>    
 
     <div class="horizontal_buttons">
         <a href="/add_job_application" class="button left_button">Add new job application</a>

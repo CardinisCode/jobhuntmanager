@@ -57,19 +57,15 @@ def grab_users_application_and_add_to_sql_database(session, user_id, application
 
     if not job_ref:
         job_ref = "N/A"
-    job_ref
 
     interview_stage = "Application submitted"
     contact_received = "No"
 
     applicationsRepo.insertApplicationDetailsToApplicationHistory(user_id, todays_date, employment_type, location, job_description, user_notes, job_role, company_name, platform, job_perks, company_description_on_spec, tech_stack, job_url, interview_stage, contact_received, job_ref)
-    # raise ValueError("employment_type:", employment_type)
 
     if employment_type == 'full_time':
-        # raise ValueError("employment_type: Full Time!")
         employment_type = "Full Time"
     elif employment_type == 'part_time':
-        # raise ValueError("employment_type: Part Time!")
         employment_type = "Part Time"
     elif employment_type == 'temporary':
         employment_type = "Temporary"
@@ -77,8 +73,6 @@ def grab_users_application_and_add_to_sql_database(session, user_id, application
         employment_type = "Contracting"
     else: 
         employment_type = "Other"
-
-    # raise ValueError("employment_type:", employment_type)
 
     application_details = {
         "todays_date": todays_date_and_time,
