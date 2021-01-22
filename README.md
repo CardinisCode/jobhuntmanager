@@ -44,6 +44,8 @@ ALTER TABLE users ADD date datetime;
 EG: ALTER TABLE application_history ADD "job_url" TEXT NOT NULL DEFAULT "N/A";
 ```
 
+ALTER TABLE application_history ADD "job_ref" TEXT NOT NULL DEFAULT "N/A";
+
 # Adding values to a table in SQLite3
 ```
 "INSERT INTO users (username, hash, email) VALUES (?, ?, ?)", (username, hashed_password, email))
@@ -53,4 +55,11 @@ EG: ALTER TABLE application_history ADD "job_url" TEXT NOT NULL DEFAULT "N/A";
 ``` 
 "select id, job_role, date from application_history WHERE user_id = 2 ORDER BY id DESC;"
 
+```
+
+# Args for .connect when using SQLite3
+```
+sqlite3.connect(database[, timeout, detect_types, isolation_level, check_same_thread, factory, cached_statements, uri])
+
+EG: db = sqlite3.connect('jhmanager.db', detect_types=sqlite3.PARSE_DECLTYPES, check_same_thread=False)
 ```

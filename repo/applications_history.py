@@ -2,9 +2,9 @@ class ApplicationsHistoryRepository:
     def __init__(self, db):
         self.db = db
 
-    def addApplicationToHistory(self, company_name, date, job_role, platform, interview_stage, contact_received):
+    def addApplicationToHistory(self, company_name, date, job_role, platform, interview_stage, contact_received, job_ref):
         cursor = self.db.cursor()
-        result = cursor.execute("INSERT INTO application_history (company_name, date, job_role, platform, interview_stage, contact_received) VALUES (?, ?, ?, ?, ?, ?)", (company_name, date, job_role, platform, interview_stage, contact_received,))
+        result = cursor.execute("INSERT INTO application_history (company_name, date, job_role, platform, interview_stage, contact_received, job_ref) VALUES (?, ?, ?, ?, ?, ?, ?)", (company_name, date, job_role, platform, interview_stage, contact_received,job_ref))
         self.db.commit()
 
         return result.lastrowid
@@ -18,10 +18,20 @@ class ApplicationsHistoryRepository:
 
     def grabApplicationHistory(self, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT date, company_name, job_role, platform, employment_type, tech_stack FROM application_history WHERE user_id = ? ORDER BY date DESC", (user_id,))
+        result = cursor.execute("SELECT date, job_ref, company_name, job_role, platform, employment_type, interview_stage, contact_received FROM application_history WHERE user_id = ? ORDER BY date DESC", (user_id,))
         self.db.commit()
 
         return result
+
+
+    def grabTop5ApplicationsFromHistory(self, user_id):
+        cursor = self.db.cursor()
+        result = cursor.execute("SELECT date, job_ref, company_name, job_role, platform, employment_type, interview_stage, contact_received FROM application_history WHERE user_id = ? ORDER BY date DESC LIMIT 5", (user_id,))
+        self.db.commit()
+
+        return result
+
+
 
     def insertApplicationDetailsToApplicationHistory(self, user_id, date, employment_type, location, job_description, notes, role, company_name, platform, perks, company_description, tech_stack, url, stage, contact_received):
         cursor = self.db.cursor()

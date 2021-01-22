@@ -10,15 +10,20 @@
     <p> Note: This form will be a little long. Complete the items relevant to you. </p>
     <p> If you don't complete a field, however, it will be saved automatically as 'N/A'</p>
     <br/>
-    <form action="/add_job_application" method="POST"> §
+    <form action="/add_job_application" method="POST"> 
         <label for="type_of_employment">Type of Employment: </label>
         <select name="type_of_employment" id="employment_type">
+            <option value="please_select">Please Select</option>
             <option value="full_time">Full Time</option>
             <option value="part_time">Part Time </option>
             <option value="temporary">Temporary </option>
             <option value="contract">Contract </option>
             <option value="other">Other</option>
         </select>
+
+        <div class="form-group">
+            <input class="form-control" name="job_ref" placeholder="Job Reference" type="text">
+        </div>
         
         <div class="form-group">
             <input class="form-control" name="job_role" placeholder="Job Role" type="text">

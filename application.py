@@ -23,6 +23,7 @@ from service.add_application import grab_users_application_and_add_to_sql_databa
 from service.display_applications import display_all_applications_current_user
 
 
+
 # Configure application
 app = Flask(__name__)
 
@@ -47,7 +48,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure sqlite3 Library to use SQLite database
-db = sqlite3.connect('jhmanager.db', check_same_thread=False)
+db = sqlite3.connect('jhmanager.db', detect_types=sqlite3.PARSE_DECLTYPES, check_same_thread=False)
 userRepo = UserRepository(db)
 companyRepo = CompanyRepository(db)
 applicationsRepo = ApplicationsHistoryRepository(db)

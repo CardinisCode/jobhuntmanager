@@ -1,12 +1,15 @@
 from flask import Flask, render_template, session, request, redirect
 from datetime import datetime
 
+
+
 def grab_users_application_and_add_to_sql_database(session, user_id, applicationsRepo):
     todays_date = datetime.now()
     # todays_date_and_time = todays_date.strftime("%d/%m/%y %H:%M")
     todays_date_and_time = todays_date
+    # raise ValueError("Date:", todays_date_and_time, "Date type:", type(todays_date_and_time))
 
-    employment_type = request.form.get("employment_type")
+    employment_type = request.form.get("type_of_employment")
     location = request.form.get("location")
     job_description = request.form.get("job_description")
     user_notes = request.form.get("user_notes")
@@ -17,12 +20,13 @@ def grab_users_application_and_add_to_sql_database(session, user_id, application
     company_description_on_spec = request.form.get("company_description")
     tech_stack = request.form.get("tech_stack")
     job_url = request.form.get("job_url")
+    job_ref = request.form.get("job_ref")
 
     if not employment_type:
-        employment_type = "N/A"
+        employment_type = "Full Time"
     
     if not location:
-        location = "N/A"
+        location = "Remote"
 
     if not job_description:
         job_description = "N/A"
@@ -31,28 +35,50 @@ def grab_users_application_and_add_to_sql_database(session, user_id, application
         user_notes = "N/A"    
 
     if not company_name:
-        company_name = "N/A"   
+        company_name = "Not Provided"   
 
     if not platform:
         platform = "N/A"  
 
     if not job_perks:
-        job_perks = "N/A"
+        job_perks = "Not Provided"
 
     if not company_description_on_spec:
-        company_description_on_spec = "N/A"
+        company_description_on_spec = "Not Provided"
 
     if not tech_stack:
         tech_stack = "N/A"
 
     if not job_url:
-        job_url = "N/A"
+        job_url = "Not Provided"
 
     if not job_role:
-        job_role = "N/A"
+        job_role = "Not Provided"
 
-    interview_stage = "N/A"
-    contact_received = "N/A"
+    if not job_ref:
+        job_ref = "N/A"
+    job_ref
+
+    interview_stage = "Application submitted"
+    contact_received = "No"
+
+    applicationsRepo.insertApplicationDetailsToApplicationHistory(user_id, todays_date, employment_type, location, job_description, user_notes, job_role, company_name, platform, job_perks, company_description_on_spec, tech_stack, job_url, interview_stage, contact_received, job_ref)
+    # raise ValueError("employment_type:", employment_type)
+
+    if employment_type == 'full_time':
+        # raise ValueError("employment_type: Full Time!")
+        employment_type = "Full Time"
+    elif employment_type == 'part_time':
+        # raise ValueError("employment_type: Part Time!")
+        employment_type = "Part Time"
+    elif employment_type == 'temporary':
+        employment_type = "Temporary"
+    elif employment_type == "contract":
+        employment_type = "Contracting"
+    else: 
+        employment_type = "Other"
+
+    # raise ValueError("employment_type:", employment_type)
 
     application_details = {
         "todays_date": todays_date_and_time,
@@ -68,8 +94,6 @@ def grab_users_application_and_add_to_sql_database(session, user_id, application
         "job_url": job_url,
         "user_notes":  user_notes, 
     }
-
-    applicationsRepo.insertApplicationDetailsToApplicationHistory(user_id, todays_date, employment_type, location, job_description, user_notes, job_role, company_name, platform, job_perks, company_description_on_spec, tech_stack, job_url, interview_stage, contact_received)
 
     return render_template("application_details.html", application_details=application_details)
 

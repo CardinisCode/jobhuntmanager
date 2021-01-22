@@ -8,17 +8,21 @@
 <h1> Job Applications </h1>
 <hr/>
 <h2> Your Application History: </h2>
+<a href="/add_job_application" class="button right_button">Add Application</a>
 
 <!-- <p> Today's date: {{ display_details.todays_date }} </p> -->
 
 <table class="center"> 
     <tr class="border-bottom border-right border-left border-top">
         <th> Date</th>
+        <th> Job Reference</th>
         <th> Company</th>
         <th> Role</th>
         <th> Platform</th>
         <th> Employment Type</th>
-        <th> Key Skills</th>
+        <th> Interview Stage</th>
+        <th> Contact Received Y/N</th>
+        <th> View Details</th>
     </tr>
 
     {% for key, value in display_details.items() %}
