@@ -136,11 +136,15 @@ def display_interviews():
     """ Display User's Job Interviews """
     return render_template("interviews.html")
 
-@app.route("/add_interview")
+@app.route("/add_interview", methods=["GET", "POST"])
 @login_required
 def add_interview():
     """ Display Form to let user Add an interview """
-    return render_template("add_interview.html")
+    if request.method == "GET":
+        return render_template("add_interview.html")
+    
+    """ Display Interview Details confirmation page """
+    return render_template("interview_details.html")
 
 # @app.route("/add_job_application")
 # @login_required
