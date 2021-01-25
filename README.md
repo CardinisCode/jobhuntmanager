@@ -63,3 +63,42 @@ sqlite3.connect(database[, timeout, detect_types, isolation_level, check_same_th
 
 EG: db = sqlite3.connect('jhmanager.db', detect_types=sqlite3.PARSE_DECLTYPES, check_same_thread=False)
 ```
+
+# Deleting a column to recreate it with the correct datatype
+# Requires deleting the entire table.
+```
+BEGIN TRANSACTION;
+CREATE TEMPORARY TABLE applications_backup(id, company_name, date, job_role, platform, interview_stage, user_id, employment_type);
+
+INSERT INTO applications_backup SELECT id, company_name, date, job_role, platform, interview_stage, user_id, employment_type FROM application_history;
+
+DROP TABLE application_history;
+
+CREATE TABLE IF NOT EXISTS application_history("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "company_name" TEXT NOT NULL DEFAULT "N/A", "date" DATETIME NOT NULL, "job_role" TEXT NOT NULL DEFAULT "N/A", "platform" TEXT NOT NULL DEFAULT "N/A", "interview_stage" TEXT NOT NULL DEFAULT "N/A", "user_id" INTEGER, "employment_type" TEXT NOT NULL DEFAULT "N/A");
+
+INSERT INTO application_history SELECT id, company_name, date, job_role, platform, interview_stage, user_id, employment_type FROM applications_backup;
+
+DROP TABLE applications_backup;
+
+COMMIT;
+
+```
+
+# Let's re-add the relevant columns as 1 transaction: 
+# Note there's no way to add numerous columns at once, so I've instead created a transaction, in which all the alter table commands will be completed.
+```
+BEGIN TRANSACTION;
+
+ALTER TABLE application_history ADD "contact_received" TEXT NOT NULL DEFAULT "No";
+ALTER TABLE application_history ADD "location" TEXT NOT NULL DEFAULT "Remote";
+ALTER TABLE application_history ADD "job_description" BLOB NOT NULL DEFAULT "N/A";
+ALTER TABLE application_history ADD "user_notes" BLOB NOT NULL DEFAULT "N/A";
+ALTER TABLE application_history ADD "job_perks" BLOB NOT NULL DEFAULT "N/A";
+ALTER TABLE application_history ADD "company_descrip" BLOB NOT NULL DEFAULT "N/A";
+ALTER TABLE application_history ADD "tech_stack" BLOB NOT NULL DEFAULT "N/A";
+ALTER TABLE application_history ADD "job_url" BLOB NOT NULL DEFAULT "N/A";
+
+COMMIT;
+```
+
+ALTER TABLE application_history ADD "job_ref" TEXT NOT NULL DEFAULT "N/A";
