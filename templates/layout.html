@@ -53,10 +53,11 @@
                 {% endif %}
             </div>
         </nav>
-
-        <div class="sidenav">
-            <a href="/add_job_application">Add Application</a>
-          </div>
+        {% if session.user_id %}
+            <div class="sidenav">
+                <a href="/add_job_application">Add Application</a>
+            </div>
+        {% endif %}
 
         {% if get_flashed_messages() %}
             <header>

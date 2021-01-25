@@ -142,11 +142,11 @@ def add_interview():
     """ Display Form to let user Add an interview """
     return render_template("add_interview.html")
 
-@app.route("/add_job_application")
-@login_required
-def add_application():
-    """ Display Form to let user Add a job Application """
-    return render_template("add_job_application.html")
+# @app.route("/add_job_application")
+# @login_required
+# def add_application():
+#     """ Display Form to let user Add a job Application """
+#     return render_template("add_job_application.html")
 
 @app.route("/userprofile")
 @login_required
