@@ -101,4 +101,4 @@ ALTER TABLE application_history ADD "job_url" BLOB NOT NULL DEFAULT "N/A";
 COMMIT;
 ```
 
-ALTER TABLE application_history ADD "job_ref" TEXT NOT NULL DEFAULT "N/A";
+ALTER TABLE application_history ADD "salary" TEXT NOT NULL DEFAULT "N/A";

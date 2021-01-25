@@ -12,6 +12,7 @@ def grab_users_application_and_add_to_sql_database(session, user_id, application
     employment_type = request.form.get("type_of_employment")
     location = request.form.get("location")
     job_description = request.form.get("job_description")
+    salary = request.form.get("salary")
     user_notes = request.form.get("user_notes")
     job_role = request.form.get("job_role")
     company_name = request.form.get("company_name")
@@ -61,7 +62,7 @@ def grab_users_application_and_add_to_sql_database(session, user_id, application
     interview_stage = "Application submitted"
     contact_received = "No"
 
-    applicationsRepo.insertApplicationDetailsToApplicationHistory(user_id, todays_date, employment_type, location, job_description, user_notes, job_role, company_name, platform, job_perks, company_description_on_spec, tech_stack, job_url, interview_stage, contact_received, job_ref)
+    applicationsRepo.insertApplicationDetailsToApplicationHistory(user_id, todays_date, employment_type, location, job_description, user_notes, job_role, company_name, platform, job_perks, company_description_on_spec, tech_stack, job_url, interview_stage, contact_received, job_ref, salary)
 
     if employment_type == 'full_time':
         employment_type = "Full Time"
@@ -78,6 +79,7 @@ def grab_users_application_and_add_to_sql_database(session, user_id, application
         "todays_date": todays_date_and_time,
         "job_ref": job_ref,
         "job_role": job_role, 
+        "salary": salary,
         "job_description": job_description,
         "employment_type": employment_type,  
         "tech_stack": tech_stack, 
