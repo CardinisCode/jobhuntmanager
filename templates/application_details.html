@@ -7,30 +7,57 @@
 {% block main %}
     <h1> Application Details: </h1>
 
+
+
     <table class="center"> 
         <tr class="border-bottom border-right border-left border-top">
             <th> Date</th>
-            <th> Job Ref</th>
-            <th> Employment Type</th>
-            <th> Platform</th>
-            <th> Company</th>
-            <th> Location</th>
-            <th> Role</th>
-            <th> Job Perks</th>
-            <th> Tech Stack</th>
+            <td> {{ application_details.todays_date }}  </td>
         </tr>
 
-        <tr class="border-bottom border-right border-left border-top"> 
-            <td> {{ application_details.todays_date }} </td>
-            <td> {{ application_details.job_ref }} </td>
-            <td> {{ application_details.employment_type }} </td>
-            <td> {{ application_details.platform }} </td>
-            <td> {{ application_details.company_name }} </td>
-            <td> {{ application_details.location }} </td>
-            <td> {{ application_details.job_role }} </td>
-            <td> {{ application_details.job_perks }} </td>
-            <td> {{ application_details.tech_stack }} </td>
-            <td> {{ application_details.user_notes }} </td>
+        <tr class="border-bottom border-right border-left border-top">
+            <th> Job Ref</th>
+            <td> {{ application_details.job_ref }}  </td>
+        </tr>
+
+        <tr class="border-bottom border-right border-left border-top">
+            <th> Employment Type</th>
+            <td> {{ application_details.employment_type }}  </td>
+        </tr>
+
+        <tr class="border-bottom border-right border-left border-top">
+            <th> Platform</th>
+            <td> {{ application_details.platform }}  </td>
+        </tr>
+
+        <tr class="border-bottom border-right border-left border-top">
+            <th> Company Name</th>
+            <td> {{ application_details.company_name }}  </td>
+        </tr>
+
+        <tr class="border-bottom border-right border-left border-top">
+            <th> Location</th>
+            <td> {{ application_details.location }}  </td>
+        </tr>
+
+        <tr class="border-bottom border-right border-left border-top">
+            <th> Job Role</th>
+            <td> {{ application_details.job_role }}  </td>
+        </tr>
+
+        <tr class="border-bottom border-right border-left border-top">
+            <th> Job Perks</th>
+            <td> {{ application_details.job_perks }}  </td>
+        </tr>
+
+        <tr class="border-bottom border-right border-left border-top">
+            <th> Tech Stack</th>
+            <td> {{ application_details.tech_stack }}  </td>
+        </tr>
+
+        <tr class="border-bottom border-right border-left border-top">
+            <th> User Notes</th>
+            <td> {{ application_details.user_notes }}  </td>
         </tr>
 
     </table>    
