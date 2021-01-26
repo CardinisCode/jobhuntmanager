@@ -21,7 +21,7 @@ from service.homepage import create_homepage_content
 from service.login import post_login
 from service.add_application import grab_users_application_and_add_to_sql_database
 from service.display_applications import display_all_applications_current_user
-
+from service.add_interview import grabDetailsFromNewInterviewAndAddToRepo
 
 
 # Configure application
@@ -144,7 +144,8 @@ def add_interview():
         return render_template("add_interview.html")
     
     """ Display Interview Details confirmation page """
-    return render_template("interview_details.html")
+    user_id = session["user_id"]
+    return grabDetailsFromNewInterviewAndAddToRepo(session, user_id, interviewsRepo)
 
 # @app.route("/add_job_application")
 # @login_required

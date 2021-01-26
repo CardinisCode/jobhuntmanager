@@ -101,4 +101,12 @@ ALTER TABLE application_history ADD "job_url" BLOB NOT NULL DEFAULT "N/A";
 COMMIT;
 ```
 
-ALTER TABLE application_history ADD "salary" TEXT NOT NULL DEFAULT "N/A";
+## WTForms:
+# Going to use WTForms to assist me in creating forms
+# Since it allows me to pre-populate fields as well. 
+
+# Firstly we need to make sure the relevant library is installed:
+```
+pip3 install flask-wtf
+```
+
