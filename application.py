@@ -2,7 +2,7 @@ import os
 import sys
 
 import sqlite3
-from flask import Flask, flash, jsonify, redirect, render_template, request, session
+from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
 from flask_session import Session
 from flask_bootstrap import Bootstrap
 from flask_datepicker import datepicker
@@ -164,12 +164,19 @@ def add_interview():
 def test_add_interview():
 
     form = AddInterviewForm()
-    return render_template("testing_add_interview.html", template_form=form)
+    # return render_template("testing_add_interview.html", template_form=form)
+    # if form:
+    #     raise ValueError("Oops something went wrong here!")
 
-    # if form.validate_on_submit():
-    #     company_name = form.company_name.data
-    #     interview_date = form.interview_date.data
-    #     interview_time = form.interview_time.data
+    if form.validate_on_submit():
+        # raise ValueError("It has successfully read this far!")
+    #     raise ValueError("Oops something went wrong here!")
+
+        details = {
+            "company_name": form.company_name.data, 
+            "interview_date": form.interview_date.data,
+            "interview_time": form.interview_time.data
+        }
     #     # interviewers = form.interviewer_names.data
     #     # interview_location = form.interview_location.data
     #     # video_medium = form.interview_medium.data
@@ -177,11 +184,19 @@ def test_add_interview():
 
     #     print("Company Name: ", company_name, "\n Interview Data: ", interview_date, "\n Interview Time:", interview_time)
 
-    #     # db logic goes here...
-    #     print("\nInterview Added Successfully! Now redirecting to Interviews...")
-    #     return redirect("/interviews")
+        # db logic goes here...
+        # print("\nInterview Added Successfully! Now redirecting to Interviews...")
+        return render_template("interview_details.html", details=details)
 
-    # return render_template('testing_add_interview.html', form=form)
+    # raise ValueError("It didn't validate on submit")
+    return render_template('testing_add_interview.html', template_form=form)
+
+
+@app.route("/interview_details")
+@login_required
+def display_interview_details():
+    """ Display Interview Details to the user """
+    return render_template("interview_details.html")
 
 
 @app.route("/userprofile")

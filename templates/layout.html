@@ -53,13 +53,7 @@
                 {% endif %}
             </div>
         </nav>
-        {% if session.user_id %}
-                <div class="sidenav" type="button">
-                    <a href="/add_job_application">Add Application</a>
-                    <a href="/add_interview">Add Interview</a>
-                    <a href="/testing_add_interview">Test...</a>
-                </div>
-        {% endif %}
+
 
         <div class="main_container">
             {% if get_flashed_messages() %}
@@ -68,6 +62,14 @@
                         {{ get_flashed_messages() | join(" ") }}
                     </div>
                 </header>
+            {% endif %}
+
+            {% if session.user_id %}
+                <div class="sidenav" type="button">
+                    <a href="/add_job_application">Add Application</a>
+                    <a href="/add_interview">Add Interview</a>
+                    <a href="/testing_add_interview">Test...</a>
+                </div>
             {% endif %}
 
             <main class="main container p-5">
