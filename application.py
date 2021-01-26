@@ -4,6 +4,9 @@ import sys
 import sqlite3
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
 from flask_session import Session
+from flask_bootstrap import Bootstrap
+from flask_datepicker import datepicker
+
 from datetime import datetime, date
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -28,6 +31,8 @@ from forms import AddInterviewForm
 
 # Configure application
 app = Flask(__name__)
+Bootstrap(app)
+datepicker(app)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -157,23 +162,26 @@ def add_interview():
 @app.route("/testing_add_interview", methods=['GET', 'POST'])
 @login_required
 def test_add_interview():
+
     form = AddInterviewForm()
-    if form.validate_on_submit():
-        company_name = form.company_name.data
-        interview_date = form.interview_date.data
-        interview_time = form.interview_time.data
-        # interviewers = form.interviewer_names.data
-        # interview_location = form.interview_location.data
-        # video_medium = form.interview_medium.data
-        # other_medium = form.other_medium.data
+    return render_template("testing_add_interview.html", template_form=form)
 
-        print("Company Name: ", company_name, "\n Interview Data: ", interview_date, "\n Interview Time:", interview_time)
+    # if form.validate_on_submit():
+    #     company_name = form.company_name.data
+    #     interview_date = form.interview_date.data
+    #     interview_time = form.interview_time.data
+    #     # interviewers = form.interviewer_names.data
+    #     # interview_location = form.interview_location.data
+    #     # video_medium = form.interview_medium.data
+    #     # other_medium = form.other_medium.data
 
-        # db logic goes here...
-        print("\nInterview Added Successfully! Now redirecting to Interviews...")
-        return redirect("/interviews")
+    #     print("Company Name: ", company_name, "\n Interview Data: ", interview_date, "\n Interview Time:", interview_time)
 
-    return render_template('testing_add_interview.html', form=form)
+    #     # db logic goes here...
+    #     print("\nInterview Added Successfully! Now redirecting to Interviews...")
+    #     return redirect("/interviews")
+
+    # return render_template('testing_add_interview.html', form=form)
 
 
 @app.route("/userprofile")

@@ -101,12 +101,30 @@ ALTER TABLE application_history ADD "job_url" BLOB NOT NULL DEFAULT "N/A";
 COMMIT;
 ```
 
-## WTForms:
+## FLASK:
+
+# WTForms:
 # Going to use WTForms to assist me in creating forms
 # Since it allows me to pre-populate fields as well. 
 
-# Firstly we need to make sure the relevant library is installed:
+# To use this, install the relevant library:
 ```
 pip3 install flask-wtf
 ```
 
+# To access Flask's Datepicker
+# For Python3:
+```
+pip3 install Flask-Datepicker
+```
+
+# Inside Flask App, Add:
+```
+from flask import Flask, render_template
+from flask_bootstrap import Bootstrap
+from flask_datepicker import datepicker
+
+app = Flask(__name__)
+Bootstrap(app)
+datepicker(app)
+```
