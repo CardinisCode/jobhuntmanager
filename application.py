@@ -23,12 +23,18 @@ from service.add_application import grab_users_application_and_add_to_sql_databa
 from service.display_applications import display_all_applications_current_user
 from service.add_interview import grabDetailsFromNewInterviewAndAddToRepo
 
+from forms import AddInterviewForm
+
 
 # Configure application
 app = Flask(__name__)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+app.debug = True
+
+# Setting up the secret key:
+app.config['SECRET_KEY'] = 'a really really really really long secret key'
 
 # Ensure responses aren't cached
 @app.after_request
@@ -147,11 +153,28 @@ def add_interview():
     user_id = session["user_id"]
     return grabDetailsFromNewInterviewAndAddToRepo(session, user_id, interviewsRepo)
 
-# @app.route("/add_job_application")
-# @login_required
-# def add_application():
-#     """ Display Form to let user Add a job Application """
-#     return render_template("add_job_application.html")
+
+@app.route("/testing_add_interview", methods=['GET', 'POST'])
+@login_required
+def test_add_interview():
+    form = AddInterviewForm()
+    if form.validate_on_submit():
+        company_name = form.company_name.data
+        interview_date = form.interview_date.data
+        interview_time = form.interview_time.data
+        # interviewers = form.interviewer_names.data
+        # interview_location = form.interview_location.data
+        # video_medium = form.interview_medium.data
+        # other_medium = form.other_medium.data
+
+        print("Company Name: ", company_name, "\n Interview Data: ", interview_date, "\n Interview Time:", interview_time)
+
+        # db logic goes here...
+        print("\nInterview Added Successfully! Now redirecting to Interviews...")
+        return redirect("/interviews")
+
+    return render_template('testing_add_interview.html', form=form)
+
 
 @app.route("/userprofile")
 @login_required
