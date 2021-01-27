@@ -166,28 +166,12 @@ def test_add_interview():
     form = AddInterviewForm()
     user_id = session["user_id"]
 
+    """ Validate the details provided by user & if it passes, display details to user """
     if form.validate_on_submit():
         return post_add_interview(session, user_id, form)
 
-
+    """ Display Add Interview Form to user """
     return render_template('testing_add_interview.html', template_form=form)
-
-
-    # if form.validate_on_submit():
-    #     details = {
-    #         "company_name": form.company_name.data, 
-    #         "interview_date": form.interview_date.data,
-    #         "interview_time": form.interview_time.data,
-    #         "interviewers": form.interviewer_names.data, 
-    #         "interview_location": form.interview_location.data, 
-    #         "video_medium": form.interview_medium.data, 
-    #         "other_medium": form.other_medium.data
-    #     }
-
-    #     # db logic goes here...
-    #     return render_template("interview_details.html", details=details)
-
-    
 
 
 @app.route("/interview_details")
