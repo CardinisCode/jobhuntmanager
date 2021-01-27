@@ -25,6 +25,7 @@ from service.login import post_login
 from service.add_application import grab_users_application_and_add_to_sql_database
 from service.display_applications import display_all_applications_current_user
 from service.add_interview import grabDetailsFromNewInterviewAndAddToRepo
+from service.post_add_interview import post_add_interview
 
 from forms import AddInterviewForm
 
@@ -162,34 +163,31 @@ def add_interview():
 @app.route("/testing_add_interview", methods=['GET', 'POST'])
 @login_required
 def test_add_interview():
-
     form = AddInterviewForm()
-    # return render_template("testing_add_interview.html", template_form=form)
-    # if form:
-    #     raise ValueError("Oops something went wrong here!")
+    user_id = session["user_id"]
 
     if form.validate_on_submit():
-        # raise ValueError("It has successfully read this far!")
-    #     raise ValueError("Oops something went wrong here!")
+        return post_add_interview(session, user_id, form)
 
-        details = {
-            "company_name": form.company_name.data, 
-            "interview_date": form.interview_date.data,
-            "interview_time": form.interview_time.data
-        }
-    #     # interviewers = form.interviewer_names.data
-    #     # interview_location = form.interview_location.data
-    #     # video_medium = form.interview_medium.data
-    #     # other_medium = form.other_medium.data
 
-    #     print("Company Name: ", company_name, "\n Interview Data: ", interview_date, "\n Interview Time:", interview_time)
-
-        # db logic goes here...
-        # print("\nInterview Added Successfully! Now redirecting to Interviews...")
-        return render_template("interview_details.html", details=details)
-
-    # raise ValueError("It didn't validate on submit")
     return render_template('testing_add_interview.html', template_form=form)
+
+
+    # if form.validate_on_submit():
+    #     details = {
+    #         "company_name": form.company_name.data, 
+    #         "interview_date": form.interview_date.data,
+    #         "interview_time": form.interview_time.data,
+    #         "interviewers": form.interviewer_names.data, 
+    #         "interview_location": form.interview_location.data, 
+    #         "video_medium": form.interview_medium.data, 
+    #         "other_medium": form.other_medium.data
+    #     }
+
+    #     # db logic goes here...
+    #     return render_template("interview_details.html", details=details)
+
+    
 
 
 @app.route("/interview_details")

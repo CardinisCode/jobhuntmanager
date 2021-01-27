@@ -4,7 +4,6 @@ from wtforms.validators import DataRequired, Email, InputRequired, Optional
 
 
 class AddInterviewForm(FlaskForm):
-    # company_name = StringField("Company Name")
     company_name = StringField("Company Name: ", validators=[InputRequired(message="Please provide the name of the Company/Recruitment firm you're interviewing with.")])
     interview_date = DateField("Date: ", validators=[InputRequired(message="Please provide the Interview Date.")], format='%Y-%m-%d')
     interview_time = TimeField("Time: ", validators=[InputRequired(message="Please provide the starting time for the interview.")])
@@ -24,4 +23,7 @@ class AddInterviewForm(FlaskForm):
         ('other', 'Other')
     ])
     other_medium = StringField("Other Medium: ", [validators.optional()], default="N/A")
+    phone_call = StringField("Telephone Call: ", [validators.optional()], default="N/A")
     save_button = SubmitField("Save")
+
+

@@ -8,10 +8,16 @@
     <h1> Interview Details</h1>
     <br/>
     <table class="center"> 
-
+        {% for field_name in details.items() %}
+            <tr class="border-bottom border-right border-left border-top">
+                {% for item in field_name %}
+                    <td> {{ item }} </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
     
     </table>
-    
+
 
 
 
