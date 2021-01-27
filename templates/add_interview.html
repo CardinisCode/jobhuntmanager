@@ -1,72 +1,22 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Add Interview
+    Testing Add Interview
 {% endblock %}
 
 {% block main %}
-    <h1> Add Interview </h1>
+    <h1> Testing: Add Interview </h1>
     <br/>
     <form action="/add_interview" method="POST"> 
-        <div class="form-group">
-            <label for="company_name">Company Name </label> 
-            <input class="form-control" name="company_name" placeholder="Company Name" type="text">
-        </div>
-        <div class="form-group">
-            <label for="date">Date </label>    
-            <input class="form-control" name="date" placeholder="Interview Date" type="date">
-        </div>
-        <div class="form-group">
-            <label for="time">Time </label> 
-            <input class="form-control" name="time" placeholder="Time" type="time">
-        </div>
-        <div class="form-group">
-            <label for="job_role">Job Role </label> 
-            <input class="form-control" name="job_role" placeholder="Job role" type="text">
-        </div>
-        <div class="form-group">
-            <label for="interviewers">Interviewer/s Name/s </label> 
-            <input class="form-control" name="interviewers_names" placeholder="Interviewer/s Name/s" type="text">
-        </div>
-
-        <div class="form-group">
-            <label for="interview_type">Interview Type: </label>
-            <select name="interview_type" id="interview_type">
-                <option value="please_select" disabled>Please Select</option>
-                <option value="in_person">In-Person/On-site</option>
-                <option value="video">Video/Online </option>
-                <option value="phone_call">Telephone call </option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="interview_location">If on-site: </label>
-            <input class="form-control" name="interview_location" placeholder="Interview Location" type="text">
-        </div>
-
-        <div class="form-group">
-            <label for="video_interview_medium">Video Interview Programs / Software: </label>
-            <select name="video_interview_medium" id="video_interview_medium">
-                <option value="please_select" disabled>Please Select</option>
-                <option value="skype">Skype</option>
-                <option value="zoom">Zoom </option>
-                <option value="google_chat">Google Chat </option>
-                <option value="meet_jit_si">Meet.Jit.Si </option>
-                <option value="other">Other </option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="other_video_medium">If other: </label>
-            <input class="form-control" name="other_video_medium" placeholder="Other video call Medium" type="text">
-        </div>
-
-        <div class="form-group">
-            <label for="interviewer_contact_number"> In the situation the interview is telephonic: </label>
-            <input class="form-control" name="interviewer_contact_number" placeholder="Interviewer Contact Number" type="text">
-        </div>
-
-        <button class="btn btn-primary" type="submit">Save</button>
+        {{ template_form.csrf_token }}
+        {% for field in template_form if field.name != "csrf_token" %}
+            <p> 
+                {{ field.label() }} {{ field }}
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            </p>
+        {% endfor %}
 
     </form>
 

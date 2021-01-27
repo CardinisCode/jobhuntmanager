@@ -148,21 +148,10 @@ def display_interviews():
     """ Display User's Job Interviews """
     return render_template("interviews.html")
 
+
 @app.route("/add_interview", methods=["GET", "POST"])
 @login_required
 def add_interview():
-    """ Display Form to let user Add an interview """
-    if request.method == "GET":
-        return render_template("add_interview.html")
-    
-    """ Display Interview Details confirmation page """
-    user_id = session["user_id"]
-    return grabDetailsFromNewInterviewAndAddToRepo(session, user_id, interviewsRepo)
-
-
-@app.route("/testing_add_interview", methods=['GET', 'POST'])
-@login_required
-def test_add_interview():
     form = AddInterviewForm()
     user_id = session["user_id"]
 
@@ -171,7 +160,7 @@ def test_add_interview():
         return post_add_interview(session, user_id, form)
 
     """ Display Add Interview Form to user """
-    return render_template('testing_add_interview.html', template_form=form)
+    return render_template('add_interview.html', template_form=form)
 
 
 @app.route("/interview_details")
