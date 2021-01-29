@@ -5,11 +5,19 @@ from datetime import datetime, time
 def post_add_interview(session, user_id, form):
     details = {}
 
-    details["company_name"] = form.company_name
-    details["interview_date"] = form.interview_date
-    details["interview_time"] = form.interview_time
-    details["job_role"] = form.job_role
-    details["interview_type"] = form.interview_type
+    details = {
+        "company_name": form.company_name,
+        "interview_date": form.interview_date, 
+        "interview_time": form.interview_time,
+        "job_role": form.job_role, 
+        "interview_type": form.interview_type
+    }
+
+    # details["company_name"] = form.company_name
+    # details["interview_date"] = form.interview_date
+    # details["interview_time"] = form.interview_time
+    # details["job_role"] = form.job_role
+    # details["interview_type"] = form.interview_type
 
     if form.interviewer_names.data != "Unknown at present":
         details["interviewers"] = form.interviewer_names
