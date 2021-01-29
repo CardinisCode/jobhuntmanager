@@ -1,12 +1,18 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField, DateField, TimeField, SelectField, validators 
 from wtforms.validators import DataRequired, Email, InputRequired, Optional
+from datetime import datetime
+
 
 
 class AddInterviewForm(FlaskForm):
+    todays_date = datetime.now()
+    current_time = datetime.now().time
+
+    #Fields to display:
     company_name = StringField("Company Name: ", validators=[InputRequired(message="Please provide the name of the Company/Recruitment firm you're interviewing with.")])
-    interview_date = DateField("Date: ", validators=[InputRequired(message="Please provide the Interview Date.")], format='%Y-%m-%d')
-    interview_time = TimeField("Time: ", validators=[InputRequired(message="Please provide the starting time for the interview.")])
+    interview_date = DateField("Date: ", validators=[InputRequired(message="Please provide the Interview Date.")], format='%Y-%m-%d', default=todays_date)
+    interview_time = TimeField("Time: ", validators=[InputRequired(message="Please provide the starting time for the interview.")], format='%H:%M', default=current_time)
     job_role = StringField("Job Role: ", [validators.optional()])
     interviewer_names = StringField("Interviewer Names: ", [validators.optional()], default="Unknown at present")
     interview_type = SelectField("Interview Type: ", choices=[
