@@ -128,3 +128,26 @@ app = Flask(__name__)
 Bootstrap(app)
 datepicker(app)
 ```
+
+# Want to modify the fields in interview_history table
+# Since there is no data in this table yet, its simpler to drop & recreate the table:
+```
+BEGIN TRANSACTION;
+DROP TABLE interview_history;
+CREATE TABLE IF NOT EXISTS interview_history(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    "company_name" TEXT NOT NULL DEFAULT "N/A", 
+    "date" DATETIME NOT NULL, 
+    "time" DATETIME NOT NULL,
+    "job_role" TEXT NOT NULL DEFAULT "N/A", 
+    "interviewer_names" TEXT NOT NULL DEFAULT "N/A", 
+    "user_id" INTEGER,
+    "interview_type" TEXT NOT NULL, 
+    "interview_location" TEXT NOT NULL DEFAULT "Remote",
+    "interview_medium" TEXT NOT NULL,
+    "other_medium" TEXT NOT NULL DEFAULT "N/A",
+    "contact_number" TEXT NOT NULL DEFAULT "N/A"
+);
+CREATE UNIQUE INDEX 'interview_id' ON "interview_history" ("id");
+COMMIT;
+```

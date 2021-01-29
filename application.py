@@ -157,7 +157,7 @@ def add_interview():
 
     """ Validate the details provided by user & if it passes, display details to user """
     if form.validate_on_submit():
-        return post_add_interview(session, user_id, form)
+        return post_add_interview(session, user_id, form, interviewsRepo)
 
     """ Display Add Interview Form to user """
     return render_template('add_interview.html', template_form=form)
@@ -168,6 +168,13 @@ def add_interview():
 def display_interview_details():
     """ Display Interview Details to the user """
     return render_template("interview_details.html")
+
+
+# @app.route("save_and_add_interview")
+# @login_required
+# def save_and_direct_user_to_add_new_interview():
+#     """ Save details to relevant SQL table & render the "add_new_interview" template"""
+#     return 
 
 
 @app.route("/userprofile")
