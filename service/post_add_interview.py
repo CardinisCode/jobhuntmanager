@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request, redirect
+from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime, time
 
 
@@ -33,7 +33,44 @@ def InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, inte
         contact_number = "N/A"
 
     insert_values = interviewsRepo.InsertNewInterviewDetails(user_id, company_name, interview_date, interview_time, job_role, interviewers, interview_type, location, medium, other_medium, contact_number)
-    raise ValueError(insert_values)
+
+    # For Development purposes, if this function ever fails to insert the values, we need an error message flashing to notify us:
+    if not insert_values:
+        flash("Failed to insert values into InterviewHistoryRepo. Please investigate!")
+        return False
+
+    # If it gets here, the new interview has been successfully added to the repo.
+    return True
+
+
+
+def gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number):
+    # Gather all fields to be displayed to user as confirmation:
+    details = {
+        "company_name": company_name,
+        "interview_date": interview_date, 
+        "interview_time": interview_time,
+        "job_role": job_role, 
+        "interview_type": interview_type
+    }
+
+    if interviewers != "Unknown at present":
+        details["interviewers"] = interviewers
+
+    if interview_type == 'in_person':
+        details["interview_location"] = interview_location
+
+    if interview_type == 'video_or_online':
+        details["video_medium"] = video_medium
+
+    if interview_type == 'video' and video_medium == 'other':
+        details["other_medium"] = other_medium
+
+    if interview_type == 'phone_call': 
+        details["phone_call"] = contact_number
+
+    return details
+
 
 
 def post_add_interview(session, user_id, form, interviewsRepo):
@@ -49,33 +86,11 @@ def post_add_interview(session, user_id, form, interviewsRepo):
     other_medium = form.other_medium
     contact_number = form.phone_call
 
-    # Add to SQL DB:
+    # Add details to SQL DB:
     InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number)
 
-    # Gather all fields to be displayed to user as confirmation:
-    details = {
-        "company_name": company_name,
-        "interview_date": interview_date, 
-        "interview_time": interview_time,
-        "job_role": job_role, 
-        "interview_type": interview_type
-    }
-
-    if form.interviewer_names.data != "Unknown at present":
-        details["interviewers"] = form.interviewer_names
-
-    if form.interview_type.data == 'in_person':
-        details["interview_location"] = form.interview_location
-
-    if form.interview_type.data == 'video_or_online':
-        details["video_medium"] = form.interview_medium
-
-    if form.interview_type.data == 'video' and form.interview_medium.data == 'other':
-        details["other_medium"] = form.other_medium
-
-    if form.interview_type.data == 'phone_call': 
-        details["phone_call"] = form.phone_call
-
+    # Add details to a dict to be displayed to the template
+    details = gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number)
 
     return render_template("interview_details.html", details=details)
 

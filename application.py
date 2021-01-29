@@ -170,13 +170,6 @@ def display_interview_details():
     return render_template("interview_details.html")
 
 
-# @app.route("save_and_add_interview")
-# @login_required
-# def save_and_direct_user_to_add_new_interview():
-#     """ Save details to relevant SQL table & render the "add_new_interview" template"""
-#     return 
-
-
 @app.route("/userprofile")
 @login_required
 def display_user_profile():

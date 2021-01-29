@@ -7,21 +7,21 @@
 {% block main %}
     <h1> Interview Details</h1>
     <br/>
-    <h2> To confirm, these are the details you provided:</h2>
-    <table class="center"> 
+    <br/>
+    <label class="center"> To confirm, these are the details you provided: </label>
         {% for field_name in details.items() %}
-            <tr class="border-bottom border-right border-left border-top">
-                {% for item in field_name %}
-                    <td> {{ item }} </td>
-                {% endfor %}
-            </tr>
+            {{ field_name}}
+            {% for item in field_name %}
+                <p>{{ item }} </p> 
+            {% endfor %}
         {% endfor %}
     </table>
-
+    <br/>
     <div class="horizontal_buttons">
-        <a href="/add_interview" class="button left_button">Save & Add New Interview</a>
-        <a href="/interviews" class="button middle_button">Save & View your scheduled interviews</a>
-        <a href="/interviews" class="button middle_button">Cancel & View your scheduled interviews</a>
+        <a href="/add_interview" class="button left_button">Add New Interview</a>
+        <a href="/interviews" class="button middle_button">View your scheduled interviews</a>
+         <!-- Create a new option to update this interview -->
+        <!-- <a href="/interviews" class="button middle_button">Cancel & View your scheduled interviews</a> -->
     </div>
 
 
