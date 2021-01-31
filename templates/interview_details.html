@@ -10,9 +10,8 @@
     <br/>
     <label class="center"> To confirm, these are the details you provided: </label>
         {% for field_name in details.items() %}
-            {{ field_name}}
-            {% for item in field_name %}
-                <p>{{ item }} </p> 
+            {% for value in field_name %}
+                <p> {{ value.label}} {{ value.data }} </p> 
             {% endfor %}
         {% endfor %}
     </table>

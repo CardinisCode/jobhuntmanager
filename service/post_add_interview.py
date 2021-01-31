@@ -45,29 +45,65 @@ def InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, inte
 
 
 def gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number):
+    details = {}
+
     # Gather all fields to be displayed to user as confirmation:
-    details = {
-        "company_name": company_name,
-        "interview_date": interview_date, 
-        "interview_time": interview_time,
-        "job_role": job_role, 
-        "interview_type": interview_type
+    details["company_name"] = {
+        "label": "Company Name", 
+        "data": company_name
     }
 
-    if interviewers != "Unknown at present":
-        details["interviewers"] = interviewers
+    details["interview_date"] = {
+        "label": "Date", 
+        "data": interview_date
+    }
 
-    if interview_type == 'in_person':
-        details["interview_location"] = interview_location
+    details["interview_time"] = {
+        "label": "Time", 
+        "data": interview_time
+    }
 
-    if interview_type == 'video_or_online':
-        details["video_medium"] = video_medium
+    details["job_role"] = {
+        "label": "Job Role", 
+        "data": job_role
+    }
 
-    if interview_type == 'video' and video_medium == 'other':
-        details["other_medium"] = other_medium
+    details["interview_type"] = {
+        "label": "Type", 
+        "data": interview_type
+    }
 
-    if interview_type == 'phone_call': 
-        details["phone_call"] = contact_number
+    # Setting conditions for which data gets presents to the screen, 
+    # depending on which options the user selects:
+    if interviewers.data != "Unknown at present":
+        details["interviewers"] = {
+            "label": "Interviewers' names", 
+            "data": interviewers
+        }
+
+    if interview_type.data == 'in_person':
+        details["interview_location"] = {
+            "label": "Location", 
+            "data": interview_location
+        }
+
+    if interview_type.data == 'video_or_online':
+        details["video_medium"] = {
+            "label": "Video / Online", 
+            "data": video_medium
+        } 
+
+    if interview_type.data == 'video' and video_medium == 'other':
+        details["other_medium"] = {
+            "label": "Other Medium", 
+            "data": other_medium
+        } 
+
+    if interview_type.data == 'phone_call': 
+        details["phone_call"] = {
+            "label": "Contact Number",
+            "data": contact_number
+        } 
 
     return details
 
