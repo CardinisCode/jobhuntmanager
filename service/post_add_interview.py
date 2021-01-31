@@ -2,7 +2,7 @@ from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime, time
 
 
-def InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number):
+def InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status):
     company_name = company_name.data
     interview_date = str(interview_date.data)
     interview_time = str(interview_time.data)
@@ -32,7 +32,11 @@ def InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, inte
     if not contact_number:
         contact_number = "N/A"
 
-    insert_values = interviewsRepo.InsertNewInterviewDetails(user_id, company_name, interview_date, interview_time, job_role, interviewers, interview_type, location, medium, other_medium, contact_number)
+    status = status.data
+    if not status: 
+        status = "upcoming"
+
+    insert_values = interviewsRepo.InsertNewInterviewDetails(user_id, company_name, interview_date, interview_time, job_role, interviewers, interview_type, location, medium, other_medium, contact_number, status)
 
     # For Development purposes, if this function ever fails to insert the values, we need an error message flashing to notify us:
     if not insert_values:
@@ -44,7 +48,7 @@ def InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, inte
 
 
 
-def gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number):
+def gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status):
     details = {}
 
     # Gather all fields to be displayed to user as confirmation:
@@ -71,6 +75,11 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
     details["interview_type"] = {
         "label": "Type", 
         "data": interview_type
+    }
+
+    details["status"] = {
+        "label": "Interview Status", 
+        "data": status.data
     }
 
     # Setting conditions for which data gets presents to the screen, 
@@ -121,12 +130,13 @@ def post_add_interview(session, user_id, form, interviewsRepo):
     video_medium = form.interview_medium
     other_medium = form.other_medium
     contact_number = form.phone_call
+    status = form.status
 
     # Add details to SQL DB:
-    InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number)
+    InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
 
     # Add details to a dict to be displayed to the template
-    details = gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number)
+    details = gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
 
     return render_template("interview_details.html", details=details)
 

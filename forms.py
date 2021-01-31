@@ -1,5 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, DateField, TimeField, SelectField, validators 
+from wtforms import StringField, SubmitField, TextAreaField, DateField, TimeField, SelectField, validators
+from wtforms.fields.html5 import TelField
+import wtforms.widgets.html5
 from wtforms.validators import DataRequired, Email, InputRequired, Optional
 from datetime import datetime
 
@@ -29,7 +31,14 @@ class AddInterviewForm(FlaskForm):
         ('other', 'Other')
     ])
     other_medium = StringField("Other Medium: ", [validators.optional()], default="N/A")
-    phone_call = StringField("Telephone Call: ", [validators.optional()], default="N/A")
+    phone_call = TelField("Telephone Call: ", [validators.optional()], default="N/A")
+    status = SelectField("Interview Status: ", choices=[
+        ('upcoming', 'Upcoming Interview'), 
+        ('done', 'Interview Done'), 
+        ('cancelled', 'Interview Cancelled'), 
+        ('post-poned', 'Interview has been post-poned')
+    ], default='upcoming')
+
     save_button = SubmitField("Save")
 
 

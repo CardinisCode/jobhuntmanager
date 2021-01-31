@@ -10,9 +10,9 @@ class InterviewsHistoryRepository:
         return result.lastrowid
 
 
-    def InsertNewInterviewDetails(self, user_id, company_name, date, time, job_role, interviewers, interview_type, location, medium, other_medium, contact_number):
+    def InsertNewInterviewDetails(self, user_id, company_name, date, time, job_role, interviewers, interview_type, location, medium, other_medium, contact_number, status):
         cursor = self.db.cursor()
-        result = cursor.execute("INSERT INTO interview_history (user_id, company_name, date, time, job_role, interviewer_names, interview_type, interview_location, interview_medium, other_medium, contact_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (user_id, company_name, date, time, job_role, interviewers, interview_type, location, medium, other_medium, contact_number,))
+        result = cursor.execute("INSERT INTO interview_history (user_id, company_name, date, time, job_role, interviewer_names, interview_type, interview_location, interview_medium, other_medium, contact_number, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (user_id, company_name, date, time, job_role, interviewers, interview_type, location, medium, other_medium, contact_number, status,))
         self.db.commit()
 
         return result.lastrowid
