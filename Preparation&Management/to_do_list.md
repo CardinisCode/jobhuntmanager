@@ -137,6 +137,10 @@ Project Management
                         [x]     Change the values from variable names -> actual text 
                                 EG: "in_person" -> "In person"
 
+                [ ]     Bugs: 
+                        [x]     Data displayed is ordered by Date but not by time, so all rows of a specific date are in mixed order
+                                [x]     In SQL query: Sort by Date, then by time        
+
 
         [ ]     In service/homepage, update create_homepage_content (function) 
                 -> All content displayed to Index.html

@@ -151,3 +151,15 @@ CREATE TABLE IF NOT EXISTS interview_history(
 CREATE UNIQUE INDEX 'interview_id' ON "interview_history" ("id");
 COMMIT;
 ```
+
+# Updating a SQL query to order by Date and then by time:
+``` 
+BEGIN TRANSACTION;
+SELECT * FROM interview_history
+WHERE user_id = 2
+ORDER BY
+    date DESC, 
+    time DESC 
+LIMIT 10;
+COMMIT;
+```

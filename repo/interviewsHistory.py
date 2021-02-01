@@ -20,7 +20,7 @@ class InterviewsHistoryRepository:
     
     def grabTopTenInterviewsForUser(self, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT * FROM interview_history WHERE user_id = ? ORDER BY date DESC LIMIT 10", (user_id,))
+        result = cursor.execute("SELECT * FROM interview_history WHERE user_id = ? ORDER BY date DESC, time DESC LIMIT 10;", (user_id,))
         self.db.commit()
 
         return result
