@@ -12,11 +12,10 @@
 
     <h2> Your Applications: </h2>
     <br/>
-    <p> Applications today: {{ render_info.applications_today }} </p>
 
     <div class="horizontal">
         {% if render_info.applications_today == 0 %}
-            <li> You have not submitted any applications today.</li>
+            <li> You have not submitted any applications today. <a href="/add_job_application">Add an Application.</a></li>
         {% else %}
             <li class="left_button"> You have made {{ render_info.applications_today }} number of applications today!</li>
         {% endif %}
@@ -57,13 +56,12 @@
 
     <h2> Interviews</h2>
     <br/>
-    <p> Interviews Today: {{ render_info.interviews_today }} </p>
 
     <div class="horizontal">
         {% if render_info.interviews_today == 0 %}
-            <li class="left_button"> You have no Interviews lined up today.</li>
+            <li class="left_button"> You have no Interviews lined up today. <a href="/add_interview">Add an Interview.</a></li>
         {% else %}
-            <li class="left_button"> You have {{ render_info.applications_today }} number of Interviews lined up today!</li>
+            <li class="left_button"> You have {{ render_info.interviews_today }} number of Interviews lined up today!</li>
         {% endif %}
         <li class="middle_button"> You have X number of Interviews lined up this week!</li>
     </div>

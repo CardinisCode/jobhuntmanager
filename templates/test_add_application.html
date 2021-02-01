@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Test Add Application
+{% endblock %}
+
+{% block main %}
+<h1> Test Add application</h1>
+<hr/>
+<form action="/test_add_application" method="POST"> 
+    <label for="location">Interview Location: </label>
+    <div class="form-group">
+        <input class="form-control" name="location" placeholder="Interview Location" type="text">
+    </div>
+</form>
+
+
+{% endblock %}

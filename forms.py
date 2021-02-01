@@ -1,10 +1,14 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField, DateField, TimeField, SelectField, validators
-from wtforms.fields.html5 import TelField
+from wtforms.fields.html5 import TelField, URLField
 import wtforms.widgets.html5
 from wtforms.validators import DataRequired, Email, InputRequired, Optional
 from datetime import datetime
 
+
+class AddApplicationForm(FlaskForm):
+    location = StringField("Interview Location: ", [validators.optional()], default="Remote")
+    
 
 
 class AddInterviewForm(FlaskForm):
@@ -40,5 +44,7 @@ class AddInterviewForm(FlaskForm):
     ], default='upcoming')
 
     save_button = SubmitField("Save")
+
+
 
 

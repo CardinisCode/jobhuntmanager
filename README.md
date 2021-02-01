@@ -163,3 +163,6 @@ ORDER BY
 LIMIT 10;
 COMMIT;
 ```
+
+
+SELECT * FROM interview_history WHERE date = "2021-02-01" AND user_id = 2;

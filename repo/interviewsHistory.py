@@ -7,7 +7,7 @@ class InterviewsHistoryRepository:
         result = cursor.execute("SELECT * FROM interview_history WHERE date = ? AND user_id = ?", (todays_date, user_id,))
         self.db.commit()
 
-        return result.lastrowid
+        return result
 
 
     def InsertNewInterviewDetails(self, user_id, company_name, date, time, job_role, interviewers, interview_type, location, medium, other_medium, contact_number, status):

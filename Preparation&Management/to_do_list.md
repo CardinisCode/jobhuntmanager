@@ -106,7 +106,7 @@ Project Management
 
         [ ]     Come back to this after completing:
                 [X]     Job applications
-                [ ]     Job interviews
+                [X]     Job interviews
                 [ ]     Job offers
         
 
@@ -125,7 +125,7 @@ Project Management
                                 [x]     Create a function to grab the details & insert the details into the relevant SQL table
                                 [x]     Display the details to the interview_details html page
 
-        [ ]     Display Interviews
+        [x]     Display Interviews
                 [X]     Create SQL query to grab top 10 interviews by date in DESC order 
                 [ ]     Create function to display details to interviews.html
                         [x]     calls on SQL query to grab top 10 interviews 
@@ -137,7 +137,7 @@ Project Management
                         [x]     Change the values from variable names -> actual text 
                                 EG: "in_person" -> "In person"
 
-                [ ]     Bugs: 
+                [x]     Bugs: 
                         [x]     Data displayed is ordered by Date but not by time, so all rows of a specific date are in mixed order
                                 [x]     Correction: In SQL query: Sort by Date, then by time 
                         [x]     Form on 'add_interview.html' does not display data for 'other_medium' on interview_details.html 
@@ -147,49 +147,76 @@ Project Management
                         [x]     Interview status' value is displayed in it's variable form.
                                 [x]     Correction: Capitalise the value of 'status'
                                         EG: 'status' -> 'Status'
-                        [ ]     Details received from 'add_interview.html' display on interview_details.html' as text boxes that can
-                                be edited. 
-                                [ ]     Figure out solution to adjust the values for each field so they display as plain text.
-
-
-
-        [ ]     In service/homepage, update create_homepage_content (function) 
-                -> All content displayed to Index.html
-
-                [x]     Grab today's date
-                [x]     Display Today's date on index.html
-                For Applications:
-                [ ]     Create a SQL query to pull together all applications made today / current day. 
-                [ ]     Count the number of applications and save that to a variable
-                        [x]     Display to page:
-                                EG: "You have made {{ X }} number of applications today"
-                        [ ]     If no applications made today: 
-                                [ ]     Display message to user:
-                                                "Have you had any applications yet?" 
-                                [ ]     Add button / link: 
-                                        [ ]     Add an application
-
-                For Interviews:
-                [x]     Set up a Repo for Interview History
-                [x]     Connect to this new repo in your applications.py
-                [ ]     Create a SQL query to pull all interviews for current date
-                [ ]     Pull all the day current_day interviews to a variable
-                        [ ] Save how many items were returned & display to user
-                                EG: "You have {{ X }} number of Interviews today" 
-                        [ ]     If interviews lined up = True
-                                [ ]     Offer user option to Prepare for the interview:
-                                        -> Will direct user to relevant page (interview_prep.html)
-
-                        [ ] IF no interviews lined up today: 
-                                EG: "You have {{ X }} number of Interviews today" 
-                                [ ]     Add option to add lined up interview
-                                        "Have a lined up Interview? Add it!"
-                                [ ]     Pull interviews in the next 7 days
-                                        [ ]     Display Interviews (10 items max) 
-                                        [ ]     Option to "view more" -> Directs user to interviews.html  
 
 
 ------------------------------------------------------------------------------
+#7: 
+[ ]     In service/homepage, update create_homepage_content (function) 
+        -> All content displayed to Index.html
+
+        [x]     Grab today's date
+        [x]     Display Today's date on index.html
+        For Applications:
+        [x]     Create a SQL query to pull together all applications made today / current day. 
+        [x]     Count the number of applications and save that to a variable
+                [x]     Display to page:
+                        EG: "You have made {{ X }} number of applications today"
+                [x]     If no applications made today: 
+                        [x]     Display message to user:
+                                "Have you had any applications yet?" 
+                        [x]     Add button / link: 
+                                [x]     Add an application
+
+        For Interviews:
+        [x]     Set up a Repo for Interview History
+        [x]     Connect to this new repo in your applications.py
+        [x]     Create a SQL query to pull all interviews for current date
+        [x]     Pull all the day current_day interviews to a variable
+                [x] Save how many items were returned & display to user
+                        EG: "You have {{ X }} number of Interviews today" 
+
+                [x] IF no interviews lined up today: 
+                        EG: "You have {{ X }} number of Interviews today" 
+                        [x]     Add option to add lined up interview
+                                "Have a lined up Interview? Add it!"
+                        [ ]     Pull interviews in the next 7 days
+                                [ ]     Display Interviews (10 items max) 
+                                [ ]     Option to "view more" -> Directs user to interviews.html  
+
+
+------------------------------------------------------------------------------
+#8: [ ] Create a form Class for Applications
+        [ ]     Create fields 
+
+
+
+
+------------------------------------------------------------------------------
+#9: Create a form class for login
+
+
+------------------------------------------------------------------------------
+#10: 
+[ ]     Index page: 
+        [ ]     Display Last 7 days Applications
+                [ ]     Create SQL Query
+                [ ]     Pull that data in homepage.py
+                [ ]     Calculate interview count
+                [ ]     Update Index.html
+        [ ]     Display Last 7 days Interviews
+                [ ]     Create SQL Query
+                [ ]     Pull that data in homepage.py
+                [ ]     Calculate interview count
+                [ ]     Update Index.html
+
+------------------------------------------------------------------------------                
+
+#: Bugs to be fixed later:
+        [ ]     Details received from 'add_interview.html' display on interview_details.html' as text boxes that can
+                be edited. 
+                [ ]     Figure out solution to adjust the values for each field so they display as plain text.
+
+
 
 #7: [ ] Nav bar 
         [ ]     import relevant library for icons
