@@ -144,14 +144,16 @@ Project Management
                                 if user selects 'Other' for 'video_medium' field
                                 [x]     Correction: Update function  post_add_interview() to display 'other_medium' 
                                         when 'Other is selected for 'video_medium'
-                        [ ]     Interview status' value is displayed in it's variable form.
-                                [ ]     Correction: Capitalise the value of 'status'
+                        [x]     Interview status' value is displayed in it's variable form.
+                                [x]     Correction: Capitalise the value of 'status'
                                         EG: 'status' -> 'Status'
                         [ ]     Since 'video_medium is always displayed on 'add_interview' form, yet it's relevant 
                                 if the interview is a 'phone_call' or 'in_person' interview. so there should be an option to select 'N/A'
                                 [ ]     Corrections: 
-                                        [ ]     Add another option to interview_medium in forms.py & set it to default
+                                        [ ]     Add another option "N/A" to interview_medium in forms.py & set it to default
                                         [ ]     Add this option to the 'add_interview.html'
+                                        [ ]     Update table 'interview_details' & update default value for 'video_medium' to "N/A"
+
 
 
         [ ]     In service/homepage, update create_homepage_content (function) 

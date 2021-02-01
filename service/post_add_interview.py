@@ -72,17 +72,79 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
         "data": job_role
     }
 
+    # I want to display the interview_type as text, not a drop down option
+    # So I'll format out the data will be displayed to the user:
+
+    interview_type_data = interview_type.data
+    if interview_type_data == "in_person":
+        interview_type_data = "In Person"
+    elif interview_type_data == "video_or_online":
+        interview_type_data = "Video / Online"
+    elif interview_type_data == "phone_call":
+        interview_type_data = "Phone call"
+
     details["interview_type"] = {
         "label": "Type: ", 
-        "data": interview_type
+        "data": interview_type_data
     }
+
+    if interviewers.data != "Unknown at present":
+        details["interviewers"] = {
+            "label": "Interviewers' names: ", 
+            "data": interviewers
+        }
+
+    # I want to replace the drop down options for 'interview_type' with plain text
+    interview_type_data = interview_type.data
+
+    # Now to improve how this data gets displayed to the user:
+    if interview_type_data == 'in_person':
+        details["interview_type"] = {
+            "label": "Interview Type: ",
+            "data": "In Person"
+        }
+
+        details["interview_location"] = {
+            "label": "Location: ", 
+            "data": interview_location
+        }
+
+    if interview_type.data == 'phone_call': 
+        details["phone_call"] = {
+            "label": "Contact Number: ",
+            "data": contact_number
+        } 
+
+    # Let's replace the dropdown options for video_medium with just the plain text for video_medium's data.
+    if interview_type.data == 'video_or_online':
+        video_medium_data = video_medium.data
+
+        # Let's improve the data for user presentation:
+        if video_medium_data == 'skype':
+            video_medium_data = "Skype"
+        elif video_medium_data == 'zoom':
+            video_medium_data = "Zoom"
+        elif video_medium_data == 'google_chat':
+            video_medium_data = "Google Chat"
+        elif video_medium_data == "meet_jit_si":
+            video_medium_data = "Meet.Jit.Si"
+        
+        # If the user selects 'other', then we want to display which medium they provided (in the 'other_medium' field)
+        elif video_medium_data == 'other':
+            video_medium_data = other_medium.data
+
+        # Now the data can be added to the dictionary in its final form
+        details["video_medium"] = {
+            "label": "Video / Online: ", 
+            "data": video_medium_data
+        } 
 
     # Let's capitalise each possible value of 'status':
     if status.data == "upcoming":
         status.data = "Upcoming"
     
     elif status.data == "done":
-        status.data = "Done!"
+        status.data = "Interview Done!"
 
     elif status.data == 'cancelled':
         status.data = "Cancelled"
@@ -94,38 +156,6 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
         "label": "Interview Status: ", 
         "data": status.data
     }
-
-    # Setting conditions for which data gets presents to the screen, 
-    # depending on which options the user selects:
-    if interviewers.data != "Unknown at present":
-        details["interviewers"] = {
-            "label": "Interviewers' names: ", 
-            "data": interviewers
-        }
-
-    if interview_type.data == 'in_person':
-        details["interview_location"] = {
-            "label": "Location: ", 
-            "data": interview_location
-        }
-
-    if interview_type.data == 'video_or_online':
-        details["video_medium"] = {
-            "label": "Video / Online: ", 
-            "data": video_medium
-        } 
-
-    if interview_type.data == 'video_or_online' and video_medium.data == 'other': 
-        details["other_medium"] = {
-            "label": "Other Medium: ", 
-            "data": other_medium.data
-        } 
-
-    if interview_type.data == 'phone_call': 
-        details["phone_call"] = {
-            "label": "Contact Number: ",
-            "data": contact_number
-        } 
 
     return details
 
