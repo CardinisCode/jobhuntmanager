@@ -131,7 +131,11 @@ Project Management
                         [x]     calls on SQL query to grab top 10 interviews 
                         [x]     saves the details from this query & saves them in a Dict
                         [x]     render these details to interviews.html
-                [ ]     Design the html page to display the details in a table
+                [x]     Design the html page to display the details in a table
+                [x]     Set conditions for what gets displayed to the table in html page
+                        [x]     If 'medium' == 'other' -> Display the info for 'other_medium'
+                        [x]     Change the values from variable names -> actual text 
+                                EG: "in_person" -> "In person"
 
 
         [ ]     In service/homepage, update create_homepage_content (function) 
