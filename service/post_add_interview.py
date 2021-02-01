@@ -53,22 +53,22 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
 
     # Gather all fields to be displayed to user as confirmation:
     details["company_name"] = {
-        "label": "Company Name: ", 
+        "label": "Company Name", 
         "data": company_name
     }
 
     details["interview_date"] = {
-        "label": "Date: ", 
+        "label": "Date", 
         "data": interview_date
     }
 
     details["interview_time"] = {
-        "label": "Time: ", 
+        "label": "Time", 
         "data": interview_time
     }
 
     details["job_role"] = {
-        "label": "Job Role: ", 
+        "label": "Job Role", 
         "data": job_role
     }
 
@@ -84,13 +84,13 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
         interview_type_data = "Phone call"
 
     details["interview_type"] = {
-        "label": "Type: ", 
+        "label": "Type", 
         "data": interview_type_data
     }
 
     if interviewers.data != "Unknown at present":
         details["interviewers"] = {
-            "label": "Interviewers' names: ", 
+            "label": "Interviewers' names", 
             "data": interviewers
         }
 
@@ -100,18 +100,18 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
     # Now to improve how this data gets displayed to the user:
     if interview_type_data == 'in_person':
         details["interview_type"] = {
-            "label": "Interview Type: ",
+            "label": "Interview Type",
             "data": "In Person"
         }
 
         details["interview_location"] = {
-            "label": "Location: ", 
+            "label": "Location", 
             "data": interview_location
         }
 
     if interview_type.data == 'phone_call': 
         details["phone_call"] = {
-            "label": "Contact Number: ",
+            "label": "Contact Number",
             "data": contact_number
         } 
 
@@ -135,7 +135,7 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
 
         # Now the data can be added to the dictionary in its final form
         details["video_medium"] = {
-            "label": "Video / Online: ", 
+            "label": "Video / Online", 
             "data": video_medium_data
         } 
 
@@ -153,7 +153,7 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
         status.data = "Post-poned"
     
     details["status"] = {
-        "label": "Interview Status: ", 
+        "label": "Interview Status", 
         "data": status.data
     }
 
@@ -176,7 +176,7 @@ def post_add_interview(session, user_id, form, interviewsRepo):
     status = form.status
 
     # Add details to SQL DB:
-    InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
+    # InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
 
     # Add details to a dict to be displayed to the template
     details = gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)

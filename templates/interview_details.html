@@ -9,11 +9,24 @@
     <br/>
     <br/>
     <label class="center"> To confirm, these are the details you provided: </label>
-        {% for field_name in details.items() %}
-            {% for value in field_name %}
-                <p> {{ value.label}} {{ value.data }} </p> 
+    <table class="center"> 
+        <tr class="border-bottom border-right border-left border-top"></tr>
+            {% for value in details.values() %}
+                <th class="border-right border-left border-top border-bottom"> {{ value.label }}</th>
             {% endfor %}
-        {% endfor %}
+        </tr>
+        <tr> 
+            <tr class="border-bottom border-right border-left border-top">
+                {% for value in details.values() %}
+                    <td class="border-right border-left border-top border-bottom"> {{ value.data }}</td>
+                {% endfor %}
+            </tr>
+            
+        </tr>
+
+    </table>
+
+
     <br/>
     <div class="horizontal_buttons">
         <a href="/add_interview" class="button left_button">Add New Interview</a>
