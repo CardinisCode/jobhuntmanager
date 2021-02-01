@@ -105,10 +105,34 @@ Project Management
 
 
         [ ]     Come back to this after completing:
-                [ ]     Job applications
+                [X]     Job applications
                 [ ]     Job interviews
                 [ ]     Job offers
         
+
+------------------------------------------------------------------------------
+
+#6: Job Applications:
+        [x]     Add interview 
+                [x]     Create a SQL query to add values to relevant table
+                [x]     Create html page
+                [x]     Create route & function
+                        [x]     GET: render template to the html page
+                                [x]     Create the add_interview form 
+
+                        [x]     POST: Take the info & display user's input on a 2nd html page
+                                [x]     Create a interview_details html page 
+                                [x]     Create a function to grab the details & insert the details into the relevant SQL table
+                                [x]     Display the details to the interview_details html page
+
+        [ ]     Display Interviews
+                [X]     Create SQL query to grab top 10 interviews by date in DESC order 
+                [ ]     Create function to display details to interviews.html
+                        [x]     calls on SQL query to grab top 10 interviews 
+                        [x]     saves the details from this query & saves them in a Dict
+                        [x]     render these details to interviews.html
+                [ ]     Design the html page to display the details in a table
+
 
         [ ]     In service/homepage, update create_homepage_content (function) 
                 -> All content displayed to Index.html

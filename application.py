@@ -26,6 +26,7 @@ from service.add_application import grab_users_application_and_add_to_sql_databa
 from service.display_applications import display_all_applications_current_user
 from service.add_interview import grabDetailsFromNewInterviewAndAddToRepo
 from service.post_add_interview import post_add_interview
+from service.display_interviews import display_top_10_interviews_to_interviews_html
 
 from forms import AddInterviewForm
 
@@ -146,7 +147,9 @@ def display_application_details():
 @login_required
 def display_interviews():
     """ Display User's Job Interviews """
-    return render_template("interviews.html")
+    # return render_template("interviews.html")
+    user_id = session["user_id"]
+    return display_top_10_interviews_to_interviews_html(session, user_id, interviewsRepo)
 
 
 @app.route("/add_interview", methods=["GET", "POST"])
