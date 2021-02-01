@@ -53,32 +53,45 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
 
     # Gather all fields to be displayed to user as confirmation:
     details["company_name"] = {
-        "label": "Company Name", 
+        "label": "Company Name: ", 
         "data": company_name
     }
 
     details["interview_date"] = {
-        "label": "Date", 
+        "label": "Date: ", 
         "data": interview_date
     }
 
     details["interview_time"] = {
-        "label": "Time", 
+        "label": "Time: ", 
         "data": interview_time
     }
 
     details["job_role"] = {
-        "label": "Job Role", 
+        "label": "Job Role: ", 
         "data": job_role
     }
 
     details["interview_type"] = {
-        "label": "Type", 
+        "label": "Type: ", 
         "data": interview_type
     }
 
+    # Let's capitalise each possible value of 'status':
+    if status.data == "upcoming":
+        status.data = "Upcoming"
+    
+    elif status.data == "done":
+        status.data = "Done!"
+
+    elif status.data == 'cancelled':
+        status.data = "Cancelled"
+
+    else:
+        status.data = "Post-poned"
+    
     details["status"] = {
-        "label": "Interview Status", 
+        "label": "Interview Status: ", 
         "data": status.data
     }
 
@@ -86,31 +99,31 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
     # depending on which options the user selects:
     if interviewers.data != "Unknown at present":
         details["interviewers"] = {
-            "label": "Interviewers' names", 
+            "label": "Interviewers' names: ", 
             "data": interviewers
         }
 
     if interview_type.data == 'in_person':
         details["interview_location"] = {
-            "label": "Location", 
+            "label": "Location: ", 
             "data": interview_location
         }
 
     if interview_type.data == 'video_or_online':
         details["video_medium"] = {
-            "label": "Video / Online", 
+            "label": "Video / Online: ", 
             "data": video_medium
         } 
 
-    if interview_type.data == 'video' and video_medium == 'other':
+    if interview_type.data == 'video_or_online' and video_medium.data == 'other': 
         details["other_medium"] = {
-            "label": "Other Medium", 
-            "data": other_medium
+            "label": "Other Medium: ", 
+            "data": other_medium.data
         } 
 
     if interview_type.data == 'phone_call': 
         details["phone_call"] = {
-            "label": "Contact Number",
+            "label": "Contact Number: ",
             "data": contact_number
         } 
 

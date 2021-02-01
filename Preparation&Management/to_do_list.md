@@ -139,7 +139,19 @@ Project Management
 
                 [ ]     Bugs: 
                         [x]     Data displayed is ordered by Date but not by time, so all rows of a specific date are in mixed order
-                                [x]     In SQL query: Sort by Date, then by time        
+                                [x]     Correction: In SQL query: Sort by Date, then by time 
+                        [x]     Form on 'add_interview.html' does not display data for 'other_medium' on interview_details.html 
+                                if user selects 'Other' for 'video_medium' field
+                                [x]     Correction: Update function  post_add_interview() to display 'other_medium' 
+                                        when 'Other is selected for 'video_medium'
+                        [ ]     Interview status' value is displayed in it's variable form.
+                                [ ]     Correction: Capitalise the value of 'status'
+                                        EG: 'status' -> 'Status'
+                        [ ]     Since 'video_medium is always displayed on 'add_interview' form, yet it's relevant 
+                                if the interview is a 'phone_call' or 'in_person' interview. so there should be an option to select 'N/A'
+                                [ ]     Corrections: 
+                                        [ ]     Add another option to interview_medium in forms.py & set it to default
+                                        [ ]     Add this option to the 'add_interview.html'
 
 
         [ ]     In service/homepage, update create_homepage_content (function) 
