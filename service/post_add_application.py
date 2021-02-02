@@ -1,10 +1,10 @@
-from flask import Flask, render_template, session, request, redirect, flash
-from datetime import datetime, time
+from flask import Flask, render_template, session, request, redirect
+from datetime import datetime
+
 
 
 def add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url):
     # Add all fields & add to our display dict:
-
     details = {
         "company_name": {
             "label": company_name.label,
@@ -81,8 +81,7 @@ def add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, compan
     return details
 
 
-
-def post_add_application_test(session, user_id, interviewsRepo, form):
+def post_add_application(session, user_id, interviewsRepo, form):
     #Grab fields from form:
     company_name = form.company_name 
     job_role = form.job_role
@@ -101,4 +100,9 @@ def post_add_application_test(session, user_id, interviewsRepo, form):
     # Lets add these fields to our function that will structure this data into a dict:
     details =  add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url)
 
-    return render_template("applications_details_test.html", details=details)
+    # Add details to SQL
+    # Create function to add details to SQL table
+
+    return render_template("application_details.html", details=details)
+
+

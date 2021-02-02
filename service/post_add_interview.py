@@ -52,24 +52,23 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
     details = {}
 
     # Gather all fields to be displayed to user as confirmation:
-    details["company_name"] = {
-        "label": "Company Name", 
-        "data": company_name
-    }
-
-    details["interview_date"] = {
-        "label": "Date", 
-        "data": interview_date
-    }
-
-    details["interview_time"] = {
-        "label": "Time", 
-        "data": interview_time
-    }
-
-    details["job_role"] = {
-        "label": "Job Role", 
-        "data": job_role
+    details = {
+        "company_name" : {
+            "label": company_name.label, 
+            "data": company_name.data
+        }, 
+        "interview_date": {
+            "label": interview_date.label, 
+            "data": interview_date.data
+        }, 
+        "interview_time": {
+            "label": interview_time.label, 
+            "data": interview_time.data
+        }, 
+        "job_role": {
+            "label": job_role.label, 
+            "data": job_role.data
+        }
     }
 
     # I want to display the interview_type as text, not a drop down option
@@ -94,28 +93,27 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
             "data": interviewers
         }
 
-    # I want to replace the drop down options for 'interview_type' with plain text
-    interview_type_data = interview_type.data
-
-    # Now to improve how this data gets displayed to the user:
-    if interview_type_data == 'in_person':
+    # Let's set a few conditions for what gets displayed to the user:
+    if interview_type.data == 'in_person':
         details["interview_type"] = {
-            "label": "Interview Type",
+            "label": interview_type.label,
             "data": "In Person"
         }
 
         details["interview_location"] = {
-            "label": "Location", 
-            "data": interview_location
+            "label": interview_location.label, 
+            "data": interview_location.data
         }
 
     if interview_type.data == 'phone_call': 
         details["phone_call"] = {
-            "label": "Contact Number",
-            "data": contact_number
+            "label": contact_number.label,
+            "data": contact_number.data
         } 
 
     # Let's replace the dropdown options for video_medium with just the plain text for video_medium's data.
+    video_medium_data = video_medium.data
+    
     if interview_type.data == 'video_or_online':
         video_medium_data = video_medium.data
 
@@ -130,12 +128,12 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
             video_medium_data = "Meet.Jit.Si"
         
         # If the user selects 'other', then we want to display which medium they provided (in the 'other_medium' field)
-        elif video_medium_data == 'other':
+        else:
             video_medium_data = other_medium.data
 
         # Now the data can be added to the dictionary in its final form
         details["video_medium"] = {
-            "label": "Video / Online", 
+            "label": video_medium.label, 
             "data": video_medium_data
         } 
 
@@ -176,7 +174,7 @@ def post_add_interview(session, user_id, form, interviewsRepo):
     status = form.status
 
     # Add details to SQL DB:
-    InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
+    # InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
 
     # Add details to a dict to be displayed to the template
     details = gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)

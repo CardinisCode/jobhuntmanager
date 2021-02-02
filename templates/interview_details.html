@@ -9,21 +9,14 @@
     <br/>
     <br/>
     <label class="center"> To confirm, these are the details you provided: </label>
-    <table class="center"> 
-        <tr class="border-bottom border-right border-left border-top"></tr>
-            {% for value in details.values() %}
-                <th class="border-right border-left border-top border-bottom"> {{ value.label }}</th>
-            {% endfor %}
-        </tr>
-        <tr> 
-            <tr class="border-bottom border-right border-left border-top">
-                {% for value in details.values() %}
-                    <td class="border-right border-left border-top border-bottom"> {{ value.data }}</td>
-                {% endfor %}
-            </tr>
-            
-        </tr>
 
+    <table class="center"> 
+        {% for value in details.values() %}
+            <tr class="border-bottom border-right border-left border-top"></tr>
+                    <th class="border-right border-left border-top border-bottom"> {{ value.label }}</th>
+                    <td class="border-right border-left border-top border-bottom"> {{ value.data }}</td>
+            </tr>
+        {% endfor %}
     </table>
 
 

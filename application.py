@@ -22,12 +22,11 @@ from repo.interviewsHistory import InterviewsHistoryRepository
 from service.registration import post_registration
 from service.homepage import create_homepage_content
 from service.login import post_login
-from service.add_application import grab_users_application_and_add_to_sql_database
+from service.post_add_application import post_add_application
 from service.display_applications import display_all_applications_current_user
 from service.add_interview import grabDetailsFromNewInterviewAndAddToRepo
 from service.post_add_interview import post_add_interview
 from service.display_interviews import display_top_10_interviews_to_interviews_html
-from service.post_add_interview_test import post_add_application_test
 
 from forms import AddInterviewForm
 from forms import AddApplicationForm
@@ -134,24 +133,10 @@ def add_job_application():
 
     """ Validate the details provided by user & if it passes, display details to user """
     if add_application_form.validate_on_submit():
-        return post_add_application_test(session, user_id, interviewsRepo, add_application_form)
+        return post_add_application(session, user_id, interviewsRepo, add_application_form)
 
     """ Display Test Add Application form to user """
-    return render_template('test_add_application.html', add_application_form=add_application_form)
-
-
-@app.route("/test_add_application", methods=["GET", "POST"])
-@login_required
-def test_add_application():
-    add_application_form = AddApplicationForm()
-    user_id = session["user_id"]
-
-    """ Validate the details provided by user & if it passes, display details to user """
-    if add_application_form.validate_on_submit():
-        return post_add_application_test(session, user_id, interviewsRepo, add_application_form)
-
-    """ Display Test Add Application form to user """
-    return render_template('test_add_application.html', add_application_form=add_application_form)
+    return render_template('add_job_application.html', add_application_form=add_application_form)
 
 
 @app.route("/application_details")
@@ -173,15 +158,15 @@ def display_interviews():
 @app.route("/add_interview", methods=["GET", "POST"])
 @login_required
 def add_interview():
-    form = AddInterviewForm()
+    add_interview_form = AddInterviewForm()
     user_id = session["user_id"]
 
     """ Validate the details provided by user & if it passes, display details to user """
-    if form.validate_on_submit():
-        return post_add_interview(session, user_id, form, interviewsRepo)
+    if add_interview_form.validate_on_submit(): #POST
+        return post_add_interview(session, user_id, add_interview_form, interviewsRepo)
 
-    """ Display Add Interview Form to user """
-    return render_template('add_interview.html', template_form=form)
+    """ Display Add Interview Form to user """ # GET
+    return render_template('add_interview.html', add_interview_form=add_interview_form)
 
 
 @app.route("/interview_details")

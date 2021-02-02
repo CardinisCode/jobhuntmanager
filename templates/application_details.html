@@ -7,20 +7,14 @@
 {% block main %}
     <h1> Application Details: </h1>
 
-    {{ add_application_form.csrf_token }}
-    {% for field in add_application_form if field.name != "csrf_token" %}
-        <p> 
-            {% if field.name == "save_application" %}
-                {{ field }} 
-            {% else %}
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd>
-            {% endif %}
-            {% for error in field.errors %}
-                {{ error }}
-            {% endfor %}
-        </p>
-    {% endfor %}   
+    <table class="center"> 
+        {% for value in details.values() %}
+            <tr class="border-bottom border-right border-left border-top"></tr>
+                <th class="border-right border-left border-top border-bottom"> {{ value.label }}</th>
+                <td class="border-right border-left border-top border-bottom"> {{ value.data }}</td>
+            </tr>
+        {% endfor %}
+    </table>  
 
     <div class="horizontal_buttons">
         <a href="/add_job_application" class="button left_button">Add new job application</a>
