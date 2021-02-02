@@ -3,72 +3,57 @@ from datetime import datetime, time
 
 
 def add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url):
-    details = {}
-    # Gather all fields to be displayed to user as confirmation:
+    # Add all fields & add to our display dict:
 
-    details["company_name"] = {
-        "label": company_name.label,
-        "data": company_name.data
-    }
-
-    details["job_role"] = {
-        "label": job_role.label, 
-        "data": job_role.data
-    }
-
-    details["job_ref"] = {
-        "label": job_ref.label, 
-        "data": job_ref.data
-    }
-
-    details["company_spec"] = {
-        "label": company_spec.label, 
-        "data": company_spec.data
-    }
-
-    details["job_spec"] = {
-        "label": job_spec.label, 
-        "data": job_spec.data
-    }
-
-    details["perks"] = {
-        "label": perks.label, 
-        "data": perks.data
-    }
-
-    details["tech_stack"] = {
-        "label": tech_stack.label, 
-        "data": tech_stack.data
-    }
-
-    details["tech_stack"] = {
-        "label": tech_stack.label, 
-        "data": tech_stack.data
-    }
-
-    details["location"] = {
-        "label": location.label, 
-        "data": location.data
-    }
-
-    details["salary"] = {
-        "label": salary.label, 
-        "data": salary.data
-    }
-
-    details["user_notes"] = {
-        "label": user_notes.label, 
-        "data": user_notes.data
-    }
-
-    details["platform"] = {
-        "label": platform.label, 
-        "data": platform.data
-    }
-
-    details["job_url"] = {
-        "label": job_url.label, 
-        "data": job_url.data
+    details = {
+        "company_name": {
+            "label": company_name.label,
+            "data": company_name.data
+        }, 
+        "job_role": {
+           "label": job_role.label, 
+            "data": job_role.data
+        },
+        "job_ref": {
+            "label": job_ref.label,
+            "data": job_ref.data
+        },
+        "company_spec": {
+            "label": company_spec.label,
+            "data": company_spec.data
+        },
+        "job_spec": {
+            "label": job_spec.label, 
+            "data": job_spec.data
+        },
+        "perks": {
+            "label": perks.label,
+            "data": perks.data
+        },
+        "tech_stack": {
+            "label": tech_stack.label, 
+            "data": tech_stack.data
+        },
+        "location": {
+            "label": location.label, 
+            "data": location.data
+        },
+        "salary": {
+            "label": salary.label, 
+            "data": salary.data
+        },
+        "user_notes": {
+            "label": user_notes.label, 
+            "data": user_notes.data
+        },
+        "platform": {
+            "label": platform.label, 
+            "data": platform.data
+        },
+        "job_url": { 
+            "label": job_url.label, 
+            "data": job_url.data
+        },
     }
 
     # Let's clean up the data so it displays better to the user:
@@ -92,8 +77,6 @@ def add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, compan
         "label": emp_type.label, 
         "data": emp_type_data
     }
-
-
 
     return details
 
