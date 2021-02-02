@@ -141,15 +141,15 @@ def add_job_application():
 @app.route("/test_add_application", methods=["GET", "POST"])
 @login_required
 def test_add_application():
-    add_interview_form = AddApplicationForm()
+    add_application_form = AddApplicationForm()
     user_id = session["user_id"]
 
     """ Validate the details provided by user & if it passes, display details to user """
-    if add_interview_form.validate_on_submit():
+    if add_application_form.validate_on_submit():
         return post_add_interview_test(session, user_id, interviewsRepo)
 
     """ Display Test Add Application form to user """
-    return render_template('test_add_application.html', template_form=add_interview_form)
+    return render_template('test_add_application.html', add_application_form=add_application_form)
 
 # def add_interview():
 #     form = AddInterviewForm()
