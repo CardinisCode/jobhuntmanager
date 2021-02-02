@@ -182,7 +182,7 @@ Project Management
 
 
 ------------------------------------------------------------------------------
-#8: [ ] Redo Add_application functionality using WTForms:
+#8: [x] Redo Add_application functionality using WTForms:
         [x] Create a form Class for Applications
                 [x]     Create fields in AddApplicationForm class
         [x]     Render fields on test_add_application.html 
@@ -199,8 +199,48 @@ Project Management
                 [x]     Route: "/test_add_application" with "/add_application"
         [x]     Add the option to insert the details into "application_history" table
                 [x]     Make sure it works as expected
-        [ ]     Make sure option to insert details into "interview_history" table works as expected
                 
+------------------------------------------------------------------------------
+
+#9: [x] Redo add_interview functionality using WTForms:
+        [x]     Create a test_add_interview route with its own function
+                [x]     GET: directs to "test_add_interview.html
+                        [x]     Structure html page as a form and make sure it displays the fields as expected
+                [x]     GET: directs to a function post_add_interview_test
+                        [x]     Add user input to a dict & render to test_interiew_details.html page
+        [x]     Replace:
+                [x]     Form: Data on add_interview.html with test_add_interview.html
+                [x]     Details: Data on test_inteview_details.html with interview_details.html 
+                        [x]     REMEMBER: update the post route to "/add_interview"
+                [x]     Function: function with post_add_interview()
+                [x]     Route: "/test_add_interview" with "/add_interview"
+        [x]     Add the option to insert the details into "interviews_history" table
+                [x]     Make sure it works as expected
+
+------------------------------------------------------------------------------
+#10: [ ] Display Applications & Interviews:
+        [ ]     Applications page
+                [ ]     Make sure all applications display as expected on Applications.html
+                [ ]     Check that all entries are in order of the most recent application first
+        [ ]     Interviews page
+                [ ]     Make sure all interviews display as expected on Applications.html
+                [ ]     Check that all entries are in order of the most recent interview first
+        [ ]     Index page
+                [x]     Top 5 Applications: 
+                        [x]     Check that it displays the latest 5 application entries
+                        [x]     Check that all entries are in order 
+                                of the most recent application first (By Date)
+                [ ]     Top 5 Interviews:
+                        [ ]     Create a SQL query to grab last 5 interviews for this user
+                                (ORDER BY: First: Date, Second: Time)
+                        [ ]     Update function homepage.create_homepage_content():
+                                [ ]     Call on relevant SQL query to grab top_five_interview details
+                                [ ]     Add fields to variables & add to dict
+                                [ ]     render dict to index.html 
+                                
+                        [ ]     Customise the table on index.html:
+                                [ ]     Recreate the table to receive top5interviews
+                        [ ]     Test that it displays the top 5 interviews as expected
 
 ------------------------------------------------------------------------------
 #9: Create a form class for login
@@ -209,12 +249,12 @@ Project Management
 ------------------------------------------------------------------------------
 #10: 
 [ ]     Index page: 
-        [ ]     Display Last 7 days Applications
+        [ ]     Update to Display Last 7 days Applications
                 [ ]     Create SQL Query
                 [ ]     Pull that data in homepage.py
                 [ ]     Calculate interview count
                 [ ]     Update Index.html
-        [ ]     Display Last 7 days Interviews
+        [ ]     Update to Display Last 7 days Interviews
                 [ ]     Create SQL Query
                 [ ]     Pull that data in homepage.py
                 [ ]     Calculate interview count
