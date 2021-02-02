@@ -149,268 +149,12 @@ Project Management
                                         EG: 'status' -> 'Status'
 
 
-------------------------------------------------------------------------------
-#7: 
-[x]     In service/homepage, update create_homepage_content (function) 
-        -> All content displayed to Index.html
+------------------------------------------------------------------------------ 
 
-        [x]     Grab today's date
-        [x]     Display Today's date on index.html
-        For Applications:
-        [x]     Create a SQL query to pull together all applications made today / current day. 
-        [x]     Count the number of applications and save that to a variable
-                [x]     Display to page:
-                        EG: "You have made {{ X }} number of applications today"
-                [x]     If no applications made today: 
-                        [x]     Display message to user:
-                                "Have you had any applications yet?" 
-                        [x]     Add button / link: 
-                                [x]     Add an application
-
-        For Interviews:
-        [x]     Set up a Repo for Interview History
-        [x]     Connect to this new repo in your applications.py
-        [x]     Create a SQL query to pull all interviews for current date
-        [x]     Pull all the day current_day interviews to a variable
-                [x] Save how many items were returned & display to user
-                        EG: "You have {{ X }} number of Interviews today" 
-
-                [x] IF no interviews lined up today: 
-                        EG: "You have {{ X }} number of Interviews today" 
-                        [x]     Add option to add lined up interview
-                                "Have a lined up Interview? Add it!"
-
-
-------------------------------------------------------------------------------
-#8: [x] Redo Add_application functionality using WTForms:
-        [x] Create a form Class for Applications
-                [x]     Create fields in AddApplicationForm class
-        [x]     Render fields on test_add_application.html 
-        [x]     Grab data from user input
-                [x]     Create  function to grab the data from the fields on test_add_application.html 
-                [x]     Create a test_details.html page 
-                [x]     Format the data received & add it to a dict
-                [x]     Render the data to the test_details.html page 
-        [x]     Replace:
-                [x]     Form: Data on add_application.html with test_add_application.html
-                [x]     Details: Data on test_details.html with application_details.html 
-                        [x]     REMEMBER: update the post route to "/add_application"
-                [x]     Function: function with post_add_application()
-                [x]     Route: "/test_add_application" with "/add_application"
-        [x]     Add the option to insert the details into "application_history" table
-                [x]     Make sure it works as expected
-                
-------------------------------------------------------------------------------
-
-#9: [x] Redo add_interview functionality using WTForms:
-        [x]     Create a test_add_interview route with its own function
-                [x]     GET: directs to "test_add_interview.html
-                        [x]     Structure html page as a form and make sure it displays the fields as expected
-                [x]     GET: directs to a function post_add_interview_test
-                        [x]     Add user input to a dict & render to test_interiew_details.html page
-        [x]     Replace:
-                [x]     Form: Data on add_interview.html with test_add_interview.html
-                [x]     Details: Data on test_inteview_details.html with interview_details.html 
-                        [x]     REMEMBER: update the post route to "/add_interview"
-                [x]     Function: function with post_add_interview()
-                [x]     Route: "/test_add_interview" with "/add_interview"
-        [x]     Add the option to insert the details into "interviews_history" table
-                [x]     Make sure it works as expected
-
-------------------------------------------------------------------------------
-#10: [ ] Display Applications & Interviews:
-        [ ]     Applications page
-                [ ]     Make sure all applications display as expected on Applications.html
-                [ ]     Check that all entries are in order of the most recent application first
-        [ ]     Interviews page
-                [ ]     Make sure all interviews display as expected on Applications.html
-                [ ]     Check that all entries are in order of the most recent interview first
-        [ ]     Index page
-                [x]     Top 5 Applications: 
-                        [x]     Check that it displays the latest 5 application entries
-                        [x]     Check that all entries are in order 
-                                of the most recent application first (By Date)
-                [ ]     Top 5 Interviews:
-                        [ ]     Create a SQL query to grab last 5 interviews for this user
-                                (ORDER BY: First: Date, Second: Time)
-                        [ ]     Update function homepage.create_homepage_content():
-                                [ ]     Call on relevant SQL query to grab top_five_interview details
-                                [ ]     Add fields to variables & add to dict
-                                [ ]     render dict to index.html 
-                                
-                        [ ]     Customise the table on index.html:
-                                [ ]     Recreate the table to receive top5interviews
-                        [ ]     Test that it displays the top 5 interviews as expected
-
-------------------------------------------------------------------------------
-#9: Create a form class for login
-
-
-------------------------------------------------------------------------------
-#10: 
-[ ]     Index page: 
-        [ ]     Update to Display Last 7 days Applications
-                [ ]     Create SQL Query
-                [ ]     Pull that data in homepage.py
-                [ ]     Calculate interview count
-                [ ]     Update Index.html
-        [ ]     Update to Display Last 7 days Interviews
-                [ ]     Create SQL Query
-                [ ]     Pull that data in homepage.py
-                [ ]     Calculate interview count
-                [ ]     Update Index.html
-
-------------------------------------------------------------------------------                
-
-#: Bugs to be fixed later:
-        [ ]     Details received from 'add_interview.html' display on interview_details.html' as text boxes that can
-                be edited. 
-                [ ]     Figure out solution to adjust the values for each field so they display as plain text.
-
-
-
-#7: [ ] Nav bar 
-        [ ]     import relevant library for icons
-        [ ]     import libraries for css styles
-        [ ]     Create structure for Nav bar:
-                [ ]     Left: 
-                        [ ]     Home
-                                [ ]     Add house icon
-                                [ ]     linked to homepage.html
-                        [ ]     (Job) Applications
-                                [ ]     Add applicable icon
-                                [ ]     Linked to job_applications.html
-                        [ ]     Interviews      
-                                [ ]     Add icon
-                                [ ]     linked to interviews.html
-                        [ ]     Calendar
-                                [ ]     Add icon
-                                [ ]     linked to calendar.html
-                        
-                [ ]     right
-                        [ ]     Before Logged in:
-                                [ ]     Login   
-                                        [ ]     Add icon with door
-                                        [ ]     linked to login.html
-                                [ ]     Register 
-                                        [ ]     Add icon (pref usericon with a plus)
-                                        [ ]     linked to register.html
-                        
-                        [ ]     After logged out
-                                [ ]     User account 
-                                        [ ]     add icon
-                                        [ ]     linked to user_account.html
-                                [ ]     Logout 
-                                        [ ]     Add icon (closing door)
-                                        [ ]     linked to login.html
-        
- ------------------------------------------------------------------------------
-
-#8: [ ] View job Applications page
-        [x]     Create Applications table
-                [x]     app_id (AUTOINCREMENT) 
-                [x]     Company name -> send to company directory table
-                [x]     company_id -> From company directory table
-                [x]     Job role
-                [x]     Job platform
-                [x]     Interview Stage
-                [x]     Received contact Y/N
-        [ ]     set up SQL db:
-                [ ]     Create an application history table
-                        [ ]     Unique identifier (job_id)
-                        [ ]     company name
-                        [ ]     role applied for
-                        [ ]     date of application
-                        [ ]     platform used for application
-                        [ ]     source of job -> where it was found
-                        [ ]     Salary info provided
-                [ ]     set up an application history repo 
-                        [ ]     class ApplicationHistoryRepository -> to allow for:
-
-        [ ]     Add option to view application history 
-                [ ]     Add call to ApplicationHistoryRepository 
-                        ->      in repo directory
-                        [ ]     should grab all items in the history repo 
-                                [ ]     where userid is the current user
-                                [ ]     by Date in DESC order 
-                [ ]     Display history to view_applications.html 
-                        [ ]     In a table using a html table
-                        [ ]     Provide user options to:
-                                [ ]     Search by...
-                                [ ]     delete entry
-                                [ ]     Update entry -> redirect to update_interview_details.html
-
-        [ ]     Add option to add application to the application history
-                [ ]     Add button "Add application"
-                [ ]     Direct user to add_application.html
- 
-
-        [ ]     Add option to Update an application 
-                [ ]     Add button "Update an application"
-                [ ]     direct user to update_interview_details.html
-        
- ------------------------------------------------------------------------------
-
-#9: [ ] Add Application
-        [ ]   Create Add Application page  
-        [ ]     Add call to ApplicationHistoryRepository 
-                ->      in repo directory
-                
-        [ ]     Add route & function on application.py
-                [ ]     GET -> render template on add_application.html
-                [ ]     POST
-                        [ ]     Grab details from form (in variables)
-                        [ ]     Catch potential errors
-                        [ ]     Add details to ApplicationHistoryRepository 
-                                [ ]     Create a method in repo for adding application to 
-                                        ApplicationHistoryRepository 
-                        [ ]     Display notification to user to confirm application 
-                                has been added
-                        [ ]     redirect user back to view_applications.html
-
-        [ ]     Create form on add_application.html:
-                [ ]     company name
-                [ ]     role applied for
-                [ ]     date of application
-                [ ]     platform used for application
-                [ ]     source of job -> where it was found
-                [ ]     Salary info provided  
-                [ ]     Location 
-                [ ]     Remote / in office 
-
-  ------------------------------------------------------------------------------               
-
-#10: [ ] Interviews
-        [ ]     Create Interviews table
-                [ ]     id (AUTOINCREMENT) 
-                [ ]     Company name
-                [ ]     company_id -> From company directory table
-                [ ]     Status:
-                        -> Lined up
-                        -> Had interview
-                        -> Postponed -> Add once all basic requirements met
-                        -> Cancelled
-        
-
-        [ ]     Add option to view application history
-                -> redirects to interview_history.html
-        [ ]     Create InterviewHistoryRepository 
-                [ ]     Add method to add an interview
-                [ ]     add method to delete an interview
-                [ ]     Add method to update an interview
-        [ ]     Add option to Add interview 
-                ->      Redirects user to add_interview.html
-        [ ]     Add option to update Interview
-                ->      Redirects user to update_interview_html
-        [ ]     Add option for interview prep
-                ->      redirects user to interview_preparation.html   
-
-  ------------------------------------------------------------------------------  
-
-#11: [ ] Add Interview
-        [ ]     Add route & function for "/add_interview"
-        [ ]     Create InterviewHistoryRepo
-                [ ]     Create a method to grab details and add to repo:
+#7: [ ] Add Interview
+        [x]     Add route & function for "/add_interview"
+        [x]     Create InterviewHistoryRepo
+                [x]     Create a method to grab details and add to repo:
                         [ ]     Unique identifier
                         [ ]     Date
                         [ ]     Company name
@@ -436,9 +180,132 @@ Project Management
                 [ ]     Display message to user to confirm the interview has been added
                 [ ]     Redirect user to Interviews.html
 
-  ------------------------------------------------------------------------------ 
+------------------------------------------------------------------------------
+#8: [x] In service/homepage, update create_homepage_content (function) 
+        (All content displayed to Index.html)
+        [x]     Grab today's date
+        [x]     Display Today's date on index.html
+        For Applications:
+        [x]     Create a SQL query to pull together all applications made today / current day. 
+        [x]     Count the number of applications and save that to a variable
+                [x]     Display to page:
+                        EG: "You have made {{ X }} number of applications today"
+                [x]     If no applications made today: 
+                        [x]     Display message to user:
+                                "Have you had any applications yet?" 
+                        [x]     Add button / link: 
+                                [x]     Add an application
+        For Interviews:
+        [x]     Set up a Repo for Interview History
+        [x]     Connect to this new repo in your applications.py
+        [x]     Create a SQL query to pull all interviews for current date
+        [x]     Pull all the day current_day interviews to a variable
+                [x] Save how many items were returned & display to user
+                        EG: "You have {{ X }} number of Interviews today" 
 
-#12: [ ] Updating details 
+                [x] IF no interviews lined up today: 
+                        EG: "You have {{ X }} number of Interviews today" 
+                        [x]     Add option to add lined up interview
+                                "Have a lined up Interview? Add it!"
+
+------------------------------------------------------------------------------
+#9: [x] Redo Add_application functionality using WTForms:
+        [x] Create a form Class for Applications
+                [x]     Create fields in AddApplicationForm class
+        [x]     Render fields on test_add_application.html 
+        [x]     Grab data from user input
+                [x]     Create  function to grab the data from the fields on test_add_application.html 
+                [x]     Create a test_details.html page 
+                [x]     Format the data received & add it to a dict
+                [x]     Render the data to the test_details.html page 
+        [x]     Replace:
+                [x]     Form: Data on add_application.html with test_add_application.html
+                [x]     Details: Data on test_details.html with application_details.html 
+                        [x]     REMEMBER: update the post route to "/add_application"
+                [x]     Function: function with post_add_application()
+                [x]     Route: "/test_add_application" with "/add_application"
+        [x]     Add the option to insert the details into "application_history" table
+                [x]     Make sure it works as expected
+                
+------------------------------------------------------------------------------
+
+#10: [x] Redo add_interview functionality using WTForms:
+        [x]     Create a test_add_interview route with its own function
+                [x]     GET: directs to "test_add_interview.html
+                        [x]     Structure html page as a form and make sure it displays the fields as expected
+                [x]     GET: directs to a function post_add_interview_test
+                        [x]     Add user input to a dict & render to test_interiew_details.html page
+        [x]     Replace:
+                [x]     Form: Data on add_interview.html with test_add_interview.html
+                [x]     Details: Data on test_inteview_details.html with interview_details.html 
+                        [x]     REMEMBER: update the post route to "/add_interview"
+                [x]     Function: function with post_add_interview()
+                [x]     Route: "/test_add_interview" with "/add_interview"
+        [x]     Add the option to insert the details into "interviews_history" table
+                [x]     Make sure it works as expected
+
+------------------------------------------------------------------------------
+#11: [ ] Display Applications & Interviews:
+        [ ]     Applications page
+                [ ]     Make sure all applications display as expected on Applications.html
+                [ ]     Check that all entries are in order of the most recent application first
+        [ ]     Interviews page
+                [ ]     Make sure all interviews display as expected on Applications.html
+                [ ]     Check that all entries are in order of the most recent interview first
+        [ ]     Index page
+                [x]     Top 5 Applications: 
+                        [x]     Check that it displays the latest 5 application entries
+                        [x]     Check that all entries are in order 
+                                of the most recent application first (By Date)
+                [ ]     Top 5 Interviews:
+                        [ ]     Create a SQL query to grab last 5 interviews for this user
+                                (ORDER BY: First: Date, Second: Time)
+                        [ ]     Update function homepage.create_homepage_content():
+                                [ ]     Call on relevant SQL query to grab top_five_interview details
+                                [ ]     Add fields to variables & add to dict
+                                [ ]     render dict to index.html 
+                                
+                        [ ]     Customise the table on index.html:
+                                [ ]     Recreate the table to receive top5interviews
+                        [ ]     Test that it displays the top 5 interviews as expected
+
+------------------------------------------------------------------------------
+#12: [ ] Redo Login & Register using WTForms 
+        [ ]     Research how to add a login / register using WTForm   
+
+
+------------------------------------------------------------------------------
+#13: [ ]     Index page: 
+        [ ]     Update to Display Last 7 days Applications
+                [ ]     Create SQL Query
+                [ ]     Pull that data in homepage.py
+                [ ]     Calculate interview count
+                [ ]     Update Index.html
+        [ ]     Update to Display Last 7 days Interviews
+                [ ]     Create SQL Query
+                [ ]     Pull that data in homepage.py
+                [ ]     Calculate interview count
+                [ ]     Update Index.html
+
+------------------------------------------------------------------------------                
+
+#: Bugs to be fixed later:
+        [x]     Details received from 'add_interview.html' display on interview_details.html' 
+                as text boxes that can be edited. 
+                [x]     Figure out solution to adjust the values for each field so they display as plain text.
+
+        [ ]     There's a huge gap at the top of each page, due to the side bar.
+
+------------------------------------------------------------------------------   
+
+#: [ ] Nav bar 
+        [ ]     import relevant library for icons
+        [x]     import libraries for css styles
+        [x]     Create structure for Nav bar:
+        
+ -----------------------------------------------------------------------------
+
+#: [ ] Updating details 
         ->      User will be instructed to provide the company name
                 ->      User will be shown (in table format) all applications made to that company
                 ->      User can select an application 
