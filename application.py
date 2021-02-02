@@ -133,7 +133,7 @@ def add_job_application():
 
     """ Validate the details provided by user & if it passes, display details to user """
     if add_application_form.validate_on_submit():
-        return post_add_application(session, user_id, interviewsRepo, add_application_form)
+        return post_add_application(session, user_id, applicationsRepo, add_application_form)
 
     """ Display Test Add Application form to user """
     return render_template('add_job_application.html', add_application_form=add_application_form)
