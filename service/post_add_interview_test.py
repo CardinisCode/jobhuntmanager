@@ -16,11 +16,6 @@ def add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, compan
         "data": job_role.data
     }
 
-    details["emp_type"] = {
-        "label": emp_type.label, 
-        "data": emp_type.data
-    }
-
     details["job_ref"] = {
         "label": job_ref.label, 
         "data": job_ref.data
@@ -75,6 +70,30 @@ def add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, compan
         "label": job_url.label, 
         "data": job_url.data
     }
+
+    # Let's clean up the data so it displays better to the user:
+    emp_type_data = emp_type.data
+    if emp_type_data == "full_time":
+        emp_type_data = "Full Time"
+
+    elif emp_type_data == "part_time":
+        emp_type_data = "Part Time"
+
+    elif emp_type_data == "temp":
+        emp_type_data = "Temporary"
+
+    elif emp_type_data == "contract":
+        emp_type_data = "Contract"
+    
+    else:
+        emp_type_data = "Other"
+
+    details["emp_type"] = {
+        "label": emp_type.label, 
+        "data": emp_type_data
+    }
+
+
 
     return details
 
