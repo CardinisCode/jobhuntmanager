@@ -129,13 +129,15 @@ def display_applications():
 @app.route("/add_job_application", methods=["GET", "POST"])
 @login_required
 def add_job_application():
-    "Display a form to user that takes input from user"
-    if request.method == "GET":
-        return render_template("add_job_application.html") 
-    
-    """ Grab user's input and add it to SQL database for that user """
+    add_application_form = AddApplicationForm()
     user_id = session["user_id"]
-    return grab_users_application_and_add_to_sql_database(session, user_id, applicationsRepo)
+
+    """ Validate the details provided by user & if it passes, display details to user """
+    if add_application_form.validate_on_submit():
+        return post_add_application_test(session, user_id, interviewsRepo, add_application_form)
+
+    """ Display Test Add Application form to user """
+    return render_template('test_add_application.html', add_application_form=add_application_form)
 
 
 @app.route("/test_add_application", methods=["GET", "POST"])

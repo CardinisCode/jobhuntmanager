@@ -7,68 +7,20 @@
 {% block main %}
     <h1> Application Details: </h1>
 
-    <table class="center"> 
-        <tr class="border-bottom border-right border-left border-top">
-            <th> Date</th>
-            <td> {{ application_details.todays_date }}  </td>
-        </tr>
-
-        <tr class="border-bottom border-right border-left border-top">
-            <th> Job Ref</th>
-            <td> {{ application_details.job_ref }}  </td>
-        </tr>
-
-        <tr class="border-bottom border-right border-left border-top">
-            <th> Employment Type</th>
-            <td> {{ application_details.employment_type }}  </td>
-        </tr>
-
-        <tr class="border-bottom border-right border-left border-top">
-            <th> Platform</th>
-            <td> {{ application_details.platform }}  </td>
-        </tr>
-
-        <tr class="border-bottom border-right border-left border-top">
-            <th> Company Name</th>
-            <td> {{ application_details.company_name }}  </td>
-        </tr>
-
-        <tr class="border-bottom border-right border-left border-top">
-            <th> Location</th>
-            <td> {{ application_details.location }}  </td>
-        </tr>
-
-        <tr class="border-bottom border-right border-left border-top">
-            <th> Job Role</th>
-            <td> {{ application_details.job_role }}  </td>
-        </tr>
-
-        <tr class="border-bottom border-right border-left border-top">
-            <th> Job Description</th>
-            <td> {{ application_details.job_description }}  </td>
-        </tr>
-
-        <tr class="border-bottom border-right border-left border-top">
-            <th> Job Perks</th>
-            <td> {{ application_details.job_perks }}  </td>
-        </tr>
-
-        <tr class="border-bottom border-right border-left border-top">
-            <th> Salary</th>
-            <td> {{ application_details.salary }}  </td>
-        </tr>
-
-        <tr class="border-bottom border-right border-left border-top">
-            <th> Tech Stack</th>
-            <td> {{ application_details.tech_stack }}  </td>
-        </tr>
-
-        <tr class="border-bottom border-right border-left border-top">
-            <th> User Notes</th>
-            <td> {{ application_details.user_notes }}  </td>
-        </tr>
-
-    </table>    
+    {{ add_application_form.csrf_token }}
+    {% for field in add_application_form if field.name != "csrf_token" %}
+        <p> 
+            {% if field.name == "save_application" %}
+                {{ field }} 
+            {% else %}
+                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
+                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd>
+            {% endif %}
+            {% for error in field.errors %}
+                {{ error }}
+            {% endfor %}
+        </p>
+    {% endfor %}   
 
     <div class="horizontal_buttons">
         <a href="/add_job_application" class="button left_button">Add new job application</a>
