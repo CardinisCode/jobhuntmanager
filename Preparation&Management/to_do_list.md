@@ -151,7 +151,7 @@ Project Management
 
 ------------------------------------------------------------------------------
 #7: 
-[ ]     In service/homepage, update create_homepage_content (function) 
+[x]     In service/homepage, update create_homepage_content (function) 
         -> All content displayed to Index.html
 
         [x]     Grab today's date
@@ -179,9 +179,6 @@ Project Management
                         EG: "You have {{ X }} number of Interviews today" 
                         [x]     Add option to add lined up interview
                                 "Have a lined up Interview? Add it!"
-                        [ ]     Pull interviews in the next 7 days
-                                [ ]     Display Interviews (10 items max) 
-                                [ ]     Option to "view more" -> Directs user to interviews.html  
 
 
 ------------------------------------------------------------------------------
@@ -194,13 +191,15 @@ Project Management
                 [x]     Create a test_details.html page 
                 [x]     Format the data received & add it to a dict
                 [x]     Render the data to the test_details.html page 
-        [ ]     Replace:
-                [ ]     Form: Data on add_application.html with test_add_application.html
-                [ ]     Details: Data on test_details.html with application_details.html 
-                        [ ]     REMEMBER: update the post route to "/add_application"
-                [ ]     Function: function with post_add_application()
-                [ ]     Route: "/test_add_application" with "/add_application"
-        [ ]     Add the option to insert the details into "application_history" table
+        [x]     Replace:
+                [x]     Form: Data on add_application.html with test_add_application.html
+                [x]     Details: Data on test_details.html with application_details.html 
+                        [x]     REMEMBER: update the post route to "/add_application"
+                [x]     Function: function with post_add_application()
+                [x]     Route: "/test_add_application" with "/add_application"
+        [x]     Add the option to insert the details into "application_history" table
+                [x]     Make sure it works as expected
+        [ ]     Make sure option to insert details into "interview_history" table works as expected
                 
 
 ------------------------------------------------------------------------------
