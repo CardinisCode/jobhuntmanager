@@ -27,7 +27,7 @@ from service.display_applications import display_all_applications_current_user
 from service.add_interview import grabDetailsFromNewInterviewAndAddToRepo
 from service.post_add_interview import post_add_interview
 from service.display_interviews import display_top_10_interviews_to_interviews_html
-from service.post_add_interview_test import post_add_interview_test
+from service.post_add_interview_test import post_add_application_test
 
 from forms import AddInterviewForm
 from forms import AddApplicationForm
@@ -146,21 +146,10 @@ def test_add_application():
 
     """ Validate the details provided by user & if it passes, display details to user """
     if add_application_form.validate_on_submit():
-        return post_add_interview_test(session, user_id, interviewsRepo)
+        return post_add_application_test(session, user_id, interviewsRepo, add_application_form)
 
     """ Display Test Add Application form to user """
     return render_template('test_add_application.html', add_application_form=add_application_form)
-
-# def add_interview():
-#     form = AddInterviewForm()
-#     user_id = session["user_id"]
-
-#     """ Validate the details provided by user & if it passes, display details to user """
-#     if form.validate_on_submit():
-#         return post_add_interview(session, user_id, form, interviewsRepo)
-
-#     """ Display Add Interview Form to user """
-#     return render_template('add_interview.html', template_form=form)
 
 
 @app.route("/application_details")
