@@ -185,11 +185,23 @@ Project Management
 
 
 ------------------------------------------------------------------------------
-#8: [ ] Create a form Class for Applications
-        [ ]     Create fields 
-
-
-
+#8: [ ] Redo Add_application functionality using WTForms:
+        [x] Create a form Class for Applications
+                [x]     Create fields in AddApplicationForm class
+        [x]     Render fields on test_add_application.html 
+        [ ]     Grab data from user input
+                [ ]     Create  function to grab the data from the fields on test_add_application.html 
+                [ ]     Create a test_details.html page 
+                [ ]     Format the data received & add it to a dict
+                [ ]     Render the data to the test_details.html page 
+        [ ]     Replace:
+                [ ]     Form: Data on add_application.html with test_add_application.html
+                [ ]     Details: Data on test_details.html with application_details.html 
+                        [ ]     REMEMBER: update the post route to "/add_application"
+                [ ]     Function: function with post_add_application()
+                [ ]     Route: "/test_add_application" with "/add_application"
+        [ ]     Add the option to insert the details into "application_history" table
+                
 
 ------------------------------------------------------------------------------
 #9: Create a form class for login

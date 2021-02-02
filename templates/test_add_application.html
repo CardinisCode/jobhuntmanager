@@ -14,8 +14,8 @@
             {% if field.name == "save_application" %}
                 {{ field }} 
             {% else %}
-                <dt> {{ field.label }}</dt>
-                <dd> {{ field(title=field.description) }} </dd>
+                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
+                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd>
             {% endif %}
             {% for error in field.errors %}
                 {{ error }}
