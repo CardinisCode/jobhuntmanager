@@ -189,11 +189,11 @@ Project Management
         [x] Create a form Class for Applications
                 [x]     Create fields in AddApplicationForm class
         [x]     Render fields on test_add_application.html 
-        [ ]     Grab data from user input
-                [ ]     Create  function to grab the data from the fields on test_add_application.html 
-                [ ]     Create a test_details.html page 
-                [ ]     Format the data received & add it to a dict
-                [ ]     Render the data to the test_details.html page 
+        [x]     Grab data from user input
+                [x]     Create  function to grab the data from the fields on test_add_application.html 
+                [x]     Create a test_details.html page 
+                [x]     Format the data received & add it to a dict
+                [x]     Render the data to the test_details.html page 
         [ ]     Replace:
                 [ ]     Form: Data on add_application.html with test_add_application.html
                 [ ]     Details: Data on test_details.html with application_details.html 
