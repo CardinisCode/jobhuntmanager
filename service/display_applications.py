@@ -8,7 +8,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
 
     display_details = {}
     display_details["headings"] = {
-        "headings_list" : ["ID#", "Date", "Job Ref", "Company Name", "Job Role", "Platform / Job Board", "Employment Type", "Stage",  "Contact Received", "Salary"]
+        "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type", "Salary", "Platform / Job Board",  "Stage",  "Job Ref", "Contact Received"]
     }
 
     # Let's take the details from "applictop_ten_applicationsations" 
@@ -21,7 +21,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
         # Now that we have grabbed the fields for this current application
         # lets store these values in a dictionary to be displayed on the html page:
         app_id = details_list[0]
-        emp_type = details_list[6]
+        emp_type = details_list[4]
         # raise ValueError(details_list)
 
         display_details[app_id] = {
@@ -29,38 +29,38 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
                 "label": "Application Date",
                 "data": details_list[1],
             },
-            "job_ref": {
-                "label": "Job Ref", 
-                "data": details_list[2],
-            },
             "company_name": {
                 "label": "Company",
-                "data": details_list[3],
+                "data": details_list[2],
             },
             "job_role": {
                 "label": "Job Role",
-                "data": details_list[4],
-            },
-            "platform": {
-                "label": "Platform / Job Board", 
-                "data": details_list[5],                
+                "data": details_list[3],
             },
             "emp_type": {
                 "label": "Employment Type",
                 "data": emp_type,
             },
+            "salary": {
+                "label": "Salary",
+                "data": details_list[5],                 
+            },
+            "platform": {
+                "label": "Platform / Job Board", 
+                "data": details_list[6],                
+            },
             "interview_stage": {
                 "label": "Interview Stage",
                 "data": details_list[7],                  
             },
+            "job_ref": {
+                "label": "Job Ref", 
+                "data": details_list[8],
+            },
             "contact_received": {
                 "label": "Contact Received",
-                "data": details_list[8],                  
+                "data": details_list[9],                  
             }, 
-            "salary": {
-                "label": "Salary",
-                "data": details_list[9],                 
-            },
         }
 
         # Let's clean up the emp_type so its output is more presentable:
