@@ -8,7 +8,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
 
     display_details = {}
     display_details["headings"] = {
-        "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type", "Salary", "Stage", "Contact Received", "Job Ref", "Platform / Job Board"]
+        "headings_list" : ["ID#", "Date", "Job Ref", "Company Name", "Job Role", "Platform / Job Board", "Employment Type", "Stage",  "Contact Received", "Salary"]
     }
 
     # Let's take the details from "applictop_ten_applicationsations" 
@@ -21,11 +21,17 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
         # Now that we have grabbed the fields for this current application
         # lets store these values in a dictionary to be displayed on the html page:
         app_id = details_list[0]
+        emp_type = details_list[6]
+        # raise ValueError(details_list)
 
         display_details[app_id] = {
             "app_date":  {
                 "label": "Application Date",
                 "data": details_list[1],
+            },
+            "job_ref": {
+                "label": "Job Ref", 
+                "data": details_list[2],
             },
             "company_name": {
                 "label": "Company",
@@ -35,13 +41,13 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
                 "label": "Job Role",
                 "data": details_list[4],
             },
+            "platform": {
+                "label": "Platform / Job Board", 
+                "data": details_list[5],                
+            },
             "emp_type": {
                 "label": "Employment Type",
-                "data": details_list[6],                
-            },
-            "salary": {
-                "label": "Salary",
-                "data": details_list[9],                 
+                "data": emp_type,
             },
             "interview_stage": {
                 "label": "Interview Stage",
@@ -51,15 +57,36 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
                 "label": "Contact Received",
                 "data": details_list[8],                  
             }, 
-            "job_ref": {
-                "label": "Job Ref", 
-                "data": details_list[2],
+            "salary": {
+                "label": "Salary",
+                "data": details_list[9],                 
             },
-            "platform": {
-                "label": "Platform / Job Board", 
-                "data": details_list[5],                
-            }
         }
+
+        # Let's clean up the emp_type so its output is more presentable:
+        if emp_type == "full_time":
+            display_details[app_id]["emp_type"]["data"] = "Full Time"
+        
+        elif emp_type == "part_time":
+            display_details[app_id]["emp_type"]["data"]= "Part Time"
+
+        elif emp_type == "temporary":
+            display_details[app_id]["emp_type"]["data"] = "Temp"
+
+        elif emp_type == "contract":
+            display_details[app_id]["emp_type"]["data"] = "Contract"
+
+        elif emp_type == "other_emp_type": 
+            display_details[app_id]["emp_type"]["data"] = "Other"
+
+        else: 
+            display_details[app_id]["emp_type"]["data"] = "Not Provided"
+
+
+            # "emp_type": {
+            #     "label": "Employment Type",
+            #     "data": details_list[6],                
+            # },
 
     # format = '%m/%d/%Y %H:%M:%S.%f'
     #     updated_date =  app_date.strftime("%Y %M %d %H:%M:%S%p")
