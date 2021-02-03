@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session, flash
-import datetime
+from datetime import datetime, date
 
 
 def grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(interviewsRepo, user_id):
@@ -11,10 +11,10 @@ def grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(
 
     id_count = 1
     for interview in query_results: 
-        company_name = interview[1]
+        # company_name = interview[1]
         interview_date = interview[2]
         interview_time = interview[3]
-        job_role = interview[4]
+        # job_role = interview[4]
         interviewer_names = interview[5]
         interview_type = interview[7]
         location = interview[8]
@@ -26,8 +26,8 @@ def grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(
         top_5_interviews_dict[id_count] = {
             "interview_date": interview_date, 
             "interview_time": interview_time,
-            "company_name": company_name, 
-            "job_role": job_role,
+            "company_name": interview[1], 
+            "job_role": interview[4],
             "interview_type": interview_type,
             "Interview Location": location,
             "Video medium": medium,
@@ -36,6 +36,22 @@ def grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(
             "status": status,
             "interviewer_names": interviewer_names, 
         } 
+
+        # I want to format the datetime format to be "%Y-%m-%d %H:%M"
+        # 1) I will take the str values for Date and Time, & combine them into 1 datetime string 
+        date_time_str = interview_date + " " + interview_time
+
+        #2) Now I will convert this datetime string into its datetime object:
+        date_time_format = '%Y-%m-%d %H:%M:%S'
+        date_and_time_obj = datetime.strptime(date_time_str, date_time_format)
+
+        # 3) Now I can convert this datetime_obj into a string & simultaneously get the format I want:
+        date_time = date_and_time_obj.strftime("%m/%d/%Y, %H:%M")
+
+        # Now I can finish by adding this to my top_5_interviews_dict dictionary: 
+        top_5_interviews_dict[id_count]["scheduled_date"] = date_time
+
+        # Just so that we grab an unique ID for every application on this list:
         id_count += 1
 
     return top_5_interviews_dict
@@ -43,7 +59,7 @@ def grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(
 
 def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo):
     # Let's grab today's date as this will help us when we're grabbing interviews & applications for the current date:
-    current_date = datetime.date.today()
+    current_date = date.today()
 
     # Now to grab the values from the relevant SQL queries:
     applications_today = applicationsRepo.grabTodaysApplicationCount(current_date, user_id)
