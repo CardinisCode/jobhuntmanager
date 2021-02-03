@@ -17,7 +17,14 @@ class InterviewsHistoryRepository:
 
         return result.lastrowid
 
-    
+    def grabTop5InterviewsForUser(self, user_id):
+        cursor = self.db.cursor()
+        result = cursor.execute("SELECT * FROM interview_history WHERE user_id = ? ORDER BY date DESC, time DESC LIMIT 5;", (user_id,))
+        self.db.commit()
+
+        return result
+
+
     def grabTopTenInterviewsForUser(self, user_id):
         cursor = self.db.cursor()
         result = cursor.execute("SELECT * FROM interview_history WHERE user_id = ? ORDER BY date DESC, time DESC LIMIT 10;", (user_id,))

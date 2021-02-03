@@ -8,16 +8,15 @@
     <h1> Welcome username </h1>
     <br/>
     <br/>
-    <!-- <p> Today's date {{ render_info.current_date }} </p> -->
 
     <h2> Your Applications: </h2>
     <br/>
 
     <div class="horizontal">
-        {% if render_info.applications_today == 0 %}
+        {% if display.applications_today == 0 %}
             <li> You have not submitted any applications today. <a href="/add_job_application">Add an Application.</a></li>
         {% else %}
-            <li class="left_button"> You have made {{ render_info.applications_today }} number of applications today!</li>
+            <li class="left_button"> You have made {{ display.applications_today }} number of applications today!</li>
         {% endif %}
         <li class="middle_button"> You have made X number of applications this week!</li>
     </div>
@@ -37,7 +36,7 @@
             <th> Salary</th>
         </tr>
 
-        {% for application in render_info.top_5_applications %}
+        {% for application in display.top_5_applications %}
             <tr class="border-bottom border-right border-left">
                 {% for item in application %}
                     <td class="border-right border-left border-bottom"> {{ item }} </td>
@@ -58,10 +57,10 @@
     <br/>
 
     <div class="horizontal">
-        {% if render_info.interviews_today == 0 %}
+        {% if display.interviews_today == 0 %}
             <li class="left_button"> You have no Interviews lined up today. <a href="/add_interview">Add an Interview.</a></li>
         {% else %}
-            <li class="left_button"> You have {{ render_info.interviews_today }} number of Interviews lined up today!</li>
+            <li class="left_button"> You have {{ display.interviews_today }} number of Interviews lined up today!</li>
         {% endif %}
         <li class="middle_button"> You have X number of Interviews lined up this week!</li>
     </div>
@@ -71,20 +70,31 @@
     <!-- Drop down to view table-->
     <table class="Table"> 
         <tr> 
-            <th> Date & Time</th>
-            <th> Job Reference</th>
+            <th> #</th>
+            <th> Date</th>
+            <th> Time</th>
             <th> Company name</th>
-            <th> Platform</th>
             <th> Job role</th>
+            <th> Interview Type</th>
+            <th> Location</th>
+            <th> Video Medium</th>
+            <th> Other Medium</th>
+            <th> Contact No.</th>
             <th> Status</th>
+            <th> Interviewer Names</th>
         </tr>
-        <tr> 
-            <td> x:x:x</td>
-            <td> X PTY LTD </td>
-            <td> Zoom </td>
-            <td> Jnr Software Dev</td>
-            <td> Lined up</td>
-        </tr>
+        {% for key, value in display.items() %}
+            {% if key == "top_5_interviews" %}
+                {% for id, fields in value.items() %}
+                    <tr class="border-bottom border-right border-left"></tr>
+                        <td class="border-right border-left border-bottom"> {{ id }} </td>
+                        {% for name, info in fields.items() %}
+                            <td> {{ info }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
     </table>
     <br/>
 

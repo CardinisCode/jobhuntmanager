@@ -142,7 +142,7 @@ def post_registration(session, userRepo):
     result = userRepo.createUser(username, hashed_password, email, str_date)
     # if result == None:
     #     raise ValueError("Your user has not been successfully added to users.")
-    session["user_id"] = result[0]
+    session["user_id"] = result
 
     flash('Registration Complete!')
     return redirect("/")
