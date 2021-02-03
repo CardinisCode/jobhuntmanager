@@ -22,12 +22,13 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
         # lets store these values in a dictionary to be displayed on the html page:
         app_id = details_list[0]
         emp_type = details_list[4]
+        app_date = details_list[1]
         # raise ValueError(details_list)
 
         display_details[app_id] = {
             "app_date":  {
-                "label": "Application Date",
-                "data": details_list[1],
+                "label": "Date & Time",
+                "data": app_date,
             },
             "company_name": {
                 "label": "Company",
@@ -83,15 +84,13 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
             display_details[app_id]["emp_type"]["data"] = "Not Provided"
 
 
-            # "emp_type": {
-            #     "label": "Employment Type",
-            #     "data": details_list[6],                
-            # },
-
-    # format = '%m/%d/%Y %H:%M:%S.%f'
-    #     updated_date =  app_date.strftime("%Y %M %d %H:%M:%S%p")
-    #     # raise ValueError("Date:", updated_date)
-    #     # updated_date = datetime(*(time.strptime(app_date, format)[0:5]))
+        # Let's modify the app_date value so that it doesn't include the Min's & Seconds:
+        date_format = '%Y-%m-%d %H:%M:%S.%f'
+        updated_date_dateformat = datetime.strptime(app_date, date_format)
+        updated_date = updated_date_dateformat.strftime("%m-%d-%Y %H:%M")
+        
+        # Now to update the app_date value in our display_details dictionary:
+        display_details[app_id]["app_date"]["data"] = updated_date
 
 
     return render_template("applications.html", display_details=display_details)
