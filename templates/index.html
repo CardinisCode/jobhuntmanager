@@ -70,18 +70,17 @@
     <!-- Drop down to view table-->
     <table class="Table"> 
         <tr> 
-            <th> #</th>
-            <th> Date</th>
-            <th> Time</th>
-            <th> Company name</th>
-            <th> Job role</th>
-            <th> Interview Type</th>
-            <th> Location</th>
-            <th> Video Medium</th>
-            <th> Other Medium</th>
-            <th> Contact No.</th>
-            <th> Status</th>
-            <th> Interviewer Names</th>
+            <th class="border-bottom border-right border-left border-top"> #</th>
+            <th class="border-bottom border-right border-left border-top"> Date & Time</th>
+            <th class="border-bottom border-right border-left border-top"> Company name</th>
+            <th class="border-bottom border-right border-left border-top"> Job role</th>
+            <th class="border-bottom border-right border-left border-top"> Interview Type</th>
+            <th class="border-bottom border-right border-left border-top"> Location</th>
+            <th class="border-bottom border-right border-left border-top"> Video Medium</th>
+            <th class="border-bottom border-right border-left border-top"> Other Medium</th>
+            <th class="border-bottom border-right border-left border-top"> Contact No.</th>
+            <th class="border-bottom border-right border-left border-top"> Status</th>
+            <th class="border-bottom border-right border-left border-top"> Interviewer Names</th>
         </tr>
         {% for key, value in display.items() %}
             {% if key == "top_5_interviews" %}
@@ -89,7 +88,7 @@
                     <tr class="border-bottom border-right border-left"></tr>
                         <td class="border-right border-left border-bottom"> {{ id }} </td>
                         {% for name, info in fields.items() %}
-                            <td> {{ info }}</td>
+                            <td class="border-bottom border-right border-left"> {{ info }}</td>
                         {% endfor %}
                     </tr>
                 {% endfor %}
