@@ -247,11 +247,17 @@ Project Management
 ------------------------------------------------------------------------------
 #11: [ ] Display Applications & Interviews:
         [ ]     Applications page
-                [ ]     Make sure all applications display as expected on Applications.html
-                [ ]     Check that all entries are in order of the most recent application first
+                [x]     Make sure all applications display as expected on Applications.html
+                [x]     Check that all entries are in order of the most recent application first
+                [ ]     Optimise the data displayed on Applications.html
+                        [ ]     Create SQL query to grab the top 10 applications 
+                        Order by Date
+                        [ ]     Adjust function to call this SQL query & rename function accordingly
+                        [ ]     Grab values, improve their presentation & add to dict
+                        [ ]     Display the updated values to applications.html
         [ ]     Interviews page
-                [ ]     Make sure all interviews display as expected on Applications.html
-                [ ]     Check that all entries are in order of the most recent interview first
+                [x]     Make sure all interviews display as expected on Interviews.html
+                [x]     Check that all entries are in order of the most recent interview first
         [ ]     Index page
                 [x]     Top 5 Applications: 
                         [x]     Check that it displays the latest 5 application entries

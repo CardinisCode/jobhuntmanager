@@ -13,28 +13,26 @@
 <!-- <p> Today's date: {{ display_details.todays_date }} </p> -->
 
 <table class="center"> 
-    <tr class="border-bottom border-right border-left border-top">
-        <th> Date</th>
-        <th> Job Reference</th>
-        <th> Company</th>
-        <th> Role</th>
-        <th> Salary</th>
-        <th> Platform</th>
-        <th> Employment Type</th>
-        <th> Interview Stage</th>
-        <th> Contact Received Y/N</th>
-        <th> View Details</th>
-    </tr>
-
-    {% for key, value in display_details.items() %}
-        {% for item in value %}
-            <tr class="border-bottom border-right border-left"></tr>
-                {% for i in item %}
-                    <td class="border-right border-left border-bottom"> {{ i }} </td>
+        <tr class="border-bottom border-right border-left border-top">
+            {% for key, value in display_details.items() %}
+                {% if key == "headings"  %}
+                    {% for heading in value["headings_list"] %}
+                    <th class="border-bottom border-right border-left border-top"> {{ heading }} </th>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </tr>
+    
+        {% for id, application in display_details.items() %}
+            {% if id != "headings"  %} 
+            <tr class="border-bottom border-right border-left border-top">
+                <td class="border-bottom border-right border-left border-top"> {{ id }}</td> 
+                {% for field in application.values() %}
+                    <td class="border-bottom border-right border-left border-top"> {{ field.data }} </td>
                 {% endfor %}
             </tr>
+            {% endif %}
         {% endfor %}
-    {% endfor %}
 
 {% endblock %}
 
