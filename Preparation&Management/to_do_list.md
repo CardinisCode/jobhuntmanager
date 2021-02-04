@@ -263,7 +263,7 @@ Project Management
                         [x]     Check that it displays the latest 5 application entries
                         [x]     Check that all entries are in order 
                                 of the most recent application first (By Date)
-                        [ ]     Optimise how applications headings are displayed to table
+                        [ ]     Improve how Fields & headings are displayed to the table        
                 [x]     Top 5 Interviews:
                         [x]     Create a SQL query to grab last 5 interviews for this user
                                 (ORDER BY: First: Date, Second: Time)

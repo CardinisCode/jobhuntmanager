@@ -2,6 +2,43 @@ from flask import Flask, render_template, session, flash
 from datetime import datetime, date
 
 
+def grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_dict(applicationsRepo, user_id):
+    top_5_applications = {}
+    query_results = applicationsRepo.grabTop5ApplicationsFromHistory(user_id)
+
+    if not query_results:
+        flash("top_5_applications_query didn't return any data. Please review!")
+
+    top_5_applications["headings"] = ["Date & Time", "Company Name", "Job Role", "Platform / Job Board", "Employment Type", "Interview Stage", "Received Contact? Y/N", "Salary", "Job Ref"]
+    id_count = 1
+    for application in query_results:
+        app_date = application[0]
+        job_ref = application[1]
+        company_name = application[2]
+        job_role = application[3]
+        platform = application[4]
+        emp_type =  application[5]
+        app_stage = application[6]
+        contact_received = application[7]
+        salary = application[8]
+
+        top_5_applications[id_count] = {
+            "ID#": id_count,
+            "date&time": app_date, 
+            "company_name": company_name,
+            "job_role": job_role,
+            "platform": platform,
+            "emp_type": emp_type, 
+            "app_stage": app_stage, 
+            "contact_received": contact_received,
+            "salary": salary,
+            "job_ref": job_ref,
+        }
+        id_count += 1
+
+    return top_5_applications
+
+
 def cleanup_fields_for_better_display(top_5_interviews_dict, id_count, other_medium):
     # Let's start by extracting the fields we want to update: 
     interview_type = top_5_interviews_dict[id_count]["interview_type"]
@@ -119,10 +156,11 @@ def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo):
 
     # Now to grab the values from the relevant SQL queries:
     applications_today = applicationsRepo.grabTodaysApplicationCount(current_date, user_id)
-    top_5_applications = applicationsRepo.grabTop5ApplicationsFromHistory(user_id)
+    # top_5_applications = applicationsRepo.grabTop5ApplicationsFromHistory(user_id)
     interviews_today = interviewsRepo.grabTodaysInterviewCount(str(current_date), user_id)
     
     # Now to review the SQL query results and create a Dictionary to display to the screen:
+    top_5_applications_dict = grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_dict(applicationsRepo, user_id)
     top_5_interviews_dict = grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(interviewsRepo, user_id)
 
     interviews_today_count = 0
@@ -139,7 +177,7 @@ def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo):
         "applications_today": applications_today,
         "interviews_today": interviews_today_count,
         "message": message,
-        "top_5_applications": top_5_applications,
+        "top_5_applications": top_5_applications_dict,
         "top_5_interviews": top_5_interviews_dict,
     }
 

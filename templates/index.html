@@ -24,25 +24,29 @@
     <h3> View Your Applications history:</h3>
     <!-- Drop down to view table-->
     <table class="Table"> 
-        <tr> 
-            <th> Date</th>
-            <th> Job Reference</th>
-            <th> Company name</th>
-            <th> Job role</th>
-            <th> Job platform</th>
-            <th> Employment Type</th>
-            <th> Interview Stage</th> 
-            <th> Received Contact (Y/N)</th>
-            <th> Salary</th>
+        <tr class="border-bottom border-right border-left border-top"> 
+            <th class="border-bottom border-right border-left"> ID#</th>
+            <th class="border-bottom border-right border-left"> Date</th>
+            <th class="border-bottom border-right border-left"> Company name</th>
+            <th class="border-bottom border-right border-left"> Job role</th>
+            <th class="border-bottom border-right border-left"> Job platform</th>
+            <th class="border-bottom border-right border-left"> Employment Type</th>
+            <th class="border-bottom border-right border-left"> Interview Stage</th> 
+            <th class="border-bottom border-right border-left"> Received Contact (Y/N)</th>
+            <th class="border-bottom border-right border-left"> Salary</th>
+            <th class="border-bottom border-right border-left"> Job Reference</th>
         </tr>
 
-        {% for application in display.top_5_applications %}
-            <tr class="border-bottom border-right border-left">
-                {% for item in application %}
-                    <td class="border-right border-left border-bottom"> {{ item }} </td>
-                {% endfor %}
-            </tr>
+        {% for key, value in display.top_5_applications.items() %}
+            {% if key != "headings" %}
+                <tr class="border-bottom border-right border-left">
+                    {% for field in value.values() %}
+                        <td class="border-bottom border-right border-left"> {{ field }}</td>
+                    {% endfor %}
+                </tr>
+            {% endif %}
         {% endfor %}
+    </table>
 
 
     </table>
