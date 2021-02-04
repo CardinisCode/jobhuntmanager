@@ -41,7 +41,10 @@ def grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(
         # Let's combined our date & time values (received from the SQL query) into 1 variable
         # Using the format: "%Y-M-D, H:M":
         updated_date_time = combine_date_and_time_into_1_string(interview_date, interview_time)
-    
+
+        # Now I can finish by adding the updated datetime, along with all the other values, 
+        # to my top_5_interviews_dict dictionary: 
+
         top_5_interviews_dict[id_count] = {
             "Date & Time": updated_date_time,
             "company_name": interview[1], 
@@ -54,11 +57,6 @@ def grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(
             "status": status,
             "interviewer_names": interviewer_names, 
         } 
-
-
-
-        # Now I can finish by adding this to my top_5_interviews_dict dictionary: 
-        top_5_interviews_dict[id_count]["scheduled_date"] = updated_date_time
 
         # Just so that we grab an unique ID for every application on this list:
         id_count += 1
@@ -75,7 +73,6 @@ def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo):
     top_5_applications = applicationsRepo.grabTop5ApplicationsFromHistory(user_id)
     interviews_today = interviewsRepo.grabTodaysInterviewCount(str(current_date), user_id)
     
-
     # Now to review the SQL query results and create a Dictionary to display to the screen:
     top_5_interviews_dict = grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(interviewsRepo, user_id)
 

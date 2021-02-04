@@ -82,10 +82,11 @@
             <th class="border-bottom border-right border-left border-top"> Status</th>
             <th class="border-bottom border-right border-left border-top"> Interviewer Names</th>
         </tr>
+
         {% for key, value in display.items() %}
             {% if key == "top_5_interviews" %}
                 {% for id, fields in value.items() %}
-                    <tr class="border-bottom border-right border-left"></tr>
+                    <tr class="border-bottom border-right border-left">
                         <td class="border-right border-left border-bottom"> {{ id }} </td>
                         {% for name, info in fields.items() %}
                             <td class="border-bottom border-right border-left"> {{ info }}</td>
