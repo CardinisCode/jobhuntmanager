@@ -24,17 +24,10 @@
     <h3> View Your Applications history:</h3>
     <!-- Drop down to view table-->
     <table class="Table"> 
-        <tr class="border-bottom border-right border-left border-top"> 
-            <th class="border-bottom border-right border-left"> ID#</th>
-            <th class="border-bottom border-right border-left"> Date</th>
-            <th class="border-bottom border-right border-left"> Company name</th>
-            <th class="border-bottom border-right border-left"> Job role</th>
-            <th class="border-bottom border-right border-left"> Job platform</th>
-            <th class="border-bottom border-right border-left"> Employment Type</th>
-            <th class="border-bottom border-right border-left"> Interview Stage</th> 
-            <th class="border-bottom border-right border-left"> Received Contact (Y/N)</th>
-            <th class="border-bottom border-right border-left"> Salary</th>
-            <th class="border-bottom border-right border-left"> Job Reference</th>
+        <tr class="border-bottom border-right border-left border-top">
+            {% for item in display.top_5_applications.headings %}
+                <th class="border-bottom border-right border-left"> {{ item }} </th> 
+            {% endfor %}
         </tr>
 
         {% for key, value in display.top_5_applications.items() %}

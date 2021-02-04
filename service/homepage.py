@@ -9,7 +9,7 @@ def grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_d
     if not query_results:
         flash("top_5_applications_query didn't return any data. Please review!")
 
-    top_5_applications["headings"] = ["Date & Time", "Company Name", "Job Role", "Platform / Job Board", "Employment Type", "Interview Stage", "Received Contact? Y/N", "Salary", "Job Ref"]
+    top_5_applications["headings"] = ["Id#", "Date & Time", "Company Name", "Job Role", "Platform / Job Board", "Employment Type", "Interview Stage", "Received Contact? Y/N", "Salary", "Job Ref"]
     id_count = 1
     for application in query_results:
         app_date = application[0]
