@@ -5,15 +5,12 @@ Project Management
         [X] Create repo directory
         [X] Create service directory
         [X] Create style directory
-
-        [ ] Set up SQLite3 database
+        [x] Set up SQLite3 database
                 [X]     Create db
-                [ ]     Create connection to db
-
+                [x]     Create connection to db
         [X]     Create repo for users
                 [X]     Within Users:
                         Create file consisting of classes to perform various SQL queries
-
         [X] Create templates directory
                 -> Create files:
                 [x]     layout.html
@@ -38,7 +35,6 @@ Project Management
         [X]     Create rules for password 
                 [X]     Add these requirements on the html page
                 [X]     Verify that the password provided meets those requirements
-
         [X]     Add user to user table (sqlite3 database)
                 [X]     username
                 [X]     hash password
@@ -54,7 +50,6 @@ Project Management
                                 [x]     search db for email address provided
                                 [x]     hash login password provided
                         [x]     hash login password & compare to hashed password for that user
-
         [x]     If valid: login in user
                 [x]     Take user to home page
         [x]     If invalid:
@@ -85,30 +80,19 @@ Project Management
                                 -> render template to display index.html
                         [X]     POST:
                                 -> refer to create_homepage_content function in services directory
-
         [x]     In index.html 
                 [x]     Design layout of headings, messages & links
                 [x]     Design layout for tables & add headings:
                         [x]     Interviews
                         [x]     Applications
                         [x]     Job Offers
-
-
                 [x]     Create Company Directory table
                         [x]     id (AUTOINCREMENT) 
                         [x]     Company name TEXT (From add_application)
-                        
                 [x]     Create Company Repo
                                 [X]     Create a method to Add a new company to the profile 
                                         -> Returns the company Id
                 [X]     Add Repo to application.py
-
-
-        [ ]     Come back to this after completing:
-                [X]     Job applications
-                [X]     Job interviews
-                [ ]     Job offers
-        
 
 ------------------------------------------------------------------------------
 
@@ -119,12 +103,10 @@ Project Management
                 [x]     Create route & function
                         [x]     GET: render template to the html page
                                 [x]     Create the add_interview form 
-
                         [x]     POST: Take the info & display user's input on a 2nd html page
                                 [x]     Create a interview_details html page 
                                 [x]     Create a function to grab the details & insert the details into the relevant SQL table
                                 [x]     Display the details to the interview_details html page
-
         [x]     Display Interviews
                 [X]     Create SQL query to grab top 10 interviews by date in DESC order 
                 [ ]     Create function to display details to interviews.html
@@ -136,7 +118,6 @@ Project Management
                         [x]     If 'medium' == 'other' -> Display the info for 'other_medium'
                         [x]     Change the values from variable names -> actual text 
                                 EG: "in_person" -> "In person"
-
                 [x]     Bugs: 
                         [x]     Data displayed is ordered by Date but not by time, so all rows of a specific date are in mixed order
                                 [x]     Correction: In SQL query: Sort by Date, then by time 
@@ -148,37 +129,18 @@ Project Management
                                 [x]     Correction: Capitalise the value of 'status'
                                         EG: 'status' -> 'Status'
 
-
 ------------------------------------------------------------------------------ 
 
-#7: [ ] Add Interview
+#7: [x] Add Interview
         [x]     Add route & function for "/add_interview"
         [x]     Create InterviewHistoryRepo
                 [x]     Create a method to grab details and add to repo:
-                        [ ]     Unique identifier
-                        [ ]     Date
-                        [ ]     Company name
-                        [ ]     Interviewer/s names
-                        [ ]     Q's asked (optional)
-                        [ ]     Take aways (notes)
-                        [ ]     Room for improvement
-
-        [ ]     GET
-                [ ]     Create form:
-                        [ ]     Date
-                        [ ]     Company name
-                        [ ]     Interviewer/s names
-                        [ ]     Take aways (notes)
-                        [ ]     Room for improvement
-                        [ ]     Q's asked (optional)
-                [ ]     renders_template for add_interview.html
-
-        [ ]     POST
-                [ ]     Grab details from form
-                [ ]     call on relevant method to add details to repo
-                [ ]     User will be given the option to add item to the in-app calendar
+        [x]     GET
+                [x]     Create form on add_interview.html:
+        [x]     POST
+                [x]     Grab details from form
+                [x]     call on relevant method to add details to repo
                 [ ]     Display message to user to confirm the interview has been added
-                [ ]     Redirect user to Interviews.html
 
 ------------------------------------------------------------------------------
 #8: [x] In service/homepage, update create_homepage_content (function) 
@@ -202,7 +164,6 @@ Project Management
         [x]     Pull all the day current_day interviews to a variable
                 [x] Save how many items were returned & display to user
                         EG: "You have {{ X }} number of Interviews today" 
-
                 [x] IF no interviews lined up today: 
                         EG: "You have {{ X }} number of Interviews today" 
                         [x]     Add option to add lined up interview
@@ -263,7 +224,7 @@ Project Management
                         [x]     Check that it displays the latest 5 application entries
                         [x]     Check that all entries are in order 
                                 of the most recent application first (By Date)
-                        [ ]     Improve how Fields & headings are displayed to the table        
+                        [x]     Improve how Fields & headings are displayed to the table        
                 [x]     Top 5 Interviews:
                         [x]     Create a SQL query to grab last 5 interviews for this user
                                 (ORDER BY: First: Date, Second: Time)
@@ -276,42 +237,119 @@ Project Management
                         [x]     Test that it displays the top 5 interviews as expected
 
 ------------------------------------------------------------------------------
-#12: [ ] Redo Login & Register using WTForms 
-        [ ]     Research how to add a login / register using WTForm   
 
+#12: [x] Add a fixed side bar to all pages
 
 ------------------------------------------------------------------------------
-#13: [ ]     Index page: 
-        [ ]     Update to Display Last 7 days Applications
-                [ ]     Create SQL Query
-                [ ]     Pull that data in homepage.py
-                [ ]     Calculate interview count
-                [ ]     Update Index.html
-        [ ]     Update to Display Last 7 days Interviews
-                [ ]     Create SQL Query
-                [ ]     Pull that data in homepage.py
-                [ ]     Calculate interview count
-                [ ]     Update Index.html
 
-------------------------------------------------------------------------------                
+#13: [ ] Redo Login & Register using WTForms 
+        [ ]     Install pip3 install passlib
+        [ ]     Create a Register class & allocate fields
+                [ ]     Username 
+                [ ]     Password
+                [ ]     Confirm Password
+                [ ]     Email
+                [ ]     Accept T&Cs
+                [ ]     Submit field
+                (Refer to https://pythonprogramming.net/flask-user-registration-form-tutorial/)
+        [ ]     Create test Register page & allocate it a route & function 
+        [ ]     GET: render test_register.html
+        [ ]     POST: Create function
+                [ ]     Create SQL query in users table, to check if the username provided already exists
+                [ ]     Create SQL query in users table, to check if the email address provided 
+                        already exists
+                [ ]     Encrypt password
+                (refer to https://pythonprogramming.net/flask-registration-tutorial/?completed=/flask-user-registration-form-tutorial/)
 
-#: Bugs to be fixed later:
+        [ ]     If all successful: replace the current with the updated registeration process
+
+------------------------------------------------------------------------------
+
+ONGOING:
+[ ]     Bugs to be fixed:
         [x]     Details received from 'add_interview.html' display on interview_details.html' 
                 as text boxes that can be edited. 
                 [x]     Figure out solution to adjust the values for each field so they display as plain text.
 
         [ ]     There's a huge gap at the top of each page, due to the side bar.
+        [ ]     Interview_details.html: interviewer_names field is an edit text box
 
-------------------------------------------------------------------------------   
+------------------------------------------------------------------------------
+
+Yet to do:
+
+#: [ ]  Index page: 
+        [ ]     Update to Display how many applications user has submitted over the last 7 days
+                [ ]     Create SQL Query
+                [ ]     Pull that data in homepage.py
+                [ ]     Calculate interview count
+                [ ]     Update Index.html
+        [ ]     Update to Display how many Interviews user has submitted over the last 7 days
+                [ ]     Create SQL Query
+                [ ]     Pull that data in homepage.py
+                [ ]     Calculate interview count
+                [ ]     Update Index.html
+
+#: [ ]  Job offers:
+        [ ]     Create SQL table "job_offers"
+        [ ]     Create html form to allow user to input a new job offer
+        [ ]     Add SQL query to add new job offer to job_offers table 
+        [ ]     Add Side bar option to add a job offer
+        [ ]     Display Job offers to Index page 
+                (in similar structure to Applications & Interviews)
 
 #: [ ] Nav bar 
         [ ]     import relevant library for icons
         [x]     import libraries for css styles
         [x]     Create structure for Nav bar:
-        
- -----------------------------------------------------------------------------
+
+
+#: [ ] interview_preparation
+        [ ]     Create a router & function
+        [ ]     Create template: interview_preparation.html
+        [ ]     Create repo: InterviewPrepRepository
+        [ ]     Add option to add Interview prep -> Button / box
+                [ ]     redirect to add_interview_prep.html
+        [ ]     Add link to view interview prep
+                [ ]     redirect to view_interview_prep.html
+        [ ]     Add option to get advice on how to answer these Q's
+                [ ]     Link to Indeed's Q behind the Q (Indeed)
+        [ ]     General page design
+
+#: [ ] Styling
+        [ ]     Add a CSS file
+        [ ]     #1:     Nav bar
+        [ ]     #2:     Headings
+        [ ]     #3:     buttons (general)
+        [ ]     #4:     Tables
+        [ ]     #5:     Forms
+        [ ]     #6:     Pages:
+                [ ]     #1:     Home page
+                [ ]     #2:     Applications
+                [ ]     #3:     User Account
+                [ ]     #4:     Calendar
+                [ ]     #5:     View Applications history
+                [ ]     #6:     Add Applications
+                [ ]     #7:     Update Applications
+                [ ]     #8:     Delete Applications
+                [ ]     #9:     View Interviews history
+                [ ]     #10:    Add Interview
+                [ ]     #11:    Update Interview
+                [ ]     #12:    Delete Interview
+        [ ]     #8:    Side bar
 
 #: [ ] Updating details 
+        [ ]     Add option to Update a make changes to individual entries:
+                [ ]     Interviews
+                [ ]     Applications
+                [ ]     Job Offers
+                -> Where the user will presented with the relevant form with all that form's field names & data provided for that entry
+                -> User Can SAve their changes or Delete the entry altogether or go back without making changes.
+        [ ]     Add option to delete an entry:
+                [ ]     Applications
+                [ ]     Interviews
+                [ ]     Job Offers
+                -> Offer the user the chance to confirm that they'd like delete that entry.
         ->      User will be instructed to provide the company name
                 ->      User will be shown (in table format) all applications made to that company
                 ->      User can select an application 
@@ -320,25 +358,8 @@ Project Management
                                 ->      add / view Communication received
                                 ->      Add / view notes made
 
-  ------------------------------------------------------------------------------ 
 
-#13: [ ] interview_preparation
-        [ ]     Create a router & function
-        [ ]     Create template: interview_preparation.html
-        [ ]     Create repo: InterviewPrepRepository
-
-        [ ]     GET:
-                [ ]     Add option to add Interview prep -> Button / box
-                        [ ]     redirect to add_interview_prep.html
-                [ ]     Add option to view interview prep -> Button / box
-                        [ ]     redirect to view_interview_prep.html
-                [ ]     Add option to get advice on how to answer these Q's
-                        [ ]     Link to Indeed's Q behind the Q (Indeed)
-                [ ]     General page design
-
-  ------------------------------------------------------------------------------ 
-
-#14: [ ] Add Interview prep
+#: [ ] Add Interview prep
         [ ]     Create method to Insert entry into InterviewPrepRepository
         [ ]     Create add_interview_prep.html
         [ ]     Add router & function in application.py
@@ -357,9 +378,7 @@ Project Management
                         [ ]     Link to Indeed's Q behind the Q (Indeed)
                 [ ]     Add button -> To save the user's answers
 
-  ------------------------------------------------------------------------------ 
-
-#15: [ ] View interview prep
+#: [ ] View interview prep
         [ ]     Create method to call on an entry from InterviewPrepRepository
         [ ]     Create a view_interview_prep.html 
         [ ]     add route & function in application.py
@@ -382,21 +401,15 @@ Project Management
                 [ ]     Create Table
                         [ ] Display all interviews for that company 
 
-  ------------------------------------------------------------------------------                                                  
-
-#16: [ ] Calendar page
+#: [ ] Calendar page
         [ ]     Create calendar
-        [ ]     Adding to calendar
-        [ ]     Figure out what gets displayed to user
-                [ ]     Calendar
+        [ ]     Add Calendar functionality
                 [ ]     Add to calendar button
                 [ ]     Delete option
                 [ ]     Update option
                 [ ]     Option to select a date to see the events added
 
-  ------------------------------------------------------------------------------ 
-
-#17: [ ] User Profile
+#: [ ] User Profile
         [ ]     Add option for user to add more details: 
                 [ ]     Create form: add_extra_user_details.html
                         [ ]     Industry of preference
@@ -407,72 +420,10 @@ Project Management
                 [ ]     create change_password.html
         [ ]     Delete account -> Redirect user to delete_account.html
                 [ ]     create delete_account.html
-        
 
   ------------------------------------------------------------------------------ 
 
-#18: [ ] Calendar
-        [ ]     Create route & function in application.py
-        [ ]     GET
-                [ ]     Display the calendar [ figure out how to do this!]
-                        [ ]     Add option to Add interview 
-                        [ ]     Option to select date 'blocks' on calendar
-                        [ ]     option to delete interview
-        [ ]     POST
-                [ ]     Process:
-                        [ ]     Requests to add interview to calendar
-                        [ ]     Request to select a date / block on calendar
-                        [ ]     request to delete interview
-
-  ------------------------------------------------------------------------------ 
-        
-#19: [ ] Figure out how to add a side bar "default" layout structure to layout.html
-        [ ]     Add side bars to 
-                [ ]     Homepage
-                [ ]     Applications
-                [ ]     Interviews
-                [ ]     User Account
-        [ ]     For each page
-                [ ]     customize the side bar options
-
-  ------------------------------------------------------------------------------ 
-
-#20: [ ] Error handling page
-        [ ]     Create apology.html page
-        [ ]     Create route & function in application.py
-        [ ]     GET
-                ->   Render template to apology.html
-        [ ]     Create design for page
-                -> image? 
-                -> way to allow input of error message & code
-
-  ------------------------------------------------------------------------------ 
-
-#21: [ ] Styling
-        [ ]     Add a CSS file
-        [ ]     #1:     Nav bar
-        [ ]     #2:     Headings
-        [ ]     #3:     buttons (general)
-        [ ]     #4:     Tables
-        [ ]     #5:     Forms
-        [ ]     #6:     Pages:
-                [ ]     #1:     Home page
-                [ ]     #2:     Applications
-                [ ]     #3:     User Account
-                [ ]     #4:     Calendar
-                [ ]     #5:     View Applications history
-                [ ]     #6:     Add Applications
-                [ ]     #7:     Update Applications
-                [ ]     #8:     Delete Applications
-                [ ]     #9:     View Interviews history
-                [ ]     #10:    Add Interview
-                [ ]     #11:    Update Interview
-                [ ]     #12:    Delete Interview
-        [ ]     #8:    Side bar
-
-  ------------------------------------------------------------------------------ 
-
-#22: [ ] Potential extra features
+#: [ ] Potential extra features
         [ ]     Add Option to postpone an interview
         [ ]     Add Option to Add technical testing Interview (prior to actual Interview)
         [ ]     Add Option to Add research for a company
