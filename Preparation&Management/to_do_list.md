@@ -245,7 +245,7 @@ Project Management
                 [x]     Make sure it works as expected
 
 ------------------------------------------------------------------------------
-#11: [ ] Display Applications & Interviews:
+#11: [x] Display Applications & Interviews:
         [x]     Applications page
                 [x]     Make sure all applications display as expected on Applications.html
                 [x]     Check that all entries are in order of the most recent application first
@@ -264,17 +264,16 @@ Project Management
                         [x]     Check that all entries are in order 
                                 of the most recent application first (By Date)
                         [ ]     Optimise how applications headings are displayed to table
-                [ ]     Top 5 Interviews:
-                        [ ]     Create a SQL query to grab last 5 interviews for this user
+                [x]     Top 5 Interviews:
+                        [x]     Create a SQL query to grab last 5 interviews for this user
                                 (ORDER BY: First: Date, Second: Time)
-                        [ ]     Update function homepage.create_homepage_content():
-                                [ ]     Call on relevant SQL query to grab top_five_interview details
-                                [ ]     Add fields to variables & add to dict
-                                [ ]     render dict to index.html 
-                                
-                        [ ]     Customise the table on index.html:
-                                [ ]     Recreate the table to receive top5interviews
-                        [ ]     Test that it displays the top 5 interviews as expected
+                        [x]     Update function homepage.create_homepage_content():
+                                [x]     Call on relevant SQL query to grab top_five_interview details
+                                [x]     Add fields to variables & add to dict
+                                [x]     render dict to index.html 
+                        [x]     Customise the table on index.html:
+                                [x]     Recreate the table to receive top5interviews
+                        [x]     Test that it displays the top 5 interviews as expected
 
 ------------------------------------------------------------------------------
 #12: [ ] Redo Login & Register using WTForms 
