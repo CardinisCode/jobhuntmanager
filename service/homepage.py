@@ -2,6 +2,38 @@ from flask import Flask, render_template, session, flash
 from datetime import datetime, date
 
 
+def cleanup_fields_for_better_display_top5applications(top_5_applications, id_count):
+    date_time_str = top_5_applications[id_count]["date&time"]
+    emp_type = top_5_applications[id_count]["emp_type"]
+
+    # Lets improve how the data for "Employment Type" is displayed to the user in the table:
+    if emp_type == "full_time":
+        top_5_applications[id_count]["emp_type"] = "Full Time"
+    elif emp_type == "part_time":
+        top_5_applications[id_count]["emp_type"] = "Part Time"
+    elif emp_type == "temp":
+        top_5_applications[id_count]["emp_type"] = "Temporary"
+    elif emp_type == "contract":
+        top_5_applications[id_count]["emp_type"] = "Contract"
+    else:
+        top_5_applications[id_count]["emp_type"] = "Other"
+
+    # Improving how the date & time values are presented
+    # 1) I need to convert my date&time value to actual datetime values:
+    current_datetime_format = "%Y-%m-%d %H:%M:%S.%f"
+    date_time_obj = datetime.strptime(date_time_str, current_datetime_format)
+
+    # 2) To convert this datetime_obj into a string & simultaneously get the format I want:
+    desired_datetime_format = "%Y-%m-%d, %H:%M"
+    updated_date_time = date_time_obj.strftime(desired_datetime_format)
+
+    # 3) Finally, we can update the datetime value in our dictionary:
+    top_5_applications[id_count]["date&time"] = updated_date_time
+
+    return top_5_applications
+
+
+
 def grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_dict(applicationsRepo, user_id):
     top_5_applications = {}
     query_results = applicationsRepo.grabTop5ApplicationsFromHistory(user_id)
@@ -9,7 +41,7 @@ def grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_d
     if not query_results:
         flash("top_5_applications_query didn't return any data. Please review!")
 
-    top_5_applications["headings"] = ["Id#", "Date & Time", "Company Name", "Job Role", "Platform / Job Board", "Employment Type", "Interview Stage", "Received Contact? Y/N", "Salary", "Job Ref"]
+    top_5_applications["headings"] = ["Id#", "Date & Time", "Company Name", "Job Role", "Platform / Job Board", "Employment Type", "Received Contact? Y/N", "Salary", "Job Ref"]
     id_count = 1
     for application in query_results:
         app_date = application[0]
@@ -18,7 +50,6 @@ def grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_d
         job_role = application[3]
         platform = application[4]
         emp_type =  application[5]
-        app_stage = application[6]
         contact_received = application[7]
         salary = application[8]
 
@@ -29,14 +60,15 @@ def grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_d
             "job_role": job_role,
             "platform": platform,
             "emp_type": emp_type, 
-            "app_stage": app_stage, 
             "contact_received": contact_received,
             "salary": salary,
             "job_ref": job_ref,
         }
+
+        updated_applications_dict = cleanup_fields_for_better_display_top5applications(top_5_applications, id_count)
         id_count += 1
 
-    return top_5_applications
+    return updated_applications_dict
 
 
 def cleanup_fields_for_better_display(top_5_interviews_dict, id_count, other_medium):
@@ -154,12 +186,11 @@ def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo):
     # Let's grab today's date as this will help us when we're grabbing interviews & applications for the current date:
     current_date = date.today()
 
-    # Now to grab the values from the relevant SQL queries:
+    # Now to grab the values for the Applications & Interviews added on the current date (from the perspective SQL queries):
     applications_today = applicationsRepo.grabTodaysApplicationCount(current_date, user_id)
-    # top_5_applications = applicationsRepo.grabTop5ApplicationsFromHistory(user_id)
     interviews_today = interviewsRepo.grabTodaysInterviewCount(str(current_date), user_id)
     
-    # Now to review the SQL query results and create a Dictionary to display to the screen:
+    # Now to grab the values from our SQL queries for the top 5 applications & interviews & create a dictionary for each:
     top_5_applications_dict = grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_dict(applicationsRepo, user_id)
     top_5_interviews_dict = grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(interviewsRepo, user_id)
 
