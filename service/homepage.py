@@ -188,12 +188,14 @@ def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo):
 
     # Now to grab the values for the Applications & Interviews added on the current date (from the perspective SQL queries):
     applications_today = applicationsRepo.grabTodaysApplicationCount(current_date, user_id)
-    interviews_today = interviewsRepo.grabTodaysInterviewCount(str(current_date), user_id)
+    interviews_today = interviewsRepo.grabTodaysInterviewCount(current_date, user_id)
     
     # Now to grab the values from our SQL queries for the top 5 applications & interviews & create a dictionary for each:
     top_5_applications_dict = grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_dict(applicationsRepo, user_id)
     top_5_interviews_dict = grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(interviewsRepo, user_id)
 
+    # It seems like SQLite specifically does not allow one to return the row count.
+    # So we'll just have to do a manual row count:
     interviews_today_count = 0
     for interview in interviews_today:
         interviews_today_count += 1
