@@ -43,7 +43,7 @@ Project Management
 
 ------------------------------------------------------------------------------
 
-#3: [ ] Login
+#3: [x] Login
         [x]     Create a service page login.py
                 [x]     Create post_login functionality
                         [x]     Verify email address against db
@@ -71,7 +71,7 @@ Project Management
 ------------------------------------------------------------------------------
 
 
-#5: [ ] Home page
+#5: [x] Home page
         [x]     Create homepage.html
         [x]     Create route for index.html 
                 [x]     include the @login decorator
@@ -96,7 +96,7 @@ Project Management
 
 ------------------------------------------------------------------------------
 
-#6: Job Applications:
+#6: [x] Job Applications:
         [x]     Add interview 
                 [x]     Create a SQL query to add values to relevant table
                 [x]     Create html page
