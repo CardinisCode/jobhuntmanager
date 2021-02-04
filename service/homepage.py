@@ -46,12 +46,13 @@ def grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(
         # to my top_5_interviews_dict dictionary: 
 
         top_5_interviews_dict[id_count] = {
-            "Date & Time": updated_date_time,
+            "Id#": id_count,
+            "date_&_Time": updated_date_time,
             "company_name": interview[1], 
             "job_role": interview[4],
             "interview_type": interview_type,
-            "Interview Location": location,
-            "Video medium": medium,
+            "interview_Location": location,
+            "video_medium": medium,
             "other_medium": other_medium, 
             "contact_number": contact_number,
             "status": status,
@@ -60,6 +61,11 @@ def grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(
 
         # Just so that we grab an unique ID for every application on this list:
         id_count += 1
+    
+    # In order to use a for loop to display the headings in our table on Index
+    # without using a for loop within a for loop as this would print the headings far more times than we need it to
+    # (To get technical this would print n*n headings where n = the no. of headings)
+    top_5_interviews_dict["headings"] = ["Id#", "Date & Time", "Company Name", "Job Role", "Interview Type", "Location", "Video Medium", "Other Medium", "Contact No.", "Status", "Interviewer Names"]
 
     return top_5_interviews_dict
 

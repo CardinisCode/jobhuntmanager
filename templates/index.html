@@ -69,35 +69,24 @@
     <h3> Interviews Lined up:</h3>
     <!-- Drop down to view table-->
     <table class="Table"> 
-        <tr> 
-            <th class="border-bottom border-right border-left border-top"> #</th>
-            <th class="border-bottom border-right border-left border-top"> Date & Time</th>
-            <th class="border-bottom border-right border-left border-top"> Company name</th>
-            <th class="border-bottom border-right border-left border-top"> Job role</th>
-            <th class="border-bottom border-right border-left border-top"> Interview Type</th>
-            <th class="border-bottom border-right border-left border-top"> Location</th>
-            <th class="border-bottom border-right border-left border-top"> Video Medium</th>
-            <th class="border-bottom border-right border-left border-top"> Other Medium</th>
-            <th class="border-bottom border-right border-left border-top"> Contact No.</th>
-            <th class="border-bottom border-right border-left border-top"> Status</th>
-            <th class="border-bottom border-right border-left border-top"> Interviewer Names</th>
+        <tr class="border-bottom border-right border-left border-top">
+            {% for item in display.top_5_interviews.headings %}
+                <th class="border-bottom border-right border-left"> {{ item }} </th> 
+            {% endfor %}
         </tr>
 
-        {% for key, value in display.items() %}
-            {% if key == "top_5_interviews" %}
-                {% for id, fields in value.items() %}
-                    <tr class="border-bottom border-right border-left">
-                        <td class="border-right border-left border-bottom"> {{ id }} </td>
-                        {% for name, info in fields.items() %}
-                            <td class="border-bottom border-right border-left"> {{ info }}</td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
+        {% for key, value in display.top_5_interviews.items() %}
+            {% if key != "headings" %}
+                <tr class="border-bottom border-right border-left">
+                    {% for field in value.values() %}
+                        <td class="border-bottom border-right border-left"> {{ field }}</td>
+                    {% endfor %}
+                </tr>
             {% endif %}
         {% endfor %}
     </table>
-    <br/>
 
+    <br/>
     <br/>
     <div class="horizontal_buttons">
         <a href="/add_interview" class="button left_button">Add Interview</a>
