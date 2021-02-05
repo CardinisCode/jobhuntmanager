@@ -43,3 +43,12 @@ class ApplicationsHistoryRepository:
         self.db.commit()
 
         return result.lastrowid
+
+    def checkCompanyNameInApplicationHistoryForUser(self, pattern, user_name):
+        cursor = self.db.cursor()
+        result = cursor.execute(
+            "SELECT EXISTS(SELECT company_name FROM application_history WHERE company_name LIKE ? and user_id = ?)", (pattern, user_name,)
+        )
+        self.db.commit()
+
+        return result

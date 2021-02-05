@@ -165,4 +165,17 @@ COMMIT;
 ```
 
 
-SELECT * FROM interview_history WHERE date = "2021-02-01" AND user_id = 2;
+# Checking to see if a value exists in a column of a table using SQLite3:
+# Using EXISTS:
+```
+"SELECT EXISTS(SELECT company_name FROM application_history WHERE company_name = ? and user_id = ?)", (pattern, user_name,)
+
+"EXISTS(SELECT company_name FROM application_history WHERE company_name = ? and user_id = ?)", (pattern, user_name,)
+
+"EXISTS(SELECT company_name FROM application_history WHERE company_name = "Noir" and user_id = 2);
+
+```
+# USING 'IN':
+```
+
+```

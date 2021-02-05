@@ -1,6 +1,9 @@
 # CREDITS
 
 
+# Checking if a value exists in a table's column:
+-   https://www.sqlitetutorial.net/sqlite-exists/
+
 # Form handling in Flask:
 -   https://overiq.com/flask-101/form-handling-in-flask/
 
