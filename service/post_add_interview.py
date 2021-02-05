@@ -186,7 +186,6 @@ def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo)
     company_already_exists_in_db = check_businessName_against_application_history(company_name, user_id, applicationsRepo)
     if company_already_exists_in_db: 
         flash("Company already exists in DB, consider updating the application details for this company.")
-        
 
     else:
         flash("Use interview details to create a new application for this company.")
