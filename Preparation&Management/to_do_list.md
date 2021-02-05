@@ -244,7 +244,7 @@ Project Management
 
 #13: [ ]  Update Application_history when user adds a new interview
         [ ]     Check if that company name already exists in application_history for that user
-                [ ]     Create SQL query to check a company name in application_history
+                [x]     Create SQL query to check a company name in application_history
                 [ ]     If yes: Update the relevant fields for that application 
                         in application_history
                 [ ]     If no: Add a new application for that company in application_history
