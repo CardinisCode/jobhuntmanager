@@ -186,12 +186,14 @@ def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo)
     company_already_exists_in_db = check_businessName_against_application_history(company_name, user_id, applicationsRepo)
     if company_already_exists_in_db: 
         flash("Company already exists in DB, consider updating the application details for this company.")
+        # Create SQL query to update entry for this company in application_history -> update interview_stage = "Interview lined up."
 
     else:
         flash("Use interview details to create a new application for this company.")
+        # Call on insertApplicationDetailsToApplicationHistory SQL query using details from this interview. 
 
     # Add details to SQL DB:
-    # InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
+    InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
 
     # Add details to a dict to be displayed to the template
     details = gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
