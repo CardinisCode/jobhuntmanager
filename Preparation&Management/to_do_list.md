@@ -242,7 +242,45 @@ Project Management
 
 ------------------------------------------------------------------------------
 
-#13: [ ] Redo Login & Register using WTForms 
+#13: [ ]  Update Application_history when user adds a new interview
+        [ ]     Check if that company name already exists in application_history for that user
+                [ ]     Create SQL query to check a company name in application_history
+                [ ]     If yes: Update the relevant fields for that application 
+                        in application_history
+                [ ]     If no: Add a new application for that company in application_history
+
+------------------------------------------------------------------------------
+
+ONGOING:
+[ ]     Bugs to be fixed:
+        [ ]     There's a huge gap at the top of each page, due to the side bar.
+        [x]     Details received from 'add_interview.html' display on interview_details.html' 
+                as text boxes that can be edited. 
+                [x]     Figure out solution to adjust the values for each field so they display as plain text.
+        [x]     Interview_details.html: interviewer_names field is an edit text box
+        [x]     Interview History: 
+                [x]     "Video / Online" is displaying "skype" instead of "Skype"
+                [x]     In_person interviews are displaying "Contact number" 
+                        instead of "In Person"
+                [x]     In person interviews are displaying the medium (eg: "zoom")
+                        Where medium should display "N/A" 
+
+------------------------------------------------------------------------------
+
+Yet to do:
+
+#: [ ]  Add Companies to CompanyDirectory table
+        [ ]     Create SQL query to check a provided company name (arg) 
+                against those saved in the company directiory
+        [ ]     Create SQL query to add a company to the CompanyDirectory
+        [ ]     in post_add_application(), Check if company already exists in CompanyDirectory
+                        [ ]     If not: Add company to CompanyDirectory
+        [ ]     in post_add_interview(), check if company already exists in CompanyDirectory
+                [ ]     If No:
+                        [ ]     Add company to CompanyDirectory  
+
+
+#: [ ] Redo Login & Register using WTForms 
         [ ]     Install pip3 install passlib
         [ ]     Create a Register class & allocate fields
                 [ ]     Username 
@@ -263,45 +301,27 @@ Project Management
 
         [ ]     If all successful: replace the current with the updated registeration process
 
-------------------------------------------------------------------------------
-
-ONGOING:
-[ ]     Bugs to be fixed:
-        [x]     Details received from 'add_interview.html' display on interview_details.html' 
-                as text boxes that can be edited. 
-                [x]     Figure out solution to adjust the values for each field so they display as plain text.
-        [ ]     There's a huge gap at the top of each page, due to the side bar.
-        [x]     Interview_details.html: interviewer_names field is an edit text box
-        [x]     Interview History: 
-                [x]     "Video / Online" is displaying "skype" instead of "Skype"
-                [x]     In_person interviews are displaying "Contact number" 
-                        instead of "In Person"
-                [x]     In person interviews are displaying the medium (eg: "zoom")
-                        Where medium should display "N/A" 
-
-------------------------------------------------------------------------------
-
-Yet to do:
-
 #: [ ]  Index page: 
         [ ]     Update to Display how many applications user has submitted over the last 7 days
-                [ ]     Create SQL Query
+                [ ]     Create SQL Query to grab all applications added over the past 7 days
                 [ ]     Pull that data in homepage.py
                 [ ]     Calculate interview count
-                [ ]     Update Index.html
+                [ ]     Display to Index.html
         [ ]     Update to Display how many Interviews user has submitted over the last 7 days
-                [ ]     Create SQL Query
+                [ ]     Create SQL Query to grab all interviews added over the past 7 days
                 [ ]     Pull that data in homepage.py
                 [ ]     Calculate interview count
-                [ ]     Update Index.html
+                [ ]     Display to Index.html
 
 #: [ ]  Job offers:
         [ ]     Create SQL table "job_offers"
-        [ ]     Create html form to allow user to input a new job offer
-        [ ]     Add SQL query to add new job offer to job_offers table 
-        [ ]     Add Side bar option to add a job offer
-        [ ]     Display Job offers to Index page 
-                (in similar structure to Applications & Interviews)
+        [ ]     Creating a new Job offer
+                [ ]     Create SQL query to add a job offer to the job_offers table
+                [ ]     Create html form to allow user to input a new job offer
+                [ ]     Add Side bar option to add a job offer
+        [ ]     Display Job Offers added by user
+                [ ]     Create SQL query to grab top5JobOffers for the user
+                [ ]     Display top5JobOffers to Index.html
 
 #: [ ] Nav bar 
         [ ]     import relevant library for icons
@@ -310,16 +330,29 @@ Yet to do:
 
 
 #: [ ] interview_preparation
-        [ ]     Create a router & function
-        [ ]     Create template: interview_preparation.html
-        [ ]     Create repo: InterviewPrepRepository
-        [ ]     Add option to add Interview prep -> Button / box
-                [ ]     redirect to add_interview_prep.html
-        [ ]     Add link to view interview prep
-                [ ]     redirect to view_interview_prep.html
-        [ ]     Add option to get advice on how to answer these Q's
-                [ ]     Link to Indeed's Q behind the Q (Indeed)
-        [ ]     General page design
+        [ ]     Add Interview Preparation:
+                [ ]     Create template add_interview_prep.html
+                [ ]     Create route & function
+                [ ]     Create InterviewPrep class 
+                        [ ]     Add top 10 interview Q's as the fields 
+                                & set values as Text fields 
+                        [ ]     Add button -> To save the user's answers
+                [ ]     GET: Design form on add_interview_prep
+                        [ ]     Pull form fields & display to user
+                        [ ]     Add option to get advice on how to answer these Q's
+                                [ ]     Link to Indeed's Q behind the Q (Indeed)
+                [ ]     POST: 
+                        [ ]     Create post_add_interview_prep function 
+                        [ ]     Create repo: InterviewPrepRepository 
+                        [ ]     Create interview_prep table
+                        [ ]     Create SQL query to add an post_add_interview_prep entry into 
+                        the interview_prep table
+                        [ ]     Save details from current entry to interview_prep table
+
+        [ ]     Display Interview Preparation:
+                [ ]     Create SQL query to grab Top 10 Interviews_prep entries for that user
+                [ ]     Create route & function
+                [ ]     GET: Display these entries onto interview_prep.html page in table
 
 #: [ ] Styling
         [ ]     Add a CSS file
@@ -382,29 +415,7 @@ Yet to do:
                 [ ]     Add option to get advice on how to answer these Q's
                         [ ]     Link to Indeed's Q behind the Q (Indeed)
                 [ ]     Add button -> To save the user's answers
-
-#: [ ] View interview prep
-        [ ]     Create method to call on an entry from InterviewPrepRepository
-        [ ]     Create a view_interview_prep.html 
-        [ ]     add route & function in application.py
-        [ ]     GET
-                [ ]     Render template for view_interview_prep.html
-        [ ]     POST
-                [ ]     Grab detail from Search bar
-                [ ]     Search for interview details by company name
-                [ ]     If company name not found in db:
-                        [ ]     Display error  to user: "Company name not recognised. Try again"
-                [ ]     If company name found in db
-                        [ ]     grab relevant details from db for that company name
-                [ ]     Structure the relevant info for the table in a dict
-                [ ]     Render template to view_interview_prep.html 
                         
-
-        [ ]     Create form on view_interview_prep.html
-                [ ]     Search bar for company name 
-                [ ]     Search button
-                [ ]     Create Table
-                        [ ] Display all interviews for that company 
 
 #: [ ] Calendar page
         [ ]     Add link to calendar.html on layout.html (top bar)
@@ -427,6 +438,14 @@ Yet to do:
                 [ ]     create change_password.html
         [ ]     Delete account -> Redirect user to delete_account.html
                 [ ]     create delete_account.html
+
+#: [ ]  Add Search functionality:
+        [ ]     Update the class for each of the follow to include a search "company" functionality
+                [ ]     Applications.html
+                [ ]     Interviews.html
+                [ ]     JobOffers.html
+                [ ]     Interview_prep.html
+
 
   ------------------------------------------------------------------------------ 
 
