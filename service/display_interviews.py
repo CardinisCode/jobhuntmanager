@@ -21,34 +21,50 @@ def display_top_10_interviews_to_interviews_html(session, user_id, interviewsRep
         other_medium = details_list[10]
         interview_type = details_list[7]
         interview_status = details_list[12]
+        interviewers = details_list[5]
 
         details_dict[interview_id] = {
             "company_name": details_list[1], 
             "date": details_list[2], 
             "time": details_list[3], 
             "job_role": details_list[4], 
-            "interviewers": details_list[5], 
+            "interviewers": interviewers, 
             "location": details_list[8], 
             "contact_number": details_list[11], 
             "interview_status": details_list[12]
         }
 
-        # Condition: If user selects 'Other', we want their chosen medium to be displayed for 'medium'
-        if medium == 'other': 
-            medium = other_medium
-        details_dict[interview_id]["medium"] = medium
-
-        # Two of the fields have their data displayed like variable names
-        # 
-
-        # 1: Let's replace the current values for 'interview_type' with strings that improve the appearance of the data:
-        if interview_type == 'in_person':
-            interview_type = "In Person"
-        elif interview_type == 'video_or_online':
+        #1: Lets set a condition: 
+        # If interview_type == "video_or_online": Display medium's value, Else: medium = "N/A"
+        if interview_type == 'video_or_online':
+            # Firstly we improve how the value gets displayed:
             interview_type = "Video / Online"
-        else:
-            interview_type = "Contact Number"
+
+            # Secondly let's improve the values' appearance for video medium:
+            if medium == "zoom":
+                medium = "Zoom"
+            elif medium == "skype":
+                medium = "Skype"
+            elif medium == "google_chat":
+                medium = "Google Chat"
+            elif medium == "meet_jit_si":
+                medium = "Meet Jit Si"
+            else:
+                # If user selects 'Other', I want their chosen medium to be displayed under the heading "Video Medium":
+                medium = other_medium
+            details_dict[interview_id]["medium"] = medium
+
+        else: 
+            # If interview_type == "in_person" or "phone_call"
+            details_dict[interview_id]["medium"] = "N/A"
+
+            if interview_type == 'in_person':
+                interview_type = "In Person"
+
+            if interview_type == "phone_call":
+                interview_type = "Contact Number"
         details_dict[interview_id]["interview_type"] = interview_type
+
 
         # 2: Let's adjust 'status' data so we can capitalize it before it reaches the table
         if interview_status == "upcoming":
@@ -59,7 +75,14 @@ def display_top_10_interviews_to_interviews_html(session, user_id, interviewsRep
             interview_status = "Cancelled"
         else:
             interview_status = "Post-poned"
+
+        # Now to finalise I can update the value of interview_status in our dictionary: 
         details_dict[interview_id]["interview_status"] = interview_status
+
+        # 3: If interviewer_names == "Unknown at present", then the field should be blank:
+        if interviewers == "Unknown at present":
+            interviewers = ""
+            details_dict[interview_id]["interviewers"] = interviewers
 
 
     return render_template("interviews.html", details=details_dict)

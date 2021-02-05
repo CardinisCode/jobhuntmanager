@@ -270,9 +270,14 @@ ONGOING:
         [x]     Details received from 'add_interview.html' display on interview_details.html' 
                 as text boxes that can be edited. 
                 [x]     Figure out solution to adjust the values for each field so they display as plain text.
-
         [ ]     There's a huge gap at the top of each page, due to the side bar.
-        [ ]     Interview_details.html: interviewer_names field is an edit text box
+        [x]     Interview_details.html: interviewer_names field is an edit text box
+        [x]     Interview History: 
+                [x]     "Video / Online" is displaying "skype" instead of "Skype"
+                [x]     In_person interviews are displaying "Contact number" 
+                        instead of "In Person"
+                [x]     In person interviews are displaying the medium (eg: "zoom")
+                        Where medium should display "N/A" 
 
 ------------------------------------------------------------------------------
 
@@ -402,7 +407,9 @@ Yet to do:
                         [ ] Display all interviews for that company 
 
 #: [ ] Calendar page
+        [ ]     Add link to calendar.html on layout.html (top bar)
         [ ]     Create calendar
+        [ ]     Create a route & function on applications.html
         [ ]     Add Calendar functionality
                 [ ]     Add to calendar button
                 [ ]     Delete option

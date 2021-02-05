@@ -90,7 +90,7 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
     if interviewers.data != "Unknown at present":
         details["interviewers"] = {
             "label": "Interviewers' names", 
-            "data": interviewers
+            "data": interviewers.data
         }
 
     # Let's set a few conditions for what gets displayed to the user:
