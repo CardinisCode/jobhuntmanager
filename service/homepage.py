@@ -4,7 +4,6 @@ from datetime import datetime, date
 
 def cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage):
     date_time_str = top_5_applications[id_count]["date&time"]
-    raise ValueError(date_time_str)
     emp_type = top_5_applications[id_count]["emp_type"]
 
     # Lets improve how the data for "Employment Type" is displayed to the user in the table:
