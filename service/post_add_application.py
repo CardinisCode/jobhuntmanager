@@ -4,7 +4,9 @@ from datetime import datetime
 
 def format_data_and_add_to_sql_db(user_id, applicationsRepo, company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url):
     # We need to grab current day's date when user adds a new application:
-    application_date = str(datetime.date(datetime.now()))
+    # application_date = str(datetime.date(datetime.now()))
+    application_date = datetime.now()
+    raise ValueError(application_date)
 
     # Before we add the fields to our SQL db, lets make sure we first grab the data for each field:
     company_name = company_name.data

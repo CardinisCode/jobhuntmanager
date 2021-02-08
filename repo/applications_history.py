@@ -44,6 +44,13 @@ class ApplicationsHistoryRepository:
 
         return result.lastrowid
 
+    def insertApplicationDetailsFromNewInterviewForNewCompany(self, user_id, current_date, company_name, job_role, interview_stage):
+        cursor = self.db.cursor()
+        result = cursor.execute("INSERT INTO application_history (user_id, date, company_name, job_role, interview_stage) VALUES (?, ?, ?, ?, ?)", (user_id, current_date, company_name, job_role, interview_stage))
+        self.db.commit()
+
+        return result.lastrowid        
+
     def checkCompanyNameInApplicationHistoryForUser(self, pattern, user_name):
         cursor = self.db.cursor()
         result = cursor.execute(

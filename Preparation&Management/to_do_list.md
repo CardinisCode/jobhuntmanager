@@ -245,9 +245,15 @@ Project Management
 #13: [ ]  Update Application_history when user adds a new interview
         [ ]     Check if that company name already exists in application_history for that user
                 [x]     Create SQL query to check a company name in application_history
-                [ ]     If yes: Update the relevant fields for that application 
+                [x]     If yes: Update the interview_stage for that application 
                         in application_history
+                        [x]     Update interview_stage in application_history
+                        [x]     Update how interview stage is displayed to user:
+                                [x]     applications.html
+                                [x]     interview_details.html
+                                [x]     index.html
                 [ ]     If no: Add a new application for that company in application_history
+                        [ ]     In post_add_interview, call insertApplicationDetailsToApplicationHistory() with interview_details
 
 ------------------------------------------------------------------------------
 
