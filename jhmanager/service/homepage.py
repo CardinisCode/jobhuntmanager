@@ -2,6 +2,10 @@ from flask import Flask, render_template, session, flash
 from datetime import datetime, date
 
 
+def mapper():
+    return {}
+
+
 def cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage):
     date_time_str = top_5_applications[id_count]["date&time"]
     emp_type = top_5_applications[id_count]["emp_type"]

@@ -1,6 +1,5 @@
 from flask import request, render_template, redirect, flash
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers_from_cs50_finance import apology
 from datetime import datetime, date
 
 
