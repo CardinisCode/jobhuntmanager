@@ -48,9 +48,9 @@ def InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, inte
 
 
 
-def gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status):
+def gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status, interview_stage):
     details = {}
-
+    
     # Gather all fields to be displayed to user as confirmation:
     details = {
         "company_name" : {
@@ -155,6 +155,12 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
         "data": status.data
     }
 
+    interview_stage_text = "Interview #{interview_stage} lined up.".format(interview_stage = str(interview_stage))
+    details["interview_stage"] = {
+        "label": "Interview Stage", 
+        "data": interview_stage_text
+    }
+
     return details
 
 
@@ -169,8 +175,9 @@ def check_businessName_against_application_history(company_name, user_id, applic
 
 
 def update_interview_stage_for_existing_application(applicationsRepo, user_id, company_name):
-    # Lets start by setting some default values:
-    update_successful = False
+    # # Lets start by setting some default values:
+    message = "Interview stage has not been successfully updated."
+    updated_interview_stage = None
 
     # Lets first check what the current interview stage is for this company name:
     fields = (str(user_id), str(company_name.data))
@@ -181,14 +188,12 @@ def update_interview_stage_for_existing_application(applicationsRepo, user_id, c
     # Let's update the interview_stage based on interview_stage's current value:
     updated_interview_stage = int(current_interview_stage) + 1
     details = (str(updated_interview_stage), int(user_id), str(company_name.data))
-
     update = applicationsRepo.updateInterviewStageAfterAddingNewInterview(details)
     if update == 0:
-        # flash("Updated interview stage successfully!")
-        update_successful = True
-        # return True
+        message = "The Interview stage for this company has been successfully updated."
+        return (updated_interview_stage, message)
 
-    return update_successful
+    return (updated_interview_stage, message)
 
 
 def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo):
@@ -211,18 +216,22 @@ def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo)
         flash("Company already exists in DB, consider updating the application details for this company.")
         # Create SQL query to update entry for this company in application_history -> update interview_stage = "Interview lined up."
         interview_stage_updated = update_interview_stage_for_existing_application(applicationsRepo, user_id, company_name)
-        if not interview_stage_updated: 
-            flash("Failed to update Interview Stage. Please follow up with this.")
+        message = interview_stage_updated[1]
+        interview_stage = interview_stage_updated[0]
+        if interview_stage == None:
+            flash(message)
 
     else:
         flash("Use interview details to create a new application for this company.")
+        interview_stage = 0
+
         # Call on insertApplicationDetailsToApplicationHistory SQL query using details from this interview. 
 
-    # Add details to SQL DB:
+    # Add details to application_history in SQL DB:
     InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
 
     # Add details to a dict to be displayed to the template
-    details = gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
+    details = gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status, interview_stage)
 
     return render_template("interview_details.html", details=details)
 
