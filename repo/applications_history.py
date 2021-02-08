@@ -53,9 +53,19 @@ class ApplicationsHistoryRepository:
 
         return result
 
+    def grabApplicationStageForCompanyNameForActiveUser(self, fields):
+        cursor = self.db.cursor()
+        result = cursor.execute(
+            "SELECT interview_stage FROM application_history WHERE user_id = ? AND company_name LIKE ?", (fields)
+            )
+        self.db.commit()
+
+        return result
+
+
     def updateInterviewStageAfterAddingNewInterview(self, details):
         cursor = self.db.cursor()
-        result = cursor.execute("UPDATE application_history SET interview_stage = ? WHERE user_id = ? AND company_name LIKE ?", (details))
+        cursor.execute("UPDATE application_history SET interview_stage = ? WHERE user_id = ? AND company_name LIKE ?", (details))
         self.db.commit()
 
         return 0        

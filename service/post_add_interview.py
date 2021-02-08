@@ -171,9 +171,26 @@ def check_businessName_against_application_history(company_name, user_id, applic
 def update_interview_stage_for_existing_application(applicationsRepo, user_id, company_name):
     # Lets start by setting some default values:
     update_successful = False
-    interview_stage = "First Interview lined up."
 
-    details = (str(interview_stage), int(user_id), str(company_name.data))
+    # Lets first check what the current interview stage is for this company name:
+    fields = (str(user_id), str(company_name.data))
+    grab_interview_stage = applicationsRepo.grabApplicationStageForCompanyNameForActiveUser(fields)
+    for item in grab_interview_stage:
+        current_interview_stage = item[0]
+
+    # Let's update the interview_stage based on interview_stage's current value:
+    updated_interview_stage = "First Interview lined up."
+
+    if current_interview_stage == "First Interview lined up.":
+        updated_interview_stage = "Second interview lined up."
+
+    elif current_interview_stage == "Second interview lined up.":
+        updated_interview_stage = "Third Interview lined up."
+    
+    elif current_interview_stage == "Third Interview lined up.":
+        updated_interview_stage = "Fourth Interview lined up."
+
+    details = (str(updated_interview_stage), int(user_id), str(company_name.data))
 
     update = applicationsRepo.updateInterviewStageAfterAddingNewInterview(details)
     if update == 0:
