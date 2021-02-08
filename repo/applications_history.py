@@ -2,9 +2,9 @@ class ApplicationsHistoryRepository:
     def __init__(self, db):
         self.db = db
 
-    def addApplicationToHistory(self, company_name, job_role, date, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url):
+    def addApplicationToHistory(self, company_name, job_role, date, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("INSERT INTO application_history (company_name, job_role, date, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (company_name, job_role, date, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url))
+        result = cursor.execute("INSERT INTO application_history (company_name, job_role, date, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (company_name, job_role, date, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id))
         self.db.commit()
 
         return result.lastrowid

@@ -34,9 +34,6 @@ def cleanup_fields_for_better_display_top5applications(top_5_applications, id_co
     interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage = str(interview_stage))
     top_5_applications[id_count]["interview_stage"] = interview_stage_str
 
-    return top_5_applications
-
-
 
 def grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_dict(applicationsRepo, user_id):
     top_5_applications = {}
@@ -71,10 +68,10 @@ def grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_d
             "job_ref": job_ref,
         }
 
-        updated_applications_dict = cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage)
+        cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage)
         id_count += 1
 
-    return updated_applications_dict
+    return top_5_applications
 
 
 def cleanup_fields_for_better_display(top_5_interviews_dict, id_count, other_medium):
