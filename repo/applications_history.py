@@ -2,9 +2,9 @@ class ApplicationsHistoryRepository:
     def __init__(self, db):
         self.db = db
 
-    def addApplicationToHistory(self, company_name, job_role, date, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url):
+    def addApplicationToHistory(self, company_name, job_role, date, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("INSERT INTO application_history (company_name, job_role, date, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (company_name, job_role, date, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url))
+        result = cursor.execute("INSERT INTO application_history (company_name, job_role, date, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (company_name, job_role, date, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id))
         self.db.commit()
 
         return result.lastrowid
@@ -43,6 +43,13 @@ class ApplicationsHistoryRepository:
         self.db.commit()
 
         return result.lastrowid
+
+    def insertApplicationDetailsFromNewInterviewForNewCompany(self, user_id, current_date, company_name, job_role, interview_stage):
+        cursor = self.db.cursor()
+        result = cursor.execute("INSERT INTO application_history (user_id, date, company_name, job_role, interview_stage) VALUES (?, ?, ?, ?, ?)", (user_id, current_date, company_name, job_role, interview_stage))
+        self.db.commit()
+
+        return result.lastrowid        
 
     def checkCompanyNameInApplicationHistoryForUser(self, pattern, user_name):
         cursor = self.db.cursor()

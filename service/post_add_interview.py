@@ -196,6 +196,29 @@ def update_interview_stage_for_existing_application(applicationsRepo, user_id, c
     return (updated_interview_stage, message)
 
 
+def add_interview_details_to_application_history_for_unknown_company_name(applicationsRepo, user_id, company_name, job_role):
+        # Let's add the details for this interview into application_history:
+        # application_date = str(datetime.date(datetime.now()))
+        application_date = str(datetime.date(datetime.now()))
+        employment_type = "N/A"
+        location = "Remote"
+        job_description = "N/A"
+        notes = "N/A"
+        platform = "N/A"
+        perks = "N/A"
+        company_description = "N/A"
+        tech_stack = "N/A"
+        url = "N/A"
+        stage = "N/A"
+        contact_received = "yes"
+        job_ref = "N/A"
+        salary =  "N/A"
+        company_name_value = company_name._value()
+        job_role_value = job_role._value()
+
+        applicationsRepo.insertApplicationDetailsToApplicationHistory(user_id, application_date, employment_type, location, job_description, notes, job_role_value, company_name_value, platform, perks, company_description, tech_stack, url, stage, contact_received, job_ref, salary)
+
+
 def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo):
     #Grab and verify field data:
     company_name = form.company_name 
@@ -222,10 +245,33 @@ def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo)
             flash(message)
 
     else:
+        # The user has added an interview for company_name without adding a new application for that company first:
         flash("Use interview details to create a new application for this company.")
         interview_stage = 0
 
-        # Call on insertApplicationDetailsToApplicationHistory SQL query using details from this interview. 
+        add_interview_details_to_application_history_for_unknown_company_name(applicationsRepo, user_id, company_name, job_role)
+
+        # # Let's add the details for this interview into application_history:
+        # # application_date = str(datetime.date(datetime.now()))
+        # application_date = str(datetime.date(datetime.now()))
+        # employment_type = "N/A"
+        # location = "Remote"
+        # job_description = "N/A"
+        # notes = "N/A"
+        # platform = "N/A"
+        # perks = "N/A"
+        # company_description = "N/A"
+        # tech_stack = "N/A"
+        # url = "N/A"
+        # stage = "N/A"
+        # contact_received = "yes"
+        # job_ref = "N/A"
+        # salary =  "N/A"
+        # company_name_value = company_name._value()
+        # job_role_value = job_role._value()
+
+        # applicationsRepo.insertApplicationDetailsToApplicationHistory(user_id, application_date, employment_type, location, job_description, notes, job_role_value, company_name_value, platform, perks, company_description, tech_stack, url, stage, contact_received, job_ref, salary)
+
 
     # Add details to application_history in SQL DB:
     InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)

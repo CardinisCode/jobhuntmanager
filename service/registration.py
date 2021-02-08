@@ -140,8 +140,6 @@ def post_registration(session, userRepo):
 
     # Now we have the hashed password, let's store the username and password in our database
     result = userRepo.createUser(username, hashed_password, email, str_date)
-    # if result == None:
-    #     raise ValueError("Your user has not been successfully added to users.")
     session["user_id"] = result
 
     flash('Registration Complete!')
