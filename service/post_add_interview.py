@@ -179,16 +179,31 @@ def update_interview_stage_for_existing_application(applicationsRepo, user_id, c
         current_interview_stage = item[0]
 
     # Let's update the interview_stage based on interview_stage's current value:
-    updated_interview_stage = "First Interview lined up."
+    interview_count = 0
 
-    if current_interview_stage == "First Interview lined up.":
-        updated_interview_stage = "Second interview lined up."
+    if current_interview_stage == "N/A":
+        interview_count = 1
 
-    elif current_interview_stage == "Second interview lined up.":
-        updated_interview_stage = "Third Interview lined up."
+    elif current_interview_stage == "First Interview lined up." or current_interview_stage == "Interview #1 lined up.":
+        interview_count = 2
+
+    elif current_interview_stage == "Second Interview lined up." or current_interview_stage == "Interview No. 2 lined up.":
+        interview_count = 3
     
-    elif current_interview_stage == "Third Interview lined up.":
-        updated_interview_stage = "Fourth Interview lined up."
+
+    updated_interview_stage = "Interview #{number} lined up.".format(number=interview_count)
+    # raise ValueError(updated_interview_stage)
+
+    # updated_interview_stage = "First Interview lined up."
+
+    # if current_interview_stage == "First Interview lined up.":
+    #     updated_interview_stage = "Second interview lined up."
+
+    # elif current_interview_stage == "Second interview lined up.":
+    #     updated_interview_stage = "Third Interview lined up."
+    
+    # elif current_interview_stage == "Third Interview lined up.":
+    #     updated_interview_stage = "Fourth Interview lined up."
 
     details = (str(updated_interview_stage), int(user_id), str(company_name.data))
 
