@@ -14,26 +14,26 @@ from tempfile import mkdtemp
 
 from helpers_from_cs50_finance import login_required, apology
 
-from repo.users import UserRepository
-from repo.company_directory import CompanyRepository
-from repo.applications_history import ApplicationsHistoryRepository
-from repo.interviewsHistory import InterviewsHistoryRepository
+from jhmanager.repo.users import UserRepository
+from jhmanager.repo.company_directory import CompanyRepository
+from jhmanager.repo.applications_history import ApplicationsHistoryRepository
+from jhmanager.repo.interviewsHistory import InterviewsHistoryRepository
 
-from service.registration import post_registration
-from service.homepage import create_homepage_content
-from service.login import post_login
-from service.post_add_application import post_add_application
-from service.display_applications import display_all_applications_current_user
-from service.add_interview import grabDetailsFromNewInterviewAndAddToRepo
-from service.post_add_interview import post_add_interview
-from service.display_interviews import display_top_10_interviews_to_interviews_html
+from jhmanager.service.registration import post_registration
+from jhmanager.service.homepage import create_homepage_content
+from jhmanager.service.login import post_login
+from jhmanager.service.post_add_application import post_add_application
+from jhmanager.service.display_applications import display_all_applications_current_user
+from jhmanager.service.add_interview import grabDetailsFromNewInterviewAndAddToRepo
+from jhmanager.service.post_add_interview import post_add_interview
+from jhmanager.service.display_interviews import display_top_10_interviews_to_interviews_html
 
-from forms import AddInterviewForm
-from forms import AddApplicationForm
+from jhmanager.forms import AddInterviewForm
+from jhmanager.forms import AddApplicationForm
 
 
 # Configure application
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
 Bootstrap(app)
 datepicker(app)
 
