@@ -2,7 +2,7 @@ from flask import Flask, render_template, session, flash
 from datetime import datetime, date
 
 
-def mapper():
+def for_andis_eyes_only():
     return {}
 
 
