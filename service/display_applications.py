@@ -5,6 +5,7 @@ from datetime import datetime, time
 def display_all_applications_current_user(session, user_id, applicationsRepo):
     top_ten_applications = applicationsRepo.grabTop10ApplicationsFromHistory(user_id)
 
+
     display_details = {}
     display_details["headings"] = {
         "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type", "Salary", "Platform / Job Board",  "Stage",  "Job Ref", "Contact Received"]
@@ -20,9 +21,13 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
         # Now that we have grabbed the fields for this current application
         # lets store these values in a dictionary to be displayed on the html page:
         app_id = details_list[0]
+        company_name = details_list[2]
         emp_type = details_list[4]
         app_date = details_list[1]
-        # raise ValueError(details_list)
+        interview_stage = details_list[7]
+
+        # Before adding Interview_stage to our display dict, let's format it's presentation:
+        Interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage=str(interview_stage))
 
         display_details[app_id] = {
             "app_date":  {
@@ -31,7 +36,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
             },
             "company_name": {
                 "label": "Company",
-                "data": details_list[2],
+                "data": company_name,
             },
             "job_role": {
                 "label": "Job Role",
@@ -51,7 +56,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
             },
             "interview_stage": {
                 "label": "Interview Stage",
-                "data": details_list[7],                  
+                "data": Interview_stage_str,                  
             },
             "job_ref": {
                 "label": "Job Ref", 
