@@ -52,3 +52,10 @@ class ApplicationsHistoryRepository:
         self.db.commit()
 
         return result
+
+    def updateInterviewStageAfterAddingNewInterview(self, details):
+        cursor = self.db.cursor()
+        result = cursor.execute("UPDATE application_history SET interview_stage = ? WHERE user_id = ? AND company_name LIKE ?", (details))
+        self.db.commit()
+
+        return 0        

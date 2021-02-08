@@ -168,6 +168,21 @@ def check_businessName_against_application_history(company_name, user_id, applic
     return company_already_exists_in_db
 
 
+def update_interview_stage_for_existing_application(applicationsRepo, user_id, company_name):
+    # Lets start by setting some default values:
+    update_successful = False
+    interview_stage = "First Interview lined up."
+
+    details = (str(interview_stage), int(user_id), str(company_name.data))
+
+    update = applicationsRepo.updateInterviewStageAfterAddingNewInterview(details)
+    if update == 0:
+        flash("Updated interview stage successfully!")
+        return True
+
+    return update_successful
+
+
 def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo):
     #Grab and verify field data:
     company_name = form.company_name 
@@ -187,13 +202,14 @@ def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo)
     if company_already_exists_in_db: 
         flash("Company already exists in DB, consider updating the application details for this company.")
         # Create SQL query to update entry for this company in application_history -> update interview_stage = "Interview lined up."
+        update_interview_stage_for_existing_application(applicationsRepo, user_id, company_name)
 
     else:
         flash("Use interview details to create a new application for this company.")
         # Call on insertApplicationDetailsToApplicationHistory SQL query using details from this interview. 
 
     # Add details to SQL DB:
-    InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
+    # InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
 
     # Add details to a dict to be displayed to the template
     details = gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)

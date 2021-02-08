@@ -171,3 +171,9 @@ COMMIT;
 "SELECT EXISTS(SELECT company_name FROM application_history WHERE company_name LIKE ? and user_id = ?)", (pattern, user_name,)
 
 ```
+
+# Updating fields in a table:
+```
+
+
+```
