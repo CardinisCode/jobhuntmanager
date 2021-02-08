@@ -2,7 +2,7 @@ from flask import Flask, render_template, session, flash
 from datetime import datetime, date
 
 
-def cleanup_fields_for_better_display_top5applications(top_5_applications, id_count):
+def cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage):
     date_time_str = top_5_applications[id_count]["date&time"]
     emp_type = top_5_applications[id_count]["emp_type"]
 
@@ -30,6 +30,10 @@ def cleanup_fields_for_better_display_top5applications(top_5_applications, id_co
     # 3) Finally, we can update the datetime value in our dictionary:
     top_5_applications[id_count]["date&time"] = updated_date_time
 
+    # Let's format how interview_stage is presented to the user:
+    interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage = str(interview_stage))
+    top_5_applications[id_count]["interview_stage"] = interview_stage_str
+
     return top_5_applications
 
 
@@ -41,7 +45,7 @@ def grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_d
     if not query_results:
         flash("top_5_applications_query didn't return any data. Please review!")
 
-    top_5_applications["headings"] = ["Id#", "Date & Time", "Company Name", "Job Role", "Platform / Job Board", "Employment Type", "Received Contact? Y/N", "Salary", "Job Ref"]
+    top_5_applications["headings"] = ["Id#", "Date & Time", "Company Name", "Job Role", "Employment Type", "Salary", "Interview Stage", "Platform / Job Board", "Received Contact? Y/N", "Job Ref"]
     id_count = 1
     for application in query_results:
         app_date = application[0]
@@ -50,6 +54,7 @@ def grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_d
         job_role = application[3]
         platform = application[4]
         emp_type =  application[5]
+        interview_stage = application[6]
         contact_received = application[7]
         salary = application[8]
 
@@ -58,14 +63,15 @@ def grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_d
             "date&time": app_date, 
             "company_name": company_name,
             "job_role": job_role,
-            "platform": platform,
             "emp_type": emp_type, 
-            "contact_received": contact_received,
             "salary": salary,
+            "interview_stage": interview_stage,
+            "platform": platform,
+            "contact_received": contact_received,
             "job_ref": job_ref,
         }
 
-        updated_applications_dict = cleanup_fields_for_better_display_top5applications(top_5_applications, id_count)
+        updated_applications_dict = cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage)
         id_count += 1
 
     return updated_applications_dict
