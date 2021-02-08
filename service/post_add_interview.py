@@ -179,38 +179,14 @@ def update_interview_stage_for_existing_application(applicationsRepo, user_id, c
         current_interview_stage = item[0]
 
     # Let's update the interview_stage based on interview_stage's current value:
-    interview_count = 0
-
-    if current_interview_stage == "N/A":
-        interview_count = 1
-
-    elif current_interview_stage == "First Interview lined up." or current_interview_stage == "Interview #1 lined up.":
-        interview_count = 2
-
-    elif current_interview_stage == "Second Interview lined up." or current_interview_stage == "Interview No. 2 lined up.":
-        interview_count = 3
-    
-
-    updated_interview_stage = "Interview #{number} lined up.".format(number=interview_count)
-    # raise ValueError(updated_interview_stage)
-
-    # updated_interview_stage = "First Interview lined up."
-
-    # if current_interview_stage == "First Interview lined up.":
-    #     updated_interview_stage = "Second interview lined up."
-
-    # elif current_interview_stage == "Second interview lined up.":
-    #     updated_interview_stage = "Third Interview lined up."
-    
-    # elif current_interview_stage == "Third Interview lined up.":
-    #     updated_interview_stage = "Fourth Interview lined up."
-
+    updated_interview_stage = int(current_interview_stage) + 1
     details = (str(updated_interview_stage), int(user_id), str(company_name.data))
 
     update = applicationsRepo.updateInterviewStageAfterAddingNewInterview(details)
     if update == 0:
-        flash("Updated interview stage successfully!")
-        return True
+        # flash("Updated interview stage successfully!")
+        update_successful = True
+        # return True
 
     return update_successful
 
@@ -234,14 +210,16 @@ def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo)
     if company_already_exists_in_db: 
         flash("Company already exists in DB, consider updating the application details for this company.")
         # Create SQL query to update entry for this company in application_history -> update interview_stage = "Interview lined up."
-        update_interview_stage_for_existing_application(applicationsRepo, user_id, company_name)
+        interview_stage_updated = update_interview_stage_for_existing_application(applicationsRepo, user_id, company_name)
+        if not interview_stage_updated: 
+            flash("Failed to update Interview Stage. Please follow up with this.")
 
     else:
         flash("Use interview details to create a new application for this company.")
         # Call on insertApplicationDetailsToApplicationHistory SQL query using details from this interview. 
 
     # Add details to SQL DB:
-    # InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
+    InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)
 
     # Add details to a dict to be displayed to the template
     details = gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status)

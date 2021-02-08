@@ -174,6 +174,8 @@ COMMIT;
 
 # Updating fields in a table:
 ```
+"UPDATE application_history SET interview_stage = interview_stage WHERE user_id = ? AND company_name LIKE ?", (user_id, company_name,)
 
+UPDATE application_history SET interview_stage = "First interview lined up" WHERE user_id = 2 AND company_name LIKE 'Noir';
 
 ```
