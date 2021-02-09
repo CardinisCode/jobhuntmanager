@@ -31,3 +31,6 @@
 
 # Styling WTForms: 
 -   https://wpforms.com/docs/how-to-customize-the-style-of-individual-form-fields/
+
+# Handling FOREIGN KEY constraints:
+- https://www.sqlitetutorial.net/sqlite-foreign-key/

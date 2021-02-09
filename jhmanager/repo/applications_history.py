@@ -7,7 +7,7 @@ class ApplicationsHistoryRepository:
         result = cursor.execute("INSERT INTO application_history (company_name, job_role, date, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (company_name, job_role, date, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id))
         self.db.commit()
 
-        return result.lastrowid
+        return result
 
     def grabTodaysApplicationCount(self, todays_date, user_id):
         cursor = self.db.cursor()

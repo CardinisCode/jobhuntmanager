@@ -16,7 +16,7 @@
         {% if display.applications_today == 0 %}
             <li> You have not submitted any applications today. <a href="/add_job_application">Add an Application.</a></li>
         {% else %}
-            <li class="left_button"> You have made {{ display.applications_today }} number of applications today!</li>
+            <li class="left_button"> Applications made today: {{ display.applications_today }}</li>
         {% endif %}
     </div>
     <br/>
@@ -56,7 +56,7 @@
         {% if display.interviews_today == 0 %}
             <li class="left_button"> You have no Interviews lined up today. <a href="/add_interview">Add an Interview.</a></li>
         {% else %}
-            <li class="left_button"> You have {{ display.interviews_today }} number of Interviews lined up today!</li>
+            <li class="left_button"> Interviews added today: {{ display.interviews_today }}</li>
         {% endif %}
     </div>
     <br/>

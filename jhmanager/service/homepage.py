@@ -7,7 +7,6 @@ def for_andis_eyes_only():
 
 
 def cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage):
-    date_time_str = top_5_applications[id_count]["date&time"]
     emp_type = top_5_applications[id_count]["emp_type"]
 
     # Lets improve how the data for "Employment Type" is displayed to the user in the table:
@@ -24,29 +23,29 @@ def cleanup_fields_for_better_display_top5applications(top_5_applications, id_co
 
     # Improving how the date & time values are presented
     # 1) I need to convert my date&time value to actual datetime values:
-    current_datetime_format = "%Y-%m-%d %H:%M:%S.%f"
-    date_time_obj = datetime.strptime(date_time_str, current_datetime_format)
+    # current_datetime_format = "%Y-%m-%d %H:%M:%S.%f"
+    # date_time_obj = datetime.strptime(date_time_str, current_datetime_format)
 
-    # 2) To convert this datetime_obj into a string & simultaneously get the format I want:
-    desired_datetime_format = "%Y-%m-%d, %H:%M"
-    updated_date_time = date_time_obj.strftime(desired_datetime_format)
+    # # 2) To convert this datetime_obj into a string & simultaneously get the format I want:
+    # desired_datetime_format = "%Y-%m-%d, %H:%M"
+    # updated_date_time = date_time_obj.strftime(desired_datetime_format)
 
-    # 3) Finally, we can update the datetime value in our dictionary:
-    top_5_applications[id_count]["date&time"] = updated_date_time
+    # # 3) Finally, we can update the datetime value in our dictionary:
+    # top_5_applications[id_count]["date&time"] = updated_date_time
 
     # Let's format how interview_stage is presented to the user:
     interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage = str(interview_stage))
     top_5_applications[id_count]["interview_stage"] = interview_stage_str
 
 
-def grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_dict(applicationsRepo, user_id):
+def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo, user_id):
     top_5_applications = {}
     query_results = applicationsRepo.grabTop5ApplicationsFromHistory(user_id)
 
     if not query_results:
         flash("top_5_applications_query didn't return any data. Please review!")
 
-    top_5_applications["headings"] = ["Id#", "Date & Time", "Company Name", "Job Role", "Employment Type", "Salary", "Interview Stage", "Platform / Job Board", "Received Contact? Y/N", "Job Ref"]
+    top_5_applications["headings"] = ["Id#", "Date", "Company Name", "Job Role", "Employment Type", "Salary", "Interview Stage", "Platform / Job Board", "Received Contact? Y/N", "Job Ref"]
     id_count = 1
     for application in query_results:
         app_date = application[0]
@@ -61,7 +60,7 @@ def grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_d
 
         top_5_applications[id_count] = {
             "ID#": id_count,
-            "date&time": app_date, 
+            "date": app_date, 
             "company_name": company_name,
             "job_role": job_role,
             "emp_type": emp_type, 
@@ -137,7 +136,7 @@ def combine_date_and_time_into_1_string(interview_date, interview_time):
     return updated_date_time
 
 
-def grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(interviewsRepo, user_id):
+def grab_values_from_top5interviews_SQLquery_and_return_dict(interviewsRepo, user_id):
     top_5_interviews_dict = {}
     query_results = interviewsRepo.grabTop5InterviewsForUser(user_id)
 
@@ -181,12 +180,12 @@ def grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(
         } 
 
         # Lets clean up how our values are displayed to the user on Index.html:
-        updated_interviews_dict = cleanup_fields_for_better_display(top_5_interviews_dict, id_count, other_medium)
+        cleanup_fields_for_better_display(top_5_interviews_dict, id_count, other_medium)
 
         # Just so that we grab an unique ID for every application on this list:
         id_count += 1
     
-    return updated_interviews_dict
+    return top_5_interviews_dict
 
 
 def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo):
@@ -198,8 +197,8 @@ def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo):
     interviews_today = interviewsRepo.grabTodaysInterviewCount(current_date, user_id)
     
     # Now to grab the values from our SQL queries for the top 5 applications & interviews & create a dictionary for each:
-    top_5_applications_dict = grab_values_from_top_5_applications_SQLquery_and_return_top_5_applications_dict(applicationsRepo, user_id)
-    top_5_interviews_dict = grab_values_from_top_5_interviews_SQLquery_and_return_top_5_interviews_dict(interviewsRepo, user_id)
+    top_5_applications_dict = grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo, user_id)
+    top_5_interviews_dict = grab_values_from_top5interviews_SQLquery_and_return_dict(interviewsRepo, user_id)
 
     # It seems like SQLite specifically does not allow one to return the row count.
     # So we'll just have to do a manual row count:

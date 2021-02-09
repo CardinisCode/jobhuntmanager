@@ -60,6 +60,9 @@ def format_data_and_add_to_sql_db(user_id, applicationsRepo, company_name, job_r
     # Now we finish off by adding the details into the SQL db:
     insert_application_details = applicationsRepo.addApplicationToHistory(company_name, job_role, application_date, emp_type, job_ref, company_spec, job_spec, tech_stack, perks, platform, location, salary, user_notes, job_url, user_id)
 
+    for item in insert_application_details:
+        raise ValueError(item)
+
     # Let's verify if we've successfully added our fields to the db table:
     if not insert_application_details:
         flash("Failed to insert details into ApplicationsHistoryRepo. Please investigate!")

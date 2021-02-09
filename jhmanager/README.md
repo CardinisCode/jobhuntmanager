@@ -214,3 +214,86 @@ CREATE TABLE application_history(
 COMMIT;
 
 ```
+
+# Schema to modify "user_id" field to be a NOT NULL field:
+# for 1) application_history
+```
+BEGIN TRANSACTION;
+CREATE TEMPORARY TABLE applications_backup(id, company_name, date, job_role, platform, interview_stage, employment_type, contact_received, location, job_description, user_notes, job_perks, company_descrip, tech_stack, job_url, job_ref, salary, user_id);
+INSERT INTO applications_backup SELECT id, company_name, date, job_role, platform, interview_stage, employment_type, contact_received, location, job_description, user_notes, job_perks, company_descrip, tech_stack, job_url, job_ref, salary, user_id FROM application_history;
+DROP TABLE application_history;
+CREATE TABLE IF NOT EXISTS application_history(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    "company_name" TEXT NOT NULL DEFAULT "N/A", 
+    "date" DATETIME NOT NULL, 
+    "job_role" TEXT NOT NULL DEFAULT "N/A", 
+    "platform" TEXT DEFAULT "N/A", 
+    "interview_stage" INTEGER  NOT NULL DEFAULT 0, 
+    "user_id" INTEGER NOT NULL, 
+    "employment_type" TEXT DEFAULT "N/A",
+    "contact_received" TEXT NOT NULL DEFAULT "No",
+    "location" TEXT DEFAULT "Remote",
+    "job_description" TEXT DEFAULT "N/A", 
+    "user_notes" TEXT DEFAULT "N/A",
+    "job_perks" TEXT DEFAULT "N/A",
+    "company_descrip" TEXT DEFAULT "N/A",
+    "tech_stack" TEXT DEFAULT "N/A",
+    "job_url" TEXT DEFAULT "N/A",
+    "job_ref" TEXT DEFAULT "N/A",
+    "salary" TEXT DEFAULT "N/A"
+);
+
+INSERT INTO application_history SELECT id, company_name, date, job_role, platform, interview_stage, employment_type, contact_received, location, job_description, user_notes, job_perks, company_descrip, tech_stack, job_url, job_ref, salary, user_id FROM applications_backup;
+DROP TABLE applications_backup;
+COMMIT;
+
+```
+
+# for 2: interview_history:
+```
+BEGIN TRANSACTION;
+CREATE TEMPORARY TABLE interviews_backup(id, company_name, date, time, job_role, user_id, interviewer_names, interview_type, location, interview_medium, other_medium, contact_number, status);
+INSERT INTO interviews_backup SELECT id, company_name, date, time, job_role, user_id, interviewer_names, interview_type, location, interview_medium, other_medium, contact_number, status FROM interview_history;
+DROP TABLE interview_history;
+CREATE TABLE IF NOT EXISTS interview_history(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    "company_name" TEXT NOT NULL DEFAULT "N/A",
+    "date" DATETIME NOT NULL, 
+    "time" DATETIME NOT NULL,
+    "job_role" TEXT NOT NULL,
+    "user_id" INTEGER NOT NULL, 
+    "interviewer_names" TEXT DEFAULT "Unknown at present",
+    "interview_type" TEXT NOT NULL, 
+    "location" TEXT DEFAULT "Remote",
+    "interview_medium" TEXT,
+    "other_medium" TEXT DEFAULT "N/A",
+    "contact_number" TEXT DEFAULT "N/A",
+    "status" TEXT NOT NULL DEFAULT "upcoming"
+);
+INSERT INTO interview_history SELECT id, company_name, date, time, job_role, user_id, interviewer_names, interview_type, location, interview_medium, other_medium, contact_number, status FROM interviews_backup;
+DROP TABLE interviews_backup;
+COMMIT;
+
+```
+
+# To check whether your current version of SQLite supports foreign key constraints or not, you use the following command.
+```
+PRAGMA foreign_keys;
+```
+
+# The command returns an integer value: 1: enable, 0: disabled. If the command returns nothing, it means that your SQLite version doesn’t support foreign key constraints.
+
+# To disable foreign key constraint:
+```
+PRAGMA foreign_keys = OFF;
+```
+
+# To enable foreign key constraint:
+```
+PRAGMA foreign_keys = ON;
+```
+
+# To read more about FOREIGN KEY constraints:
+```
+https://www.sqlitetutorial.net/sqlite-foreign-key/
+```
