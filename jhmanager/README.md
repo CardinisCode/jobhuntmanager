@@ -181,11 +181,6 @@ UPDATE application_history SET interview_stage = "First interview lined up" WHER
 ```
 
 
-
-
-CREATE TABLE application_history("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "company_name" TEXT NOT NULL DEFAULT "N/A", "date" DATETIME NOT NULL, "job_role" TEXT NOT NULL DEFAULT "N/A", "platform" TEXT NOT NULL DEFAULT "N/A", "interview_stage" TEXT NOT NULL DEFAULT "N/A", "user_id" INTEGER, "employment_type" TEXT NOT NULL DEFAULT "N/A", "contact_received" TEXT NOT NULL DEFAULT "No", "location" TEXT NOT NULL DEFAULT "Remote", "job_description" BLOB NOT NULL DEFAULT "N/A", "user_notes" BLOB NOT NULL DEFAULT "N/A", "job_perks" BLOB NOT NULL DEFAULT "N/A", "company_descrip" BLOB NOT NULL DEFAULT "N/A", "tech_stack" BLOB NOT NULL DEFAULT "N/A", "job_url" BLOB NOT NULL DEFAULT "N/A", "job_ref" TEXT NOT NULL DEFAULT "N/A", "salary" TEXT NOT NULL DEFAULT "N/A");
-
-
 # I want to recreate the application_history with certain fields not being required:
 
 ```
@@ -297,3 +292,7 @@ PRAGMA foreign_keys = ON;
 ```
 https://www.sqlitetutorial.net/sqlite-foreign-key/
 ```
+
+
+
+ALTER TABLE application_history ADD "interview_time" DATE NOT NULL DEFAULT "HH:MM";

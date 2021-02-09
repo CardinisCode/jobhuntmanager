@@ -14,7 +14,7 @@ class ApplicationsHistoryRepository:
         result = cursor.execute("SELECT * FROM application_history WHERE date = ? AND user_id = ?", (todays_date, user_id,))
         self.db.commit()
 
-        return result.lastrowid
+        return result
 
     def grabApplicationHistory(self, user_id):
         cursor = self.db.cursor()
