@@ -21,7 +21,8 @@ def display_top_10_interviews_to_interviews_html(session, user_id, interviewsRep
         other_medium = details_list[10]
         interview_type = details_list[7]
         interview_status = details_list[12]
-        interviewers = details_list[5]
+        interviewers = details_list[6]
+        contact_number = details_list[11]
 
         details_dict[interview_id] = {
             "company_name": details_list[1], 
@@ -30,7 +31,7 @@ def display_top_10_interviews_to_interviews_html(session, user_id, interviewsRep
             "job_role": details_list[4], 
             "interviewers": interviewers, 
             "location": details_list[8], 
-            "contact_number": details_list[11], 
+            "contact_number": contact_number, 
             "interview_status": details_list[12]
         }
 
@@ -83,6 +84,11 @@ def display_top_10_interviews_to_interviews_html(session, user_id, interviewsRep
         if interviewers == "Unknown at present":
             interviewers = ""
             details_dict[interview_id]["interviewers"] = interviewers
+
+        # 4: If contact_number is "N/A", lets rather display a blank field:
+        if contact_number == "N/A":
+            contact_number = ""
+            details_dict[interview_id]["contact_number"] = contact_number
 
 
     return render_template("interviews.html", details=details_dict)

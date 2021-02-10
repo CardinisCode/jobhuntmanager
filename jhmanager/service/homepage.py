@@ -8,6 +8,8 @@ def for_andis_eyes_only():
 
 def cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage):
     emp_type = top_5_applications[id_count]["emp_type"]
+    salary = top_5_applications[id_count]["salary"]
+    platform = top_5_applications[id_count]["platform"]
 
     # Lets improve how the data for "Employment Type" is displayed to the user in the table:
     if emp_type == "full_time":
@@ -28,6 +30,17 @@ def cleanup_fields_for_better_display_top5applications(top_5_applications, id_co
         interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage = str(interview_stage))
     top_5_applications[id_count]["interview_stage"] = interview_stage_str
 
+    # If these fields values == "N/A", we'll just display a blank field to user:
+    if salary == "N/A":
+        salary = ""
+    top_5_applications[id_count]["salary"] = salary
+
+    if platform == "N/A":
+        platform = ""
+    top_5_applications[id_count]["platform"] = platform
+
+
+
 
 def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo, user_id):
     top_5_applications = {}
@@ -36,11 +49,10 @@ def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo,
     if not query_results:
         flash("top_5_applications_query didn't return any data. Please review!")
 
-    top_5_applications["headings"] = ["Id#", "Date", "Company Name", "Job Role", "Employment Type", "Salary", "Interview Stage", "Platform / Job Board", "Received Contact?", "Job Ref"]
+    top_5_applications["headings"] = ["Id#", "Date", "Company Name", "Job Role", "Employment Type", "Salary", "Interview Stage", "Platform / Job Board", "Received Contact?"]
     id_count = 1
     for application in query_results:
         app_date = application[0]
-        job_ref = application[1]
         company_name = application[2]
         job_role = application[3]
         platform = application[4]
@@ -62,7 +74,6 @@ def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo,
             "interview_stage": interview_stage,
             "platform": platform,
             "contact_received": contact_received.capitalize(),
-            "job_ref": job_ref,
         }
 
         cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage)
@@ -103,14 +114,11 @@ def cleanup_fields_for_better_display(top_5_interviews_dict, id_count, other_med
         top_5_interviews_dict[id_count]["interview_type"] = "In Person"
         top_5_interviews_dict[id_count]["video_medium"] = "N/A"
 
-    if status == "upcoming": 
-        top_5_interviews_dict[id_count]["status"] = "Upcoming"
-    elif status == "done":
+    if status == "done":
         top_5_interviews_dict[id_count]["status"] = "Interview Done"
-    elif status == "cancelled":
-        top_5_interviews_dict[id_count]["status"] = "Cancelled"
-    else: 
-        top_5_interviews_dict[id_count]["status"] = "Post-poned"
+    else:
+        status = status.capitalize()
+    top_5_interviews_dict[id_count]["status"] = status
 
     return top_5_interviews_dict
 
@@ -146,7 +154,7 @@ def grab_values_from_top5interviews_SQLquery_and_return_dict(interviewsRepo, use
     for interview in query_results: 
         interview_date = interview[2]
         interview_time = interview[3]
-        interviewer_names = interview[5]
+        interviewer_names = interview[6]
         interview_type = interview[7]
         location = interview[8]
         medium = interview[9]

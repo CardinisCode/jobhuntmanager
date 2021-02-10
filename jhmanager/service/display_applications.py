@@ -8,7 +8,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
 
     display_details = {}
     display_details["headings"] = {
-        "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type", "Salary", "Platform / Job Board",  "Stage",  "Job Ref", "Contact Received"]
+        "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type", "Salary", "Platform / Job Board",  "Stage", "Contact Received"]
     }
 
     # Let's take the details from "applictop_ten_applicationsations" 
@@ -25,6 +25,8 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
         emp_type = details_list[4]
         app_date = details_list[1]
         interview_stage = details_list[7]
+        platform = details_list[6] 
+        salary = details_list[5]
 
         # Before adding Interview_stage to our display dict, let's format it's presentation:
         if interview_stage == "N/A":
@@ -51,19 +53,15 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
             },
             "salary": {
                 "label": "Salary",
-                "data": details_list[5],                 
+                "data": salary,                 
             },
             "platform": {
                 "label": "Platform / Job Board", 
-                "data": details_list[6],                
+                "data": platform,                
             },
             "interview_stage": {
                 "label": "Interview Stage",
                 "data": Interview_stage_str,                  
-            },
-            "job_ref": {
-                "label": "Job Ref", 
-                "data": details_list[8],
             },
             "contact_received": {
                 "label": "Contact Received",
@@ -89,6 +87,14 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
 
         else: 
             display_details[app_id]["emp_type"]["data"] = "Not Provided"
+
+        # If these fields values are "N/A", lets rather display a blank field to user:
+        if platform == "N/A":
+            display_details[app_id]["platform"]["data"] = ""
+
+        if salary == "N/A":
+            display_details[app_id]["salary"]["data"] = ""
+
 
 
     return render_template("applications.html", display_details=display_details)
