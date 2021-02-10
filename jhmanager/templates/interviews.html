@@ -11,7 +11,7 @@
 <table class="center"> 
     <tr class="border-bottom border-right border-left border-top">
         <th class="border-left border-right"> No.</th>
-        <th class="border-left border-right"> Date & Time</th>
+        <th class="border-left border-right"> Date</th>
         <th class="border-left border-right"> Company Name</th>
         <th class="border-left border-right"> Role</th>
         <th class="border-left border-right"> Type</th>
@@ -22,18 +22,12 @@
         <th class="border-left border-right"> Interviewers' Names</th>
     </tr>
 
-    {% for interview, fields in details.items() %}
+    {% for id, fields in details.items() %}
         <tr class="border-bottom border-right border-left border-top">
-            <td class="border-left border-right"> {{ interview }} </td>
-            <td class="border-left border-right"> {{ fields.date }} {{ fields.time }}</td>
-            <td class="border-left border-right"> {{ fields.company_name }} </td>
-            <td class="border-left border-right"> {{ fields.job_role }} </td>
-            <td class="border-left border-right"> {{ fields.interview_type }} </td>
-            <td class="border-left border-right"> {{ fields.medium }} </td>
-            <td class="border-left border-right"> {{ fields.location }} </td>
-            <td class="border-left border-right"> {{ fields.interview_status }} </td>
-            <td class="border-left border-right"> {{ fields.contact_number }} </td>
-            <td class="border-left border-right"> {{ fields.interviewers }} </td>
+            <td class="border-bottom border-right border-left border-top"> {{ id }} </td>
+            {% for value in fields.values() %}
+                <td class="border-bottom border-right border-left border-top"> {{ value }}</td>
+            {% endfor %}
         </tr>
     {% endfor %}
 

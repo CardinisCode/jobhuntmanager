@@ -85,11 +85,15 @@ def display_top_10_interviews_to_interviews_html(session, user_id, interviewsRep
         interview_status = details_list[12]
         interviewers = details_list[6]
         contact_number = details_list[11]
+        app_date = details_list[2]
+        app_time = details_list[3]
+
+        # We need to merge the date & time into 1 value to be displayed:
+        app_datetime = app_date + " " + app_time
 
         details_dict[interview_id] = {
+            "date&time": app_datetime, 
             "company_name": details_list[1], 
-            "date": details_list[2], 
-            "time": details_list[3], 
             "job_role": details_list[4], 
             "interview_type": interview_type,
             "medium": medium,
