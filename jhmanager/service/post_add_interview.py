@@ -56,13 +56,11 @@ def InsertFieldsIntoInterviewHistory(interviewsRepo, user_id, company_name, inte
 
 def gather_details_and_add_to_display_dict(company_name, interview_date, interview_time, interview_type, job_role, interviewers, interview_location, video_medium, other_medium, contact_number, status, interview_stage):
     details = {}
+    interview_type_data = interview_type.data
+    video_medium_data = video_medium.data
     
     # Gather all fields to be displayed to user as confirmation:
     details = {
-        "company_name" : {
-            "label": company_name.label, 
-            "data": company_name.data
-        }, 
         "interview_date": {
             "label": interview_date.label, 
             "data": interview_date.data
@@ -71,16 +69,31 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
             "label": interview_time.label, 
             "data": interview_time.data
         }, 
+        "company_name" : {
+            "label": company_name.label, 
+            "data": company_name.data
+        }, 
         "job_role": {
             "label": job_role.label, 
             "data": job_role.data
+        },
+        "interview_type": {
+            "label": interview_type.label, 
+            "data": interview_type_data
+        },
+        "video_medium": {
+            "label": video_medium.label, 
+            "data": video_medium_data            
+        }, 
+        "status": {
+            "label": status.label, 
+            "data": status.data                   
         }
     }
 
     # I want to display the interview_type as text, not a drop down option
     # So I'll format out the data will be displayed to the user:
 
-    interview_type_data = interview_type.data
     if interview_type_data == "in_person":
         interview_type_data = "In Person"
     elif interview_type_data == "video_or_online":
@@ -121,7 +134,6 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
     video_medium_data = video_medium.data
     
     if interview_type.data == 'video_or_online':
-        video_medium_data = video_medium.data
 
         # Let's improve the data for user presentation:
         if video_medium_data == 'skype':
@@ -161,7 +173,10 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
         "data": status.data
     }
 
-    interview_stage_text = "Interview #{interview_stage} lined up.".format(interview_stage = str(interview_stage))
+    if interview_stage == 0 or interview_stage == "0":
+        interview_stage_text = "No interview lined up yet."
+    else:
+        interview_stage_text = "Interview #{interview_stage} lined up.".format(interview_stage = str(interview_stage))
     details["interview_stage"] = {
         "label": "Interview Stage", 
         "data": interview_stage_text
