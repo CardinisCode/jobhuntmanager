@@ -27,7 +27,10 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
         interview_stage = details_list[7]
 
         # Before adding Interview_stage to our display dict, let's format it's presentation:
-        Interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage=str(interview_stage))
+        if interview_stage == "N/A":
+            Interview_stage_str = "No Interview lined up yet."
+        else:
+            Interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage=str(interview_stage))
 
         display_details[app_id] = {
             "app_date":  {
@@ -86,19 +89,6 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
 
         else: 
             display_details[app_id]["emp_type"]["data"] = "Not Provided"
-
-
-        # Let's modify the app_date value so that it doesn't include the Min's & Seconds:
-        # 1: Receive the date in its full form:
-        # date_format = '%Y-%m-%d %H:%M:%S.%f'
-        # updated_date_dateformat = datetime.strptime(app_date, date_format)
-
-        # # 2: Now I have the date in the full format, I want to convert the date to a string in the form I want
-        # # Including only the Y-M-D & H:M:
-        # updated_date = updated_date_dateformat.strftime("%m-%d-%Y %H:%M")
-
-        # # Now to update the app_date value in the display_details dictionary:
-        # display_details[app_id]["app_date"]["data"] = updated_date
 
 
     return render_template("applications.html", display_details=display_details)

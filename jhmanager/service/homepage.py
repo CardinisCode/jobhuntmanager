@@ -21,20 +21,11 @@ def cleanup_fields_for_better_display_top5applications(top_5_applications, id_co
     else:
         top_5_applications[id_count]["emp_type"] = "Other"
 
-    # Improving how the date & time values are presented
-    # 1) I need to convert my date&time value to actual datetime values:
-    # current_datetime_format = "%Y-%m-%d %H:%M:%S.%f"
-    # date_time_obj = datetime.strptime(date_time_str, current_datetime_format)
-
-    # # 2) To convert this datetime_obj into a string & simultaneously get the format I want:
-    # desired_datetime_format = "%Y-%m-%d, %H:%M"
-    # updated_date_time = date_time_obj.strftime(desired_datetime_format)
-
-    # # 3) Finally, we can update the datetime value in our dictionary:
-    # top_5_applications[id_count]["date&time"] = updated_date_time
-
     # Let's format how interview_stage is presented to the user:
-    interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage = str(interview_stage))
+    if interview_stage == 0:
+        interview_stage_str = "No interview lined up yet."
+    else:
+        interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage = str(interview_stage))
     top_5_applications[id_count]["interview_stage"] = interview_stage_str
 
 
@@ -57,6 +48,9 @@ def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo,
         interview_stage = application[6]
         contact_received = application[7]
         salary = application[8]
+
+        if interview_stage == "N/A":
+            interview_stage = 0
 
         top_5_applications[id_count] = {
             "ID#": id_count,
