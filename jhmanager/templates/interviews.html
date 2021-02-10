@@ -10,16 +10,9 @@
 
 <table class="center"> 
     <tr class="border-bottom border-right border-left border-top">
-        <th class="border-left border-right"> No.</th>
-        <th class="border-left border-right"> Date</th>
-        <th class="border-left border-right"> Company Name</th>
-        <th class="border-left border-right"> Role</th>
-        <th class="border-left border-right"> Type</th>
-        <th class="border-left border-right"> Medium</th>
-        <th class="border-left border-right"> Location</th>
-        <th class="border-left border-right"> Status</th>
-        <th class="border-left border-right"> Contact No.</th>
-        <th class="border-left border-right"> Interviewers' Names</th>
+        {% for item in details.headings %}
+            <th class="border-bottom border-right border-left border-top"> {{ item }} </th>
+        {% endfor %}
     </tr>
 
     {% for id, fields in details.items() %}
@@ -32,7 +25,6 @@
             </tr>
         {% endif %}
     {% endfor %}
-
 </table>
 
 
