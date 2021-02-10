@@ -83,7 +83,6 @@ def display_top_10_interviews_to_interviews_html(session, user_id, interviewsRep
         # Now that we have grabbed the fields for this current interview
         # lets store these values in a dictionary to be displayed on the html page:
 
-        # interview_id = details_list[0]
         medium = details_list[9]
         other_medium = details_list[10]
         interview_type = details_list[7]

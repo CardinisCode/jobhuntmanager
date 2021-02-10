@@ -58,16 +58,18 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
     details = {}
     interview_type_data = interview_type.data
     video_medium_data = video_medium.data
+    interview_date_data = interview_date.data
+    interview_time_data = interview_time.data
     
     # Gather all fields to be displayed to user as confirmation:
     details = {
         "interview_date": {
             "label": interview_date.label, 
-            "data": interview_date.data
+            "data": interview_date_data
         }, 
         "interview_time": {
             "label": interview_time.label, 
-            "data": interview_time.data
+            "data": interview_time_data
         }, 
         "company_name" : {
             "label": company_name.label, 
@@ -181,6 +183,27 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
         "label": "Interview Stage", 
         "data": interview_stage_text
     }
+
+    # There's another important condition: the user should not be able to provide a date before the current date & time.
+    # We're going to break this down into a few sub conditions.
+    # #1: Current Date condition:
+    current_datetime = datetime.now()
+    current_date = current_datetime.date()
+    current_time = current_datetime.time()
+
+    # datetime_format = "%Y-%m-%d"
+    # interview_date_str = interview_date_data.strftime(datetime_format)
+
+    if current_date == interview_date_data:
+        if current_time > interview_time_data:
+            raise ValueError("Ooops you're trying to add an time in the past!")
+    elif current_date > interview_date_data:
+        raise ValueError("Oops you're trying to add a date in the past!")
+    else:
+        raise ValueError("Date provided is neither today's date nor in the past.")
+
+    # if interview_date_data < current_datetime:
+    #     raise ValueError("Oops you're trying to add a date before the current date!")
 
     return details
 
