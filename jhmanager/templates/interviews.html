@@ -23,12 +23,14 @@
     </tr>
 
     {% for id, fields in details.items() %}
-        <tr class="border-bottom border-right border-left border-top">
-            <td class="border-bottom border-right border-left border-top"> {{ id }} </td>
-            {% for value in fields.values() %}
-                <td class="border-bottom border-right border-left border-top"> {{ value }}</td>
-            {% endfor %}
-        </tr>
+        {% if id != 'headings' %}
+            <tr class="border-bottom border-right border-left border-top">
+                <td class="border-bottom border-right border-left border-top"> {{ id }} </td>
+                {% for value in fields.values() %}
+                    <td class="border-bottom border-right border-left border-top"> {{ value }}</td>
+                {% endfor %}
+            </tr>
+        {% endif %}
     {% endfor %}
 
 </table>

@@ -103,6 +103,9 @@ def display_top_10_interviews_to_interviews_html(session, user_id, interviewsRep
             "interviewers": interviewers, 
         }
 
+        headings = ["ID#", "Date & Time", "Company Name", "Role", "Type", "Medium", "Location", "Status", "Contact No.", "Interviewers' Name/s"]
+        details_dict["headings"] = headings
+
         improve_display_values(details_dict, interview_id, other_medium)
 
     return render_template("interviews.html", details=details_dict)
