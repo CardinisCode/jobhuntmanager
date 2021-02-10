@@ -8,6 +8,7 @@ def improve_display_values(details_dict, interview_id, other_medium):
     interview_status = details_dict[interview_id]["interview_status"]
     interviewers = details_dict[interview_id]["interviewers"]
     contact_number = details_dict[interview_id]["contact_number"]
+    location = details_dict[interview_id]["location"]
 
     #1: Lets set a condition: 
     # If interview_type == "video_or_online": Display medium's value, Else: medium = "N/A"
@@ -16,28 +17,27 @@ def improve_display_values(details_dict, interview_id, other_medium):
         interview_type = "Video / Online"
 
         # Secondly let's improve the values' appearance for video medium:
-        if medium == "zoom":
-            medium = "Zoom"
-        elif medium == "skype":
-            medium = "Skype"
-        elif medium == "google_chat":
+        if medium == "google_chat":
             medium = "Google Chat"
         elif medium == "meet_jit_si":
-            medium = "Meet Jit Si"
-        else:
-            # If user selects 'Other', I want their chosen medium to be displayed under the heading "Video Medium":
+            medium = "Meet.Jit.Si"
+        elif medium == "other" or medium == "Other":
             medium = other_medium
+        else:
+            medium = medium.capitalize()
         details_dict[interview_id]["medium"] = medium
+
 
     else: 
         # If interview_type == "in_person" or "phone_call"
-        details_dict[interview_id]["medium"] = "N/A"
+        details_dict[interview_id]["medium"] = ""
 
         if interview_type == 'in_person':
             interview_type = "In Person"
 
         if interview_type == "phone_call":
-            interview_type = "Contact Number"
+            interview_type = "Telephonic call"
+
     details_dict[interview_id]["interview_type"] = interview_type
 
 
@@ -62,12 +62,17 @@ def improve_display_values(details_dict, interview_id, other_medium):
     if contact_number == "N/A":
         details_dict[interview_id]["contact_number"] = ""
 
+    if location == "Remote" or location == "N/A":
+        details_dict[interview_id]["location"] = ""
+
+
 
 
 def display_top_10_interviews_to_interviews_html(session, user_id, interviewsRepo):
     interviews = interviewsRepo.grabTopTenInterviewsForUser(user_id)
 
     details_dict = {}
+    interview_id = 1
 
     # Let's take the details from "interviews" and restructure the data for our html page:
     for interview in interviews:
@@ -78,7 +83,7 @@ def display_top_10_interviews_to_interviews_html(session, user_id, interviewsRep
         # Now that we have grabbed the fields for this current interview
         # lets store these values in a dictionary to be displayed on the html page:
 
-        interview_id = details_list[0]
+        # interview_id = details_list[0]
         medium = details_list[9]
         other_medium = details_list[10]
         interview_type = details_list[7]
@@ -97,15 +102,15 @@ def display_top_10_interviews_to_interviews_html(session, user_id, interviewsRep
             "job_role": details_list[4], 
             "interview_type": interview_type,
             "medium": medium,
-            "location": details_list[8], 
             "interview_status": interview_status,
+            "location": details_list[8], 
             "contact_number": contact_number, 
             "interviewers": interviewers, 
         }
-
-        headings = ["ID#", "Date & Time", "Company Name", "Role", "Type", "Medium", "Location", "Status", "Contact No.", "Interviewers' Name/s"]
-        details_dict["headings"] = headings
-
         improve_display_values(details_dict, interview_id, other_medium)
+        interview_id += 1
+
+    headings = ["ID#", "Date & Time", "Company Name", "Role", "Type", "Medium", "Status", "Location", "Contact No.", "Interviewers' Name/s"]
+    details_dict["headings"] = headings
 
     return render_template("interviews.html", details=details_dict)
