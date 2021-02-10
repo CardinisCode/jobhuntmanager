@@ -2,9 +2,9 @@ class ApplicationsHistoryRepository:
     def __init__(self, db):
         self.db = db
 
-    def addApplicationToHistory(self, fields):
+    def addApplicationToHistory(self, arguments):
         cursor = self.db.cursor()
-        result = cursor.execute("INSERT INTO application_history (company_name, job_role, date, time, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (fields))
+        result = cursor.execute("INSERT INTO application_history (company_name, job_role, date, time, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (arguments))
         self.db.commit()
 
         return result
@@ -37,12 +37,12 @@ class ApplicationsHistoryRepository:
 
         return result
 
-    def insertApplicationDetailsToApplicationHistory(self, user_id, date, employment_type, location, job_description, notes, role, company_name, platform, perks, company_description, tech_stack, url, stage, contact_received, job_ref, salary):
+    def insertInterviewDetailsToApplicationHistory(self, arguments):
         cursor = self.db.cursor()
-        result = cursor.execute("INSERT INTO application_history (user_id, date, employment_type, location, job_description, user_notes, job_role, company_name, platform, job_perks, company_descrip, tech_stack, job_url, interview_stage, contact_received, job_ref, salary) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (user_id, date, employment_type, location, job_description, notes, role, company_name, platform, perks, company_description, tech_stack, url, stage, contact_received, job_ref, salary))
+        result = cursor.execute("INSERT INTO application_history (user_id, date, time, employment_type, location, job_description, user_notes, job_role, company_name, platform, job_perks, company_descrip, tech_stack, job_url, interview_stage, contact_received, job_ref, salary) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (arguments))
         self.db.commit()
 
-        return result.lastrowid
+        return result
 
     def insertApplicationDetailsFromNewInterviewForNewCompany(self, user_id, current_date, company_name, job_role, interview_stage):
         cursor = self.db.cursor()
@@ -51,19 +51,19 @@ class ApplicationsHistoryRepository:
 
         return result.lastrowid        
 
-    def checkCompanyNameInApplicationHistoryForUser(self, pattern, user_name):
+    def checkCompanyNameInApplicationHistoryForUser(self, arguments, user_name):
         cursor = self.db.cursor()
         result = cursor.execute(
-            "SELECT EXISTS(SELECT company_name FROM application_history WHERE company_name LIKE ? and user_id = ?)", (pattern, user_name,)
+            "SELECT EXISTS(SELECT company_name FROM application_history WHERE company_name LIKE ? and user_id = ?)", (arguments, user_name,)
         )
         self.db.commit()
 
         return result
 
-    def grabApplicationStageForCompanyNameForActiveUser(self, fields):
+    def grabApplicationStageForCompanyNameForActiveUser(self, arguments):
         cursor = self.db.cursor()
         result = cursor.execute(
-            "SELECT interview_stage FROM application_history WHERE user_id = ? AND company_name LIKE ?", (fields)
+            "SELECT interview_stage FROM application_history WHERE user_id = ? AND company_name LIKE ?", (arguments)
             )
         self.db.commit()
 

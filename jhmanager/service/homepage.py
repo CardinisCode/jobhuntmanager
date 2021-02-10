@@ -202,7 +202,7 @@ def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo):
     # Sadly SQLite doesn't have the functionality to return COUNT(*) from SQLite to Python
     # So we'll have manually count the number of rows returned from the SQL query:
     app_today_count = 0
-    for item in applications_today:
+    for app in applications_today:
         app_today_count += 1
 
     interviews_today_count = 0
