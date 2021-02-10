@@ -3,9 +3,19 @@ from datetime import datetime
 
 
 def format_data_and_add_to_sql_db(user_id, applicationsRepo, company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url):
-    # We need to grab current day's date when user adds a new application:
+    # We need to grab current day's date & time when user adds a new application:
     # application_date = str(datetime.date(datetime.now()))
-    application_date = datetime.now()
+    application_datetime = datetime.now()
+
+    # Now to grab the date value & convert it to string:
+    app_date = application_datetime.date()
+    date_format = "%Y-%m-%d"
+    app_date_str = app_date.strftime(date_format)
+
+    # Now to grab the time value & convert it to string:
+    app_time = application_datetime.time()
+    time_format = "%H:%M"
+    app_time_str = app_time.strftime(time_format)
 
     # Before we add the fields to our SQL db, lets make sure we first grab the data for each field:
     company_name = company_name.data
@@ -58,15 +68,8 @@ def format_data_and_add_to_sql_db(user_id, applicationsRepo, company_name, job_r
         job_url = "N/A" 
 
     # Now we finish off by adding the details into the SQL db:
-    insert_application_details = applicationsRepo.addApplicationToHistory(company_name, job_role, application_date, emp_type, job_ref, company_spec, job_spec, tech_stack, perks, platform, location, salary, user_notes, job_url, user_id)
-
-    for item in insert_application_details:
-        raise ValueError(item)
-
-    # Let's verify if we've successfully added our fields to the db table:
-    if not insert_application_details:
-        flash("Failed to insert details into ApplicationsHistoryRepo. Please investigate!")
-        return False
+    fields = (company_name, job_role, app_date_str, app_time_str, emp_type, job_ref, company_spec, job_spec, tech_stack, perks, platform, location, salary, user_notes, job_url, user_id)
+    applicationsRepo.addApplicationToHistory(fields)
 
     return True
 

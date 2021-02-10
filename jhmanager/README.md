@@ -221,6 +221,7 @@ CREATE TABLE IF NOT EXISTS application_history(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
     "company_name" TEXT NOT NULL DEFAULT "N/A", 
     "date" DATETIME NOT NULL, 
+    "time" TIME NOT NULL,
     "job_role" TEXT NOT NULL DEFAULT "N/A", 
     "platform" TEXT DEFAULT "N/A", 
     "interview_stage" INTEGER  NOT NULL DEFAULT 0, 
@@ -293,6 +294,29 @@ PRAGMA foreign_keys = ON;
 https://www.sqlitetutorial.net/sqlite-foreign-key/
 ```
 
-
-
 ALTER TABLE application_history ADD "interview_time" DATE NOT NULL DEFAULT "HH:MM";
+
+BEGIN TRANSACTION;
+DROP TABLE application_history;
+CREATE TABLE IF NOT EXISTS application_history(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    "company_name" TEXT NOT NULL DEFAULT "N/A", 
+    "date" DATETIME NOT NULL, 
+    "time" TIME NOT NULL,
+    "job_role" TEXT NOT NULL DEFAULT "N/A", 
+    "platform" TEXT DEFAULT "N/A", 
+    "interview_stage" INTEGER  NOT NULL DEFAULT 0, 
+    "user_id" INTEGER NOT NULL, 
+    "employment_type" TEXT DEFAULT "N/A",
+    "contact_received" TEXT NOT NULL DEFAULT "No",
+    "location" TEXT DEFAULT "Remote",
+    "job_description" TEXT DEFAULT "N/A", 
+    "user_notes" TEXT DEFAULT "N/A",
+    "job_perks" TEXT DEFAULT "N/A",
+    "company_descrip" TEXT DEFAULT "N/A",
+    "tech_stack" TEXT DEFAULT "N/A",
+    "job_url" TEXT DEFAULT "N/A",
+    "job_ref" TEXT DEFAULT "N/A",
+    "salary" TEXT DEFAULT "N/A"
+);
+COMMIT;

@@ -189,39 +189,31 @@ def grab_values_from_top5interviews_SQLquery_and_return_dict(interviewsRepo, use
 
 
 def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo):
-    # Let's grab today's date as this will help us when we're grabbing interviews & applications for the current date:
+    #1: Let's grab today's date as this will help us when we're grabbing interviews & applications for the current date:
     current_date = date.today()
-
-    # Our 'date' field in application_history will have the datetime stored in its full format. 
-    # So I'll need to grab just the date
-    # temp_date = datetime.now()
-    # sql_date = "2021-02-09 16:57:21.730575"
-    # raise ValueError("temp_date: ", temp_date, "vs sql_date: ", sql_date)
+    date_format = "%Y-%m-%d"
+    date_str = current_date.strftime(date_format)
 
     # Now to grab the values for the Applications & Interviews added on the current date (from the perspective SQL queries):
-    applications_today = applicationsRepo.grabTodaysApplicationCount(current_date, user_id)
+    # Firstly: applications
+    applications_today = applicationsRepo.grabTodaysApplicationCount(date_str, user_id)
+    interviews_today = interviewsRepo.grabTodaysInterviewCount(date_str, user_id)
+
+    # Sadly SQLite doesn't have the functionality to return COUNT(*) from SQLite to Python
+    # So we'll have manually count the number of rows returned from the SQL query:
     app_today_count = 0
     for item in applications_today:
         app_today_count += 1
-    # raise ValueError("Applications today: ", app_today_count)
 
-
-    interviews_today = interviewsRepo.grabTodaysInterviewCount(current_date, user_id)
-    
-    # Now to grab the values from our SQL queries for the top 5 applications & interviews & create a dictionary for each:
-    top_5_applications_dict = grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo, user_id)
-    top_5_interviews_dict = grab_values_from_top5interviews_SQLquery_and_return_dict(interviewsRepo, user_id)
-
-    # It seems like SQLite specifically does not allow one to return the row count.
-    # So we'll just have to do a manual row count:
     interviews_today_count = 0
     for interview in interviews_today:
         interviews_today_count += 1
 
-    message = "All good!"
+    # Now to grab the values from our SQL queries for the top 5 applications & interviews & create a dictionary for each:
+    top_5_applications_dict = grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo, user_id)
+    top_5_interviews_dict = grab_values_from_top5interviews_SQLquery_and_return_dict(interviewsRepo, user_id)
 
-    if applications_today == None:
-        message = "Not successful"
+    message = "All good!"
 
     display = {
         'current_date': current_date,
