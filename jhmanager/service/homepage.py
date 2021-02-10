@@ -127,7 +127,7 @@ def combine_date_and_time_into_1_string(interview_date, interview_time):
     date_time_str = interview_date + " " + interview_time
 
     #2) Now I will convert this datetime string into its datetime object:
-    date_time_format = '%Y-%m-%d %H:%M:%S'
+    date_time_format = '%Y-%m-%d %H:%M'
     date_and_time_obj = datetime.strptime(date_time_str, date_time_format)
 
     # 3) Now I can convert this datetime_obj into a string & simultaneously get the format I want:
