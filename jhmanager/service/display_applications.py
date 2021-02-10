@@ -67,7 +67,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
             },
             "contact_received": {
                 "label": "Contact Received",
-                "data": details_list[9],                  
+                "data": details_list[9].capitalize(),                  
             }, 
         }
 

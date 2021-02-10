@@ -217,7 +217,7 @@ def add_interview_details_to_application_history_for_unknown_company_name(applic
     tech_stack = "N/A"
     url = "N/A"
     stage = "N/A"
-    contact_received = "yes"
+    contact_received = "Yes"
     job_ref = "N/A"
     salary =  "N/A"
     company_name_value = company_name._value()
