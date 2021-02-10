@@ -194,13 +194,13 @@ def gather_details_and_add_to_display_dict(company_name, interview_date, intervi
     # datetime_format = "%Y-%m-%d"
     # interview_date_str = interview_date_data.strftime(datetime_format)
 
-    if current_date == interview_date_data:
-        if current_time > interview_time_data:
-            raise ValueError("Ooops you're trying to add an time in the past!")
-    elif current_date > interview_date_data:
-        raise ValueError("Oops you're trying to add a date in the past!")
-    else:
-        raise ValueError("Date provided is neither today's date nor in the past.")
+    # if current_date == interview_date_data:
+    #     if current_time > interview_time_data:
+    #         raise ValueError("Ooops you're trying to add an time in the past!")
+    # elif current_date > interview_date_data:
+        # raise ValueError("Oops you're trying to add a date in the past!")
+    # else:
+    #     raise ValueError("Date provided is neither today's date nor in the past.")
 
     # if interview_date_data < current_datetime:
     #     raise ValueError("Oops you're trying to add a date before the current date!")

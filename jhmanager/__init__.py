@@ -164,6 +164,8 @@ def add_interview():
     """ Validate the details provided by user & if it passes, display details to user """
     if add_interview_form.validate_on_submit(): #POST
         return post_add_interview(session, user_id, add_interview_form, interviewsRepo, applicationsRepo)
+    # else:
+    #     error = "Date provided is in the past." 
 
     """ Display Add Interview Form to user """ # GET
     return render_template('add_interview.html', add_interview_form=add_interview_form)

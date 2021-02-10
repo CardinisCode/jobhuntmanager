@@ -7,6 +7,7 @@
 {% block main %}
     <h1> Add Interview </h1>
     <br/>
+
     <form action="/add_interview" method="POST"> 
         {{ add_interview_form.csrf_token }}
         {% for field in add_interview_form if field.name != "csrf_token" %}
