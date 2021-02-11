@@ -39,3 +39,6 @@
 -   https://fsymbols.com/all/
 ## Arrow keys:
 -   https://www.w3schools.com/charsets/ref_utf_geometric.asp
+
+# Creating a User Registration form using WTForms:
+-   http://sebastiandahlgren.se/2013/06/14/password-confirmation-in-wtforms/

@@ -269,18 +269,19 @@ Project Management
 ------------------------------------------------------------------------------
 
 #: [ ] Redo Login & Register using WTForms 
-        [ ]     Install pip3 install passlib
+        [x]     Install pip3 install passlib
         [ ]     Create a Register class & allocate fields
-                [ ]     Username 
-                [ ]     Password
-                [ ]     Confirm Password
-                [ ]     Email
+                [x]     Username 
+                [x]     Password
+                [x]     Confirm Password
+                [x]     Email
                 [ ]     Accept T&Cs
-                [ ]     Submit field
+                [x]     Submit field
                 (Refer to https://pythonprogramming.net/flask-user-registration-form-tutorial/)
-        [ ]     Create test Register page & allocate it a route & function 
-        [ ]     GET: render test_register.html
-        [ ]     POST: Create function
+        [x]     Create test Register page & allocate it a route & function 
+        [x]     GET: render test_register.html
+        [x]     POST: Create function
+                [ ]     Grab values from form & test that they're pulling through as expected
                 [ ]     Create SQL query in users table, to check if the username provided already exists
                 [ ]     Create SQL query in users table, to check if the email address provided 
                         already exists

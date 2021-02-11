@@ -27,9 +27,11 @@ from jhmanager.service.display_applications import display_all_applications_curr
 from jhmanager.service.add_interview import grabDetailsFromNewInterviewAndAddToRepo
 from jhmanager.service.post_add_interview import post_add_interview
 from jhmanager.service.display_interviews import display_top_10_interviews_to_interviews_html
+from jhmanager.service.post_register_test import post_register_user
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
+from jhmanager.forms.register_form import RegisterUserForm
 
 
 # Configure application
@@ -75,6 +77,16 @@ def register_user():
         return render_template("register.html")
     else:
         return post_registration(session, userRepo)
+
+
+@app.route("/test_register", methods=["GET", "POST"])
+def test_register_user():
+    register_form = RegisterUserForm()
+    if register_form.validate_on_submit():
+        return post_register_user(session, userRepo)
+
+    """Provide registration form to user"""
+    return render_template("test_register.html", register_form=register_form)
 
 
 # Taken from CS50's Finance source code & modified
