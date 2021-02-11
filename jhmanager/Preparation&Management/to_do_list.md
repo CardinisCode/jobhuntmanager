@@ -258,15 +258,15 @@ Project Management
 
 ------------------------------------------------------------------------------
 
-#: [ ]  Add shortcuts on tables:
-        [ ]     Add "+" to represent 'add_application' feature to:
+#14: [x]  Add shortcuts on tables:
+        [x]     Add "+" to represent 'add_application' feature to:
                 [x]     applications.html
-                [ ]     top5applications on index.html
-        [ ]     Add "+" to represent 'add_interview' feature to":
-                [ ]     interviews.html
-                [ ]     top5interviews on index.html
+                [x]     top5applications on index.html
+        [x]     Add "+" to represent 'add_interview' feature to":
+                [x]     interviews.html
+                [x]     top5interviews on index.html
 
-
+------------------------------------------------------------------------------
 
 #: [ ] Redo Login & Register using WTForms 
         [ ]     Install pip3 install passlib
