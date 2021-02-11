@@ -3,7 +3,9 @@ from wtforms import StringField, SubmitField, TextAreaField, DateField, TimeFiel
 from wtforms.fields.html5 import TelField, URLField
 import wtforms.widgets.html5
 from wtforms.validators import DataRequired, Email, InputRequired, Optional, ValidationError
-from datetime import datetime, date
+from datetime import datetime, date, time
+
+from wtforms_components import DateRange
 
 
 class AddInterviewForm(FlaskForm):
@@ -20,7 +22,10 @@ class AddInterviewForm(FlaskForm):
 
     interview_date = DateField(
         "Date: ", 
-        validators=[InputRequired(message="Please provide the Interview Date.")], 
+        validators=[
+            DateRange(min=date.today(), message="Please choose a date either present or in the future."), 
+            InputRequired(message="Please provide the Interview Date.")
+        ], 
         format='%Y-%m-%d', 
         default=todays_date, 
         render_kw={'placeholder': "The interview date. YYYY-MM-DD"},
@@ -28,11 +33,15 @@ class AddInterviewForm(FlaskForm):
 
     interview_time = TimeField(
         "Time: ", 
-        validators=[InputRequired(message="Please provide the starting time for the interview.")], 
+        validators=[
+            DateRange(min=current_time, message="Please choose a time either present or in the future."), 
+            InputRequired(message="Please provide the starting time for the interview.")
+        ], 
         format='%H:%M', 
         default=current_time, 
         render_kw={'placeholder': "The interview time. HH:MM"},
     )
+    
     job_role = StringField(
         "Job Role: ", 
         [validators.optional()],
@@ -89,5 +98,5 @@ class AddInterviewForm(FlaskForm):
             ('post-poned', 'Interview has been post-poned')
         ], 
     default='upcoming',
-)
+    )
     save_button = SubmitField("Save")
