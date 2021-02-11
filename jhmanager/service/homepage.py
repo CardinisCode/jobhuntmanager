@@ -89,6 +89,7 @@ def cleanup_fields_for_better_display(top_5_interviews_dict, id_count, other_med
     medium = top_5_interviews_dict[id_count]["video_medium"] 
     contact_number = top_5_interviews_dict[id_count]["contact_number"] 
     interviewer_names = top_5_interviews_dict[id_count]["interviewer_names"] 
+    location = top_5_interviews_dict[id_count]["location"] 
 
     # Lets set a few conditions for what gets displayed to the user & clean up the presentation of the data:
     if  interview_type == "video_or_online":
@@ -128,6 +129,9 @@ def cleanup_fields_for_better_display(top_5_interviews_dict, id_count, other_med
     
     if interviewer_names == "Unknown at present":
         top_5_interviews_dict[id_count]["interviewer_names"] = ""
+
+    if location == "N/A":
+        top_5_interviews_dict[id_count]["location"] = "Remote"
 
     return top_5_interviews_dict
 
