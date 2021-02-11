@@ -49,7 +49,7 @@ def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo,
     if not query_results:
         flash("top_5_applications_query didn't return any data. Please review!")
 
-    top_5_applications["headings"] = ["Id#", "Date", "Company Name", "Job Role", "Employment Type", "Salary", "Interview Stage", "Platform / Job Board", "Received Contact?"]
+    top_5_applications["headings"] = ["Id#", "Date", "Company Name", "Job Role", "Employment Type", "Interview Stage", "Received Contact?", "Salary", "Platform / Job Board"]
     id_count = 1
     for application in query_results:
         app_date = application[0]
@@ -70,10 +70,10 @@ def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo,
             "company_name": company_name,
             "job_role": job_role,
             "emp_type": emp_type, 
-            "salary": salary,
             "interview_stage": interview_stage,
-            "platform": platform,
             "contact_received": contact_received.capitalize(),
+            "salary": salary,
+            "platform": platform,
         }
 
         cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage)
