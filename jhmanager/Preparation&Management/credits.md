@@ -34,3 +34,8 @@
 
 # Handling FOREIGN KEY constraints:
 - https://www.sqlitetutorial.net/sqlite-foreign-key/
+
+# Adding Symbols to HTML:
+-   https://fsymbols.com/all/
+## Arrow keys:
+-   https://www.w3schools.com/charsets/ref_utf_geometric.asp

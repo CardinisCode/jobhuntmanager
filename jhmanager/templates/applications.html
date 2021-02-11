@@ -11,28 +11,28 @@
 <!-- <a href="/add_job_application" class="button right_button">Add Application</a> -->
 
 <!-- <p> Today's date: {{ display_details.todays_date }} </p> -->
-
+<a href="add_job_application" style="cursor:pointer; text-align: right;"> Add +</a>
 <table class="center"> 
-        <tr class="border-bottom border-right border-left border-top">
-            {% for key, value in display_details.items() %}
-                {% if key == "headings"  %}
-                    {% for heading in value["headings_list"] %}
-                    <th class="border-bottom border-right border-left border-top"> {{ heading }} </th>
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-        </tr>
-    
-        {% for id, application in display_details.items() %}
-            {% if id != "headings"  %} 
-            <tr class="border-bottom border-right border-left border-top">
-                <td class="border-bottom border-right border-left border-top"> {{ id }}</td> 
-                {% for field in application.values() %}
-                    <td class="border-bottom border-right border-left border-top"> {{ field.data }} </td>
+    <tr class="border-bottom border-right border-left border-top">
+        {% for key, value in display_details.items() %}
+            {% if key == "headings"  %}
+                {% for heading in value["headings_list"] %}
+                <th class="border-bottom border-right border-left border-top"> {{ heading }} </th>
                 {% endfor %}
-            </tr>
             {% endif %}
         {% endfor %}
+    </tr>
+    
+    {% for id, application in display_details.items() %}
+        {% if id != "headings"  %} 
+        <tr class="border-bottom border-right border-left border-top">
+            <td class="border-bottom border-right border-left border-top"> {{ id }}</td> 
+            {% for field in application.values() %}
+                <td class="border-bottom border-right border-left border-top"> {{ field.data }} </td>
+            {% endfor %}
+        </tr>
+        {% endif %}
+    {% endfor %}
 
 {% endblock %}
 

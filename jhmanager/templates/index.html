@@ -22,6 +22,11 @@
     <br/>
     <h3> View Your Applications history:</h3>
     <!-- Drop down to view table-->
+    <div class="horizontal_buttons">
+        <a href="add_job_application" class="button right_button" style="cursor:pointer;"> Add +</a>
+        <a href="/applications" class="button middle_button">View all Applications</a>
+    </div>
+
     <table class="Table"> 
         <tr class="border-bottom border-right border-left border-top">
             {% for item in display.top_5_applications.headings %}
@@ -43,10 +48,7 @@
 
     </table>
     <br/>
-    <div class="horizontal_buttons">
-        <a href="/add_job_application" class="button left_button">Add Application</a>
-        <a href="/applications" class="button middle_button">View Application</a>
-    </div>
+
     <br/>
 
     <h2> Interviews</h2>

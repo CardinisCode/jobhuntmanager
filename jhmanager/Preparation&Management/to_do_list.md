@@ -242,8 +242,8 @@ Project Management
 
 ------------------------------------------------------------------------------
 
-#13: [ ]  Update Application_history when user adds a new interview
-        [ ]     Check if that company name already exists in application_history for that user
+#13: [x]  Update Application_history when user adds a new interview
+        [x]     Check if that company name already exists in application_history for that user
                 [x]     Create SQL query to check a company name in application_history
                 [x]     If yes: Update the interview_stage for that application 
                         in application_history
@@ -252,38 +252,20 @@ Project Management
                                 [x]     applications.html
                                 [x]     interview_details.html
                                 [x]     index.html
-                [ ]     If no: Add a new application for that company in application_history
-                        [ ]     In post_add_interview, call insertApplicationDetailsToApplicationHistory() with interview_details
+                [x]     If no: Add a new application for that company in application_history
+                        [x]     In post_add_interview, call insertApplicationDetailsToApplicationHistory() with interview_details
+
 
 ------------------------------------------------------------------------------
 
-ONGOING:
-[ ]     Bugs to be fixed:
-        [ ]     There's a huge gap at the top of each page, due to the side bar.
-        [x]     Details received from 'add_interview.html' display on interview_details.html' 
-                as text boxes that can be edited. 
-                [x]     Figure out solution to adjust the values for each field so they display as plain text.
-        [x]     Interview_details.html: interviewer_names field is an edit text box
-        [x]     Interview History: 
-                [x]     "Video / Online" is displaying "skype" instead of "Skype"
-                [x]     In_person interviews are displaying "Contact number" 
-                        instead of "In Person"
-                [x]     In person interviews are displaying the medium (eg: "zoom")
-                        Where medium should display "N/A" 
+#: [ ]  Add shortcuts on tables:
+        [ ]     Add "+" to represent 'add_application' feature to:
+                [x]     applications.html
+                [ ]     top5applications on index.html
+        [ ]     Add "+" to represent 'add_interview' feature to":
+                [ ]     interviews.html
+                [ ]     top5interviews on index.html
 
-------------------------------------------------------------------------------
-
-Yet to do:
-
-#: [ ]  Add Companies to CompanyDirectory table
-        [ ]     Create SQL query to check a provided company name (arg) 
-                against those saved in the company directiory
-        [ ]     Create SQL query to add a company to the CompanyDirectory
-        [ ]     in post_add_application(), Check if company already exists in CompanyDirectory
-                        [ ]     If not: Add company to CompanyDirectory
-        [ ]     in post_add_interview(), check if company already exists in CompanyDirectory
-                [ ]     If No:
-                        [ ]     Add company to CompanyDirectory  
 
 
 #: [ ] Redo Login & Register using WTForms 
@@ -306,6 +288,41 @@ Yet to do:
                 (refer to https://pythonprogramming.net/flask-registration-tutorial/?completed=/flask-user-registration-form-tutorial/)
 
         [ ]     If all successful: replace the current with the updated registeration process
+
+------------------------------------------------------------------------------
+
+ONGOING:
+[ ]     Bugs to be fixed:
+        [ ]     There's a huge gap at the top of each page, due to the side bar.
+        [x]     Details received from 'add_interview.html' display on interview_details.html' 
+                as text boxes that can be edited. 
+                [x]     Figure out solution to adjust the values for each field so they display as plain text.
+        [x]     Interview_details.html: interviewer_names field is an edit text box
+        [x]     Interview History: 
+                [x]     "Video / Online" is displaying "skype" instead of "Skype"
+                [x]     In_person interviews are displaying "Contact number" 
+                        instead of "In Person"
+                [x]     In person interviews are displaying the medium (eg: "zoom")
+                        Where medium should display "N/A" 
+
+
+
+
+
+------------------------------------------------------------------------------
+
+Yet to do:
+
+#: [ ]  Add Companies to CompanyDirectory table
+        [ ]     Create SQL query to check a provided company name (arg) 
+                against those saved in the company directiory
+        [ ]     Create SQL query to add a company to the CompanyDirectory
+        [ ]     in post_add_application(), Check if company already exists in CompanyDirectory
+                        [ ]     If not: Add company to CompanyDirectory
+        [ ]     in post_add_interview(), check if company already exists in CompanyDirectory
+                [ ]     If No:
+                        [ ]     Add company to CompanyDirectory  
+
 
 #: [ ]  Index page: 
         [ ]     Update to Display how many applications user has submitted over the last 7 days
