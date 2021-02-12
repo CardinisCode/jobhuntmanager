@@ -18,6 +18,12 @@ class UserRepository:
 
         return result.fetchone()
 
+    def getUsernameByUserID(self, user_id):
+        cursor = self.db.cursor()
+        result = cursor.execute("SELECT username FROM users WHERE id=?", (user_id,))
+
+        return result.fetchone()
+
     def createUser(self, username, hashed_password, email, date):
         cursor = self.db.cursor()
         result = cursor.execute("INSERT INTO users (username, hash, email, date) VALUES (?, ?, ?, ?)", (username, hashed_password, email, date,))

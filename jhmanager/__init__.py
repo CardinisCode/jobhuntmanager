@@ -111,7 +111,7 @@ def logout():
 def index():
     """ Home page for user """
     user_id = session["user_id"]
-    return create_homepage_content(session, user_id, applicationsRepo, interviewsRepo)
+    return create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, userRepo)
 
 
 @app.route("/applications")

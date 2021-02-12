@@ -203,7 +203,7 @@ def grab_values_from_top5interviews_SQLquery_and_return_dict(interviewsRepo, use
     return top_5_interviews_dict
 
 
-def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo):
+def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, userRepo):
     #1: Let's grab today's date as this will help us when we're grabbing interviews & applications for the current date:
     current_date = date.today()
     date_format = "%Y-%m-%d"
@@ -213,6 +213,7 @@ def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo):
     # Firstly: applications
     applications_today = applicationsRepo.grabTodaysApplicationCount(date_str, user_id)
     interviews_today = interviewsRepo.grabTodaysInterviewCount(date_str, user_id)
+    username = userRepo.getUsernameByUserID(user_id)[0]
 
     # Sadly SQLite doesn't have the functionality to return COUNT(*) from SQLite to Python
     # So we'll have manually count the number of rows returned from the SQL query:
@@ -237,6 +238,7 @@ def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo):
         "message": message,
         "top_5_applications": top_5_applications_dict,
         "top_5_interviews": top_5_interviews_dict,
+        "username": username,
     }
 
     return render_template("index.html", display=display)
