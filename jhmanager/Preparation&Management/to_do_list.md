@@ -306,6 +306,14 @@ Project Management
 
 ------------------------------------------------------------------------------
 
+#17: [ ]        Create UserProfile Content
+        [ ]     Create a function to pull relevant data & render it to userprofile.html
+                [ ]     Display username
+                [ ]     Display email 
+        [ ]     From the route function call above function
+
+------------------------------------------------------------------------------
+
 ONGOING:
 [ ]     Bugs to be fixed:
         [x]     There's a huge gap at the top of each page, due to the side bar.

@@ -22,7 +22,13 @@ class UserRepository:
         cursor = self.db.cursor()
         result = cursor.execute("SELECT username FROM users WHERE id=?", (user_id,))
 
-        return result.fetchone()
+        return result.fetchone()[0]
+
+    def getEmailAddressByUserID(self, user_id):
+        cursor = self.db.cursor()
+        result = cursor.execute("SELECT email FROM users WHERE id=?", (user_id,))
+
+        return result.fetchone()[0]
 
     def createUser(self, username, hashed_password, email, date):
         cursor = self.db.cursor()

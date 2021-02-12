@@ -5,12 +5,18 @@
 {% endblock %}
 
 {% block main %}
-<h1> Hello ....</h1>
+<h1> Your User Profile...</h1>
 <hr/>
-<p> Your User Profile...</p>
+<p> </p>
 
-<p> Username</p>
-<p> Email Address </p>
+<table class="center"> 
+    {% for heading, field in user_details.items() %}
+        <tr>
+            <th class="border-right border-left border-top border-bottom"> {{ heading }} </th>
+            <td class="border-right border-left border-top border-bottom"> {{ field }}</td>
+        </tr>
+    {% endfor %}
+</table> 
 
 
 {% endblock %}

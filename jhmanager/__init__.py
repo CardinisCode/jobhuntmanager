@@ -28,6 +28,7 @@ from jhmanager.service.add_interview import grabDetailsFromNewInterviewAndAddToR
 from jhmanager.service.post_add_interview import post_add_interview
 from jhmanager.service.display_interviews import display_top_10_interviews_to_interviews_html
 from jhmanager.service.login import verify_login_details
+from jhmanager.service.create_userprofile_content import create_userprofile_content
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -177,7 +178,8 @@ def display_interview_details():
 @login_required
 def display_user_profile():
     """ Display User Profile """
-    return render_template("userprofile.html")
+    user_id = session["user_id"]
+    return create_userprofile_content(session, userRepo, user_id)
 
 @app.route("/calendar")
 @login_required
