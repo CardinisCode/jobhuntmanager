@@ -22,13 +22,12 @@ from jhmanager.repo.interviewsHistory import InterviewsHistoryRepository
 
 from jhmanager.service.post_registration import post_register_user
 from jhmanager.service.homepage import create_homepage_content
-from jhmanager.service.login import post_login
 from jhmanager.service.post_add_application import post_add_application
 from jhmanager.service.display_applications import display_all_applications_current_user
 from jhmanager.service.add_interview import grabDetailsFromNewInterviewAndAddToRepo
 from jhmanager.service.post_add_interview import post_add_interview
 from jhmanager.service.display_interviews import display_top_10_interviews_to_interviews_html
-from jhmanager.service.verify_login_details import verify_login_details
+from jhmanager.service.login import verify_login_details
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -85,7 +84,7 @@ def register_user():
 
 # Taken from CS50's Finance source code & modified
 
-@app.route("/test_login", methods=["GET", "POST"])
+@app.route("/login", methods=["GET", "POST"])
 def test_login():
     """Log user in"""
     login_form = LoginForm()
@@ -93,24 +92,24 @@ def test_login():
         return verify_login_details(login_form, userRepo)
 
     """ Display Login form to the user """
-    return render_template("test_login.html", login_form=login_form)
+    return render_template("login.html", login_form=login_form)
 
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    """Log user in"""
+# @app.route("/login", methods=["GET", "POST"])
+# def login():
+#     """Log user in"""
 
-    # # Forget any user_id
-    # session.clear()
+#     # # Forget any user_id
+#     # session.clear()
 
-    # user_id = session["user_id"]
+#     # user_id = session["user_id"]
 
-    # User reached route via POST (as by submitting a form via POST)
-    if request.method == "POST":
-        return post_login(session, userRepo)
+#     # User reached route via POST (as by submitting a form via POST)
+#     if request.method == "POST":
+#         return post_login(session, userRepo)
 
-    # User reached route via GET (as by clicking a link or via redirect)
-    else:
-        return render_template("login.html")
+#     # User reached route via GET (as by clicking a link or via redirect)
+#     else:
+#         return render_template("login.html")
 
 
 @app.route("/logout")
