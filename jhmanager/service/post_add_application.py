@@ -75,7 +75,9 @@ def add_new_company_to_application_history(user_id, applicationsRepo, company_na
 
 
 def updateExistingEntryForCompanyName(user_id, field_details, applicationsRepo):
-    raise ValueError("Existing company. Details:", field_details)
+    
+    # raise ValueError("Existing company. Details:", field_details)
+
 
     return True
 
@@ -212,7 +214,8 @@ def post_add_application(session, user_id, applicationsRepo, form):
             add_new_company_to_application_history(user_id, applicationsRepo, company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url)
         else:
             updateExistingEntryForCompanyName(user_id, field_details, applicationsRepo)
-            raise ValueError("Applications details will be used to update existing entry.")
+            message = "Now work on updating the entry in application_history for {}.".format(company_name.data)
+            flash(message)
 
     return render_template("application_details.html", details=details)
 
