@@ -268,33 +268,47 @@ Project Management
 
 ------------------------------------------------------------------------------
 
-#: [ ] Redo Login & Register using WTForms 
+#15: [x] Redo Register using WTForms 
         [x]     Install pip3 install passlib
-        [ ]     Create a Register class & allocate fields
+        [x]     Create a Register class & allocate fields
                 [x]     Username 
                 [x]     Password
                 [x]     Confirm Password
                 [x]     Email
-                [ ]     Accept T&Cs
                 [x]     Submit field
                 (Refer to https://pythonprogramming.net/flask-user-registration-form-tutorial/)
         [x]     Create test Register page & allocate it a route & function 
         [x]     GET: render test_register.html
         [x]     POST: Create function
-                [ ]     Grab values from form & test that they're pulling through as expected
-                [ ]     Create SQL query in users table, to check if the username provided already exists
-                [ ]     Create SQL query in users table, to check if the email address provided 
+                [x]     Grab values from form & test that they're pulling through as expected
+                [x]     Create SQL query in users table, to check if the username provided already exists
+                [x]     Create SQL query in users table, to check if the email address provided 
                         already exists
-                [ ]     Encrypt password
+                [x]     Encrypt password
                 (refer to https://pythonprogramming.net/flask-registration-tutorial/?completed=/flask-user-registration-form-tutorial/)
+        [x]     If all successful: replace the current with the updated registeration process
 
-        [ ]     If all successful: replace the current with the updated registeration process
+------------------------------------------------------------------------------
+
+#16: [x] Redo Register using WTForms 
+        [x]     Create a Login class & allocate fields
+                [x]     Username 
+                [x]     Password
+                [x]     Submit field
+        [x]     Create test Login page & allocate it a route & function 
+        [x]     GET: render test_login.html
+        [x]     POST: Create function
+                [x]     Grab values from form & test that they're pulling through as expected
+                [x]     Create SQL query in users table, to check if the username provided already exists
+                        already exists
+                [x]     Verify that the password on file matches the password that the user provides (via the form)
+        [x]     If all successful: replace the current files & functions with the updated login process
 
 ------------------------------------------------------------------------------
 
 ONGOING:
 [ ]     Bugs to be fixed:
-        [ ]     There's a huge gap at the top of each page, due to the side bar.
+        [x]     There's a huge gap at the top of each page, due to the side bar.
         [x]     Details received from 'add_interview.html' display on interview_details.html' 
                 as text boxes that can be edited. 
                 [x]     Figure out solution to adjust the values for each field so they display as plain text.
@@ -305,10 +319,6 @@ ONGOING:
                         instead of "In Person"
                 [x]     In person interviews are displaying the medium (eg: "zoom")
                         Where medium should display "N/A" 
-
-
-
-
 
 ------------------------------------------------------------------------------
 
