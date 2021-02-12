@@ -6,20 +6,17 @@ class UserRepository:
         return self.db.execute("SELECT * FROM users WHERE id = :user_id", user_id=user_id)
 
     def getByUserName(self, username):
-        cursor = self.db.execute("SELECT * FROM users WHERE username=?", (username,))
-        user = cursor.fetchone()
-        if not user:
-            return None
+        cursor = self.db.cursor()
+        result = cursor.execute("SELECT * FROM users WHERE username=?", (username,))
+        self.db.commit()        
 
-        return user
+        return result.fetchone()
 
     def getByUserEmail(self, email):
-        cursor = self.db.execute("SELECT * FROM users WHERE email=?", (email,))
-        user = cursor.fetchone()
-        if not user:
-            return None
-            
-        return user
+        cursor = self.db.cursor()
+        result = cursor.execute("SELECT * FROM users WHERE email=?", (email,))
+
+        return result.fetchone()
 
     def createUser(self, username, hashed_password, email, date):
         cursor = self.db.cursor()

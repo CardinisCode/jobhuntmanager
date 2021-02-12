@@ -13,23 +13,26 @@ def validate_user(username, password, userRepo):
     user_by_email = userRepo.getByUserEmail(request.form.get("username"))
 
     # Check username/email matches any user in the database
-    if user_by_username == None and user_by_email == None:
-        flash("Your username does not match any username/email address that we have.")
-        return (valid, user)
+    if user_by_username:
+        user_password = user_by_username[2]
+    if user_by_email: 
+        user_password = user_by_email[2]
 
-    # We have established there is a user which matches the provided username/email address
+    # # We have established there is a user which matches the provided username/email address
     # So lets update the user
     user = ""
-    if user_by_username != None:
+    if user_by_username:
         user = user_by_username
     else:
-        user = user_by_email
+        user = user_by_email 
 
     # To ensure the password is correct
     # We will hash the provided password & see if it matches the password on file:
     hashed_password = sha256_crypt.encrypt(str(password))
+    match = sha256_crypt.verify(hashed_password, user_password)
+    # raise ValueError("PW On file:", user_password, "vs provided pw:", hashed_password, match)
 
-    if user[2] != hashed_password:
+    if not match:
         flash("Incorrect password.")
         return (valid, user)
 

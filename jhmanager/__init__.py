@@ -27,10 +27,12 @@ from jhmanager.service.display_applications import display_all_applications_curr
 from jhmanager.service.add_interview import grabDetailsFromNewInterviewAndAddToRepo
 from jhmanager.service.post_add_interview import post_add_interview
 from jhmanager.service.display_interviews import display_top_10_interviews_to_interviews_html
+from jhmanager.service.verify_login_details import verify_login_details
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
 from jhmanager.forms.register_form import RegisterUserForm
+from jhmanager.forms.login_form import LoginForm
 
 
 # Configure application
@@ -81,12 +83,22 @@ def register_user():
 
 # Taken from CS50's Finance source code & modified
 
+@app.route("/test_login", methods=["GET", "POST"])
+def test_login():
+    """Log user in"""
+
+    login_form = LoginForm()
+    if login_form.validate_on_submit():
+        return verify_login_details(login_form)
+
+    return render_template("test_login.html", login_form=login_form)
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
 
-    # Forget any user_id
-    session.clear()
+    # # Forget any user_id
+    # session.clear()
 
     # user_id = session["user_id"]
 
@@ -108,7 +120,7 @@ def logout():
     session.clear()
 
     # Redirect user to login form
-    return redirect("/login")
+    return redirect("/test_login")
 
 
 @app.route("/")
