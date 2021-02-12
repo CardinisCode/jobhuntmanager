@@ -27,7 +27,6 @@ from jhmanager.service.display_applications import display_all_applications_curr
 from jhmanager.service.add_interview import grabDetailsFromNewInterviewAndAddToRepo
 from jhmanager.service.post_add_interview import post_add_interview
 from jhmanager.service.display_interviews import display_top_10_interviews_to_interviews_html
-from jhmanager.service.post_register_test import post_register_user
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
