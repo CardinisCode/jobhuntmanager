@@ -14,7 +14,8 @@ def verify_login_details(login_form, userRepo):
         flash("Username is not existing.")
         return render_template("test_login.html", login_form=login_form)
 
-    raise ValueError("User exists! Proceed to next step!")
+    user_password = user_exists[2]
+    raise ValueError("Your pw:", user_password)
 
     if not valid_details: 
         flash("Incorrect Username or Password")
