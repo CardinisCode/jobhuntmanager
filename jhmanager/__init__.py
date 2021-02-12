@@ -19,7 +19,7 @@ from jhmanager.repo.company_directory import CompanyRepository
 from jhmanager.repo.applications_history import ApplicationsHistoryRepository
 from jhmanager.repo.interviewsHistory import InterviewsHistoryRepository
 
-from jhmanager.service.registration import post_registration
+from jhmanager.service.post_registration import post_register_user
 from jhmanager.service.homepage import create_homepage_content
 from jhmanager.service.login import post_login
 from jhmanager.service.post_add_application import post_add_application
@@ -72,21 +72,12 @@ interviewsRepo = InterviewsHistoryRepository(db)
 
 @app.route("/register", methods=["GET", "POST"])
 def register_user():
-    """Provide registration form to user"""
-    if request.method == "GET":
-        return render_template("register.html")
-    else:
-        return post_registration(session, userRepo)
-
-
-@app.route("/test_register", methods=["GET", "POST"])
-def test_register_user():
     register_form = RegisterUserForm()
     if register_form.validate_on_submit():
         return post_register_user(session, userRepo, register_form)
 
     """Provide registration form to user"""
-    return render_template("test_register.html", register_form=register_form)
+    return render_template("register.html", register_form=register_form)
 
 
 # Taken from CS50's Finance source code & modified
