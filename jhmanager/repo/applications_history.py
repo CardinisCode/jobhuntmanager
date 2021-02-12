@@ -60,6 +60,15 @@ class ApplicationsHistoryRepository:
 
         return result
 
+    def checkCompanyNameInApplicationHistoryByUserID(self, company_name, user_id,):
+        cursor = self.db.cursor()
+        result = cursor.execute(
+            "SELECT EXISTS(SELECT company_name FROM application_history WHERE company_name LIKE ? and user_id = ?)", (company_name, user_id,)
+        )
+        self.db.commit()
+
+        return result
+
     def grabApplicationStageForCompanyNameForActiveUser(self, arguments):
         cursor = self.db.cursor()
         result = cursor.execute(

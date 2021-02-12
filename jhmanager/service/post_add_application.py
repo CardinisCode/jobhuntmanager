@@ -2,7 +2,7 @@ from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime
 
 
-def format_data_and_add_to_sql_db(user_id, applicationsRepo, company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url):
+def add_new_company_to_application_history(user_id, applicationsRepo, company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url):
     # We need to grab current day's date & time when user adds a new application:
     # application_date = str(datetime.date(datetime.now()))
     application_datetime = datetime.now()
@@ -70,6 +70,12 @@ def format_data_and_add_to_sql_db(user_id, applicationsRepo, company_name, job_r
     # Now we finish off by adding the details into the SQL db:
     fields = (company_name, job_role, app_date_str, app_time_str, emp_type, job_ref, company_spec, job_spec, tech_stack, perks, platform, location, salary, user_notes, job_url, user_id)
     applicationsRepo.addApplicationToHistory(fields)
+
+    return True
+
+
+def updateExistingEntryForCompanyName(user_id, field_details, applicationsRepo):
+    raise ValueError("Existing company. Details:", field_details)
 
     return True
 
@@ -153,27 +159,60 @@ def add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, compan
 
 
 def post_add_application(session, user_id, applicationsRepo, form):
+    field_details = []
+    
     #Grab fields from form:
     company_name = form.company_name 
+    field_details.append(company_name.data)
+
     job_role = form.job_role
+    field_details.append(job_role.data)
+
     emp_type = form.emp_type
+    field_details.append(emp_type.data)
+
     job_ref = form.job_ref
+    field_details.append(job_ref.data)
+
     company_spec = form.company_description
+    field_details.append(company_spec.data)
+
     job_spec = form.job_description
+    field_details.append(job_spec.data)
+
     perks = form.job_perks
+    field_details.append(perks.data)
+
     tech_stack = form.tech_stack
+    field_details.append(tech_stack.data)
+
     location = form.location
+    field_details.append(location.data)
+
     salary = form.salary
-    user_notes = form.user_notes   
+    field_details.append(salary.data)
+
+    user_notes = form.user_notes  
+    field_details.append(user_notes.data)
+
     platform = form.platform 
+    field_details.append(platform.data)
+
     job_url = form.job_url
+    field_details.append(job_url.data)
 
     # Lets add these fields to our function that will structure this data into a dict:
     details =  add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url)
 
-    # Add details to SQL
-    format_data_and_add_to_sql_db(user_id, applicationsRepo, company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url)
-    # Create function to add details to SQL table
+    # Now we want a condition:
+    # If company_name already exists in application_history for this user:
+    existing_company = applicationsRepo.checkCompanyNameInApplicationHistoryByUserID(company_name.data, user_id,)
+    for item in existing_company:
+        if item[0] == 0:
+            add_new_company_to_application_history(user_id, applicationsRepo, company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url)
+        else:
+            updateExistingEntryForCompanyName(user_id, field_details, applicationsRepo)
+            raise ValueError("Applications details will be used to update existing entry.")
 
     return render_template("application_details.html", details=details)
 

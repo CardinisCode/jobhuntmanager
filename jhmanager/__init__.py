@@ -104,7 +104,7 @@ def logout():
     session.clear()
 
     # Redirect user to login form
-    return redirect("/test_login")
+    return redirect("/login")
 
 
 @app.route("/")
