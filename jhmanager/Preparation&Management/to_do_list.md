@@ -314,6 +314,16 @@ Project Management
 
 ------------------------------------------------------------------------------
 
+#18: [ ]  Update post_add_application functionality
+        [ ]     Check if company name already exists in application_history
+        [ ]     If company_name already exists in application_history
+                [ ]     Updates details for entry in application_history
+        [ ]     Else:
+                [ ]     Treats application as brand new application
+                        [ ]     Adds new_application as new entry in applications_history
+
+------------------------------------------------------------------------------
+
 ONGOING:
 [ ]     Bugs to be fixed:
         [x]     There's a huge gap at the top of each page, due to the side bar.
