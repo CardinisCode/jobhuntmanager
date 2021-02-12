@@ -42,3 +42,4 @@
 
 # Creating a User Registration form using WTForms:
 -   http://sebastiandahlgren.se/2013/06/14/password-confirmation-in-wtforms/
+-   https://pythonprogramming.net/flask-registration-tutorial/?completed=/flask-user-registration-form-tutorial/

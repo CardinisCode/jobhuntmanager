@@ -1,20 +1,14 @@
 from flask import Flask, flash, redirect, request, session, render_template
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
+from passlib.hash import sha256_crypt
 
 
 def validate_user(username, password, userRepo):
     valid = False
     user = None
-    if not username: 
-        flash('You must provide a username.')
-        return (valid, user)
 
-    if not password:
-        flash('You must provide a password.')
-        return (valid, user)
-
-        # Query database for username
+    # Query database for username
     user_by_username = userRepo.getByUserName(request.form.get("username"))
     user_by_email = userRepo.getByUserEmail(request.form.get("username"))
 
@@ -32,7 +26,10 @@ def validate_user(username, password, userRepo):
         user = user_by_email
 
     # To ensure the password is correct
-    if not check_password_hash(user[2], password):
+    # We will hash the provided password & see if it matches the password on file:
+    hashed_password = sha256_crypt.encrypt(str(password))
+
+    if user[2] != hashed_password:
         flash("Incorrect password.")
         return (valid, user)
 
@@ -40,7 +37,7 @@ def validate_user(username, password, userRepo):
 
 
 def post_login(session, userRepo):
-    # Ensure username was submitted
+#     # Ensure username was submitted
     username = request.form.get("username")
     password = request.form.get("password")
     valid = validate_user(username, password, userRepo)[0]
@@ -52,5 +49,5 @@ def post_login(session, userRepo):
     # Remember which user has logged in
     session["user_id"] = user[0]
 
-    # Redirect user to home page
+#     # Redirect user to home page
     return redirect("/")

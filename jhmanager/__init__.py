@@ -83,7 +83,7 @@ def register_user():
 def test_register_user():
     register_form = RegisterUserForm()
     if register_form.validate_on_submit():
-        return post_register_user(session, userRepo)
+        return post_register_user(session, userRepo, register_form)
 
     """Provide registration form to user"""
     return render_template("test_register.html", register_form=register_form)
