@@ -89,7 +89,7 @@ def test_login():
 
     login_form = LoginForm()
     if login_form.validate_on_submit():
-        return verify_login_details(login_form)
+        return verify_login_details(login_form, userRepo)
 
     return render_template("test_login.html", login_form=login_form)
 
