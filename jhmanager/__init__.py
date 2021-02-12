@@ -6,6 +6,7 @@ from flask import Flask, flash, jsonify, redirect, render_template, request, ses
 from flask_session import Session
 from flask_bootstrap import Bootstrap
 from flask_datepicker import datepicker
+# from flask.ext.login import LoginManager
 
 from datetime import datetime, date
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
@@ -37,8 +38,9 @@ from jhmanager.forms.login_form import LoginForm
 
 # Configure application
 app = Flask(__name__, instance_relative_config=True)
-Bootstrap(app)
-datepicker(app)
+# login_manager = LoginManager()
+# login_manager.init_app(app)
+# login_manager.login_view = 'test_login'
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -86,11 +88,11 @@ def register_user():
 @app.route("/test_login", methods=["GET", "POST"])
 def test_login():
     """Log user in"""
-
     login_form = LoginForm()
     if login_form.validate_on_submit():
         return verify_login_details(login_form, userRepo)
 
+    """ Display Login form to the user """
     return render_template("test_login.html", login_form=login_form)
 
 @app.route("/login", methods=["GET", "POST"])

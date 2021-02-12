@@ -5,7 +5,6 @@ from passlib.hash import sha256_crypt
 
 
 def verify_login_details(login_form, userRepo):
-    valid_details = False
     username = login_form.username.data
     password = login_form.password.data
 
@@ -14,12 +13,14 @@ def verify_login_details(login_form, userRepo):
         flash("Username is not existing.")
         return render_template("test_login.html", login_form=login_form)
 
-    user_password = user_exists[2]
-    raise ValueError("Your pw:", user_password)
+    hashed_password = user_exists[2]
+    match = sha256_crypt.verify(password, hashed_password)
 
-    if not valid_details: 
+    if not match: 
         flash("Incorrect Username or Password")
         return render_template("login.html")
+
+    session["user_id"] = user_exists[0]
 
     flash("Successful login")
     return redirect("/")

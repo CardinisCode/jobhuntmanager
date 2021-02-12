@@ -30,4 +30,5 @@ def post_register_user(session, userRepo, register_form):
     session["user_id"] = registeration_confirmation
 
     flash('Registration Complete!')
+    raise ValueError("password is", register_form.password.data, hashed_password)
     return redirect("/")
