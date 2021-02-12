@@ -306,11 +306,11 @@ Project Management
 
 ------------------------------------------------------------------------------
 
-#17: [ ]        Create UserProfile Content
-        [ ]     Create a function to pull relevant data & render it to userprofile.html
-                [ ]     Display username
-                [ ]     Display email 
-        [ ]     From the route function call above function
+#17: [x]        Create UserProfile Content
+        [x]     Create a function to pull relevant data & render it to userprofile.html
+                [x]     Display username
+                [x]     Display email 
+        [x]     From the route function call above function
 
 ------------------------------------------------------------------------------
 
