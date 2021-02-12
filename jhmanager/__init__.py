@@ -94,24 +94,6 @@ def test_login():
     """ Display Login form to the user """
     return render_template("login.html", login_form=login_form)
 
-# @app.route("/login", methods=["GET", "POST"])
-# def login():
-#     """Log user in"""
-
-#     # # Forget any user_id
-#     # session.clear()
-
-#     # user_id = session["user_id"]
-
-#     # User reached route via POST (as by submitting a form via POST)
-#     if request.method == "POST":
-#         return post_login(session, userRepo)
-
-#     # User reached route via GET (as by clicking a link or via redirect)
-#     else:
-#         return render_template("login.html")
-
-
 @app.route("/logout")
 @login_required
 def logout():
