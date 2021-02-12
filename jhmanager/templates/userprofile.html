@@ -10,10 +10,10 @@
 <p> </p>
 
 <table class="center"> 
-    {% for heading, field in user_details.items() %}
+    {% for field in user_details.values() %}
         <tr>
-            <th class="border-right border-left border-top border-bottom"> {{ heading }} </th>
-            <td class="border-right border-left border-top border-bottom"> {{ field }}</td>
+            <th class="border-right border-left border-top border-bottom"> {{ field.heading }} </th>
+            <td class="border-right border-left border-top border-bottom"> {{ field.data }}</td>
         </tr>
     {% endfor %}
 </table> 
