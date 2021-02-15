@@ -292,22 +292,22 @@ def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo)
     status = form.status
 
     # Lets check if the company name already exists in our Db:
-    company_already_exists_in_db = check_businessName_against_application_history(company_name, user_id, applicationsRepo)
-    if company_already_exists_in_db: 
-        flash("Company already exists in DB, consider updating the application details for this company.")
-        # Create SQL query to update entry for this company in application_history -> update interview_stage = "Interview lined up."
-        interview_stage_updated = update_interview_stage_for_existing_application(applicationsRepo, user_id, company_name)
-        message = interview_stage_updated[1]
-        interview_stage = interview_stage_updated[0]
-        if interview_stage == None:
-            flash(message)
+    # company_already_exists_in_db = check_businessName_against_application_history(company_name, user_id, applicationsRepo)
+    # if company_already_exists_in_db: 
+    #     flash("Company already exists in DB, consider updating the application details for this company.")
+    #     # Create SQL query to update entry for this company in application_history -> update interview_stage = "Interview lined up."
+    #     interview_stage_updated = update_interview_stage_for_existing_application(applicationsRepo, user_id, company_name)
+    #     message = interview_stage_updated[1]
+    #     interview_stage = interview_stage_updated[0]
+    #     if interview_stage == None:
+    #         flash(message)
 
-    else:
-        # The user has added an interview for company_name without adding a new application for that company first:
-        flash("Use interview details to create a new application for this company.")
-        interview_stage = 0
+    # else:
+    #     # The user has added an interview for company_name without adding a new application for that company first:
+    #     flash("Use interview details to create a new application for this company.")
+    #     interview_stage = 0
 
-        add_interview_details_to_application_history_for_unknown_company_name(applicationsRepo, user_id, company_name, job_role)
+    # add_interview_details_to_application_history_for_unknown_company_name(applicationsRepo, user_id, company_name, job_role)
 
 
     # Add details to application_history in SQL DB:
