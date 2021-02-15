@@ -1,5 +1,5 @@
 start:
-	FLASK_APP=jhmanager FLASK_ENV=development flask run
+	FLASK_APP=jhmanager FLASK_ENV=development pipenv run flask run
 
 test:
-	pytest
+	pipenv run pytest
