@@ -1,6 +1,6 @@
 from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime
-
+from jhmanager.service.update_application_entry import updateApplicationEntryUsingNewApplicationDetails
 
 def add_new_company_to_application_history(user_id, applicationsRepo, company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url):
     # We need to grab current day's date & time when user adds a new application:
@@ -75,11 +75,10 @@ def add_new_company_to_application_history(user_id, applicationsRepo, company_na
 
 
 def updateExistingEntryForCompanyName(user_id, field_details, applicationsRepo):
-    
-    # raise ValueError("Existing company. Details:", field_details)
+    raise ValueError("Existing company. Details:", field_details)
 
 
-    return True
+    # return True
 
 
 def add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url):
@@ -213,9 +212,11 @@ def post_add_application(session, user_id, applicationsRepo, form):
         if item[0] == 0:
             add_new_company_to_application_history(user_id, applicationsRepo, company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url)
         else:
-            updateExistingEntryForCompanyName(user_id, field_details, applicationsRepo)
-            message = "Now work on updating the entry in application_history for {}.".format(company_name.data)
+            # updateExistingEntryForCompanyName(user_id, field_details, applicationsRepo)
+            message = "An application entry already exists for {}. Consider updating the details for this company.".format(company_name.data)
             flash(message)
+            app_updated = updateApplicationEntryUsingNewApplicationDetails(field_details, user_id, applicationsRepo)
+            raise ValueError("App updated: ", app_updated)
 
     return render_template("application_details.html", details=details)
 

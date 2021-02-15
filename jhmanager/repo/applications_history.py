@@ -69,6 +69,14 @@ class ApplicationsHistoryRepository:
 
         return result
 
+
+    def updateApplicationEntryByCompanyName(self, fields, user_id):
+        cursor = self.db.cursor()
+        result = cursor.execute()
+        self.db.commit()
+
+        return result
+
     def grabApplicationStageForCompanyNameForActiveUser(self, arguments):
         cursor = self.db.cursor()
         result = cursor.execute(
