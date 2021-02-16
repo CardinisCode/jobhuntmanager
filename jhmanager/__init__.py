@@ -120,7 +120,7 @@ def index():
 def display_applications():
     """ Display User's Job Applications """
     user_id = session["user_id"]
-    return display_all_applications_current_user(session, user_id, applicationsRepo)
+    return display_all_applications_current_user(session, user_id, applicationsRepo, companyRepo)
 
 
 @app.route("/add_job_application", methods=["GET", "POST"])

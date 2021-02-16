@@ -297,12 +297,11 @@ https://www.sqlitetutorial.net/sqlite-foreign-key/
 ALTER TABLE application_history ADD "interview_time" DATE NOT NULL DEFAULT "HH:MM";
 
 BEGIN TRANSACTION;
-DROP TABLE application;
+DROP TABLE applications;
 CREATE TABLE IF NOT EXISTS applications(
     "application_id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     "user_id" INTEGER NOT NULL, 
     "company_id" INTEGER NOT NULL, 
-    "company_name" TEXT NOT NULL DEFAULT "N/A", 
     "date" DATETIME NOT NULL, 
     "time" TIME NOT NULL,
     "job_role" TEXT NOT NULL DEFAULT "N/A", 

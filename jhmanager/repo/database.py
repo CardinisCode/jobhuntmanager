@@ -34,6 +34,17 @@ class SqlDatabase(Database):
 
         return result.lastrowid
 
+    def getCompanyNameByCompanyID(self, table, company_id):
+        cursor = self.db.cursor()
+        result = cursor.execute("SELECT company_name FROM {} WHERE id={}".format(table, company_id))
+        self.db.commit()
+
+        data = [x for x in result]
+        if len(data) < 1:
+            return None
+
+        return data[0]
+
     def getById(self, table, id):
         cursor = self.db.cursor()
         result = cursor.execute("SELECT * FROM {} WHERE id={}".format(table, id))

@@ -23,7 +23,6 @@ CREATE TABLE applications(
     'application_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     'user_id' INTEGER NOT NULL, 
     'company_id' INTEGER NOT NULL, 
-    'company_name' TEXT NOT NULL DEFAULT "N/A", 
     'date' DATETIME NOT NULL, 
     'time' TIME NOT NULL,
     'job_role' TEXT NOT NULL DEFAULT "N/A", 

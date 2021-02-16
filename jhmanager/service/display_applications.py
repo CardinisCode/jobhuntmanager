@@ -2,9 +2,8 @@ from flask import Flask, render_template, session, request, redirect
 from datetime import datetime, time
 
 
-def display_all_applications_current_user(session, user_id, applicationsRepo):
+def display_all_applications_current_user(session, user_id, applicationsRepo, companyRepo):
     top_ten_applications = applicationsRepo.grabTop10ApplicationsFromHistory(user_id)
-
 
     display_details = {}
     display_details["headings"] = {
@@ -21,12 +20,15 @@ def display_all_applications_current_user(session, user_id, applicationsRepo):
         # Now that we have grabbed the fields for this current application
         # lets store these values in a dictionary to be displayed on the html page:
         app_id = details_list[0]
-        company_name = details_list[2]
+        company_id = details_list[1]
+        app_date = details_list[2]
         emp_type = details_list[4]
-        app_date = details_list[1]
-        interview_stage = details_list[7]
-        platform = details_list[6] 
         salary = details_list[5]
+        platform = details_list[6] 
+        interview_stage = details_list[7]
+
+        # Now that we have the company_id, we can grab the company_name:
+        company_name = companyRepo.grab_company_name(user_id, company_id)
 
         # Before adding Interview_stage to our display dict, let's format it's presentation:
         if interview_stage == "N/A":
