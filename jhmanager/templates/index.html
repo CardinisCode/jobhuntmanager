@@ -61,44 +61,5 @@
             <li class="left_button"> Interviews lined up for today: {{ display.interviews_today }}</li>
         {% endif %}
     </div>
-    <br/>
-    
-    <h3> Interviews Lined up:</h3>
-    <div class="horizontal_buttons">
-        <a href="/add_interview" class="button right_button" style="cursor:pointer;"> Add +</a>
-        <a href="/interviews" class="button middle_button">View all Interviews</a>
-    </div>
-
-    <!-- Drop down to view table-->
-    <table class="Table"> 
-        <tr class="border-bottom border-right border-left border-top">
-            {% for item in display.top_5_interviews.headings %}
-                <th class="border-bottom border-right border-left"> {{ item }} </th> 
-            {% endfor %}
-        </tr>
-
-        {% for key, value in display.top_5_interviews.items() %}
-            {% if key != "headings" %}
-                <tr class="border-bottom border-right border-left">
-                    {% for field in value.values() %}
-                        <td class="border-bottom border-right border-left"> {{ field }}</td>
-                    {% endfor %}
-                </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
-
-    <br/>
-    <br/>
-    <div class="horizontal_buttons">
-        <a href="/add_interview" class="button left_button">Add Interview</a>
-        <a href="/interview_prep" class="button middle_button">Prep for an Interview</a>
-        <!-- <a href="templates/interview_prep.html" class="button right_button">Review your Interview Prep</a> -->
-        <a href="/interviews" class="button right_button">View Your Interview History</a>
-    </div>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
 
 {% endblock %}
