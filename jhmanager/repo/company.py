@@ -1,5 +1,19 @@
 from jhmanager.repo.database import SqlDatabase
 
+
+class Company:
+    def __init__(self, db_fields):
+        self.company_id = db_fields[0]
+        self.user_id = db_fields[1]
+        self.name = db_fields[2]
+        self.description = db_fields[3]
+        self.location = db_fields[4]
+        self.industry = db_fields[5]
+        self.url = db_fields[6]
+        self.interviewers = db_fields[7]
+        self.contact_number = db_fields[8]
+
+
 class CompanyRepository:
     def __init__(self, db):
         self.sql = SqlDatabase(db=db)
@@ -18,6 +32,13 @@ class CompanyRepository:
         }
 
         return self.sql.insert('company', data)
+
+    def getCompanyById(self, company_id):
+        result = self.sql.getByField('company', 'company_id', company_id)
+
+        company = Company(result)
+
+        return company
 
     def grab_company_name(self, user_id, company_id):
         cursor = self.db.cursor()
