@@ -68,48 +68,48 @@ def improve_display_values(details_dict, interview_id, other_medium):
 
 
 
-def display_top_10_interviews_to_interviews_html(session, user_id, interviewsRepo):
-    interviews = interviewsRepo.grabTopTenInterviewsForUser(user_id)
+# def display_top_10_interviews_to_interviews_html(session, user_id, interviewsRepo):
+#     interviews = interviewsRepo.grabTopTenInterviewsForUser(user_id)
 
-    details_dict = {}
-    interview_id = 1
+#     details_dict = {}
+#     interview_id = 1
 
-    # Let's take the details from "interviews" and restructure the data for our html page:
-    for interview in interviews:
-        details_list = []
-        for details in interview:
-            details_list.append(details)
+#     # Let's take the details from "interviews" and restructure the data for our html page:
+#     for interview in interviews:
+#         details_list = []
+#         for details in interview:
+#             details_list.append(details)
 
-        # Now that we have grabbed the fields for this current interview
-        # lets store these values in a dictionary to be displayed on the html page:
+#         # Now that we have grabbed the fields for this current interview
+#         # lets store these values in a dictionary to be displayed on the html page:
 
-        medium = details_list[9]
-        other_medium = details_list[10]
-        interview_type = details_list[7]
-        interview_status = details_list[12]
-        interviewers = details_list[6]
-        contact_number = details_list[11]
-        app_date = details_list[2]
-        app_time = details_list[3]
+#         medium = details_list[9]
+#         other_medium = details_list[10]
+#         interview_type = details_list[7]
+#         interview_status = details_list[12]
+#         interviewers = details_list[6]
+#         contact_number = details_list[11]
+#         app_date = details_list[2]
+#         app_time = details_list[3]
 
-        # We need to merge the date & time into 1 value to be displayed:
-        app_datetime = app_date + " " + app_time
+#         # We need to merge the date & time into 1 value to be displayed:
+#         app_datetime = app_date + " " + app_time
 
-        details_dict[interview_id] = {
-            "date&time": app_datetime, 
-            "company_name": details_list[1], 
-            "job_role": details_list[4], 
-            "interview_type": interview_type,
-            "medium": medium,
-            "interview_status": interview_status,
-            "location": details_list[8], 
-            "contact_number": contact_number, 
-            "interviewers": interviewers, 
-        }
-        improve_display_values(details_dict, interview_id, other_medium)
-        interview_id += 1
+#         details_dict[interview_id] = {
+#             "date&time": app_datetime, 
+#             "company_name": details_list[1], 
+#             "job_role": details_list[4], 
+#             "interview_type": interview_type,
+#             "medium": medium,
+#             "interview_status": interview_status,
+#             "location": details_list[8], 
+#             "contact_number": contact_number, 
+#             "interviewers": interviewers, 
+#         }
+#         improve_display_values(details_dict, interview_id, other_medium)
+#         interview_id += 1
 
-    headings = ["ID#", "Date & Time", "Company Name", "Role", "Type", "Medium", "Status", "Location", "Contact No.", "Interviewers' Name/s"]
-    details_dict["headings"] = headings
+#     headings = ["ID#", "Date & Time", "Company Name", "Role", "Type", "Medium", "Status", "Location", "Contact No.", "Interviewers' Name/s"]
+#     details_dict["headings"] = headings
 
-    return render_template("interviews.html", details=details_dict)
+#     return render_template("interviews.html", details=details_dict)

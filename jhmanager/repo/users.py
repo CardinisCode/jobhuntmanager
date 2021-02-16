@@ -20,13 +20,13 @@ class UserRepository:
 
     def getUsernameByUserID(self, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT username FROM users WHERE id=?", (user_id,))
+        result = cursor.execute("SELECT username FROM users WHERE user_id=?", (user_id,))
 
         return result.fetchone()[0]
 
     def getEmailAddressByUserID(self, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT email FROM users WHERE id=?", (user_id,))
+        result = cursor.execute("SELECT email FROM users WHERE user_id=?", (user_id,))
 
         return result.fetchone()[0]
 

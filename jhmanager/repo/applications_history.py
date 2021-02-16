@@ -32,7 +32,7 @@ class ApplicationsHistoryRepository:
 
     def grabTop10ApplicationsFromHistory(self, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT id, date, company_name, job_role, employment_type, salary, platform, interview_stage, job_ref, contact_received FROM applications WHERE user_id = ? ORDER BY date DESC LIMIT 10", (user_id,))
+        result = cursor.execute("SELECT application_id, date, company_name, job_role, employment_type, salary, platform, interview_stage, job_ref, contact_received FROM applications WHERE user_id = ? ORDER BY date DESC LIMIT 10", (user_id,))
         self.db.commit()
 
         return result

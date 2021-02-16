@@ -4,7 +4,10 @@ class InterviewsHistoryRepository:
 
     def grabTodaysInterviewCount(self, todays_date, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT * FROM interviews WHERE date = ? AND user_id = ?", (todays_date, user_id,))
+
+        command = "SELECT * FROM applications as A INNER JOIN interviews as I on A.application_id = I.application_id WHERE A.user_id = ? and I.date = ?"
+
+        result = cursor.execute(command, (user_id,todays_date,))
         self.db.commit()
 
         return result
@@ -25,9 +28,9 @@ class InterviewsHistoryRepository:
         return result
 
 
-    def grabTopTenInterviewsForUser(self, user_id):
-        cursor = self.db.cursor()
-        result = cursor.execute("SELECT * FROM interviews WHERE user_id = ? ORDER BY date DESC, time DESC LIMIT 10;", (user_id,))
-        self.db.commit()
+    # def grabTopTenInterviewsForUser(self, application_id):
+    #     cursor = self.db.cursor()
+    #     result = cursor.execute("SELECT * FROM interviews WHERE application_id = ? ORDER BY date DESC, time DESC LIMIT 10;", (application_id,))
+    #     self.db.commit()
 
-        return result
+    #     return result
