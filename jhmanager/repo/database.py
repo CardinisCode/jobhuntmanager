@@ -12,11 +12,14 @@ class Database:
 
 
 class SqlDatabase(Database):
-    def __init__(self, db_location=DB_LOCATION):
-        self.db = sqlite3.connect(
-            db_location,
-            detect_types=sqlite3.PARSE_DECLTYPES,
-            check_same_thread=False)
+    def __init__(self, db_location=DB_LOCATION, db=None):
+        if db == None:
+            self.db = sqlite3.connect(
+                db_location,
+                detect_types=sqlite3.PARSE_DECLTYPES,
+                check_same_thread=False)
+        else:
+            self.db = db
 
     def insert(self, table, data):
         columns = ",".join([name for name in data.keys()])

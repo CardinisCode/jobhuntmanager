@@ -16,7 +16,7 @@ from tempfile import mkdtemp
 from jhmanager.helpers_from_cs50_finance import login_required, apology
 
 from jhmanager.repo.users import UserRepository
-from jhmanager.repo.company_directory import CompanyRepository
+from jhmanager.repo.company import CompanyRepository
 from jhmanager.repo.applications_history import ApplicationsHistoryRepository
 from jhmanager.repo.interviewsHistory import InterviewsHistoryRepository
 
@@ -131,7 +131,7 @@ def add_job_application():
 
     """ Validate the details provided by user & if it passes, display details to user """
     if add_application_form.validate_on_submit():
-        return post_add_application(session, user_id, applicationsRepo, add_application_form)
+        return post_add_application(session, user_id, applicationsRepo, companyRepo, add_application_form)
 
     """ Display Test Add Application form to user """
     return render_template('add_job_application.html', add_application_form=add_application_form)

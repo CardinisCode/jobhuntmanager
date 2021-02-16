@@ -4,7 +4,7 @@ class ApplicationsHistoryRepository:
 
     def addApplicationToHistory(self, arguments):
         cursor = self.db.cursor()
-        result = cursor.execute("INSERT INTO applications (company_name, job_role, date, time, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (arguments))
+        result = cursor.execute("INSERT INTO applications (company_name, job_role, date, time, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id, company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (arguments))
         self.db.commit()
 
         return result

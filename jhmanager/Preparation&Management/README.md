@@ -338,10 +338,11 @@ COMMIT;
 
 
 BEGIN TRANSACTION;
-DROP TABLE company_directory;
+DROP TABLE company;
 CREATE TABLE IF NOT EXISTS 'company' (
     'company_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     'user_id' INTEGER NOT NULL, 
+    'name' TEXT NOT NULL,
     'description' TEXT DEFAULT "N/A",
     'location' TEXT DEFAULT "N/A",
     'industry' TEXT DEFAULT "N/A",

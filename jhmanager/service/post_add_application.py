@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime
 
-def add_new_company_to_application_history(user_id, applicationsRepo, company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url):
+def add_new_company_to_application_history(user_id, applicationsRepo, company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url, company_id):
     # We need to grab current day's date & time when user adds a new application:
     # application_date = str(datetime.date(datetime.now()))
     application_datetime = datetime.now()
@@ -67,7 +67,7 @@ def add_new_company_to_application_history(user_id, applicationsRepo, company_na
         job_url = "N/A" 
 
     # Now we finish off by adding the details into the SQL db:
-    fields = (company_name, job_role, app_date_str, app_time_str, emp_type, job_ref, company_spec, job_spec, tech_stack, perks, platform, location, salary, user_notes, job_url, user_id)
+    fields = (company_name, job_role, app_date_str, app_time_str, emp_type, job_ref, company_spec, job_spec, tech_stack, perks, platform, location, salary, user_notes, job_url, user_id, company_id)
     applicationsRepo.addApplicationToHistory(fields)
 
     return True
@@ -158,7 +158,7 @@ def add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, compan
     return details
 
 
-def post_add_application(session, user_id, applicationsRepo, form):
+def post_add_application(session, user_id, applicationsRepo, companyRepo, form):
     field_details = []
     
     #Grab fields from form:
@@ -201,9 +201,10 @@ def post_add_application(session, user_id, applicationsRepo, form):
     job_url = form.job_url
     field_details.append(job_url.data)
 
+    company_id = companyRepo.create(company_name.data, company_spec.data, location.data, "", user_id)
     # Lets add these fields to our function that will structure this data into a dict:
     details =  add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url)
-    add_new_company_to_application_history(user_id, applicationsRepo, company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url)
+    add_new_company_to_application_history(user_id, applicationsRepo, company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url, company_id)
 
     # Now we want a condition:
     # If company_name already exists in application_history for this user:
