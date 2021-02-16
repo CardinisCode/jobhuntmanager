@@ -34,6 +34,7 @@
 
 # Handling FOREIGN KEY constraints:
 - https://www.sqlitetutorial.net/sqlite-foreign-key/
+- https://sqlite.org/foreignkeys.html
 
 # Adding Symbols to HTML:
 -   https://fsymbols.com/all/
