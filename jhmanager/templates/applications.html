@@ -23,12 +23,16 @@
         {% endfor %}
     </tr>
     
-    {% for id, application in display_details.items() %}
-        {% if id != "headings"  %} 
+    {% for application_id, application in display_details.items() %}
+        {% if application_id != "headings"  %} 
         <tr class="border-bottom border-right border-left border-top">
             <td class="border-bottom border-right border-left border-top"> {{ id }}</td> 
             {% for field in application.values() %}
-                <td class="border-bottom border-right border-left border-top"> {{ field.data }} </td>
+                {% if field.label == "View More" %}
+                    <td class="border-bottom border-right border-left border-top"> <a href="../applications/{{ application_id }}"> View</a></td>
+                {% else %}
+                    <td class="border-bottom border-right border-left border-top"> {{ field.data }} </td>
+                {% endif %}
             {% endfor %}
         </tr>
         {% endif %}

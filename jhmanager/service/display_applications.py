@@ -19,7 +19,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
 
         # Now that we have grabbed the fields for this current application
         # lets store these values in a dictionary to be displayed on the html page:
-        app_id = details_list[0]
+        app_id = int(details_list[0])
         company_id = details_list[1]
         app_date = details_list[2]
         emp_type = details_list[4]
@@ -36,6 +36,9 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
         else:
             Interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage=str(interview_stage))
 
+        # application_url = "/applications/{application_id}"
+        application_url = "/applications/{app_id}"
+        
         display_details[app_id] = {
             "app_date":  {
                 "label": "Date & Time",
@@ -71,7 +74,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
             },
             "view_more": {
                 "label": "View More", 
-                "data": "",
+                "data": application_url,
             }
         }
 
