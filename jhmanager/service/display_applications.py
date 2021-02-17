@@ -7,7 +7,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
 
     display_details = {}
     display_details["headings"] = {
-        "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type", "Salary", "Platform / Job Board",  "Interview Stage", "Contact Received", "View More"]
+        "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type",  "Interview Stage", "Contact Received", "Salary", "Platform / Job Board", "View More"]
     }
 
     # Let's take the details from "applictop_ten_applicationsations" 
@@ -38,8 +38,13 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
 
         # application_url = "/applications/{application_id}"
         application_url = "/applications/{app_id}"
-        
+
         display_details[app_id] = {
+            "app_id": {
+                "label": "ID#", 
+                "data": app_id,
+            },
+            
             "app_date":  {
                 "label": "Date & Time",
                 "data": app_date,

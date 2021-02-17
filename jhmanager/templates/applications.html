@@ -26,7 +26,6 @@
     {% for application_id, application in display_details.items() %}
         {% if application_id != "headings"  %} 
         <tr class="border-bottom border-right border-left border-top">
-            <td class="border-bottom border-right border-left border-top"> {{ id }}</td> 
             {% for field in application.values() %}
                 {% if field.label == "View More" %}
                     <td class="border-bottom border-right border-left border-top"> <a href="../applications/{{ application_id }}"> View</a></td>
