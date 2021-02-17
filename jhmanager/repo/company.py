@@ -13,7 +13,7 @@ class Company:
         self.interviewers = db_fields[7]
         self.contact_number = db_fields[8]
 
-
+    
 class CompanyRepository:
     def __init__(self, db):
         self.sql = SqlDatabase(db=db)

@@ -30,6 +30,15 @@ class ApplicationsHistoryRepository:
 
         return result
 
+
+    def grabApplicationDetailsByApplicationID(self, application_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM applications WHERE application_id = {}".format(application_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        return result        
+
     # def insertInterviewDetailsToApplicationHistory(self, arguments):
     #     cursor = self.db.cursor()
     #     result = cursor.execute("INSERT INTO applications (user_id, date, time, employment_type, location, job_description, user_notes, job_role, company_name, platform, job_perks, company_descrip, tech_stack, job_url, interview_stage, contact_received, job_ref, salary) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (arguments))

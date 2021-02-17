@@ -29,6 +29,7 @@ from jhmanager.service.post_add_interview import post_add_interview
 # from jhmanager.service.display_interviews import display_top_10_interviews_to_interviews_html
 from jhmanager.service.login import verify_login_details
 from jhmanager.service.create_userprofile_content import create_userprofile_content
+from jhmanager.service.display_application_details import display_application_details
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -114,6 +115,46 @@ def index():
     user_id = session["user_id"]
     return create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, userRepo)
 
+"""
+CRUD? 
+Create -> post
+Read -> get
+Update -> put
+Delete -> delete
+
+GET: /application
+    -> all applications
+POST: /application
+    -> create a single application
+
+GET: /application/{application_id}
+        -> view a single application
+DELETE: /application/{application_id}
+        -> delete this application
+PUT: /application/{application_id}
+        -> update this application
+
+
+START HERE
+GET: /application/{application_id} 
+
+http://127.0.0.1:5000/application/2
+
+flask example
+@app.route('/application/<int:application_id>', methods=["GET"])
+def show_application(post_id):
+    # show the post with the given id, the id is an integer
+    return 'Post %d' % post_id
+"""
+
+"""
+In the case of interview routes:
+GET /application/{application_id}/interview/
+        -> gets all interviews for an application
+
+GET /application/{application_id}/interview/{interview_id}
+        -> gets a specific interview
+"""
 
 @app.route("/applications")
 @login_required
@@ -121,6 +162,14 @@ def display_applications():
     """ Display User's Job Applications """
     user_id = session["user_id"]
     return display_all_applications_current_user(session, user_id, applicationsRepo, companyRepo)
+
+
+@app.route('/applications/<int:application_id>', methods=["GET"])
+@login_required
+def show_application(application_id):
+    # Show the details for a specific application:
+    user_id = session["user_id"]
+    return display_application_details(session, user_id, applicationsRepo, application_id)
 
 
 @app.route("/add_job_application", methods=["GET", "POST"])
@@ -137,11 +186,11 @@ def add_job_application():
     return render_template('add_job_application.html', add_application_form=add_application_form)
 
 
-@app.route("/application_details")
-@login_required
-def display_application_details():
-    "Display the application details provided by user"
-    return render_template("application_details.html")
+# @app.route("/application_details")
+# @login_required
+# def display_application_details():
+#     "Display the application details provided by user"
+#     return render_template("application_details.html")
 
 
 # @app.route("/interviews")
