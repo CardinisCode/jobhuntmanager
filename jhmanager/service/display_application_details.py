@@ -3,14 +3,17 @@ from datetime import datetime
 
 
 # def display_application_details(session, user_id, applicationsRepo, application_id):
-def display_application_details(session, user_id, applicationsRepo, application_id):
+def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo):
     results = applicationsRepo.grabApplicationDetailsByApplicationID(application_id)
     details = {}
 
     for row in results:
+        company_id = row[2]
+        company_name = companyRepo.grab_company_name(user_id, company_id)
         details = {
             "Date": row[3],
             "Time": row[4],
+            "Company Name": company_name,
             "Job Role": row[5],
             "Platform": row[6],
             "Interview Stage": row[7],
