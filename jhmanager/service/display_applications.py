@@ -7,7 +7,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
 
     display_details = {}
     display_details["headings"] = {
-        "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type", "Salary", "Platform / Job Board",  "Interview Stage", "Contact Received"]
+        "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type", "Salary", "Platform / Job Board",  "Interview Stage", "Contact Received", "View More"]
     }
 
     # Let's take the details from "applictop_ten_applicationsations" 
@@ -69,6 +69,10 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
                 "label": "Platform / Job Board", 
                 "data": platform,                
             },
+            "view_more": {
+                "label": "View More", 
+                "data": "",
+            }
         }
 
         # Let's clean up the emp_type so its output is more presentable:

@@ -27,5 +27,4 @@ def display_application_details(session, user_id, applicationsRepo, application_
             "User Notes": row[12]
         }
 
-    # '/application/<int:application_id>'
     return render_template("view_application.html", details=details)
