@@ -8,11 +8,15 @@
 <h1> Applications Details </h1>
 <hr/>
 <table>
-    {% for heading, field in details.items() %}
-        <tr> 
-            <th> {{ heading }} </th>
-            <td> {{ field }} </td>
-        </tr>
+    {% for key, values in details.items() %}
+        {% if key == 'fields' %}
+            {% for heading, field in values.items() %}
+            <tr> 
+                <th> {{ heading }} </th>
+                <td> {{ field }} </td>
+            </tr>
+            {% endfor %}
+        {% endif %}
     {% endfor %}
 </table>
 <br/> 
@@ -22,8 +26,5 @@
     {% endif %}
 
 
-<table> 
-
-</table>
 
 {% endblock %}

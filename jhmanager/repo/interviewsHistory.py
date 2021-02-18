@@ -15,7 +15,7 @@ class InterviewsHistoryRepository:
 
     def InsertNewInterviewDetails(self, arguments):
         cursor = self.db.cursor()
-        result = cursor.execute("INSERT INTO interviews (user_id, company_name, date, time, job_role, interviewer_names, interview_type, location, interview_medium, other_medium, contact_number, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (arguments))
+        result = cursor.execute("INSERT INTO interviews (application_id, date, time, interview_type, interview_location, interview_medium, other_medium, contact_number, status, interviewer_names) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (arguments))
         self.db.commit()
 
         return result.lastrowid

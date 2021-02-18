@@ -30,6 +30,7 @@ from jhmanager.service.post_add_interview import post_add_interview
 from jhmanager.service.login import verify_login_details
 from jhmanager.service.create_userprofile_content import create_userprofile_content
 from jhmanager.service.display_application_details import display_application_details
+from jhmanager.service.delete_specific_application import delete_application
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -163,15 +164,20 @@ def display_applications():
     user_id = session["user_id"]
     return display_all_applications_current_user(session, user_id, applicationsRepo, companyRepo)
 
-
-@app.route('/applications/<int:application_id>', methods=["GET"])
+""" View a specific application """
+@app.route('/applications/<int:application_id>', methods=["GET", "DELETE"])
 @login_required
 def show_application(application_id):
     # Show the details for a specific application:
     user_id = session["user_id"]
-    return display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo)
+    if request.method == "GET":
+        return display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo)
 
+    # elif request.method == "DELETE":
+    #     """ Delete a specific application """ 
+    #     return delete_application(application_id)
 
+""" Add a new application """
 @app.route("/add_job_application", methods=["GET", "POST"])
 @login_required
 def add_job_application():
@@ -184,6 +190,12 @@ def add_job_application():
 
     """ Display Test Add Application form to user """
     return render_template('add_job_application.html', add_application_form=add_application_form)
+
+
+@app.route('/applications/<int:application_id>/delete_application', methods=["DELETE"])
+@login_required
+def delete_specific_application(application_id):
+    return delete_application(application_id)
 
 
 # @app.route("/application_details")

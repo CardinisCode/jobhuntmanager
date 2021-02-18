@@ -10,7 +10,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
     for row in results:
         company_id = row[2]
         company_name = companyRepo.grab_company_name(user_id, company_id)
-        application_details = {
+        application_details["fields"] = {
             "Date": row[3],
             "Time": row[4],
             "Company Name": company_name,
@@ -30,6 +30,11 @@ def display_application_details(session, user_id, applicationsRepo, application_
             "User Notes": row[12]
         }
 
+    # delete_application = "/applications/{application_id}/delete_application"
+    # urls_details = {
+    #     "delete_application": delete_application
+    # }
+
     # Now I want to display all the interviews for this application_id:
     all_interviews_for_app_id = interviewsRepo.grabAllInterviewsForApplicationID(application_id)
 
@@ -47,5 +52,6 @@ def display_application_details(session, user_id, applicationsRepo, application_
     if all_interviews_for_app_id != None: 
         for interview in all_interviews_for_app_id:
             raise ValueError(interview)
+            # Figure out how to add an interview to this application_id first. 
 
     return render_template("view_application.html", details=application_details, interview_details=interview_details)
