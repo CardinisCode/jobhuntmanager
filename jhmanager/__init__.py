@@ -192,26 +192,11 @@ def add_job_application():
     return render_template('add_job_application.html', add_application_form=add_application_form)
 
 
+""" Delete a specific interview """
 @app.route('/applications/<int:application_id>/delete', methods=["GET"])
 @login_required
 def delete_specific_application(application_id):
     return delete_application(application_id, applicationsRepo)
-
-
-# @app.route("/application_details")
-# @login_required
-# def display_application_details():
-#     "Display the application details provided by user"
-#     return render_template("application_details.html")
-
-
-# @app.route("/interviews")
-# @login_required
-# def display_interviews():
-#     """ Display User's Job Interviews """
-#     # return render_template("interviews.html")
-#     user_id = session["user_id"]
-#     return display_top_10_interviews_to_interviews_html(session, user_id, interviewsRepo)
 
 
 @app.route("/add_interview", methods=["GET", "POST"])
