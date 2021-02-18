@@ -371,3 +371,6 @@ CREATE TABLE IF NOT EXISTS 'interviews' (
     FOREIGN KEY (application_id) REFERENCES applications (application_id)
 );
 COMMIT;
+
+
+ALTER TABLE interviews ADD "user_id" INTEGER NOT NULL DEFAULT 0;
