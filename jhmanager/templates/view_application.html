@@ -27,6 +27,20 @@
     <p> <a href="../applications/{{ details.app_id }}/add_interview"> Add Interview</a></p>
     {% if interview_details.fields == None %}
         <p> {{ interview_details.message }} Add an Interview.</p>
+    {% else %}
+        <table> 
+            <tr class="border-bottom border-right border-left border-top"> 
+                {% for heading in interview_details.headings %}
+                    <th class="border-bottom border-right border-left border-top"> {{ heading }}</th>
+                {% endfor %}
+            </tr>
+            <tr class="border-bottom border-right border-left border-top"> 
+                {% for heading, values in interview_details.fields.items() %}
+                    <td class="border-bottom border-right border-left border-top"> {{ values }} </td>
+                {% endfor %}
+            </tr>
+        </table>
+
     {% endif %}
 
 

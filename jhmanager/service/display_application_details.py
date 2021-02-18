@@ -42,7 +42,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
     # I'll set the default value for "fields" key to be None, as there are currently no values to display.
     interview_details = {
         "message": "No interviews added yet for this application.", 
-        "headings": ["Date", "Time", "Interview Type", "Status", "View More"], 
+        "headings": ["ID#", "Date", "Time", "Interview Type", "Status", "Location", "View More"], 
         "fields": None
     }
     
@@ -51,7 +51,27 @@ def display_application_details(session, user_id, applicationsRepo, application_
     # These values will be displayed to the user, in a table format. 
     if all_interviews_for_app_id != None: 
         for interview in all_interviews_for_app_id:
-            raise ValueError(interview)
-            # Figure out how to add an interview to this application_id first. 
+            interview_details["fields"] = {
+                "ID#": str(interview[0]), 
+                "Date": interview[2], 
+                "Time": interview[3],
+                "Interview Type": interview[4], 
+                "Status": interview[9],
+                "Location": interview[5],
+                "View More": ""
+            }
+            #  
+
+            # interview_id = interview[0]
+            # interview_date = interview[2]
+            # interview_time = interview[3]
+            # interview_type = interview[4]
+            # location = interview[5]
+            # medium = interview[6]
+            # other_medium = interview[7]
+            # contact_number = interview[8]
+            # status = interview[9]
+            # interviewers = interview[10]
+
 
     return render_template("view_application.html", details=application_details, interview_details=interview_details)
