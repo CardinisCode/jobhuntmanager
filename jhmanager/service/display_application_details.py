@@ -3,14 +3,14 @@ from datetime import datetime
 
 
 # def display_application_details(session, user_id, applicationsRepo, application_id):
-def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo):
+def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo):
     results = applicationsRepo.grabApplicationDetailsByApplicationID(application_id)
-    details = {}
+    application_details = {}
 
     for row in results:
         company_id = row[2]
         company_name = companyRepo.grab_company_name(user_id, company_id)
-        details = {
+        application_details = {
             "Date": row[3],
             "Time": row[4],
             "Company Name": company_name,
@@ -30,4 +30,17 @@ def display_application_details(session, user_id, applicationsRepo, application_
             "User Notes": row[12]
         }
 
-    return render_template("view_application.html", details=details)
+    # Now I want to display all the interviews for this application_id:
+    all_interviews_for_app_id = interviewsRepo.grabAllInterviewsForApplicationID(application_id)
+
+    interview_details = {
+        "message": "No interviews added yet for this application.", 
+        "headings": ["Date", "Time", "Interview Type", "Status", "View More"], 
+        "fields": None
+    }
+    
+    if all_interviews_for_app_id != None: 
+        for interview in all_interviews_for_app_id:
+            raise ValueError(interview)
+
+    return render_template("view_application.html", details=application_details, interview_details=interview_details)

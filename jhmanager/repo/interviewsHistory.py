@@ -27,6 +27,19 @@ class InterviewsHistoryRepository:
 
         return result
 
+    
+    def grabAllInterviewsForApplicationID(self, application_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM interviews WHERE application_id={}".format(application_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        data = [x for x in result]
+        if len(data) < 1:
+            return None
+
+        return data
+
 
     # def grabTopTenInterviewsForUser(self, application_id):
     #     cursor = self.db.cursor()

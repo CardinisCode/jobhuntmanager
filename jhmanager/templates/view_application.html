@@ -15,5 +15,15 @@
         </tr>
     {% endfor %}
 </table>
+<br/> 
+<h2> Interviews for this application:</h2>
+    {% if interview_details.fields == None %}
+        <p> {{ interview_details.message }} Add an Interview.</p>
+    {% endif %}
+
+
+<table> 
+
+</table>
 
 {% endblock %}

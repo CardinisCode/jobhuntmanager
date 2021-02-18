@@ -169,7 +169,7 @@ def display_applications():
 def show_application(application_id):
     # Show the details for a specific application:
     user_id = session["user_id"]
-    return display_application_details(session, user_id, applicationsRepo, application_id, companyRepo)
+    return display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo)
 
 
 @app.route("/add_job_application", methods=["GET", "POST"])
