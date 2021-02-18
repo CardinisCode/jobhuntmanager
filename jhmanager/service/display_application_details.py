@@ -30,6 +30,8 @@ def display_application_details(session, user_id, applicationsRepo, application_
             "User Notes": row[12]
         }
 
+    application_details["app_id"] = application_id
+    
     # delete_application = "/applications/{application_id}/delete_application"
     # urls_details = {
     #     "delete_application": delete_application
