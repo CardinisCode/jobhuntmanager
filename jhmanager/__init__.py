@@ -128,7 +128,7 @@ POST: /application
     -> create a single application
 
 GET: /application/{application_id}
-        -> view a single application
+        -> view a single application  -> DONE
 DELETE: /application/{application_id}
         -> delete this application
 PUT: /application/{application_id}

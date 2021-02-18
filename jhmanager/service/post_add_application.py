@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime
 
-def add_new_company_to_application_history(user_id, companyRepo, applicationsRepo, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url, company_id):
+def add_new_application_to_application_history(user_id, companyRepo, applicationsRepo, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url, company_id):
     # We need to grab current day's date & time when user adds a new application:
     # application_date = str(datetime.date(datetime.now()))
     application_datetime = datetime.now()
@@ -205,20 +205,7 @@ def post_add_application(session, user_id, applicationsRepo, companyRepo, form):
     company_id = companyRepo.create(company_name.data, company_spec.data, location.data, industry, user_id)
     # Lets add these fields to our function that will structure this data into a dict:
     details =  add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url)
-    add_new_company_to_application_history(user_id, companyRepo, applicationsRepo, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url, company_id)
-
-    # Now we want a condition:
-    # If company_name already exists in application_history for this user:
-    # existing_company = applicationsRepo.checkCompanyNameInApplicationHistoryByUserID(company_name.data, user_id,)
-    # for item in existing_company:
-    #     if item[0] == 0:
-    #         add_new_company_to_application_history(user_id, applicationsRepo, company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url)
-    #     else:
-    #         # updateExistingEntryForCompanyName(user_id, field_details, applicationsRepo)
-    #         message = "An application entry already exists for {}. Consider updating the details for this company.".format(company_name.data)
-    #         flash(message)
-    #         app_updated = updateApplicationEntryUsingNewApplicationDetails(field_details, user_id, applicationsRepo)
-    #         raise ValueError("App updated: ", app_updated)
+    add_new_application_to_application_history(user_id, companyRepo, applicationsRepo, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url, company_id)
 
     return render_template("application_details.html", details=details)
 

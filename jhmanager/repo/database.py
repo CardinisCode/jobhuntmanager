@@ -44,3 +44,12 @@ class SqlDatabase(Database):
             return None
 
         return data[0]
+
+    """
+    TODO
+    
+    getById
+    delete
+    query across multiple tables
+    update
+    """
