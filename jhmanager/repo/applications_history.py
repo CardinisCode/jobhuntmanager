@@ -1,3 +1,5 @@
+import sqlite3
+
 class ApplicationsHistoryRepository:
     def __init__(self, db):
         self.db = db
@@ -37,7 +39,19 @@ class ApplicationsHistoryRepository:
         result = cursor.execute(command)
         self.db.commit()
 
-        return result        
+        return result  
+
+    def deleteEntryByApplicationID(self, application_id):
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM applications WHERE application_id = {}".format(application_id)
+            cursor.execute(command)
+            self.db.commit()
+            print("Application successfully deleted")
+
+        except sqlite3.Error as error:
+            print("Application failed to delete.", error)
+
 
     # def insertInterviewDetailsToApplicationHistory(self, arguments):
     #     cursor = self.db.cursor()

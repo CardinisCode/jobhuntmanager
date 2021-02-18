@@ -21,6 +21,7 @@
 </table>
 <br/> 
     <p>App ID: {{ details.app_id }}</p>
+    <p> <a href="../applications/{{ details.app_id }}/delete"> Delete Application</a></p>
 
 <h2> Interviews for this application:</h2>
     {% if interview_details.fields == None %}

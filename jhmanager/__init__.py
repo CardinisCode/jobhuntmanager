@@ -192,10 +192,10 @@ def add_job_application():
     return render_template('add_job_application.html', add_application_form=add_application_form)
 
 
-@app.route('/applications/<int:application_id>/delete_application', methods=["DELETE"])
+@app.route('/applications/<int:application_id>/delete', methods=["GET"])
 @login_required
 def delete_specific_application(application_id):
-    return delete_application(application_id)
+    return delete_application(application_id, applicationsRepo)
 
 
 # @app.route("/application_details")
