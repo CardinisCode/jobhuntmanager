@@ -34,13 +34,14 @@
                     <th class="border-bottom border-right border-left border-top"> {{ heading }}</th>
                 {% endfor %}
             </tr>
-            <tr class="border-bottom border-right border-left border-top"> 
-                {% for app_id, rows in interview_details.fields.items() %}
+            
+            {% for app_id, rows in interview_details.fields.items() %}
+                <tr class="border-bottom border-right border-left border-top"> 
                     {% for item in rows.values() %}
                         <td class="border-bottom border-right border-left border-top"> {{ item }} </td>
                     {% endfor %}
-                {% endfor %}
-            </tr>
+                </tr>
+            {% endfor %}
         </table>
 
     {% endif %}
