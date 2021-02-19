@@ -14,12 +14,6 @@ class AddInterviewForm(FlaskForm):
     current_time = datetime.now().time()
 
     #Fields to display:
-    company_name = StringField(
-        "Company Name: ", 
-        validators=[InputRequired(message="Please provide the name of the Company/Recruitment firm you're interviewing with.")],
-        render_kw={'placeholder': "The name of the Company/Recruitment firm you're interviewing with."},
-    )
-
     interview_date = DateField(
         "Date: ", 
         validators=[
