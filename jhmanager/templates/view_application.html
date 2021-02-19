@@ -35,8 +35,10 @@
                 {% endfor %}
             </tr>
             <tr class="border-bottom border-right border-left border-top"> 
-                {% for heading, values in interview_details.fields.items() %}
-                    <td class="border-bottom border-right border-left border-top"> {{ values }} </td>
+                {% for app_id, rows in interview_details.fields.items() %}
+                    {% for item in rows.values() %}
+                        <td class="border-bottom border-right border-left border-top"> {{ item }} </td>
+                    {% endfor %}
                 {% endfor %}
             </tr>
         </table>

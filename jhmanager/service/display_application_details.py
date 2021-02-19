@@ -46,13 +46,15 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "fields": None
     }
     
+    interview_details["fields"] = {}
     # In the case that there are actually interviews for this application, 
     # we want to grab those details & update the "fields" value to contain these values.
     # These values will be displayed to the user, in a table format. 
     if all_interviews_for_app_id != None: 
         for interview in all_interviews_for_app_id:
-            interview_details["fields"] = {
-                "ID#": str(interview[0]), 
+            interview_id = str(interview[0])
+            interview_details["fields"][interview_id] = {
+                "ID#": interview_id, 
                 "Date": interview[2], 
                 "Time": interview[3],
                 "Interview Type": interview[4], 
@@ -60,7 +62,6 @@ def display_application_details(session, user_id, applicationsRepo, application_
                 "Location": interview[5],
                 "View More": ""
             }
-            #  
 
             # interview_id = interview[0]
             # interview_date = interview[2]
