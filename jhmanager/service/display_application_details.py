@@ -2,7 +2,35 @@ from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime
 
 
-# def display_application_details(session, user_id, applicationsRepo, application_id):
+def cleanup_interview_fields(interview_details, interview_id):
+    # Lets start by grabbing the fields we want from the dict:
+    interview_type = interview_details["fields"][interview_id]["Interview Type"]
+    status = interview_details["fields"][interview_id]["Status"]
+
+    # Now I can optimise the presentation of the values for these variables:
+    if interview_type == "video_or_online":
+        interview_details["fields"][interview_id]["Interview Type"] = "Video / Online"
+    elif interview_type == "in_person":
+        interview_details["fields"][interview_id]["Interview Type"] = "In Person / On Site"
+    else:
+        interview_details["fields"][interview_id]["Interview Type"] = "Phone Call"
+
+    # Now to focus on 'status':
+    if status == "upcoming":
+        status = 'Upcoming Interview'
+
+    elif status == "done":
+        status = 'Interview Done'
+    
+    elif status == "cancelled":
+        status = 'The interview has been cancelled'
+    
+    else:
+        status = 'Interview has been post-poned'
+    
+    interview_details["fields"][interview_id]["Status"] = status
+
+
 def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo):
     results = applicationsRepo.grabApplicationDetailsByApplicationID(application_id)
     application_details = {}
@@ -53,26 +81,18 @@ def display_application_details(session, user_id, applicationsRepo, application_
     if all_interviews_for_app_id != None: 
         for interview in all_interviews_for_app_id:
             interview_id = str(interview[0])
+            status = interview[9]
             interview_details["fields"][interview_id] = {
                 "ID#": interview_id, 
                 "Date": interview[2], 
                 "Time": interview[3],
                 "Interview Type": interview[4], 
-                "Status": interview[9],
+                "Status": status,
                 "Location": interview[5],
                 "View More": ""
             }
 
-            # interview_id = interview[0]
-            # interview_date = interview[2]
-            # interview_time = interview[3]
-            # interview_type = interview[4]
-            # location = interview[5]
-            # medium = interview[6]
-            # other_medium = interview[7]
-            # contact_number = interview[8]
-            # status = interview[9]
-            # interviewers = interview[10]
+            cleanup_interview_fields(interview_details, interview_id)
 
 
     return render_template("view_application.html", details=application_details, interview_details=interview_details)
