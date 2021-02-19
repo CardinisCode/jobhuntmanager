@@ -7,4 +7,15 @@
 {% block main %}
 <h1> Interview Details for {{ interview_details.company_name}} </h1>
 <hr/>
+<table> 
+    {% for heading, value in interview_details.fields.items() %}
+        <tr> 
+            <th> {{ heading }} </th>
+            <td> {{ value }}</td>
+        </tr>
+
+    {% endfor %}
+</table>
+
+
 {% endblock %}

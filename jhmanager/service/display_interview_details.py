@@ -13,7 +13,7 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
     details = {
         "app_id": application_id, 
         "interview_id": interview_id, 
-        "company_name": company_name
+        "company_name": company_name,
     }
 
     interview_details = interviewsRepo.grabInterviewByID(interview_id)

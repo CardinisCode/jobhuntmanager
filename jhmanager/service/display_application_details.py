@@ -80,14 +80,15 @@ def display_application_details(session, user_id, applicationsRepo, application_
         for interview in all_interviews_for_app_id:
             interview_id = str(interview[0])
             status = interview[9]
-            view_more_url = "/applications/{}/interview/{}".format(application_id, interview_id)
+            view_more_url = "/applications/{application_id}"
+            location = interview[5]
             interview_details["fields"][interview_id] = {
                 "ID#": interview_id, 
                 "Date": interview[2], 
                 "Time": interview[3],
                 "Interview Type": interview[4], 
                 "Status": status,
-                "Location": interview[5],
+                "Location": location,
                 "View More": view_more_url,
             }
 
