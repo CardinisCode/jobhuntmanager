@@ -32,6 +32,7 @@ from jhmanager.service.create_userprofile_content import create_userprofile_cont
 from jhmanager.service.display_application_details import display_application_details
 from jhmanager.service.delete_specific_application import delete_application
 from jhmanager.service.display_interview_details import display_interview_details
+from jhmanager.service.display_add_interview_form import display_add_interview
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -214,7 +215,7 @@ def add_interview(application_id):
             return post_add_interview(session, user_id, add_interview_form, interviewsRepo, applicationsRepo, application_id)
 
     """ Display add_interview Form to user """
-    return render_template('add_interview.html', add_interview_form=add_interview_form, fields=fields)
+    return display_add_interview(add_interview_form, application_id, applicationsRepo, companyRepo)
 
 # View a specific interview:
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>')

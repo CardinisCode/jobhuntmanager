@@ -1,8 +1,34 @@
 import sqlite3
+from jhmanager.repo.database import SqlDatabase
+
+
+class Application:
+    def __init__(self, db_fields):
+        self.app_id = db_fields[0]
+        self.user_id = db_fields[1]
+        self.company_id = db_fields[2]
+        self.app_date = db_fields[3]
+        self.app_time = db_fields[4]
+        self.job_role = db_fields[5]
+        self.platform = db_fields[6]
+        self.interview_stage = db_fields[7]
+        self.employment_type = db_fields[8]
+        self.contact_received = db_fields[9]
+        self.location = db_fields[10]
+        self.job_description = db_fields[11]
+        self.user_notes = db_fields[12]
+        self.job_perks = db_fields[13]
+        self.company_descrip = db_fields[14]
+        self.tech_stack = db_fields[15]
+        self.job_url = db_fields[16]
+        self.job_ref = db_fields[17]
+        self.salary = db_fields[18]
+
 
 class ApplicationsHistoryRepository:
     def __init__(self, db):
         self.db = db
+        self.sql = SqlDatabase(db=db)
 
     def addApplicationToHistory(self, arguments):
         cursor = self.db.cursor()
@@ -51,6 +77,14 @@ class ApplicationsHistoryRepository:
 
         except sqlite3.Error as error:
             print("Application failed to delete.", error)
+
+
+    def grabApplicationByID(self, application_id):
+        result = self.sql.getByField('applications', 'application_id', application_id)
+
+        application_result = Application(result)
+
+        return application_result
 
 
     # def insertInterviewDetailsToApplicationHistory(self, arguments):
