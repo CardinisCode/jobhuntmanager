@@ -59,9 +59,6 @@ def display_application_details(session, user_id, applicationsRepo, application_
         }
 
     application_details["app_id"] = application_id
-    # urls_details = {
-    #     "delete_application": delete_application
-    # }
 
     # Now I want to display all the interviews for this application_id:
     all_interviews_for_app_id = interviewsRepo.grabAllInterviewsForApplicationID(application_id)
@@ -71,7 +68,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
     interview_details = {
         "message": "No interviews added yet for this application.", 
         "headings": ["ID#", "Date", "Time", "Interview Type", "Status", "Location", "View More"], 
-        "fields": None
+        "fields": None, 
     }
     
     interview_details["fields"] = {}
@@ -82,6 +79,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
         for interview in all_interviews_for_app_id:
             interview_id = str(interview[0])
             status = interview[9]
+            # view_more_url = "/applications/{application_id}"
             interview_details["fields"][interview_id] = {
                 "ID#": interview_id, 
                 "Date": interview[2], 

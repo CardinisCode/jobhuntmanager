@@ -199,20 +199,6 @@ def delete_specific_application(application_id):
     return delete_application(application_id, applicationsRepo)
 
 
-# @app.route("/add_interview", methods=["GET", "POST"])
-# @login_required
-# def add_interview():
-#     add_interview_form = AddInterviewForm()
-#     user_id = session["user_id"]
-
-#     """ Validate the details provided by user & if it passes, display details to user """
-#     if add_interview_form.validate_on_submit(): #POST
-#         return post_add_interview(session, user_id, add_interview_form, interviewsRepo, applicationsRepo)
-
-#     """ Display Add Interview Form to user """ # GET
-#     return render_template('add_interview.html', add_interview_form=add_interview_form)
-
-
 @app.route('/applications/<int:application_id>/add_interview', methods=["GET", "POST"])
 @login_required
 def add_interview(application_id):
