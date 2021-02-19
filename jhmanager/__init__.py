@@ -222,7 +222,7 @@ def add_interview(application_id):
 def display_interview(application_id, interview_id):
     """ Display Interview Details for a specific interview to the user """
     user_id = session["user_id"]
-    return display_interview_details(session, user_id, interviewsRepo, application_id, interview_id)
+    return display_interview_details(session, user_id, interviewsRepo, application_id, interview_id, applicationsRepo, companyRepo)
 
 
 @app.route("/userprofile")
