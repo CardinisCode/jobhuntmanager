@@ -80,23 +80,7 @@ def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo,
         id_count += 1
 
     return top_5_applications
-
-# def combine_date_and_time_into_1_string(interview_date, interview_time): 
-#     # I want to format the datetime format to be "%Y-%m-%d %H:%M"
-#     # 1) I will take the str values for Date and Time, & combine them into 1 datetime string 
-#     date_time_str = interview_date + " " + interview_time
-
-#     #2) Now I will convert this datetime string into its datetime object:
-#     date_time_format = '%Y-%m-%d %H:%M'
-#     date_and_time_obj = datetime.strptime(date_time_str, date_time_format)
-
-#     # 3) Now I can convert this datetime_obj into a string & simultaneously get the format I want:
-#     updated_date_time = date_and_time_obj.strftime("%m/%d/%Y, %H:%M")
-
-#     return updated_date_time
-
-
-
+    
 
 def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, userRepo):
     #1: Let's grab today's date as this will help us when we're grabbing interviews & applications for the current date:

@@ -207,8 +207,6 @@ def add_interview(application_id):
     add_interview_form = AddInterviewForm()
     user_id = session["user_id"]
 
-    fields = {"application_id": application_id}
-
     # POST
     if request.method == "POST":
         if add_interview_form.validate_on_submit():
