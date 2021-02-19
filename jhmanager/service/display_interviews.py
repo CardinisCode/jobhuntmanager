@@ -2,70 +2,75 @@ from flask import Flask, render_template, session, request, redirect
 from datetime import datetime, time
 
 
-def improve_display_values(details_dict, interview_id, other_medium):
-    interview_type = details_dict[interview_id]["interview_type"]
-    medium = details_dict[interview_id]["medium"]
-    interview_status = details_dict[interview_id]["interview_status"]
-    interviewers = details_dict[interview_id]["interviewers"]
-    contact_number = details_dict[interview_id]["contact_number"]
-    location = details_dict[interview_id]["location"]
-
-    #1: Lets set a condition: 
-    # If interview_type == "video_or_online": Display medium's value, Else: medium = "N/A"
-    if interview_type == 'video_or_online':
-        # Firstly we improve how the value gets displayed:
-        interview_type = "Video / Online"
-
-        # Secondly let's improve the values' appearance for video medium:
-        if medium == "google_chat":
-            medium = "Google Chat"
-        elif medium == "meet_jit_si":
-            medium = "Meet.Jit.Si"
-        elif medium == "other" or medium == "Other":
-            medium = other_medium
-        else:
-            medium = medium.capitalize()
-        details_dict[interview_id]["medium"] = medium
+def display_interview_details(session, user_id, interviewsRepo, application_id, interview_id):
 
 
-    else: 
-        # If interview_type == "in_person" or "phone_call"
-        details_dict[interview_id]["medium"] = ""
-
-        if interview_type == 'in_person':
-            interview_type = "In Person"
-
-        if interview_type == "phone_call":
-            interview_type = "Telephonic call"
-
-    details_dict[interview_id]["interview_type"] = interview_type
+    return render_template("view_interview_details.html")
 
 
-    # 2: Let's adjust 'status' data so we can capitalize it before it reaches the table
-    if interview_status == "upcoming":
-        interview_status = "Upcoming"
-    elif interview_status == "done":
-        interview_status = "Done"
-    elif interview_status == 'cancelled':
-        interview_status = "Cancelled"
-    else:
-        interview_status = "Post-poned"
 
-    # Now to finalise I can update the value of interview_status in our dictionary: 
-    details_dict[interview_id]["interview_status"] = interview_status
+# def improve_display_values(details_dict, interview_id, other_medium):
+#     interview_type = details_dict[interview_id]["interview_type"]
+#     medium = details_dict[interview_id]["medium"]
+#     interview_status = details_dict[interview_id]["interview_status"]
+#     interviewers = details_dict[interview_id]["interviewers"]
+#     contact_number = details_dict[interview_id]["contact_number"]
+#     location = details_dict[interview_id]["location"]
 
-    # 3: If interviewer_names == "Unknown at present", then the field should be blank:
-    if interviewers == "Unknown at present":
-        details_dict[interview_id]["interviewers"] = ""
+#     #1: Lets set a condition: 
+#     # If interview_type == "video_or_online": Display medium's value, Else: medium = "N/A"
+#     if interview_type == 'video_or_online':
+#         # Firstly we improve how the value gets displayed:
+#         interview_type = "Video / Online"
 
-    # 4: If contact_number is "N/A", lets rather display a blank field:
-    if contact_number == "N/A":
-        details_dict[interview_id]["contact_number"] = ""
+#         # Secondly let's improve the values' appearance for video medium:
+#         if medium == "google_chat":
+#             medium = "Google Chat"
+#         elif medium == "meet_jit_si":
+#             medium = "Meet.Jit.Si"
+#         elif medium == "other" or medium == "Other":
+#             medium = other_medium
+#         else:
+#             medium = medium.capitalize()
+#         details_dict[interview_id]["medium"] = medium
 
-    if location == "Remote" or location == "N/A":
-        details_dict[interview_id]["location"] = ""
+
+#     else: 
+#         # If interview_type == "in_person" or "phone_call"
+#         details_dict[interview_id]["medium"] = ""
+
+#         if interview_type == 'in_person':
+#             interview_type = "In Person"
+
+#         if interview_type == "phone_call":
+#             interview_type = "Telephonic call"
+
+#     details_dict[interview_id]["interview_type"] = interview_type
 
 
+#     # 2: Let's adjust 'status' data so we can capitalize it before it reaches the table
+#     if interview_status == "upcoming":
+#         interview_status = "Upcoming"
+#     elif interview_status == "done":
+#         interview_status = "Done"
+#     elif interview_status == 'cancelled':
+#         interview_status = "Cancelled"
+#     else:
+#         interview_status = "Post-poned"
+
+#     # Now to finalise I can update the value of interview_status in our dictionary: 
+#     details_dict[interview_id]["interview_status"] = interview_status
+
+#     # 3: If interviewer_names == "Unknown at present", then the field should be blank:
+#     if interviewers == "Unknown at present":
+#         details_dict[interview_id]["interviewers"] = ""
+
+#     # 4: If contact_number is "N/A", lets rather display a blank field:
+#     if contact_number == "N/A":
+#         details_dict[interview_id]["contact_number"] = ""
+
+#     if location == "Remote" or location == "N/A":
+#         details_dict[interview_id]["location"] = ""
 
 
 # def display_top_10_interviews_to_interviews_html(session, user_id, interviewsRepo):

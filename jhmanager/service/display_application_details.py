@@ -69,6 +69,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "message": "No interviews added yet for this application.", 
         "headings": ["ID#", "Date", "Time", "Interview Type", "Status", "Location", "View More"], 
         "fields": None, 
+        "app_id": application_id
     }
     
     interview_details["fields"] = {}
@@ -79,7 +80,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
         for interview in all_interviews_for_app_id:
             interview_id = str(interview[0])
             status = interview[9]
-            # view_more_url = "/applications/{application_id}"
+            view_more_url = "/applications/{}/interview/{}".format(application_id, interview_id)
             interview_details["fields"][interview_id] = {
                 "ID#": interview_id, 
                 "Date": interview[2], 
@@ -87,7 +88,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
                 "Interview Type": interview[4], 
                 "Status": status,
                 "Location": interview[5],
-                "View More": ""
+                "View More": view_more_url,
             }
 
             cleanup_interview_fields(interview_details, interview_id)

@@ -35,10 +35,14 @@
                 {% endfor %}
             </tr>
             
-            {% for app_id, rows in interview_details.fields.items() %}
+            {% for interview_id, rows in interview_details.fields.items() %}
                 <tr class="border-bottom border-right border-left border-top"> 
-                    {% for item in rows.values() %}
-                        <td class="border-bottom border-right border-left border-top"> {{ item }} </td>
+                    {% for label, value in rows.items() %}
+                        {% if label == "View More" %}
+                        <td class="border-bottom border-right border-left border-top"> <a href="../applications/{{ interview_details.app_id }}/interview/{{interview_id}}"> View</a> </td>
+                        {% else %}
+                        <td class="border-bottom border-right border-left border-top"> {{ value }} </td>
+                        {% endif %}
                     {% endfor %}
                 </tr>
             {% endfor %}
