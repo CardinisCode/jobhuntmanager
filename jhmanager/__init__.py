@@ -31,7 +31,7 @@ from jhmanager.service.login import verify_login_details
 from jhmanager.service.create_userprofile_content import create_userprofile_content
 from jhmanager.service.display_application_details import display_application_details
 from jhmanager.service.delete_specific_application import delete_application
-from jhmanager.service.display_interviews import display_interview_details
+from jhmanager.service.display_interview_details import display_interview_details
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
