@@ -45,6 +45,18 @@ class SqlDatabase(Database):
 
         return data[0]
 
+    def getByID(self, table, field, value):
+        cursor = self.db.cursor()
+        result = cursor.execute("SELECT * FROM {} WHERE {}={}".format(table, field, value))
+        self.db.commit()
+
+        data = [x for x in result]
+        if len(data) < 1:
+            return None
+
+        return data
+
+
     """
     TODO
     

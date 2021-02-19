@@ -51,6 +51,17 @@ class ApplicationsHistoryRepository:
 
         return result
 
+    def grabTop5ApplicationsByUserID(self, user_id):
+        result = self.sql.getByID('applications', 'user_id', user_id)
+        # result = self.sql.getByField('applications', 'user_id', user_id)
+        applications_list = []
+
+        for application in result:
+            application_result = Application(application)
+            applications_list.append(application_result)
+
+        return applications_list
+
     def grabTop10ApplicationsFromHistory(self, user_id):
         cursor = self.db.cursor()
         result = cursor.execute("SELECT application_id, company_id, date, job_role, employment_type, salary, platform, interview_stage, job_ref, contact_received FROM applications WHERE user_id = ? ORDER BY date DESC LIMIT 10", (user_id,))

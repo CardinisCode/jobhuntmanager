@@ -42,31 +42,28 @@ def cleanup_fields_for_better_display_top5applications(top_5_applications, id_co
 
 
 
-def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo, user_id):
+def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo, user_id, companyRepo):
     top_5_applications = {}
-    query_results = applicationsRepo.grabTop5ApplicationsFromHistory(user_id)
-
-    if not query_results:
-        flash("top_5_applications_query didn't return any data. Please review!")
-
-    top_5_applications["headings"] = ["Id#", "Date", "Company Name", "Job Role", "Employment Type", "Interview Stage", "Received Contact?", "Salary", "Platform / Job Board"]
+    application_query_results = applicationsRepo.grabTop5ApplicationsByUserID(user_id)
+    top_5_applications["headings"] = ["Id#", "Date", "Date", "Company Name", "Job Role", "Employment Type", "Interview Stage", "Received Contact?", "Salary", "Platform / Job Board"]
     id_count = 1
-    for application in query_results:
-        app_date = application[0]
-        company_name = application[2]
-        job_role = application[3]
-        platform = application[4]
-        emp_type =  application[5]
-        interview_stage = application[6]
-        contact_received = application[7]
-        salary = application[8]
 
-        if interview_stage == "N/A":
-            interview_stage = 0
+    for application in application_query_results:
+        company_id = application.company_id
+        company_name = companyRepo.getCompanyById(company_id).name
+        app_date = application.app_date
+        app_time = application.app_time
+        job_role = application.job_role
+        platform = application.platform
+        emp_type = application.employment_type
+        interview_stage = application.interview_stage
+        contact_received = application.contact_received
+        salary = application.salary
 
         top_5_applications[id_count] = {
             "ID#": id_count,
             "date": app_date, 
+            "Time": app_time,
             "company_name": company_name,
             "job_role": job_role,
             "emp_type": emp_type, 
@@ -75,14 +72,46 @@ def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo,
             "salary": salary,
             "platform": platform,
         }
-
+     
         cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage)
         id_count += 1
 
-    return top_5_applications
-    
 
-def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, userRepo):
+    # # query_results = applicationsRepo.grabTop5ApplicationsFromHistory(user_id)
+
+    # top_5_applications["headings"] = ["Id#", "Date", "Company Name", "Job Role", "Employment Type", "Interview Stage", "Received Contact?", "Salary", "Platform / Job Board"]
+    # id_count = 1
+    # for application in query_results:
+    #     app_date = application[0]
+    #     company_name = application[2]
+    #     job_role = application[3]
+    #     platform = application[4]
+    #     emp_type =  application[5]
+    #     interview_stage = application[6]
+    #     contact_received = application[7]
+    #     salary = application[8]
+
+    #     if interview_stage == "N/A":
+    #         interview_stage = 0
+
+    #     # top_5_applications[id_count] = {
+    #     #     "ID#": id_count,
+    #     #     "date": app_date, 
+    #     #     "company_name": company_name,
+    #     #     "job_role": job_role,
+    #     #     "emp_type": emp_type, 
+    #     #     "interview_stage": interview_stage,
+    #     #     "contact_received": contact_received.capitalize(),
+    #     #     "salary": salary,
+    #     #     "platform": platform,
+    #     # }
+
+
+
+    return top_5_applications
+
+
+def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo):
     #1: Let's grab today's date as this will help us when we're grabbing interviews & applications for the current date:
     current_date = date.today()
     date_format = "%Y-%m-%d"
@@ -105,7 +134,7 @@ def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, 
         interviews_today_count += 1
 
     # Now to grab the values from our SQL queries for the top 5 applications & interviews & create a dictionary for each:
-    top_5_applications_dict = grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo, user_id)
+    top_5_applications_dict = grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo, user_id, companyRepo)
 
     message = "All good!"
 
