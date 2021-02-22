@@ -71,7 +71,7 @@ class SqlDatabase(Database):
         if len(data) < 1:
             return None
         
-        return data
+        return data[0]
 
 
     """
