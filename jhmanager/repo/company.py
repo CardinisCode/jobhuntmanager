@@ -47,3 +47,14 @@ class CompanyRepository:
         self.db.commit()
 
         return [x for x in result][0][0]
+
+    def grabCompanyByName(self, company_name):
+        result = self.sql.getByName('company', 'name', company_name)
+
+        if not result:
+            return None
+        
+        company = Company(result)
+
+        return company
+

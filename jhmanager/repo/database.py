@@ -57,6 +57,23 @@ class SqlDatabase(Database):
         return data
 
 
+    def getByName(self, table, name, value):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM {} WHERE {} LIKE '{}'".format(table, name, value)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        if not result:
+            return None
+
+        data = [x for x in result]
+
+        if len(data) < 1:
+            return None
+        
+        return data
+
+
     """
     TODO
     
