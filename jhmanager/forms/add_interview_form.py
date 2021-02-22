@@ -10,30 +10,26 @@ from wtforms_components import DateRange
 
 class AddInterviewForm(FlaskForm):
     todays_datetime = datetime.now()
-    todays_date = datetime.now().date()
-    current_time = datetime.now().time()
+    todays_date = datetime.now().date().strftime("%Y-%m-%d")
+    current_time = datetime.now().time().strftime("%H:%M")
 
     #Fields to display:
     interview_date = DateField(
-        "Date: ", 
+        "Interview Date: ", 
         validators=[
-            DateRange(min=date.today(), message="Please choose a date either present or in the future."), 
+            # DateRange(min=date.today(), message="Please choose a date either present or in the future."), 
             InputRequired(message="Please provide the Interview Date.")
         ], 
-        format='%Y-%m-%d', 
-        default=todays_date, 
-        render_kw={'placeholder': "The interview date. YYYY-MM-DD"},
+        render_kw={'placeholder': "{}".format(todays_date)},
     )
 
     interview_time = TimeField(
-        "Time: ", 
+        "Interview Time: ", 
         validators=[
-            DateRange(min=current_time, message="Please choose a time either present or in the future."), 
+            # DateRange(min=todays_datetime, message="Please choose a time either present or in the future."), 
             InputRequired(message="Please provide the starting time for the interview.")
         ], 
-        format='%H:%M', 
-        default=current_time, 
-        render_kw={'placeholder': "The interview time. HH:MM"},
+        render_kw={'placeholder': "{}".format(current_time)},
     )
     
     job_role = StringField(
