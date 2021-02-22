@@ -48,8 +48,8 @@ class CompanyRepository:
 
         return [x for x in result][0][0]
 
-    def grabCompanyByName(self, company_name):
-        result = self.sql.getByName('company', 'name', company_name)
+    def grabCompanyByNameAndUserID(self, company_name, user_id):
+        result = self.sql.getByName('company', 'name', company_name, 'user_id', user_id)
 
         if not result:
             return None

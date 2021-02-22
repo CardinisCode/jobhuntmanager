@@ -57,9 +57,9 @@ class SqlDatabase(Database):
         return data
 
 
-    def getByName(self, table, name, value):
+    def getByName(self, table, name, name_value, user_id, userID_value):
         cursor = self.db.cursor()
-        command = "SELECT * FROM {} WHERE {} LIKE '{}'".format(table, name, value)
+        command = "SELECT * FROM {} WHERE {} LIKE '{}' and {}={}".format(table, name, name_value, user_id, userID_value)
         result = cursor.execute(command)
         self.db.commit()
 

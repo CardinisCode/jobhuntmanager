@@ -202,7 +202,7 @@ def post_add_application(session, user_id, applicationsRepo, companyRepo, form):
 
     industry = form.industry.data
 
-    existing_company = companyRepo.grabCompanyByName(company_name.data)
+    existing_company = companyRepo.grabCompanyByNameAndUserID(company_name.data, user_id)
     if not existing_company:
         flash("Save this business as a brand business in CompanyRepo.")
         company_id = companyRepo.create(company_name.data, company_spec.data, location.data, industry, user_id)
