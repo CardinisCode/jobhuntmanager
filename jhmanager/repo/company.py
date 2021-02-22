@@ -33,6 +33,18 @@ class CompanyRepository:
 
         return self.sql.insert('company', data)
 
+    # def update(self, description, location, industry, url, interviewers, contact_number, company_id, user_id):
+    #     data = {
+    #         "description": description,
+    #         "location": location,
+    #         "industry": industry,
+    #         "url": url, 
+    #         "interviewers": interviewers, 
+    #         "contact_number": contact_number,
+    #     }
+
+
+
     def getCompanyById(self, company_id):
         result = self.sql.getByField('company', 'company_id', company_id)
 

@@ -34,6 +34,28 @@ class SqlDatabase(Database):
 
         return result.lastrowid
 
+    # def update(self, table, data, company_id, user_id):
+    #     columns = ",".join([name for name in data.keys()])
+    #     questions = ('?, ' * (len(data.keys()) + 2)).rstrip()[:-1]
+    #     values = tuple(data.values())
+
+    #     command = """
+    #         UPDATE {} 
+    #         SET {} = {}, 
+    #             {} = {},
+    #             {} = {},
+    #             {} = {},
+    #             {} = {},
+    #             {} = {},
+    #         WHERE {} = {} and 'user_id' = {} 
+    #     """.format(table, columns, questions, company_id, user_id)
+        
+    #     cursor = self.db.cursor()
+    #     result = cursor.execute(command ,values)
+    #     self.db.commit()
+
+    #     return result
+
     def getByField(self, table, field, value):
         cursor = self.db.cursor()
         result = cursor.execute("SELECT * FROM {} WHERE {}={}".format(table, field, value))
