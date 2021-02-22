@@ -76,38 +76,6 @@ def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo,
         cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage)
         id_count += 1
 
-
-    # # query_results = applicationsRepo.grabTop5ApplicationsFromHistory(user_id)
-
-    # top_5_applications["headings"] = ["Id#", "Date", "Company Name", "Job Role", "Employment Type", "Interview Stage", "Received Contact?", "Salary", "Platform / Job Board"]
-    # id_count = 1
-    # for application in query_results:
-    #     app_date = application[0]
-    #     company_name = application[2]
-    #     job_role = application[3]
-    #     platform = application[4]
-    #     emp_type =  application[5]
-    #     interview_stage = application[6]
-    #     contact_received = application[7]
-    #     salary = application[8]
-
-    #     if interview_stage == "N/A":
-    #         interview_stage = 0
-
-    #     # top_5_applications[id_count] = {
-    #     #     "ID#": id_count,
-    #     #     "date": app_date, 
-    #     #     "company_name": company_name,
-    #     #     "job_role": job_role,
-    #     #     "emp_type": emp_type, 
-    #     #     "interview_stage": interview_stage,
-    #     #     "contact_received": contact_received.capitalize(),
-    #     #     "salary": salary,
-    #     #     "platform": platform,
-    #     # }
-
-
-
     return top_5_applications
 
 

@@ -39,8 +39,3 @@ class UserRepository:
         self.db.commit()
 
         return result.lastrowid
-    
-
-    # Possible method to update password hash
-    #    def updateCashById(self, user_id, hash):
-    #   self.db.execute("UPDATE users SET hash = :hash WHERE id = :user_id", hash=hash, user_id=user_id)
