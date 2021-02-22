@@ -45,10 +45,11 @@ def cleanup_fields_for_better_display_top5applications(top_5_applications, id_co
 def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo, user_id, companyRepo):
     top_5_applications = {}
     application_query_results = applicationsRepo.grabTop5ApplicationsByUserID(user_id)
-    top_5_applications["headings"] = ["Id#", "Date", "Date", "Company Name", "Job Role", "Employment Type", "Interview Stage", "Received Contact?", "Salary", "Platform / Job Board"]
+    top_5_applications["headings"] = ["Id#", "Date", "Date", "Company Name", "Job Role", "Employment Type", "Interview Stage", "Received Contact?", "Salary", "Platform / Job Board", "View More"]
     id_count = 1
 
     for application in application_query_results:
+        application_id = application.app_id
         company_id = application.company_id
         company_name = companyRepo.getCompanyById(company_id).name
         app_date = application.app_date
@@ -59,6 +60,7 @@ def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo,
         interview_stage = application.interview_stage
         contact_received = application.contact_received
         salary = application.salary
+        # application_link = "/applications/{app_id}"
 
         top_5_applications[id_count] = {
             "ID#": id_count,
@@ -71,6 +73,7 @@ def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo,
             "contact_received": contact_received.capitalize(),
             "salary": salary,
             "platform": platform,
+            "View More": application_id
         }
      
         cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage)
