@@ -17,7 +17,6 @@ class AddInterviewForm(FlaskForm):
     interview_date = DateField(
         "Interview Date: ", 
         validators=[
-            # DateRange(min=date.today(), message="Please choose a date either present or in the future."), 
             InputRequired(message="Please provide the Interview Date.")
         ], 
         render_kw={'placeholder': "{}".format(todays_date)},
@@ -26,7 +25,6 @@ class AddInterviewForm(FlaskForm):
     interview_time = TimeField(
         "Interview Time: ", 
         validators=[
-            # DateRange(min=todays_datetime, message="Please choose a time either present or in the future."), 
             InputRequired(message="Please provide the starting time for the interview.")
         ], 
         render_kw={'placeholder': "{}".format(current_time)},

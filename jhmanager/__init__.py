@@ -210,7 +210,7 @@ def add_interview(application_id):
     # POST
     if request.method == "POST":
         if add_interview_form.validate_on_submit():
-            return post_add_interview(session, user_id, add_interview_form, interviewsRepo, applicationsRepo, application_id)
+            return post_add_interview(session, user_id, add_interview_form, interviewsRepo, applicationsRepo, application_id, companyRepo)
 
     """ Display add_interview Form to user """
     return display_add_interview(add_interview_form, application_id, applicationsRepo, companyRepo)
