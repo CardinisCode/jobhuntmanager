@@ -206,9 +206,9 @@ def delete_specific_application(application_id):
 @app.route('/applications/<int:application_id>/update_application', methods=["GET", "POST"])
 @login_required
 def update_specific_interview(application_id):
-    add_application_form =AddApplicationForm()
+    # add_application_form =AddApplicationForm(obj=)
     user_id = session["user_id"]
-    return display_update_application_form(session, user_id, application_id, add_application_form, companyRepo, applicationsRepo)
+    return display_update_application_form(session, user_id, application_id, companyRepo, applicationsRepo)
 
 
 @app.route('/applications/<int:application_id>/add_interview', methods=["GET", "POST"])
