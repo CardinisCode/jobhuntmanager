@@ -24,6 +24,15 @@ class Application:
         self.job_ref = db_fields[17]
         self.salary = db_fields[18]
 
+    def withCompanyDetails(self, company):
+        self.company_name = company.name
+        self.company_description = company.description
+        self.location = company.location
+        self.industry = company.industry
+
+    def __str__(self):
+        return ("{} " * 19).format(self.app_id, self.user_id, self.company_id, self.app_date, self.app_time, self.job_role, self.platform, self.interview_stage, self.employment_type, self.contact_received, self.location, self.job_description, self.user_notes, self.job_perks, self.company_descrip, self.tech_stack, self.job_url, self.job_ref, self.salary)
+
 
 class ApplicationsHistoryRepository:
     def __init__(self, db):
@@ -97,3 +106,14 @@ class ApplicationsHistoryRepository:
 
         return application_result
       
+    def getFullApplicationByApplicationID(self, application_id):
+        cursor = self.db.cursor()
+        command = "SELECT job_role, employment_type, job_ref, c.name, c.description, c.industry, job_description, job_perks, tech_stack, c.location, salary, user_notes, platform, job_url FROM applications as A INNER JOIN company C ON A.company_id = C.company_id WHERE A.application_id = {}".format(application_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        data = [d for d in result]
+
+        return data[0]    
+
+        
