@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Update Job Application
+{% endblock %}
+
+{% block main %}
+    <h1> Update Application </h1>
+    <br/>
+    <p> Note: This form will be a little long. Complete the items relevant to you. </p>
+    <p> If you don't complete a field, however, it will be saved automatically as 'N/A'</p>
+    <br/>
+    <form action="/add_job_application" method="POST"> 
+        {{ add_application_form.csrf_token }}
+        {% for field in add_application_form if field.name != "csrf_token" %}
+            <p> 
+                {% if field.name == "save_application" %}
+                    {{ field }} 
+                {% else %}
+                    <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
+                    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd>
+                {% endif %}
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            </p>
+        {% endfor %}
+
+    </form>
+
+
+{% endblock %}

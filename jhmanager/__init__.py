@@ -33,6 +33,7 @@ from jhmanager.service.display_application_details import display_application_de
 from jhmanager.service.delete_specific_application import delete_application
 from jhmanager.service.display_interview_details import display_interview_details
 from jhmanager.service.display_add_interview_form import display_add_interview
+from jhmanager.service.display_update_app_form import display_update_application_form
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -201,6 +202,15 @@ def delete_specific_application(application_id):
     return delete_application(application_id, applicationsRepo)
 
 
+""" Update a Specific application """
+@app.route('/applications/<int:application_id>/update_application', methods=["GET", "POST"])
+@login_required
+def update_specific_interview(application_id):
+    add_application_form =AddApplicationForm()
+    user_id = session["user_id"]
+    return display_update_application_form(session, user_id, application_id, add_application_form, companyRepo, applicationsRepo)
+
+
 @app.route('/applications/<int:application_id>/add_interview', methods=["GET", "POST"])
 @login_required
 def add_interview(application_id):
@@ -214,6 +224,8 @@ def add_interview(application_id):
 
     """ Display add_interview Form to user """
     return display_add_interview(add_interview_form, application_id, applicationsRepo, companyRepo)
+
+
 
 # View a specific interview:
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>')
