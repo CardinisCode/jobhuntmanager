@@ -74,8 +74,6 @@ class SqlDatabase(Database):
         
         return data[0]
 
-    
-
 
     """
     TODO

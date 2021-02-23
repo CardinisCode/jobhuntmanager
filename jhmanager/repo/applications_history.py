@@ -1,5 +1,6 @@
 import sqlite3
 from jhmanager.repo.database import SqlDatabase
+from flask import flash
 
 
 class Application:
@@ -114,6 +115,26 @@ class ApplicationsHistoryRepository:
 
         data = [d for d in result]
 
-        return data[0]    
+        return data[0] 
 
-        
+
+    def updateApplicationByID(self, fields):
+        cursor = self.db.cursor()
+
+        command = """
+        UPDATE applications SET 
+            job_role = ?,
+            employment_type = ?,
+            job_ref = ?,
+            job_description = ?,
+            job_perks = ?,
+            tech_stack = ?,
+            salary = ?,
+            user_notes = ?,
+            platform = ?,
+            job_url = ?
+        WHERE application_id = ?"""
+
+        cursor.execute(command, tuple(fields.values()))
+
+        self.db.commit()
