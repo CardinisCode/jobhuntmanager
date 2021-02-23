@@ -109,8 +109,27 @@ class ApplicationsHistoryRepository:
       
     def getFullApplicationByApplicationID(self, application_id):
         cursor = self.db.cursor()
-        command = "SELECT job_role, employment_type, job_ref, c.name, c.description, c.industry, job_description, job_perks, tech_stack, c.location, salary, user_notes, platform, job_url FROM applications as A INNER JOIN company C ON A.company_id = C.company_id WHERE A.application_id = {}".format(application_id)
-        result = cursor.execute(command)
+
+        command = """
+        SELECT job_role,
+            employment_type,
+            job_ref,
+            c.name,
+            c.description,
+            c.industry,
+            job_description,
+            job_perks,
+            tech_stack,
+            c.location,
+            salary,
+            user_notes,
+            platform,
+            job_url 
+        FROM applications as A 
+        INNER JOIN company C ON A.company_id = C.company_id 
+        WHERE A.application_id = ?"""
+
+        result = cursor.execute(command, application_id)
         self.db.commit()
 
         data = [d for d in result]
@@ -122,8 +141,8 @@ class ApplicationsHistoryRepository:
         cursor = self.db.cursor()
 
         command = """
-        UPDATE applications SET 
-            job_role = ?,
+        UPDATE applications 
+        SET job_role = ?,
             employment_type = ?,
             job_ref = ?,
             job_description = ?,
