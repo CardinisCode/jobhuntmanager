@@ -34,6 +34,7 @@ from jhmanager.service.delete_specific_application import delete_application
 from jhmanager.service.display_interview_details import display_interview_details
 from jhmanager.service.display_add_interview_form import display_add_interview
 from jhmanager.service.display_update_app_form import display_update_application_form
+from jhmanager.service.post_update_application import update_application_details_from_form
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -205,10 +206,23 @@ def delete_specific_application(application_id):
 """ Update a Specific application """
 @app.route('/applications/<int:application_id>/update_application', methods=["GET", "POST"])
 @login_required
-def update_specific_interview(application_id):
-    # add_application_form =AddApplicationForm(obj=)
+def update_specific_application(application_id):
     user_id = session["user_id"]
-    return display_update_application_form(session, user_id, application_id, companyRepo, applicationsRepo)
+
+    application_details = applicationsRepo.grabApplicationByID(application_id)
+    company = companyRepo.getCompanyById(application_details.company_id)
+    application_details.withCompanyDetails(company)
+
+    # Now to instantiate the AddApplicationForm using the details for this application:
+    update_form = AddApplicationForm(obj=application_details)
+
+    # POST
+    if request.method == "POST":
+        if update_form.validate_on_submit():
+            return update_application_details_from_form(session, user_id, update_form, application_id, applicationsRepo, companyRepo)
+
+    # GET:
+    return display_update_application_form(session, user_id, application_id, update_form, company)
 
 
 @app.route('/applications/<int:application_id>/add_interview', methods=["GET", "POST"])
