@@ -68,3 +68,24 @@ class InterviewsHistoryRepository:
         interview_result = Interview(result)
 
         return interview_result
+
+
+    def updateInterview(self, fields):
+        cursor = self.db.cursor()
+
+        command = """
+        UPDATE interviews 
+        SET date = ?,
+            time = ?,
+            interviewer_names = ?,
+            interview_type = ?,
+            interview_location = ?,
+            interview_medium = ?,
+            other_medium = ?,
+            contact_number = ?,
+            status = ?
+        WHERE interview_id = ? AND application_id = ?"""
+
+        cursor.execute(command, tuple(fields.values()))
+
+        self.db.commit()

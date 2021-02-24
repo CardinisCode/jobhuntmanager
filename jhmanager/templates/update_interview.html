@@ -7,7 +7,7 @@
 {% block main %}
     <h1> Update Interview for {{ details.company_name }} </h1>
     <br/>
-    <form action='/applications/{{ details.application_id }}/interviews/{{ details.interview_id }}/update_interview' method="POST"> 
+    <form action='/applications/{{ details.application_id }}/interview/{{ details.interview_id }}/update_interview' method="POST"> 
         {{ update_interview_form.csrf_token }}
         {% for field in update_interview_form if field.name != "csrf_token" %}
             <p> 
