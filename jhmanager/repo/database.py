@@ -48,7 +48,7 @@ class SqlDatabase(Database):
 
     def getByID(self, table, field, value):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT * FROM {} WHERE {}={}".format(table, field, value))
+        result = cursor.execute("SELECT * FROM {} WHERE {}={} ORDER BY date DESC, time DESC".format(table, field, value))
         self.db.commit()
 
         data = [x for x in result]
