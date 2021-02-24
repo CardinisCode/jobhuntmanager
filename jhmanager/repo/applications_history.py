@@ -66,6 +66,9 @@ class ApplicationsHistoryRepository:
         # result = self.sql.getByField('applications', 'user_id', user_id)
         applications_list = []
 
+        if not result: 
+            return None
+
         for application in result:
             application_result = Application(application)
             applications_list.append(application_result)
@@ -77,7 +80,11 @@ class ApplicationsHistoryRepository:
         result = cursor.execute("SELECT application_id, company_id, date, job_role, employment_type, salary, platform, interview_stage, job_ref, contact_received FROM applications WHERE user_id = ? ORDER BY date DESC LIMIT 10", (user_id,))
         self.db.commit()
 
-        return result
+        data = [x for x in result]
+        if len(data) < 1:
+            return None
+
+        return data
 
 
     def grabApplicationDetailsByApplicationID(self, application_id):

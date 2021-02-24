@@ -20,37 +20,39 @@
         {% endif %}
     </div>
     <br/>
-    <h3> View Your Applications history:</h3>
+    
     <!-- Drop down to view table-->
     <div class="horizontal_buttons">
         <a href="/add_job_application" class="button right_button" style="cursor:pointer;"> Add +</a>
         <a href="/applications" class="button middle_button">View all Applications</a>
     </div>
 
-    <table class="Table"> 
-        <tr class="border-bottom border-right border-left border-top">
-            {% for item in display.top_5_applications.headings %}
-                <th class="border-bottom border-right border-left"> {{ item }} </th> 
+    {% if display.top_5_applications.fields == None %}
+        <p> No Applications to display.</p>
+    {% else %}
+        <table class="Table"> 
+            <tr class="border-bottom border-right border-left border-top">
+                {% for item in display.top_5_applications.headings %}
+                    <th class="border-bottom border-right border-left"> {{ item }} </th> 
+                {% endfor %}
+            </tr>
+
+            {% for key, fields in display.top_5_applications.items() %}
+                {% if key != "headings" %}
+                    <tr class="border-bottom border-right border-left">
+                        {% for heading, field in fields.items() %}
+                            {% if heading == "View More" %}
+                                <td class="border-bottom border-right border-left"><a href="../applications/{{ field }}"> View</a></td>
+                            {% else %}
+                                <td class="border-bottom border-right border-left"> {{ field }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endif %}
             {% endfor %}
-        </tr>
-
-        {% for key, fields in display.top_5_applications.items() %}
-            {% if key != "headings" %}
-                <tr class="border-bottom border-right border-left">
-                    {% for heading, field in fields.items() %}
-                        {% if heading == "View More" %}
-                            <td class="border-bottom border-right border-left"><a href="../applications/{{ field }}"> View</a></td>
-                        {% else %}
-                            <td class="border-bottom border-right border-left"> {{ field }}</td>
-                        {% endif %}
-                    {% endfor %}
-                </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
-
-
-    </table>
+        </table>
+    
+    {% endif %}
     <br/>
 
     <br/>

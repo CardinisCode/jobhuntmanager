@@ -45,38 +45,44 @@ def cleanup_fields_for_better_display_top5applications(top_5_applications, id_co
 def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo, user_id, companyRepo):
     top_5_applications = {}
     application_query_results = applicationsRepo.grabTop5ApplicationsByUserID(user_id)
-    top_5_applications["headings"] = ["Id#", "Date", "Time", "Company Name", "Job Role", "Employment Type", "Interview Stage", "Received Contact?", "Salary", "Platform / Job Board", "View More"]
-    id_count = 1
 
-    for application in application_query_results:
-        application_id = application.app_id
-        company_id = application.company_id
-        company_name = companyRepo.getCompanyById(company_id).name
-        app_date = application.app_date
-        app_time = application.app_time
-        job_role = application.job_role
-        platform = application.platform
-        emp_type = application.employment_type
-        interview_stage = application.interview_stage
-        contact_received = application.contact_received
-        salary = application.salary
+    if not application_query_results: 
+        top_5_applications["fields"] = None
 
-        top_5_applications[id_count] = {
-            "ID#": id_count,
-            "date": app_date, 
-            "Time": app_time,
-            "company_name": company_name,
-            "job_role": job_role,
-            "emp_type": emp_type, 
-            "interview_stage": interview_stage,
-            "contact_received": contact_received.capitalize(),
-            "salary": salary,
-            "platform": platform,
-            "View More": application_id
-        }
-     
-        cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage)
-        id_count += 1
+    else:
+        top_5_applications["fields"] = {}
+        top_5_applications["headings"] = ["Id#", "Date", "Time", "Company Name", "Job Role", "Employment Type", "Interview Stage", "Received Contact?", "Salary", "Platform / Job Board", "View More"]
+        id_count = 1
+
+        for application in application_query_results:
+            application_id = application.app_id
+            company_id = application.company_id
+            company_name = companyRepo.getCompanyById(company_id).name
+            app_date = application.app_date
+            app_time = application.app_time
+            job_role = application.job_role
+            platform = application.platform
+            emp_type = application.employment_type
+            interview_stage = application.interview_stage
+            contact_received = application.contact_received
+            salary = application.salary
+
+            top_5_applications[id_count] = {
+                "ID#": id_count,
+                "date": app_date, 
+                "Time": app_time,
+                "company_name": company_name,
+                "job_role": job_role,
+                "emp_type": emp_type, 
+                "interview_stage": interview_stage,
+                "contact_received": contact_received.capitalize(),
+                "salary": salary,
+                "platform": platform,
+                "View More": application_id
+            }
+        
+            cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage)
+            id_count += 1
 
     return top_5_applications
 
