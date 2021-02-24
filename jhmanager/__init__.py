@@ -212,6 +212,7 @@ def update_specific_application(application_id):
     application_details = applicationsRepo.grabApplicationByID(application_id)
     company = companyRepo.getCompanyById(application_details.company_id)
     application_details.withCompanyDetails(company)
+    company_id = application_details.company_id
 
     # Now to instantiate the AddApplicationForm using the details for this application:
     update_form = AddApplicationForm(obj=application_details)
@@ -219,7 +220,7 @@ def update_specific_application(application_id):
     # POST
     if request.method == "POST":
         if update_form.validate_on_submit():
-            return update_application_details_from_form(session, user_id, update_form, application_id, applicationsRepo, companyRepo)
+            return update_application_details_from_form(session, user_id, update_form, application_id, company_id, applicationsRepo, companyRepo)
 
     # GET:
     return display_update_application_form(session, user_id, application_id, update_form, company)

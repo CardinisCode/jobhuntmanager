@@ -43,7 +43,7 @@ class CompanyRepository:
             description = ?,
             industry = ?,
             location = ?
-        WHERE user_id = ?"""
+        WHERE user_id = ? and company_id = ?"""
 
         cursor.execute(command, tuple(fields.values()))
 
