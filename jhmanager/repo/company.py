@@ -33,6 +33,22 @@ class CompanyRepository:
 
         return self.sql.insert('company', data)
 
+    
+    def updateUsingApplicationDetails(self, fields):
+        cursor = self.db.cursor()
+
+        command = """
+        UPDATE company 
+        SET name = ?,
+            description = ?,
+            industry = ?,
+            location = ?
+        WHERE user_id = ?"""
+
+        cursor.execute(command, tuple(fields.values()))
+
+        self.db.commit()
+
     # def update(self, description, location, industry, url, interviewers, contact_number, company_id, user_id):
     #     data = {
     #         "description": description,

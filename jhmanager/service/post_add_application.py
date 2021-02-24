@@ -204,16 +204,18 @@ def post_add_application(session, user_id, applicationsRepo, companyRepo, form):
 
     # raise ValueError("Current user:", user_id)
     existing_company = companyRepo.grabCompanyByNameAndUserID(company_name.data, user_id)
+
     if not existing_company:
-        flash("Save this business as a brand business in CompanyRepo.")
-        companyRepo.create(company_name.data, company_spec.data, location.data, industry, user_id)
+        flash("Save this business as a brand new business in CompanyRepo.")
+        company_id = companyRepo.create(company_name.data, company_spec.data, location.data, industry, user_id)
+
     else:
-        # company_id = existing_company.company_id
+        company_id = existing_company.company_id
         flash("This business already exists in the DB for this user. Update details.")
 
     # Lets add these fields to our function that will structure this data into a dict:
     details =  add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url)
-    # add_new_application_to_application_history(user_id, companyRepo, applicationsRepo, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url, company_id)
+    add_new_application_to_application_history(user_id, companyRepo, applicationsRepo, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url, company_id)
 
     return render_template("application_details.html", details=details)
 
