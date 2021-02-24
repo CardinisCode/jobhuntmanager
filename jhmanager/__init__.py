@@ -37,6 +37,7 @@ from jhmanager.service.display_update_app_form import display_update_application
 from jhmanager.service.post_update_application import update_application_details_from_form
 from jhmanager.service.display_update_interview import display_update_interview_form
 from jhmanager.service.post_update_interview import post_update_interview
+from jhmanager.service.delete_specific_interview import delete_interview
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -269,14 +270,12 @@ def update_specific_interview(application_id, interview_id):
     # return render_template("update_interview.html")
 
 
+@app.route('/applications/<int:application_id>/interview/<int:interview_id>/delete_interview')
+@login_required
+def delete_specific_interview(application_id, interview_id):
+    return delete_interview(application_id, interview_id, interviewsRepo)
 
-    # application_details = applicationsRepo.grabApplicationByID(application_id)
-    # company = companyRepo.getCompanyById(application_details.company_id)
-    # application_details.withCompanyDetails(company)
-    # company_id = application_details.company_id
-
-    # # Now to instantiate the AddApplicationForm using the details for this application:
-    # update_form = AddApplicationForm(obj=application_details)
+    # return delete_application(application_id, applicationsRepo)
 
 
 @app.route("/userprofile")

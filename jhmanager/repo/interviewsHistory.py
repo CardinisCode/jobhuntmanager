@@ -1,5 +1,8 @@
 from jhmanager.repo.database import SqlDatabase
 from datetime import date, time
+from flask import flash
+import sqlite3
+
 
 class Interview:
     def __init__(self, db_fields):
@@ -89,3 +92,13 @@ class InterviewsHistoryRepository:
         cursor.execute(command, tuple(fields.values()))
 
         self.db.commit()
+
+    def deleteInterviewByID(self, interview_id):
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM interviews WHERE interview_id = {}".format(interview_id)
+            cursor.execute(command)
+            self.db.commit()
+
+        except sqlite3.Error as error:
+            flash("Interview failed to delete.", error)

@@ -17,7 +17,9 @@
     {% endfor %}
 </table>
 
-<p> <a href="../interview/{{interview_details.interview_id}}/update_interview"> Update</a></p>
-
+<div class="horizontal"> 
+    <a href="../interview/{{interview_details.interview_id}}/update_interview" class="left-align"> Update</a></p>
+    <a href="../interview/{{interview_details.interview_id}}/delete_interview" class="middle-align"> Delete</a></p>
+</div>
 
 {% endblock %}
