@@ -82,7 +82,6 @@ def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo,
     interview_date = form.interview_date
     interview_time = form.interview_time
     interview_type = form.interview_type
-    # job_role = form.job_role
     interviewers = form.interviewer_names
     interview_location = form.interview_location
     video_medium = form.interview_medium

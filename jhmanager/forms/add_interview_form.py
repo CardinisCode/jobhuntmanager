@@ -29,12 +29,7 @@ class AddInterviewForm(FlaskForm):
         ], 
         render_kw={'placeholder': "{}".format(current_time)},
     )
-    
-    job_role = StringField(
-        "Job Role: ", 
-        [validators.optional()],
-        render_kw={'placeholder': "The job role / position you're applied for."},
-    )
+
     interviewer_names = StringField(
         "Interviewer Names: ", 
         [validators.optional()], 
