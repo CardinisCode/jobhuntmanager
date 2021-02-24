@@ -72,11 +72,14 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "app_id": application_id
     }
     
-    interview_details["fields"] = {}
+    
     # In the case that there are actually interviews for this application, 
     # we want to grab those details & update the "fields" value to contain these values.
     # These values will be displayed to the user, in a table format. 
-    if all_interviews_for_app_id != None: 
+    
+    if all_interviews_for_app_id != None:
+        raise ValueError("SQL returned more than 1 value")
+        interview_details["fields"] = {}
         for interview in all_interviews_for_app_id:
             interview_id = str(interview[0])
             status = interview[9]

@@ -27,7 +27,8 @@
 <h2> Interviews for this application:</h2>
     <p> <a href="../applications/{{ details.app_id }}/add_interview"> Add Interview</a></p>
     {% if interview_details.fields == None %}
-        <p> {{ interview_details.message }} Add an Interview.</p>
+        <p> {{ interview_details.message }}</p>
+
     {% else %}
         <table> 
             <tr class="border-bottom border-right border-left border-top"> 
