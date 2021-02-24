@@ -10,35 +10,29 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
         "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type",  "Interview Stage", "Contact Received", "Salary", "Platform / Job Board", "View More"]
     }
 
-    # Let's take the details from "applictop_ten_applicationsations" 
+    # Let's take the details from "top10applications" 
     # and restructure the data for our html page:
 
     if top_ten_applications != None:
         for application in top_ten_applications:
-            details_list = []
-            for fields in application:
-                details_list.append(fields)
+            app_id = application.app_id
+            app_date = application.app_date
+            emp_type = application.employment_type
+            company_id = application.company_id
+            salary = application.salary
+            platform = application.platform
+            interview_stage = application.interview_stage
 
-            # Now that we have grabbed the fields for this current application
-            # lets store these values in a dictionary to be displayed on the html page:
-            app_id = int(details_list[0])
-            company_id = details_list[1]
-            app_date = details_list[2]
-            emp_type = details_list[4]
-            salary = details_list[5]
-            platform = details_list[6] 
-            interview_stage = details_list[7]
+            # # Now that we have the company_id, we can grab the company_name:
+            company_name = companyRepo.getCompanyById(company_id).name
 
-            # Now that we have the company_id, we can grab the company_name:
-            company_name = companyRepo.grab_company_name(user_id, company_id)
-
-            # Before adding Interview_stage to our display dict, let's format it's presentation:
-            if interview_stage == "N/A":
+            # # Before adding Interview_stage to our display dict, let's format it's presentation:
+            if interview_stage == 0:
                 Interview_stage_str = "No Interview lined up yet."
             else:
                 Interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage=str(interview_stage))
 
-            # application_url = "/applications/{application_id}"
+            # # application_url = "/applications/{application_id}"
             application_url = "/applications/{app_id}"
 
             display_details[app_id] = {
@@ -57,7 +51,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
                 },
                 "job_role": {
                     "label": "Job Role",
-                    "data": details_list[3],
+                    "data": application.job_role,
                 },
                 "emp_type": {
                     "label": "Employment Type",
@@ -69,7 +63,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
                 },
                 "contact_received": {
                     "label": "Contact Received",
-                    "data": details_list[9].capitalize(),                  
+                    "data": application.contact_received.capitalize(),                  
                 }, 
                 "salary": {
                     "label": "Salary",

@@ -28,7 +28,7 @@ class Application:
     def withCompanyDetails(self, company):
         self.company_name = company.name
         self.company_description = company.description
-        self.location = company.location
+        self.company_location = company.location
         self.industry = company.industry
 
     def __str__(self):
@@ -77,14 +77,16 @@ class ApplicationsHistoryRepository:
 
     def grabTop10ApplicationsFromHistory(self, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT application_id, company_id, date, job_role, employment_type, salary, platform, interview_stage, job_ref, contact_received FROM applications WHERE user_id = ? ORDER BY date DESC LIMIT 10", (user_id,))
+        result = cursor.execute("SELECT * FROM applications WHERE user_id = ? ORDER BY date DESC LIMIT 10", (user_id,))
         self.db.commit()
 
-        data = [x for x in result]
-        if len(data) < 1:
-            return None
+        applications_list = []
 
-        return data
+        for application in result:
+            application_result = Application(application)
+            applications_list.append(application_result)
+
+        return applications_list
 
 
     def grabApplicationDetailsByApplicationID(self, application_id):
