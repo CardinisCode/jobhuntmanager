@@ -22,3 +22,24 @@ CREATE UNIQUE INDEX 'app_id' ON "application_history" ("id");
 
 CREATE TABLE IF NOT EXISTS 'interview_history' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'company_name' TEXT NOT NULL, 'date' DATETIME NOT NULL, 'time' DATETIME NOT NULL,'job_role' TEXT NOT NULL, 'interview_stage' TEXT NOT NULL, 'user_id' INTEGER NOT NULL, 'status' TEXT NOT NULL);
 CREATE UNIQUE INDEX 'interview_id' ON "interview_history" ("id");
+
+
+CREATE TABLE IF NOT EXISTS 'general_preparation' (
+    'prep_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    'user_id'  INTEGER NOT NULL,
+    'question_heading' TEXT DEFAULT "Tell me about yourself",
+    'answer_text' BLOB DEFAULT "N/A", 
+    FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
+
+CREATE TABLE IF NOT EXISTS 'interview_preparation' (
+    'interview_prep_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    'prep_id' INTEGER NOT NULL,
+    'user_id'  INTEGER NOT NULL,
+    'interview_id' INTEGER NOT NULL,
+    'specific_heading' TEXT DEFAULT "General Question",
+    'specific_answer_text' BLOB DEFAULT "N/A", 
+    FOREIGN KEY (prep_id) REFERENCES general_preparation (prep_id),
+    FOREIGN KEY (interview_id) REFERENCES interviews (interview_id),
+    FOREIGN KEY (user_id) REFERENCES users (user_id)
+);

@@ -19,6 +19,8 @@ from jhmanager.repo.users import UserRepository
 from jhmanager.repo.company import CompanyRepository
 from jhmanager.repo.applications_history import ApplicationsHistoryRepository
 from jhmanager.repo.interviewsHistory import InterviewsHistoryRepository
+from jhmanager.repo.general_prep_history import PreparationRepository
+from jhmanager.repo.interview_prep_history import InterviewPreparationRepository
 
 from jhmanager.service.post_registration import post_register_user
 from jhmanager.service.homepage import create_homepage_content
@@ -81,6 +83,8 @@ userRepo = UserRepository(db)
 companyRepo = CompanyRepository(db)
 applicationsRepo = ApplicationsHistoryRepository(db)
 interviewsRepo = InterviewsHistoryRepository(db)
+interviewPrepRepo = InterviewPreparationRepository(db)
+prepRepo = PreparationRepository(db)
 
 @app.route("/register", methods=["GET", "POST"])
 def register_user():
