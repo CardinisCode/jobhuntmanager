@@ -78,7 +78,6 @@ def display_application_details(session, user_id, applicationsRepo, application_
     # These values will be displayed to the user, in a table format. 
     
     if all_interviews_for_app_id != None:
-        raise ValueError("SQL returned more than 1 value")
         interview_details["fields"] = {}
         for interview in all_interviews_for_app_id:
             interview_id = str(interview[0])
