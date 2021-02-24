@@ -1,11 +1,12 @@
 from jhmanager.repo.database import SqlDatabase
+from datetime import date, time
 
 class Interview:
     def __init__(self, db_fields):
         self.interview_id = db_fields[0]
         self.application_id = db_fields[1]
-        self.interview_date = db_fields[2]
-        self.interview_time = db_fields[3]
+        self.interview_date = date.fromisoformat(db_fields[2])
+        self.interview_time = time.fromisoformat(db_fields[3])
         self.interview_type = db_fields[4]
         self.location = db_fields[5]
         self.medium = db_fields[6]

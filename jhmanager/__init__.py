@@ -35,6 +35,7 @@ from jhmanager.service.display_interview_details import display_interview_detail
 from jhmanager.service.display_add_interview_form import display_add_interview
 from jhmanager.service.display_update_app_form import display_update_application_form
 from jhmanager.service.post_update_application import update_application_details_from_form
+from jhmanager.service.display_update_interview import display_update_interview_form
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -254,9 +255,16 @@ def display_interview(application_id, interview_id):
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/update_interview')
 @login_required
 def update_specific_interview(application_id, interview_id):
-    user_id = session["user_id"]
+    # user_id = session["user_id"]
+    interview_details = interviewsRepo.grabInterviewByID(interview_id)
 
-    return render_template("update_interview.html")
+
+    # Now to instantiate the AddInterviewForm using the details for this interview:
+    update_interview_form = AddInterviewForm(obj=interview_details)
+
+    # GET:
+    return display_update_interview_form(update_interview_form, application_id, interview_id, applicationsRepo, companyRepo)
+    # return render_template("update_interview.html")
 
 
 
