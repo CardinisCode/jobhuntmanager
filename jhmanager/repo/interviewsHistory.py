@@ -54,7 +54,7 @@ class InterviewsHistoryRepository:
     
     def grabAllInterviewsForApplicationID(self, application_id):
         cursor = self.db.cursor()
-        command = "SELECT * FROM interviews WHERE application_id={}".format(application_id)
+        command = "SELECT * FROM interviews WHERE application_id={} ORDER BY date DESC, time DESC".format(application_id)
         result = cursor.execute(command)
         self.db.commit()
 
