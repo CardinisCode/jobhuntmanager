@@ -251,6 +251,24 @@ def display_interview(application_id, interview_id):
     return display_interview_details(session, user_id, interviewsRepo, application_id, interview_id, applicationsRepo, companyRepo)
 
 
+@app.route('/applications/<int:application_id>/interview/<int:interview_id>/update_interview')
+@login_required
+def update_specific_interview(application_id, interview_id):
+    user_id = session["user_id"]
+
+    return render_template("update_interview.html")
+
+
+
+    # application_details = applicationsRepo.grabApplicationByID(application_id)
+    # company = companyRepo.getCompanyById(application_details.company_id)
+    # application_details.withCompanyDetails(company)
+    # company_id = application_details.company_id
+
+    # # Now to instantiate the AddApplicationForm using the details for this application:
+    # update_form = AddApplicationForm(obj=application_details)
+
+
 @app.route("/userprofile")
 @login_required
 def display_user_profile():
