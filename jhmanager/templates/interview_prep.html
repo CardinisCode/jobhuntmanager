@@ -14,6 +14,7 @@
     <!-- Will list all the interviews lined up by company name-->
 
     <h2> View Interview Prep</h2>
+    <br/>
         {% if interview_prep_details != None %}
             {% for prep_id, values in interview_prep_details.items() %}
                 <p> Question Number: #{{ prep_id }}</p>
