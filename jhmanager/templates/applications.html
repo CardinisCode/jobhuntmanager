@@ -11,33 +11,32 @@
 <!-- <a href="/add_job_application" class="button right_button">Add Application</a> -->
 
 <!-- <p> Today's date: {{ display_details.todays_date }} </p> -->
-
-
-<a href="/add_job_application" style="cursor:pointer; text-align: right;"> Add +</a>
-<table class="center"> 
-    <tr class="border-bottom border-right border-left border-top">
-        {% for key, value in display_details.items() %}
-            {% if key == "headings"  %}
-                {% for heading in value["headings_list"] %}
-                <th class="border-bottom border-right border-left border-top"> {{ heading }} </th>
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
-    </tr>
-    
-    {% for application_id, application in display_details.items() %}
-        {% if application_id != "headings"  %} 
+{% if display_details.empty_table == True %}
+    <p> No Applications add yet. Add +</p>
+{% else %}
+    <a href="/add_job_application" style="cursor:pointer; text-align: right;"> Add +</a>
+    <table class="center"> 
         <tr class="border-bottom border-right border-left border-top">
-            {% for field in application.values() %}
-                {% if field.label == "View More" %}
-                    <td class="border-bottom border-right border-left border-top"> <a href="../applications/{{ application_id }}"> View</a></td>
-                {% else %}
-                    <td class="border-bottom border-right border-left border-top"> {{ field.data }} </td>
+            {% for key, value in display_details.items() %}
+                {% if key == "headings"  %}
+                    {% for heading in value["headings_list"] %}
+                    <th class="border-bottom border-right border-left border-top"> {{ heading }} </th>
+                    {% endfor %}
                 {% endif %}
             {% endfor %}
         </tr>
-        {% endif %}
-    {% endfor %}
-
+        
+        {% for application_id, application in display_details.fields.items() %}
+            <tr class="border-bottom border-right border-left border-top">
+                {% for field in application.values() %}
+                    {% if field.label == "View More" %}
+                        <td class="border-bottom border-right border-left border-top"> <a href="../applications/{{ application_id }}"> View</a></td>
+                    {% else %}
+                        <td class="border-bottom border-right border-left border-top"> {{ field.data }} </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
 

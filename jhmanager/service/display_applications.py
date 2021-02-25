@@ -9,11 +9,14 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
     display_details["headings"] = {
         "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type",  "Interview Stage", "Contact Received", "Salary", "Platform / Job Board", "View More"]
     }
-
+    display_details["fields"] = {}
+    display_details["empty_table"] = True
+    
     # Let's take the details from "top10applications" 
     # and restructure the data for our html page:
 
     if top_ten_applications != None:
+        display_details["empty_table"] = False
         for application in top_ten_applications:
             app_id = application.app_id
             app_date = application.app_date
@@ -35,7 +38,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
             # # application_url = "/applications/{application_id}"
             application_url = "/applications/{app_id}"
 
-            display_details[app_id] = {
+            display_details["fields"][app_id] = {
                 "app_id": {
                     "label": "ID#", 
                     "data": app_id,
@@ -81,29 +84,29 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
 
             # Let's clean up the emp_type so its output is more presentable:
             if emp_type == "full_time":
-                display_details[app_id]["emp_type"]["data"] = "Full Time"
+                display_details["fields"][app_id]["emp_type"]["data"] = "Full Time"
             
             elif emp_type == "part_time":
-                display_details[app_id]["emp_type"]["data"]= "Part Time"
+                display_details["fields"][app_id]["emp_type"]["data"]= "Part Time"
 
             elif emp_type == "temporary":
-                display_details[app_id]["emp_type"]["data"] = "Temp"
+                display_details["fields"][app_id]["emp_type"]["data"] = "Temp"
 
             elif emp_type == "contract":
-                display_details[app_id]["emp_type"]["data"] = "Contract"
+                display_details["fields"][app_id]["emp_type"]["data"] = "Contract"
 
             elif emp_type == "other_emp_type": 
-                display_details[app_id]["emp_type"]["data"] = "Other"
+                display_details["fields"][app_id]["emp_type"]["data"] = "Other"
 
             else: 
-                display_details[app_id]["emp_type"]["data"] = "Not Provided"
+                display_details["fields"][app_id]["emp_type"]["data"] = "Not Provided"
 
             # If these fields values are "N/A", lets rather display a blank field to user:
             if platform == "N/A":
-                display_details[app_id]["platform"]["data"] = ""
+                display_details["fields"][app_id]["platform"]["data"] = ""
 
             if salary == "N/A":
-                display_details[app_id]["salary"]["data"] = ""
+                display_details["fields"][app_id]["salary"]["data"] = ""
 
 
 
