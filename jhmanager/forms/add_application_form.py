@@ -48,6 +48,7 @@ class AddApplicationForm(FlaskForm):
         description="All info relevant to the company.",
         render_kw={'placeholder': "Description of company provided in Job Spec or from research."},
     )
+    
     industry = StringField(
         "Industry", 
         [validators.optional()],
