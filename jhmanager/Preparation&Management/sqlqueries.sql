@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS 'interview_preparation' (
     'prep_id' INTEGER NOT NULL,
     'user_id'  INTEGER NOT NULL,
     'interview_id' INTEGER NOT NULL,
-    'specific_heading' TEXT DEFAULT "General Question",
-    'specific_answer_text' BLOB DEFAULT "N/A", 
+    'specific_question' TEXT DEFAULT "General Question",
+    'specific_answer' BLOB DEFAULT "N/A", 
     FOREIGN KEY (prep_id) REFERENCES general_preparation (prep_id),
     FOREIGN KEY (interview_id) REFERENCES interviews (interview_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id)
@@ -74,7 +74,7 @@ COMMIT;
 
 
 BEGIN TRANSACTION;
-DROP TABLE company;
+DROP TABLE job_applications;
 CREATE TABLE IF NOT EXISTS 'company' (
     'company_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     'user_id' INTEGER NOT NULL, 

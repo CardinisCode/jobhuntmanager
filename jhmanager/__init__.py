@@ -41,6 +41,7 @@ from jhmanager.service.display_update_interview import display_update_interview_
 from jhmanager.service.post_update_interview import post_update_interview
 from jhmanager.service.delete_specific_interview import delete_interview
 from jhmanager.service.display_interview_prep_forms import display_interview_prep
+from jhmanager.service.post_add_interview_prep import post_add_interview_preparation
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -288,8 +289,16 @@ def delete_specific_interview(application_id, interview_id):
 @login_required
 def interview_preparation(application_id, interview_id):
     interview_prep_form = AddInterviewPrepForm()
+    user_id = session["user_id"]
+
+    if request.method == "POST":
+        if interview_prep_form.validate_on_submit():
+            return post_add_interview_preparation(user_id, application_id, interview_id, interview_prep_form, applicationsRepo, interviewPrepRepo)
+
+    # Get:
     return display_interview_prep(interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo)
 
+    
 
 @app.route("/userprofile")
 @login_required
