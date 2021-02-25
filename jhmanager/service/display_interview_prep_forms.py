@@ -1,10 +1,23 @@
 from flask import Flask, render_template, session, request, redirect
 
 
-def display_interview_prep(interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo):
+def display_interview_prep(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo):
+    interview_prep_entries = interviewPrepRepo.getAllInterviewPrepEntriesByInterviewId(interview_id, user_id)
+    
+    interview_prep_details = None 
+
+    if interview_prep_entries: 
+        interview_prep_details = {} 
+        for entry in interview_prep_entries: 
+            prep_id = entry.interview_prep_id
+            interview_prep_details[prep_id] = {
+                "Question": entry.question,
+                "Answer": entry.answer
+            }
+    
     details = {
         "application_id": application_id,
         "interview_id": interview_id,
     }
 
-    return render_template("interview_prep.html", interview_prep_form=interview_prep_form, details=details)
+    return render_template("interview_prep.html", interview_prep_form=interview_prep_form, details=details, interview_prep_details=interview_prep_details)

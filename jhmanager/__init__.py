@@ -296,7 +296,7 @@ def interview_preparation(application_id, interview_id):
             return post_add_interview_preparation(user_id, application_id, interview_id, interview_prep_form, applicationsRepo, interviewPrepRepo)
 
     # Get:
-    return display_interview_prep(interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo)
+    return display_interview_prep(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo)
 
     
 

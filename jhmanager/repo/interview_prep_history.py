@@ -22,3 +22,24 @@ class InterviewPreparationRepository:
         self.db.commit()
 
         return result.lastrowid
+
+
+    def getAllInterviewPrepEntriesByInterviewId(self, interview_id, user_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM interview_preparation WHERE interview_id = {} and user_id = {}".format(interview_id, user_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        if not result: 
+            return None
+
+        interview_prep_entries_list = []
+        for interview_prep in result: 
+            interview_prep_result = InterviewPreparation(interview_prep)
+            interview_prep_entries_list.append(interview_prep_result)
+
+
+        return interview_prep_entries_list
+
+
+    
