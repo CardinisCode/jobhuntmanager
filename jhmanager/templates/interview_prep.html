@@ -7,7 +7,14 @@
 {% block main %}
     <h1> Prepare for your next Interview </h1>
     <br/>
-    <p> Not sure where to start?</p>
+    <p> Not sure where to start? Here are a few links you may find interesting to get you started:</p>
+    <div> 
+        <li> <a href="https://www.glassdoor.co.uk/blog/50-common-interview-questions/">GlassDoor</a></li>
+        <li><a href="https://www.themuse.com/advice/interview-questions-and-answers">The Muse</a></li>
+        <li><a href="https://www.monster.com/career-advice/article/100-potential-interview-questions"> Monster</a></li>
+        <li><a href="https://nationalcareers.service.gov.uk/careers-advice/top-10-interview-questions"> National Careers Service UK</a></li>
+    </div>
+    <p>  </p>
     <!-- Refer user to certain page listing all sites offering Interview prep advice Incl. Reed-->
     <br/>
     <!-- 'Select' drop down list -->
@@ -31,6 +38,8 @@
 
 
     <h2> Add Interview Question:</h2>
+        </br> 
+        <p> Example Question: Tell me about yourself?</p>
     
     <form action="/applications/{{ details.application_id }}/interview/{{ details.interview_id }}/interview_preparation" method="POST">
         {{ interview_prep_form.csrf_token }}
