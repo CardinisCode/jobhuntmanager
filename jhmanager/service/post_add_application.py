@@ -78,20 +78,26 @@ def add_new_application_to_application_history(user_id, companyRepo, application
 
 def add_or_update_company(user_id, application_form, companyRepo, applicationsRepo):
     #Grab fields from form:
+
     company_name = application_form.company_name.data
-    company_spec = application_form.company_description.data
-    location = application_form.location.data
-    industry = application_form.industry.data
+
+    fields = {
+        "name": company_name,
+        "description": application_form.company_description.data, 
+        "location" : application_form.location.data, 
+        "industry" : application_form.industry.data, 
+        "user_id" : user_id
+    }
 
     existing_company = companyRepo.grabCompanyByNameAndUserID(company_name, user_id)
 
     if not existing_company:
         flash("Save this business as a brand new business in CompanyRepo.")
-        company_id = companyRepo.create(company_name, company_spec, location, industry, user_id)
+        company_id = companyRepo.create(fields)
 
     else:
         company_id = existing_company.company_id
-        companyRepo.updateUsingApplicationDetails(company_name, company_spec, location, industry, user_id)
+        companyRepo.updateUsingApplicationDetails(fields)
         flash("This business already exists in the DB for this user. Details have been updated.")
 
     return company_id

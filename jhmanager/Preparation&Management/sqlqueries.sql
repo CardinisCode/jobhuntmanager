@@ -71,3 +71,20 @@ CREATE TABLE job_applications(
     FOREIGN KEY (company_id) REFERENCES company (company_id)
 );
 COMMIT;
+
+
+BEGIN TRANSACTION;
+DROP TABLE company;
+CREATE TABLE IF NOT EXISTS 'company' (
+    'company_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    'user_id' INTEGER NOT NULL, 
+    'name' TEXT NOT NULL,
+    'description' TEXT DEFAULT "N/A",
+    'location' TEXT DEFAULT "N/A",
+    'industry' TEXT DEFAULT "N/A",
+    'url' TEXT DEFAULT "N/A",
+    'interviewers' TEXT DEFAULT "Unknown at present",
+    'contact_number' TEXT DEFAULT "Unknown at present",
+    FOREIGN KEY (user_id) REFERENCES users (user_id)   
+);
+COMMIT;

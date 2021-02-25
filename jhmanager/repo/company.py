@@ -22,16 +22,8 @@ class CompanyRepository:
     # def addColumnToTable(self, name, datatype):
     #     ALTER TABLE users ADD date datetime;
 
-    def create(self, name, description, location, industry, user_id):
-        data = {
-            'name': name,
-            'description': description,
-            'location': location,
-            'industry': industry,
-            'user_id': user_id
-        }
-
-        return self.sql.insert('company', data)
+    def create(self, fields):
+        return self.sql.insert('company', fields)
 
     
     def updateUsingApplicationDetails(self, fields):
