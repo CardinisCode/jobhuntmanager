@@ -5,8 +5,15 @@
 {% endblock %}
 
 {% block main %}
-<h1> Interview Details for {{ details.company_name}} </h1>
+<h1> {{ details.company_name}} </h1>
 <hr/>
+
+<h2> View Interview Details</h2> 
+<div> 
+    <a href="../interview/{{details.interview_id}}/update_interview"> Update</a>
+    <a href="../interview/{{details.interview_id}}/delete_interview"> Delete</a>
+    
+</div>
 <table> 
     {% for heading, value in details.fields.items() %}
         <tr> 
@@ -17,10 +24,8 @@
     {% endfor %}
 </table>
 
-<div class="horizontal"> 
-    <a href="../interview/{{details.interview_id}}/update_interview" class="left-align"> Update</a></p>
-    <a href="../interview/{{details.interview_id}}/delete_interview" class="middle-align"> Delete</a></p>
-    <a href="/applications/{{ details.app_id }}/interview/{{ details.interview_id }}/interview_preparation" class="right-align"> Add Interview Prep</a></p>
-</div>
+<br/>
+<h2> Interview Prep:</h2>
+    <p> <a href="/applications/{{ details.app_id }}/interview/{{ details.interview_id }}/interview_preparation"> Add +</a></p>
 
 {% endblock %}
