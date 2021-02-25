@@ -40,11 +40,13 @@ from jhmanager.service.post_update_application import update_application_details
 from jhmanager.service.display_update_interview import display_update_interview_form
 from jhmanager.service.post_update_interview import post_update_interview
 from jhmanager.service.delete_specific_interview import delete_interview
+from jhmanager.service.display_interview_prep_forms import display_interview_prep
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
 from jhmanager.forms.register_form import RegisterUserForm
 from jhmanager.forms.login_form import LoginForm
+from jhmanager.forms.add_interview_prep_form import AddInterviewPrepForm
 
 
 # Configure application
@@ -84,7 +86,7 @@ companyRepo = CompanyRepository(db)
 applicationsRepo = ApplicationsHistoryRepository(db)
 interviewsRepo = InterviewsHistoryRepository(db)
 interviewPrepRepo = InterviewPreparationRepository(db)
-prepRepo = PreparationRepository(db)
+personalPrepRepo = PreparationRepository(db)
 
 @app.route("/register", methods=["GET", "POST"])
 def register_user():
@@ -280,6 +282,13 @@ def delete_specific_interview(application_id, interview_id):
     return delete_interview(application_id, interview_id, interviewsRepo)
 
     # return delete_application(application_id, applicationsRepo)
+
+
+@app.route('/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation', methods=["GET", "POST"])
+@login_required
+def interview_preparation(application_id, interview_id):
+    interview_prep_form = AddInterviewPrepForm()
+    return display_interview_prep(interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo)
 
 
 @app.route("/userprofile")

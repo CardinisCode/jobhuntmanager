@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Interview Preparation
+{% endblock %}
+
+{% block main %}
+    <h1> Prepare for your next Interview </h1>
+    <br/>
+    <p> Not sure where to start?</p>
+    <!-- Refer user to certain page listing all sites offering Interview prep advice Incl. Reed-->
+    <br/>
+    <!-- 'Select' drop down list -->
+    <!-- Will list all the interviews lined up by company name-->
+
+    <h2> Add Interview Question:</h2>
+    
+    <form action="/applications/{{ details.application_id }}/interview/{{ details.interview_id }}/interview_preparation" method="POST">
+        {{ interview_prep_form.csrf_token }}
+        {% for field in interview_prep_form if field.name != "csrf_token" %}
+            <p> 
+                {% if field.name == "save_preparation" %}
+                    {{ field }}
+                {% else %}
+                    {{ field.label() }} {{ field }}
+                {% endif %}
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            {% endfor %}
+        </p>
+    </form>
+
+
+{% endblock %}

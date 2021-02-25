@@ -32,4 +32,4 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
         "Interviewer Names": interview_details.interviewer_names
     }
 
-    return render_template("view_interview_details.html", interview_details=details)
+    return render_template("view_interview_details.html", details=details)
