@@ -92,13 +92,13 @@ def add_or_update_company(user_id, application_form, companyRepo, applicationsRe
     existing_company = companyRepo.grabCompanyByNameAndUserID(company_name, user_id)
 
     if not existing_company:
-        flash("Save this business as a brand new business in CompanyRepo.")
+        # Add the details into the company table for this user and return the company_id:
         company_id = companyRepo.create(fields)
 
     else:
+        # Grab the existing company_id and update the details in the 'company' table for this company and user_id:
         company_id = existing_company.company_id
         companyRepo.updateUsingApplicationDetails(fields)
-        flash("This business already exists in the DB for this user. Details have been updated.")
 
     return company_id
 
