@@ -7,6 +7,12 @@ from datetime import datetime
 
 
 class AddApplicationForm(FlaskForm):
+    date_posted = StringField(
+        "Date Posted",
+        [validators.optional()], 
+        render_kw={'placeholder': "YYYY-MM-DD. The date that this job advert was posted."},
+    )
+    
     job_role = StringField(
         "Job Role: ", 
         validators=[InputRequired(message="Which job role have you applied for?")], 

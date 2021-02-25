@@ -10,16 +10,16 @@ class Application:
         self.company_id = db_fields[2]
         self.app_date = db_fields[3]
         self.app_time = db_fields[4]
-        self.job_role = db_fields[5]
-        self.platform = db_fields[6]
-        self.interview_stage = db_fields[7]
-        self.employment_type = db_fields[8]
-        self.contact_received = db_fields[9]
-        self.location = db_fields[10]
-        self.job_description = db_fields[11]
-        self.user_notes = db_fields[12]
-        self.job_perks = db_fields[13]
-        self.company_descrip = db_fields[14]
+        self.date_posted = db_fields[5]
+        self.job_role = db_fields[6]
+        self.platform = db_fields[7]
+        self.interview_stage = db_fields[8]
+        self.employment_type = db_fields[9]
+        self.contact_received = db_fields[10]
+        self.location = db_fields[11]
+        self.job_description = db_fields[12]
+        self.user_notes = db_fields[13]
+        self.job_perks = db_fields[14]
         self.tech_stack = db_fields[15]
         self.job_url = db_fields[16]
         self.job_ref = db_fields[17]
@@ -32,7 +32,7 @@ class Application:
         self.industry = company.industry
 
     def __str__(self):
-        return ("{} " * 19).format(self.app_id, self.user_id, self.company_id, self.app_date, self.app_time, self.job_role, self.platform, self.interview_stage, self.employment_type, self.contact_received, self.location, self.job_description, self.user_notes, self.job_perks, self.company_descrip, self.tech_stack, self.job_url, self.job_ref, self.salary)
+        return ("{} " * 19).format(self.app_id, self.user_id, self.company_id, self.app_date, self.app_time, self.date_posted, self.job_role, self.platform, self.interview_stage, self.employment_type, self.contact_received, self.location, self.job_description, self.user_notes, self.job_perks, self.tech_stack, self.job_url, self.job_ref, self.salary)
 
 
 class ApplicationsHistoryRepository:
@@ -42,14 +42,14 @@ class ApplicationsHistoryRepository:
 
     def addApplicationToHistory(self, arguments):
         cursor = self.db.cursor()
-        result = cursor.execute("INSERT INTO applications (job_role, date, time, employment_type, job_ref, company_descrip, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id, company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (arguments))
+        result = cursor.execute("INSERT INTO job_applications (job_role, date, time, date_posted, employment_type, job_ref, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id, company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (arguments))
         self.db.commit()
 
         return result
 
     def grabTodaysApplicationCount(self, todays_date, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT * FROM applications WHERE date = ? AND user_id = ?", (todays_date, user_id,))
+        result = cursor.execute("SELECT * FROM job_applications WHERE date = ? AND user_id = ?", (todays_date, user_id,))
         self.db.commit()
 
         return result
@@ -62,7 +62,7 @@ class ApplicationsHistoryRepository:
         return result
 
     def grabTop5ApplicationsByUserID(self, user_id):
-        result = self.sql.getByID('applications', 'user_id', user_id)
+        result = self.sql.getByID('job_applications', 'user_id', user_id)
         # result = self.sql.getByField('applications', 'user_id', user_id)
         applications_list = []
 
@@ -77,7 +77,7 @@ class ApplicationsHistoryRepository:
 
     def grabTop10ApplicationsFromHistory(self, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT * FROM applications WHERE user_id = ? ORDER BY date DESC LIMIT 10", (user_id,))
+        result = cursor.execute("SELECT * FROM job_applications WHERE user_id = ? ORDER BY date DESC LIMIT 10", (user_id,))
         self.db.commit()
 
         applications_list = []
@@ -91,7 +91,7 @@ class ApplicationsHistoryRepository:
 
     def grabApplicationDetailsByApplicationID(self, application_id):
         cursor = self.db.cursor()
-        command = "SELECT * FROM applications WHERE application_id = {}".format(application_id)
+        command = "SELECT * FROM job_applications WHERE application_id = {}".format(application_id)
         result = cursor.execute(command)
         self.db.commit()
 
@@ -100,7 +100,7 @@ class ApplicationsHistoryRepository:
     def deleteEntryByApplicationID(self, application_id):
         try: 
             cursor = self.db.cursor()
-            command = "DELETE FROM applications WHERE application_id = {}".format(application_id)
+            command = "DELETE FROM job_applications WHERE application_id = {}".format(application_id)
             cursor.execute(command)
             self.db.commit()
             print("Application successfully deleted")
@@ -110,7 +110,7 @@ class ApplicationsHistoryRepository:
 
 
     def grabApplicationByID(self, application_id):
-        result = self.sql.getByField('applications', 'application_id', application_id)
+        result = self.sql.getByField('job_applications', 'application_id', application_id)
 
         application_result = Application(result)
 
@@ -134,7 +134,7 @@ class ApplicationsHistoryRepository:
             user_notes,
             platform,
             job_url 
-        FROM applications as A 
+        FROM job_applications as A 
         INNER JOIN company C ON A.company_id = C.company_id 
         WHERE A.application_id = ?"""
 
@@ -150,7 +150,7 @@ class ApplicationsHistoryRepository:
         cursor = self.db.cursor()
 
         command = """
-        UPDATE applications 
+        UPDATE job_applications 
         SET job_role = ?,
             employment_type = ?,
             job_ref = ?,

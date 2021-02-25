@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime
 
-def add_new_application_to_application_history(user_id, companyRepo, applicationsRepo, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url, company_id):
+def add_new_application_to_application_history(user_id, companyRepo, applicationsRepo, job_role, emp_type, date_posted, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url, company_id):
     # We need to grab current day's date & time when user adds a new application:
     # application_date = str(datetime.date(datetime.now()))
     application_datetime = datetime.now()
@@ -65,8 +65,9 @@ def add_new_application_to_application_history(user_id, companyRepo, application
     if not job_url:
         job_url = "N/A" 
 
+
     # Now we finish off by adding the details into the SQL db:
-    fields = (job_role, app_date_str, app_time_str, emp_type, job_ref, company_spec, job_spec, tech_stack, perks, platform, location, salary, user_notes, job_url, user_id, company_id)
+    fields = (job_role, app_date_str, app_time_str, date_posted.data, emp_type, job_ref, job_spec, tech_stack, perks, platform, location, salary, user_notes, job_url, user_id, company_id)
     applicationsRepo.addApplicationToHistory(fields)
 
     return True
@@ -79,20 +80,24 @@ def updateExistingEntryForCompanyName(user_id, field_details, applicationsRepo):
     # return True
 
 
-def add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url):
+def add_fields_to_details_dict(company_name, job_role, emp_type, date_posted, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url):
     # Add all fields & add to our display dict:
     details = {
         "company_name": {
             "label": company_name.label,
             "data": company_name.data
         }, 
+        "job_ref": {
+            "label": job_ref.label,
+            "data": job_ref.data
+        },
         "job_role": {
            "label": job_role.label, 
             "data": job_role.data
         },
-        "job_ref": {
-            "label": job_ref.label,
-            "data": job_ref.data
+        "Date Posted": {
+            "label": date_posted.label, 
+            "data": date_posted.data
         },
         "company_spec": {
             "label": company_spec.label,
@@ -164,6 +169,9 @@ def post_add_application(session, user_id, applicationsRepo, companyRepo, form):
     company_name = form.company_name 
     field_details.append(company_name.data)
 
+    date_posted = form.date_posted
+    field_details.append(date_posted.data)
+
     job_role = form.job_role
     field_details.append(job_role.data)
 
@@ -214,8 +222,8 @@ def post_add_application(session, user_id, applicationsRepo, companyRepo, form):
         flash("This business already exists in the DB for this user. Update details.")
 
     # Lets add these fields to our function that will structure this data into a dict:
-    details =  add_fields_to_details_dict(company_name, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url)
-    add_new_application_to_application_history(user_id, companyRepo, applicationsRepo, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url, company_id)
+    details =  add_fields_to_details_dict(company_name, job_role, emp_type, date_posted, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url)
+    add_new_application_to_application_history(user_id, companyRepo, applicationsRepo, date_posted, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url, company_id)
 
     return render_template("application_details.html", details=details)
 

@@ -27,7 +27,7 @@ class InterviewsHistoryRepository:
     def grabTodaysInterviewCount(self, todays_date, user_id):
         cursor = self.db.cursor()
 
-        command = "SELECT * FROM applications as A INNER JOIN interviews as I on A.application_id = I.application_id WHERE A.user_id = ? and I.date = ?"
+        command = "SELECT * FROM job_applications as A INNER JOIN interviews as I on A.application_id = I.application_id WHERE A.user_id = ? and I.date = ?"
 
         result = cursor.execute(command, (user_id,todays_date,))
         self.db.commit()
