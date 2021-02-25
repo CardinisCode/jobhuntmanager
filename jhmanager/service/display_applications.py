@@ -6,17 +6,17 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
     top_ten_applications = applicationsRepo.grabTop10ApplicationsFromHistory(user_id)
 
     display_details = {}
-    display_details["headings"] = {
-        "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type",  "Interview Stage", "Contact Received", "Salary", "Platform / Job Board", "View More"]
-    }
     display_details["fields"] = {}
     display_details["empty_table"] = True
     
     # Let's take the details from "top10applications" 
     # and restructure the data for our html page:
-
     if top_ten_applications != None:
         display_details["empty_table"] = False
+        display_details["headings"] = {
+        "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type",  "Interview Stage", "Contact Received", "Salary", "Platform / Job Board", "View More"]
+        }
+        
         for application in top_ten_applications:
             app_id = application.app_id
             app_date = application.app_date

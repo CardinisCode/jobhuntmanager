@@ -83,9 +83,13 @@ class ApplicationsHistoryRepository:
         if not result:
             return None
 
+        data = [x for x in result]
+        if len(data) < 1:
+            return None
+
         applications_list = []
 
-        for application in result:
+        for application in data:
             application_result = Application(application)
             applications_list.append(application_result)
 

@@ -12,7 +12,7 @@
 
 <!-- <p> Today's date: {{ display_details.todays_date }} </p> -->
 {% if display_details.empty_table == True %}
-    <p> No Applications add yet. Add +</p>
+    <p> No Applications add yet. <a href="/add_job_application" style="cursor:pointer; text-align: right;"> Add a job application.</a></p>
 {% else %}
     <a href="/add_job_application" style="cursor:pointer; text-align: right;"> Add +</a>
     <table class="center"> 
