@@ -86,7 +86,7 @@ def add_or_update_company(user_id, application_form, companyRepo, applicationsRe
         "description": application_form.company_description.data, 
         "location" : application_form.location.data, 
         "industry" : application_form.industry.data, 
-        "user_id" : user_id
+        "user_id" : user_id, 
     }
 
     existing_company = companyRepo.grabCompanyByNameAndUserID(company_name, user_id)
@@ -98,6 +98,7 @@ def add_or_update_company(user_id, application_form, companyRepo, applicationsRe
     else:
         # Grab the existing company_id and update the details in the 'company' table for this company and user_id:
         company_id = existing_company.company_id
+        fields['company_id'] = company_id
         companyRepo.updateUsingApplicationDetails(fields)
 
     return company_id

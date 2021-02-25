@@ -22,8 +22,8 @@ def update_application_details_from_form(session, user_id, update_form, applicat
 
     # Company details:
     company_details = {
-        "company_name" : update_form.company_name.data, 
-        "company_description" : update_form.company_description.data, 
+        "name" : update_form.company_name.data, 
+        "description" : update_form.company_description.data, 
         "industry" : update_form.industry.data, 
         "location" : update_form.location.data, 
         "user_id" : user_id, 
