@@ -43,6 +43,11 @@
     </table>
 
     <hr/>
+    {% if details.user_notes != None %}
+        <h2> Your notes</h2>
+        <p> {{ details.user_notes }} </p> 
+        <hr/>
+    {% endif %}
 
     <h2> Interviews for this application:</h2>
         {% if interview_details.empty_fields != True %}
@@ -69,5 +74,6 @@
                 {% endfor %}
             </table>
         {% endif %}
+
         
 {% endblock %}

@@ -39,9 +39,6 @@ def display_application_details(session, user_id, applicationsRepo, application_
     app_time = application.app_time
     company_id = application.company_id
     company = companyRepo.getCompanyById(company_id)
-    company_name = company.name
-
-    user_notes = application.user_notes
 
     application_details = {}
     application_details["fields"] = {
@@ -61,6 +58,12 @@ def display_application_details(session, user_id, applicationsRepo, application_
     }
 
     application_details["app_id"] = application_id
+
+    user_notes = application.user_notes
+    if user_notes == "N/A": 
+        application_details["user_notes"] = None
+    else:
+        application_details["user_notes"] = user_notes
 
     # Lets grab some company details:
     company_details = {}
