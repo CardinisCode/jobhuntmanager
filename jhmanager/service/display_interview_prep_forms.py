@@ -5,13 +5,17 @@ def display_interview_prep(user_id, interview_prep_form, application_id, intervi
     interview_prep_entries = interviewPrepRepo.getAllInterviewPrepEntriesByInterviewId(interview_id, user_id)
     interview_prep_details = None 
 
+    question_number = 0
+
     if interview_prep_entries: 
         interview_prep_details = {} 
         for entry in interview_prep_entries: 
+            question_number += 1
             prep_id = entry.interview_prep_id
             interview_prep_details[prep_id] = {
                 "Question": entry.question,
-                "Answer": entry.answer
+                "Answer": entry.answer, 
+                "Q#": question_number
             }
     
     details = {

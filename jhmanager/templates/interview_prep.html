@@ -19,22 +19,26 @@
     <br/>
     <!-- 'Select' drop down list -->
     <!-- Will list all the interviews lined up by company name-->
-
-    <h2> View Interview Prep</h2>
-    <br/>
-        {% if interview_prep_details != None %}
-            {% for prep_id, values in interview_prep_details.items() %}
-                <p> Question Number: #{{ prep_id }}</p>
-                <table class="border-bottom border-right border-left border-top"> 
-                    {% for heading, data in values.items() %}
-                        <tr class="border-bottom border-right border-left border-top"></tr>
+    
+    {% if interview_prep_details != None %}
+        <h2> View Interview Prep</h2>
+        <hr/>
+        {% for prep_id, values in interview_prep_details.items() %}
+            <table class="border-bottom border-right border-left border-top"> 
+                {% for heading, data in values.items() %}
+                    {% if heading == "Q#" %}
+                    <p> Question Number: #{{ data }}</p>
+                    {% else %}
+                        <tr class="border-bottom border-right border-left border-top">
                             <th class="border-bottom border-right border-left border-top"> {{ heading }} :</th>
                             <td class="border-bottom border-right border-left border-top"> {{ data }}</td>
-                    {% endfor %}
-                </table>
-                <br/>
-            {% endfor %}
-        {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+            <br/>
+        {% endfor %}
+    {% endif %}
 
 
     <h2> Add Interview Question:</h2>
