@@ -28,6 +28,21 @@
     <br/> 
     <p>App ID: {{ details.app_id }}</p>
 
+    <hr/>
+
+    <h2> Company Details: </h2>
+    <table>
+        {% for heading, field in company_details.fields.items() %}
+            {% if heading != "Company ID" %}
+                <tr> 
+                    <th> {{ heading }} </th>
+                    <td> {{ field }} </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+
+    <hr/>
 
     <h2> Interviews for this application:</h2>
         {% if interview_details.empty_fields != True %}

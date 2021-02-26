@@ -33,32 +33,45 @@ def cleanup_interview_fields(interview_fields, interview_id):
 
 def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo):
     results = applicationsRepo.grabApplicationDetailsByApplicationID(application_id)
-    application_details = {}
 
-    for row in results:
-        company_id = row[2]
-        company_name = companyRepo.grab_company_name(user_id, company_id)
-        application_details["fields"] = {
-            "Date": row[3],
-            "Time": row[4],
-            "Company Name": company_name,
-            "Job Role": row[5],
-            "Platform": row[6],
-            "Interview Stage": row[7],
-            "Employment Type": row[8],
-            "Contact Received?": row[9],
-            "Location": row[10],
-            "Job Description": row[11],
-            "Job Perks": row[13], 
-            "Company Description": row[14],
-            "Tech Stack": row[15],
-            "Job URL": row[16],
-            "Job Ref": row[17],
-            "Salary": row[18], 
-            "User Notes": row[12]
-        }
+    application = applicationsRepo.grabApplicationByID(application_id)
+    app_date = application.app_date
+    app_time = application.app_time
+    company_id = application.company_id
+    company = companyRepo.getCompanyById(company_id)
+    company_name = company.name
+
+    user_notes = application.user_notes
+
+    application_details = {}
+    application_details["fields"] = {
+        "Job Ref" : application.job_ref,
+        "Date": app_date, 
+        "Time": app_time, 
+        "Job Role" : application.job_role, 
+        "Description" : application.job_description,
+        "Perks" : application.job_perks,
+        "Technology Stack" : application.tech_stack,
+        "Salary" : application.salary,
+        "Platform": application.platform, 
+        "interview_stage" : application.interview_stage,
+        "Type" : application.employment_type, 
+        "Contact Received?" : application.contact_received, 
+        "Job Url" : application.job_url,
+    }
 
     application_details["app_id"] = application_id
+
+    # Lets grab some company details:
+    company_details = {}
+    company_details["fields"] = {
+        "Company ID": company.company_id,
+        "Company Name": company.name, 
+        "Description": company.description, 
+        "Location": company.location,
+        "Industry": company.industry, 
+        "Interviewers": company.interviewers
+    }
 
     # Now I want to display all the interviews for this application_id:
     all_interviews_for_app_id = interviewsRepo.grabAllInterviewsForApplicationID(application_id)
@@ -71,7 +84,6 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "app_id": application_id, 
         "empty_fields" : True,
     }
-    
     
     # In the case that there are actually interviews for this application, 
     # we want to grab those details & update the "fields" value to contain these values.
@@ -97,4 +109,4 @@ def display_application_details(session, user_id, applicationsRepo, application_
             cleanup_interview_fields(interview_fields, interview_id)
 
 
-    return render_template("view_application.html", details=application_details, interview_details=interview_details, interview_fields=interview_fields)
+    return render_template("view_application.html", details=application_details, interview_details=interview_details, interview_fields=interview_fields, company_details=company_details)

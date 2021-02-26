@@ -104,6 +104,23 @@ class ApplicationsHistoryRepository:
 
         return result  
 
+
+    def grabApplicationByID(self, application_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM job_applications WHERE application_id = {}".format(application_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        if not result:
+            return None
+        
+        application = Application(result)
+
+        return application
+
+
+
+
     def deleteEntryByApplicationID(self, application_id):
         try: 
             cursor = self.db.cursor()
