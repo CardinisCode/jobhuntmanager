@@ -40,7 +40,7 @@ from jhmanager.service.post_update_application import update_application_details
 from jhmanager.service.display_update_interview import display_update_interview_form
 from jhmanager.service.post_update_interview import post_update_interview
 from jhmanager.service.delete_specific_interview import delete_interview
-from jhmanager.service.display_interview_prep_forms import display_interview_prep
+from jhmanager.service.display_interview_prep_forms import display_interview_preparation_form
 from jhmanager.service.post_add_interview_prep import post_add_interview_preparation
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
@@ -296,9 +296,8 @@ def interview_preparation(application_id, interview_id):
             return post_add_interview_preparation(user_id, application_id, interview_id, interview_prep_form, applicationsRepo, interviewPrepRepo)
 
     # Get:
-    return display_interview_prep(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo)
+    return display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo)
 
-    
 
 @app.route("/userprofile")
 @login_required

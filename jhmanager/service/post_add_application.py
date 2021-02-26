@@ -71,9 +71,9 @@ def add_new_application_to_application_history(user_id, companyRepo, application
 
     # Now we finish off by adding the details into the SQL db:
     fields = (job_role, app_date_str, app_time_str, data_posted_data, emp_type, job_ref, job_spec, tech_stack, perks, platform, location, salary, user_notes, job_url, user_id, company_id)
-    applicationsRepo.addApplicationToHistory(fields)
+    application_id = applicationsRepo.addApplicationToHistory(fields)
 
-    return True
+    return application_id
 
 
 def add_or_update_company(user_id, application_form, companyRepo, applicationsRepo):
@@ -104,98 +104,14 @@ def add_or_update_company(user_id, application_form, companyRepo, applicationsRe
     return company_id
 
 
-def add_fields_to_details_dict(application_form):
-    # company_name, job_role, emp_type, date_posted, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url)
-    
-    # Add all fields & add to our display dict:
-    details = {
-        "company_name": {
-            "label": application_form.company_name.label,
-            "data": application_form.company_name.data
-        }, 
-        "job_ref": {
-            "label": application_form.job_ref.label,
-            "data": application_form.job_ref.data
-        },
-        "job_role": {
-           "label": application_form.job_role.label, 
-            "data": application_form.job_role.data
-        },
-        "Date Posted": {
-            "label": application_form.date_posted.label, 
-            "data": application_form.date_posted.data
-        },
-        "company_spec": {
-            "label": application_form.company_description.label,
-            "data": application_form.company_description.data
-        },
-        "job_spec": {
-            "label": application_form.job_description.label, 
-            "data": application_form.job_description.data
-        },
-        "perks": {
-            "label": application_form.job_perks.label,
-            "data": application_form.job_perks.data
-        },
-        "tech_stack": {
-            "label": application_form.tech_stack.label, 
-            "data": application_form.tech_stack.data
-        },
-        "location": {
-            "label": application_form.location.label, 
-            "data": application_form.location.data
-        },
-        "salary": {
-            "label": application_form.salary.label, 
-            "data": application_form.salary.data
-        },
-        "user_notes": {
-            "label": application_form.user_notes.label, 
-            "data": application_form.user_notes.data
-        },
-        "platform": {
-            "label": application_form.platform.label, 
-            "data": application_form.platform.data
-        },
-        "job_url": { 
-            "label": application_form.job_url.label, 
-            "data": application_form.job_url.data
-        },
-    }
-
-    # Let's clean up the data so it displays better to the user:
-    emp_type_data = application_form.emp_type.data
-    if emp_type_data == "full_time":
-        emp_type_data = "Full Time"
-
-    elif emp_type_data == "part_time":
-        emp_type_data = "Part Time"
-
-    elif emp_type_data == "temp":
-        emp_type_data = "Temporary"
-
-    elif emp_type_data == "contract":
-        emp_type_data = "Contract"
-    
-    else:
-        emp_type_data = "Other"
-
-    details["emp_type"] = {
-        "label": application_form.emp_type.label, 
-        "data": emp_type_data
-    }
-
-    return details
-
-
 def post_add_application(session, user_id, applicationsRepo, companyRepo, application_form):
     # Lets get the company_id:
     company_id = add_or_update_company(user_id, application_form, companyRepo, applicationsRepo)
 
     # Lets add these fields to our function that will structure this data into a dict:
-    details =  add_fields_to_details_dict(application_form)
-    add_new_application_to_application_history(user_id, companyRepo, applicationsRepo, application_form, company_id)
+    application_id = add_new_application_to_application_history(user_id, companyRepo, applicationsRepo, application_form, company_id)
 
-    return render_template("application_details.html", details=details)
+    redirect_url = '/applications/{}'.format(application_id)
+    return redirect(redirect_url)
 
 

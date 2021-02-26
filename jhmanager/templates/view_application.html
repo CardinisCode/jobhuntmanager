@@ -5,53 +5,53 @@
 {% endblock %}
 
 {% block main %}
-<h1> Applications Details </h1>
-<hr/>
-<table>
-    {% for key, values in details.items() %}
-        {% if key == 'fields' %}
-            {% for heading, field in values.items() %}
-            <tr> 
-                <th> {{ heading }} </th>
-                <td> {{ field }} </td>
-            </tr>
-            {% endfor %}
-        {% endif %}
-    {% endfor %}
-</table>
-<br/> 
-    <p>App ID: {{ details.app_id }}</p>
-    <p> <a href="../applications/{{ details.app_id }}/delete"> Delete Application</a></p>
-    <p> <a href="../applications/{{ details.app_id }}/update_application"> Update Application</a> </p>
+    <h1> Applications Details </h1>
+    <hr/>
 
-<h2> Interviews for this application:</h2>
-    <p> <a href="../applications/{{ details.app_id }}/add_interview"> Add Interview</a></p>
-    {% if interview_details.fields == None %}
-        <p> {{ interview_details.message }}</p>
-
-    {% else %}
-        <table> 
-            <tr class="border-bottom border-right border-left border-top"> 
-                {% for heading in interview_details.headings %}
-                    <th class="border-bottom border-right border-left border-top"> {{ heading }}</th>
+    <div> 
+        <a href="../applications/{{ details.app_id }}/update_application"> Update</a>
+        <a href="../applications/{{ details.app_id }}/delete"> Delete</a>
+    </div>
+    <table>
+        {% for key, values in details.items() %}
+            {% if key == 'fields' %}
+                {% for heading, field in values.items() %}
+                <tr> 
+                    <th> {{ heading }} </th>
+                    <td> {{ field }} </td>
+                </tr>
                 {% endfor %}
-            </tr>
-            
-            {% for interview_id, rows in interview_details.fields.items() %}
+            {% endif %}
+        {% endfor %}
+    </table>
+    <br/> 
+    <p>App ID: {{ details.app_id }}</p>
+
+
+    <h2> Interviews for this application:</h2>
+        {% if interview_details.fields == None %}
+        <p> {{ interview_details.message }} <a href="../applications/{{ details.app_id }}/add_interview"> Add Interview</a></p>
+        {% else %}
+            <p> <a href="../applications/{{ details.app_id }}/add_interview"> Add Interview</a></p>
+            <table> 
                 <tr class="border-bottom border-right border-left border-top"> 
-                    {% for label, value in rows.items() %}
-                        {% if label == "View More" %}
-                        <td class="border-bottom border-right border-left border-top"> <a href="../applications/{{ interview_details.app_id }}/interview/{{interview_id}}"> View</a> </td>
-                        {% else %}
-                        <td class="border-bottom border-right border-left border-top"> {{ value }} </td>
-                        {% endif %}
+                    {% for heading in interview_details.headings %}
+                        <th class="border-bottom border-right border-left border-top"> {{ heading }}</th>
                     {% endfor %}
                 </tr>
-            {% endfor %}
-        </table>
-
-    {% endif %}
-
-
-
+                
+                {% for interview_id, rows in interview_details.fields.items() %}
+                    <tr class="border-bottom border-right border-left border-top"> 
+                        {% for label, value in rows.items() %}
+                            {% if label == "View More" %}
+                            <td class="border-bottom border-right border-left border-top"> <a href="../applications/{{ interview_details.app_id }}/interview/{{interview_id}}"> View</a> </td>
+                            {% else %}
+                            <td class="border-bottom border-right border-left border-top"> {{ value }} </td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+        
 {% endblock %}

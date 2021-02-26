@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session, request, redirect
 
 
-def display_interview_prep(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo):
+def display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo):
     interview_prep_entries = interviewPrepRepo.getAllInterviewPrepEntriesByInterviewId(interview_id, user_id)
     interview_prep_details = None 
 
