@@ -45,10 +45,10 @@ def InsertFieldsIntoInterviewHistory(user_id,interviewsRepo, application_id, int
 
     # Now let's insert our values into interview_history:
     fields = (user_id, application_id, app_date_str, app_time_str, interview_type, location, medium, other_medium, contact_number, status, interviewers)
-    interviewsRepo.InsertNewInterviewDetails(fields)
+    interview_id = interviewsRepo.InsertNewInterviewDetails(fields)
 
     # If it gets here, the new interview has been successfully added to the repo.
-    return True
+    return interview_id
 
 
 def check_if_interview_is_past_dated(interview_date, interview_time):
@@ -97,10 +97,10 @@ def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo,
         flash("The interview date & time provided are past-dated. If this is correct, please choose the appropriate status for this interview.")
         return display_add_interview(form, application_id, applicationsRepo, companyRepo)
 
-    redirect_url = "/applications/{}".format(application_id)
-
     # Add details to application_history in SQL DB:
-    InsertFieldsIntoInterviewHistory(user_id, interviewsRepo, application_id, interview_date, interview_time, interview_type, interview_location, video_medium, other_medium, contact_number, status, interviewers)
+    interview_id = InsertFieldsIntoInterviewHistory(user_id, interviewsRepo, application_id, interview_date, interview_time, interview_type, interview_location, video_medium, other_medium, contact_number, status, interviewers)
+
+    redirect_url = "/applications/{}/interview/{}".format(application_id, interview_id)
 
     return redirect(redirect_url)
 
