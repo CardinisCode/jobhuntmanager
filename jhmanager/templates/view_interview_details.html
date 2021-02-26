@@ -15,12 +15,25 @@
     
 </div>
 <table> 
-    {% for heading, value in details.fields.items() %}
+    {% for heading, value in details.interview_fields.items() %}
         <tr> 
             <th> {{ heading }} </th>
             <td> {{ value }}</td>
         </tr>
 
+    {% endfor %}
+</table>
+<br/>
+
+<h2> Company Details:</h2>
+<table> 
+    {% for heading, value in details.company_details.items() %}
+        {% if heading != "Name" %}
+            <tr> 
+                <th> {{ heading }} </th>
+                <td> {{ value }}</td>
+            </tr>
+        {% endif %}
     {% endfor %}
 </table>
 
