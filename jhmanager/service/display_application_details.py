@@ -31,9 +31,30 @@ def cleanup_interview_fields(interview_fields, interview_id):
     interview_fields[interview_id]["Status"] = status
 
 
-def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo):
-    results = applicationsRepo.grabApplicationDetailsByApplicationID(application_id)
+def cleanup_application_details(application_details):
+   
+    for heading, value in application_details["fields"].items():
+        if value == "N/A":
+            application_details["fields"][heading] = None
 
+    interview_stage = application_details["fields"]["interview_stage"]
+    if interview_stage == 0:
+        application_details["fields"]["interview_stage"] = "No interview lined up yet."
+
+    emp_type = application_details["fields"]["Type"]
+    if emp_type == "full_time":
+        application_details["fields"]["Type"] = "Full Time"
+    elif emp_type == "part_time":
+        application_details["fields"]["Type"] = "Part Time"
+    elif emp_type == "temp":
+        application_details["fields"]["Type"] = "Temporary"
+    elif emp_type == "other_emp_type": 
+        application_details["fields"]["Type"] = "Other"
+    else:
+        application_details["fields"]["Type"] = emp_type.capitalize()
+    
+
+def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo):
     application = applicationsRepo.grabApplicationByID(application_id)
     app_date = application.app_date
     app_time = application.app_time
@@ -56,6 +77,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "Contact Received?" : application.contact_received, 
         "Job Url" : application.job_url,
     }
+    cleanup_application_details(application_details)
 
     application_details["app_id"] = application_id
 

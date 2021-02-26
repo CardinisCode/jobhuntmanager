@@ -17,10 +17,12 @@
         {% for key, values in details.items() %}
             {% if key == 'fields' %}
                 {% for heading, field in values.items() %}
-                <tr> 
-                    <th> {{ heading }} </th>
-                    <td> {{ field }} </td>
-                </tr>
+                    {% if field != None %}
+                        <tr> 
+                            <th> {{ heading }} </th>
+                            <td> {{ field }} </td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
             {% endif %}
         {% endfor %}
