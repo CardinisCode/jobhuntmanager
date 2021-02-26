@@ -2,18 +2,18 @@ from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime
 
 
-def cleanup_interview_fields(interview_details, interview_id):
+def cleanup_interview_fields(interview_fields, interview_id):
     # Lets start by grabbing the fields we want from the dict:
-    interview_type = interview_details["fields"][interview_id]["Interview Type"]
-    status = interview_details["fields"][interview_id]["Status"]
+    interview_type = interview_fields[interview_id]["Interview Type"]
+    status = interview_fields[interview_id]["Status"]
 
     # Now I can optimise the presentation of the values for these variables:
     if interview_type == "video_or_online":
-        interview_details["fields"][interview_id]["Interview Type"] = "Video / Online"
+        interview_fields[interview_id]["Interview Type"] = "Video / Online"
     elif interview_type == "in_person":
-        interview_details["fields"][interview_id]["Interview Type"] = "In Person / On Site"
+        interview_fields[interview_id]["Interview Type"] = "In Person / On Site"
     else:
-        interview_details["fields"][interview_id]["Interview Type"] = "Phone Call"
+        interview_fields[interview_id]["Interview Type"] = "Phone Call"
 
     # Now to focus on 'status':
     if status == "upcoming":
@@ -28,7 +28,7 @@ def cleanup_interview_fields(interview_details, interview_id):
     else:
         status = 'Interview has been post-poned'
     
-    interview_details["fields"][interview_id]["Status"] = status
+    interview_fields[interview_id]["Status"] = status
 
 
 def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo):
@@ -68,23 +68,23 @@ def display_application_details(session, user_id, applicationsRepo, application_
     interview_details = {
         "message": "No interviews added yet for this application.", 
         "headings": ["ID#", "Date", "Time", "Interview Type", "Status", "Location", "View More"], 
-        "fields": None, 
-        "app_id": application_id
+        "app_id": application_id, 
+        "empty_fields" : True,
     }
     
     
     # In the case that there are actually interviews for this application, 
     # we want to grab those details & update the "fields" value to contain these values.
     # These values will be displayed to the user, in a table format. 
-    
+    interview_fields = {}
     if all_interviews_for_app_id != None:
-        interview_details["fields"] = {}
+        interview_details["empty_fields"] = False 
         for interview in all_interviews_for_app_id:
             interview_id = str(interview[0])
             status = interview[9]
             view_more_url = "/applications/{application_id}"
             location = interview[5]
-            interview_details["fields"][interview_id] = {
+            interview_fields[interview_id] = {
                 "ID#": interview_id, 
                 "Date": interview[2], 
                 "Time": interview[3],
@@ -94,7 +94,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
                 "View More": view_more_url,
             }
 
-            cleanup_interview_fields(interview_details, interview_id)
+            cleanup_interview_fields(interview_fields, interview_id)
 
 
-    return render_template("view_application.html", details=application_details, interview_details=interview_details)
+    return render_template("view_application.html", details=application_details, interview_details=interview_details, interview_fields=interview_fields)

@@ -12,6 +12,7 @@
         <a href="../applications/{{ details.app_id }}/update_application"> Update</a>
         <a href="../applications/{{ details.app_id }}/delete"> Delete</a>
     </div>
+
     <table>
         {% for key, values in details.items() %}
             {% if key == 'fields' %}
@@ -29,7 +30,7 @@
 
 
     <h2> Interviews for this application:</h2>
-        {% if interview_details.fields == None %}
+        {% if interview_details.empty_fields != True %}
         <p> {{ interview_details.message }} <a href="../applications/{{ details.app_id }}/add_interview"> Add Interview</a></p>
         {% else %}
             <p> <a href="../applications/{{ details.app_id }}/add_interview"> Add Interview</a></p>
@@ -40,7 +41,7 @@
                     {% endfor %}
                 </tr>
                 
-                {% for interview_id, rows in interview_details.fields.items() %}
+                {% for interview_id, rows in interview_fields.items() %}
                     <tr class="border-bottom border-right border-left border-top"> 
                         {% for label, value in rows.items() %}
                             {% if label == "View More" %}
