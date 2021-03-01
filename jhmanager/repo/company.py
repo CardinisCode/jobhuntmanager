@@ -41,17 +41,6 @@ class CompanyRepository:
 
         self.db.commit()
 
-    # def update(self, description, location, industry, url, interviewers, contact_number, company_id, user_id):
-    #     data = {
-    #         "description": description,
-    #         "location": location,
-    #         "industry": industry,
-    #         "url": url, 
-    #         "interviewers": interviewers, 
-    #         "contact_number": contact_number,
-    #     }
-
-
 
     def getCompanyById(self, company_id):
         result = self.sql.getByField('company', 'company_id', company_id)
@@ -77,4 +66,20 @@ class CompanyRepository:
         company = Company(result)
 
         return company
+
+    
+    def updateByApplicationID(self, fields):
+        cursor = self.db.cursor()
+
+        command = """
+        UPDATE company 
+        SET name = ?,
+            description = ?,
+            industry = ?,
+            location = ?
+        WHERE application_id = ? and company_id = ?"""
+
+        cursor.execute(command, tuple(fields.values()))
+
+        self.db.commit()
 

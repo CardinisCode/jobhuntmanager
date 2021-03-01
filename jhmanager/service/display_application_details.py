@@ -90,7 +90,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
     # Lets grab some company details:
     company_details = {}
     company_details["fields"] = {
-        "Company ID": company.company_id,
+        "company_id": company.company_id,
         "Company Name": company.name, 
         "Description": company.description, 
         "Location": company.location,

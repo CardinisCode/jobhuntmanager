@@ -42,12 +42,14 @@ from jhmanager.service.post_update_interview import post_update_interview
 from jhmanager.service.delete_specific_interview import delete_interview
 from jhmanager.service.display_interview_prep_forms import display_interview_preparation_form
 from jhmanager.service.post_add_interview_prep import post_add_interview_preparation
+from jhmanager.service.display_update_company_form import display_update_company_details_form
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
 from jhmanager.forms.register_form import RegisterUserForm
 from jhmanager.forms.login_form import LoginForm
 from jhmanager.forms.add_interview_prep_form import AddInterviewPrepForm
+from jhmanager.forms.update_company_form import UpdateCompany
 
 
 # Configure application
@@ -298,6 +300,16 @@ def interview_preparation(application_id, interview_id):
     # Get:
     return display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo)
 
+
+@app.route('/applications/<int:application_id>/update_company', methods=["GET", "POST"])
+@login_required
+def update_company_details(application_id):
+    application_details = applicationsRepo.grabApplicationByID(application_id)
+    company = companyRepo.getCompanyById(application_details.company_id)
+    update_form = UpdateCompany(obj=company)
+
+    # GET 
+    return display_update_company_details_form(update_form, company)
 
 @app.route("/userprofile")
 @login_required

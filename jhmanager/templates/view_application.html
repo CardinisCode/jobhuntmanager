@@ -33,6 +33,7 @@
     <hr/>
 
     <h2> Company Details: </h2>
+    <p> <a href="../applications/{{ details.app_id }}/update_company"> Update</a></p>
     <table>
         {% for heading, field in company_details.fields.items() %}
             {% if heading != "Company ID" %}
