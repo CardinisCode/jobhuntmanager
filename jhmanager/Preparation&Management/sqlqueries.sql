@@ -109,3 +109,14 @@ CREATE TABLE IF NOT EXISTS 'company' (
 INSERT INTO company SELECT company_id, user_id, name, description, location, industry, url, interviewers, contact_number FROM company_backup;
 DROP TABLE company_backup;
 COMMIT;
+
+
+CREATE TABLE IF NOT EXISTS 'user_notes' (
+    'notes_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    'user_id' INTEGER NOT NULL, 
+    'application_id' INTEGER NOT NULL,
+    'description' TEXT NOT NULL,
+    'notes_text' BLOB DEFAULT "N/A",
+    FOREIGN KEY (user_id) REFERENCES users (user_id),
+    FOREIGN KEY (application_id) REFERENCES job_applications (application_id)
+);

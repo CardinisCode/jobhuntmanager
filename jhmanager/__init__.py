@@ -21,6 +21,7 @@ from jhmanager.repo.applications_history import ApplicationsHistoryRepository
 from jhmanager.repo.interviewsHistory import InterviewsHistoryRepository
 from jhmanager.repo.general_prep_history import PreparationRepository
 from jhmanager.repo.interview_prep_history import InterviewPreparationRepository
+from jhmanager.repo.user_notes import UserNotesRepository
 
 from jhmanager.service.post_registration import post_register_user
 from jhmanager.service.homepage import create_homepage_content
@@ -45,6 +46,7 @@ from jhmanager.service.post_add_interview_prep import post_add_interview_prepara
 from jhmanager.service.display_update_company_form import display_update_company_details_form
 from jhmanager.service.post_update_company_form import post_update_company
 from jhmanager.service.display_notes_form import display_user_notes_form
+from jhmanager.service.post_add_notes import post_add_notes
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -93,6 +95,7 @@ applicationsRepo = ApplicationsHistoryRepository(db)
 interviewsRepo = InterviewsHistoryRepository(db)
 interviewPrepRepo = InterviewPreparationRepository(db)
 personalPrepRepo = PreparationRepository(db)
+userNotesRepo = UserNotesRepository(db)
 
 @app.route("/register", methods=["GET", "POST"])
 def register_user():
@@ -323,8 +326,14 @@ def update_company_details(application_id):
 @app.route('/applications/<int:application_id>/add_notes', methods=["GET", "POST"])
 @login_required
 def add_user_notes(application_id):
-    # user_id = session["user_id"]
+    user_id = session["user_id"]
     notes_form = AddNotesForm()
+
+    if request.method == "POST":
+        if notes_form.validate_on_submit():
+            return post_add_notes(notes_form, application_id, user_id, userNotesRepo)
+
+    # GET:
     return display_user_notes_form(notes_form, application_id, companyRepo, applicationsRepo)
     # return render_template("add_notes.html", notes_form=notes_form)    
 

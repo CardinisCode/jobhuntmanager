@@ -9,32 +9,20 @@
     <br/>
 
     <form action='/applications/{{ details.application_id }}/add_notes' method="POST"> 
-        <fieldset class="form-field">
-            {{ notes_form.description.label }}
-            {{ notes_form.description}}
-            {% if notes_form.description.errors %}
-                <ul class="errors">
-                {% for error in notes_form.description.errors %}
-                    <li>{{ error }}</li>
+        {{ notes_form.csrf_token }}
+        {% for field in notes_form if field.name != "csrf_token" %}
+            <p> 
+                {% if field.name == "save_notes" %}
+                    {{ field }} 
+                {% else %}
+                    {{ field.label() }} 
+                    {{ field }}
+                {% endif %}
+                {% for error in field.errors %}
+                    {{ error }}
                 {% endfor %}
-            {% endif %}
-        </fieldset>
-
-        <fieldset class="form-field">
-            {{ notes_form.notes.label }}
-            {{ notes_form.notes}}
-            {% if notes_form.notes.errors %}
-                <ul class="errors">
-                {% for error in notes_form.notes.errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            {% endif %}
-        </fieldset>
-
-        <div class="horizontal"> 
-            {{ notes_form.save_notes }}</li>
-            {{ notes_form.cancel_and_return }}</li>
-        </div>
+            </p>
+        {% endfor %}
 
     </form>
 
