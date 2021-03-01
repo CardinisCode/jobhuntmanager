@@ -68,7 +68,7 @@ class CompanyRepository:
         return company
 
     
-    def updateByApplicationID(self, fields):
+    def updateByID(self, fields):
         cursor = self.db.cursor()
 
         command = """
@@ -76,8 +76,11 @@ class CompanyRepository:
         SET name = ?,
             description = ?,
             industry = ?,
-            location = ?
-        WHERE application_id = ? and company_id = ?"""
+            location = ?, 
+            url = ?, 
+            interviewers = ?,
+            contact_number = ?
+        WHERE user_id = ? and company_id = ?"""
 
         cursor.execute(command, tuple(fields.values()))
 

@@ -8,7 +8,7 @@
     <h1> Update Details for: </h1>
     <h1> {{ details.company_name }} </h1>
     <br/>
-    <form action='/applications/{{ details.application_id }}/update_company_details' method="POST"> 
+    <form action='/applications/{{ details.application_id }}/update_company' method="POST"> 
         {{ update_form.csrf_token }}
         {% for field in update_form if field.name != "csrf_token" %}
             <p> 
