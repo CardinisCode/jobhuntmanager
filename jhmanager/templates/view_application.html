@@ -28,7 +28,6 @@
         {% endfor %}
     </table>
     <br/> 
-    <p>App ID: {{ details.app_id }}</p>
 
     <hr/>
 
@@ -36,7 +35,7 @@
     <p> <a href="../applications/{{ details.app_id }}/update_company"> Update</a></p>
     <table>
         {% for heading, field in company_details.fields.items() %}
-            {% if heading != "Company ID" %}
+            {% if heading != "company_id" %}
                 <tr> 
                     <th> {{ heading }} </th>
                     <td> {{ field }} </td>

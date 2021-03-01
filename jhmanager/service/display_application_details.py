@@ -95,7 +95,9 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "Description": company.description, 
         "Location": company.location,
         "Industry": company.industry, 
-        "Interviewers": company.interviewers
+        "Interviewers": company.interviewers, 
+        "Contact Number/s": company.contact_number,
+        "Company Website": company.url
     }
 
     # Now I want to display all the interviews for this application_id:
