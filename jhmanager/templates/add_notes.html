@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Notes
+{% endblock %}
+
+{% block main %}
+    <h1> Add Notes For {{ details.company_name }} </h1>
+    <br/>
+
+    <form action='/applications/{{ details.application_id }}/add_notes' method="POST"> 
+        <fieldset class="form-field">
+            {{ notes_form.description.label }}
+            {{ notes_form.description}}
+            {% if notes_form.description.errors %}
+                <ul class="errors">
+                {% for error in notes_form.description.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endif %}
+        </fieldset>
+
+        <fieldset class="form-field">
+            {{ notes_form.notes.label }}
+            {{ notes_form.notes}}
+            {% if notes_form.notes.errors %}
+                <ul class="errors">
+                {% for error in notes_form.notes.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endif %}
+        </fieldset>
+
+        <div class="horizontal"> 
+            {{ notes_form.save_notes }}</li>
+            {{ notes_form.cancel_and_return }}</li>
+        </div>
+
+    </form>
+
+{% endblock %}

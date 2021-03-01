@@ -51,6 +51,11 @@
         <hr/>
     {% endif %}
 
+    <h3>Notes</h3> 
+    <p> <a href="../applications/{{ details.app_id }}/add_notes"> Add Notes</a></p> </p>
+
+    <hr/>
+
     <h2> Interviews for this application:</h2>
         {% if interview_details.empty_fields == True %}
         <p> {{ interview_details.message }} <a href="../applications/{{ details.app_id }}/add_interview"> Add Interview</a></p>

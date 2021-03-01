@@ -44,6 +44,7 @@ from jhmanager.service.display_interview_prep_forms import display_interview_pre
 from jhmanager.service.post_add_interview_prep import post_add_interview_preparation
 from jhmanager.service.display_update_company_form import display_update_company_details_form
 from jhmanager.service.post_update_company_form import post_update_company
+from jhmanager.service.display_notes_form import display_user_notes_form
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -51,6 +52,7 @@ from jhmanager.forms.register_form import RegisterUserForm
 from jhmanager.forms.login_form import LoginForm
 from jhmanager.forms.add_interview_prep_form import AddInterviewPrepForm
 from jhmanager.forms.update_company_form import UpdateCompany
+from jhmanager.forms.add_notes_form import AddNotesForm
 
 
 # Configure application
@@ -316,6 +318,16 @@ def update_company_details(application_id):
 
     # GET 
     return display_update_company_details_form(update_form, company_obj, application_details)
+
+
+@app.route('/applications/<int:application_id>/add_notes', methods=["GET", "POST"])
+@login_required
+def add_user_notes(application_id):
+    # user_id = session["user_id"]
+    notes_form = AddNotesForm()
+    return display_user_notes_form(notes_form, application_id, companyRepo, applicationsRepo)
+    # return render_template("add_notes.html", notes_form=notes_form)    
+
 
 @app.route("/userprofile")
 @login_required
