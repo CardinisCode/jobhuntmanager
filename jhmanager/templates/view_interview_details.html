@@ -26,6 +26,7 @@
 <br/>
 
 <h2> Company Details:</h2>
+<p> <a href="/applications/{{ details.app_id }}/update_company"> Update</a></p>
 <table> 
     {% for heading, value in details.company_details.items() %}
         {% if heading != "Name" %}

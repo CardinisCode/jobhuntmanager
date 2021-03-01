@@ -81,7 +81,6 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
     }
 
     cleanup_fields(details, other_medium)
-
     add_company_details(details, company)
 
 
