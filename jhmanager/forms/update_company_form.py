@@ -12,7 +12,7 @@ class UpdateCompany(FlaskForm):
         render_kw={'placeholder': "The name of the company you're applying to work for."},
     )
 
-    description = StringField(
+    description = TextAreaField(
         "Description of the company", 
         [validators.optional()], 
         render_kw={'placeholder': "A description of the company provided."},

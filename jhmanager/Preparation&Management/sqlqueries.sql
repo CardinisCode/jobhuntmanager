@@ -88,3 +88,24 @@ CREATE TABLE IF NOT EXISTS 'company' (
     FOREIGN KEY (user_id) REFERENCES users (user_id)   
 );
 COMMIT;
+
+
+BEGIN TRANSACTION;
+CREATE TEMPORARY TABLE company_backup(company_id, user_id, name, description, location, industry, url, interviewers, contact_number);
+INSERT INTO company_backup SELECT company_id, user_id, name, description, location, industry, url, interviewers, contact_number FROM company;
+DROP TABLE company;
+CREATE TABLE IF NOT EXISTS 'company' (
+    'company_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    'user_id' INTEGER NOT NULL, 
+    'name' TEXT NOT NULL,
+    'description' BLOB DEFAULT "N/A",
+    'location' TEXT DEFAULT "N/A",
+    'industry' TEXT DEFAULT "N/A",
+    'url' TEXT DEFAULT "N/A",
+    'interviewers' TEXT DEFAULT "Unknown at present",
+    'contact_number' TEXT DEFAULT "Unknown at present",
+    FOREIGN KEY (user_id) REFERENCES users (user_id)   
+);
+INSERT INTO company SELECT company_id, user_id, name, description, location, industry, url, interviewers, contact_number FROM company_backup;
+DROP TABLE company_backup;
+COMMIT;
