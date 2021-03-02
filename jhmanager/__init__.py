@@ -343,7 +343,7 @@ def add_user_notes(application_id):
 @login_required
 def display_user_notes(application_id):
     user_id = session["user_id"]
-    return display_all_user_notes_for_application(user_id, application_id, userNotesRepo, companyRepo)
+    return display_all_user_notes_for_application(user_id, application_id, applicationsRepo, userNotesRepo, companyRepo)
 
 
 # @app.route('/user_notes/<int:company_id>')
