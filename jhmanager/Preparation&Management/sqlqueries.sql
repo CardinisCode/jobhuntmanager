@@ -111,12 +111,17 @@ DROP TABLE company_backup;
 COMMIT;
 
 
+BEGIN TRANSACTION;
+DROP TABLE user_notes;
 CREATE TABLE IF NOT EXISTS 'user_notes' (
     'notes_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     'user_id' INTEGER NOT NULL, 
     'application_id' INTEGER NOT NULL,
+    'company_id' INTEGER NOT NULL, 
     'description' TEXT NOT NULL,
     'notes_text' BLOB DEFAULT "N/A",
     FOREIGN KEY (user_id) REFERENCES users (user_id),
-    FOREIGN KEY (application_id) REFERENCES job_applications (application_id)
+    FOREIGN KEY (application_id) REFERENCES job_applications (application_id),
+    FOREIGN KEY (company_id) REFERENCES company (company_id)
 );
+COMMIT;
