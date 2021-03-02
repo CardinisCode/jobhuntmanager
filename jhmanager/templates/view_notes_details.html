@@ -7,12 +7,17 @@
 {% block main %}
 <h1>  Note Details: </h1>
 <hr/>
+<div> 
+    <a href="/applications/{{ general_details.application_id }}/user_notes/{{ note_details.note_id }}/delete_note"> Delete Note</a>
+</div>
 <table>
     {% for heading, value in note_details.items() %}
+        {% if heading != "note_id" %}
         <tr> 
             <th> {{ heading }}</th>
             <td> {{ value }}</td>
         </tr>
+        {% endif %}
     {% endfor %}
 </table>
 
