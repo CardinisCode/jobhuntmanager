@@ -21,6 +21,7 @@ def display_all_user_notes(user_id, userNotesRepo, companyRepo):
             application_id = note.application_id
 
             note_details[note_id] = {
+                "note_id": note.notes_id,
                 "entry_date": note.entry_date,
                 "company_name": company_name,
                 "description": note.description, 

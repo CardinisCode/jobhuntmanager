@@ -20,15 +20,15 @@
                 <th class="border-bottom border-right border-left border-top"> View</th>
             </tr>
 
-            {% for note_id, fields in note_details.items() %}
+            {% for entry_id, fields in note_details.items() %}
                 <tr class="border-bottom border-right border-left border-top"> 
-                    <td class="border-bottom border-right border-left border-top"> {{ note_id }}</td>
+                    <td class="border-bottom border-right border-left border-top"> {{ entry_id }}</td>
                     <td class="border-bottom border-right border-left border-top"> {{ fields.entry_date }}</td>
                     <td class="border-bottom border-right border-left border-top"> {{ fields.company_name }}</td>
                     <td class="border-bottom border-right border-left border-top"> {{ fields.description }}</td>
                     <td class="border-bottom border-right border-left border-top"> {{ fields.note_text }}</td>
                     <td class="border-bottom border-right border-left border-top"> 
-                        <a href="/user_notes/{{ fields.company_id }}"> View more for {{ fields.company_name }}</a> 
+                        <a href="/applications/{{ fields.application_id }}/user_notes/{{ fields.note_id }}"> View more</a> 
                     </td>
                 </tr>
             {% endfor %}
