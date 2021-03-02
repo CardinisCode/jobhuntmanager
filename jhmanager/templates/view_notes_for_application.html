@@ -24,7 +24,9 @@
                 <td class="border-bottom border-right border-left border-top"> {{ note_fields.entry_date }}</td>
                 <td class="border-bottom border-right border-left border-top"> {{ note_fields.subject }}</td>
                 <td class="border-bottom border-right border-left border-top"> {{ note_fields.note_text }}</td>
-                <td class="border-bottom border-right border-left border-top"> {{ Link }}</td>
+                <td class="border-bottom border-right border-left border-top">
+                    Link: <a href="/applications/{{ general_details.application_id }}/user_notes/{{ note_fields.note_id }}"> View</a>
+                </td>
             </tr>
         {% endfor %}
     </table>

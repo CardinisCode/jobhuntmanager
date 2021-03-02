@@ -49,6 +49,7 @@ from jhmanager.service.display_notes_form import display_user_notes_form
 from jhmanager.service.post_add_notes import post_add_notes
 from jhmanager.service.display_all_user_notes import display_all_user_notes
 from jhmanager.service.display_notes_for_application import display_all_user_notes_for_application
+from jhmanager.service.display_note_details import display_user_note_details
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -345,6 +346,11 @@ def display_user_notes(application_id):
     user_id = session["user_id"]
     return display_all_user_notes_for_application(user_id, application_id, applicationsRepo, userNotesRepo, companyRepo)
 
+
+@app.route('/applications/<int:application_id>/user_notes/<int:note_id>')
+@login_required
+def display_note_details(application_id, note_id):
+    return display_user_note_details(application_id, note_id)
 
 # @app.route('/user_notes/<int:company_id>')
 # @login_required
