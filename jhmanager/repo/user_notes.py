@@ -41,10 +41,15 @@ class UserNotesRepository:
         if not result:
             return None
         
+        notes_list = []
+        for note in result:
+            user_notes_entry = Notes(note)
+            notes_list.append(user_notes_entry)
 
-        user_notes_entries = Notes(result)
+        if notes_list == []:
+            return None
 
-        return user_notes_entries
+        return notes_list
 
     def getUserNotesByUserId(self, user_id):
         cursor = self.db.cursor()
