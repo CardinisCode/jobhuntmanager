@@ -332,7 +332,7 @@ def add_user_notes(application_id):
 
     if request.method == "POST":
         if notes_form.validate_on_submit():
-            return post_add_notes(notes_form, application_id, user_id, userNotesRepo)
+            return post_add_notes(notes_form, application_id, user_id, userNotesRepo, applicationsRepo)
 
     # GET:
     return display_user_notes_form(notes_form, application_id, companyRepo, applicationsRepo)
@@ -343,7 +343,7 @@ def add_user_notes(application_id):
 @login_required
 def display_user_notes():
     user_id = session["user_id"]
-    return display_all_user_notes(user_id)
+    return display_all_user_notes(user_id, userNotesRepo)
 
 # @app.route('/applications/<int:application_id>/view_notes_for_company')
 # @login_required

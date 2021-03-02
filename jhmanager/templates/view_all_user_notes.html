@@ -7,7 +7,22 @@
 {% block main %}
 <h1>  View All User Notes </h1>
 <hr/>
+{% if general_details.empty_table %}
+    <p> {{ general_details.message }}</a></p>
+{% else %}
+    <table> 
+        <tr> 
+            <th> Subject</th>
+            <th> Notes</th>
+        </tr>
 
-
+        {% for note_id, fields in note_details.items() %}
+            <tr> 
+                <td> {{ fields.description }}</td>
+                <td> {{ fields.note_text }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif %}
 
 {% endblock %}

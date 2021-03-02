@@ -6,8 +6,12 @@ import sqlite3
 
 class Notes:
     def __init__(self, db_fields):
-        self.description = db_fields[0]
-        self.user_notes = db_fields[1]
+        self.notes_id = db_fields[0]
+        self.user_id = db_fields[1]
+        self.application_id = db_fields[2]
+        self.company_id = db_fields[3]
+        self.description = db_fields[4]
+        self.user_notes = db_fields[5]
 
 
 class UserNotesRepository:
@@ -18,8 +22,8 @@ class UserNotesRepository:
     def insertNewNotes(self, fields): 
         cursor = self.db.cursor()
         command = """ 
-        INSERT INTO user_notes (user_id, application_id, description, notes_text)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO user_notes (user_id, application_id, company_id, description, notes_text)
+        VALUES (?, ?, ?, ?, ?)
         """
         result = cursor.execute(command, tuple(fields.values()))
 
@@ -36,6 +40,7 @@ class UserNotesRepository:
         if not result:
             return None
         
+
         user_notes_entries = Notes(result)
 
         return user_notes_entries
@@ -48,7 +53,13 @@ class UserNotesRepository:
 
         if not result:
             return None
-        
-        user_notes_entries = Notes(result)
 
-        return user_notes_entries        
+        notes_list = []
+        for note in result:
+            note_result = Notes(note)
+            notes_list.append(note_result)
+
+        if notes_list == []:
+            return None
+
+        return notes_list        

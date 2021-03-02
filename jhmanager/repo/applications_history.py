@@ -113,8 +113,9 @@ class ApplicationsHistoryRepository:
 
         if not result:
             return None
-        
-        application = Application(result)
+
+        data = [x for x in result][0]
+        application = Application(data)
 
         return application
 
@@ -133,12 +134,12 @@ class ApplicationsHistoryRepository:
             print("Application failed to delete.", error)
 
 
-    def grabApplicationByID(self, application_id):
-        result = self.sql.getByField('job_applications', 'application_id', application_id)
+    # def grabApplicationByID(self, application_id):
+    #     result = self.sql.getByField('job_applications', 'application_id', application_id)
 
-        application_result = Application(result)
+    #     application_result = Application(result)
 
-        return application_result
+    #     return application_result
       
     def getFullApplicationByApplicationID(self, application_id):
         cursor = self.db.cursor()

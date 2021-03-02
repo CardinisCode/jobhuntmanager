@@ -1,6 +1,28 @@
 from flask import Flask, render_template, session, request, redirect
 
 
-def display_all_user_notes(user_id):
+def display_all_user_notes(user_id, userNotesRepo):
+    note_details = {}
+    general_details = {}
     
-    return render_template("view_all_user_notes.html")
+    user_notes = userNotesRepo.getUserNotesByUserId(user_id)
+
+    if not user_notes:
+        general_details["empty_table"] = True
+        general_details["message"] = "Start adding notes."
+    
+    else: 
+        note_id = 0
+        for note in user_notes:
+            note_id += 1
+            general_details["message"] = "View table below..."
+            general_details["empty_table"] = False
+            # company_id = note.company_id
+            # company_name = 
+
+            note_details[note_id] = {
+                "description": note.description, 
+                "note_text": note.user_notes
+            }
+
+    return render_template("view_all_user_notes.html", general_details=general_details, note_details=note_details)
