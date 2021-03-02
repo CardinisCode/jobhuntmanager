@@ -352,11 +352,12 @@ def display_user_notes(application_id):
 def display_note_details(application_id, note_id):
     return display_user_note_details(application_id, note_id, userNotesRepo, companyRepo)
 
-# @app.route('/user_notes/<int:company_id>')
+
+# @app.route('user_notes')
 # @login_required
-# def display_user_notes_for_company(company_id):
+# def display_all_notes():
 #     user_id = session["user_id"]
-#     return display_all_user_notes_for_company(user_id, company_id, userNotesRepo, companyRepo)
+#     return display_all_notes_for_user(userNotesRepo, user_id)
 
 
 @app.route("/userprofile")
