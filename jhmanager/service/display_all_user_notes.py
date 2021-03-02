@@ -1,7 +1,6 @@
 from flask import Flask, render_template, session, request, redirect
 
-
-def display_all_user_notes(user_id, userNotesRepo):
+def display_all_user_notes(user_id, userNotesRepo, companyRepo):
     note_details = {}
     general_details = {}
     
@@ -17,10 +16,11 @@ def display_all_user_notes(user_id, userNotesRepo):
             note_id += 1
             general_details["message"] = "View table below..."
             general_details["empty_table"] = False
-            # company_id = note.company_id
-            # company_name = 
+            company_id = note.company_id
+            company_name = companyRepo.getCompanyById(company_id).name
 
             note_details[note_id] = {
+                "company_name": company_name,
                 "description": note.description, 
                 "note_text": note.user_notes
             }
