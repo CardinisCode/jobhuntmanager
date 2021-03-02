@@ -350,7 +350,7 @@ def display_user_notes(application_id):
 @app.route('/applications/<int:application_id>/user_notes/<int:note_id>')
 @login_required
 def display_note_details(application_id, note_id):
-    return display_user_note_details(application_id, note_id)
+    return display_user_note_details(application_id, note_id, userNotesRepo, companyRepo)
 
 # @app.route('/user_notes/<int:company_id>')
 # @login_required

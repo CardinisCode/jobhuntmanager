@@ -89,4 +89,19 @@ class UserNotesRepository:
         if notes_list == []:
             return None
 
-        return notes_list        
+        return notes_list    
+
+
+    def getUserNotesByID(self, application_id, notes_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM user_notes WHERE application_id = {} and notes_id = {}".format(application_id, notes_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        if not result:
+            return None
+
+        data = [x for x in result][0]
+        note_details = Notes(data)
+
+        return note_details       

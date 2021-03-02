@@ -1,6 +1,16 @@
 from flask import Flask, render_template, session, request, redirect
 
 
-def display_user_note_details(application_id, note_id):
-    
-    return render_template("view_notes_details.html")
+def display_user_note_details(application_id, note_id, userNotesRepo, companyRepo):
+    user_notes = userNotesRepo.getUserNotesByID(application_id, note_id)
+    company_id = user_notes.company_id
+    company_name = companyRepo.getCompanyById(company_id).name
+
+    note_details = {
+        "Date": user_notes.entry_date,
+        "Company Name": company_name,
+        "Subject": user_notes.description, 
+        "Note": user_notes.user_notes, 
+    }
+
+    return render_template("view_notes_details.html", note_details=note_details)
