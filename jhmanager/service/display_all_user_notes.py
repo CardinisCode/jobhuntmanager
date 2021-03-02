@@ -19,12 +19,14 @@ def display_all_user_notes(user_id, userNotesRepo, companyRepo):
             company_id = note.company_id
             company_name = companyRepo.getCompanyById(company_id).name
             general_details["company_id"] = company_id
+            application_id = note.application_id
 
             note_details[note_id] = {
                 "entry_date": note.entry_date,
                 "company_name": company_name,
                 "description": note.description, 
-                "note_text": note.user_notes
+                "note_text": note.user_notes, 
+                "application_id": application_id
             }
 
     return render_template("view_all_user_notes.html", general_details=general_details, note_details=note_details)

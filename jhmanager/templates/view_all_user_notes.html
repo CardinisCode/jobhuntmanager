@@ -17,6 +17,7 @@
             <th class="border-bottom border-right border-left border-top"> Company Name </th>
             <th class="border-bottom border-right border-left border-top"> Subject</th>
             <th class="border-bottom border-right border-left border-top"> Notes</th>
+            <th class="border-bottom border-right border-left border-top"> View</th>
         </tr>
 
         {% for note_id, fields in note_details.items() %}
@@ -26,6 +27,7 @@
                 <td class="border-bottom border-right border-left border-top"> {{ fields.company_name }}</td>
                 <td class="border-bottom border-right border-left border-top"> {{ fields.description }}</td>
                 <td class="border-bottom border-right border-left border-top"> {{ fields.note_text }}</td>
+                <td class="border-bottom border-right border-left border-top"> View more for {{ fields.company_name }}</td>
             </tr>
         {% endfor %}
     </table>
