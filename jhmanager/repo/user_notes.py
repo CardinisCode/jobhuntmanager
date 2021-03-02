@@ -26,3 +26,29 @@ class UserNotesRepository:
         self.db.commit()
 
         return result.lastrowid
+
+    def getUserNotesForCompany(self, company_id, user_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM user_notes WHERE user_id = {} and company_id = {}".format(user_id, company_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        if not result:
+            return None
+        
+        user_notes_entries = Notes(result)
+
+        return user_notes_entries
+
+    def getUserNotesByUserId(self, user_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM user_notes WHERE user_id = {}".format(user_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        if not result:
+            return None
+        
+        user_notes_entries = Notes(result)
+
+        return user_notes_entries        
