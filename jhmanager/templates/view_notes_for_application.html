@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    View User Notes For Application
+{% endblock %}
+
+{% block main %}
+<h1>  Your Notes for {{ general_details.company_name }}: </h1>
+<hr/>
+{% if general_details.empty_table %}
+<p> {{ general_details.message }}</a></p>
+{% else %}
+    <p> Table here...</p>
+{% endif %}
+
+{% endblock %}

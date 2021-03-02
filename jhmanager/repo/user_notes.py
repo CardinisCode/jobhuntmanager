@@ -51,6 +51,27 @@ class UserNotesRepository:
 
         return notes_list
 
+
+    def getUserNotesForApplication(self, application_id, user_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM user_notes WHERE user_id = {} and application_id = {} ORDER BY date DESC".format(user_id, application_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        if not result:
+            return None
+        
+        notes_list = []
+        for note in result:
+            user_notes_entry = Notes(note)
+            notes_list.append(user_notes_entry)
+
+        if notes_list == []:
+            return None
+
+        return notes_list
+
+
     def getUserNotesByUserId(self, user_id):
         cursor = self.db.cursor()
         command = "SELECT * FROM user_notes WHERE user_id = {}".format(user_id)

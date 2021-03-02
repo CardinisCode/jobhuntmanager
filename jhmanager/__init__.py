@@ -48,7 +48,7 @@ from jhmanager.service.post_update_company_form import post_update_company
 from jhmanager.service.display_notes_form import display_user_notes_form
 from jhmanager.service.post_add_notes import post_add_notes
 from jhmanager.service.display_all_user_notes import display_all_user_notes
-from jhmanager.service.display_notes_for_company import display_all_user_notes_for_company
+from jhmanager.service.display_notes_for_application import display_all_user_notes_for_application
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -339,20 +339,21 @@ def add_user_notes(application_id):
     return display_user_notes_form(notes_form, application_id, companyRepo, applicationsRepo)
     # return render_template("add_notes.html", notes_form=notes_form)    
 
-@app.route('/user_notes')
+@app.route('/user_notes/<int:application_id>/view_notes')
 @login_required
-def display_user_notes():
+def display_user_notes(application_id):
     user_id = session["user_id"]
-    return display_all_user_notes(user_id, userNotesRepo, companyRepo)
+    return display_all_user_notes_for_application(user_id, application_id, userNotesRepo, companyRepo)
 
 
-@app.route('/user_notes/<int:company_id>')
-@login_required
-def display_user_notes_for_company(company_id):
-    user_id = session["user_id"]
-    return display_all_user_notes_for_company(user_id, company_id, userNotesRepo, companyRepo)
+# @app.route('/user_notes/<int:company_id>')
+# @login_required
+# def display_user_notes_for_company(company_id):
+#     user_id = session["user_id"]
+#     return display_all_user_notes_for_company(user_id, company_id, userNotesRepo, companyRepo)
 
 
+@app.route('applications/')
 
 
 @app.route("/userprofile")
