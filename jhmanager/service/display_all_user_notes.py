@@ -18,6 +18,7 @@ def display_all_user_notes(user_id, userNotesRepo, companyRepo):
             general_details["empty_table"] = False
             company_id = note.company_id
             company_name = companyRepo.getCompanyById(company_id).name
+            general_details["company_id"] = company_id
 
             note_details[note_id] = {
                 "entry_date": note.entry_date,

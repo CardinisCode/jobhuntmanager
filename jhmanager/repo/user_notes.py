@@ -34,7 +34,7 @@ class UserNotesRepository:
 
     def getUserNotesForCompany(self, company_id, user_id):
         cursor = self.db.cursor()
-        command = "SELECT * FROM user_notes WHERE user_id = {} and company_id = {}".format(user_id, company_id)
+        command = "SELECT * FROM user_notes WHERE user_id = {} and company_id = {} ORDER BY date DESC".format(user_id, company_id)
         result = cursor.execute(command)
         self.db.commit()
 
