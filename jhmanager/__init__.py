@@ -339,7 +339,7 @@ def add_user_notes(application_id):
     return display_user_notes_form(notes_form, application_id, companyRepo, applicationsRepo)
     # return render_template("add_notes.html", notes_form=notes_form)    
 
-@app.route('/user_notes/<int:application_id>/view_notes')
+@app.route('/applications/<int:application_id>/view_notes')
 @login_required
 def display_user_notes(application_id):
     user_id = session["user_id"]
@@ -351,9 +351,6 @@ def display_user_notes(application_id):
 # def display_user_notes_for_company(company_id):
 #     user_id = session["user_id"]
 #     return display_all_user_notes_for_company(user_id, company_id, userNotesRepo, companyRepo)
-
-
-@app.route('applications/')
 
 
 @app.route("/userprofile")
