@@ -13,6 +13,7 @@
     <table> 
         <tr class="border-bottom border-right border-left border-top"> 
             <th class="border-bottom border-right border-left border-top"> ID# </th>
+            <th class="border-bottom border-right border-left border-top"> Date </th>
             <th class="border-bottom border-right border-left border-top"> Company Name </th>
             <th class="border-bottom border-right border-left border-top"> Subject</th>
             <th class="border-bottom border-right border-left border-top"> Notes</th>
@@ -21,6 +22,7 @@
         {% for note_id, fields in note_details.items() %}
             <tr class="border-bottom border-right border-left border-top"> 
                 <td class="border-bottom border-right border-left border-top"> {{ note_id }}</td>
+                <td class="border-bottom border-right border-left border-top"> {{ fields.entry_date }}</td>
                 <td class="border-bottom border-right border-left border-top"> {{ fields.company_name }}</td>
                 <td class="border-bottom border-right border-left border-top"> {{ fields.description }}</td>
                 <td class="border-bottom border-right border-left border-top"> {{ fields.note_text }}</td>

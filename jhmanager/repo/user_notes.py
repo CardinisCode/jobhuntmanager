@@ -10,8 +10,9 @@ class Notes:
         self.user_id = db_fields[1]
         self.application_id = db_fields[2]
         self.company_id = db_fields[3]
-        self.description = db_fields[4]
-        self.user_notes = db_fields[5]
+        self.entry_date = db_fields[4]
+        self.description = db_fields[5]
+        self.user_notes = db_fields[6]
 
 
 class UserNotesRepository:
@@ -22,8 +23,8 @@ class UserNotesRepository:
     def insertNewNotes(self, fields): 
         cursor = self.db.cursor()
         command = """ 
-        INSERT INTO user_notes (user_id, application_id, company_id, description, notes_text)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO user_notes (user_id, application_id, company_id, date, description, notes_text)
+        VALUES (?, ?, ?, ?, ?, ?)
         """
         result = cursor.execute(command, tuple(fields.values()))
 

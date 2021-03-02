@@ -112,16 +112,21 @@ COMMIT;
 
 
 BEGIN TRANSACTION;
+CREATE TEMPORARY TABLE user_notes_backup(notes_id, user_id, user_id, application_id, company_id, description, notes_text);
+INSERT INTO user_notes_backup SELECT notes_id, user_id, user_id, application_id, company_id, description, notes_text FROM user_notes;
 DROP TABLE user_notes;
 CREATE TABLE IF NOT EXISTS 'user_notes' (
     'notes_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     'user_id' INTEGER NOT NULL, 
     'application_id' INTEGER NOT NULL,
     'company_id' INTEGER NOT NULL, 
+    'date' DATETIME NOT NULL,
     'description' TEXT NOT NULL,
     'notes_text' BLOB DEFAULT "N/A",
     FOREIGN KEY (user_id) REFERENCES users (user_id),
     FOREIGN KEY (application_id) REFERENCES job_applications (application_id),
     FOREIGN KEY (company_id) REFERENCES company (company_id)
 );
+INSERT INTO user_notes SELECT notes_id, user_id, user_id, application_id, company_id, description, notes_text  FROM user_notes_backup;
+DROP TABLE user_notes_backup;
 COMMIT;
