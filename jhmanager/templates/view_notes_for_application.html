@@ -8,8 +8,9 @@
 <h1>  Your Notes for {{ general_details.company_name }}: </h1>
 <hr/>
 {% if general_details.empty_table %}
-<p> {{ general_details.message }}</a></p>
+    <p> <a href="/applications/{{ general_details.application_id }}/add_notes"> Add</a> your first note. </p>
 {% else %}
+    <a href="/applications/{{ general_details.application_id }}/add_notes"> Add +</a>
     <table>
         <tr class="border-bottom border-right border-left border-top">
             <th class="border-bottom border-right border-left border-top"> #</th>
