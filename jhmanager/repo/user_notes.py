@@ -130,6 +130,26 @@ class UserNotesRepository:
             message = "Note successfully deleted."
 
         except sqlite3.Error as error:
-            message = "Application failed to delete. " + error
+            message = "Note failed to delete. " + error
         finally:
             return message          
+
+    def updateByID(self, fields):
+        message = ""
+
+        try: 
+            cursor = self.db.cursor()
+            command = """
+            UPDATE user_notes
+            SET description = ?, 
+            notes_text = ?
+            WHERE notes_id = ?
+            """
+            cursor.execute(command, tuple(fields.values()))
+            self.db.commit()
+            message = "Note successfully updated"
+
+        except sqlite3.Error as error:
+            message = "Note failed to update. " + error
+        finally:
+            return message

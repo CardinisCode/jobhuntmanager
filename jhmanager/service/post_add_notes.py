@@ -16,7 +16,7 @@ def post_add_notes(notes_form, application_id, user_id, userNotesRepo, applicati
         "company_id": company_id,
         "date_of_entry": entry_date_str,
         "description": notes_form.description.data, 
-        "notes_text": notes_form.notes.data
+        "notes_text": notes_form.user_notes.data
     }
 
     userNotesRepo.insertNewNotes(details)

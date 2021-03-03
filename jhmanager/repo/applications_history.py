@@ -114,9 +114,10 @@ class ApplicationsHistoryRepository:
         if not result:
             return None
 
-        data = [x for x in result][0]
-        application = Application(data)
+        data = [x for x in result]
 
+        application = Application(data[0])
+        
         return application
 
 

@@ -9,6 +9,8 @@ def display_update_user_note_form(application_id, user_id, note_id, update_note_
 
     details = {
         "company_name": company_name,
+        "application_id": application_id,
+        "note_id": note_id,
         "update_url": update_url
     }
 
