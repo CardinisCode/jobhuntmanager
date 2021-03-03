@@ -5,20 +5,29 @@
 {% endblock %}
 
 {% block main %}
-<h1>  Note Details: </h1>
+
+
+<h1>  {{ note_details.company_name }} </h1>
 <hr/>
+
+<h2> Note Details: </h2>
 <div> 
-    <a href="/applications/{{ general_details.application_id }}/user_notes/{{ note_details.note_id }}/delete_note"> Delete Note</a>
+    <a href={{ note_details.delete_note_url }}> <i class="fas fa-trash"> Delete</i> </a>
 </div>
+<br/>
 <table>
-    {% for heading, value in note_details.items() %}
-        {% if heading != "note_id" %}
-        <tr> 
-            <th> {{ heading }}</th>
-            <td> {{ value }}</td>
-        </tr>
-        {% endif %}
-    {% endfor %}
+    <tr>
+        <th class="border-bottom border-right border-left border-top" colspan="2"> {{ note_details.Subject }}</th>
+    </tr>
+    <tr class="border-bottom border-right border-left border-top"> 
+        <th>Date: </th> 
+        <td> {{ note_details.Date }}</td>
+    </tr class="border-bottom border-right border-left border-top">
+
+    <tr class="border-bottom border-right border-left border-top">
+        <th>Note: </th> 
+        <td> {{ note_details.Note }}</td>
+    </tr>
 </table>
 
 {% endblock %}

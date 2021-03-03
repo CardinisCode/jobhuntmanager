@@ -8,9 +8,9 @@
 <h1>  Your Notes for {{ general_details.company_name }}: </h1>
 <hr/>
 {% if general_details.empty_table %}
-    <p> <a href="/applications/{{ general_details.application_id }}/add_notes"> Add</a> your first note. </p>
+    <p> <a href={{ general_details.add_note_url}}> <i class="fas fa-plus"> Add </i></a> your first note. </p>
 {% else %}
-    <a href="/applications/{{ general_details.application_id }}/add_notes"> Add +</a>
+    <a href={{ general_details.add_note_url}}> <i class="fas fa-plus"> Add </i></a>
     <table>
         <tr class="border-bottom border-right border-left border-top">
             <th class="border-bottom border-right border-left border-top"> #</th>
@@ -18,7 +18,7 @@
             <th class="border-bottom border-right border-left border-top"> Subject</th>
             <th class="border-bottom border-right border-left border-top"> Notes</th>
             <th class="border-bottom border-right border-left border-top"> View More</th>
-            <th class="border-bottom border-right border-left border-top"></th>
+            <th class="border-bottom border-right border-left border-top"> Delete</th>
 
         </tr>
         {% for entry_id, note_fields in user_notes_details.items() %}
@@ -28,10 +28,10 @@
                 <td class="border-bottom border-right border-left border-top"> {{ note_fields.subject }}</td>
                 <td class="border-bottom border-right border-left border-top"> {{ note_fields.note_text }}</td>
                 <td class="border-bottom border-right border-left border-top">
-                    <a href="/applications/{{ general_details.application_id }}/user_notes/{{ note_fields.note_id }}"> View</a>
+                    <a href={{ note_fields.view_note_url }}> <i class="fas fa-eye"></i></a>
                 </td>
                 <td class="border-bottom border-right border-left border-top">
-                    <a href="/applications/{{ general_details.application_id }}/user_notes/{{ note_fields.note_id }}/delete_note"> Delete</a>
+                    <a href={{ note_fields.delete_url }}> <i class="fas fa-trash"></i></a>
                 </td>
             </tr>
         {% endfor %}
