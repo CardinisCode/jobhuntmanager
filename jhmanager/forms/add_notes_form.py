@@ -9,7 +9,7 @@ class AddNotesForm(FlaskForm):
         render_kw={'placeholder': "A description/heading for this note."},
     )
 
-    notes = TextAreaField(
+    user_notes = TextAreaField(
         "Notes: ", 
         validators=[InputRequired(message="Your notes field is empty.")],
         render_kw={'placeholder': "Your notes go here."},

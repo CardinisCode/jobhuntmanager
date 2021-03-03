@@ -32,6 +32,20 @@ class UserNotesRepository:
 
         return result.lastrowid
 
+    def getNoteByID(self, notes_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM user_notes WHERE notes_id = {}".format(notes_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        if not result:
+            return None
+
+        data = [x for x in result][0]
+        note_details = Notes(data)
+
+        return note_details
+
     def getUserNotesForCompany(self, company_id, user_id):
         cursor = self.db.cursor()
         command = "SELECT * FROM user_notes WHERE user_id = {} and company_id = {} ORDER BY date DESC".format(user_id, company_id)

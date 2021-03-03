@@ -52,6 +52,7 @@ from jhmanager.service.display_all_user_notes import display_all_user_notes
 from jhmanager.service.display_notes_for_application import display_all_user_notes_for_application
 from jhmanager.service.display_note_details import display_user_note_details
 from jhmanager.service.delete_note import delete_note_for_application
+from jhmanager.service.display_update_note_form import display_update_user_note_form
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -351,6 +352,17 @@ def display_user_notes(application_id):
 @login_required
 def display_note_details(application_id, note_id):
     return display_user_note_details(application_id, note_id, userNotesRepo, companyRepo)
+
+
+@app.route('/applications/<int:application_id>/user_notes/<int:note_id>/update_note')
+@login_required
+def update_user_note(application_id, note_id):
+    user_id = session["user_id"]
+    note_details = userNotesRepo.getNoteByID(note_id)
+    update_note_form = AddNotesForm(obj=note_details)
+
+    # GET:
+    return display_update_user_note_form(application_id, user_id, note_id, update_note_form, companyRepo, userNotesRepo)
 
 
 @app.route('/applications/<int:application_id>/user_notes/<int:note_id>/delete_note')
