@@ -18,6 +18,8 @@
             <th class="border-bottom border-right border-left border-top"> Subject</th>
             <th class="border-bottom border-right border-left border-top"> Notes</th>
             <th class="border-bottom border-right border-left border-top"> View More</th>
+            <th class="border-bottom border-right border-left border-top"></th>
+
         </tr>
         {% for entry_id, note_fields in user_notes_details.items() %}
             <tr class="border-bottom border-right border-left border-top">
@@ -26,7 +28,10 @@
                 <td class="border-bottom border-right border-left border-top"> {{ note_fields.subject }}</td>
                 <td class="border-bottom border-right border-left border-top"> {{ note_fields.note_text }}</td>
                 <td class="border-bottom border-right border-left border-top">
-                    Link: <a href="/applications/{{ general_details.application_id }}/user_notes/{{ note_fields.note_id }}"> View</a>
+                    <a href="/applications/{{ general_details.application_id }}/user_notes/{{ note_fields.note_id }}"> View</a>
+                </td>
+                <td class="border-bottom border-right border-left border-top">
+                    <a href="/applications/{{ general_details.application_id }}/user_notes/{{ note_fields.note_id }}/delete_note"> Delete</a>
                 </td>
             </tr>
         {% endfor %}
