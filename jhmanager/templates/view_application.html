@@ -54,7 +54,7 @@
     <h3>Notes</h3> 
     <div> 
         <a href="../applications/{{ details.app_id }}/add_notes"> <i class="fas fa-plus"> Note</i> </a>
-        <a href="../applications/{{ details.app_id }}/view_notes"> View Notes</a>
+        <a href="../applications/{{ details.app_id }}/view_notes"> <i class="fas fa-eye"> View Notes</i> </a>
     </div>
     <p> </p>
 
@@ -77,7 +77,7 @@
                     <tr class="border-bottom border-right border-left border-top"> 
                         {% for label, value in rows.items() %}
                             {% if label == "View More" %}
-                            <td class="border-bottom border-right border-left border-top"> <a href={{ value }}> View</a> </td>
+                            <td class="border-bottom border-right border-left border-top"> <a href={{ value }}> <i class="fas fa-eye"></i></a> </td>
                             {% else %}
                                 {% if label == "Delete" %}
                                     <td class="border-bottom border-right border-left border-top"> <a href={{ value }}> <i class="fas fa-trash"></i></a> </td>

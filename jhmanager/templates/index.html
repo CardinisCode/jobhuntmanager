@@ -24,7 +24,7 @@
     <!-- Drop down to view table-->
     <div class="horizontal_buttons">
         <a href="/add_job_application" class="button right_button" style="cursor:pointer;"> <i class="fas fa-plus"> Job Application </i></a>
-        <a href="/applications" class="button middle_button">View all Applications</a>
+        <a href="/applications" class="button middle_button"><i class="fas fa-eye"> View all Applications</i> </a>
     </div>
 
     {% if display.top_5_applications.fields == None %}
@@ -42,7 +42,7 @@
                     <tr class="border-bottom border-right border-left">
                         {% for heading, field in fields.items() %}
                             {% if heading == "View More" %}
-                                <td class="border-bottom border-right border-left"><a href={{ field }}> View</a></td>
+                                <td class="border-bottom border-right border-left"><a href={{ field }}> <i class="fas fa-eye"></i></a></td>
                             {% else %}
                                 <td class="border-bottom border-right border-left"> {{ field }}</td>
                             {% endif %}
