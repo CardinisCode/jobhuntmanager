@@ -32,7 +32,11 @@
                     {% if field.label == "View More" %}
                         <td class="border-bottom border-right border-left border-top"> <a href="../applications/{{ application_id }}"> View</a></td>
                     {% else %}
+                        {% if field.label == "Delete Note" %}
+                        <td class="border-bottom border-right border-left border-top"> <a href={{ field.data }}> Delete</a></td>
+                        {% else %}
                         <td class="border-bottom border-right border-left border-top"> {{ field.data }} </td>
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
             </tr>

@@ -14,7 +14,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
     if top_ten_applications != None:
         display_details["empty_table"] = False
         display_details["headings"] = {
-        "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type",  "Interview Stage", "Contact Received", "Salary", "Platform / Job Board", "View More"]
+        "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type",  "Interview Stage", "Contact Received", "Salary", "Platform / Job Board", "View More", "Delete"]
         }
         
         for application in top_ten_applications:
@@ -36,7 +36,8 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
                 Interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage=str(interview_stage))
 
             # # application_url = "/applications/{application_id}"
-            application_url = "/applications/{app_id}"
+            application_url = "/applications/{}".format(app_id)
+            delete_url = "/applications/{}/delete".format(app_id)
 
             display_details["fields"][app_id] = {
                 "app_id": {
@@ -79,6 +80,10 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
                 "view_more": {
                     "label": "View More", 
                     "data": application_url,
+                }, 
+                "delete": {
+                    "label": "Delete Note", 
+                    "data": delete_url,
                 }
             }
 
