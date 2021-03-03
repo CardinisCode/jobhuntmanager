@@ -13,6 +13,7 @@ class RegisterUserForm(FlaskForm):
             InputRequired(message="Please provide an unique username.")
         ],
         render_kw={'placeholder': "An unique username, with a minimal of 6 characters & 1 digit."},
+        description='<i class="fas fa-user"></i>'
     )
 
     email_address = StringField(
@@ -21,6 +22,7 @@ class RegisterUserForm(FlaskForm):
             Length(min=6, max=35), 
             InputRequired(message="Please provide a username.")
         ],
+        render_kw={'placeholder': "Your email address"},
     )
 
     password = PasswordField(
