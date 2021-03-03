@@ -104,4 +104,18 @@ class UserNotesRepository:
         data = [x for x in result][0]
         note_details = Notes(data)
 
-        return note_details       
+        return note_details  
+
+    def deleteByID(self, notes_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM user_notes WHERE notes_id = {}".format(notes_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Note successfully deleted."
+
+        except sqlite3.Error as error:
+            message = "Application failed to delete. " + error
+        finally:
+            return message          
