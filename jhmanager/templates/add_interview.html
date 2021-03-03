@@ -15,12 +15,6 @@
         <p>
             {% if field.name == "save_button" %}
                 <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd>
-            {% elif field.name == "interview_date" %} 
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> <i class="fas fa-calendar-alt"></i> {{ field }} </dd> 
-            {% elif field.name == "interview_time" %}
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> <i class="fas fa-clock"></i> {{ field }} </dd>
             {% elif field.name == "interviewer_names" %}
                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
                 <dd class="wpforms-container-full .wpforms-form .wpforms-description"> <i class="fas fa-users"></i> {{ field }} </dd>

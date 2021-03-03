@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, DateField, TimeField, SelectField, validators
-from wtforms.fields.html5 import TelField, URLField
+from wtforms import StringField, SubmitField, TextAreaField, SelectField, validators
+from wtforms.fields.html5 import TelField, URLField, DateField, TimeField
 import wtforms.widgets.html5
 from wtforms.validators import DataRequired, Email, InputRequired, Optional, ValidationError
 from datetime import datetime, date, time
@@ -16,10 +16,10 @@ class AddInterviewForm(FlaskForm):
     #Fields to display:
     interview_date = DateField(
         "Interview Date: ", 
+        format='%Y-%m-%d',
         validators=[
             InputRequired(message="Please provide the Interview Date.")
         ], 
-        render_kw={'placeholder': "{}".format(todays_date)},
     )
 
     interview_time = TimeField(
