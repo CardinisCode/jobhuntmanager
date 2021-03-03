@@ -16,7 +16,7 @@
         {% for field in add_application_form if field.name != "csrf_token" %}
             <p> 
                 {% if field.name == "save_application" %}
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd> 
+                    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd> 
                 {% elif field.name == "date_posted" %}
                     <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
                     <dd class="wpforms-container-full .wpforms-form .wpforms-description"> <i class="fas fa-calendar-alt"></i> {{ field }} </dd> 
@@ -29,7 +29,7 @@
                     <dd class="wpforms-container-full .wpforms-form .wpforms-description">  <i class="fas fa-hand-pointer"></i> {{ field }} </dd>
                 {% else %}
                     <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
-                    <dd class="wpforms-container-full .wpforms-form .wpforms-description"></i> {{ field }} </dd>
+                    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd>
                 {% endif %}
                 {% for error in field.errors %}
                     {{ error }}
