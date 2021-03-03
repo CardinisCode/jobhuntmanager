@@ -10,8 +10,8 @@
 
 <h2> View Interview Details</h2> 
 <div> 
-    <a href={{ details.update_url }}> Update</a>
-    <a href={{ details.delete_url }}> <i class="fas fa-trash"></i></a>
+    <a href={{ details.update_url }}> <i class="fas fa-pencil-alt"> Update</i></a>
+    <a href={{ details.delete_url }}> <i class="fas fa-trash"> Delete</i></a>
     
 </div>
 <table> 
@@ -26,7 +26,7 @@
 <br/>
 
 <h2> Company Details:</h2>
-<p> <a href="/applications/{{ details.app_id }}/update_company"> Update</a></p>
+<p> <a href="/applications/{{ details.app_id }}/update_company"> <i class="fas fa-pencil-alt"> Update</i></a></p>
 <table> 
     {% for heading, value in details.company_details.items() %}
         {% if heading != "Name" %}

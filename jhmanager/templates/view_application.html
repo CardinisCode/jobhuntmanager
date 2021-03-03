@@ -9,8 +9,8 @@
     <hr/>
 
     <div> 
-        <a href="../applications/{{ details.app_id }}/update_application"> Update</a>
-        <a href="../applications/{{ details.app_id }}/delete"> <i class="fas fa-trash"></i></a>
+        <a href="../applications/{{ details.app_id }}/update_application"> <i class="fas fa-pencil-alt"> Update</i></a>
+        <a href="../applications/{{ details.app_id }}/delete"> <i class="fas fa-trash"> Delete</i></a>
     </div>
 
     <table>
@@ -32,7 +32,7 @@
     <hr/>
 
     <h2> Company Details: </h2>
-    <p> <a href="../applications/{{ details.app_id }}/update_company"> Update</a></p>
+    <p> <a href="../applications/{{ details.app_id }}/update_company"> <i class="fas fa-pencil-alt"> Update</i></a></p>
     <table>
         {% for heading, field in company_details.fields.items() %}
             {% if heading != "company_id" %}
@@ -53,7 +53,7 @@
 
     <h3>Notes</h3> 
     <div> 
-        <a href="../applications/{{ details.app_id }}/add_notes"> Add Notes</a>
+        <a href="../applications/{{ details.app_id }}/add_notes"> <i class="fas fa-plus"> Note</i> </a>
         <a href="../applications/{{ details.app_id }}/view_notes"> View Notes</a>
     </div>
     <p> </p>
@@ -63,9 +63,9 @@
 
     <h2> Interviews for this application:</h2>
         {% if interview_details.empty_fields == True %}
-        <p> {{ interview_details.message }} <a href="../applications/{{ details.app_id }}/add_interview"> Add Interview</a></p>
+        <p> {{ interview_details.message }} <a href="../applications/{{ details.app_id }}/add_interview"> <i class="fas fa-plus"> Interview</i> </a></p>
         {% else %}
-            <p> <a href="../applications/{{ details.app_id }}/add_interview"> Add Interview</a></p>
+            <p> <a href="../applications/{{ details.app_id }}/add_interview"> <i class="fas fa-plus"> Interview</i></a></p>
             <table> 
                 <tr class="border-bottom border-right border-left border-top"> 
                     {% for heading in interview_details.headings %}

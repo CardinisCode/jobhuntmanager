@@ -12,9 +12,9 @@
 
 <!-- <p> Today's date: {{ display_details.todays_date }} </p> -->
 {% if display_details.empty_table == True %}
-    <p> No Applications add yet. <a href="/add_job_application" style="cursor:pointer; text-align: right;"> Add a job application.</a></p>
+    <p> No Applications add yet. <a href="/add_job_application" style="cursor:pointer; text-align: right;"> <i class="fas fa-plus"> Job Application </i></a></p>
 {% else %}
-    <a href="/add_job_application" style="cursor:pointer; text-align: right;"> Add +</a>
+    <a href="/add_job_application" style="cursor:pointer; text-align: right;"> <i class="fas fa-plus"> Job Application </i></a>
     <table class="center"> 
         <tr class="border-bottom border-right border-left border-top">
             {% for key, value in display_details.items() %}
