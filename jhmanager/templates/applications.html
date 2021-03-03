@@ -30,10 +30,10 @@
             <tr class="border-bottom border-right border-left border-top">
                 {% for field in application.values() %}
                     {% if field.label == "View More" %}
-                        <td class="border-bottom border-right border-left border-top"> <a href="../applications/{{ application_id }}"> View</a></td>
+                        <td class="border-bottom border-right border-left border-top"> <a href={{ field.data }}> View</a></td>
                     {% else %}
                         {% if field.label == "Delete Note" %}
-                        <td class="border-bottom border-right border-left border-top"> <a href={{ field.data }}> Delete</a></td>
+                        <td class="border-bottom border-right border-left border-top"> <a href={{ field.data }}> <i class="fas fa-trash"></i></a></td>
                         {% else %}
                         <td class="border-bottom border-right border-left border-top"> {{ field.data }} </td>
                         {% endif %}

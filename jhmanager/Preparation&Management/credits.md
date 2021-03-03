@@ -44,3 +44,26 @@
 # Creating a User Registration form using WTForms:
 -   http://sebastiandahlgren.se/2013/06/14/password-confirmation-in-wtforms/
 -   https://pythonprogramming.net/flask-registration-tutorial/?completed=/flask-user-registration-form-tutorial/
+
+
+# To check whether your current version of SQLite supports foreign key constraints or not, you use the following command.
+```
+PRAGMA foreign_keys;
+```
+
+# The command returns an integer value: 1: enable, 0: disabled. If the command returns nothing, it means that your SQLite version doesn’t support foreign key constraints.
+
+# To disable foreign key constraint:
+```
+PRAGMA foreign_keys = OFF;
+```
+
+# To enable foreign key constraint:
+```
+PRAGMA foreign_keys = ON;
+```
+
+# To read more about FOREIGN KEY constraints:
+```
+https://www.sqlitetutorial.net/sqlite-foreign-key/
+```

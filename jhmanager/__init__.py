@@ -7,6 +7,7 @@ from flask_session import Session
 from flask_bootstrap import Bootstrap
 from flask_datepicker import datepicker
 # from flask.ext.login import LoginManager
+from flask_fontawesome import FontAwesome
 
 from datetime import datetime, date
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
@@ -63,9 +64,7 @@ from jhmanager.forms.add_notes_form import AddNotesForm
 
 # Configure application
 app = Flask(__name__, instance_relative_config=True)
-# login_manager = LoginManager()
-# login_manager.init_app(app)
-# login_manager.login_view = 'test_login'
+fa = FontAwesome(app)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
