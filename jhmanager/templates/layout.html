@@ -36,13 +36,13 @@
             <div class="collapse navbar-collapse" id="navbar">
                 {% if session.user_id %}
                     <ul class="navbar-nav mr-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/applications">Applications</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/user_notes">Notes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/"> <i class="fas fa-home"> Home</i></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/applications"> <i class="fas fa-clipboard-list"> Applications</i> </a></li>
+                        <li class="nav-item"><a class="nav-link" href="/user_notes"> <i class="fas fa-sticky-note"> Notes</i></a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/userprofile"> User Profile</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/userprofile"> <i class="fas fa-user"> User Profile</i> </a></li>
+                        <li class="nav-item"><a class="nav-link" href="/logout"> <i class="fas fa-sign-out-alt"> Log Out</i></a></li>
                     </ul>
                 {% else %}
                     <ul class="navbar-nav ml-auto mt-2">
