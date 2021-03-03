@@ -20,7 +20,7 @@ flask run
 
 # Requirements:
 ```
-fontawesome-free==Flask-FontAwesome-0.1.5
+fontawesome-free==0.1.5
 ```
 
 
