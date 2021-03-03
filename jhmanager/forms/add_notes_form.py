@@ -4,7 +4,7 @@ from wtforms.validators import InputRequired
 
 class AddNotesForm(FlaskForm):
     description = StringField(
-        "Description for the Note: ", 
+        "Subject for the Note: ", 
         validators=[InputRequired(message="Please provide a heading/description for this note.")],
         render_kw={'placeholder': "A description/heading for this note."},
     )
