@@ -27,7 +27,9 @@ def display_all_user_notes(user_id, userNotesRepo, companyRepo):
                 "description": note.description, 
                 "note_text": note.user_notes, 
                 "application_id": application_id, 
-                "company_id": company_id
+                "company_id": company_id, 
+                "view_more": "/applications/{}/user_notes/{}".format(application_id, note.notes_id), 
+                "delete_url": '/applications/{}/user_notes/{}/delete_note'.format(application_id, note.notes_id)
             }
 
     return render_template("view_all_user_notes.html", general_details=general_details, note_details=note_details)
