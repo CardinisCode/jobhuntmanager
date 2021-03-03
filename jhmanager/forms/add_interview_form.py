@@ -27,7 +27,6 @@ class AddInterviewForm(FlaskForm):
         validators=[
             InputRequired(message="Please provide the starting time for the interview.")
         ], 
-        render_kw={'placeholder': "{}".format(current_time)},
     )
 
     interviewer_names = StringField(

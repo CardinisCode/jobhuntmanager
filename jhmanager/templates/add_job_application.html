@@ -17,13 +17,9 @@
             <p> 
                 {% if field.name == "save_application" %}
                     <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd> 
-                {% elif field.name == "date_posted" %}
-                    <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
-                    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> <i class="fas fa-calendar-alt"></i> {{ field }} </dd> 
                 {% elif field.name == "salary" %}   
                     <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
                     <dd class="wpforms-container-full .wpforms-form .wpforms-description"> <i class="fas fa-pound-sign"></i> {{ field }} </dd>
-
                 {% elif field.name == "emp_type" %} 
                     <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
                     <dd class="wpforms-container-full .wpforms-form .wpforms-description">  <i class="fas fa-hand-pointer"></i> {{ field }} </dd>
