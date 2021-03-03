@@ -3,17 +3,18 @@ from wtforms import StringField, SubmitField, TextAreaField, DateField, TimeFiel
 from wtforms.validators import Length, EqualTo, email_validator, Email, InputRequired, ValidationError, Optional, DataRequired
 from wtforms.fields.html5 import TelField, URLField
 import wtforms.widgets.html5
+from flask_fontawesome import FontAwesome
 
 
 class RegisterUserForm(FlaskForm):
     username = StringField(
-        "Username: ", 
+        'Username: ', 
         validators=[
             Length(min=6, max=25), 
             InputRequired(message="Please provide an unique username.")
         ],
         render_kw={'placeholder': "An unique username, with a minimal of 6 characters & 1 digit."},
-        description='<i class="fas fa-user"></i>'
+        description="fas fa-user"
     )
 
     email_address = StringField(
