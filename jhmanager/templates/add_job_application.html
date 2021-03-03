@@ -12,13 +12,19 @@
     <br/>
     <form action="/add_job_application" method="POST"> 
         {{ add_application_form.csrf_token }}
+
         {% for field in add_application_form if field.name != "csrf_token" %}
             <p> 
                 {% if field.name == "save_application" %}
                     {{ field }} 
                 {% else %}
-                    <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
-                    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd>
+                    {% if field.name == "date_posted" %}
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description"> <i class="fas fa-calendar-alt"></i> {{ field }} </dd>   
+                    {% else %}
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">  {{ field }} </dd>
+                    {% endif %}
                 {% endif %}
                 {% for error in field.errors %}
                     {{ error }}
