@@ -66,6 +66,8 @@ def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo,
             interview_stage = application.interview_stage
             contact_received = application.contact_received
             salary = application.salary
+            # delete_url = 
+            view_more_url = "/applications/{}".format(application_id)
 
             top_5_applications[id_count] = {
                 "ID#": id_count,
@@ -78,7 +80,7 @@ def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo,
                 "contact_received": contact_received.capitalize(),
                 "salary": salary,
                 "platform": platform,
-                "View More": application_id
+                "View More": view_more_url
             }
         
             cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage)

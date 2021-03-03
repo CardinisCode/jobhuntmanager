@@ -107,7 +107,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
     # I'll set the default value for "fields" key to be None, as there are currently no values to display.
     interview_details = {
         "message": "No interviews added yet for this application.", 
-        "headings": ["ID#", "Date", "Time", "Interview Type", "Status", "Location", "View More"], 
+        "headings": ["ID#", "Date", "Time", "Interview Type", "Status", "Location", "View More", "Delete"], 
         "app_id": application_id, 
         "empty_fields" : True,
     }
@@ -121,7 +121,8 @@ def display_application_details(session, user_id, applicationsRepo, application_
         for interview in all_interviews_for_app_id:
             interview_id = str(interview[0])
             status = interview[9]
-            view_more_url = "/applications/{application_id}"
+            view_more_url = "/applications/{}/interview/{}".format(application_id, interview_id)
+            delete_url = '/applications/{}/interview/{}/delete_interview'.format(application_id, interview_id)
             location = interview[5]
             interview_fields[interview_id] = {
                 "ID#": interview_id, 
@@ -131,6 +132,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
                 "Status": status,
                 "Location": location,
                 "View More": view_more_url,
+                "Delete": delete_url,
             }
 
             cleanup_interview_fields(interview_fields, interview_id)

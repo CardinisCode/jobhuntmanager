@@ -42,7 +42,7 @@
                     <tr class="border-bottom border-right border-left">
                         {% for heading, field in fields.items() %}
                             {% if heading == "View More" %}
-                                <td class="border-bottom border-right border-left"><a href="../applications/{{ field }}"> View</a></td>
+                                <td class="border-bottom border-right border-left"><a href={{ field }}> View</a></td>
                             {% else %}
                                 <td class="border-bottom border-right border-left"> {{ field }}</td>
                             {% endif %}

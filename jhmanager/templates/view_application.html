@@ -10,7 +10,7 @@
 
     <div> 
         <a href="../applications/{{ details.app_id }}/update_application"> Update</a>
-        <a href="../applications/{{ details.app_id }}/delete"> Delete</a>
+        <a href="../applications/{{ details.app_id }}/delete"> <i class="fas fa-trash"></i></a>
     </div>
 
     <table>
@@ -77,9 +77,13 @@
                     <tr class="border-bottom border-right border-left border-top"> 
                         {% for label, value in rows.items() %}
                             {% if label == "View More" %}
-                            <td class="border-bottom border-right border-left border-top"> <a href="../applications/{{ interview_details.app_id }}/interview/{{interview_id}}"> View</a> </td>
+                            <td class="border-bottom border-right border-left border-top"> <a href={{ value }}> View</a> </td>
                             {% else %}
-                            <td class="border-bottom border-right border-left border-top"> {{ value }} </td>
+                                {% if label == "Delete" %}
+                                    <td class="border-bottom border-right border-left border-top"> <a href={{ value }}> <i class="fas fa-trash"></i></a> </td>
+                                {% else %}
+                                    <td class="border-bottom border-right border-left border-top"> {{ value }} </td>
+                                {% endif %}
                             {% endif %}
                         {% endfor %}
                     </tr>
