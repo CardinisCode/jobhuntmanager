@@ -223,7 +223,7 @@ def add_job_application():
 @app.route('/applications/<int:application_id>/delete', methods=["GET"])
 @login_required
 def delete_specific_application(application_id):
-    return delete_application(application_id, applicationsRepo)
+    return delete_application(application_id, applicationsRepo, interviewsRepo, interviewPrepRepo, userNotesRepo)
 
 
 """ Update a Specific application """

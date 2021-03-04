@@ -23,6 +23,10 @@ flask run
 fontawesome-free==0.1.5
 ```
 
+# Important things to highlight: 
+-   Deletes are hard deletes, for the purpose of this pilot product. So if the user selects to delete something, it will permanently delete the information.
+
+
 
 # Using a form to create a button 
 
