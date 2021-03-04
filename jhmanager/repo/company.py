@@ -1,4 +1,6 @@
 from jhmanager.repo.database import SqlDatabase
+import sqlite3
+
 
 
 class Company:
@@ -86,3 +88,30 @@ class CompanyRepository:
 
         self.db.commit()
 
+    def deleteByCompanyID(self, company_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM company WHERE company_id = {}".format(company_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Company deleted successfully."
+
+        except sqlite3.Error as error:
+            message = "Company failed to delete. " + error
+        finally:
+            return message
+
+    def deleteByUserID(self, user_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM company WHERE user_id = {}".format(user_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Company deleted successfully."
+
+        except sqlite3.Error as error:
+            message = "Company failed to delete. " + error
+        finally:
+            return message

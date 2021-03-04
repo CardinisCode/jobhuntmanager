@@ -1,4 +1,5 @@
 from jhmanager.repo.database import SqlDatabase
+import sqlite3
 
 
 class InterviewPreparation:
@@ -41,5 +42,33 @@ class InterviewPreparationRepository:
 
         return interview_prep_entries_list
 
+    def deleteByInterviewID(self, interview_prep_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM interview_preparation WHERE interview_prep_id = {}".format(interview_prep_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Interview Preparation entry deleted successfully."
 
+        except sqlite3.Error as error:
+            message = "Interview Preparation entry failed to delete. " + error
+        finally:
+            return message
+
+    def deleteByUserID(self, user_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM interview_preparation WHERE user_id = {}".format(user_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Interview Preparation entries deleted successfully."
+
+        except sqlite3.Error as error:
+            message = "Interview Preparation entries failed to delete. " + error
+        finally:
+            return message
+
+    
     

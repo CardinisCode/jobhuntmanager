@@ -120,7 +120,7 @@ class UserNotesRepository:
 
         return note_details  
 
-    def deleteByID(self, notes_id):
+    def deleteByNoteID(self, notes_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -132,7 +132,36 @@ class UserNotesRepository:
         except sqlite3.Error as error:
             message = "Note failed to delete. " + error
         finally:
-            return message          
+            return message 
+
+    def deleteByApplicationID(self, application_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM user_notes WHERE application_id = {}".format(application_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Note successfully deleted."
+
+        except sqlite3.Error as error:
+            message = "Note failed to delete. " + error
+        finally:
+            return message  
+
+
+    def deleteByUserID(self, user_id): 
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM user_notes WHERE user_id = {}".format(user_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Note successfully deleted."
+
+        except sqlite3.Error as error:
+            message = "Note failed to delete. " + error
+        finally:
+            return message                          
 
     def updateByID(self, fields):
         message = ""

@@ -93,12 +93,45 @@ class InterviewsHistoryRepository:
 
         self.db.commit()
 
-    def deleteInterviewByID(self, interview_id):
+    def deleteByInterviewID(self, interview_id):
+        message = ""
         try: 
             cursor = self.db.cursor()
             command = "DELETE FROM interviews WHERE interview_id = {}".format(interview_id)
             cursor.execute(command)
             self.db.commit()
+            message = "Interview deleted successfully."
 
         except sqlite3.Error as error:
-            flash("Interview failed to delete.", error)
+            message = "Interview failed to delete. " + error
+        finally: 
+            return message
+
+    def deleteByApplicationID(self, application_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM interviews WHERE application_id = {}".format(application_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Interviews deleted successfully."
+
+        except sqlite3.Error as error:
+            message = "Interviews failed to delete. " + error
+        finally: 
+            return message
+
+    def deleteByUserID(self, user_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM interviews WHERE user_id = {}".format(user_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Interviews deleted successfully."
+
+        except sqlite3.Error as error:
+            message = "Interviews failed to delete. " + error
+        finally: 
+            return message
+

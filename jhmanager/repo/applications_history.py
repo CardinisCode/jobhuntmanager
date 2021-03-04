@@ -124,15 +124,33 @@ class ApplicationsHistoryRepository:
 
 
     def deleteEntryByApplicationID(self, application_id):
+        message = ""
         try: 
             cursor = self.db.cursor()
             command = "DELETE FROM job_applications WHERE application_id = {}".format(application_id)
             cursor.execute(command)
             self.db.commit()
-            print("Application successfully deleted")
+            message = "Application successfully deleted"
 
         except sqlite3.Error as error:
-            print("Application failed to delete.", error)
+            message = "Application failed to delete. " + error
+        finally:
+            return message 
+
+    def deleteByUserID(self, user_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM job_applications WHERE user_id = {}".format(user_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Application successfully deleted"
+
+        except sqlite3.Error as error:
+            message = "Application failed to delete. " + error
+        finally:
+            return message 
+
 
 
     # def grabApplicationByID(self, application_id):
