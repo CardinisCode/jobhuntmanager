@@ -4,13 +4,12 @@ import sqlite3
 
 class InterviewPreparation:
     def __init__(self, db_fields):
-        self.prep_id = db_fields[0]
-        self.interview_prep_id = db_fields[1]
-        self.user_id = db_fields[2]
-        self.application_id = db_fields[3]
-        self.interview_id = db_fields[4]
-        self.question = db_fields[5]
-        self.answer = db_fields[6]
+        self.interview_prep_id = db_fields[0]
+        self.user_id = db_fields[1]
+        self.application_id = db_fields[2]
+        self.interview_id = db_fields[3]
+        self.question = db_fields[4]
+        self.answer = db_fields[5]
 
 
 class InterviewPreparationRepository:
@@ -38,9 +37,9 @@ class InterviewPreparationRepository:
 
         interview_prep_entries_list = []
         for interview_prep in result: 
+            
             interview_prep_result = InterviewPreparation(interview_prep)
             interview_prep_entries_list.append(interview_prep_result)
-
 
         return interview_prep_entries_list
 
@@ -71,7 +70,6 @@ class InterviewPreparationRepository:
             message = "Interview Preparation entries failed to delete. " + error
         finally:
             return message
-
 
     def deleteByUserID(self, user_id):
         message = ""
