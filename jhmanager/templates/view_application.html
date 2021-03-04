@@ -77,13 +77,13 @@
                     <tr class="border-bottom border-right border-left border-top"> 
                         {% for label, value in rows.items() %}
                             {% if label == "View More" %}
-                            <td class="border-bottom border-right border-left border-top"> <a href={{ value }}> <i class="fas fa-eye"></i></a> </td>
+                                <td class="border-bottom border-right border-left border-top"> <a href={{ value }}> <i class="fas fa-eye"></i></a> </td>
+                            {% elif label == "Prepare" %}
+                                <td class="border-bottom border-right border-left border-top"> <a href={{ value }}> <i class="fas fa-pencil-alt"></i></a> </td>
+                            {% elif label == "Delete" %}
+                                <td class="border-bottom border-right border-left border-top"> <a href={{ value }}> <i class="fas fa-trash"></i></a> </td>
                             {% else %}
-                                {% if label == "Delete" %}
-                                    <td class="border-bottom border-right border-left border-top"> <a href={{ value }}> <i class="fas fa-trash"></i></a> </td>
-                                {% else %}
-                                    <td class="border-bottom border-right border-left border-top"> {{ value }} </td>
-                                {% endif %}
+                                <td class="border-bottom border-right border-left border-top"> {{ value }} </td>
                             {% endif %}
                         {% endfor %}
                     </tr>
