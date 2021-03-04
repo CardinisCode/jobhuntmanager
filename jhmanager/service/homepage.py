@@ -6,6 +6,32 @@ def for_andis_eyes_only():
     return {}
 
 
+def past_dated_interview(interview_date, interview_time):
+    past_dated = False 
+
+    return past_dated
+
+
+def cleanup_interview_details(interview_details, other_medium, company_name, interview_id):
+    medium = interview_details[company_name][interview_id]["interview_medium"]
+    interviewers = interview_details[company_name][interview_id]["interviewers"]
+
+    # Lets cleaned up the display of 'Medium':
+    if medium == "google_chat":
+        interview_details[company_name][interview_id]["interview_medium"] = "Google Chat"
+    elif medium == "meet_jit_si":
+        interview_details[company_name][interview_id]["interview_medium"] = "Meet.Jit.Si"
+    elif medium == "other":
+        interview_details[company_name][interview_id]["interview_medium"] = other_medium
+    else: 
+        interview_details[company_name][interview_id]["interview_medium"] = medium.capitalize()
+
+    if interviewers == "Unknown at present":
+        interview_details[company_name][interview_id]["interviewers"] = None
+
+    return "Done"
+
+
 def extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo): 
     if not all_interviews: 
         interview_details = None
@@ -17,19 +43,22 @@ def extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo
             company_id = applicationsRepo.grabApplicationByID(application_id).company_id
             company_name = companyRepo.getCompanyById(company_id).name
             view_more_url = '/applications/{}/interview/{}'.format(application_id, interview_id)
-
+            other_medium = interview.other_medium
+            
             interview_details[company_name] = {} 
             interview_details[company_name][interview_id] = {
                 "Date": interview.interview_date, 
                 "Time": interview.interview_time,
                 "Location": interview.location,
                 "View_More": view_more_url, 
+                "status": interview.status,
                 "interview_type": interview.interview_type,
                 "interview_medium": interview.medium, 
-                "contact_number": interview.contact_number
+                "contact_number": interview.contact_number,
+                "interviewers": interview.interviewer_names,
+                "past_dated": False 
             }
-            # status = interview.status
-            # if status == 'upcoming'
+            cleanup_interview_details(interview_details, other_medium, company_name, interview_id)
 
 
     return interview_details
@@ -128,7 +157,8 @@ def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, 
     # Firstly: applications
     applications_today = applicationsRepo.grabTodaysApplicationCount(date_str, user_id)
     interviews_today = interviewsRepo.grabTodaysInterviewCount(date_str, user_id)
-    all_interviews = interviewsRepo.grabAllInterviewsForUserID(user_id)
+    # all_interviews = interviewsRepo.grabAllInterviewsForUserID(user_id)
+    all_interviews = interviewsRepo.grabUpcomingInterviewsByUserID(user_id)
     interview_details = extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo)
     username = userRepo.getUsernameByUserID(user_id)
 

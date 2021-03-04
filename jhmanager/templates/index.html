@@ -76,25 +76,31 @@
                 <div> 
                     <i class="fas fa-calendar-alt"></i> {{ fields.Date }} @ {{ fields.Time }}
                 </div> 
+
                 <div> 
                     {% if fields.interview_type == 'in_person' %}
-                        <i class="fas fa-location-arrow"></i> Where: {{ fields.Location }}
+                        <i class="fas fa-location-arrow"></i> {{ fields.Location }}
                     {% elif fields.interview_type == 'video_or_online' %}
-                        Medium: {{ fields.interview_medium }}
+                        <i class="fas fa-video"></i> {{ fields.interview_medium }}
                     {% else %}
-                        Contact Number: {{ fields.contact_number }}
+                        <i class="fas fa-mobile-alt"></i> {{ fields.contact_number }}
                     {% endif %}
                 </div> 
+                {% if fields.interviewers %}
+                    <div> 
+                        <i class="fas fa-users"> Interviewers: </i> {{ fields.interviewers }}
+                    </div>
+                {% endif %}
                 <div> 
                     <a href={{ fields.View_More }}><i class="fas fa-eye"> View More</i></a>
                 </div>
+
+                
                 <br/>
             {% endfor %}
         {% endfor %}
     {% endif %}
     <hr/>
-
-    <p> Not seeing all your interviews? You may need to update past interviews to 'Done'. </p>
 
 
 {% endblock %}

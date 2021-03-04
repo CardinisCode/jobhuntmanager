@@ -70,6 +70,23 @@ class InterviewsHistoryRepository:
 
         return interviews_list
 
+    def grabUpcomingInterviewsByUserID(self, user_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM interviews WHERE user_id={} and status = 'upcoming' ORDER BY date DESC, time DESC".format(user_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        interviews_list = [] 
+
+        for interview in result:
+            interview_result = Interview(interview)
+            interviews_list.append(interview_result)
+
+        if interviews_list == []:
+            return None
+
+        return interviews_list
+
     
     def grabAllInterviewsForUserID(self, user_id):
         cursor = self.db.cursor()
