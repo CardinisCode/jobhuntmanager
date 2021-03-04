@@ -9,12 +9,29 @@ def for_andis_eyes_only():
 def past_dated_interview(interview_date, interview_time):
     past_dated = False 
 
+    current_date = datetime.now().date()
+    current_time = datetime.now().time()
+
+    if interview_date < current_date: 
+        past_dated = True
+    
+    elif interview_date == current_date and interview_time < current_time: 
+        past_dated = True
+
     return past_dated
 
 
 def cleanup_interview_details(interview_details, other_medium, company_name, interview_id):
     medium = interview_details[company_name][interview_id]["interview_medium"]
     interviewers = interview_details[company_name][interview_id]["interviewers"]
+    interview_date = interview_details[company_name][interview_id]["Date"]
+    interview_time = interview_details[company_name][interview_id]["Time"]
+    past_dated = past_dated_interview(interview_date, interview_time)
+
+    if past_dated:
+        interview_details[company_name][interview_id]["past_dated"] = past_dated
+
+
 
     # Lets cleaned up the display of 'Medium':
     if medium == "google_chat":

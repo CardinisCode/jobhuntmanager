@@ -120,7 +120,16 @@ class InterviewsHistoryRepository:
         result = cursor.execute(command)
         self.db.commit()
 
+        interviews_list = [] 
 
+        for interview in result:
+            interview_result = Interview(interview)
+            interviews_list.append(interview_result)
+
+        if interviews_list == []:
+            return None
+
+        return interviews_list
 
 
     def updateInterview(self, fields):

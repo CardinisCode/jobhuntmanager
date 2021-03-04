@@ -91,6 +91,11 @@
                         <i class="fas fa-users"> Interviewers: </i> {{ fields.interviewers }}
                     </div>
                 {% endif %}
+                {% if fields.past_dated %}
+                <div> 
+                    This is a <strong> past-dated</strong> interview! You may want to <a href={{ fields.update_url }}>update</a> the status. 
+                </div>
+                {% endif %}
                 <div> 
                     <a href={{ fields.View_More }}><i class="fas fa-eye"> View More</i></a>
                     <a href={{ fields.update_url }}><i class="fas fa-pencil-alt"> Update Details</i></a>
