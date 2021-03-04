@@ -7,6 +7,7 @@ def post_add_interview_preparation(user_id, application_id, interview_id, interv
 
     form_details = {
         "user_id": user_id,
+        "application_id": application_id,
         "interview_id": interview_id,
         "question_data": question_data, 
         "answer_data": answer_data,
