@@ -62,8 +62,11 @@ class ApplicationsHistoryRepository:
         return result
 
     def grabTop5ApplicationsByUserID(self, user_id):
-        result = self.sql.getByID('job_applications', 'user_id', user_id)
-        # result = self.sql.getByField('applications', 'user_id', user_id)
+        cursor = self.db.cursor()
+        command = "SELECT * FROM job_applications WHERE user_id = {} LIMIT 5".format(user_id)
+        result = cursor.execute(command)
+        self.db.commit()
+        
         applications_list = []
 
         if not result: 
