@@ -219,7 +219,7 @@ def add_job_application():
     return render_template('add_job_application.html', add_application_form=add_application_form)
 
 
-""" Delete a specific interview """
+""" Delete a specific application """
 @app.route('/applications/<int:application_id>/delete', methods=["GET"])
 @login_required
 def delete_specific_application(application_id):
@@ -293,7 +293,7 @@ def update_specific_interview(application_id, interview_id):
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/delete_interview')
 @login_required
 def delete_specific_interview(application_id, interview_id):
-    return delete_interview(application_id, interview_id, interviewsRepo)
+    return delete_interview(application_id, interview_id, interviewsRepo, interviewPrepRepo)
 
 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation', methods=["GET", "POST"])
