@@ -5,9 +5,9 @@ import sqlite3
 class InterviewPreparation:
     def __init__(self, db_fields):
         self.interview_prep_id = db_fields[0]
-        self.user_id = db_fields[1]
+        self.interview_id = db_fields[1]
         self.application_id = db_fields[2]
-        self.interview_id = db_fields[3]
+        self.user_id = db_fields[3]
         self.question = db_fields[4]
         self.answer = db_fields[5]
 

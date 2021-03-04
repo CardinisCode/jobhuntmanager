@@ -8,15 +8,16 @@ class Interview:
     def __init__(self, db_fields):
         self.interview_id = db_fields[0]
         self.application_id = db_fields[1]
-        self.interview_date = date.fromisoformat(db_fields[2])
-        self.interview_time = time.fromisoformat(db_fields[3])
-        self.interview_type = db_fields[4]
-        self.location = db_fields[5]
-        self.medium = db_fields[6]
-        self.other_medium = db_fields[7]
-        self.contact_number = db_fields[8]
-        self.status = db_fields[9]
-        self.interviewer_names = db_fields[10]
+        self.user_id = db_fields[2]
+        self.interview_date = date.fromisoformat(db_fields[3])
+        self.interview_time = time.fromisoformat(db_fields[4])
+        self.interview_type = db_fields[5]
+        self.location = db_fields[6]
+        self.medium = db_fields[7]
+        self.other_medium = db_fields[8]
+        self.contact_number = db_fields[9]
+        self.status = db_fields[10]
+        self.interviewer_names = db_fields[11]
 
 
 class InterviewsHistoryRepository:
@@ -51,18 +52,41 @@ class InterviewsHistoryRepository:
 
         return result
 
-    
-    def grabAllInterviewsForApplicationID(self, application_id):
+
+    def grabAllInterviewsByApplicationID(self, application_id):
         cursor = self.db.cursor()
         command = "SELECT * FROM interviews WHERE application_id={} ORDER BY date DESC, time DESC".format(application_id)
         result = cursor.execute(command)
         self.db.commit()
 
-        data = [x for x in result]
-        if len(data) < 1:
+        interviews_list = [] 
+
+        for interview in result:
+            interview_result = Interview(interview)
+            interviews_list.append(interview_result)
+
+        if interviews_list == []:
             return None
 
-        return data
+        return interviews_list
+
+    
+    def grabAllInterviewsForUserID(self, user_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM interviews WHERE user_id={} ORDER BY date DESC, time DESC".format(user_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        interviews_list = [] 
+
+        for interview in result:
+            interview_result = Interview(interview)
+            interviews_list.append(interview_result)
+
+        if interviews_list == []:
+            return None
+
+        return interviews_list
 
 
     def grabInterviewByID(self, interview_ID):
@@ -71,6 +95,15 @@ class InterviewsHistoryRepository:
         interview_result = Interview(result)
 
         return interview_result
+
+    
+    def grabInterviewsByApplicationID(self, application_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM interviews where application_id = {} ORDER BY date DESC, time DESC".format(application_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+
 
 
     def updateInterview(self, fields):

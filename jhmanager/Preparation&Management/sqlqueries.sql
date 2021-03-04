@@ -447,24 +447,44 @@ COMMIT;
 # Since there is no data in this table yet, its simpler to drop & recreate the table:
 ```
 BEGIN TRANSACTION;
-DROP TABLE interview_history;
-CREATE TABLE IF NOT EXISTS interview_history(
-    "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
-    "company_name" TEXT NOT NULL DEFAULT "N/A", 
-    "date" DATETIME NOT NULL, 
-    "time" DATETIME NOT NULL,
-    "job_role" TEXT NOT NULL DEFAULT "N/A", 
-    "interviewer_names" TEXT NOT NULL DEFAULT "N/A", 
-    "user_id" INTEGER,
-    "interview_type" TEXT NOT NULL, 
-    "interview_location" TEXT NOT NULL DEFAULT "Remote",
-    "interview_medium" TEXT NOT NULL,
-    "other_medium" TEXT NOT NULL DEFAULT "N/A",
-    "contact_number" TEXT NOT NULL DEFAULT "N/A"
+CREATE TABLE IF NOT EXISTS interviews(
+    'interview_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    'application_id' INTEGER NOT NULL,
+    'user_id' INTEGER NOT NULL, 
+    'date' DATETIME NOT NULL, 
+    'time' DATETIME NOT NULL,
+    'interview_type' TEXT NOT NULL,
+    'interview_location' TEXT NOT NULL DEFAULT "Remote",
+    'interview_medium' TEXT,
+    'other_medium' TEXT DEFAULT "N/A",
+    'contact_number' TEXT DEFAULT "N/A",
+    'status' TEXT NOT NULL DEFAULT "upcoming",
+    'interviewer_names' TEXT DEFAULT "Unknown at present",
+    FOREIGN KEY (application_id) REFERENCES applications (application_id), 
+    FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
-CREATE UNIQUE INDEX 'interview_id' ON "interview_history" ("id");
 COMMIT;
 ```
+
+
+```
+BEGIN TRANSACTION;
+DROP TABLE interview_preparation;
+CREATE TABLE IF NOT EXISTS interview_preparation(
+    'interview_prep_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    'interview_id' INTEGER NOT NULL, 
+    'application_id' INTEGER NOT NULL,
+    'user_id' INTEGER NOT NULL,
+    'specific_question' TEXT DEFAULT "General Question",
+    'specific_answer' BLOB DEFAULT "N/A", 
+    FOREIGN KEY (interview_id) REFERENCES interviews (interview_id),
+    FOREIGN KEY (application_id) REFERENCES job_applications (application_id),
+    FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
+COMMIT;
+
+```
+
 
 # Updating a SQL query to order by Date and then by time:
 ``` 

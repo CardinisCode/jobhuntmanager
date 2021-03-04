@@ -101,7 +101,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
     }
 
     # Now I want to display all the interviews for this application_id:
-    all_interviews_for_app_id = interviewsRepo.grabAllInterviewsForApplicationID(application_id)
+    all_interviews_for_app_id = interviewsRepo.grabAllInterviewsByApplicationID(application_id)
 
     # Lets build the interview dict to be displayed to the user.
     # I'll set the default value for "fields" key to be None, as there are currently no values to display.
@@ -119,17 +119,17 @@ def display_application_details(session, user_id, applicationsRepo, application_
     if all_interviews_for_app_id != None:
         interview_details["empty_fields"] = False 
         for interview in all_interviews_for_app_id:
-            interview_id = str(interview[0])
-            status = interview[9]
+            interview_id = interview.interview_id
+            status = interview.status
             view_more_url = "/applications/{}/interview/{}".format(application_id, interview_id)
             delete_url = '/applications/{}/interview/{}/delete_interview'.format(application_id, interview_id)
             prepare_url = '/applications/{}/interview/{}/interview_preparation'.format(application_id, interview_id)
-            location = interview[5]
+            location = interview.location
             interview_fields[interview_id] = {
                 "ID#": interview_id, 
-                "Date": interview[2], 
-                "Time": interview[3],
-                "Interview Type": interview[4], 
+                "Date": interview.interview_date, 
+                "Time": interview.interview_time,
+                "Interview Type": interview.interview_type, 
                 "Status": status,
                 "Location": location,
                 "View More": view_more_url,

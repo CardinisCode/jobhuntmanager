@@ -6,6 +6,35 @@ def for_andis_eyes_only():
     return {}
 
 
+def extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo): 
+    if not all_interviews: 
+        interview_details = None
+    else: 
+        interview_details = {}
+        for interview in all_interviews:
+            interview_id = interview.interview_id
+            application_id = interview.application_id
+            company_id = applicationsRepo.grabApplicationByID(application_id).company_id
+            company_name = companyRepo.getCompanyById(company_id).name
+            view_more_url = '/applications/{}/interview/{}'.format(application_id, interview_id)
+
+            interview_details[company_name] = {} 
+            interview_details[company_name][interview_id] = {
+                "Date": interview.interview_date, 
+                "Time": interview.interview_time,
+                "Location": interview.location,
+                "View_More": view_more_url, 
+                "interview_type": interview.interview_type,
+                "interview_medium": interview.medium, 
+                "contact_number": interview.contact_number
+            }
+            # status = interview.status
+            # if status == 'upcoming'
+
+
+    return interview_details
+
+
 def cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage):
     emp_type = top_5_applications[id_count]["emp_type"]
     salary = top_5_applications[id_count]["salary"]
@@ -99,6 +128,8 @@ def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, 
     # Firstly: applications
     applications_today = applicationsRepo.grabTodaysApplicationCount(date_str, user_id)
     interviews_today = interviewsRepo.grabTodaysInterviewCount(date_str, user_id)
+    all_interviews = interviewsRepo.grabAllInterviewsForUserID(user_id)
+    interview_details = extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo)
     username = userRepo.getUsernameByUserID(user_id)
 
     # Sadly SQLite doesn't have the functionality to return COUNT(*) from SQLite to Python
@@ -123,6 +154,7 @@ def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, 
         "message": message,
         "top_5_applications": top_5_applications_dict,
         "username": username,
+        "interview_details": interview_details
     }
 
     return render_template("index.html", display=display)
