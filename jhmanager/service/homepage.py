@@ -43,6 +43,7 @@ def extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo
             company_id = applicationsRepo.grabApplicationByID(application_id).company_id
             company_name = companyRepo.getCompanyById(company_id).name
             view_more_url = '/applications/{}/interview/{}'.format(application_id, interview_id)
+            update_url = '/applications/{}/interview/{}/update_interview'.format(application_id, interview_id)
             other_medium = interview.other_medium
             
             interview_details[company_name] = {} 
@@ -56,7 +57,8 @@ def extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo
                 "interview_medium": interview.medium, 
                 "contact_number": interview.contact_number,
                 "interviewers": interview.interviewer_names,
-                "past_dated": False 
+                "past_dated": False, 
+                "update_url": update_url
             }
             cleanup_interview_details(interview_details, other_medium, company_name, interview_id)
 
