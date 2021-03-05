@@ -424,7 +424,6 @@ def change_user_password(user_id):
     return display_change_password_form_details(user_id, change_password_form, userRepo)
 
 
-
 @app.route("/calendar")
 @login_required
 def display_caledar():
