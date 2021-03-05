@@ -57,6 +57,7 @@ from jhmanager.service.post_update_note_form import post_update_user_note
 from jhmanager.service.display_email_form import display_update_email_form
 from jhmanager.service.post_update_email import post_update_email_address
 from jhmanager.service.display_change_password_form import display_change_password_form_details
+from jhmanager.service.post_change_password import post_change_password
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -415,6 +416,11 @@ def update_email_address(user_id):
 def change_user_password(user_id):
     user_id = session["user_id"]
     change_password_form = ChangePasswordForm()
+
+    if request.method == "POST":
+        if change_password_form.validate_on_submit():
+            flash("Successfully reached POST stage.")
+            return post_change_password(user_id, change_password_form, userRepo)
 
     return display_change_password_form_details(user_id, change_password_form, userRepo)
 
