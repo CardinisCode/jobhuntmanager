@@ -3,8 +3,9 @@ from datetime import datetime, date
 
 
 def create_userprofile_content(session, userRepo, user_id):
-    username = userRepo.getUsernameByUserID(user_id)
-    email_address = userRepo.getEmailAddressByUserID(user_id)
+    user_details = userRepo.getByUserID(user_id)
+    username = user_details.username
+    email_address = user_details.email
 
     user_details = {
         "username": {
