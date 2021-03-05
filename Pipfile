@@ -13,6 +13,8 @@ passlib = "*"
 flask-wtf = "*"
 wtforms-components = "*"
 pytest = "*"
+flask-mail = "*"
+flask-security = "*"
 
 [dev-packages]
 

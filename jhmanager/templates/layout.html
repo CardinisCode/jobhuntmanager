@@ -60,9 +60,18 @@
                 {% block main %}{% endblock %}
             </main>
             
-            <footer class="small text-center text-muted">
-                {% block footer %}Random Footer info...{% endblock %}
+            {% block footer %}
+                <hr/>
+                <div>
+                    <a class="nav-link text-center" href="/contact_us"> Contact Us</a></li>
+                </div> 
+                <p class="footer small text-center"> Random Footer info...</p>
+            
+            <footer class="footer small text-center">
+                <small class="footer small text-center">&copy; 2021, Job Hunt Manager</small>
             </footer>
+            {% endblock %}
+
 
         </div>
 

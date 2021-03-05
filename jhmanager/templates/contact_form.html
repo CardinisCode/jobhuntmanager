@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Contact Form
+{% endblock %}
+
+{% block main %}
+    <h1> Contact Form </h1>
+    <br/>
+
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-danger border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    
+    <form action='contact_us' method="POST"> 
+        {{ contact_form.csrf_token }}
+        {% for field in contact_form if field.name != "csrf_token" %}
+        <p>
+            {% if field.name == "submit" %}
+                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd>
+            {% elif field.name == "full_name" %}
+                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
+                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> <i class="fas fa-user-secret"></i> {{ field }} </dd>
+            {% elif field.name == "email" %}
+                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
+                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> <i class="fas fa-at"></i> {{ field }} </dd>
+            {% elif field.name == "subject" %}
+                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
+                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> <i class="fas fa-heading"></i> {{ field }} </dd>
+            {% elif field.name == "message" %}
+                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
+                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> <i class="fas fa-keyboard"></i> {{ field }} </dd>
+            {% endif %}
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            </p>
+        {% endfor %}
+
+    </form>
+
+{% endblock %}

@@ -6,8 +6,8 @@ from flask import Flask, flash, jsonify, redirect, render_template, request, ses
 from flask_session import Session
 from flask_bootstrap import Bootstrap
 from flask_datepicker import datepicker
-# from flask.ext.login import LoginManager
 from flask_fontawesome import FontAwesome
+from flask_mail import Mail, Message
 
 from datetime import datetime, date
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
@@ -69,11 +69,23 @@ from jhmanager.forms.add_notes_form import AddNotesForm
 from jhmanager.forms.update_user_details import UpdateEmailAddressForm
 from jhmanager.forms.update_user_details import UpdateUserNameForm
 from jhmanager.forms.update_user_details import ChangePasswordForm
+from jhmanager.forms.contact_form import ContactMeForm
 
 
 # Configure application
 app = Flask(__name__, instance_relative_config=True)
+mail = Mail()
 fa = FontAwesome(app)
+
+# Setting up the mail config:
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+app.config["MAIL_PORT"] = 465
+app.config["MAIL_USE_SSL"] = True
+app.config["MAIL_USERNAME"] = 'jobhuntmanager.contactus@gmail.com'
+app.config["MAIL_PASSWORD"] = 'Its been agatha all along2!'
+
+mail.init_app(app)
+
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -149,6 +161,13 @@ def index():
     """ Home page for user """
     user_id = session["user_id"]
     return create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo)
+
+
+@app.route("/contact_us")
+def contact_to_email(): 
+    contact_form = ContactMeForm()
+    return render_template("contact_form.html", contact_form=contact_form)
+
 
 """
 CRUD? 
@@ -418,6 +437,9 @@ def change_user_password(user_id):
     change_password_form = ChangePasswordForm()
 
     if request.method == "POST":
+        if change_password_form.validate_on_submit() == False:
+            flash("All fields are required.")
+            return display_change_password_form_details(user_id, change_password_form, userRepo)
         if change_password_form.validate_on_submit():
             return post_change_password(user_id, change_password_form, userRepo)
 
