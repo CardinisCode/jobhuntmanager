@@ -69,7 +69,7 @@
     </div>
     <br/>
 
-    {% if display.all_interviews != None %}
+    {% if display.all_interviews != None and display.interview_details != None %}
         {% for company_name, interviews in display.interview_details.items() %}
             {% for interview_id, fields in interviews.items() %}
                 <h4> {{ company_name }} </h4>

@@ -18,7 +18,7 @@ def verify_login_details(login_form, userRepo):
 
     if not match: 
         flash("Incorrect Username or Password")
-        return render_template("login.html")
+        return render_template("login.html", login_form=login_form)
 
     session["user_id"] = user_exists[0]
 

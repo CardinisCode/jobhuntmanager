@@ -78,6 +78,17 @@ class UserRepository:
         self.db.commit()
 
 
+    def updateHash(self, fields):
+        cursor = self.db.cursor()
+        command = """ 
+        UPDATE users 
+        SET hash = ?
+        WHERE user_id = ?
+        """
+        cursor.execute(command, tuple(fields.values()))
+        self.db.commit()        
+
+
     def deleteByUserID(self, user_id):
         message = ""
         try: 

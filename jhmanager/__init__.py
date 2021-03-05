@@ -419,7 +419,6 @@ def change_user_password(user_id):
 
     if request.method == "POST":
         if change_password_form.validate_on_submit():
-            flash("Successfully reached POST stage.")
             return post_change_password(user_id, change_password_form, userRepo)
 
     return display_change_password_form_details(user_id, change_password_form, userRepo)
