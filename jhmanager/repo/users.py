@@ -66,6 +66,18 @@ class UserRepository:
 
         return result.fetchone()[0]
 
+
+    def updateEmail(self, fields): 
+        cursor = self.db.cursor()
+        command = """ 
+        UPDATE users 
+        SET email = ?
+        WHERE user_id = ?
+        """
+        cursor.execute(command, tuple(fields.values()))
+        self.db.commit()
+
+
     def deleteByUserID(self, user_id):
         message = ""
         try: 
