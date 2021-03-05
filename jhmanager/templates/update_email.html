@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Update Email
+{% endblock %}
+
+{% block main %}
+    <h1> Update Email </h1>
+    <br/>
+    <form action={{ details.update_url}} method="POST"> 
+        {{ update_email_form.csrf_token }}
+        {% for field in update_email_form if field.name != "csrf_token" %}
+            <p> 
+                {% if field.name == "update_email" %}
+                    {{ field }} 
+                {% else %}
+                    <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
+                    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd>
+                {% endif %}
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            </p>
+        {% endfor %}
+
+    </form>
+
+
+{% endblock %}

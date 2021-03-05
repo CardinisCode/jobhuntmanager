@@ -14,8 +14,9 @@ def create_userprofile_content(session, userRepo, user_id):
         },
         "user_email": {
             "heading": "Email Address", 
-            "data": email_address
-        }            
+            "data": email_address, 
+            "update_url": '/userprofile/{}/update_email'.format(user_id)
+        }, 
     }
     
     return render_template("userprofile.html", user_details=user_details)

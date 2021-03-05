@@ -27,8 +27,8 @@ class UserRepository:
 
         return result.lastrowid
 
-    def getById(self, user_id):
-        return self.db.execute("SELECT * FROM users WHERE id = :user_id", user_id=user_id)
+    # def getById(self, user_id):
+    #     return self.db.execute("SELECT * FROM users WHERE id = :user_id", user_id=user_id)
 
     
     def getByUserID(self, user_id): 
@@ -40,6 +40,7 @@ class UserRepository:
 
         return user_result
 
+    
     def getByUserName(self, username):
         cursor = self.db.cursor()
         result = cursor.execute("SELECT * FROM users WHERE username=?", (username,))
@@ -79,3 +80,4 @@ class UserRepository:
         finally: 
             return message
 
+    

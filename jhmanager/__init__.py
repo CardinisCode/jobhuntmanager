@@ -54,6 +54,7 @@ from jhmanager.service.display_note_details import display_user_note_details
 from jhmanager.service.delete_note import delete_note_for_application
 from jhmanager.service.display_update_note_form import display_update_user_note_form
 from jhmanager.service.post_update_note_form import post_update_user_note
+from jhmanager.service.display_email_form import display_update_email_form
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -62,6 +63,9 @@ from jhmanager.forms.login_form import LoginForm
 from jhmanager.forms.add_interview_prep_form import AddInterviewPrepForm
 from jhmanager.forms.update_company_form import UpdateCompany
 from jhmanager.forms.add_notes_form import AddNotesForm
+from jhmanager.forms.update_user_details import UpdateEmailAddressForm
+from jhmanager.forms.update_user_details import UpdateUserNameForm
+from jhmanager.forms.update_user_details import ChangePasswordForm
 
 
 # Configure application
@@ -387,6 +391,14 @@ def display_user_profile():
     """ Display User Profile """
     user_id = session["user_id"]
     return create_userprofile_content(session, userRepo, user_id)
+
+
+@app.route('/userprofile/<int:user_id>/update_email')
+@login_required
+def update_email_address(user_id):
+    user_id = session["user_id"]
+    return display_update_email_form(user_id, userRepo)
+
 
 @app.route("/calendar")
 @login_required
