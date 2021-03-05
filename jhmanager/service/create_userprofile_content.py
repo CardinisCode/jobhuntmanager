@@ -7,6 +7,10 @@ def create_userprofile_content(session, userRepo, user_id):
     username = user_details.username
     email_address = user_details.email
 
+    details = {
+        "change_password_url": '/userprofile/{}/change_password'.format(user_id)
+    }
+
     user_details = {
         "username": {
             "heading": "UserName", 
@@ -19,4 +23,4 @@ def create_userprofile_content(session, userRepo, user_id):
         }, 
     }
     
-    return render_template("userprofile.html", user_details=user_details)
+    return render_template("userprofile.html", user_details=user_details, details=details)
