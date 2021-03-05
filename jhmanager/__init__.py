@@ -55,6 +55,7 @@ from jhmanager.service.delete_note import delete_note_for_application
 from jhmanager.service.display_update_note_form import display_update_user_note_form
 from jhmanager.service.post_update_note_form import post_update_user_note
 from jhmanager.service.display_email_form import display_update_email_form
+from jhmanager.service.post_update_email import post_update_email_address
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -393,11 +394,19 @@ def display_user_profile():
     return create_userprofile_content(session, userRepo, user_id)
 
 
-@app.route('/userprofile/<int:user_id>/update_email')
+@app.route('/userprofile/<int:user_id>/update_email', methods=["GET", "POST"])
 @login_required
 def update_email_address(user_id):
     user_id = session["user_id"]
-    return display_update_email_form(user_id, userRepo)
+    user_details = userRepo.getByUserID(user_id)
+    update_email_form = UpdateEmailAddressForm(obj=user_details)
+
+    if request.method == "POST":
+        if update_email_form.validate_on_submit():
+            return post_update_email_address(update_email_form, userRepo, user_id)
+
+    # GET:
+    return display_update_email_form(user_id, userRepo, update_email_form)
 
 
 @app.route("/calendar")
