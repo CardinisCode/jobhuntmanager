@@ -5,26 +5,33 @@
 {% endblock %}
 
 {% block main %}
-<h1> Login</h1>
-<hr/>
-<form action="/login" method="POST"> 
-    {{ login_form.csrf_token }}
+    <h1> Login</h1>
+    <hr/>
 
-    <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-user"></i> {{ login_form.username.label }}</dt>
-    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ login_form.username }} </dd>
-    <br/>
-    <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-lock"></i> {{ login_form.password.label }}</dt>
-    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ login_form.password }} </dd>
-    <br/>
-    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ login_form.login_button }} </dd>
-
-    {% for field in login_form if field.name != "csrf_token" %}
-        {% for error in field.errors %}
-            {{ error }}
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-danger border text-center">{{ message }}</div>
         {% endfor %}
-    {% endfor %}
+    {% endif %}
 
-</form>
+    <form action="/login" method="POST"> 
+        {{ login_form.csrf_token }}
+
+        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-user"></i> {{ login_form.username.label }}</dt>
+        <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ login_form.username }} </dd>
+        <br/>
+        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-lock"></i> {{ login_form.password.label }}</dt>
+        <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ login_form.password }} </dd>
+        <br/>
+        <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ login_form.login_button }} </dd>
+
+        {% for field in login_form if field.name != "csrf_token" %}
+            {% for error in field.errors %}
+                {{ error }}
+            {% endfor %}
+        {% endfor %}
+
+    </form>
 
 
 {% endblock %}

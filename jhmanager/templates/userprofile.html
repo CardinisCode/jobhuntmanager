@@ -5,26 +5,32 @@
 {% endblock %}
 
 {% block main %}
-<h1> Your User Profile:</h1>
-<hr/>
+    <h1> Your User Profile:</h1>
+    <hr/>
 
-<table class="center"> 
-    <tr>
-        <th class="border-right border-left border-top border-bottom"> {{ user_details.username.heading }} </th> 
-        <td class="border-right border-left border-top border-bottom"> {{ user_details.username.data }}</td>
-    </tr>
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-success border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <table class="center"> 
+        <tr>
+            <th class="border-right border-left border-top border-bottom"> {{ user_details.username.heading }} </th> 
+            <td class="border-right border-left border-top border-bottom"> {{ user_details.username.data }}</td>
+        </tr>
+        <br/>
+        <tr>
+            <th class="border-right border-left border-top border-bottom"> {{ user_details.user_email.heading }} </th> 
+            <td class="border-right border-left border-top border-bottom"> {{ user_details.user_email.data }}</td>
+            <td class="border-left"> <a href={{ user_details.user_email.update_url }}> <i class="fas fa-pencil-alt"> Update</i></a></td>
+        </tr>
+        <br/>
+
+    </table> 
     <br/>
-    <tr>
-        <th class="border-right border-left border-top border-bottom"> {{ user_details.user_email.heading }} </th> 
-        <td class="border-right border-left border-top border-bottom"> {{ user_details.user_email.data }}</td>
-        <td class="border-left"> <a href={{ user_details.user_email.update_url }}> <i class="fas fa-pencil-alt"> Update</i></a></td>
-    </tr>
-    <br/>
 
-</table> 
-<br/>
-
-<a href={{ details.change_password_url }}> <i class="fas fa-lock"> Change Password</i></a>
+    <a href={{ details.change_password_url }}> <i class="fas fa-lock"> Change Password</i></a>
 
 
 

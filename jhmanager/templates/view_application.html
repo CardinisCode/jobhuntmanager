@@ -8,6 +8,12 @@
     <h1> Applications Details </h1>
     <hr/>
 
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-success border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
     <div> 
         <a href="../applications/{{ details.app_id }}/update_application"> <i class="fas fa-pencil-alt"> Update</i></a>
         <a href="../applications/{{ details.app_id }}/delete"> <i class="fas fa-trash"> Delete</i></a>

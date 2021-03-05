@@ -55,11 +55,6 @@
 
 
         <div class="main_container">
-            {% if get_flashed_messages() %}
-                {% for message in get_flashed_messages() %}
-                    <div class="flash alert alert-primary border text-center">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
 
             <main class="main container p-5">
                 {% block main %}{% endblock %}

@@ -8,6 +8,12 @@
 <h1> Interview History</h1>
 <hr/>
 
+{% if get_flashed_messages() %}
+    {% for message in get_flashed_messages() %}
+        <div class="flash alert alert-success border text-center">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
 <a href="/add_interview" style="cursor:pointer; text-align: right;"> <i class="fas fa-plus"> Interview </i></a>
 <table class="center"> 
     <tr class="border-bottom border-right border-left border-top">

@@ -8,6 +8,12 @@
     <h1> Add Interview For {{ fields.company_name }} </h1>
     <br/>
 
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-danger border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    
     <form action='/applications/{{ fields.application_id }}/add_interview' method="POST"> 
         {{ add_interview_form.csrf_token }}
 

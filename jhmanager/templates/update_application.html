@@ -10,6 +10,13 @@
     <p> Note: This form will be a little long. Complete the items relevant to you. </p>
     <p> If you don't complete a field, however, it will be saved automatically as 'N/A'</p>
     <br/>
+
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-danger border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
     <form action='/applications/{{ fields.application_id }}/update_application' method="POST"> 
         {{ update_form.csrf_token }}
         {% for field in update_form if field.name != "csrf_token" %}

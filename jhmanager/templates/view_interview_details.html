@@ -5,40 +5,46 @@
 {% endblock %}
 
 {% block main %}
-<h1> {{ details.company_name}} </h1>
-<hr/>
+    <h1> {{ details.company_name}} </h1>
+    <hr/>
 
-<h2> View Interview Details</h2> 
-<div> 
-    <a href={{ details.update_url }}> <i class="fas fa-pencil-alt"> Update</i></a>
-    <a href={{ details.delete_url }}> <i class="fas fa-trash"> Delete</i></a>
-    
-</div>
-<table> 
-    {% for heading, value in details.interview_fields.items() %}
-        <tr> 
-            <th> {{ heading }} </th>
-            <td> {{ value }}</td>
-        </tr>
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-success border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
 
-    {% endfor %}
-</table>
-<br/>
-
-<h2> Company Details:</h2>
-<p> <a href="/applications/{{ details.app_id }}/update_company"> <i class="fas fa-pencil-alt"> Update</i></a></p>
-<table> 
-    {% for heading, value in details.company_details.items() %}
-        {% if heading != "Name" %}
+    <h2> View Interview Details</h2> 
+    <div> 
+        <a href={{ details.update_url }}> <i class="fas fa-pencil-alt"> Update</i></a>
+        <a href={{ details.delete_url }}> <i class="fas fa-trash"> Delete</i></a>
+        
+    </div>
+    <table> 
+        {% for heading, value in details.interview_fields.items() %}
             <tr> 
                 <th> {{ heading }} </th>
                 <td> {{ value }}</td>
             </tr>
-        {% endif %}
-    {% endfor %}
-</table>
 
-<br/>
-    <p> <a href="/applications/{{ details.app_id }}/interview/{{ details.interview_id }}/interview_preparation">Prepare </a> for this interview.</p>
+        {% endfor %}
+    </table>
+    <br/>
+
+    <h2> Company Details:</h2>
+    <p> <a href="/applications/{{ details.app_id }}/update_company"> <i class="fas fa-pencil-alt"> Update</i></a></p>
+    <table> 
+        {% for heading, value in details.company_details.items() %}
+            {% if heading != "Name" %}
+                <tr> 
+                    <th> {{ heading }} </th>
+                    <td> {{ value }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+
+    <br/>
+        <p> <a href="/applications/{{ details.app_id }}/interview/{{ details.interview_id }}/interview_preparation">Prepare </a> for this interview.</p>
 
 {% endblock %}

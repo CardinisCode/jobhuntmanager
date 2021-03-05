@@ -5,37 +5,44 @@
 {% endblock %}
 
 {% block main %}
-<h1>  Your Notes for {{ general_details.company_name }}: </h1>
-<hr/>
-{% if general_details.empty_table %}
-    <p> <a href={{ general_details.add_note_url}}> <i class="fas fa-plus"> Add </i></a> your first note. </p>
-{% else %}
-    <a href={{ general_details.add_note_url}}> <i class="fas fa-plus"> Add </i></a>
-    <table>
-        <tr class="border-bottom border-right border-left border-top">
-            <th class="border-bottom border-right border-left border-top"> #</th>
-            <th class="border-bottom border-right border-left border-top"> Date</th>
-            <th class="border-bottom border-right border-left border-top"> Subject</th>
-            <th class="border-bottom border-right border-left border-top"> Notes</th>
-            <th class="border-bottom border-right border-left border-top"> View More</th>
-            <th class="border-bottom border-right border-left border-top"> Delete</th>
+    <h1>  Your Notes for {{ general_details.company_name }}: </h1>
+    <hr/>
 
-        </tr>
-        {% for entry_id, note_fields in user_notes_details.items() %}
-            <tr class="border-bottom border-right border-left border-top">
-                <td class="border-bottom border-right border-left border-top"> {{ entry_id }}</td>
-                <td class="border-bottom border-right border-left border-top"> {{ note_fields.entry_date }}</td>
-                <td class="border-bottom border-right border-left border-top"> {{ note_fields.subject }}</td>
-                <td class="border-bottom border-right border-left border-top"> {{ note_fields.note_text }}</td>
-                <td class="border-bottom border-right border-left border-top">
-                    <a href={{ note_fields.view_note_url }}> <i class="fas fa-eye"></i></a>
-                </td>
-                <td class="border-bottom border-right border-left border-top">
-                    <a href={{ note_fields.delete_url }}> <i class="fas fa-trash"></i></a>
-                </td>
-            </tr>
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-success border text-center">{{ message }}</div>
         {% endfor %}
-    </table>
-{% endif %}
+    {% endif %}
+
+    {% if general_details.empty_table %}
+        <p> <a href={{ general_details.add_note_url}}> <i class="fas fa-plus"> Add </i></a> your first note. </p>
+    {% else %}
+        <a href={{ general_details.add_note_url}}> <i class="fas fa-plus"> Add </i></a>
+        <table>
+            <tr class="border-bottom border-right border-left border-top">
+                <th class="border-bottom border-right border-left border-top"> #</th>
+                <th class="border-bottom border-right border-left border-top"> Date</th>
+                <th class="border-bottom border-right border-left border-top"> Subject</th>
+                <th class="border-bottom border-right border-left border-top"> Notes</th>
+                <th class="border-bottom border-right border-left border-top"> View More</th>
+                <th class="border-bottom border-right border-left border-top"> Delete</th>
+
+            </tr>
+            {% for entry_id, note_fields in user_notes_details.items() %}
+                <tr class="border-bottom border-right border-left border-top">
+                    <td class="border-bottom border-right border-left border-top"> {{ entry_id }}</td>
+                    <td class="border-bottom border-right border-left border-top"> {{ note_fields.entry_date }}</td>
+                    <td class="border-bottom border-right border-left border-top"> {{ note_fields.subject }}</td>
+                    <td class="border-bottom border-right border-left border-top"> {{ note_fields.note_text }}</td>
+                    <td class="border-bottom border-right border-left border-top">
+                        <a href={{ note_fields.view_note_url }}> <i class="fas fa-eye"></i></a>
+                    </td>
+                    <td class="border-bottom border-right border-left border-top">
+                        <a href={{ note_fields.delete_url }}> <i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 
 {% endblock %}

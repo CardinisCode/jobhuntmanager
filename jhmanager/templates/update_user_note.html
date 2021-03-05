@@ -10,6 +10,13 @@
 
     <h1> Update Note: </h1>
     <br/>
+
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-danger border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
     <form action='/applications/{{ details.application_id }}/user_notes/{{ details.note_id }}/update_note' method="POST"> 
         {{ update_note_form.csrf_token }}
         {% for field in update_note_form if field.name != "csrf_token" %}

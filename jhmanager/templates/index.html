@@ -6,8 +6,13 @@
 
 {% block main %}
     <h1> Welcome {{ display.username}}! </h1>
-    <br/>
-    <br/>
+    <hr/>
+
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-success border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
 
     <h2> Your Applications: </h2>
     <br/>

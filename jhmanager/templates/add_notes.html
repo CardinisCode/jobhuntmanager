@@ -7,7 +7,12 @@
 {% block main %}
     <h1> Add Notes For {{ details.company_name }} </h1>
     <br/>
-
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-danger border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    
     <form action='/applications/{{ details.application_id }}/add_notes' method="POST"> 
         {{ notes_form.csrf_token }}
         <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-heading"></i> {{ notes_form.description.label }}</dt>

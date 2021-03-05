@@ -7,6 +7,13 @@
 {% block main %}
     <h1>  View All User Notes </h1>
     <hr/>
+
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-success border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
     {% if general_details.empty_table %}
         <p> {{ general_details.message }}</a></p>
     {% else %}

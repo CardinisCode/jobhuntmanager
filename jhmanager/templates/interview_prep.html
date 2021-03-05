@@ -26,6 +26,12 @@
         </br> 
         <p> Example Question: Tell me about yourself?</p>
     
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-success border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
     <form action="/applications/{{ details.application_id }}/interview/{{ details.interview_id }}/interview_preparation" method="POST">
         {{ interview_prep_form.csrf_token }}
         {% for field in interview_prep_form if field.name != "csrf_token" %}
