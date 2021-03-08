@@ -25,7 +25,6 @@ from jhmanager.repo.interview_prep_history import InterviewPreparationRepository
 from jhmanager.repo.user_notes import UserNotesRepository
 
 from jhmanager.service.post_registration import post_register_user
-from jhmanager.service.homepage import create_homepage_content
 from jhmanager.service.post_add_application import post_add_application
 from jhmanager.service.display_applications import display_all_applications_current_user
 from jhmanager.service.add_interview import grabDetailsFromNewInterviewAndAddToRepo
@@ -114,7 +113,7 @@ userNotesRepo = UserNotesRepository(db)
 
 @app.route("/")
 def index():
-    """ Home page that everyone sees """
+    """ Landing page that everyone sees """
     return render_template("index.html")
 
 
@@ -149,14 +148,13 @@ def logout():
     session.clear()
 
     # Redirect user to login form
-    return redirect("/login")
+    return redirect("/")
 
 @app.route("/dashboard")
 @login_required
 def display_dashboard():
     user_id = session["user_id"]
     return create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo)
-
 
 
 @app.route("/about_us")
