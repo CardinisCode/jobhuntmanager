@@ -29,10 +29,10 @@ from jhmanager.service.post_registration import post_register_user
 from jhmanager.service.applications.add_application import display_add_application_form
 from jhmanager.service.applications.add_application import post_add_application
 from jhmanager.service.applications.delete_an_application import delete_application
+from jhmanager.service.applications.update_application import display_update_application_form
+from jhmanager.service.applications.update_application import post_update_application
 
-from jhmanager.service.applications.display_update_app_form import display_update_application_form
 from jhmanager.service.applications.display_application_details import display_application_details
-from jhmanager.service.applications.post_update_application import update_application_details_from_form
 from jhmanager.service.applications.display_applications import display_all_applications_current_user
 
 from jhmanager.service.interviews.add_interview import display_add_interview
@@ -264,12 +264,14 @@ def update_specific_application(application_id):
     company_id = application_details.company_id
 
     # Now to instantiate the AddApplicationForm using the details for this application:
+    date_str = '%Y-%m-%d'
+    application_details.date_posted = datetime.strptime(application_details.date_posted, date_str)
     update_form = AddApplicationForm(obj=application_details)
 
     # POST
     if request.method == "POST":
         if update_form.validate_on_submit():
-            return update_application_details_from_form(session, user_id, update_form, application_id, company_id, applicationsRepo, companyRepo)
+            return post_update_application(session, user_id, update_form, application_id, company_id, applicationsRepo, companyRepo)
 
     if request.method == "GET":
         return display_update_application_form(session, user_id, application_id, update_form, company)
