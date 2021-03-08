@@ -202,6 +202,10 @@ GET /application/{application_id}/interview/{interview_id}
         -> gets a specific interview
 """
 
+
+
+
+
 @app.route("/applications")
 @login_required
 def display_applications():
@@ -436,6 +440,14 @@ def change_user_password(user_id):
             return post_change_password(user_id, change_password_form, userRepo)
 
     return display_change_password_form_details(user_id, change_password_form, userRepo)
+
+
+@app.route('/userprofile/<int:user_id>/delete_account')
+@login_required
+def delete_user_account(user_id):
+
+    if request.method == "GET":
+        return render_template("delete_account.html")
 
 
 @app.route("/calendar")
