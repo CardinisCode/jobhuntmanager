@@ -8,4 +8,10 @@
     <h1> Welcome to Job Hunt Manager! </h1>
     <hr/>
 
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-success border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
 {% endblock %}

@@ -55,8 +55,8 @@ from jhmanager.service.display_update_note_form import display_update_user_note_
 from jhmanager.service.post_update_note_form import post_update_user_note
 from jhmanager.service.display_email_form import display_update_email_form
 from jhmanager.service.post_update_email import post_update_email_address
-from jhmanager.service.display_change_password_form import display_change_password_form_details
-from jhmanager.service.post_change_password import post_change_password
+from jhmanager.service.change_password import display_change_password_form_details
+from jhmanager.service.change_password import post_change_password
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 from jhmanager.service.delete_user_account import post_submit_delete_form
 from jhmanager.service.delete_user_account import display_delete_user_form
@@ -123,11 +123,13 @@ def index():
 @app.route("/register", methods=["GET", "POST"])
 def register_user():
     register_form = RegisterUserForm()
-    if register_form.validate_on_submit():
-        return post_register_user(session, userRepo, register_form)
+    if request.method == "POST":
+        if register_form.validate_on_submit():
+            return post_register_user(session, userRepo, register_form)
 
     """Provide registration form to user"""
-    return render_template("register.html", register_form=register_form)
+    if request.method == "GET":
+        return render_template("register.html", register_form=register_form)
 
 
 # Taken from CS50's Finance source code & modified
@@ -136,11 +138,13 @@ def register_user():
 def test_login():
     """Log user in"""
     login_form = LoginForm()
-    if login_form.validate_on_submit():
-        return verify_login_details(login_form, userRepo)
+    if request.method == "POST":
+        if login_form.validate_on_submit():
+            return verify_login_details(login_form, userRepo)
 
     """ Display Login form to the user """
-    return render_template("login.html", login_form=login_form)
+    if request.method == "GET":
+        return render_template("login.html", login_form=login_form)
 
 @app.route("/logout")
 @login_required
@@ -206,9 +210,6 @@ GET /application/{application_id}/interview/{interview_id}
 """
 
 
-
-
-
 @app.route("/applications")
 @login_required
 def display_applications():
@@ -217,17 +218,12 @@ def display_applications():
     return display_all_applications_current_user(session, user_id, applicationsRepo, companyRepo)
 
 """ View a specific application """
-@app.route('/applications/<int:application_id>', methods=["GET", "DELETE"])
+@app.route('/applications/<int:application_id>')
 @login_required
 def show_application(application_id):
     # Show the details for a specific application:
     user_id = session["user_id"]
-    if request.method == "GET":
-        return display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo)
-
-    # elif request.method == "DELETE":
-    #     """ Delete a specific application """ 
-    #     return delete_application(application_id)
+    return display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo)
 
 """ Add a new application """
 @app.route("/add_job_application", methods=["GET", "POST"])
@@ -237,11 +233,13 @@ def add_job_application():
     user_id = session["user_id"]
 
     """ Validate the details provided by user & if it passes, display details to user """
-    if add_application_form.validate_on_submit():
-        return post_add_application(session, user_id, applicationsRepo, companyRepo, add_application_form)
+    if request.method == "POST":
+        if add_application_form.validate_on_submit():
+            return post_add_application(session, user_id, applicationsRepo, companyRepo, add_application_form)
 
     """ Display Test Add Application form to user """
-    return render_template('add_job_application.html', add_application_form=add_application_form)
+    if request.method == "GET":
+        return render_template('add_job_application.html', add_application_form=add_application_form)
 
 
 """ Delete a specific application """
@@ -270,8 +268,8 @@ def update_specific_application(application_id):
         if update_form.validate_on_submit():
             return update_application_details_from_form(session, user_id, update_form, application_id, company_id, applicationsRepo, companyRepo)
 
-    # GET:
-    return display_update_application_form(session, user_id, application_id, update_form, company)
+    if request.method == "GET":
+        return display_update_application_form(session, user_id, application_id, update_form, company)
 
 
 @app.route('/applications/<int:application_id>/add_interview', methods=["GET", "POST"])
@@ -286,7 +284,8 @@ def add_interview(application_id):
             return post_add_interview(session, user_id, add_interview_form, interviewsRepo, applicationsRepo, application_id, companyRepo)
 
     """ Display add_interview Form to user """
-    return display_add_interview(add_interview_form, application_id, applicationsRepo, companyRepo)
+    if request.method == "GET":
+        return display_add_interview(add_interview_form, application_id, applicationsRepo, companyRepo)
 
 
 
@@ -310,9 +309,8 @@ def update_specific_interview(application_id, interview_id):
         if update_interview_form.validate_on_submit():
             return post_update_interview(update_interview_form, user_id, application_id, interview_id, interviewsRepo)
 
-    # GET:
-    return display_update_interview_form(update_interview_form, application_id, interview_id, applicationsRepo, companyRepo)
-    # return render_template("update_interview.html")
+    if request.method == "GET":
+        return display_update_interview_form(update_interview_form, application_id, interview_id, applicationsRepo, companyRepo)
 
 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/delete_interview')
@@ -331,8 +329,8 @@ def interview_preparation(application_id, interview_id):
         if interview_prep_form.validate_on_submit():
             return post_add_interview_preparation(user_id, application_id, interview_id, interview_prep_form, applicationsRepo, interviewPrepRepo)
 
-    # Get:
-    return display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo)
+    if request.method == "GET":
+        return display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo)
 
 
 @app.route('/applications/<int:application_id>/update_company', methods=["GET", "POST"])
@@ -347,8 +345,8 @@ def update_company_details(application_id):
         if update_form.validate_on_submit():
             return post_update_company(update_form, user_id, company_obj, applicationsRepo, companyRepo, application_details)
 
-    # GET 
-    return display_update_company_details_form(update_form, company_obj, application_details)
+    if request.method == "GET":
+        return display_update_company_details_form(update_form, company_obj, application_details)
 
 
 @app.route('/applications/<int:application_id>/add_notes', methods=["GET", "POST"])
@@ -361,9 +359,8 @@ def add_user_notes(application_id):
         if notes_form.validate_on_submit():
             return post_add_notes(notes_form, application_id, user_id, userNotesRepo, applicationsRepo)
 
-    # GET:
-    return display_user_notes_form(notes_form, application_id, companyRepo, applicationsRepo)
-    # return render_template("add_notes.html", notes_form=notes_form)    
+    if request.method == "GET":
+        return display_user_notes_form(notes_form, application_id, companyRepo, applicationsRepo)
 
 @app.route('/applications/<int:application_id>/view_notes')
 @login_required
@@ -389,8 +386,8 @@ def update_user_note(application_id, note_id):
         if update_note_form.validate_on_submit():
             return post_update_user_note(update_note_form, userNotesRepo, note_id, application_id)
 
-    # GET:
-    return display_update_user_note_form(application_id, user_id, note_id, update_note_form, companyRepo, userNotesRepo)
+    if request.method == "GET":
+        return display_update_user_note_form(application_id, user_id, note_id, update_note_form, companyRepo, userNotesRepo)
 
 
 @app.route('/applications/<int:application_id>/user_notes/<int:note_id>/delete_note')
@@ -425,8 +422,8 @@ def update_email_address(user_id):
         if update_email_form.validate_on_submit():
             return post_update_email_address(update_email_form, userRepo, user_id)
 
-    # GET:
-    return display_update_email_form(user_id, userRepo, update_email_form)
+    if request.method == "GET":
+        return display_update_email_form(user_id, userRepo, update_email_form)
 
 
 @app.route('/userprofile/<int:user_id>/change_password', methods=["GET", "POST"])
@@ -442,7 +439,8 @@ def change_user_password(user_id):
         if change_password_form.validate_on_submit():
             return post_change_password(user_id, change_password_form, userRepo)
 
-    return display_change_password_form_details(user_id, change_password_form, userRepo)
+    if request.method == "GET":
+        return display_change_password_form_details(user_id, change_password_form, userRepo)
 
 
 @app.route('/userprofile/<int:user_id>/delete_account', methods=["GET", "POST"])
@@ -455,7 +453,7 @@ def delete_user_account(user_id):
         
     if request.method == "POST":
         if delete_account_form.validate_on_submit():
-            return post_submit_delete_form(delete_account_form, user_id)
+            return post_submit_delete_form(delete_account_form, user_id, userRepo)
         else:
             flash("Failed to delete the account.")
             return display_delete_user_form(user_id, delete_account_form)
