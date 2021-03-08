@@ -58,6 +58,7 @@ from jhmanager.service.display_email_form import display_update_email_form
 from jhmanager.service.post_update_email import post_update_email_address
 from jhmanager.service.display_change_password_form import display_change_password_form_details
 from jhmanager.service.post_change_password import post_change_password
+from jhmanager.service.display_dashboard_content import create_dashboard_content
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -69,7 +70,6 @@ from jhmanager.forms.add_notes_form import AddNotesForm
 from jhmanager.forms.update_user_details import UpdateEmailAddressForm
 from jhmanager.forms.update_user_details import UpdateUserNameForm
 from jhmanager.forms.update_user_details import ChangePasswordForm
-from jhmanager.forms.contact_form import ContactMeForm
 
 
 # Configure application
@@ -112,6 +112,12 @@ personalPrepRepo = PreparationRepository(db)
 userNotesRepo = UserNotesRepository(db)
 
 
+@app.route("/")
+def index():
+    """ Home page that everyone sees """
+    return render_template("index.html")
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register_user():
     register_form = RegisterUserForm()
@@ -145,13 +151,12 @@ def logout():
     # Redirect user to login form
     return redirect("/login")
 
-
-@app.route("/")
+@app.route("/dashboard")
 @login_required
-def index():
-    """ Home page for user """
+def display_dashboard():
     user_id = session["user_id"]
-    return create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo)
+    return create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo)
+
 
 
 @app.route("/about_us")

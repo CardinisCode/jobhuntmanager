@@ -23,5 +23,5 @@ def verify_login_details(login_form, userRepo):
     session["user_id"] = user_exists[0]
 
     flash("Successful login")
-    return redirect("/")
+    return redirect("/dashboard")
 

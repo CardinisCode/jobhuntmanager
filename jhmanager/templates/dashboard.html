@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block main %}
+    <h1> Welcome {{ display.username}}! </h1>
+    <hr/>
+
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-success border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <h2> Your Applications: </h2>
+    <br/>
+
+    <div class="horizontal">
+        {% if display.applications_today == 0 %}
+            <li> You have not submitted any applications today.</li>
+        {% else %}
+            <li class="left_button"> Applications made today: {{ display.applications_today }}</li>
+        {% endif %}
+    </div>
+    <br/>
+    
+    <!-- Drop down to view table-->
+    <div class="horizontal_buttons">
+        <a href="/add_job_application" class="button right_button" style="cursor:pointer;"> <i class="fas fa-plus"> Job Application </i></a>
+        <a href="/applications" class="button middle_button"><i class="fas fa-eye"> View all Applications</i> </a>
+    </div>
+
+    {% if display.top_5_applications.fields == None %}
+        <p> No Applications to display.</p>
+    {% else %}
+        <table class="Table"> 
+            <tr class="border-bottom border-right border-left border-top">
+                {% for item in display.top_5_applications.headings %}
+                    <th class="border-bottom border-right border-left"> {{ item }} </th> 
+                {% endfor %}
+            </tr>
+
+            {% for key, fields in display.top_5_applications.items() %}
+                {% if key != "headings" %}
+                    <tr class="border-bottom border-right border-left">
+                        {% for heading, field in fields.items() %}
+                            {% if heading == "View More" %}
+                                <td class="border-bottom border-right border-left"><a href={{ field }}> <i class="fas fa-eye"></i></a></td>
+                            {% else %}
+                                <td class="border-bottom border-right border-left"> {{ field }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    
+    {% endif %}
+    <br/>
+
+    <br/>
+
+    <h2> Upcoming Interviews</h2>
+    <br/>
+
+    <div class="horizontal">
+        {% if display.interviews_today == 0 %}
+            <li class="left_button"> You have no Interviews lined up today.</li>
+        {% else %}
+            <li class="left_button"> Interviews lined up for today: {{ display.interviews_today }}</li>
+        {% endif %}
+    </div>
+    <br/>
+
+    {% if display.all_interviews != None and display.interview_details != None %}
+        {% for company_name, interviews in display.interview_details.items() %}
+            {% for interview_id, fields in interviews.items() %}
+                <h4> {{ company_name }} </h4>
+                <div> 
+                    <i class="fas fa-calendar-alt"></i> {{ fields.Date }} @ {{ fields.Time }}
+                </div> 
+
+                <div> 
+                    {% if fields.interview_type == 'in_person' %}
+                        <i class="fas fa-location-arrow"></i> {{ fields.Location }}
+                    {% elif fields.interview_type == 'video_or_online' %}
+                        <i class="fas fa-video"></i> {{ fields.interview_medium }}
+                    {% else %}
+                        <i class="fas fa-mobile-alt"></i> {{ fields.contact_number }}
+                    {% endif %}
+                </div> 
+                {% if fields.interviewers %}
+                    <div> 
+                        <i class="fas fa-users"> Interviewers: </i> {{ fields.interviewers }}
+                    </div>
+                {% endif %}
+                {% if fields.past_dated %}
+                <div> 
+                    This is a <strong> past-dated</strong> interview! You may want to <a href={{ fields.update_url }}>update</a> the status. 
+                </div>
+                {% endif %}
+                <div> 
+                    <a href={{ fields.View_More }}><i class="fas fa-eye"> View More</i></a>
+                    <a href={{ fields.update_url }}><i class="fas fa-pencil-alt"> Update Details</i></a>
+                </div>
+                
+                <br/>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+    <hr/>
+
+
+{% endblock %}

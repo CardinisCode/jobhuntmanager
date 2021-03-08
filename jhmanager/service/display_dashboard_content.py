@@ -2,10 +2,6 @@ from flask import Flask, render_template, session, flash
 from datetime import datetime, date
 
 
-def for_andis_eyes_only():
-    return {}
-
-
 def past_dated_interview(interview_date, interview_time):
     past_dated = False 
 
@@ -166,7 +162,7 @@ def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo,
     return top_5_applications
 
 
-def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo):
+def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo):
     #1: Let's grab today's date as this will help us when we're grabbing interviews & applications for the current date:
     current_date = date.today()
     date_format = "%Y-%m-%d"
@@ -206,4 +202,4 @@ def create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, 
         "interview_details": interview_details
     }
 
-    return render_template("index.html", display=display)
+    return render_template("dashboard.html", display=display)
