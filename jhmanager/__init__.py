@@ -58,6 +58,7 @@ from jhmanager.service.display_email_form import display_update_email_form
 from jhmanager.service.post_update_email import post_update_email_address
 from jhmanager.service.display_change_password_form import display_change_password_form_details
 from jhmanager.service.post_change_password import post_change_password
+from jhmanager.service.post_contact_form import post_contact_submitted
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -76,16 +77,6 @@ from jhmanager.forms.contact_form import ContactMeForm
 app = Flask(__name__, instance_relative_config=True)
 mail = Mail()
 fa = FontAwesome(app)
-
-# Setting up the mail config:
-app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = 465
-app.config["MAIL_USE_SSL"] = True
-app.config["MAIL_USERNAME"] = 'jobhuntmanager.contactus@gmail.com'
-app.config["MAIL_PASSWORD"] = 'Its been agatha all along2!'
-
-mail.init_app(app)
-
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -120,6 +111,7 @@ interviewsRepo = InterviewsHistoryRepository(db)
 interviewPrepRepo = InterviewPreparationRepository(db)
 personalPrepRepo = PreparationRepository(db)
 userNotesRepo = UserNotesRepository(db)
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register_user():
@@ -166,7 +158,9 @@ def index():
 @app.route("/contact_us")
 def contact_to_email(): 
     contact_form = ContactMeForm()
-    return render_template("contact_form.html", contact_form=contact_form)
+
+    if request.method == "GET":
+        return render_template("contact_form.html", contact_form=contact_form)
 
 
 """

@@ -14,7 +14,7 @@
         {% endfor %}
     {% endif %}
     
-    <form action='contact_us' method="POST"> 
+    <form action='/contact_us' method="POST"> 
         {{ contact_form.csrf_token }}
         {% for field in contact_form if field.name != "csrf_token" %}
         <p>

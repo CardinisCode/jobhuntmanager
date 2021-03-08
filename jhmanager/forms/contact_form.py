@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, validators
 from wtforms.fields.html5 import EmailField
-from flask_security.forms import email_required, valid_user_email
 import wtforms.widgets.html5
 from wtforms.validators import DataRequired, Email, InputRequired, Optional
 from datetime import datetime
@@ -19,8 +18,6 @@ class ContactMeForm(FlaskForm):
         "Email Address", 
         validators=[
             InputRequired(message="Please provide your name."), 
-            email_required, 
-            valid_user_email
         ], 
         render_kw={'placeholder': "Your email address."},        
     )
