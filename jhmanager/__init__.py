@@ -25,18 +25,21 @@ from jhmanager.repo.interview_prep_history import InterviewPreparationRepository
 from jhmanager.repo.user_notes import UserNotesRepository
 
 from jhmanager.service.post_registration import post_register_user
-from jhmanager.service.applications.post_add_application import post_add_application
+
+from jhmanager.service.applications.add_application import display_add_application_form
+from jhmanager.service.applications.add_application import post_add_application
 from jhmanager.service.applications.delete_an_application import delete_application
+
+from jhmanager.service.applications.display_update_app_form import display_update_application_form
+from jhmanager.service.applications.display_application_details import display_application_details
+from jhmanager.service.applications.post_update_application import update_application_details_from_form
 from jhmanager.service.applications.display_applications import display_all_applications_current_user
+
 from jhmanager.service.interviews.add_interview import display_add_interview
 from jhmanager.service.interviews.add_interview import post_add_interview
 from jhmanager.service.login import verify_login_details
 from jhmanager.service.create_userprofile_content import create_userprofile_content
-from jhmanager.service.applications.display_application_details import display_application_details
 from jhmanager.service.display_interview_details import display_interview_details
-
-from jhmanager.service.applications.display_update_app_form import display_update_application_form
-from jhmanager.service.applications.post_update_application import update_application_details_from_form
 from jhmanager.service.display_update_interview import display_update_interview_form
 from jhmanager.service.post_update_interview import post_update_interview
 from jhmanager.service.delete_specific_interview import delete_interview
@@ -238,7 +241,8 @@ def add_job_application():
 
     """ Display Test Add Application form to user """
     if request.method == "GET":
-        return render_template('add_job_application.html', add_application_form=add_application_form)
+        return display_add_application_form(add_application_form)
+        
 
 
 """ Delete a specific application """
