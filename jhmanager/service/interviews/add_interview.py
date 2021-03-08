@@ -1,5 +1,17 @@
-from flask import Flask, render_template, session, request, redirect, flash
+from flask import Flask, render_template, session, request, redirect
 from datetime import datetime, time
+
+
+def display_add_interview(add_interview_form, application_id, applicationsRepo, companyRepo):
+    company_id = applicationsRepo.grabApplicationByID(application_id).company_id
+    company_name = companyRepo.getCompanyById(company_id).name
+
+    details = {
+        "application_id": application_id,
+        "company_name": company_name
+    }
+
+    return render_template('add_interview.html', add_interview_form=add_interview_form, details=details)
 
 
 def InsertFieldsIntoInterviewHistory(user_id,interviewsRepo, application_id, interview_date, interview_time, interview_type, interview_location, video_medium, other_medium, contact_number, status, interviewers):
