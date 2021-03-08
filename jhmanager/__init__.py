@@ -58,7 +58,8 @@ from jhmanager.service.post_update_email import post_update_email_address
 from jhmanager.service.display_change_password_form import display_change_password_form_details
 from jhmanager.service.post_change_password import post_change_password
 from jhmanager.service.display_dashboard_content import create_dashboard_content
-from jhmanager.service.display_delete_account_form import display_details_for_delete_user_form
+from jhmanager.service.delete_user_account import post_submit_delete_form
+from jhmanager.service.delete_user_account import display_delete_user_form
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -450,15 +451,14 @@ def delete_user_account(user_id):
     delete_account_form = DeleteAccountForm()
 
     if request.method == "GET":
-        return display_details_for_delete_user_form(user_id, delete_account_form)
+        return display_delete_user_form(user_id, delete_account_form)
         
     if request.method == "POST":
         if delete_account_form.validate_on_submit():
-            flash("Your account has been deleted!")
-            return redirect("/")
+            return post_submit_delete_form(delete_account_form, user_id)
         else:
             flash("Failed to delete the account.")
-            return display_details_for_delete_user_form(user_id, delete_account_form)
+            return display_delete_user_form(user_id, delete_account_form)
 
 
 @app.route("/calendar")
