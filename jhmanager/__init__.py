@@ -58,7 +58,6 @@ from jhmanager.service.display_email_form import display_update_email_form
 from jhmanager.service.post_update_email import post_update_email_address
 from jhmanager.service.display_change_password_form import display_change_password_form_details
 from jhmanager.service.post_change_password import post_change_password
-from jhmanager.service.post_contact_form import post_contact_submitted
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -155,13 +154,9 @@ def index():
     return create_homepage_content(session, user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo)
 
 
-@app.route("/contact_us")
-def contact_to_email(): 
-    contact_form = ContactMeForm()
-
-    if request.method == "GET":
-        return render_template("contact_form.html", contact_form=contact_form)
-
+@app.route("/about_us")
+def read_about_us():
+    return render_template("about_us.html")
 
 """
 CRUD? 

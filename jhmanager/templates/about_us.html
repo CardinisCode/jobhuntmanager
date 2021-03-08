@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    About Us
+{% endblock %}
+
+{% block main %}
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-danger border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <h1 class="text-center"> About us</h1>
+    <hr/>
+    <p> Random text</p>
+
+    <br/>
+    <h2 class="text-center"> Contact Us </h2>
+    <hr/>
+    <p> If you're having any issues, please contact us at <a href="mailto:jobhuntmanager.contactus@gmail.com">jobhuntmanager.contactus@gmail.com </a></p>
+
+{% endblock %}
