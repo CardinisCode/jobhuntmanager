@@ -58,6 +58,7 @@ from jhmanager.service.post_update_email import post_update_email_address
 from jhmanager.service.display_change_password_form import display_change_password_form_details
 from jhmanager.service.post_change_password import post_change_password
 from jhmanager.service.display_dashboard_content import create_dashboard_content
+from jhmanager.service.display_delete_account_form import display_details_for_delete_user_form
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -69,6 +70,7 @@ from jhmanager.forms.add_notes_form import AddNotesForm
 from jhmanager.forms.update_user_details import UpdateEmailAddressForm
 from jhmanager.forms.update_user_details import UpdateUserNameForm
 from jhmanager.forms.update_user_details import ChangePasswordForm
+from jhmanager.forms.delete_account_form import DeleteAccountForm
 
 
 # Configure application
@@ -442,12 +444,21 @@ def change_user_password(user_id):
     return display_change_password_form_details(user_id, change_password_form, userRepo)
 
 
-@app.route('/userprofile/<int:user_id>/delete_account')
+@app.route('/userprofile/<int:user_id>/delete_account', methods=["GET", "POST"])
 @login_required
 def delete_user_account(user_id):
+    delete_account_form = DeleteAccountForm()
 
     if request.method == "GET":
-        return render_template("delete_account.html")
+        return display_details_for_delete_user_form(user_id, delete_account_form)
+        
+    if request.method == "POST":
+        if delete_account_form.validate_on_submit():
+            flash("Your account has been deleted!")
+            return redirect("/")
+        else:
+            flash("Failed to delete the account.")
+            return display_details_for_delete_user_form(user_id, delete_account_form)
 
 
 @app.route("/calendar")
