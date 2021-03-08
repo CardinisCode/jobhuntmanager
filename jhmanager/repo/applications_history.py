@@ -4,14 +4,17 @@ from flask import flash
 from datetime import datetime
 
 
+
 class Application:
+    date_str = '%Y-%m-%d'
+    
     def __init__(self, db_fields):
         self.app_id = db_fields[0]
         self.user_id = db_fields[1]
         self.company_id = db_fields[2]
         self.app_date = db_fields[3]
         self.app_time = db_fields[4]
-        self.date_posted = db_fields[5]
+        self.date_posted = datetime.strptime(db_fields[5], self.date_str)
         self.job_role = db_fields[6]
         self.platform = db_fields[7]
         self.interview_stage = db_fields[8]

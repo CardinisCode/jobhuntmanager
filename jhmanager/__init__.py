@@ -264,8 +264,6 @@ def update_specific_application(application_id):
     company_id = application_details.company_id
 
     # Now to instantiate the AddApplicationForm using the details for this application:
-    date_str = '%Y-%m-%d'
-    application_details.date_posted = datetime.strptime(application_details.date_posted, date_str)
     update_form = AddApplicationForm(obj=application_details)
 
     # POST
