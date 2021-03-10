@@ -353,7 +353,7 @@ def update_company_details(application_id):
     if request.method == "GET":
         return display_update_company_details_form(update_form, company_obj, application_details)
 
-
+# Add Note for application:
 @app.route('/applications/<int:application_id>/add_notes', methods=["GET", "POST"])
 @login_required
 def add_user_notes(application_id):
@@ -367,19 +367,20 @@ def add_user_notes(application_id):
     if request.method == "GET":
         return display_user_notes_form(notes_form, application_id, companyRepo, applicationsRepo)
 
+# View all notes for application
 @app.route('/applications/<int:application_id>/view_notes')
 @login_required
 def display_user_notes(application_id):
     user_id = session["user_id"]
     return display_all_user_notes_for_application(user_id, application_id, applicationsRepo, userNotesRepo, companyRepo)
 
-
+# View Note:
 @app.route('/applications/<int:application_id>/user_notes/<int:note_id>')
 @login_required
 def display_note_details(application_id, note_id):
     return display_user_note_details(application_id, note_id, userNotesRepo, companyRepo)
 
-
+# Update Note:
 @app.route('/applications/<int:application_id>/user_notes/<int:note_id>/update_note', methods=["GET", "POST"])
 @login_required
 def update_user_note(application_id, note_id):
@@ -394,13 +395,13 @@ def update_user_note(application_id, note_id):
     if request.method == "GET":
         return display_update_note_form(application_id, user_id, note_id, update_note_form, companyRepo, userNotesRepo)
 
-
+# Delete Note:
 @app.route('/applications/<int:application_id>/user_notes/<int:note_id>/delete_note')
 @login_required
 def delete_note(application_id, note_id):
     return delete_note_for_application(application_id, note_id, userNotesRepo)
 
-
+# View all user notes:
 @app.route('/user_notes')
 @login_required
 def display_all_notes():
