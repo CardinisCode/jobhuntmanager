@@ -1,5 +1,17 @@
 from flask import Flask, render_template, session, request, redirect, flash
 
+
+def display_update_company_details_form(update_form, company, application):
+    application_id = application.app_id
+
+    details = {
+        "company_name": company.name, 
+        "application_id": application_id
+    }
+    
+    return render_template("update_company.html", update_form=update_form, details=details)
+
+
 def post_update_company(update_form, user_id, company, applicationsRepo, companyRepo, application):
     company_id = company.company_id
     application_id = application.app_id

@@ -61,6 +61,9 @@ from jhmanager.service.notes.view_all_notes import display_all_user_notes
 from jhmanager.service.notes.view_note_details import display_user_note_details
 # from jhmanager.service.notes.view_notes_for_company import display_all_user_notes_for_company
 
+from jhmanager.service.company.update_company import display_update_company_details_form
+from jhmanager.service.company.update_company import post_update_company
+
 from jhmanager.service.display_interview_prep_forms import display_interview_preparation_form
 from jhmanager.service.post_add_interview_prep import post_add_interview_preparation
 from jhmanager.service.display_update_company_form import display_update_company_details_form
