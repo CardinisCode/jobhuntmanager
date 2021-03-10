@@ -4,6 +4,10 @@ from datetime import datetime, date
 from passlib.hash import sha256_crypt
 
 
+def display_register_form(register_form):
+    return render_template("register.html", register_form=register_form)
+
+
 def post_register_user(session, userRepo, register_form):
     # 1) Extract the data from the form:
     username = register_form.username.data

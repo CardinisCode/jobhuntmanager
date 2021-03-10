@@ -24,7 +24,8 @@ from jhmanager.repo.general_prep_history import PreparationRepository
 from jhmanager.repo.interview_prep_history import InterviewPreparationRepository
 from jhmanager.repo.user_notes import UserNotesRepository
 
-from jhmanager.service.post_registration import post_register_user
+from jhmanager.service.users.register_user import display_register_form
+from jhmanager.service.users.register_user import post_register_user
 
 from jhmanager.service.applications.add_application import display_add_application_form
 from jhmanager.service.applications.add_application import post_add_application
@@ -39,11 +40,10 @@ from jhmanager.service.interviews.add_interview import post_add_interview
 from jhmanager.service.interviews.view_interview_details import display_interview_details
 from jhmanager.service.interviews.update_interview import display_update_interview_form
 from jhmanager.service.interviews.update_interview import post_update_interview
-
+from jhmanager.service.interviews.delete_an_interview import delete_interview
 
 from jhmanager.service.login import verify_login_details
 from jhmanager.service.create_userprofile_content import create_userprofile_content
-from jhmanager.service.delete_specific_interview import delete_interview
 from jhmanager.service.display_interview_prep_forms import display_interview_preparation_form
 from jhmanager.service.post_add_interview_prep import post_add_interview_preparation
 from jhmanager.service.display_update_company_form import display_update_company_details_form
@@ -132,7 +132,7 @@ def register_user():
 
     """Provide registration form to user"""
     if request.method == "GET":
-        return render_template("register.html", register_form=register_form)
+        return display_register_form(register_form)
 
 
 # Taken from CS50's Finance source code & modified
