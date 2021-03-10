@@ -34,7 +34,7 @@ from jhmanager.service.users.change_password import post_change_password
 from jhmanager.service.users.update_email import display_update_email_form
 from jhmanager.service.users.update_email import post_update_email_address
 from jhmanager.service.users.delete_user_account import display_delete_user_form
-from jhmanager.service.users.delete_user_account import post_delete_user_form
+from jhmanager.service.users.delete_user_account import post_delete_user
 
 from jhmanager.service.applications.add_application import display_add_application_form
 from jhmanager.service.applications.add_application import post_add_application
@@ -457,7 +457,7 @@ def delete_user_account(user_id):
         
     if request.method == "POST":
         if delete_account_form.validate_on_submit():
-            return post_delete_user_form(delete_account_form, user_id, userRepo)
+            return post_delete_user(delete_account_form, user_id, userRepo)
         else:
             flash("Failed to delete the account.")
             return display_delete_user_form(user_id, delete_account_form)
