@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Address Book
+{% endblock %}
+
+{% block main %}
+    <h1> Your User Profile:</h1>
+    <hr/>
+
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-success border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+
+    
+
+
+
+{% endblock %}

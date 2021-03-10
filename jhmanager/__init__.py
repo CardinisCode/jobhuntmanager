@@ -65,6 +65,7 @@ from jhmanager.service.notes.view_note_details import display_user_note_details
 
 from jhmanager.service.company.update_company import display_update_company_details_form
 from jhmanager.service.company.update_company import post_update_company
+from jhmanager.service.company.view_all_companies import display_all_companies_for_user
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
@@ -337,6 +338,15 @@ def interview_preparation(application_id, interview_id):
 
     if request.method == "GET":
         return display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo)
+
+
+@app.route('/address_book')
+@login_required
+def display_address_book():
+    """ Display all business contacts to the user """
+    user_id = session["user_id"]
+    return display_all_companies_for_user(user_id, companyRepo, applicationsRepo)
+
 
 
 @app.route('/applications/<int:application_id>/update_company', methods=["GET", "POST"])
