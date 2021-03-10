@@ -11,7 +11,7 @@ def display_delete_user_form(user_id, delete_account_form):
 
 
 
-def post_submit_delete_form(delete_account_form, user_id, userRepo): 
+def post_delete_user_form(delete_account_form, user_id, userRepo): 
     password = delete_account_form.password.data
 
     # Lets verify the password is correct:
