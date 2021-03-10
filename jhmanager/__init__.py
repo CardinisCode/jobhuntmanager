@@ -37,13 +37,12 @@ from jhmanager.service.applications.view_all_applications import display_all_app
 from jhmanager.service.interviews.add_interview import display_add_interview
 from jhmanager.service.interviews.add_interview import post_add_interview
 from jhmanager.service.interviews.view_interview_details import display_interview_details
-
+from jhmanager.service.interviews.update_interview import display_update_interview_form
+from jhmanager.service.interviews.update_interview import post_update_interview
 
 
 from jhmanager.service.login import verify_login_details
 from jhmanager.service.create_userprofile_content import create_userprofile_content
-from jhmanager.service.display_update_interview import display_update_interview_form
-from jhmanager.service.post_update_interview import post_update_interview
 from jhmanager.service.delete_specific_interview import delete_interview
 from jhmanager.service.display_interview_prep_forms import display_interview_preparation_form
 from jhmanager.service.post_add_interview_prep import post_add_interview_preparation
