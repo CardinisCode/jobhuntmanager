@@ -3,7 +3,6 @@ from flask import Flask, render_template, session, request, redirect
 
 # def display_all_user_notes_for_company(user_id, application_id, userNotesRepo, companyRepo):
     
-    
 #     general_details = {
 #         "company_name": companyRepo.getCompanyById(company_id).name, 
 #         "company_id": company_id, 
