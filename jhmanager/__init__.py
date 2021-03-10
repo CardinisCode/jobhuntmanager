@@ -31,9 +31,8 @@ from jhmanager.service.applications.add_application import post_add_application
 from jhmanager.service.applications.delete_an_application import delete_application
 from jhmanager.service.applications.update_application import display_update_application_form
 from jhmanager.service.applications.update_application import post_update_application
-
-from jhmanager.service.applications.display_application_details import display_application_details
-from jhmanager.service.applications.display_applications import display_all_applications_current_user
+from jhmanager.service.applications.view_application_details import display_application_details
+from jhmanager.service.applications.view_all_applications import display_all_applications_current_user
 
 from jhmanager.service.interviews.add_interview import display_add_interview
 from jhmanager.service.interviews.add_interview import post_add_interview
@@ -243,7 +242,6 @@ def add_job_application():
     if request.method == "GET":
         return display_add_application_form(add_application_form)
         
-
 
 """ Delete a specific application """
 @app.route('/applications/<int:application_id>/delete', methods=["GET"])
