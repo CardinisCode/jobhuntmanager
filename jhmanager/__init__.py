@@ -50,6 +50,8 @@ from jhmanager.service.interviews.view_interview_details import display_intervie
 from jhmanager.service.interviews.update_interview import display_update_interview_form
 from jhmanager.service.interviews.update_interview import post_update_interview
 from jhmanager.service.interviews.delete_an_interview import delete_interview
+from jhmanager.service.interview_preparation.add_interview_prep import display_interview_preparation_form
+from jhmanager.service.interview_preparation.add_interview_prep import post_add_interview_preparation
 
 from jhmanager.service.notes.add_note import display_user_notes_form
 from jhmanager.service.notes.add_note import post_add_note
@@ -64,10 +66,6 @@ from jhmanager.service.notes.view_note_details import display_user_note_details
 from jhmanager.service.company.update_company import display_update_company_details_form
 from jhmanager.service.company.update_company import post_update_company
 
-from jhmanager.service.display_interview_prep_forms import display_interview_preparation_form
-from jhmanager.service.post_add_interview_prep import post_add_interview_preparation
-from jhmanager.service.display_update_company_form import display_update_company_details_form
-from jhmanager.service.post_update_company_form import post_update_company
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
