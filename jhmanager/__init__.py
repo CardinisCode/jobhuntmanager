@@ -65,7 +65,6 @@ from jhmanager.service.notes.view_note_details import display_user_note_details
 
 from jhmanager.service.company.update_company import display_update_company_details_form
 from jhmanager.service.company.update_company import post_update_company
-
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
