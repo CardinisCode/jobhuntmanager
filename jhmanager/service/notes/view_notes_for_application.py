@@ -18,10 +18,10 @@ def display_all_user_notes_for_application(user_id, application_id, applications
 
     if not application_notes:
         general_details["empty_table"] = True
-        general_details["message"] = "Start Adding notes now..."
 
     else:
         note_count = 0
+        general_details["empty_table"] = False
         user_notes_details = {} 
         for note in application_notes:
             note_count += 1

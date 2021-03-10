@@ -58,6 +58,7 @@ from jhmanager.service.notes.update_note import post_update_note
 from jhmanager.service.notes.delete_note import delete_note_for_application
 from jhmanager.service.notes.view_notes_for_application import display_all_user_notes_for_application
 
+
 from jhmanager.service.display_interview_prep_forms import display_interview_preparation_form
 from jhmanager.service.post_add_interview_prep import post_add_interview_preparation
 from jhmanager.service.display_update_company_form import display_update_company_details_form
