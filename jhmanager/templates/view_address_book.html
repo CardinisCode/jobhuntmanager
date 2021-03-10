@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <h1> Your User Profile:</h1>
+    <h1> Address Book:</h1>
     <hr/>
 
     {% if get_flashed_messages() %}
@@ -14,8 +14,15 @@
         {% endfor %}
     {% endif %}
 
-
-    
+    {% if general_details.empty_table %}
+        <p>  {{ general_details.message }}</a></p>
+    {% else %}
+        <div> 
+            {% for fields in company_details.values() %}
+                <li>{{ fields.company_name }}</li>
+            {% endfor %}
+        </div>
+    {% endif %}
 
 
 
