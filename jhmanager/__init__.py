@@ -51,18 +51,19 @@ from jhmanager.service.interviews.update_interview import display_update_intervi
 from jhmanager.service.interviews.update_interview import post_update_interview
 from jhmanager.service.interviews.delete_an_interview import delete_interview
 
+from jhmanager.service.notes.add_note import display_user_notes_form
+from jhmanager.service.notes.add_note import post_add_note
+from jhmanager.service.notes.update_note import display_update_note_form
+from jhmanager.service.notes.update_note import post_update_note
+
 from jhmanager.service.display_interview_prep_forms import display_interview_preparation_form
 from jhmanager.service.post_add_interview_prep import post_add_interview_preparation
 from jhmanager.service.display_update_company_form import display_update_company_details_form
 from jhmanager.service.post_update_company_form import post_update_company
-from jhmanager.service.display_notes_form import display_user_notes_form
-from jhmanager.service.post_add_notes import post_add_notes
 from jhmanager.service.display_all_user_notes import display_all_user_notes
 from jhmanager.service.display_notes_for_application import display_all_user_notes_for_application
 from jhmanager.service.display_note_details import display_user_note_details
 from jhmanager.service.delete_note import delete_note_for_application
-from jhmanager.service.display_update_note_form import display_update_user_note_form
-from jhmanager.service.post_update_note_form import post_update_user_note
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
@@ -361,7 +362,7 @@ def add_user_notes(application_id):
 
     if request.method == "POST":
         if notes_form.validate_on_submit():
-            return post_add_notes(notes_form, application_id, user_id, userNotesRepo, applicationsRepo)
+            return post_add_note(notes_form, application_id, user_id, userNotesRepo, applicationsRepo)
 
     if request.method == "GET":
         return display_user_notes_form(notes_form, application_id, companyRepo, applicationsRepo)
@@ -388,10 +389,10 @@ def update_user_note(application_id, note_id):
 
     if request.method == "POST":
         if update_note_form.validate_on_submit():
-            return post_update_user_note(update_note_form, userNotesRepo, note_id, application_id)
+            return post_update_note(update_note_form, userNotesRepo, note_id, application_id)
 
     if request.method == "GET":
-        return display_update_user_note_form(application_id, user_id, note_id, update_note_form, companyRepo, userNotesRepo)
+        return display_update_note_form(application_id, user_id, note_id, update_note_form, companyRepo, userNotesRepo)
 
 
 @app.route('/applications/<int:application_id>/user_notes/<int:note_id>/delete_note')
