@@ -2,7 +2,7 @@ from flask import Flask, render_template, session, request, redirect, flash
 from passlib.hash import sha256_crypt
 
 
-def display_change_password_form_details(user_id, change_password_form, userRepo):
+def display_change_password_form(user_id, change_password_form, userRepo):
     details = {
         "change_password_url": '/userprofile/{}/change_password'.format(user_id)
     }

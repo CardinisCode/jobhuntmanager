@@ -29,6 +29,8 @@ from jhmanager.service.users.register_user import post_register_user
 from jhmanager.service.users.user_profile import create_userprofile_content
 from jhmanager.service.users.login_user import display_login_form
 from jhmanager.service.users.login_user import post_login
+from jhmanager.service.users.change_password import display_change_password_form
+from jhmanager.service.users.change_password import post_change_password
 
 from jhmanager.service.applications.add_application import display_add_application_form
 from jhmanager.service.applications.add_application import post_add_application
@@ -59,8 +61,6 @@ from jhmanager.service.display_update_note_form import display_update_user_note_
 from jhmanager.service.post_update_note_form import post_update_user_note
 from jhmanager.service.display_email_form import display_update_email_form
 from jhmanager.service.post_update_email import post_update_email_address
-from jhmanager.service.change_password import display_change_password_form_details
-from jhmanager.service.change_password import post_change_password
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 from jhmanager.service.delete_user_account import post_submit_delete_form
 from jhmanager.service.delete_user_account import display_delete_user_form
@@ -439,12 +439,12 @@ def change_user_password(user_id):
     if request.method == "POST":
         if change_password_form.validate_on_submit() == False:
             flash("All fields are required.")
-            return display_change_password_form_details(user_id, change_password_form, userRepo)
+            return display_change_password_form(user_id, change_password_form, userRepo)
         if change_password_form.validate_on_submit():
             return post_change_password(user_id, change_password_form, userRepo)
 
     if request.method == "GET":
-        return display_change_password_form_details(user_id, change_password_form, userRepo)
+        return display_change_password_form(user_id, change_password_form, userRepo)
 
 
 @app.route('/userprofile/<int:user_id>/delete_account', methods=["GET", "POST"])
