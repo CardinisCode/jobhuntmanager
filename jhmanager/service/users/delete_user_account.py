@@ -23,6 +23,7 @@ def post_delete_user_form(delete_account_form, user_id, userRepo):
         return redirect(redirect_url)
 
     userRepo.deleteByUserID(user_id)
+    session.clear()
 
     flash("Your account has been successfully deleted!")
     return redirect("/")
