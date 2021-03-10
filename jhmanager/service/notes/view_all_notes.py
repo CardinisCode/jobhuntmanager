@@ -1,8 +1,8 @@
 from flask import Flask, render_template, session, request, redirect
 
 
-def display_all_user_notes(user_id, userNotesRepo, companyRepo):
-    note_details = {}
+def display_all_user_notes(user_id, userNotesRepo, companyRepo, applicationsRepo):
+    application_notes = {}
     general_details = {}
     
     user_notes = userNotesRepo.getUserNotesByUserId(user_id)
@@ -20,11 +20,13 @@ def display_all_user_notes(user_id, userNotesRepo, companyRepo):
             company_id = note.company_id
             company_name = companyRepo.getCompanyById(company_id).name
             application_id = note.application_id
+            job_role = applicationsRepo.grabApplicationByID(application_id).job_role
 
-            note_details[note_id] = {
+            application_notes[note_id] = {
                 "note_id": note.notes_id,
                 "entry_date": note.entry_date,
                 "company_name": company_name,
+                "job_role": job_role,
                 "description": note.description, 
                 "note_text": note.user_notes, 
                 "application_id": application_id, 
@@ -33,4 +35,4 @@ def display_all_user_notes(user_id, userNotesRepo, companyRepo):
                 "delete_url": '/applications/{}/user_notes/{}/delete_note'.format(application_id, note.notes_id)
             }
 
-    return render_template("view_all_user_notes.html", general_details=general_details, note_details=note_details)
+    return render_template("view_all_user_notes.html", general_details=general_details, application_notes=application_notes)

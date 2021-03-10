@@ -407,7 +407,7 @@ def delete_note(application_id, note_id):
 @login_required
 def display_all_notes():
     user_id = session["user_id"]
-    return display_all_user_notes(user_id, userNotesRepo, companyRepo)
+    return display_all_user_notes(user_id, userNotesRepo, companyRepo, applicationsRepo)
 
 
 @app.route("/userprofile")
