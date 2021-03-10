@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request, redirect
+from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime, time
 
 
@@ -8,7 +8,8 @@ def display_add_interview(add_interview_form, application_id, applicationsRepo, 
 
     details = {
         "application_id": application_id,
-        "company_name": company_name
+        "company_name": company_name, 
+        "action_url": '/applications/{}/add_interview'.format(application_id)
     }
 
     return render_template('add_interview.html', add_interview_form=add_interview_form, details=details)
