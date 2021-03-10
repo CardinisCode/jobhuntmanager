@@ -26,6 +26,9 @@ from jhmanager.repo.user_notes import UserNotesRepository
 
 from jhmanager.service.users.register_user import display_register_form
 from jhmanager.service.users.register_user import post_register_user
+from jhmanager.service.users.user_profile import create_userprofile_content
+from jhmanager.service.users.login_user import display_login_form
+from jhmanager.service.users.login_user import post_login
 
 from jhmanager.service.applications.add_application import display_add_application_form
 from jhmanager.service.applications.add_application import post_add_application
@@ -42,8 +45,6 @@ from jhmanager.service.interviews.update_interview import display_update_intervi
 from jhmanager.service.interviews.update_interview import post_update_interview
 from jhmanager.service.interviews.delete_an_interview import delete_interview
 
-from jhmanager.service.login import verify_login_details
-from jhmanager.service.create_userprofile_content import create_userprofile_content
 from jhmanager.service.display_interview_prep_forms import display_interview_preparation_form
 from jhmanager.service.post_add_interview_prep import post_add_interview_preparation
 from jhmanager.service.display_update_company_form import display_update_company_details_form
@@ -143,11 +144,11 @@ def test_login():
     login_form = LoginForm()
     if request.method == "POST":
         if login_form.validate_on_submit():
-            return verify_login_details(login_form, userRepo)
+            return post_login(login_form, userRepo)
 
     """ Display Login form to the user """
     if request.method == "GET":
-        return render_template("login.html", login_form=login_form)
+        return display_login_form(login_form)
 
 @app.route("/logout")
 @login_required
