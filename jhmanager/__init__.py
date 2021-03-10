@@ -55,6 +55,7 @@ from jhmanager.service.notes.add_note import display_user_notes_form
 from jhmanager.service.notes.add_note import post_add_note
 from jhmanager.service.notes.update_note import display_update_note_form
 from jhmanager.service.notes.update_note import post_update_note
+from jhmanager.service.notes.delete_note import delete_note_for_application
 
 from jhmanager.service.display_interview_prep_forms import display_interview_preparation_form
 from jhmanager.service.post_add_interview_prep import post_add_interview_preparation
@@ -63,7 +64,6 @@ from jhmanager.service.post_update_company_form import post_update_company
 from jhmanager.service.display_all_user_notes import display_all_user_notes
 from jhmanager.service.display_notes_for_application import display_all_user_notes_for_application
 from jhmanager.service.display_note_details import display_user_note_details
-from jhmanager.service.delete_note import delete_note_for_application
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
