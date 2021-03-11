@@ -27,8 +27,6 @@ def cleanup_interview_details(interview_details, other_medium, company_name, int
     if past_dated:
         interview_details[company_name][interview_id]["past_dated"] = past_dated
 
-
-
     # Lets cleaned up the display of 'Medium':
     if medium == "google_chat":
         interview_details[company_name][interview_id]["interview_medium"] = "Google Chat"
@@ -71,95 +69,13 @@ def extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo
                 "contact_number": interview.contact_number,
                 "interviewers": interview.interviewer_names,
                 "past_dated": False, 
-                "update_url": update_url
+                "update_url": update_url, 
+                "prepare_url": '/applications/{}/interview/{}/interview_preparation'.format(application_id, interview_id)
             }
             cleanup_interview_details(interview_details, other_medium, company_name, interview_id)
 
 
     return interview_details
-
-
-def cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage):
-    emp_type = top_5_applications[id_count]["emp_type"]
-    salary = top_5_applications[id_count]["salary"]
-    platform = top_5_applications[id_count]["platform"]
-
-    # Lets improve how the data for "Employment Type" is displayed to the user in the table:
-    if emp_type == "full_time":
-        top_5_applications[id_count]["emp_type"] = "Full Time"
-    elif emp_type == "part_time":
-        top_5_applications[id_count]["emp_type"] = "Part Time"
-    elif emp_type == "temp":
-        top_5_applications[id_count]["emp_type"] = "Temporary"
-    elif emp_type == "contract":
-        top_5_applications[id_count]["emp_type"] = "Contract"
-    else:
-        top_5_applications[id_count]["emp_type"] = "Other"
-
-    # Let's format how interview_stage is presented to the user:
-    if interview_stage == 0:
-        interview_stage_str = "No interview lined up yet."
-    else:
-        interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage = str(interview_stage))
-    top_5_applications[id_count]["interview_stage"] = interview_stage_str
-
-    # If these fields values == "N/A", we'll just display a blank field to user:
-    if salary == "N/A":
-        salary = ""
-    top_5_applications[id_count]["salary"] = salary
-
-    if platform == "N/A":
-        platform = ""
-    top_5_applications[id_count]["platform"] = platform
-
-
-
-
-def grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo, user_id, companyRepo):
-    top_5_applications = {}
-    application_query_results = applicationsRepo.grabTop5ApplicationsByUserID(user_id)
-
-    if not application_query_results: 
-        top_5_applications["fields"] = None
-
-    else:
-        top_5_applications["fields"] = {}
-        top_5_applications["headings"] = ["Id#", "Date", "Time", "Company Name", "Job Role", "Employment Type", "Interview Stage", "Received Contact?", "Salary", "Platform / Job Board", "View More"]
-        id_count = 1
-
-        for application in application_query_results:
-            application_id = application.app_id
-            company_id = application.company_id
-            company_name = companyRepo.getCompanyById(company_id).name
-            app_date = application.app_date
-            app_time = application.app_time
-            job_role = application.job_role
-            platform = application.platform
-            emp_type = application.employment_type
-            interview_stage = application.interview_stage
-            contact_received = application.contact_received
-            salary = application.salary
-            # delete_url = 
-            view_more_url = "/applications/{}".format(application_id)
-
-            top_5_applications[id_count] = {
-                "ID#": id_count,
-                "date": app_date, 
-                "Time": app_time,
-                "company_name": company_name,
-                "job_role": job_role,
-                "emp_type": emp_type, 
-                "interview_stage": interview_stage,
-                "contact_received": contact_received.capitalize(),
-                "salary": salary,
-                "platform": platform,
-                "View More": view_more_url
-            }
-        
-            cleanup_fields_for_better_display_top5applications(top_5_applications, id_count, interview_stage)
-            id_count += 1
-
-    return top_5_applications
 
 
 def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo):
@@ -175,7 +91,6 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
     # all_interviews = interviewsRepo.grabAllInterviewsForUserID(user_id)
     all_interviews = interviewsRepo.grabUpcomingInterviewsByUserID(user_id)
     interview_details = extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo)
-    username = userRepo.getUsernameByUserID(user_id)
 
     # Sadly SQLite doesn't have the functionality to return COUNT(*) from SQLite to Python
     # So we'll have manually count the number of rows returned from the SQL query:
@@ -187,9 +102,6 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
     for interview in interviews_today:
         interviews_today_count += 1
 
-    # Now to grab the values from our SQL queries for the top 5 applications & interviews & create a dictionary for each:
-    top_5_applications_dict = grab_values_from_top5applications_SQLquery_and_return_dict(applicationsRepo, user_id, companyRepo)
-
     message = "All good!"
 
     display = {
@@ -197,9 +109,8 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
         "applications_today": app_today_count,
         "interviews_today": interviews_today_count,
         "message": message,
-        "top_5_applications": top_5_applications_dict,
-        "username": username,
-        "interview_details": interview_details
+        "interview_details": interview_details, 
+        "add_application_url": '/add_job_application'
     }
 
     return render_template("dashboard.html", display=display)
