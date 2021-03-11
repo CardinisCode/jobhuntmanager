@@ -17,11 +17,13 @@
     {% if general_details.empty_table %}
         <p>  {{ general_details.message }}</a></p>
     {% else %}
-        <div> 
+        <table> 
             {% for fields in company_details.values() %}
-                <li> <a href={{ fields.view_more_url }} > {{ fields.company_name }} </a></li>
+                <tr class="border-bottom border-right border-left border-top"> 
+                    <td> <a href={{ fields.view_more_url }} > {{ fields.company_name }} </a></td>
+                </tr>
             {% endfor %}
-        </div>
+        </table>
     {% endif %}
 
 
