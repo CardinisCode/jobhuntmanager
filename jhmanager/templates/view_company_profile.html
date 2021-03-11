@@ -17,7 +17,6 @@
     <h2> Company Profile:</h2>
     <br/>
     <div> 
-        <a href={{ general_details.add_note_url}}> <i class="fas fa-plus"> Add Note</i></a>
         <a href={{ general_details.update_url}}> <i class="fas fa-pencil-alt"> Update Company Profile</i></a>
     </div>
     <br/>
@@ -30,5 +29,14 @@
         {% endfor %}
     </table>
 
+    <hr/>
+    <h3> Company Notes:</h3>
+    <br/>
+    <div> 
+        <a href={{ general_details.add_note_url}}> <i class="fas fa-plus"> Add Note</i></a>
+        <a href={{ general_details.view_notes_url}}> <i class="fas fa-plus"> View All Notes For {{ general_details.company_name }}</i></a>
+    </div>
 
+
+    <hr/>
 {% endblock %}

@@ -71,6 +71,7 @@ from jhmanager.service.company.view_company_profile import display_company_profi
 
 from jhmanager.service.company_notes.add_company_note import display_add_company_note_form
 from jhmanager.service.company_notes.add_company_note import post_add_company_note
+from jhmanager.service.company_notes.view_all_company_notes import display_all_company_notes
 
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
@@ -375,6 +376,13 @@ def update_company_profile(company_id):
         if update_form.validate_on_submit():
             return post_update_company_profile(company_id, user_id, update_form, company_obj, applicationsRepo, companyRepo)
 
+# View all notes for a specific company:
+@app.route('/company/<int:company_id>/view_all_company_notes')
+@login_required
+def display_company_notes(company_id):
+    user_id = session["user_id"]
+    return display_all_company_notes(company_id, user_id, companyRepo, companyNotesRepo)
+
 
 # Add Note for a specific company:
 @app.route('/company/<int:company_id>/add_company_note', methods=["GET", "POST"])
@@ -388,6 +396,7 @@ def add_company_notes(company_id):
     if request.method == "POST":
         if company_note_form.validate_on_submit():
             return post_add_company_note(user_id, company_id, company_note_form, companyNotesRepo)
+
 
 # Add Note for application:
 @app.route('/applications/<int:application_id>/add_notes', methods=["GET", "POST"])

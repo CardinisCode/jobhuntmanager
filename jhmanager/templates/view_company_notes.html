@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    View Company Notes
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-center">  {{ general_details.company_name }}: </h1>
+    <hr/>
+
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-success border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <h2 class="text-center"> Your notes:</h2>
+
+    {% if general_details.empty_table %}
+        <p> <a href={{ general_details.add_note_url}}> <i class="fas fa-plus"> Add </i></a> your first note. </p>
+    {% else %}
+        <p> Note details....</p>
+    {% endif %}
+
+{% endblock %}
