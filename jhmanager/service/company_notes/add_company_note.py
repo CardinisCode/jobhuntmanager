@@ -11,3 +11,26 @@ def display_add_company_note_form(company_id, company_note_form, companyRepo):
     }
 
     return render_template("add_company_note.html", company_note_form=company_note_form, details=details)
+
+
+def post_add_company_note(user_id, company_id, company_note_form, companyNotesRepo): 
+    subject = company_note_form.subject.data
+    note_text = company_note_form.note_text.data
+
+    entry_date = datetime.now().date()
+    date_format = "%Y-%m-%d"
+    entry_date_str = entry_date.strftime(date_format)
+
+    # With these detail, lets add them to the 'company_notes' table:
+    fields = {
+        "user_id": user_id,
+        "company_id": company_id,
+        "date": entry_date_str,
+        "subject": company_note_form.subject.data, 
+        "note_text": company_note_form.note_text.data, 
+    }
+    companyNotesRepo.insertNewNotes(fields)
+
+    flash("Note saved successfully!")
+    redirect_url = '/company/{}/view_company'.format(company_id)
+    return redirect(redirect_url)

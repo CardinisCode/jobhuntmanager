@@ -70,6 +70,7 @@ from jhmanager.service.company.view_all_companies import display_all_companies_f
 from jhmanager.service.company.view_company_profile import display_company_profile
 
 from jhmanager.service.company_notes.add_company_note import display_add_company_note_form
+from jhmanager.service.company_notes.add_company_note import post_add_company_note
 
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
@@ -379,10 +380,14 @@ def update_company_profile(company_id):
 @app.route('/company/<int:company_id>/add_company_note', methods=["GET", "POST"])
 @login_required
 def add_company_notes(company_id):
+    user_id = session["user_id"]
     company_note_form = AddCompanyNoteForm()
     if request.method == "GET":
         return display_add_company_note_form(company_id, company_note_form, companyRepo)
 
+    if request.method == "POST":
+        if company_note_form.validate_on_submit():
+            return post_add_company_note(user_id, company_id, company_note_form, companyNotesRepo)
 
 # Add Note for application:
 @app.route('/applications/<int:application_id>/add_notes', methods=["GET", "POST"])
