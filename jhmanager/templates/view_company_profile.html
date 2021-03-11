@@ -18,10 +18,16 @@
 <br/>
 <table> 
     {% for fields in company_details.values() %}
-        <tr> 
-            <th> {{ fields.label }}</th>
-            <td> {{ fields.data }}</td>
-        </tr>
+        {% if fields.label == "Update Profile" %}
+            <tr> 
+                <p> <a href={{ fields.data }}> <i class="fas fa-pencil-alt"> {{ fields.label }}</i></a></p>
+            </tr>
+        {% else %}        
+            <tr> 
+                <th> {{ fields.label }}</th>
+                <td> {{ fields.data }}</td>
+            </tr>
+        {% endif %}  
     {% endfor %}
 </table>
 

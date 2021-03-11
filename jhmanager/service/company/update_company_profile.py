@@ -1,8 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, flash
 
 
-def display_update_company_profile_form(update_form, company):
-    company_id = company.company_id
+def display_update_company_profile_form(company_id, update_form, company):
     action_url = '/company/{}/update_company'.format(company_id)
 
     details = {

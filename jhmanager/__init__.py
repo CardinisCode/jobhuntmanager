@@ -366,7 +366,7 @@ def update_company_profile(company_id):
     update_form = UpdateCompany(obj=company_obj)
 
     if request.method == "GET":
-        return display_update_company_profile_form(update_form, company_obj)
+        return display_update_company_profile_form(company_id, update_form, company_obj)
 
 
 @app.route('/applications/<int:application_id>/update_company', methods=["GET", "POST"])

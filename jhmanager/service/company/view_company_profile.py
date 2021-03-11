@@ -18,6 +18,8 @@ def display_company_profile(company_id, applicationsRepo, companyRepo):
         "company_name": company.name
     }
 
+    update_url = '/company/{}/update_company'.format(company_id)
+
     company_details = {
         "description": {
             "label": "Description: ", 
@@ -42,6 +44,10 @@ def display_company_profile(company_id, applicationsRepo, companyRepo):
         "contact_number": {
             "label": "Contact Number: ", 
             "data": company.contact_number
+        }, 
+        "update_url": {
+            "label": "Update Profile", 
+            "data": update_url            
         }
     }
     cleanup_fields(company_details)
