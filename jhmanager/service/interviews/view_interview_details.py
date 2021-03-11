@@ -4,12 +4,8 @@ from datetime import datetime, time
 
 def add_company_details(details, company):
     details["company_details"] = {
-        "Name" : company.name, 
-        "Description" : company.description, 
-        "Location" : company.location, 
-        "Industry" : company.industry, 
-        "Website" : company.url,
-        "Update_url": '/company/{}/update_company'.format(company.company_id)
+        "company_name" : company.name, 
+        "view_company_url": '/company/{}/view_company'.format(company.company_id)
     }
 
 def cleanup_fields(details, other_medium):
@@ -64,7 +60,9 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
         "interview_id": interview_id, 
         "company_name": company_name,
         "update_url": "/applications/{}/interview/{}/update_interview".format(application_id, interview_id),
-        "delete_url": "/applications/{}/interview/{}/delete_interview".format(application_id, interview_id)
+        "delete_url": "/applications/{}/interview/{}/delete_interview".format(application_id, interview_id),
+        "view_interview_prep_url": '/applications/{}/interview/{}/interview_preparation'.format(application_id, interview_id), 
+        "return_to_application": '/applications/{}'.format(application_id)
     }
 
     interview = interviewsRepo.grabInterviewByID(interview_id)

@@ -18,9 +18,15 @@
     <div> 
         <a href={{ details.update_url }}> <i class="fas fa-pencil-alt"> Update</i></a>
         <a href={{ details.delete_url }}> <i class="fas fa-trash"> Delete</i></a>
+        <a href={{ details.company_details.view_company_url }}> <i class="fas fa-eye"> View Company Profile</i></a>
         
     </div>
     <table> 
+        <tr> 
+            <th> Company Name: </th>
+            <td> {{ details.company_details.company_name }}</td>
+        </tr>
+        <br/>
         {% for heading, value in details.interview_fields.items() %}
             <tr> 
                 <th> {{ heading }} </th>
@@ -29,22 +35,14 @@
 
         {% endfor %}
     </table>
-    <br/>
-
-    <h2> Company Details:</h2>
-    <p> <a href={{ details.company_details.Update_url }}> <i class="fas fa-pencil-alt"> Update</i></a></p>
-    <table> 
-        {% for heading, value in details.company_details.items() %}
-            {% if heading != "Name" and heading != "Update_url" %}
-                <tr> 
-                    <th> {{ heading }} </th>
-                    <td> {{ value }}</td>
-                </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
 
     <br/>
-        <p> <a href="/applications/{{ details.app_id }}/interview/{{ details.interview_id }}/interview_preparation">Prepare </a> for this interview.</p>
+    <div> 
+        {% if details.interview_fields.Status == 'Upcoming' %}
+            <a href={{ details.view_interview_prep_url }}>Prepare </a>
+        {% endif %}
+        <a href={{ details.return_to_application }}> Go back to Application</a>
+    </div>
+
 
 {% endblock %}
