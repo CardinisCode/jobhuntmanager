@@ -79,6 +79,11 @@ def display_application_details(session, user_id, applicationsRepo, application_
     }
     cleanup_application_details(application_details)
 
+    application_details["update_application_url"] = '/applications/{}/update_application'.format(application_id)
+    application_details["delete_application_url"] = '/applications/{}/delete'.format(application_id)
+    application_details["add_note_url"] = '/applications/{}/add_notes'.format(application_id)
+    application_details["view_notes_url"] = '/applications/{}/view_notes'.format(application_id)
+
     application_details["app_id"] = application_id
 
     user_notes = application.user_notes
@@ -94,12 +99,6 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "company_id": company_id,
         "company_name": company.name,
         "view_profile": '/company/{}/view_company'.format(company_id), 
-        # "Description": company.description, 
-        # "Location": company.location,
-        # "Industry": company.industry, 
-        # "Interviewers": company.interviewers, 
-        # "Contact Number/s": company.contact_number,
-        # "Company Website": company.url
     }
 
     company_details["update_url"] = '/company/{}/update_company'.format(company_id)

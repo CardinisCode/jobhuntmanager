@@ -15,8 +15,8 @@
     {% endif %}
 
     <div> 
-        <a href="../applications/{{ details.app_id }}/update_application"> <i class="fas fa-pencil-alt"> Update</i></a>
-        <a href="../applications/{{ details.app_id }}/delete"> <i class="fas fa-trash"> Delete</i></a>
+        <a href={{ details.update_application_url }}> <i class="fas fa-pencil-alt"> Update</i></a>
+        <a href={{ details.delete_application_url }}> <i class="fas fa-trash"> Delete</i></a>
         <a href={{ company_details.fields.view_profile }}> <i class="fas fa-eye"> View Company Profile</i></a>
     </div>
     <br/>
@@ -26,16 +26,12 @@
             <td> {{ company_details.fields.company_name }} </td>
         </tr> 
 
-        {% for key, values in details.items() %}
-            {% if key == 'fields' %}
-                {% for heading, field in values.items() %}
-                    {% if field != None %}
-                        <tr> 
-                            <th> {{ heading }} </th>
-                            <td> {{ field }} </td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
+        {% for heading, field in details.fields.items() %}
+            {% if field != None %}
+                <tr> 
+                    <th> {{ heading }} </th>
+                    <td> {{ field }} </td>
+                </tr>
             {% endif %}
         {% endfor %}
     </table>
@@ -51,8 +47,8 @@
 
     <h3>Notes</h3> 
     <div> 
-        <a href="../applications/{{ details.app_id }}/add_notes"> <i class="fas fa-plus"> Note</i> </a>
-        <a href="../applications/{{ details.app_id }}/view_notes"> <i class="fas fa-eye"> View Notes</i> </a>
+        <a href={{ details.add_note_url }}> <i class="fas fa-plus"> Note</i> </a>
+        <a href={{ details.view_notes_url }}> <i class="fas fa-eye"> View Notes</i> </a>
     </div>
     <p> </p>
     <hr/>
