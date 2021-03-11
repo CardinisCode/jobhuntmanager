@@ -89,8 +89,9 @@ def display_application_details(session, user_id, applicationsRepo, application_
 
     # Lets grab some company details:
     company_details = {}
+    company_id = company.company_id
     company_details["fields"] = {
-        "company_id": company.company_id,
+        "company_id": company_id,
         "Company Name": company.name, 
         "Description": company.description, 
         "Location": company.location,
@@ -99,6 +100,9 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "Contact Number/s": company.contact_number,
         "Company Website": company.url
     }
+
+    company_details["update_url"] = '/company/{}/update_company'.format(company_id)
+    
 
     # Now I want to display all the interviews for this application_id:
     all_interviews_for_app_id = interviewsRepo.grabAllInterviewsByApplicationID(application_id)

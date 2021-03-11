@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Update Company Profile
+{% endblock %}
+
+{% block main %}
+    <h1> {{ details.company_name }}   </h1>
+    <hr/>
+
+
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-danger border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <h2>  Update Profile:</h2>
+    <br/>
+
+    <form action={{ details.action_url }} method="POST"> 
+        {{ update_form.csrf_token }}
+        {% for field in update_form if field.name != "csrf_token" %}
+            <p> 
+                {% if field.name == "update_company" %}
+                    {{ field }} 
+                {% else %}
+                    <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
+                    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd>
+                {% endif %}
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            </p>
+        {% endfor %}
+
+    </form>
+
+
+{% endblock %}

@@ -9,6 +9,7 @@ def add_company_details(details, company):
         "Location" : company.location, 
         "Industry" : company.industry, 
         "Website" : company.url,
+        "Update_url": '/company/{}/update_company'.format(company.company_id)
     }
 
 def cleanup_fields(details, other_medium):

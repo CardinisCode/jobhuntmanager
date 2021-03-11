@@ -38,7 +38,7 @@
     <hr/>
 
     <h2> Company Details: </h2>
-    <p> <a href="../applications/{{ details.app_id }}/update_company"> <i class="fas fa-pencil-alt"> Update</i></a></p>
+    <p> <a href={{ company_details.update_url }}> <i class="fas fa-pencil-alt"> Update</i></a></p>
     <table>
         {% for heading, field in company_details.fields.items() %}
             {% if heading != "company_id" %}

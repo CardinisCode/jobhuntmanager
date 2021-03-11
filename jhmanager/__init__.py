@@ -65,6 +65,9 @@ from jhmanager.service.notes.view_note_details import display_user_note_details
 
 from jhmanager.service.company.update_company import display_update_company_details_form
 from jhmanager.service.company.update_company import post_update_company
+
+from jhmanager.service.company.update_company_profile import display_update_company_profile_form
+
 from jhmanager.service.company.view_all_companies import display_all_companies_for_user
 from jhmanager.service.company.view_company_profile import display_company_profile
 from jhmanager.service.display_dashboard_content import create_dashboard_content
@@ -355,6 +358,17 @@ def display_company_details(company_id):
     return display_company_profile(company_id, applicationsRepo, companyRepo)
 
 
+@app.route('/company/<int:company_id>/update_company', methods=["GET", "POST"])
+@login_required
+def update_company_profile(company_id):
+    user_id = session["user_id"]
+    company_obj = companyRepo.getCompanyById(company_id)
+    update_form = UpdateCompany(obj=company_obj)
+
+    if request.method == "GET":
+        return display_update_company_profile_form(update_form, company_obj)
+
+
 @app.route('/applications/<int:application_id>/update_company', methods=["GET", "POST"])
 @login_required
 def update_company_details(application_id):
@@ -369,6 +383,7 @@ def update_company_details(application_id):
 
     if request.method == "GET":
         return display_update_company_details_form(update_form, company_obj, application_details)
+
 
 # Add Note for application:
 @app.route('/applications/<int:application_id>/add_notes', methods=["GET", "POST"])
