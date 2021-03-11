@@ -17,9 +17,15 @@
     <div> 
         <a href="../applications/{{ details.app_id }}/update_application"> <i class="fas fa-pencil-alt"> Update</i></a>
         <a href="../applications/{{ details.app_id }}/delete"> <i class="fas fa-trash"> Delete</i></a>
+        <a href={{ company_details.fields.view_profile }}> <i class="fas fa-eye"> View Company Profile</i></a>
     </div>
-
+    <br/>
     <table>
+        <tr>
+            <th> Company Name</th>
+            <td> {{ company_details.fields.company_name }} </td>
+        </tr> 
+
         {% for key, values in details.items() %}
             {% if key == 'fields' %}
                 {% for heading, field in values.items() %}
@@ -37,20 +43,6 @@
 
     <hr/>
 
-    <h2> Company Details: </h2>
-    <p> <a href={{ company_details.update_url }}> <i class="fas fa-pencil-alt"> Update</i></a></p>
-    <table>
-        {% for heading, field in company_details.fields.items() %}
-            {% if heading != "company_id" %}
-                <tr> 
-                    <th> {{ heading }} </th>
-                    <td> {{ field }} </td>
-                </tr>
-            {% endif %}
-        {% endfor %}
-    </table>
-
-    <hr/>
     {% if details.user_notes != None %}
         <h2> Your notes</h2>
         <p> {{ details.user_notes }} </p> 
@@ -63,8 +55,6 @@
         <a href="../applications/{{ details.app_id }}/view_notes"> <i class="fas fa-eye"> View Notes</i> </a>
     </div>
     <p> </p>
-
-
     <hr/>
 
     <h2> Interviews for this application:</h2>

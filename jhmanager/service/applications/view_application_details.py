@@ -92,13 +92,14 @@ def display_application_details(session, user_id, applicationsRepo, application_
     company_id = company.company_id
     company_details["fields"] = {
         "company_id": company_id,
-        "Company Name": company.name, 
-        "Description": company.description, 
-        "Location": company.location,
-        "Industry": company.industry, 
-        "Interviewers": company.interviewers, 
-        "Contact Number/s": company.contact_number,
-        "Company Website": company.url
+        "company_name": company.name,
+        "view_profile": '/company/{}/view_company'.format(company_id), 
+        # "Description": company.description, 
+        # "Location": company.location,
+        # "Industry": company.industry, 
+        # "Interviewers": company.interviewers, 
+        # "Contact Number/s": company.contact_number,
+        # "Company Website": company.url
     }
 
     company_details["update_url"] = '/company/{}/update_company'.format(company_id)
