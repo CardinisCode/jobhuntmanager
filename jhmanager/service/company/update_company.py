@@ -1,21 +1,19 @@
 from flask import Flask, render_template, session, request, redirect, flash
 
 
-def display_update_company_details_form(update_form, company, application):
-    application_id = application.app_id
+def display_update_company_profile_form(company_id, update_form, company):
+    action_url = '/company/{}/update_company'.format(company_id)
 
     details = {
         "company_name": company.name, 
-        "application_id": application_id
+        "action_url": action_url
     }
     
-    return render_template("update_company.html", update_form=update_form, details=details)
+    return render_template("update_company_profile.html", update_form=update_form, details=details)
 
 
-def post_update_company(update_form, user_id, company, applicationsRepo, companyRepo, application):
-    company_id = company.company_id
-    application_id = application.app_id
-    
+
+def post_update_company_profile(company_id, user_id, update_form, company, applicationsRepo, companyRepo):
     company_details = {
         "name": update_form.name.data, 
         "description": update_form.description.data,
