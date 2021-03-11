@@ -1,6 +1,16 @@
 from flask import Flask, render_template, session, request, redirect, flash
 
 
+def cleanup_fields(company_details):
+    url = company_details["url"]["data"]
+    contact_number = company_details["contact_number"]["data"]
+    if url == "N/A": 
+        company_details["url"]["data"] = ""
+
+    if contact_number == "Unknown at present":
+        company_details["contact_number"]["data"] = ""
+
+
 def display_company_profile(company_id, applicationsRepo, companyRepo):
     company = companyRepo.getCompanyById(company_id)
 
@@ -34,5 +44,6 @@ def display_company_profile(company_id, applicationsRepo, companyRepo):
             "data": company.contact_number
         }
     }
+    cleanup_fields(company_details)
 
     return render_template("view_company_profile.html", general_details=general_details, company_details=company_details)
