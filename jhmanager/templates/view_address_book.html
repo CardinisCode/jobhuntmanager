@@ -19,7 +19,7 @@
     {% else %}
         <div> 
             {% for fields in company_details.values() %}
-                <li>{{ fields.company_name }}</li>
+                <li> <a href={{ fields.view_more_url }} > {{ fields.company_name }} </a></li>
             {% endfor %}
         </div>
     {% endif %}

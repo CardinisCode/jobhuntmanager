@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Company Profile
+{% endblock %}
+
+{% block main %}
+<h1> {{ general_details.company_name }}</h1>
+<hr/>
+
+{% if get_flashed_messages() %}
+    {% for message in get_flashed_messages() %}
+        <div class="flash alert alert-success border text-center">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<h2> Company Profile:</h2>
+<br/>
+<table> 
+    {% for fields in company_details.values() %}
+        <tr> 
+            <th> {{ fields.label }}</th>
+            <td> {{ fields.data }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+{% endblock %}

@@ -128,8 +128,6 @@ class ApplicationsHistoryRepository:
         return application
 
 
-
-
     def deleteEntryByApplicationID(self, application_id):
         message = ""
         try: 

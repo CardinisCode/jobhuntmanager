@@ -66,6 +66,7 @@ from jhmanager.service.notes.view_note_details import display_user_note_details
 from jhmanager.service.company.update_company import display_update_company_details_form
 from jhmanager.service.company.update_company import post_update_company
 from jhmanager.service.company.view_all_companies import display_all_companies_for_user
+from jhmanager.service.company.view_company_profile import display_company_profile
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
@@ -347,6 +348,11 @@ def display_address_book():
     user_id = session["user_id"]
     return display_all_companies_for_user(user_id, companyRepo, applicationsRepo)
 
+
+@app.route('/company/<int:company_id>/view_company', methods=["GET"])
+@login_required
+def display_company_details(company_id):
+    return display_company_profile(company_id, applicationsRepo, companyRepo)
 
 
 @app.route('/applications/<int:application_id>/update_company', methods=["GET", "POST"])
