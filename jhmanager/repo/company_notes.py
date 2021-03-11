@@ -30,3 +30,23 @@ class CompanyNotesRepository:
         self.db.commit()
 
         return result.lastrowid
+
+    # Takes a tuple containing the company_id and user_id:
+    def getAllNotesByCompanyID(self, fields):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM company_notes WHERE company_id = ? and user_id = ? ORDER BY date DESC"
+        result = cursor.execute(command, (fields))
+        self.db.commit()
+
+        data = [x for x in result]
+        if len(data) < 1:
+            return None
+
+        notes_list = []
+        
+        for note in data:
+            note_result = CompanyNotes(note)
+            notes_list.append(note_result)
+
+        return notes_list
+
