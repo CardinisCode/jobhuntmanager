@@ -30,6 +30,6 @@ def post_update_company(update_form, user_id, company, applicationsRepo, company
 
     companyRepo.updateByID(company_details)
 
-    redirect_url = '/applications/{}'.format(application_id)
+    redirect_url = '/company/{}/view_company'.format(company_id)
     flash("Company Details updated!")
     return redirect(redirect_url)

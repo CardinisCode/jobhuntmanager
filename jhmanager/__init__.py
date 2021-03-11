@@ -67,6 +67,7 @@ from jhmanager.service.company.update_company import display_update_company_deta
 from jhmanager.service.company.update_company import post_update_company
 
 from jhmanager.service.company.update_company_profile import display_update_company_profile_form
+from jhmanager.service.company.update_company_profile import post_update_company_profile
 
 from jhmanager.service.company.view_all_companies import display_all_companies_for_user
 from jhmanager.service.company.view_company_profile import display_company_profile
@@ -367,6 +368,10 @@ def update_company_profile(company_id):
 
     if request.method == "GET":
         return display_update_company_profile_form(company_id, update_form, company_obj)
+
+    if request.method == "POST":
+        if update_form.validate_on_submit():
+            return post_update_company_profile(company_id, user_id, update_form, company_obj, applicationsRepo, companyRepo)
 
 
 @app.route('/applications/<int:application_id>/update_company', methods=["GET", "POST"])
