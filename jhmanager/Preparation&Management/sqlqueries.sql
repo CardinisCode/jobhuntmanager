@@ -514,3 +514,18 @@ CREATE TABLE IF NOT EXISTS 'interview_preparation' (
 );
 COMMIT;
 ```
+
+
+
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS company_notes(
+    'company_note_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    'user_id' INTEGER NOT NULL, 
+    'company_id' INTEGER NOT NULL, 
+    'date' DATETIME NOT NULL, 
+    'subject' TEXT NOT NULL,
+    'note_text' BLOB DEFAULT "N/A",
+    FOREIGN KEY (user_id) REFERENCES users (user_id)
+    FOREIGN KEY (company_id) REFERENCES company (company_id)
+);
+COMMIT;
