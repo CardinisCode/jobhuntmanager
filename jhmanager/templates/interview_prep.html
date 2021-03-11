@@ -32,7 +32,7 @@
         {% endfor %}
     {% endif %}
 
-    <form action="/applications/{{ details.application_id }}/interview/{{ details.interview_id }}/interview_preparation" method="POST">
+    <form action={{ details.action_url }} method="POST">
         {{ interview_prep_form.csrf_token }}
         {% for field in interview_prep_form if field.name != "csrf_token" %}
             <p> 
@@ -47,6 +47,7 @@
             </p>
         {% endfor %}
     </form>
+    <br/>
 
     {% if interview_prep_details != None %}
         <h2> View Interview Prep</h2>
@@ -69,7 +70,10 @@
         {% endfor %}
     {% endif %}
 
-
+    <div> 
+        <a href={{ details.return_to_interview }}> <i class="fas fa-angle-left"> Go back to Interview</i> </a>
+        <a href={{ details.return_to_application }}> <i class="fas fa-angle-double-left"> Go back to Application</i> </a>
+    </div>
 
 
 {% endblock %}

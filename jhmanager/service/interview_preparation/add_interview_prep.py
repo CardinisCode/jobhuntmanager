@@ -21,6 +21,9 @@ def display_interview_preparation_form(user_id, interview_prep_form, application
     details = {
         "application_id": application_id,
         "interview_id": interview_id,
+        "action_url": '/applications/{}/interview/{}/interview_preparation'.format(application_id, interview_id), 
+        "return_to_interview": '/applications/{}/interview/{}'.format(application_id, interview_id),
+        "return_to_application": '/applications/{}'.format(application_id)
     }
 
     return render_template("interview_prep.html", interview_prep_form=interview_prep_form, details=details, interview_prep_details=interview_prep_details)

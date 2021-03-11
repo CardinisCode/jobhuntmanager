@@ -18,8 +18,6 @@
     <div> 
         <a href={{ details.update_url }}> <i class="fas fa-pencil-alt"> Update</i></a>
         <a href={{ details.delete_url }}> <i class="fas fa-trash"> Delete</i></a>
-        <a href={{ details.company_details.view_company_url }}> <i class="fas fa-eye"> View Company Profile</i></a>
-        
     </div>
     <table> 
         <tr> 
@@ -41,7 +39,8 @@
         {% if details.interview_fields.Status == 'Upcoming' %}
             <a href={{ details.view_interview_prep_url }}>Prepare </a>
         {% endif %}
-        <a href={{ details.return_to_application }}> Go back to Application</a>
+        <a href={{ details.company_details.view_company_url }}> <i class="fas fa-eye"> View Company Profile</i></a>
+        <a href={{ details.return_to_application }}> <i class="fas fa-angle-left"> Go back to Application</i> </a>
     </div>
 
 
