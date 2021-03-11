@@ -14,11 +14,8 @@ def cleanup_fields(company_details):
 def display_company_profile(company_id, applicationsRepo, companyRepo):
     company = companyRepo.getCompanyById(company_id)
 
-    general_details = {
-        "company_name": company.name
-    }
-
     update_url = '/company/{}/update_company'.format(company_id)
+    add_note_url = '/company/{}/add_company_note'.format(company_id)
 
     company_details = {
         "description": {
@@ -44,12 +41,14 @@ def display_company_profile(company_id, applicationsRepo, companyRepo):
         "contact_number": {
             "label": "Contact Number: ", 
             "data": company.contact_number
-        }, 
-        "update_url": {
-            "label": "Update Profile", 
-            "data": update_url            
         }
     }
     cleanup_fields(company_details)
+
+    general_details = {
+        "company_name": company.name, 
+        "update_url": update_url, 
+        "add_note_url": add_note_url
+    }
 
     return render_template("view_company_profile.html", general_details=general_details, company_details=company_details)

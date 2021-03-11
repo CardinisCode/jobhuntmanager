@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Company Note
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-center"> {{ details.company_name }} </h1>
+    <hr/>
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-danger border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    
+    <h2 class="text-center"> Add Note:</h2>
+    <br/>
+    <form action={{ details.action_url }} method="POST"> 
+        {{ company_note_form.csrf_token }}
+        <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-heading"></i> {{ company_note_form.subject.label }}</dt>
+        <dd class="wpforms-container-full .wpforms-form .wpforms-description text-center"> {{ company_note_form.subject }} </dd>
+        <br/>
+
+        <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-sticky-note"></i> {{ company_note_form.note_text.label }}</dt>
+        <dd class="wpforms-container-full .wpforms-form .wpforms-description text-center"> {{ company_note_form.note_text }} </dd>
+        <br/>
+
+        <dd class="wpforms-container-full .wpforms-form .wpforms-description text-center"> {{ company_note_form.save_notes }} </dd>
+
+        {% for field in company_note_form if field.name != "csrf_token" %}
+            {% for error in field.errors %}
+                {{ error }}
+            {% endfor %}
+        {% endfor %}
+
+    </form>
+
+{% endblock %}

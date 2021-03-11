@@ -5,31 +5,30 @@
 {% endblock %}
 
 {% block main %}
-<h1> {{ general_details.company_name }}</h1>
-<hr/>
+    <h1> {{ general_details.company_name }}</h1>
+    <hr/>
 
-{% if get_flashed_messages() %}
-    {% for message in get_flashed_messages() %}
-        <div class="flash alert alert-success border text-center">{{ message }}</div>
-    {% endfor %}
-{% endif %}
+    {% if get_flashed_messages() %}
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-success border text-center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
 
-<h2> Company Profile:</h2>
-<br/>
-<table> 
-    {% for fields in company_details.values() %}
-        {% if fields.label == "Update Profile" %}
-            <tr> 
-                <p> <a href={{ fields.data }}> <i class="fas fa-pencil-alt"> {{ fields.label }}</i></a></p>
-            </tr>
-        {% else %}        
+    <h2> Company Profile:</h2>
+    <br/>
+    <div> 
+        <a href={{ general_details.add_note_url}}> <i class="fas fa-plus"> Add Note</i></a>
+        <a href={{ general_details.update_url}}> <i class="fas fa-pencil-alt"> Update Company Profile</i></a>
+    </div>
+    <br/>
+    <table> 
+        {% for fields in company_details.values() %}
             <tr> 
                 <th> {{ fields.label }}</th>
                 <td> {{ fields.data }}</td>
             </tr>
-        {% endif %}  
-    {% endfor %}
-</table>
+        {% endfor %}
+    </table>
 
 
 {% endblock %}

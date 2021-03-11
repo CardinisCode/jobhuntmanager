@@ -23,6 +23,7 @@ from jhmanager.repo.interviewsHistory import InterviewsHistoryRepository
 from jhmanager.repo.general_prep_history import PreparationRepository
 from jhmanager.repo.interview_prep_history import InterviewPreparationRepository
 from jhmanager.repo.user_notes import UserNotesRepository
+from jhmanager.repo.company_notes import CompanyNotesRepository
 
 from jhmanager.service.users.register_user import display_register_form
 from jhmanager.service.users.register_user import post_register_user
@@ -67,6 +68,9 @@ from jhmanager.service.company.update_company import display_update_company_prof
 from jhmanager.service.company.update_company import post_update_company_profile
 from jhmanager.service.company.view_all_companies import display_all_companies_for_user
 from jhmanager.service.company.view_company_profile import display_company_profile
+
+from jhmanager.service.company_notes.add_company_note import display_add_company_note_form
+
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
@@ -80,6 +84,7 @@ from jhmanager.forms.update_user_details import UpdateEmailAddressForm
 from jhmanager.forms.update_user_details import UpdateUserNameForm
 from jhmanager.forms.update_user_details import ChangePasswordForm
 from jhmanager.forms.delete_account_form import DeleteAccountForm
+from jhmanager.forms.add_company_note_form import AddCompanyNoteForm
 
 
 # Configure application
@@ -120,7 +125,7 @@ interviewsRepo = InterviewsHistoryRepository(db)
 interviewPrepRepo = InterviewPreparationRepository(db)
 personalPrepRepo = PreparationRepository(db)
 userNotesRepo = UserNotesRepository(db)
-
+companyNotesRepo = CompanyNotesRepository(db)
 
 @app.route("/")
 def index():
@@ -368,6 +373,15 @@ def update_company_profile(company_id):
     if request.method == "POST":
         if update_form.validate_on_submit():
             return post_update_company_profile(company_id, user_id, update_form, company_obj, applicationsRepo, companyRepo)
+
+
+# Add Note for a specific company:
+@app.route('/company/<int:company_id>/add_company_note', methods=["GET", "POST"])
+@login_required
+def add_company_notes(company_id):
+    company_note_form = AddCompanyNoteForm()
+    if request.method == "GET":
+        return display_add_company_note_form(company_id, company_note_form, companyRepo)
 
 
 # Add Note for application:
