@@ -24,19 +24,26 @@
                 <th> <a href={{ general_details.add_note_url}} class="text-center"> <i class="fas fa-plus"> Add </i></a></th>
             </tr>
 
-            <tr class="border-bottom border-right border-left border-top"> 
+            <tr> 
                 {% for heading in general_details.headings %}
-                    <th> {{ heading }}</th>
+                    {% if heading == "" %}
+                        <th class="border-left"> {{ heading }}</th>
+                    {% elif heading == "Note" %}
+                        <th class="border-right border-bottom border-top"> {{ heading }}</th>
+                    {% else %}
+                        <th class="border-bottom border-top"> {{ heading }}</th>
+                    {% endif %}
                 {% endfor %}
             </tr>
-            <tr class="border-bottom border-right border-left border-top"> 
+            <tr> 
                 {% for note_id, fields in note_details.items() %}
-                    <td> {{ note_id }}</td>
-                    <td> {{ fields.Date }}</td>
-                    <td> {{ fields.Subject }}</td>
-                    <td> {{ fields.Note_Text }}</td>
-                    <td> 
-                        <a href={{ fields.View_More }}> View</a>
+                    <td class="border-bottom border-top border-left"> {{ note_id }}</td>
+                    <td class="border-bottom border-top"> {{ fields.Date }}</td>
+                    <td class="border-bottom border-top"> {{ fields.Subject }}</td>
+                    <td class="border-bottom border-right border-top"> {{ fields.Note_Text }}</td>
+                    <td class="center border-left"> 
+                        <a href={{ fields.View_More }}> <i class="fas fa-eye"> View</i></a>
+                        <a href={{ fields.Update_url }}> <i class="fas fa-pencil-alt"> Update</i></a>
                     </td>
                 {% endfor %}
             </tr>
