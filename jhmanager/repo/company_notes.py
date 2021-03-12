@@ -50,3 +50,20 @@ class CompanyNotesRepository:
 
         return notes_list
 
+    def getCompanyNoteByID(self, note_id):
+        cursor = self.db.cursor()
+        command = """
+        SELECT * FROM company_notes
+        WHERE company_note_id = {}
+        """.format(note_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        data = [x for x in result]
+        if len(data) < 1:
+            return None
+
+        company_note = CompanyNotes(data[0])
+
+        return company_note
+

@@ -35,7 +35,9 @@
                     <td> {{ fields.Date }}</td>
                     <td> {{ fields.Subject }}</td>
                     <td> {{ fields.Note_Text }}</td>
-                    <td> {{ fields.View_More }}</td>
+                    <td> 
+                        <a href={{ fields.View_More }}> View</a>
+                    </td>
                 {% endfor %}
             </tr>
         </table>
@@ -44,7 +46,7 @@
     <br/>
     <div class="center"> 
         <a href={{ general_details.return_to_company_url }}> <i class="fas fa-angle-left"> Return to Company Profile</i></a>
-        <a href={{ general_details.return_to_address_book }}> <i class="fas fa-angle-double-left"> Return to Company Profile</i></a>
+        <a href={{ general_details.return_to_address_book }}> <i class="fas fa-angle-double-left"> Return to Address Book</i></a>
     </div>
 
 {% endblock %}

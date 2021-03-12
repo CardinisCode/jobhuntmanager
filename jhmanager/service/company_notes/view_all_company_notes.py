@@ -23,12 +23,14 @@ def display_all_notes_for_a_company(company_id, user_id, companyRepo, companyNot
         for note in notes_history: 
             entry_id += 1
             subject = note.subject
+            company_note_id = note.company_note_id
+            view_more_url = '/company/{}/company_note/{}/view_note_details'.format(company_id, company_note_id)
             note_text = note.note_text[0:10] + "..."
             note_details[entry_id] = {
                 "Date": note.entry_date, 
                 "Subject": note.subject.capitalize(), 
                 "Note_Text": note_text, 
-                "View_More": "Link..."
+                "View_More": view_more_url
             }
 
     return render_template("view_company_notes.html", general_details=general_details, note_details=note_details)
