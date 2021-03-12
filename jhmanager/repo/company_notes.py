@@ -67,3 +67,16 @@ class CompanyNotesRepository:
 
         return company_note
 
+    def UpdateByCompanyNoteID(self, fields):
+        cursor = self.db.cursor()
+
+        command = """
+        UPDATE company_notes 
+        SET date = ?,
+            subject = ?,
+            note_text = ?
+        WHERE company_note_id = ?"""
+        cursor.execute(command, tuple(fields.values()))
+
+        self.db.commit()
+
