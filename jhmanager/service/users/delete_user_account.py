@@ -11,7 +11,7 @@ def display_delete_user_form(user_id, delete_account_form):
 
 
 
-def post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, userNotesRepo, interviewPrepRepo, interviewsRepo): 
+def post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, userNotesRepo, interviewPrepRepo, interviewsRepo, companyNotesRepo): 
     password = delete_account_form.password.data
 
     # Lets verify the password is correct:
@@ -27,6 +27,7 @@ def post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, u
     interviewsRepo.deleteByUserID(user_id)
     interviewPrepRepo.deleteByUserID(user_id)
     userNotesRepo.deleteByUserID(user_id)
+    companyNotesRepo.deleteByUserID(user_id)
 
     session.clear()
 

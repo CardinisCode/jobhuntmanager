@@ -94,3 +94,17 @@ class CompanyNotesRepository:
         finally:
             return message 
 
+
+    def deleteByUserID(self, user_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM company_notes WHERE user_id = {}".format(user_id)
+            cursor.execute(command)
+            self.db.commit()
+
+        except sqlite3.Error as error:
+            message = "Failed to delete all notes for this user. " + error
+        
+        finally:
+            return message 

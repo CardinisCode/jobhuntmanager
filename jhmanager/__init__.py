@@ -540,7 +540,7 @@ def delete_user_account(user_id):
         
     if request.method == "POST":
         if delete_account_form.validate_on_submit():
-            return post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, userNotesRepo, interviewPrepRepo, interviewsRepo)
+            return post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, userNotesRepo, interviewPrepRepo, interviewsRepo, companyNotesRepo)
         else:
             flash("Failed to delete the account.")
             return display_delete_user_form(user_id, delete_account_form)
