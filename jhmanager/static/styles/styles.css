@@ -79,6 +79,12 @@ input {
   padding: 5px;
 }
 
+input:focus { 
+  outline: none !important;
+  border-color: black;
+  box-shadow: none;
+}
+
 input[type=text] {
   width: 100%;
   padding: 12px 20px;
@@ -86,28 +92,20 @@ input[type=text] {
   box-sizing: border-box;
 }
 
-/* input[type=submit]{
-  width: 100px;
-  position:inherit;
-  right: 20px;
-  bottom: 20px;
-  background: #09c;
-  color: #fff;
-  font-family: tahoma,geneva,algerian;
-  height: 30px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  border: 1px solid #999;
-} */
+input[type=select] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
 
 #save_button {
-  width: 100px;
+  background-color:rgb(150, 187, 235);
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  border-style: solid;
 }
-
 
 select {
   width: 100%;
