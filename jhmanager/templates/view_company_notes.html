@@ -17,9 +17,34 @@
     <h2 class="text-center"> Your notes:</h2>
 
     {% if general_details.empty_table %}
-        <p> <a href={{ general_details.add_note_url}}> <i class="fas fa-plus"> Add </i></a> your first note. </p>
+        <p class="text-center"> <a href={{ general_details.add_note_url}}> <i class="fas fa-plus"> Add </i></a> your first note.</p>
     {% else %}
-        <p> Note details....</p>
+        <table class="center"> 
+            <tr> 
+                <th> <a href={{ general_details.add_note_url}} class="text-center"> <i class="fas fa-plus"> Add </i></a></th>
+            </tr>
+
+            <tr class="border-bottom border-right border-left border-top"> 
+                {% for heading in general_details.headings %}
+                    <th> {{ heading }}</th>
+                {% endfor %}
+            </tr>
+            <tr class="border-bottom border-right border-left border-top"> 
+                {% for note_id, fields in note_details.items() %}
+                    <td> {{ note_id }}</td>
+                    <td> {{ fields.Date }}</td>
+                    <td> {{ fields.Subject }}</td>
+                    <td> {{ fields.Note_Text }}</td>
+                    <td> {{ fields.View_More }}</td>
+                {% endfor %}
+            </tr>
+        </table>
     {% endif %}
+
+    <br/>
+    <div class="center"> 
+        <a href={{ general_details.return_to_company_url }}> <i class="fas fa-angle-left"> Return to Company Profile</i></a>
+        <a href={{ general_details.return_to_address_book }}> <i class="fas fa-angle-double-left"> Return to Company Profile</i></a>
+    </div>
 
 {% endblock %}

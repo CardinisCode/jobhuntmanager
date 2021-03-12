@@ -71,7 +71,7 @@ from jhmanager.service.company.view_company_profile import display_company_profi
 
 from jhmanager.service.company_notes.add_company_note import display_add_company_note_form
 from jhmanager.service.company_notes.add_company_note import post_add_company_note
-from jhmanager.service.company_notes.view_all_company_notes import display_all_company_notes
+from jhmanager.service.company_notes.view_all_company_notes import display_all_notes_for_a_company
 
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
@@ -381,7 +381,7 @@ def update_company_profile(company_id):
 @login_required
 def display_company_notes(company_id):
     user_id = session["user_id"]
-    return display_all_company_notes(company_id, user_id, companyRepo, companyNotesRepo)
+    return display_all_notes_for_a_company(company_id, user_id, companyRepo, companyNotesRepo)
 
 
 # Add Note for a specific company:
