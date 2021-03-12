@@ -55,6 +55,14 @@ footer {
   margin-right: auto;
 }
 
+table {
+  width: 100%;
+}
+
+.link-right {
+  float: right;
+}
+
 /* .wpforms-container-full .wpforms-form .wpforms-title {
   font-size: 26px;
   margin: 0 0 10px 0;

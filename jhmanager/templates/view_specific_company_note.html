@@ -6,7 +6,7 @@
 
 {% block main %}
 
-    <h1>  {{ details.company_name }} </h1>
+    <h1 class="text-center">  {{ details.company_name }} </h1>
     <hr/>
 
     {% if get_flashed_messages() %}
@@ -15,13 +15,27 @@
         {% endfor %}
     {% endif %}
 
-    <h2> Note Details: </h2>
+    <h2 class="text-center"> Note Details: </h2>
     <br/>
+    <table class="center"> 
+        <tr> 
+            <th> Entry Date:  </th>
+            <td> {{ details.date }}</td>
+        </tr>
+        <tr> 
+            <th> Subject: </th>
+            <td> {{ details.subject }}</td>
+        </tr>
+        <tr> 
+            <th> Note: </th>
+            <td> {{ details.note_text }}</td>
+        </tr>
+    </table>
 
-
+    <br/>
     <div> 
         <a href={{ details.company_notes_url }}> <i class="fas fa-angle-left"> Return to Company Notes</i></a>
-        <a href={{ details.company_profile_url }}> <i class="fas fa-angle-double-left"> Return to Company Profile</i></a>
+        <a href={{ details.company_profile_url}} class="link-right"> <i class="fas fa-angle-double-left"> Return to Company Profile</i></a>
     </div>
 
 
