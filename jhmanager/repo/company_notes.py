@@ -80,3 +80,17 @@ class CompanyNotesRepository:
 
         self.db.commit()
 
+    def deleteByCompanyNotesID(self, company_note_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM company_notes WHERE company_note_id = {}".format(company_note_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Note successfully deleted!"
+
+        except sqlite3.Error as error:
+            message = "Note failed to delete. " + error
+        finally:
+            return message 
+
