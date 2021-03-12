@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <h1> Prepare for your next Interview </h1>
+    <h1 class="text-center"> Prepare for your next Interview </h1>
     <br/>
     <p> Not sure where to start? Here are a few links you may find interesting to get you started:</p>
     <div> 
@@ -21,11 +21,6 @@
     <!-- Will list all the interviews lined up by company name-->
     
     
-
-    <h2> Add Interview Question:</h2>
-        </br> 
-        <p> Example Question: Tell me about yourself?</p>
-    
     {% if get_flashed_messages() %}
         {% for message in get_flashed_messages() %}
             <div class="flash alert alert-success border text-center">{{ message }}</div>
@@ -33,18 +28,41 @@
     {% endif %}
 
     <form action={{ details.action_url }} method="POST">
+        <h2 class="text-center"> Add Interview Question:</h2>
+        <hr class="thick_border"> 
+        <br/>
+
         {{ interview_prep_form.csrf_token }}
+
+        <div class="form-row">
+            <div class="col">
+                <p class="text-center"> Example Question: Tell me about yourself?</p>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col">
+                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ interview_prep_form.interview_question.label }}</dt>
+                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ interview_prep_form.interview_question }} </dd> 
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ interview_prep_form.answer_text.label }}</dt>
+                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ interview_prep_form.answer_text }} </dd> 
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col btn btn-lg">
+                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ interview_prep_form.save_preparation }} </dd>
+            </div>
+        </div>
+
         {% for field in interview_prep_form if field.name != "csrf_token" %}
-            <p> 
-                {% if field.name == "save_preparation" %}
-                    {{ field }}
-                {% else %}
-                    {{ field.label() }} {{ field }}
-                {% endif %}
-                {% for error in field.errors %}
-                    {{ error }}
-                {% endfor %}
-            </p>
+            {% for error in field.errors %}
+                {{ error }}
+            {% endfor %}
         {% endfor %}
     </form>
     <br/>
@@ -52,6 +70,7 @@
     {% if interview_prep_details != None %}
         <h2> View Interview Prep</h2>
         <hr/>
+        
         {% for prep_id, values in interview_prep_details.items() %}
             <table class="border-bottom border-right border-left border-top"> 
                 {% for heading, data in values.items() %}
@@ -72,7 +91,7 @@
 
     <div> 
         <a href={{ details.return_to_interview }}> <i class="fas fa-angle-left"> Go back to Interview</i> </a>
-        <a href={{ details.return_to_application }}> <i class="fas fa-angle-double-left"> Go back to Application</i> </a>
+        <a href={{ details.return_to_application }} class="link-right"> <i class="fas fa-angle-double-left"> Go back to Application</i> </a>
     </div>
 
 
