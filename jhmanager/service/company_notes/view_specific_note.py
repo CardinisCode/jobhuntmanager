@@ -12,6 +12,7 @@ def display_company_note_details(company_id, company_note_id, companyRepo, compa
         "subject": note_details.subject, 
         "note_text": note_details.note_text, 
         "update_url": '/company/{}/company_note/{}/update_note'.format(company_id, company_note_id),
+        "delete_note_url": '/company/{}/company_note/{}/delete_note'.format(company_id, company_note_id)
     }
 
     return render_template("view_specific_company_note.html", details=details)

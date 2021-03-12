@@ -44,6 +44,7 @@
                     <td class="center border-left"> 
                         <a href={{ fields.View_More }}> <i class="fas fa-eye"> View</i></a>
                         <a href={{ fields.Update_url }}> <i class="fas fa-pencil-alt"> Update</i></a>
+                        <a href={{ fields.Delete_url }}> <i class="fas fa-trash"> Delete</i></a>
                     </td>
                 {% endfor %}
             </tr>
@@ -53,7 +54,7 @@
     <br/>
     <div class="center"> 
         <a href={{ general_details.return_to_company_url }}> <i class="fas fa-angle-left"> Return to Company Profile</i></a>
-        <a href={{ general_details.return_to_address_book }}> <i class="fas fa-angle-double-left"> Return to Address Book</i></a>
+        <a href={{ general_details.return_to_address_book }} class="link-right"> <i class="fas fa-angle-double-left"> Return to Address Book</i></a>
     </div>
 
 {% endblock %}
