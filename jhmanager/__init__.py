@@ -73,6 +73,7 @@ from jhmanager.service.company_notes.add_company_note import display_add_company
 from jhmanager.service.company_notes.add_company_note import post_add_company_note
 from jhmanager.service.company_notes.view_all_company_notes import display_all_notes_for_a_company
 from jhmanager.service.company_notes.view_specific_note import display_company_note_details
+from jhmanager.service.company_notes.update_company_note import display_update_company_note_form
 
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
@@ -406,6 +407,17 @@ def display_a_specific_note_for_company(company_id, company_note_id):
     user_id = session["user_id"]
     if request.method == "GET":
         return display_company_note_details(company_id, company_note_id, companyRepo, companyNotesRepo, user_id)
+
+
+@app.route('/company/<int:company_id>/company_note/<int:company_note_id>/update_note', methods=["GET", "POST"])
+@login_required
+def update_company_note(company_id, company_note_id):
+    user_id = session["user_id"]
+    company_note_obj = companyNotesRepo.getCompanyNoteByID(company_note_id)
+    update_note_form = AddCompanyNoteForm(obj=company_note_obj)
+
+    if request.method == "GET":
+        return display_update_company_note_form(update_note_form, company_id, company_note_id, companyRepo, companyNotesRepo)
 
 
 # Add Note for application:
