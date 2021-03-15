@@ -77,6 +77,7 @@ from jhmanager.service.company_notes.update_company_note import display_update_c
 from jhmanager.service.company_notes.update_company_note import post_update_company_form
 from jhmanager.service.company_notes.delete_company_note import delete_specific_company_note
 
+from jhmanager.service.job_offers.add_job_offer import display_add_job_offer_form
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
@@ -91,6 +92,7 @@ from jhmanager.forms.update_user_details import UpdateUserNameForm
 from jhmanager.forms.update_user_details import ChangePasswordForm
 from jhmanager.forms.delete_account_form import DeleteAccountForm
 from jhmanager.forms.add_company_note_form import AddCompanyNoteForm
+from jhmanager.forms.add_job_offer_form import AddJobOffer
 
 
 # Configure application
@@ -350,6 +352,17 @@ def interview_preparation(application_id, interview_id):
 
     if request.method == "GET":
         return display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo)
+
+
+@app.route('/add_job_offer', methods=["GET", "POST"])
+@login_required
+def job_offer_form():
+    user_id = session["user_id"]
+    add_job_offer = AddJobOffer()
+    if request.method == "GET":
+        return display_add_job_offer_form(user_id, add_job_offer, companyRepo)
+
+
 
 
 @app.route('/address_book')

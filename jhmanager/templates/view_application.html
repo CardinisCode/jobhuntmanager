@@ -17,7 +17,6 @@
     <div> 
         <a href={{ details.update_application_url }}> <i class="fas fa-pencil-alt"> Update</i></a>
         <a href={{ details.delete_application_url }}> <i class="fas fa-trash"> Delete</i></a>
-        <a href={{ company_details.fields.view_profile }}> <i class="fas fa-eye"> View Company Profile</i></a>
     </div>
     <br/>
     <table>
@@ -36,7 +35,11 @@
         {% endfor %}
     </table>
     <br/> 
-
+    <div>
+        <a href={{ company_details.fields.view_profile }}> <i class="fas fa-eye"> View Company Profile</i></a>
+        <a href="/add_job_offer"> Add Job Offer</i></a>
+    </div>
+    <br/> 
     <hr/>
 
     {% if details.user_notes != None %}

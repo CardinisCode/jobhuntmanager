@@ -63,6 +63,10 @@ table {
   float: right;
 }
 
+.link_middle {
+  float:inline-end
+}
+
 
 form {
   position : relative;
