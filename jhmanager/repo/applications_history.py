@@ -125,7 +125,7 @@ class ApplicationsHistoryRepository:
 
         application = Application(data[0])
         
-        return application
+        return application  
 
 
     def deleteEntryByApplicationID(self, application_id):

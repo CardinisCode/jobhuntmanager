@@ -24,6 +24,7 @@ from jhmanager.repo.general_prep_history import PreparationRepository
 from jhmanager.repo.interview_prep_history import InterviewPreparationRepository
 from jhmanager.repo.user_notes import UserNotesRepository
 from jhmanager.repo.company_notes import CompanyNotesRepository
+from jhmanager.repo.job_offers_history import JobOffersRepository
 
 from jhmanager.service.users.register_user import display_register_form
 from jhmanager.service.users.register_user import post_register_user
@@ -78,7 +79,6 @@ from jhmanager.service.company_notes.update_company_note import post_update_comp
 from jhmanager.service.company_notes.delete_company_note import delete_specific_company_note
 
 from jhmanager.service.job_offers.add_job_offer import display_add_job_offer_form
-from jhmanager.service.job_offers.add_job_offer import display_add_job_offer_form_test
 from jhmanager.service.job_offers.add_job_offer import post_add_job_offer
 
 from jhmanager.service.display_dashboard_content import create_dashboard_content
@@ -96,7 +96,6 @@ from jhmanager.forms.update_user_details import ChangePasswordForm
 from jhmanager.forms.delete_account_form import DeleteAccountForm
 from jhmanager.forms.add_company_note_form import AddCompanyNoteForm
 from jhmanager.forms.add_job_offer_form import AddJobOffer
-from jhmanager.forms.add_job_offer_form import AddJobOfferTest
 
 
 # Configure application
@@ -138,6 +137,7 @@ interviewPrepRepo = InterviewPreparationRepository(db)
 personalPrepRepo = PreparationRepository(db)
 userNotesRepo = UserNotesRepository(db)
 companyNotesRepo = CompanyNotesRepository(db)
+jobOffersRepo = JobOffersRepository(db)
 
 @app.route("/")
 def index():
@@ -368,7 +368,7 @@ def job_offer_form():
 
     if request.method == "POST":
         if add_job_offer.validate_on_submit():
-            return post_add_job_offer(user_id, add_job_offer, companyRepo)
+            return post_add_job_offer(user_id, add_job_offer, companyRepo, applicationsRepo, jobOffersRepo)
         else: 
             flash("Complete all fields.")
             return display_add_job_offer_form(user_id, add_job_offer, companyRepo)

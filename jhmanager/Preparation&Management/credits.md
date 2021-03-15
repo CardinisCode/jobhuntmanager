@@ -67,3 +67,9 @@ PRAGMA foreign_keys = ON;
 ```
 https://www.sqlitetutorial.net/sqlite-foreign-key/
 ```
+
+# To Dynamically generate a SelectField list:
+```
+    https://rtjom.com/blog/2016/10/using-wtforms-with-selectfield-and-fieldlist/
+
+```
