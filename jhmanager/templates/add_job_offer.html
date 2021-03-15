@@ -16,16 +16,12 @@
         <h1 class="text-center"> Add Job Offer </h1>
         <hr class="thick_border">
         <br/>
-        <div class="form-row">
-            <div class="col">
-                <p class="text-center"> Note: This form will be a little long. Complete the items relevant to you. </p>
-            </div>
-        </div>
 
         {{ add_job_offer.csrf_token }}
 
-        <div> 
+        <div class="form-row">
             <div class="col">
+                <label class="select_field_title"> {{ add_job_offer.company_list.label }}</label>
                 <select id="company_list" name={{ add_job_offer.company_list.label }}> 
                     {% for company in add_job_offer.company_list.choices %}
                         <option value={{ company }}> {{ company }}</option> 
@@ -33,13 +29,13 @@
                 </select>
             </div>
         </div>
-        <div> 
+        <div class="form-row">
             <div class="col">
                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_job_offer.job_role.label }}</dt>
                 <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.job_role }} </dd> 
             </div>
         </div>
-        <div> 
+        <div class="form-row">
             <div class="col">
                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_job_offer.starting_date.label }}</dt>
                 <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.starting_date }} </dd> 
@@ -49,39 +45,28 @@
                 <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.salary }} </dd> 
             </div>
         </div>
-        <div class="col">
-            <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_job_offer.job_perks.label }}</dt>
-            <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.job_perks }} </dd> 
+        <div class="form-row">
+            <div class="col">
+                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_job_offer.job_perks.label }}</dt>
+                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.job_perks }} </dd> 
+            </div>
         </div>
-        <div class="col">
-            <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_job_offer.accepted_offer.label }}</dt>
-            <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.accepted_offer }} </dd> 
+        <div class="form-row">
+            <div class="col">
+                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_job_offer.accepted_offer.label }}</dt>
+                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.accepted_offer }} </dd> 
+            </div>
         </div>
-    </div>
-    <div class="form-row">
-        <div class="col btn btn-lg">
-            <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.save_offer }} </dd>
+        <div class="form-row">
+            <div class="col btn btn-lg">
+                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.save_offer }} </dd>
+            </div>
         </div>
-    </div>
 
         {% for field in add_job_offer if field.name != "csrf_token" %}
-            <p> 
-                {% if field.name == "save_offer" %}
-                    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd> 
-                {% elif field.name == "salary" %}   
-                    <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
-                    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> <i class="fas fa-pound-sign"></i> {{ field }} </dd>
-                {% elif field.name == "emp_type" %} 
-                    <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
-                    <dd class="wpforms-container-full .wpforms-form .wpforms-description">  <i class="fas fa-hand-pointer"></i> {{ field }} </dd>
-                {% else %}
-                    <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
-                    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd>
-                {% endif %}
-                {% for error in field.errors %}
-                    {{ error }}
-                {% endfor %}
-            </p>
+            {% for error in field.errors %}
+                {{ error }}
+            {% endfor %}
         {% endfor %}
 
     </form>

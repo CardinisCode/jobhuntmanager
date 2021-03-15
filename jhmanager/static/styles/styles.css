@@ -103,6 +103,11 @@ input[type=select] {
   box-sizing: border-box;
 }
 
+.select_field_title{
+  font-weight: bold;
+}
+
+
 #save_button {
   background-color:rgb(150, 187, 235);
   margin-left: auto;
