@@ -33,3 +33,17 @@ class JobOffersRepository:
         self.db.commit()
 
         return result.lastrowid
+
+    def deleteByUserID(self, user_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM job_offers WHERE user_id = {}".format(user_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Job offer successfully deleted"
+
+        except sqlite3.Error as error:
+            message = "Failed to delete all Job offers for this user. " + error
+        finally:
+            return message 
