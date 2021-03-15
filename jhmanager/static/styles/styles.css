@@ -107,6 +107,12 @@ input[type=select] {
   font-weight: bold;
 }
 
+#textarea {
+  font-family: Arial;
+  font-size: 12pt;
+  width:100%;
+}
+
 
 #save_button {
   background-color:rgb(150, 187, 235);
@@ -126,6 +132,8 @@ select {
 hr.thick_border {
   border: 1px solid black;
 }
+
+
 
 /* .wpforms-container-full .wpforms-form .wpforms-title {
   font-size: 26px;

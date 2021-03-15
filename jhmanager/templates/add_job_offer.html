@@ -40,15 +40,17 @@
                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_job_offer.starting_date.label }}</dt>
                 <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.starting_date }} </dd> 
             </div>
+        </div>
+        <div class="form-row">
             <div class="col">
                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_job_offer.salary.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.salary }} </dd> 
+                <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_job_offer.salary }} </dd> 
             </div>
         </div>
         <div class="form-row">
             <div class="col">
                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_job_offer.job_perks.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.job_perks }} </dd> 
+                {{ add_job_offer.job_perks(class_="wpforms-container-full .wpforms-form .wpforms-description col-lg textarea") }}
             </div>
         </div>
         <div class="form-row">

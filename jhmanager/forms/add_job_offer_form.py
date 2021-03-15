@@ -13,7 +13,10 @@ class AddJobOffer(FlaskForm):
         render_kw={'placeholder': "Which job role is offer by the company?"},
     )
 
-    salary = StringField("Salary: ")
+    salary = StringField(
+        "Salary: ", 
+        default="£ ",
+    )
 
     job_perks = TextAreaField(
         "Perks Offered with the role: ", 
