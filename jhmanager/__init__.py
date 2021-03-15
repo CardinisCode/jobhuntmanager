@@ -78,6 +78,9 @@ from jhmanager.service.company_notes.update_company_note import post_update_comp
 from jhmanager.service.company_notes.delete_company_note import delete_specific_company_note
 
 from jhmanager.service.job_offers.add_job_offer import display_add_job_offer_form
+from jhmanager.service.job_offers.add_job_offer import display_add_job_offer_form_test
+from jhmanager.service.job_offers.add_job_offer import post_add_job_offer
+
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
@@ -93,6 +96,7 @@ from jhmanager.forms.update_user_details import ChangePasswordForm
 from jhmanager.forms.delete_account_form import DeleteAccountForm
 from jhmanager.forms.add_company_note_form import AddCompanyNoteForm
 from jhmanager.forms.add_job_offer_form import AddJobOffer
+from jhmanager.forms.add_job_offer_form import AddJobOfferTest
 
 
 # Configure application
@@ -362,6 +366,12 @@ def job_offer_form():
     if request.method == "GET":
         return display_add_job_offer_form(user_id, add_job_offer, companyRepo)
 
+    if request.method == "POST":
+        if add_job_offer.validate_on_submit():
+            return post_add_job_offer(user_id, add_job_offer, companyRepo)
+        else: 
+            flash("Complete all fields.")
+            return display_add_job_offer_form(user_id, add_job_offer, companyRepo)
 
 
 

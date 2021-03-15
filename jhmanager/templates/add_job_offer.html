@@ -12,7 +12,7 @@
         {% endfor %}
     {% endif %}
 
-    <form action="/add_job_application" method="POST"> 
+    <form action={{ details.action_url }} method="POST"> 
         <h1 class="text-center"> Add Job Offer </h1>
         <hr class="thick_border">
         <br/>
@@ -21,47 +21,53 @@
 
         <div class="form-row">
             <div class="col">
-                <label class="select_field_title"> {{ add_job_offer.company_list.label }}</label>
-                <select id="company_list" name={{ add_job_offer.company_list.label }}> 
+                {{ add_job_offer.company_list.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
+                <select id="company_list" name="company_list" class="form-control"> 
                     {% for company in add_job_offer.company_list.choices %}
-                        <option value={{ company }}> {{ company }}</option> 
+                        <option value={{ company[0] }}> {{ company[1] }}</option> 
                     {% endfor%}
                 </select>
             </div>
         </div>
+        <br/>
         <div class="form-row">
             <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_job_offer.job_role.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.job_role }} </dd> 
+                {{ add_job_offer.job_role.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
+                {{ add_job_offer.job_role(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
             </div>
         </div>
+        <br/>
         <div class="form-row">
             <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_job_offer.starting_date.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.starting_date }} </dd> 
+                {{ add_job_offer.starting_date.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
+                {{ add_job_offer.starting_date(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
             </div>
         </div>
+        <br/>
         <div class="form-row">
             <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_job_offer.salary.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_job_offer.salary }} </dd> 
+                {{ add_job_offer.salary.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
+                {{ add_job_offer.salary(class_="wpforms-container-full .wpforms-form .wpforms-description") }}
             </div>
         </div>
+        <br/>
         <div class="form-row">
             <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_job_offer.job_perks.label }}</dt>
+                {{ add_job_offer.job_perks.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
                 {{ add_job_offer.job_perks(class_="wpforms-container-full .wpforms-form .wpforms-description col-lg textarea") }}
             </div>
         </div>
+        <br/>
         <div class="form-row">
             <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_job_offer.accepted_offer.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.accepted_offer }} </dd> 
+                {{ add_job_offer.accepted_offer.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
+                {{ add_job_offer.accepted_offer(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
             </div>
         </div>
+        <br/>
         <div class="form-row">
             <div class="col btn btn-lg">
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_job_offer.save_offer }} </dd>
+                {{ add_job_offer.save_offer(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
             </div>
         </div>
 
@@ -70,7 +76,6 @@
                 {{ error }}
             {% endfor %}
         {% endfor %}
-
     </form>
 
 

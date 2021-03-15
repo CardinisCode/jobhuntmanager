@@ -4,8 +4,25 @@ from wtforms.validators import InputRequired
 from wtforms.fields.html5 import DateField
 
 
+class AddJobOfferTest(FlaskForm):
+    company_list = SelectField(
+        'Select the Company: ', 
+        choices=[], 
+        coerce=int,
+        validate_choice=False
+    )
+
+    save_offer = SubmitField("Save Job Offer")
+
+
+
 class AddJobOffer(FlaskForm):
-    company_list = SelectField('Company Name: ')
+    company_list = SelectField(
+        'Select the Company: ', 
+        choices=[], 
+        coerce=int,
+        validate_choice=False
+    )
 
     job_role = StringField(
         "Job Role: ", 
