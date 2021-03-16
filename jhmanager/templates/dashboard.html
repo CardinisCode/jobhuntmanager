@@ -39,7 +39,9 @@
     <div class="horizontal_buttons text-center">
         <a href={{ display.add_application_url }} class="button middle_button"><i class="fas fa-plus"> Add Job Application </i></a>
         <a href="/applications" class="button middle_button"><i class="fas fa-eye"> View all Applications</i> </a>
-        <a href="/add_job_offer" class="link_right"><i class="fas fa-plus"> Add Job Offer</i> </a>
+        {% if job_offer_details == None %}
+            <a href="/add_job_offer" class="link_right"><i class="fas fa-plus"> Add Job Offer</i> </a>
+        {% endif %}
     </div>
 
     <hr/>
@@ -47,6 +49,7 @@
     {% if job_offer_details != None %}
         <h2 class="text-center"> Job Offers: </h2>
         <br/>
+
         {% for job_offer_id, fields in display.job_offer_details.items() %}
             {% if job_offer_id != "headings" %}
                 <h3 class="text-center"> {{ fields.company_name }}</h3>
@@ -75,6 +78,11 @@
                 {% endif %}
             {% endif %}
         {% endfor %}
+        <br/>
+        <div class="text-center"> 
+            <a href="/add_job_offer" class="link_right"><i class="fas fa-plus"> Add Job Offer</i> </a>
+        </div>
+
         <hr/>
     {% endif %}
 
