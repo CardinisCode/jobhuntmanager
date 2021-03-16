@@ -15,23 +15,20 @@
     {% endif %}
 
     <div> 
-        <table>
-            <tr class="border-right border-left">
-                <th class="text-center border-bottom border-right border-left border-top"> Applications Submitted Today</th>
-                <th class="text-center border-left border-right"> </th>
-                <th class="text-center border-bottom border-right border-left border-top"> Interviews Today</th>
-                <th class="text-center border-left border-right"> </th>
-                <th class="text-center border-bottom border-right border-left border-top"> Job Offers</th>
-            </tr>
-            <tr class="border-right border-left"> 
-                <td class="text-center border-bottom border-right border-left border-top"> {{ display.applications_today }}</td>
-                <td class="text-center border-left border-right"> </td>
-                <td class="text-center border-bottom border-right border-left border-top"> {{ display.interviews_today }}</td>
-                <td class="text-center border-left border-right"> </td>
-                <td class="text-center border-bottom border-right border-left border-top"> {{ display.job_offer_count }}</td>
-            </tr>
-        </table>
-
+        <div class="form-row">
+            <div class="col">
+                <dt class="text-center border-bottom border-right border-left border-top"> Applications Submitted Today</dt>
+                <dd class="text-center border-bottom border-right border-left border-top"> {{ display.applications_today }}</dd>
+            </div>
+            <div class="col">
+                <dt class="text-center border-bottom border-right border-left border-top"> Interviews Today</dt>
+                <dd class="text-center border-bottom border-right border-left border-top"> {{ display.interviews_today }}</dd>
+            </div>
+            <div class="col">
+                <dt class="text-center border-bottom border-right border-left border-top"> Job Offers</dt>
+                <dd class="text-center border-bottom border-right border-left border-top"> {{ display.job_offer_count }}</dd>
+            </div>
+        </div>
     </div>
     <br/>
     
