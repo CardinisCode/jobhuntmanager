@@ -22,13 +22,15 @@ def clean_up_job_offer_details(job_offer_details, offer_count):
 def extract_and_display_job_offers(job_offers, companyRepo):
     job_offer_details = None
     offer_count = 0
+    count_list = []
 
     if not job_offers: 
         return (job_offer_details, offer_count)
 
+    job_offer_details = {}
     for offer in job_offers: 
-        job_offer_details = {}
         offer_count += 1
+        count_list.append(offer_count)
         job_offer_id = offer.job_offer_id
         company_id = offer.company_id
         company_name = companyRepo.getCompanyById(company_id).name
@@ -47,6 +49,7 @@ def extract_and_display_job_offers(job_offers, companyRepo):
             "update_url": update_url
         }
         clean_up_job_offer_details(job_offer_details, offer_count)
+
 
     return (job_offer_details, offer_count)
 
