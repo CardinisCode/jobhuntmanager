@@ -375,17 +375,18 @@ def job_offer_form():
             return display_add_job_offer_form(user_id, add_job_offer, companyRepo)
 
 
-@app.route('job_offer/<int:job_offer_id>/update_job_offer', methods=["GET", "POST"])
+@app.route('/job_offer/<int:job_offer_id>/update_job_offer', methods=["GET", "POST"])
 @login_required
 def update_job_offer_details(job_offer_id):
     user_id = session["user_id"]
         # interview_details = interviewsRepo.grabInterviewByID(interview_id)
         # update_interview_form = AddInterviewForm(obj=interview_details)
-    
 
+    job_offer = jobOffersRepo.getJobOfferByJobOfferID(job_offer_id)
+    update_job_offer_form = AddJobOffer(obj=job_offer)
 
     if request.method == "GET":
-        return display_update_job_offer_form(user_id, job_offer_id, update_job_offer, companyRepo)
+        return display_update_job_offer_form(user_id, job_offer_id, update_job_offer_form, job_offer, companyRepo)
 
 
 

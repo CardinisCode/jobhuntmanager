@@ -12,20 +12,22 @@ def extract_and_display_job_offers(job_offers, companyRepo):
     for offer in job_offers: 
         job_offer_details = {}
         offer_count += 1
-
+        job_offer_id = offer.job_offer_id
         company_id = offer.company_id
         company_name = companyRepo.getCompanyById(company_id).name
         starting_date = offer.starting_date
         starting_date_str = starting_date.strftime("%Y-%m-%d")
+        update_url = 'job_offer/{}/update_job_offer'.format(job_offer_id)
 
         job_offer_details[offer_count] = {
-            "job_offer_id": offer.job_offer_id,
+            "job_offer_id": job_offer_id,
             "starting_date": starting_date_str, 
             "company_name": company_name,
             "job_role": offer.job_role, 
             "offer_response": offer.offer_response,
             "salary_offered": offer.salary_offered, 
             "perks_offered": offer.perks_offered, 
+            "update_url": update_url
         }
         job_offer_details["headings"] = ["#", "Starting Date", "Company Name", "Job Role", "Offer Response", "Salary Offered", "View More"]
 

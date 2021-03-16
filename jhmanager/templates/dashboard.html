@@ -76,6 +76,11 @@
                         <strong> Perks Offered: </strong> {{ fields.perks_offered }}
                     </div>           
                 {% endif %}
+                {% if fields.update_url %}
+                <div class="text-center"> 
+                    <a href={{ fields.update_url }}><i class="fas fa-pencil-alt"> Update</i> </a>
+                </div>           
+            {% endif %}
             {% endif %}
         {% endfor %}
         <br/>

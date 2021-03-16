@@ -13,20 +13,16 @@
     {% endif %}
 
     <form action={{ details.action_url }} method="POST"> 
-        <h1 class="text-center"> Add Job Offer </h1>
+        <h1 class="text-center"> Update Job Offer </h1>
         <hr class="thick_border">
         <br/>
 
         {{ update_job_offer.csrf_token }}
 
+
         <div class="form-row">
             <div class="col">
-                {{ update_job_offer.company_list.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
-                <select id="company_list" name="company_list" class="form-control"> 
-                    {% for company in update_job_offer.company_list.choices %}
-                        <option value={{ company[0] }}> {{ company[1] }}</option> 
-                    {% endfor%}
-                </select>
+                {{ details.company_name }}
             </div>
         </div>
         <br/>
