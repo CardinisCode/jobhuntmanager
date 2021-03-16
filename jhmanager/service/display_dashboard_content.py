@@ -2,6 +2,23 @@ from flask import Flask, render_template, session, flash
 from datetime import datetime, date
 
 
+def clean_up_job_offer_details(job_offer_details, offer_count):
+    company_name = job_offer_details[offer_count]["company_name"]
+    offer_response = job_offer_details[offer_count]["offer_response"]
+    message = ""
+    if offer_response == 'user_accepted':
+        message = "I've accepted the offer!"
+    elif offer_response == 'user_declined':
+        message = "I've declined the offer."
+    elif offer_response == 'company_pulled_offer':
+        message = "{} pulled the offer.".format(company_name)
+    else:
+        message = "Still deciding..."
+
+    job_offer_details[offer_count]["offer_response"] = message
+
+
+
 def extract_and_display_job_offers(job_offers, companyRepo):
     job_offer_details = None
     offer_count = 0
@@ -29,7 +46,7 @@ def extract_and_display_job_offers(job_offers, companyRepo):
             "perks_offered": offer.perks_offered, 
             "update_url": update_url
         }
-        job_offer_details["headings"] = ["#", "Starting Date", "Company Name", "Job Role", "Offer Response", "Salary Offered", "View More"]
+        clean_up_job_offer_details(job_offer_details, offer_count)
 
     return (job_offer_details, offer_count)
 

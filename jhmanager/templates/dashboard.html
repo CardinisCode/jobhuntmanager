@@ -51,36 +51,34 @@
         <br/>
 
         {% for job_offer_id, fields in display.job_offer_details.items() %}
-            {% if job_offer_id != "headings" %}
-                <h3 class="text-center"> {{ fields.company_name }}</h3>
+            <h3 class="text-center"> {{ fields.company_name }}</h3>
+            <div class="text-center"> 
+                <i class="fas fa-calendar-alt"></i> <strong> Starting Date:</strong> {{ fields.starting_date }}
+            </div>
+            {% if fields.job_role %}
                 <div class="text-center"> 
-                    <i class="fas fa-calendar-alt"></i> <strong> Starting Date:</strong> {{ fields.starting_date }}
+                    <strong> Job Role:</strong> {{ fields.job_role }}
                 </div>
-                {% if fields.job_role %}
-                    <div class="text-center"> 
-                        <strong> Job Role:</strong> {{ fields.job_role }}
-                    </div>
-                {% endif %}
-                {% if fields.offer_response %}
-                    <div class="text-center"> 
-                        <strong> Offer Response:</strong> {{ fields.offer_response }}
-                    </div>
-                {% endif %}
-                {% if fields.salary_offered %}
-                    <div class="text-center"> 
-                        <strong> Salary On Offer:</strong> {{ fields.salary_offered }}
-                    </div>                    
-                {% endif %}
-                {% if fields.perks_offered %}
-                    <div class="text-center"> 
-                        <strong> Perks Offered: </strong> {{ fields.perks_offered }}
-                    </div>           
-                {% endif %}
-                {% if fields.update_url %}
+            {% endif %}
+            {% if fields.offer_response %}
                 <div class="text-center"> 
-                    <a href={{ fields.update_url }}><i class="fas fa-pencil-alt"> Update</i> </a>
+                    <strong> Offer Response:</strong> {{ fields.offer_response }}
+                </div>
+            {% endif %}
+            {% if fields.salary_offered %}
+                <div class="text-center"> 
+                    <strong> Salary On Offer:</strong> {{ fields.salary_offered }}
+                </div>                    
+            {% endif %}
+            {% if fields.perks_offered %}
+                <div class="text-center"> 
+                    <strong> Perks Offered: </strong> {{ fields.perks_offered }}
                 </div>           
             {% endif %}
+            {% if fields.update_url %}
+            <div class="text-center"> 
+                <a href={{ fields.update_url }}><i class="fas fa-pencil-alt"> Update</i> </a>
+            </div>           
             {% endif %}
         {% endfor %}
         <br/>
