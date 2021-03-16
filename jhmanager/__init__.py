@@ -81,6 +81,7 @@ from jhmanager.service.company_notes.delete_company_note import delete_specific_
 from jhmanager.service.job_offers.add_job_offer import display_add_job_offer_form
 from jhmanager.service.job_offers.add_job_offer import post_add_job_offer
 from jhmanager.service.job_offers.update_job_offer import display_update_job_offer_form
+from jhmanager.service.job_offers.update_job_offer import post_update_job_offer
 
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
@@ -388,8 +389,7 @@ def update_job_offer_details(job_offer_id):
 
     if request.method == "POST":
         if update_job_offer_form.validate_on_submit():
-            raise ValueError("Successfully validates the form.")
-            return None
+            return post_update_job_offer(job_offer_id, user_id, update_job_offer_form, jobOffersRepo)
 
         else: 
             flash("Complete all the fields.")
