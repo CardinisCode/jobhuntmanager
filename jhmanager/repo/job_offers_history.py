@@ -34,6 +34,30 @@ class JobOffersRepository:
 
         return result.lastrowid
 
+
+    def getJobOffersByUserId(self, user_id):
+        cursor = self.db.cursor()
+        command = """ 
+            SELECT * FROM job_offers
+            where user_id = {}
+            ORDER BY starting_date DESC
+        """.format(user_id)
+        
+        result = cursor.execute(command)
+        self.db.commit()
+
+        offers_list = []
+
+        for offer in result:
+            job_offer_result = JobOffer(offer)
+            offers_list.append(job_offer_result)
+
+        if offers_list == []:
+            return None
+
+        return offers_list
+       
+
     def deleteByUserID(self, user_id):
         message = ""
         try: 

@@ -186,7 +186,7 @@ def logout():
 @login_required
 def display_dashboard():
     user_id = session["user_id"]
-    return create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo)
+    return create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo, jobOffersRepo)
 
 
 @app.route("/about_us")

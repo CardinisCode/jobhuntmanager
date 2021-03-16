@@ -2,6 +2,34 @@ from flask import Flask, render_template, session, flash
 from datetime import datetime, date
 
 
+def extract_and_display_job_offers(job_offers, companyRepo):
+    job_offer_details = None
+    offer_count = 0
+
+    if not job_offers: 
+        return (job_offer_details, offer_count)
+
+    for offer in job_offers: 
+        job_offer_details = {}
+        offer_count += 1
+
+        company_id = offer.company_id
+        company_name = companyRepo.getCompanyById(company_id).name
+
+        job_offer_details[offer_count] = {
+            "job_offer_id": offer.job_offer_id,
+            "starting_date": offer.starting_date, 
+            "company_name": company_name,
+            "job_role": offer.job_role, 
+            "offer_response": offer.offer_response,
+            "salary_offered": offer.salary_offered, 
+            "perks_offered": offer.perks_offered, 
+        }
+        job_offer_details["headings"] = ["#", "Starting Date", "Company Name", "Job Role", "Offer Response", "Salary Offered", "View More"]
+
+    return (job_offer_details, offer_count)
+
+
 def past_dated_interview(interview_date, interview_time):
     past_dated = False 
 
@@ -78,7 +106,7 @@ def extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo
     return interview_details
 
 
-def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo):
+def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo, jobOffersRepo):
     #1: Let's grab today's date as this will help us when we're grabbing interviews & applications for the current date:
     current_date = date.today()
     date_format = "%Y-%m-%d"
@@ -91,6 +119,10 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
     # all_interviews = interviewsRepo.grabAllInterviewsForUserID(user_id)
     all_interviews = interviewsRepo.grabUpcomingInterviewsByUserID(user_id)
     interview_details = extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo)
+
+    job_offers = jobOffersRepo.getJobOffersByUserId(user_id)
+    job_offer_details = extract_and_display_job_offers(job_offers, companyRepo)[0]
+    job_offer_count = extract_and_display_job_offers(job_offers, companyRepo)[1]
 
     # Sadly SQLite doesn't have the functionality to return COUNT(*) from SQLite to Python
     # So we'll have manually count the number of rows returned from the SQL query:
@@ -108,8 +140,10 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
         'current_date': current_date,
         "applications_today": app_today_count,
         "interviews_today": interviews_today_count,
+        "job_offer_count": job_offer_count,
         "message": message,
         "interview_details": interview_details, 
+        "job_offer_details": job_offer_details,
         "add_application_url": '/add_job_application'
     }
 
