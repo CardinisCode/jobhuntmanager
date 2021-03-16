@@ -34,6 +34,23 @@ class JobOffersRepository:
 
         return result.lastrowid
 
+    def getJobOfferByJobOfferID(self, job_offer_id):
+        cursor = self.db.cursor()
+        command = """ 
+            SELECT * FROM job_offers
+            where job_offer_id = {}
+        """.format(job_offer_id)
+        
+        result = cursor.execute(command)
+        self.db.commit()
+
+        if not result:
+            return None
+
+        job_offer = JobOffer(result)
+
+        return job_offer
+
 
     def getJobOffersByUserId(self, user_id):
         cursor = self.db.cursor()
@@ -57,6 +74,23 @@ class JobOffersRepository:
 
         return offers_list
        
+
+    def updateByJobOfferID(self, fields):
+        cursor = self.db.cursor()
+
+        command = """
+        UPDATE job_offers 
+        SET job_role = ?,
+            starting_date = ?,
+            salary_offered = ?, 
+            perks_offered = ?,
+            offer_response = ?
+        WHERE job_offer_id = ?"""
+
+        cursor.execute(command, tuple(fields.values()))
+
+        self.db.commit()
+    
 
     def deleteByUserID(self, user_id):
         message = ""

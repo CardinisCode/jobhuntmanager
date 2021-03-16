@@ -80,6 +80,7 @@ from jhmanager.service.company_notes.delete_company_note import delete_specific_
 
 from jhmanager.service.job_offers.add_job_offer import display_add_job_offer_form
 from jhmanager.service.job_offers.add_job_offer import post_add_job_offer
+from jhmanager.service.job_offers.update_job_offer import display_update_job_offer_form
 
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 
@@ -372,6 +373,19 @@ def job_offer_form():
         else: 
             flash("Complete all fields.")
             return display_add_job_offer_form(user_id, add_job_offer, companyRepo)
+
+
+@app.route('job_offer/<int:job_offer_id>/update_job_offer', methods=["GET", "POST"])
+@login_required
+def update_job_offer_details(job_offer_id):
+    user_id = session["user_id"]
+        # interview_details = interviewsRepo.grabInterviewByID(interview_id)
+        # update_interview_form = AddInterviewForm(obj=interview_details)
+    
+
+
+    if request.method == "GET":
+        return display_update_job_offer_form(user_id, job_offer_id, update_job_offer, companyRepo)
 
 
 
