@@ -18,18 +18,18 @@ class AddJobOffer(FlaskForm):
         render_kw={'placeholder': "Which job role is offer by the company?"},
     )
 
-    salary = StringField(
+    salary_offered = StringField(
         "Salary: ", 
         default="£ ",
     )
 
-    job_perks = TextAreaField(
+    perks_offered = TextAreaField(
         "Perks Offered with the role: ", 
         [validators.optional()], 
         render_kw={'placeholder': "All job perks offered alongside the salary. EG: Stock options."},
     )
 
-    accepted_offer = SelectField(
+    offer_response = SelectField(
         "Offer: ", 
         choices=[
             ("user_accepted", "I Accepted!"), 

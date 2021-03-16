@@ -10,3 +10,5 @@ def display_update_job_offer_form(user_id, job_offer_id, update_job_offer, job_o
     }
 
     return render_template("update_job_offer.html", update_job_offer=update_job_offer, details=details)
+
+

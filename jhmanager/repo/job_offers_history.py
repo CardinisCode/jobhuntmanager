@@ -8,6 +8,7 @@ class JobOffer:
     date_str = '%Y-%m-%d'
     
     def __init__(self, db_fields):
+        # raise  ValueError(db_fields)
         self.job_offer_id = db_fields[0]
         self.user_id = db_fields[1]
         self.company_id = db_fields[2]
@@ -47,7 +48,11 @@ class JobOffersRepository:
         if not result:
             return None
 
-        job_offer = JobOffer(result)
+        data = [x for x in result]
+        if len(data) < 1:
+            return None
+
+        job_offer = JobOffer(data[0])
 
         return job_offer
 

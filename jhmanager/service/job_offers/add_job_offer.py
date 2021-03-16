@@ -21,20 +21,14 @@ def post_add_job_offer(user_id, add_job_offer, companyRepo, applicationsRepo, jo
     company_id = add_job_offer.company_list.data
     company_name = companyRepo.getCompanyById(company_id).name
 
-    job_role = add_job_offer.job_role.data
-    salary = add_job_offer.salary.data
-    job_perks = add_job_offer.job_perks.data
-    accepted_offer = add_job_offer.accepted_offer.data
-    starting_date = add_job_offer.starting_date.data
-
     fields = {
         "user_id": user_id,
         "company_id": company_id,
         "job_role": add_job_offer.job_role.data,
         "starting_date": add_job_offer.starting_date.data, 
-        "salary_offered": add_job_offer.salary.data,
-        "perks_offered": add_job_offer.job_perks.data,
-        "offer_response": add_job_offer.accepted_offer.data
+        "salary_offered": add_job_offer.salary_offered.data,
+        "perks_offered": add_job_offer.perks_offered.data,
+        "offer_response": add_job_offer.offer_response.data
     }
 
     jobOffersRepo.addJobOfferToHistory(fields)
