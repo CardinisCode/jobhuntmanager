@@ -15,10 +15,12 @@ def extract_and_display_job_offers(job_offers, companyRepo):
 
         company_id = offer.company_id
         company_name = companyRepo.getCompanyById(company_id).name
+        starting_date = offer.starting_date
+        starting_date_str = starting_date.strftime("%Y-%m-%d")
 
         job_offer_details[offer_count] = {
             "job_offer_id": offer.job_offer_id,
-            "starting_date": offer.starting_date, 
+            "starting_date": starting_date_str, 
             "company_name": company_name,
             "job_role": offer.job_role, 
             "offer_response": offer.offer_response,

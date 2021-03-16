@@ -44,6 +44,40 @@
 
     <hr/>
 
+    {% if job_offer_details != None %}
+        <h2 class="text-center"> Job Offers: </h2>
+        <br/>
+        {% for job_offer_id, fields in display.job_offer_details.items() %}
+            {% if job_offer_id != "headings" %}
+                <h3 class="text-center"> {{ fields.company_name }}</h3>
+                <div class="text-center"> 
+                    <i class="fas fa-calendar-alt"></i> <strong> Starting Date:</strong> {{ fields.starting_date }}
+                </div>
+                {% if fields.job_role %}
+                    <div class="text-center"> 
+                        <strong> Job Role:</strong> {{ fields.job_role }}
+                    </div>
+                {% endif %}
+                {% if fields.offer_response %}
+                    <div class="text-center"> 
+                        <strong> Offer Response:</strong> {{ fields.offer_response }}
+                    </div>
+                {% endif %}
+                {% if fields.salary_offered %}
+                    <div class="text-center"> 
+                        <strong> Salary On Offer:</strong> {{ fields.salary_offered }}
+                    </div>                    
+                {% endif %}
+                {% if fields.perks_offered %}
+                    <div class="text-center"> 
+                        <strong> Perks Offered: </strong> {{ fields.perks_offered }}
+                    </div>           
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        <hr/>
+    {% endif %}
+
     <h2 class="text-center"> Upcoming Interviews: </h2>
     <br/>
 
@@ -87,40 +121,6 @@
         {% endfor %}
     {% endif %}
     <hr/>
-
-    {% if job_offer_details != None %}
-        <h2 class="text-center"> Job Offers: </h2>
-        <br/>
-        {% for job_offer_id, fields in display.job_offer_details.items() %}
-            {% if job_offer_id != "headings" %}
-                <h3 class="text-center"> {{ fields.company_name }}</h3>
-                <div class="text-center"> 
-                    <i class="fas fa-calendar-alt"></i> <strong> Starting Date:</strong> {{ fields.starting_date }}
-                </div>
-                {% if fields.job_role %}
-                    <div class="text-center"> 
-                        <strong> Job Role:</strong> {{ fields.job_role }}
-                    </div>
-                {% endif %}
-                {% if fields.offer_response %}
-                    <div class="text-center"> 
-                        <strong> Offer Response:</strong> {{ fields.offer_response }}
-                    </div>
-                {% endif %}
-                {% if fields.salary_offered %}
-                    <div class="text-center"> 
-                        <strong> Salary On Offer:</strong> {{ fields.salary_offered }}
-                    </div>                    
-                {% endif %}
-                {% if fields.perks_offered %}
-                    <div class="text-center"> 
-                        <strong> Perks Offered: </strong> {{ fields.perks_offered }}
-                    </div>           
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-        <hr/>
-    {% endif %}
 
 
 {% endblock %}
