@@ -26,7 +26,6 @@
     </head>
 
     <body>
-
         <nav class="navbar navbar-expand-md navbar-light bg-light border">
             <a class="navbar-brand" href="/"> Job Hunt Manager </a>
             <!-- <a class="navbar-brand" href="/"><span class="blue">C</span><span class="red">$</span><span class="yellow">5</span><span class="green">0</span> <span class="red">Finance</span></a> -->
@@ -57,27 +56,30 @@
 
         <div class="main_container">
 
-            <main class="main container p-5">
-                {% block main %}{% endblock %}
+            <main>
+                <div class="alignfull"> 
+                    <div class="aligncenter">   
+                        {% block main %} {% endblock %}
+                    </div>
+                </div>
             </main>
             
             {% block footer %}
-                <hr/>
-                <div>
-                    <a class="nav-link text-center" href="/about_us"> About Us</a></li>
-                </div> 
-                <p class="footer small text-center"> Random Footer info...</p>
-            
-            <footer class="footer small text-center">
-                <small class="footer small text-center">&copy; 2021, Job Hunt Manager</small>
-            </footer>
+                <footer class="footer small text-center">
+                    <div>
+                        <a class="nav-link text-center" href="/about_us"> About Us</a></li>
+                    </div> 
+                    <p class="footer small text-center"> Random Footer info...</p>
+                
+                    <small class="footer small text-center">&copy; 2021, Job Hunt Manager</small>
+                </footer>
             {% endblock %}
 
 
         </div>
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/styles.css') }}">
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
         
     </body>
 

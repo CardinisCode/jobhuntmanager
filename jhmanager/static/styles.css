@@ -1,0 +1,257 @@
+/* The sidebar menu */
+.sidenav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 160px; /* Set the width of the sidebar */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #111; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+  }
+  
+  /* The navigation menu links */
+  .sidenav a {
+    padding: 5px 6px 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  /* Style page content */
+  .main {
+    /* margin-left: 160px; Same as the width of the sidebar */
+    padding: 0px 10px;
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+
+.main_container {
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px; /* height of your footer */
+ }
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: slategray;
+  color: white;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table {
+  width: 100%;
+}
+
+form {
+  position : relative;
+  width  : 100%;
+  height : 100%;
+  margin : 0 auto;
+  padding: 1em;
+  box-sizing: border-box;
+  background : rgb(204, 207, 207);
+}
+
+input {
+  width: 100%;
+  padding: 5px;
+}
+
+input:focus { 
+  outline: none !important;
+  border-color: black;
+  box-shadow: none;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=select] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.field_title{
+  font-weight: bold;
+}
+
+#textarea {
+  font-family: Arial;
+  font-size: 12pt;
+  width:100%;
+}
+
+.bkground_blue{
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(175, 238, 238, 0.2);
+}
+
+.background-white {
+  background-color: white;
+}
+
+.grid_experiement{
+  display: grid;
+  grid-template-columns: 49% 49%;
+  justify-content: center;
+  grid-gap: 1em;
+}
+
+.grid_child{
+  border: 1px solid #dee2e6!important;
+  background: rgba(175, 238, 238, 0.2);
+  padding: 12px 5px;
+  display: grid;
+}
+
+.grid_child div{
+  min-height: 1.3rem;
+}
+
+#save_button {
+  background-color:rgb(150, 187, 235);
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  border-style: solid;
+}
+
+.link-right {
+  justify-self: end;
+}
+
+.link_middle {
+  float:inline-end
+}
+
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+hr {
+  margin: 2rem 0;
+}
+
+hr.thick_border {
+  border: 1px solid black;
+}
+
+.give-me-space{
+  margin: 1rem 0;
+  display: grid;
+  justify-content: center;
+}
+
+.link_button_primary {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  /* border: solid 1px #20538D;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); */
+  /* background: linear-gradient(45deg, purple, indigo); */
+  padding: 16px 40px;
+  text-decoration: none;
+  line-height: 1;
+  color: white;
+  background: linear-gradient(45deg, purple, indigo); 
+  width: max-content;
+}
+
+.button-grid{
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.link_button_primary:hover{
+  color: indigo;
+  background: transparent;
+  border: solid 2px indigo;
+}
+
+/* Src: https://stackoverflow.com/questions/710089/how-do-i-make-an-html-link-look-like-a-button */
+.link_button {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  /* border: solid 1px #20538D;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); */
+  /* background: linear-gradient(45deg, purple, indigo); */
+  padding: 8px 12px;
+  text-decoration: none;
+  line-height: 1;
+  opacity: 1;
+  color: indigo;
+  border: solid 2px indigo;
+  background: transparent;
+}
+
+.link_button:hover{
+  color: white;
+  background: linear-gradient(45deg, purple, indigo);
+}
+
+.background-colour {
+  /* background-color: rgba(241, 239, 247, 0.4); */
+  background-color: rgba(203, 201, 214, 0.2);
+}
+
+.alignfull {
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  padding: 2rem 0;
+}
+
+.aligncenter {
+  clear: both;
+  display: block;
+  margin: 0 auto;
+  padding: 0 4rem;
+}
+
+/* .wpforms-container-full .wpforms-form .wpforms-title {
+  font-size: 26px;
+  margin: 0 0 10px 0;
+}
+
+.wpforms-container-full .wpforms-form .wpforms-description {
+  font-size: 13px;
+  line-height: 1.3;
+  margin: 8px 0 0 0;
+} */

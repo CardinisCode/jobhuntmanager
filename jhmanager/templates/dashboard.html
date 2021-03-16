@@ -5,131 +5,152 @@
 {% endblock %}
 
 {% block main %}
-    <h1 class="text-center"> Dashboard </h1>
-    <hr/>
+<div class="alignfull"> 
+    <div class="aligncenter">     
+        <h1 class="text-center"> Dashboard </h1>
 
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-success border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-success border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
 
-    <div> 
-        <div class="form-row">
-            <div class="col">
-                <dt class="text-center border-bottom border-right border-left border-top"> Applications Submitted Today</dt>
-                <dd class="text-center border-bottom border-right border-left border-top"> {{ display.applications_today }}</dd>
-            </div>
-            <div class="col">
-                <dt class="text-center border-bottom border-right border-left border-top"> Interviews Today</dt>
-                <dd class="text-center border-bottom border-right border-left border-top"> {{ display.interviews_today }}</dd>
-            </div>
-            <div class="col">
-                <dt class="text-center border-bottom border-right border-left border-top"> Job Offers</dt>
-                <dd class="text-center border-bottom border-right border-left border-top"> {{ display.job_offer_count }}</dd>
-            </div>
-        </div>
-    </div>
-    <br/>
-    
-    <!-- Drop down to view table-->
-    <div class="horizontal_buttons text-center">
-        <a href={{ display.add_application_url }} class="button middle_button"><i class="fas fa-plus"> Add Job Application </i></a>
-        <a href="/applications" class="button middle_button"><i class="fas fa-eye"> View all Applications</i> </a>
-        {% if job_offer_details == None %}
-            <a href="/add_job_offer" class="link_right"><i class="fas fa-plus"> Add Job Offer</i> </a>
-        {% endif %}
-    </div>
-
-    <hr/>
-
-    {% if job_offer_details != None %}
-        <h2 class="text-center"> Job Offers: </h2>
-        <br/>
-
-        {% for job_offer_id, fields in display.job_offer_details.items() %}
-            <h3 class="text-center"> {{ fields.company_name }}</h3>
-            <div class="text-center"> 
-                <i class="fas fa-calendar-alt"></i> <strong> Starting Date:</strong> {{ fields.starting_date }}
-            </div>
-            {% if fields.job_role %}
-                <div class="text-center"> 
-                    <strong> Job Role:</strong> {{ fields.job_role }}
+            <div> 
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="text-center border-bottom border-right border-left border-top bkground_blue"> Applications Submitted Today</dt>
+                        <dd class="text-center border-bottom border-right border-left border-top background-white "> {{ display.applications_today }}</dd>
+                    </div>
+                    <div class="col">
+                        <dt class="text-center border-bottom border-right border-left border-top bkground_blue"> Interviews Today</dt>
+                        <dd class="text-center border-bottom border-right border-left border-top background-white "> {{ display.interviews_today }}</dd>
+                    </div>
+                    <div class="col">
+                        <dt class="text-center border-bottom border-right border-left border-top bkground_blue"> Job Offers</dt>
+                        <dd class="text-center border-bottom border-right border-left border-top background-white "> {{ display.job_offer_count }}</dd>
+                    </div>
                 </div>
-            {% endif %}
-            {% if fields.offer_response %}
-                <div class="text-center"> 
-                    <strong> Offer Response:</strong> {{ fields.offer_response }}
-                </div>
-            {% endif %}
-            {% if fields.salary_offered %}
-                <div class="text-center"> 
-                    <strong> Salary On Offer:</strong> {{ fields.salary_offered }}
-                </div>                    
-            {% endif %}
-            {% if fields.perks_offered %}
-                <div class="text-center"> 
-                    <strong> Perks Offered: </strong> {{ fields.perks_offered }}
-                </div>           
-            {% endif %}
-            {% if fields.update_url %}
-            <div class="text-center"> 
-                <a href={{ fields.update_url }}><i class="fas fa-pencil-alt"> Update</i> </a>
-            </div>           
-            {% endif %}
+            </div>
             <br/>
-        {% endfor %}
-        <br/>
-        <div class="text-center"> 
-            <a href="/add_job_offer" class="link_right"><i class="fas fa-plus"> Add Job Offer</i> </a>
+
+            <div class="button-grid"> 
+                <a href={{ display.add_application_url }} class="link_button_primary text-center"><i class="fas fa-plus"> Add Job Application </i></a>
+                {% if job_offer_details == None %}
+                    <a href="/applications" class="link_button_primary text-center link_middle"><i class="fas fa-eye"> View all Applications</i> </a>
+                    <a href="/add_job_offer" class="link_button_primary text-center link-right"><i class="fas fa-plus"> Add Job Offer</i> </a>
+                {% else %}
+                    <a href="/applications" class="link_button_primary text-center link-right"><i class="fas fa-eye"> View all Applications</i> </a>
+                {% endif %}
+            </div>
         </div>
-
-        <hr/>
-    {% endif %}
-
-    <h2 class="text-center"> Upcoming Interviews: </h2>
-    <br/>
-
-    {% if display.all_interviews != None and display.interview_details != None %}
-        {% for company_name, interviews in display.interview_details.items() %}
-            {% for interview_id, fields in interviews.items() %}
-                <h4 class="text-center"> {{ company_name }} </h4>
-                <div class="text-center"> 
-                    <i class="fas fa-calendar-alt"></i> {{ fields.Date }} @ {{ fields.Time }}
-                </div> 
-
-                <div class="text-center"> 
-                    {% if fields.interview_type == 'in_person' %}
-                        <i class="fas fa-location-arrow"></i> {{ fields.Location }}
-                    {% elif fields.interview_type == 'video_or_online' %}
-                        <i class="fas fa-video"></i> {{ fields.interview_medium }}
-                    {% else %}
-                        <i class="fas fa-mobile-alt"></i> {{ fields.contact_number }}
-                    {% endif %}
-                </div> 
-                {% if fields.interviewers %}
-                    <div class="text-center"> 
-                        <i class="fas fa-users"> Interviewers: </i> {{ fields.interviewers }}
-                    </div>
-                {% endif %}
-                {% if fields.past_dated %}
-                    <div class="text-center"> 
-                        This is a <strong> past-dated</strong> interview! You may want to <a href={{ fields.update_url }}>update</a> the status. 
-                    </div>
-                {% endif %}
-                <div class="text-center"> 
-                    {% if fields.past_dated == False %}
-                        <a href={{ fields.prepare_url }}> <i class="fas fa-clipboard"> Prepare</i></a>
-                    {% endif %}
-                    <a href={{ fields.View_More }}><i class="fas fa-eye"> View More</i></a>
-                    <a href={{ fields.update_url }}><i class="fas fa-pencil-alt"> Update Details</i></a>
-                </div>
-                
+    </div>
+    <!-- <hr/> -->
+    <div class="alignfull background-colour">
+        <div class="aligncenter">  
+            {% if job_offer_details != None %}
+                <h2 class="text-center"> Job Offers </h2>
                 <br/>
-            {% endfor %}
-        {% endfor %}
+
+                <div class="grid_experiement">
+                {% for job_offer_id, fields in display.job_offer_details.items() %}
+                    <div class="grid_child"> 
+                        <h3 class="text-center"> {{ fields.company_name }}</h3>
+                        <div class="text-center"> 
+                            <i class="fas fa-calendar-alt"></i> <strong> Starting Date:</strong> {{ fields.starting_date }}
+                        </div>
+                        {% if fields.job_role %}
+                            <div class="text-center"> 
+                                <strong> Job Role:</strong> {{ fields.job_role }}
+                            </div>
+                        {% endif %}
+                        {% if fields.offer_response %}
+                            <div class="text-center"> 
+                                <strong> Offer Response:</strong> {{ fields.offer_response }}
+                            </div>
+                        {% endif %}
+                        {% if fields.salary_offered %}
+                            <div class="text-center"> 
+                                <strong> Salary On Offer:</strong> {{ fields.salary_offered }}
+                            </div>                    
+                        {% endif %}
+                        {% if fields.perks_offered %}
+                            <div class="text-center"> 
+                                <strong> Perks Offered: </strong> {{ fields.perks_offered }}
+                            </div>           
+                        {% endif %}
+                        <br/>
+                        {% if fields.update_url %}
+                        <div class="text-center"> 
+                            <a href={{ fields.update_url }} class="link_button"><i class="fas fa-pencil-alt"> Update</i> </a>
+                        </div>           
+                        {% endif %}
+                        <br/>
+                    </div>
+                {% endfor %}
+                </div>
+                <br/>
+                <div class="text-center give-me-space"> 
+                    <a href="/add_job_offer" class="link_right link_button_primary"><i class="fas fa-plus"> Add Job Offer</i> </a>
+                </div>
+            </div>
+        </div>
+        <!-- <hr/> -->
     {% endif %}
-    <hr/>
+
+    <div class="alignfull"> 
+        <div class="aligncenter"> 
+            <h2 class="text-center"> Upcoming Interviews </h2>
+            <br/>
+            <div class="grid_experiement"> 
+                {% if display.all_interviews != None and display.interview_details != None %}
+                    {% for company_name, interviews in display.interview_details.items() %}
+                        <div class="grid_child"> 
+                            {% for interview_id, fields in interviews.items() %}
+                                <h4 class="text-center"> {{ company_name }} </h4>
+                                <div class="text-center"> 
+                                    <i class="fas fa-calendar-alt"></i> {{ fields.Date }} @ {{ fields.Time }}
+                                </div> 
+
+                                <div class="text-center"> 
+                                    {% if fields.interview_type == 'in_person' %}
+                                        <i class="fas fa-location-arrow"></i> {{ fields.Location }}
+                                    {% elif fields.interview_type == 'video_or_online' %}
+                                        <i class="fas fa-video"></i> {{ fields.interview_medium }}
+                                    {% else %}
+                                        <i class="fas fa-mobile-alt"></i> {{ fields.contact_number }}
+                                    {% endif %}
+                                </div> 
+                                {% if fields.interviewers %}
+                                    <div class="text-center"> 
+                                        <i class="fas fa-users"> Interviewers: </i> {{ fields.interviewers }}
+                                    </div>
+                                {% else %}
+                                    <div></div>
+                                {% endif %}
+                                {% if fields.past_dated %}
+                                    <div class="text-center"> 
+                                        This is a <strong> past-dated</strong> interview! You may want to update the status. 
+                                    </div>
+                                {% else %}
+                                    <div></div>
+                                {% endif %}
+                                <br/>
+                                <div class="text-center"> 
+                                    {% if fields.past_dated == False %}
+                                        <a href={{ fields.prepare_url }} class="link_button"> <i class="fas fa-clipboard"> Prepare</i></a>
+                                    {% endif %}
+                                    <a href={{ fields.View_More }} class="link_button"><i class="fas fa-eye"> View More</i></a>
+                                    <a href={{ fields.update_url }} class="link_button"><i class="fas fa-pencil-alt"> Update Details</i></a>
+                                </div>
+                                <br/>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+        <!-- <hr/> -->
 
 
 {% endblock %}

@@ -5,92 +5,95 @@
 {% endblock %}
 
 {% block main %}
-    <h1 class="text-center"> {{ details.company_name }} </h1>
-    <br/>
+    <div class="alignfull"> 
+        <div class="aligncenter"> 
+            <h1 class="text-center"> {{ details.company_name }} </h1>
+            <br/>
 
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-danger border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-    
-    
-    <br/>
-    <form action={{ details.action_url}} method="POST"> 
-        <h2 class="text-center"> Add Interview </h2>
-        <hr class="thick_border"> 
-        <br/>
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-danger border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        
+            <br/>
+            <form action={{ details.action_url}} method="POST"> 
+                <h2 class="text-center"> Add Interview </h2>
+                <hr class="thick_border"> 
+                <br/>
 
-        {{ add_interview_form.csrf_token }}
-        <div class="form-row">
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_interview_form.interview_date.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_date }} </dd> 
-            </div>
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_interview_form.interview_time.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_time }} </dd> 
-            </div>
-        </div> 
-        <div class="form-row">
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-hand-pointer"></i> {{ add_interview_form.interview_type.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_type }} </dd>
-            </div>
+                {{ add_interview_form.csrf_token }}
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_interview_form.interview_date.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_date }} </dd> 
+                    </div>
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_interview_form.interview_time.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_time }} </dd> 
+                    </div>
+                </div> 
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-hand-pointer"></i> {{ add_interview_form.interview_type.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_type }} </dd>
+                    </div>
 
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-hand-pointer"></i> {{ add_interview_form.status.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.status }} </dd>
-            </div>
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-hand-pointer"></i> {{ add_interview_form.status.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.status }} </dd>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-hand-pointer"></i> {{ add_interview_form.interview_medium.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_medium }} </dd>
+                    </div>
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> If other:</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.other_medium }} </dd>
+                    </div>
+                </div>
+
+                <br/>
+                <div class="form-row">
+                    <div class="col">
+                        <h4 class="text-center"> Complete the below where applicable: </h4>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-users"></i> {{ add_interview_form.interviewer_names.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interviewer_names }} </dd>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-mobile-alt"></i> {{ add_interview_form.phone_call.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.phone_call }} </dd>
+                    </div>
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-thumbtack"></i> {{ add_interview_form.interview_location.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_location }} </dd>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col btn btn-lg">
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.save_button }} </dd>
+                    </div>
+                </div>
+
+                {% for field in add_interview_form if field.name != "csrf_token" %}
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endfor %}
+
+            </form>
         </div>
-        <div class="form-row">
-            <div class="col-md-3 mb-3">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-hand-pointer"></i> {{ add_interview_form.interview_medium.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_medium }} </dd>
-            </div>
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> If other:</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.other_medium }} </dd>
-            </div>
-        </div>
-
-        <br/>
-        <div class="form-row">
-            <div class="col">
-                <h4 class="text-center"> Complete the below where applicable: </h4>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-users"></i> {{ add_interview_form.interviewer_names.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interviewer_names }} </dd>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-mobile-alt"></i> {{ add_interview_form.phone_call.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.phone_call }} </dd>
-            </div>
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-thumbtack"></i> {{ add_interview_form.interview_location.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_location }} </dd>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="col btn btn-lg">
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.save_button }} </dd>
-            </div>
-        </div>
-
-        {% for field in add_interview_form if field.name != "csrf_token" %}
-            {% for error in field.errors %}
-                {{ error }}
-            {% endfor %}
-        {% endfor %}
-
-    </form>
+    </div>
 
 {% endblock %}
