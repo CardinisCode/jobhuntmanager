@@ -114,6 +114,10 @@ input[type=select] {
     background: rgba(175, 238, 238, 0.2);
 }
 
+.display-fields{
+  padding: 10px;
+}
+
 .background-white {
   background-color: white;
 }

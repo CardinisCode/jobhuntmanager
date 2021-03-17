@@ -19,15 +19,15 @@
                 <div class="form-row">
                     <div class="col">
                         <dt class="text-center border-bottom border-right border-left border-top bkground_blue"> Applications Submitted Today</dt>
-                        <dd class="text-center border-bottom border-right border-left border-top background-white "> {{ display.applications_today }}</dd>
+                        <dd class="text-center border-bottom border-right border-left border-top display-fields"> {{ display.applications_today }}</dd>
                     </div>
                     <div class="col">
                         <dt class="text-center border-bottom border-right border-left border-top bkground_blue"> Interviews Today</dt>
-                        <dd class="text-center border-bottom border-right border-left border-top background-white "> {{ display.interviews_today }}</dd>
+                        <dd class="text-center border-bottom border-right border-left border-top display-fields"> {{ display.interviews_today }}</dd>
                     </div>
                     <div class="col">
                         <dt class="text-center border-bottom border-right border-left border-top bkground_blue"> Job Offers</dt>
-                        <dd class="text-center border-bottom border-right border-left border-top background-white "> {{ display.job_offer_count }}</dd>
+                        <dd class="text-center border-bottom border-right border-left border-top display-fields"> {{ display.job_offer_count }}</dd>
                     </div>
                 </div>
             </div>
@@ -182,6 +182,7 @@
                                     <br/>
                                     <div class="form-row">
                                         <div class="col text-center"> 
+
                                             This is a past-dated interview! Update below:
                                         </div>
                                     </div>
@@ -189,12 +190,6 @@
                                     <div class="form-row"></div>
                                 {% endif %}
                                 <br/>
-
-                                {% if fields.past_dated == False %}
-                                    <div class="form-row">
-
-                                    </div>
-                                {% endif %}
 
                                 <div class="text-center"> 
                                     {% if fields.past_dated == False %}

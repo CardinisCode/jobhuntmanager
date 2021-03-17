@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session, flash
-from datetime import datetime, date
+from datetime import datetime, date, time
 
 
 def clean_up_job_offer_details(job_offer_details, offer_count):
@@ -78,6 +78,19 @@ def cleanup_interview_details(interview_details, other_medium, company_name, int
 
     if past_dated:
         interview_details[company_name][interview_id]["past_dated"] = past_dated
+
+    date_str = interview_date.strftime("%Y-%m-%d")
+    interview_details[company_name][interview_id]["Date"] = date_str
+
+
+    time_str = interview_time.strftime("%H:%M")
+    interview_hour_int = int(interview_time.strftime("%H"))
+    if interview_hour_int >= 12:
+        time_str += " pm"
+    else:
+        time_str += " am"
+
+    interview_details[company_name][interview_id]["Time"] = time_str
 
     # Lets cleaned up the display of 'Medium':
     if medium == "google_chat":
