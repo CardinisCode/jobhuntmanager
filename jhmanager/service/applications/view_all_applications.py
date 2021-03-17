@@ -14,7 +14,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
     if top_ten_applications != None:
         display_details["empty_table"] = False
         display_details["headings"] = {
-        "headings_list" : ["#", "Date", "Company Name", "Job Role", "Interview Stage", "Salary", "More..."]
+        "headings_list" : ["#", "Date", "Company Name", "Job Role", "Interview Stage", "Salary"]
         }
         
         entry_id = 0
