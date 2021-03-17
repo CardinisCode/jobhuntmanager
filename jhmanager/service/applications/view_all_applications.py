@@ -14,10 +14,12 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
     if top_ten_applications != None:
         display_details["empty_table"] = False
         display_details["headings"] = {
-        "headings_list" : ["ID#", "Date", "Company Name", "Job Role", "Employment Type",  "Interview Stage", "Contact Received", "Salary", "Platform / Job Board", "View More", "Delete"]
+        "headings_list" : ["#", "Date", "Company Name", "Job Role", "Interview Stage", "Salary", "More..."]
         }
         
+        entry_id = 0
         for application in top_ten_applications:
+            entry_id += 1
             app_id = application.app_id
             app_date = application.app_date
             emp_type = application.employment_type
@@ -41,8 +43,8 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
 
             display_details["fields"][app_id] = {
                 "app_id": {
-                    "label": "ID#", 
-                    "data": app_id,
+                    "label": "#", 
+                    "data": entry_id,
                 },
                 
                 "app_date":  {
@@ -57,25 +59,13 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
                     "label": "Job Role",
                     "data": application.job_role,
                 },
-                "emp_type": {
-                    "label": "Employment Type",
-                    "data": emp_type,
-                },
                 "interview_stage": {
                     "label": "Interview Stage",
                     "data": Interview_stage_str,                  
                 },
-                "contact_received": {
-                    "label": "Contact Received",
-                    "data": application.contact_received.capitalize(),                  
-                }, 
                 "salary": {
                     "label": "Salary",
                     "data": salary,                 
-                },
-                "platform": {
-                    "label": "Platform / Job Board", 
-                    "data": platform,                
                 },
                 "view_more": {
                     "label": "View More", 
@@ -86,29 +76,6 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
                     "data": delete_url,
                 }
             }
-
-            # Let's clean up the emp_type so its output is more presentable:
-            if emp_type == "full_time":
-                display_details["fields"][app_id]["emp_type"]["data"] = "Full Time"
-            
-            elif emp_type == "part_time":
-                display_details["fields"][app_id]["emp_type"]["data"]= "Part Time"
-
-            elif emp_type == "temporary":
-                display_details["fields"][app_id]["emp_type"]["data"] = "Temp"
-
-            elif emp_type == "contract":
-                display_details["fields"][app_id]["emp_type"]["data"] = "Contract"
-
-            elif emp_type == "other_emp_type": 
-                display_details["fields"][app_id]["emp_type"]["data"] = "Other"
-
-            else: 
-                display_details["fields"][app_id]["emp_type"]["data"] = "Not Provided"
-
-            # If these fields values are "N/A", lets rather display a blank field to user:
-            if platform == "N/A":
-                display_details["fields"][app_id]["platform"]["data"] = ""
 
             if salary == "N/A":
                 display_details["fields"][app_id]["salary"]["data"] = ""

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <h1> Job Applications </h1>
+    <h1 class="text-center"> Job Applications </h1>
     <hr/>
 
     {% if get_flashed_messages() %}
@@ -14,16 +14,17 @@
         {% endfor %}
     {% endif %}
 
-    <h2> Your Application History: </h2>
+    <h2 class="text-center"> Your Application History </h2>
     <!-- <a href="/add_job_application" class="button right_button">Add Application</a> -->
 
     <!-- <p> Today's date: {{ display_details.todays_date }} </p> -->
-    {% if display_details.empty_table == True %}
-        <p> No Applications add yet. <a href="/add_job_application" style="cursor:pointer; text-align: right;"> <i class="fas fa-plus"> Job Application </i></a></p>
-    {% else %}
-        <a href="/add_job_application" style="cursor:pointer; text-align: right;"> <i class="fas fa-plus"> Job Application </i></a>
+    <div class="button-grid"> 
+        <a href="/add_job_application" class="link_button_primary extra-button-styles"> <i class="fas fa-plus"> Job Application </i></a>
+    </div>
+    {% if display_details.empty_table != True %}
+
         <table class="center"> 
-            <tr class="border-bottom border-right border-left border-top">
+            <tr class="border-bottom border-right border-left border-top blue-row-background">
                 {% for key, value in display_details.items() %}
                     {% if key == "headings"  %}
                         {% for heading in value["headings_list"] %}
@@ -35,17 +36,16 @@
             
             {% for application_id, application in display_details.fields.items() %}
                 <tr class="border-bottom border-right border-left border-top">
-                    {% for field in application.values() %}
-                        {% if field.label == "View More" %}
-                            <td class="border-bottom border-right border-left border-top"> <a href={{ field.data }}> <i class="fas fa-eye"></i></a></td>
-                        {% else %}
-                            {% if field.label == "Delete Note" %}
-                            <td class="border-bottom border-right border-left border-top"> <a href={{ field.data }}> <i class="fas fa-trash"></i></a></td>
-                            {% else %}
-                            <td class="border-bottom border-right border-left border-top"> {{ field.data }} </td>
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
+                    <td class="border-bottom border-right border-left border-top td-styling"> {{ application.app_id.data }}</td>
+                    <td class="border-bottom border-right border-left border-top td-styling"> {{ application.app_date.data }}</td>
+                    <td class="border-bottom border-right border-left border-top td-styling"> {{ application.company_name.data }}</td>
+                    <td class="border-bottom border-right border-left border-top td-styling"> {{ application.job_role.data }}</td>
+                    <td class="border-bottom border-right border-left border-top td-styling"> {{ application.interview_stage.data }}</td>
+                    <td class="border-bottom border-right border-left border-top td-styling"> {{ application.salary.data }}</td>
+                    <td class="border-bottom border-right border-left border-top td-styling">
+                        <a href={{ application.view_more.data }}> <i class="fas fa-eye"> View More</i></a>
+                        <a href={{ application.delete.data }}> <i class="fas fa-trash"> Delete</i></a>
+                    </td>
                 </tr>
             {% endfor %}
         </table>

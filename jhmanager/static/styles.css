@@ -114,6 +114,10 @@ input[type=select] {
     background: rgba(175, 238, 238, 0.2);
 }
 
+.blue-row-background{
+  background: rgba(175, 238, 238, 0.2);
+}
+
 .display-fields{
   padding: 10px;
 }
@@ -122,21 +126,18 @@ input[type=select] {
   background-color: white;
 }
 
+.extra-button-styles{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+
 .grid_experiement{
   display: grid;
   grid-template-columns: 49% 49%;
   justify-content: center;
   grid-gap: 1em;
 }
-
-/* .grid_2_cols{
-  grid-template-columns: 49% 49%;
-}
-
-.grid_3_cols{
-  grid-template-columns: auto 24% 24%;
-} */
-
 
 .grid_child{
   border: 1px solid #dee2e6!important;
@@ -272,6 +273,10 @@ h3, h4 {
 
 h1 {
   margin-bottom: 3rem !important;
+}
+
+.td-styling {
+  padding: 0.5rem;
 }
 
 /* .wpforms-container-full .wpforms-form .wpforms-title {
