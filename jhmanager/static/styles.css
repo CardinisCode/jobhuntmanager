@@ -245,6 +245,22 @@ hr.thick_border {
   padding: 0 4rem;
 }
 
+.left-padding {
+  padding-left: 20px !important;
+}
+
+.right-padding {
+  padding-right: 20px !important;
+}
+
+h3, h4 {
+  margin-bottom: 1.5rem !important;
+}
+
+h1 {
+  margin-bottom: 3rem !important;
+}
+
 /* .wpforms-container-full .wpforms-form .wpforms-title {
   font-size: 26px;
   margin: 0 0 10px 0;
