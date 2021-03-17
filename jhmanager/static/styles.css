@@ -125,6 +125,15 @@ input[type=select] {
   grid-gap: 1em;
 }
 
+/* .grid_2_cols{
+  grid-template-columns: 49% 49%;
+}
+
+.grid_3_cols{
+  grid-template-columns: auto 24% 24%;
+} */
+
+
 .grid_child{
   border: 1px solid #dee2e6!important;
   background: rgba(175, 238, 238, 0.2);
@@ -246,11 +255,11 @@ hr.thick_border {
 }
 
 .left-padding {
-  padding-left: 20px !important;
+  padding-left: 30px !important;
 }
 
 .right-padding {
-  padding-right: 20px !important;
+  padding-right: 30px !important;
 }
 
 h3, h4 {
