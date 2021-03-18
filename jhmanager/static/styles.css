@@ -305,6 +305,12 @@ h1 {
   padding: 0.5rem;
 }
 
+/* .list_group_heading {
+  text-align: center;
+  background-color: #495057 !important;
+  color: white;
+} */
+
 .list-group-item {
   position: relative;
   display: block;
