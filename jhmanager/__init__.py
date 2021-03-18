@@ -83,6 +83,7 @@ from jhmanager.service.job_offers.update_job_offer import display_update_job_off
 from jhmanager.service.job_offers.update_job_offer import post_update_job_offer
 
 from jhmanager.service.display_dashboard_content import create_dashboard_content
+from jhmanager.service.display_all_notes import display_all_user_notes
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -565,11 +566,11 @@ def delete_an_application_note(application_id, app_notes_id):
     return delete_application_note(application_id, app_notes_id, appNotesRepo)
 
 # View all user notes:
-@app.route('/user_notes')
+@app.route('/view_all_notes')
 @login_required
 def display_all_notes():
     user_id = session["user_id"]
-    return display_all_user_notes(user_id, userNotesRepo, companyRepo, applicationsRepo)
+    return display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo, companyNotesRepo)
 
 
 @app.route("/userprofile")

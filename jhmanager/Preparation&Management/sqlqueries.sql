@@ -550,6 +550,7 @@ COMMIT;
 
 
 BEGIN TRANSACTION;
+DROP TABLE application_notes;
 CREATE TABLE IF NOT EXISTS 'application_notes' (
     'app_notes_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     'user_id' INTEGER NOT NULL, 

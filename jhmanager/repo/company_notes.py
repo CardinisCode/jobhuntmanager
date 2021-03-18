@@ -67,6 +67,25 @@ class CompanyNotesRepository:
 
         return company_note
 
+    def getCompanyNotesByUserID(self, user_id): 
+        cursor = self.db.cursor()
+        command = "SELECT * FROM company_notes WHERE user_id = {} ORDER BY date DESC".format(user_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        data = [x for x in result]
+        if len(data) < 1:
+            return None
+
+        notes_list = []
+        
+        for note in data:
+            note_result = CompanyNotes(note)
+            notes_list.append(note_result)
+
+        return notes_list
+
+
     def UpdateByCompanyNoteID(self, fields):
         cursor = self.db.cursor()
 
