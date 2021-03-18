@@ -9,7 +9,7 @@ def display_application_note_form(notes_form, application_id, companyRepo, appli
     details = {
         "application_id": application.app_id,
         "company_name": company.name, 
-        "action_url": '/applications/{}/app_notes/add_notes'.format(application_id)
+        "action_url": '/applications/{}/app_notes/add_note'.format(application_id)
     }
 
     return render_template("add_application_note.html", notes_form=notes_form, details=details)

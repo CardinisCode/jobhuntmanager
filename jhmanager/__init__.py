@@ -58,6 +58,7 @@ from jhmanager.service.interview_preparation.add_interview_prep import post_add_
 
 from jhmanager.service.application_notes.add_app_note import display_application_note_form
 from jhmanager.service.application_notes.add_app_note import post_application_add_note
+from jhmanager.service.application_notes.view_application_notes import display_application_notes
 
 from jhmanager.service.notes.add_note import display_user_notes_form
 from jhmanager.service.notes.add_note import post_add_note
@@ -511,8 +512,8 @@ def update_company_note(company_id, company_note_id):
 def delete_company_note(company_id, company_note_id):
     return delete_specific_company_note(company_id, company_note_id, companyNotesRepo)
 
-
-@app.route('/applications/<int:application_id>/app_notes/add_notes', methods=["GET", "POST"])
+# Add Note for application:
+@app.route('/applications/<int:application_id>/app_notes/add_note', methods=["GET", "POST"])
 @login_required
 def add_application_note(application_id):
     user_id = session["user_id"]
@@ -529,29 +530,21 @@ def add_application_note(application_id):
         return display_application_note_form(notes_form, application_id, companyRepo, applicationsRepo)
 
 
-# Add Note for application:
-@app.route('/applications/<int:application_id>/add_notes', methods=["GET", "POST"])
+# View all application notes:
+@app.route('/applications/<int:application_id>/view_application_notes')
 @login_required
-def add_user_notes(application_id):
+def view_application_notes(application_id):
     user_id = session["user_id"]
-    notes_form = AddNotesForm()
+    return display_application_notes(user_id, application_id, applicationsRepo, appNotesRepo, companyRepo)
 
-    if request.method == "POST":
-        if notes_form.validate_on_submit():
-            return post_add_note(notes_form, application_id, user_id, userNotesRepo, applicationsRepo)
-        else:
-            flash("All fields are required.")
-            return display_user_notes_form(notes_form, application_id, companyRepo, applicationsRepo)
 
-    if request.method == "GET":
-        return display_user_notes_form(notes_form, application_id, companyRepo, applicationsRepo)
 
-# View all notes for application
-@app.route('/applications/<int:application_id>/view_notes')
-@login_required
-def display_user_notes(application_id):
-    user_id = session["user_id"]
-    return display_all_user_notes_for_application(user_id, application_id, applicationsRepo, userNotesRepo, companyRepo)
+# # View all notes for application
+# @app.route('/applications/<int:application_id>/view_application_notes')
+# @login_required
+# def display_user_notes(application_id):
+#     user_id = session["user_id"]
+#     return display_all_user_notes_for_application(user_id, application_id, applicationsRepo, appNotesRepo, companyRepo)
 
 # View Note:
 @app.route('/applications/<int:application_id>/user_notes/<int:note_id>')

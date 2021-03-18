@@ -81,8 +81,8 @@ def display_application_details(session, user_id, applicationsRepo, application_
 
     application_details["update_application_url"] = '/applications/{}/update_application'.format(application_id)
     application_details["delete_application_url"] = '/applications/{}/delete'.format(application_id)
-    application_details["add_note_url"] = '/applications/{}/app_notes/add_notes'.format(application_id)
-    application_details["view_notes_url"] = '/applications/{}/view_notes'.format(application_id)
+    application_details["add_note_url"] = '/applications/{}/app_notes/add_note'.format(application_id)
+    application_details["view_notes_url"] = '/applications/{}/view_application_notes'.format(application_id)
     application_details["add_interview_url"] = '/applications/{}/add_interview'.format(application_id)
 
     application_details["app_id"] = application_id

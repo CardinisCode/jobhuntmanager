@@ -12,7 +12,7 @@ class ApplicationNotes:
         self.company_id = db_fields[3]
         self.entry_date = db_fields[4]
         self.description = db_fields[5]
-        self.note_text = db_fields[6]
+        self.notes_text = db_fields[6]
 
 
 class ApplicationNotesRepository:
@@ -32,9 +32,9 @@ class ApplicationNotesRepository:
 
         return result.lastrowid
 
-    def getNoteByID(self, notes_id):
+    def getNoteByID(self, app_notes_id):
         cursor = self.db.cursor()
-        command = "SELECT * FROM application_notes WHERE notes_id = {}".format(notes_id)
+        command = "SELECT * FROM application_notes WHERE app_notes_id = {}".format(app_notes_id)
         result = cursor.execute(command)
         self.db.commit()
 
@@ -42,7 +42,7 @@ class ApplicationNotesRepository:
             return None
 
         data = [x for x in result][0]
-        note_details = Notes(data)
+        note_details = ApplicationNotes(data)
 
         return note_details
 
@@ -57,7 +57,7 @@ class ApplicationNotesRepository:
         
         notes_list = []
         for note in result:
-            user_notes_entry = Notes(note)
+            user_notes_entry = ApplicationNotes(note)
             notes_list.append(user_notes_entry)
 
         if notes_list == []:
@@ -68,7 +68,7 @@ class ApplicationNotesRepository:
 
     def getAppNotesByApplicationID(self, application_id, user_id):
         cursor = self.db.cursor()
-        command = "SELECT * FROM application_notes WHERE user_id = {} and application_id = {} ORDER BY date DESC".format(user_id, application_id)
+        command = "SELECT * FROM application_notes WHERE user_id = {} and application_id = {} ORDER BY entry_date DESC".format(user_id, application_id)
         result = cursor.execute(command)
         self.db.commit()
 
@@ -77,7 +77,7 @@ class ApplicationNotesRepository:
         
         notes_list = []
         for note in result:
-            app_notes_entry = Notes(note)
+            app_notes_entry = ApplicationNotes(note)
             notes_list.append(app_notes_entry)
 
         if notes_list == []:
@@ -97,7 +97,7 @@ class ApplicationNotesRepository:
 
         notes_list = []
         for note in result:
-            note_result = Notes(note)
+            note_result = ApplicationNotes(note)
             notes_list.append(note_result)
 
         if notes_list == []:
@@ -106,9 +106,9 @@ class ApplicationNotesRepository:
         return notes_list    
 
 
-    def getUserNotesByID(self, application_id, notes_id):
+    def getUserNotesByID(self, application_id, app_notes_id):
         cursor = self.db.cursor()
-        command = "SELECT * FROM application_notes WHERE application_id = {} and notes_id = {}".format(application_id, notes_id)
+        command = "SELECT * FROM application_notes WHERE application_id = {} and app_notes_id = {}".format(application_id, app_notes_id)
         result = cursor.execute(command)
         self.db.commit()
 
@@ -116,15 +116,15 @@ class ApplicationNotesRepository:
             return None
 
         data = [x for x in result][0]
-        note_details = Notes(data)
+        note_details = ApplicationNotes(data)
 
         return note_details  
 
-    def deleteByAppNoteID(self, notes_id):
+    def deleteByAppNoteID(self, app_notes_id):
         message = ""
         try: 
             cursor = self.db.cursor()
-            command = "DELETE FROM application_notes WHERE notes_id = {}".format(notes_id)
+            command = "DELETE FROM application_notes WHERE app_notes_id = {}".format(app_notes_id)
             cursor.execute(command)
             self.db.commit()
             message = "Note successfully deleted."
@@ -172,7 +172,7 @@ class ApplicationNotesRepository:
             UPDATE application_notes
             SET description = ?, 
             notes_text = ?
-            WHERE notes_id = ?
+            WHERE app_notes_id = ?
             """
             cursor.execute(command, tuple(fields.values()))
             self.db.commit()
