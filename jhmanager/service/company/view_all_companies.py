@@ -20,9 +20,11 @@ def display_all_companies_for_user(user_id, companyRepo, applicationsRepo):
             company_name = company.name
             company_id = company.company_id
             view_more_url = '/company/{}/view_company'.format(company_id)
+            name = "".join(company_name.split(" "))
             company_details[entry_id] = {
                 "company_id": company_id,
                 "company_name": company_name,
+                "name": name,
                 "view_more_url": view_more_url
             }
 

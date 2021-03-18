@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <h1> Address Book:</h1>
+    <h1 class="text-center"> Address Book:</h1>
     <hr/>
 
     {% if get_flashed_messages() %}
@@ -17,13 +17,11 @@
     {% if general_details.empty_table %}
         <p>  {{ general_details.message }}</a></p>
     {% else %}
-        <table> 
+        <div class="list-group">
             {% for fields in company_details.values() %}
-                <tr class="border-bottom border-right border-left border-top"> 
-                    <td> <a href={{ fields.view_more_url }} > {{ fields.company_name }} </a></td>
-                </tr>
+                <a href={{ fields.view_more_url }} class="list-group-item list-group-item-action" name={{ fields.name }}> {{ fields.company_name }} </a>
             {% endfor %}
-        </table>
+        </div>
     {% endif %}
 
 
