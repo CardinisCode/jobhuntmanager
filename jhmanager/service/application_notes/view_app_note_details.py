@@ -5,7 +5,7 @@ def display_application_note_details(application_id, app_notes_id, appNotesRepo,
     app_notes = appNotesRepo.getNoteByAppNoteID(app_notes_id)
     company_id = app_notes.company_id
     company_name = companyRepo.getCompanyById(company_id).name
-    # update_url =  "/applications/{}/user_notes/{}/update_note".format(application_id, note_id)
+    update_url =  '/applications/{}/app_notes/{}/update_note'.format(application_id, app_notes_id)
     # delete_note_url = "/applications/{}/user_notes/{}/delete_note".format(application_id, note_id)
 
     general_details = {
@@ -18,9 +18,8 @@ def display_application_note_details(application_id, app_notes_id, appNotesRepo,
         "company_name": company_name,
         "Subject": app_notes.description, 
         "Note": app_notes.notes_text, 
-        "Update_Url": "Update LINK...", 
-        "Delete_Url": "Delete LINK..."
-        # "update_url": update_url,
+        "Delete_Url": "Delete LINK...",
+        "update_url": update_url,
         # "delete_note_url": delete_note_url
     }
 

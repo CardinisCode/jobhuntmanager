@@ -29,7 +29,7 @@ def post_application_add_note(notes_form, application_id, user_id, appNotesRepo,
         "company_id": company_id,
         "date_of_entry": entry_date_str,
         "description": notes_form.description.data, 
-        "notes_text": notes_form.user_notes.data
+        "notes_text": notes_form.notes_text.data
     }
 
     appNotesRepo.insertNewNote(details)
