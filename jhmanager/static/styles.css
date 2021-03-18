@@ -210,6 +210,7 @@ hr.thick_border {
   grid-template-columns: 50% 50%;
 }
 
+
 .link_button_primary:hover{
   color: indigo;
   background: transparent;

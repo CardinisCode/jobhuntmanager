@@ -15,40 +15,82 @@
 
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
-            {% if app_notes_details.empty_table != True %}
             <h2 class="text-center"> Application Notes</h2>
             <br/>
-    
-            <table> 
-                <tr class="border-bottom border-right border-left border-top blue-row-background"> 
-                    {% for heading in app_notes_details.headings %}
-                        <th class="border-bottom border-right border-left border-top td-styling"> {{ heading }} </th>
-                    {% endfor %}
-                </tr>
-    
-                {% for entry_id, fields in app_notes_details.fields.items() %}
-                    <tr>
-                        <td class="border-bottom border-right border-left border-top"> {{ entry_id }}</td>
-                        <td class="border-bottom border-right border-left border-top"> {{ fields.entry_date }}</td>
-                        <td class="border-bottom border-right border-left border-top"> {{ fields.company_name }}</td>
-                        <td class="border-bottom border-right border-left border-top"> {{ fields.job_role }}</td>
-                        <td class="border-bottom border-right border-left border-top"> {{ fields.description }}</td>
-                        <td class="td-styling"> 
-                            <a href={{ fields.view_note_url }} class="link_button"> <i class="fas fa-eye"> View Note</i</a> 
-                        </td>
-                        <td class="td-styling"> 
-                            <a href={{ fields.update_note_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update Note</i</a> 
-                        </td>
-                        <td class="td-styling"> 
-                            <a href={{ fields.delete_note_url }} class="link_button"> <i class="fas fa-trash"> Delete Note</i></a> 
-                        </td>
+            {% if app_notes_details.empty_table != True %}
+                <table> 
+                    <tr class="border-bottom border-right border-left border-top blue-row-background"> 
+                        {% for heading in app_notes_details.headings %}
+                            <th class="border-bottom border-right border-left border-top td-styling"> {{ heading }} </th>
+                        {% endfor %}
                     </tr>
-                {% endfor %}
-            </table>
-        {% endif %}
+        
+                    {% for entry_id, fields in app_notes_details.fields.items() %}
+                        <tr>
+                            <td class="border-bottom border-right border-left border-top"> {{ entry_id }}</td>
+                            <td class="border-bottom border-right border-left border-top"> {{ fields.entry_date }}</td>
+                            <td class="border-bottom border-right border-left border-top"> {{ fields.company_name }}</td>
+                            <td class="border-bottom border-right border-left border-top"> {{ fields.job_role }}</td>
+                            <td class="border-bottom border-right border-left border-top"> {{ fields.description }}</td>
+                            <td class="td-styling"> 
+                                <a href={{ fields.view_note_url }} class="link_button"> <i class="fas fa-eye"> View Note</i></a> 
+                            </td>
+                            <td class="td-styling"> 
+                                <a href={{ fields.update_note_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update Note</i></a> 
+                            </td>
+                            <td class="td-styling"> 
+                                <a href={{ fields.delete_note_url }} class="link_button"> <i class="fas fa-trash"> Delete Note</i></a> 
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            <br/>
         </div>
     </div>
     
-    
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <h2 class="text-center"> Company Notes</h2>
+            <br/>
+            {% if company_notes_details.empty_table != True %}
+                <table> 
+                    <tr class="border-bottom border-right border-left border-top blue-row-background"> 
+                        {% for heading in company_notes_details.headings %}
+                            <th class="border-bottom border-right border-left border-top td-styling"> {{ heading }} </th>
+                        {% endfor %}
+                    </tr>
+        
+                    {% for entry_id, fields in company_notes_details.fields.items() %}
+                        <tr>
+                            <td class="border-bottom border-right border-left border-top"> {{ entry_id }}</td>
+                            <td class="border-bottom border-right border-left border-top"> {{ fields.entry_date }}</td>
+                            <td class="border-bottom border-right border-left border-top"> {{ fields.company_name }}</td>
+                            <td class="border-bottom border-right border-left border-top"> {{ fields.subject }}</td>
+                            <td class="td-styling"> 
+                                <a href={{ fields.view_company_note_url }} class="link_button"> <i class="fas fa-eye"> View Note</i></a> 
+                            </td>
+                            <td class="td-styling"> 
+                                <a href={{ fields.update_company_note_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update Note</i></a> 
+                            </td>
+                            <td class="td-styling"> 
+                                <a href={{ fields.delete_company_note_url }} class="link_button"> <i class="fas fa-trash"> Delete Note</i></a> 
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            <br/>
+
+        </div>        
+    </div>
+    <div class="alignfull background-colour">
+        <div class="aligncenter"> 
+            <div class="button-grid"> 
+                <a href='/address_book' class="link_button_primary text-center"><i class="fas fa-eye"> View Company Address Book</i> </a>
+                <a href="/applications" class="link_button_primary text-center link-right"><i class="fas fa-eye"> View all Applications</i> </a>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
