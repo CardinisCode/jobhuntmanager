@@ -28,6 +28,7 @@ def display_application_notes(user_id, application_id, applicationsRepo, appNote
             note_count += 1
             note_id = note.app_notes_id
             view_note_url = '/applications/{}/app_notes/{}/view_note'.format(application_id, note_id)
+            update_note_url = '/applications/{}/app_notes/{}/update_note'.format(application_id, note_id)
             delete_url = "/applications/{}/app_notes/{}/delete_note".format(application_id, note_id)
             user_notes_details[note_count] = {
                 "note_id": note_id,
@@ -35,7 +36,8 @@ def display_application_notes(user_id, application_id, applicationsRepo, appNote
                 "subject": note.description, 
                 "note_text": note.notes_text, 
                 "view_note_url": view_note_url, 
-                "delete_url": delete_url
+                "delete_url": delete_url, 
+                "update_note_url": update_note_url
             }
 
     return render_template("view_notes_for_application.html", general_details=general_details, user_notes_details=user_notes_details)
