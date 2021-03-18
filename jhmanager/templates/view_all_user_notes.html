@@ -33,13 +33,11 @@
                             <td class="border-bottom border-right border-left border-top"> {{ fields.job_role }}</td>
                             <td class="border-bottom border-right border-left border-top"> {{ fields.description }}</td>
                             <td class="td-styling"> 
-                                <a href={{ fields.view_note_url }} class="link_button"> <i class="fas fa-eye"> View Note</i></a> 
-                            </td>
-                            <td class="td-styling"> 
-                                <a href={{ fields.update_note_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update Note</i></a> 
-                            </td>
-                            <td class="td-styling"> 
-                                <a href={{ fields.delete_note_url }} class="link_button"> <i class="fas fa-trash"> Delete Note</i></a> 
+                                <div class="button-grid" role="group" aria-label="note_link_urls"> 
+                                    <a href={{ fields.view_note_url }} class="table_link_button"> <i class="fas fa-eye"> View Note</i></a> 
+                                    <a href={{ fields.update_note_url }} class="table_link_button"> <i class="fas fa-pencil-alt"> Update Note</i></a> 
+                                    <a href={{ fields.delete_note_url }} class="table_link_button"> <i class="fas fa-trash"> Delete Note</i></a> 
+                                </div>
                             </td>
                         </tr>
                     {% endfor %}
@@ -68,25 +66,22 @@
                             <td class="border-bottom border-right border-left border-top"> {{ fields.company_name }}</td>
                             <td class="border-bottom border-right border-left border-top"> {{ fields.subject }}</td>
                             <td class="td-styling"> 
-                                <a href={{ fields.view_company_note_url }} class="link_button"> <i class="fas fa-eye"> View Note</i></a> 
-                            </td>
-                            <td class="td-styling"> 
-                                <a href={{ fields.update_company_note_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update Note</i></a> 
-                            </td>
-                            <td class="td-styling"> 
-                                <a href={{ fields.delete_company_note_url }} class="link_button"> <i class="fas fa-trash"> Delete Note</i></a> 
-                            </td>
+                                <div class="button-grid" role="group" aria-label="note_link_urls"> 
+                                    <a href={{ fields.view_company_note_url }} class="table_link_button"> <i class="fas fa-eye"> View Note</i></a>
+                                    <a href={{ fields.update_company_note_url }} class="table_link_button"> <i class="fas fa-pencil-alt"> Update Note</i></a> 
+                                    <a href={{ fields.delete_company_note_url }} class="table_link_button"> <i class="fas fa-trash"> Delete Note</i></a> 
+                                </div>
+                            </td>    
                         </tr>
                     {% endfor %}
                 </table>
             {% endif %}
             <br/>
-
         </div>        
     </div>
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
-            <div class="button-grid"> 
+            <div class="button-grid" role="group"> 
                 <a href='/address_book' class="link_button_primary text-center"><i class="fas fa-eye"> View Company Address Book</i> </a>
                 <a href="/applications" class="link_button_primary text-center link-right"><i class="fas fa-eye"> View all Applications</i> </a>
             </div>

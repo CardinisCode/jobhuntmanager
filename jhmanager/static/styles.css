@@ -242,6 +242,31 @@ hr.thick_border {
   background: linear-gradient(45deg, purple, indigo);
 }
 
+.table_link_button {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  /* border: solid 1px #20538D;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2); */
+  /* background: linear-gradient(45deg, purple, indigo); */
+  padding: 8px 12px;
+  text-decoration: none;
+  line-height: 1;
+  opacity: 1;
+  color: indigo;
+  border: solid 2px indigo;
+  background: transparent;
+  justify-content: center;
+}
+
+.table_link_button:hover{
+  color: white;
+  background: linear-gradient(45deg, purple, indigo);
+}
+
 .background-colour {
   /* background-color: rgba(241, 239, 247, 0.4); */
   background-color: rgba(203, 201, 214, 0.2);
