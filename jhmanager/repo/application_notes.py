@@ -32,7 +32,7 @@ class ApplicationNotesRepository:
 
         return result.lastrowid
 
-    def getNoteByID(self, app_notes_id):
+    def getNoteByAppNoteID(self, app_notes_id):
         cursor = self.db.cursor()
         command = "SELECT * FROM application_notes WHERE app_notes_id = {}".format(app_notes_id)
         result = cursor.execute(command)

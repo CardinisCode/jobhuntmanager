@@ -59,6 +59,7 @@ from jhmanager.service.interview_preparation.add_interview_prep import post_add_
 from jhmanager.service.application_notes.add_app_note import display_application_note_form
 from jhmanager.service.application_notes.add_app_note import post_application_add_note
 from jhmanager.service.application_notes.view_application_notes import display_application_notes
+from jhmanager.service.application_notes.view_app_note_details import display_application_note_details
 
 from jhmanager.service.notes.add_note import display_user_notes_form
 from jhmanager.service.notes.add_note import post_add_note
@@ -538,19 +539,18 @@ def view_application_notes(application_id):
     return display_application_notes(user_id, application_id, applicationsRepo, appNotesRepo, companyRepo)
 
 
-
-# # View all notes for application
-# @app.route('/applications/<int:application_id>/view_application_notes')
-# @login_required
-# def display_user_notes(application_id):
-#     user_id = session["user_id"]
-#     return display_all_user_notes_for_application(user_id, application_id, applicationsRepo, appNotesRepo, companyRepo)
-
-# View Note:
-@app.route('/applications/<int:application_id>/user_notes/<int:note_id>')
+# View Details for an Application Note:
+@app.route('/applications/<int:application_id>/app_notes/<int:app_notes_id>/view_note')
 @login_required
-def display_note_details(application_id, note_id):
-    return display_user_note_details(application_id, note_id, userNotesRepo, companyRepo)
+def view_specific_application_note(application_id, app_notes_id):
+    return display_application_note_details(application_id, app_notes_id, appNotesRepo, companyRepo)
+
+
+# # View Note:
+# @app.route('/applications/<int:application_id>/user_notes/<int:note_id>')
+# @login_required
+# def display_note_details(application_id, note_id):
+#     return display_user_note_details(application_id, note_id, userNotesRepo, companyRepo)
 
 # Update Note:
 @app.route('/applications/<int:application_id>/user_notes/<int:note_id>/update_note', methods=["GET", "POST"])

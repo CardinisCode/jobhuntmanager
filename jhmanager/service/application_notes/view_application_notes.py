@@ -27,14 +27,14 @@ def display_application_notes(user_id, application_id, applicationsRepo, appNote
         for note in application_notes:
             note_count += 1
             note_id = note.app_notes_id
-            # view_note_url = "/applications/{}/user_notes/{}".format(application_id, note_id)
-            # delete_url = "/applications/{}/user_notes/{}/delete_note".format(application_id, note_id)
+            view_note_url = '/applications/{}/app_notes/{}/view_note'.format(application_id, note_id)
+            delete_url = "/applications/{}/user_notes/{}/delete_note".format(application_id, note_id)
             user_notes_details[note_count] = {
                 "note_id": note_id,
                 "entry_date": note.entry_date, 
                 "subject": note.description, 
                 "note_text": note.notes_text, 
-                "view_note_url": "View Link...", 
+                "view_note_url": view_note_url, 
                 "delete_url": "Delete Link..."
                 # "view_note_url": view_note_url,
                 # "delete_url": delete_url

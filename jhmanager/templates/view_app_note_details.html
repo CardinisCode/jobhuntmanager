@@ -1,11 +1,10 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    View Notes Details
+    View Application Note
 {% endblock %}
 
 {% block main %}
-
 
     <h1>  {{ note_details.company_name }} </h1>
     <hr/>
@@ -16,11 +15,8 @@
         {% endfor %}
     {% endif %}
 
-    <h2> Note Details: </h2>
-    <div> 
-        <a href={{ note_details.update_url }}> <i class="fas fa-pencil-alt"> Update</i> </a>
-        <a href={{ note_details.delete_note_url }}> <i class="fas fa-trash"> Delete</i> </a>
-    </div>
+    <h2> Application Note Details: </h2>
+
     <br/>
     <table>
         <tr>
