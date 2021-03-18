@@ -58,9 +58,9 @@
 
     <h2> Interviews for this application:</h2>
         {% if interview_details.empty_fields == True %}
-        <p> {{ interview_details.message }} <a href="../applications/{{ details.app_id }}/add_interview"> <i class="fas fa-plus"> Interview</i> </a></p>
+        <p> {{ interview_details.message }} <a href={{ details.add_interview_url }}> <i class="fas fa-plus"> Interview</i> </a></p>
         {% else %}
-            <p> <a href="/applications/{{ details.app_id }}/add_interview"> <i class="fas fa-plus"> Interview</i></a></p>
+            <p> <a href={{ details.add_interview_url }}> <i class="fas fa-plus"> Interview</i></a></p>
             <table> 
                 <tr class="border-bottom border-right border-left border-top"> 
                     {% for heading in interview_details.headings %}

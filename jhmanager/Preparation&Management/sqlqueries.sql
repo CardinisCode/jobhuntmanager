@@ -549,3 +549,18 @@ CREATE TABLE IF NOT EXISTS job_offers(
 COMMIT;
 
 
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS 'application_notes' (
+    'app_notes_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    'user_id' INTEGER NOT NULL, 
+    'application_id' INTEGER NOT NULL,
+    'company_id' INTEGER NOT NULL, 
+    'entry_date' DATETIME NOT NULL,
+    'description' TEXT NOT NULL,
+    'notes_text' BLOB DEFAULT "N/A",
+    FOREIGN KEY (user_id) REFERENCES users (user_id),
+    FOREIGN KEY (application_id) REFERENCES job_applications (application_id),
+    FOREIGN KEY (company_id) REFERENCES company (company_id)
+);
+COMMIT;
+

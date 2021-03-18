@@ -25,6 +25,7 @@ from jhmanager.repo.interview_prep_history import InterviewPreparationRepository
 from jhmanager.repo.user_notes import UserNotesRepository
 from jhmanager.repo.company_notes import CompanyNotesRepository
 from jhmanager.repo.job_offers_history import JobOffersRepository
+from jhmanager.repo.application_notes import ApplicationNotesRepository
 
 from jhmanager.service.users.register_user import display_register_form
 from jhmanager.service.users.register_user import post_register_user
@@ -54,6 +55,9 @@ from jhmanager.service.interviews.update_interview import post_update_interview
 from jhmanager.service.interviews.delete_an_interview import delete_interview
 from jhmanager.service.interview_preparation.add_interview_prep import display_interview_preparation_form
 from jhmanager.service.interview_preparation.add_interview_prep import post_add_interview_preparation
+
+from jhmanager.service.application_notes.add_app_note import display_application_note_form
+from jhmanager.service.application_notes.add_app_note import post_application_add_note
 
 from jhmanager.service.notes.add_note import display_user_notes_form
 from jhmanager.service.notes.add_note import post_add_note
@@ -140,6 +144,7 @@ personalPrepRepo = PreparationRepository(db)
 userNotesRepo = UserNotesRepository(db)
 companyNotesRepo = CompanyNotesRepository(db)
 jobOffersRepo = JobOffersRepository(db)
+appNotesRepo = ApplicationNotesRepository(db)
 
 @app.route("/")
 def index():
@@ -153,6 +158,9 @@ def register_user():
     if request.method == "POST":
         if register_form.validate_on_submit():
             return post_register_user(session, userRepo, register_form)
+        else:
+            flash("Complete all the fields.")
+            return display_register_form(register_form)
 
     """Provide registration form to user"""
     if request.method == "GET":
@@ -168,6 +176,9 @@ def test_login():
     if request.method == "POST":
         if login_form.validate_on_submit():
             return post_login(login_form, userRepo)
+        else:
+            flash("Complete all the fields.")
+            return display_login_form(login_form)
 
     """ Display Login form to the user """
     if request.method == "GET":
@@ -263,6 +274,9 @@ def add_job_application():
     if request.method == "POST":
         if add_application_form.validate_on_submit():
             return post_add_application(session, user_id, applicationsRepo, companyRepo, add_application_form)
+        else: 
+            flash("Complete all the fields.")
+            return display_add_application_form(add_application_form)
 
     """ Display Test Add Application form to user """
     if request.method == "GET":
@@ -294,6 +308,9 @@ def update_specific_application(application_id):
     if request.method == "POST":
         if update_form.validate_on_submit():
             return post_update_application(session, user_id, update_form, application_id, company_id, applicationsRepo, companyRepo)
+        else:
+            flash("Complete all the fields.")
+            return display_update_application_form(session, user_id, application_id, update_form, company)
 
     if request.method == "GET":
         return display_update_application_form(session, user_id, application_id, update_form, company)
@@ -309,11 +326,13 @@ def add_interview(application_id):
     if request.method == "POST":
         if add_interview_form.validate_on_submit():
             return post_add_interview(session, user_id, add_interview_form, interviewsRepo, applicationsRepo, application_id, companyRepo)
+        else:
+            flash("Complete all the fields.")
+            return display_add_interview(add_interview_form, application_id, applicationsRepo, companyRepo)
 
     """ Display add_interview Form to user """
     if request.method == "GET":
         return display_add_interview(add_interview_form, application_id, applicationsRepo, companyRepo)
-
 
 
 # View a specific interview:
@@ -335,6 +354,9 @@ def update_specific_interview(application_id, interview_id):
     if request.method == "POST":
         if update_interview_form.validate_on_submit():
             return post_update_interview(update_interview_form, user_id, application_id, interview_id, interviewsRepo)
+        else:
+            flash("Complete all the fields.")
+            return display_update_interview_form(update_interview_form, application_id, interview_id, applicationsRepo, companyRepo)
 
     if request.method == "GET":
         return display_update_interview_form(update_interview_form, application_id, interview_id, applicationsRepo, companyRepo)
@@ -355,6 +377,9 @@ def interview_preparation(application_id, interview_id):
     if request.method == "POST":
         if interview_prep_form.validate_on_submit():
             return post_add_interview_preparation(user_id, application_id, interview_id, interview_prep_form, applicationsRepo, interviewPrepRepo)
+        else:
+            flash("Complete all the fields.")
+            return display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo)
 
     if request.method == "GET":
         return display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo)
@@ -425,6 +450,9 @@ def update_company_profile(company_id):
     if request.method == "POST":
         if update_form.validate_on_submit():
             return post_update_company_profile(company_id, user_id, update_form, company_obj, applicationsRepo, companyRepo)
+        else:
+            flash("Complete all the fields.")
+            return display_update_company_profile_form(company_id, update_form, company_obj)
 
 # View all notes for a specific company:
 @app.route('/company/<int:company_id>/view_all_company_notes')
@@ -446,6 +474,9 @@ def add_company_notes(company_id):
     if request.method == "POST":
         if company_note_form.validate_on_submit():
             return post_add_company_note(user_id, company_id, company_note_form, companyNotesRepo)
+        else:
+            flash("Complete all the fields.")
+            return display_add_company_note_form(company_id, company_note_form, companyRepo)
 
 
 # View a specific note for a company:
@@ -480,6 +511,24 @@ def update_company_note(company_id, company_note_id):
 def delete_company_note(company_id, company_note_id):
     return delete_specific_company_note(company_id, company_note_id, companyNotesRepo)
 
+
+@app.route('/applications/<int:application_id>/app_notes/add_notes', methods=["GET", "POST"])
+@login_required
+def add_application_note(application_id):
+    user_id = session["user_id"]
+    notes_form = AddNotesForm() 
+
+    if request.method == "POST":
+        if notes_form.validate_on_submit():
+            return post_application_add_note(notes_form, application_id, user_id, appNotesRepo, applicationsRepo)
+        else:
+            flash("All fields are required.")
+            return display_application_note_form(notes_form, application_id, companyRepo, applicationsRepo)
+
+    if request.method == "GET":
+        return display_application_note_form(notes_form, application_id, companyRepo, applicationsRepo)
+
+
 # Add Note for application:
 @app.route('/applications/<int:application_id>/add_notes', methods=["GET", "POST"])
 @login_required
@@ -490,6 +539,9 @@ def add_user_notes(application_id):
     if request.method == "POST":
         if notes_form.validate_on_submit():
             return post_add_note(notes_form, application_id, user_id, userNotesRepo, applicationsRepo)
+        else:
+            flash("All fields are required.")
+            return display_user_notes_form(notes_form, application_id, companyRepo, applicationsRepo)
 
     if request.method == "GET":
         return display_user_notes_form(notes_form, application_id, companyRepo, applicationsRepo)
@@ -518,6 +570,9 @@ def update_user_note(application_id, note_id):
     if request.method == "POST":
         if update_note_form.validate_on_submit():
             return post_update_note(update_note_form, userNotesRepo, note_id, application_id)
+        else:
+            flash("All fields are required.")
+            return display_update_note_form(application_id, user_id, note_id, update_note_form, companyRepo, userNotesRepo)
 
     if request.method == "GET":
         return display_update_note_form(application_id, user_id, note_id, update_note_form, companyRepo, userNotesRepo)
@@ -554,6 +609,9 @@ def update_email_address(user_id):
     if request.method == "POST":
         if update_email_form.validate_on_submit():
             return post_update_email_address(update_email_form, userRepo, user_id)
+        else:
+            flash("All fields are required.")
+            return display_update_email_form(user_id, userRepo, update_email_form)
 
     if request.method == "GET":
         return display_update_email_form(user_id, userRepo, update_email_form)
