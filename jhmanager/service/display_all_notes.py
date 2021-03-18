@@ -41,6 +41,8 @@ def display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo,
                 "update_note_url": update_note, 
                 "delete_note_url": delete_note
             }
+            app_notes_details["headings"] = ["#", "Entry Date", "Company Name", "Job Role", "Subject"]
+
 
 
 
