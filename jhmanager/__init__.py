@@ -62,13 +62,13 @@ from jhmanager.service.application_notes.view_application_notes import display_a
 from jhmanager.service.application_notes.view_app_note_details import display_application_note_details
 from jhmanager.service.application_notes.update_app_note import display_update_app_note_form
 from jhmanager.service.application_notes.update_app_note import post_update_app_note
+from jhmanager.service.application_notes.delete_app_note import delete_application_note
 
 
 from jhmanager.service.notes.add_note import display_user_notes_form
 from jhmanager.service.notes.add_note import post_add_note
 from jhmanager.service.notes.update_note import display_update_note_form
 from jhmanager.service.notes.update_note import post_update_note
-from jhmanager.service.notes.delete_note import delete_note_for_application
 from jhmanager.service.notes.view_notes_for_application import display_all_user_notes_for_application
 from jhmanager.service.notes.view_all_notes import display_all_user_notes
 from jhmanager.service.notes.view_note_details import display_user_note_details
@@ -568,29 +568,11 @@ def update_user_note(application_id, app_notes_id):
         return display_update_app_note_form(application_id, user_id, app_notes_id, update_app_note_form, companyRepo, appNotesRepo)
 
 
-# # Update Note:
-# @app.route('/applications/<int:application_id>/user_notes/<int:note_id>/update_note', methods=["GET", "POST"])
-# @login_required
-# def update_user_note(application_id, note_id):
-#     user_id = session["user_id"]
-#     note_details = userNotesRepo.getNoteByID(note_id)
-#     update_note_form = AddNotesForm(obj=note_details)
-
-#     if request.method == "POST":
-#         if update_note_form.validate_on_submit():
-#             return post_update_note(update_note_form, userNotesRepo, note_id, application_id)
-#         else:
-#             flash("All fields are required.")
-#             return display_update_note_form(application_id, user_id, note_id, update_note_form, companyRepo, userNotesRepo)
-
-#     if request.method == "GET":
-#         return display_update_note_form(application_id, user_id, note_id, update_note_form, companyRepo, userNotesRepo)
-
 # Delete Note:
-@app.route('/applications/<int:application_id>/user_notes/<int:note_id>/delete_note')
+@app.route('/applications/<int:application_id>/app_notes/<int:app_notes_id>/delete_note')
 @login_required
-def delete_note(application_id, note_id):
-    return delete_note_for_application(application_id, note_id, userNotesRepo)
+def delete_an_application_note(application_id, app_notes_id):
+    return delete_application_note(application_id, app_notes_id, appNotesRepo)
 
 # View all user notes:
 @app.route('/user_notes')
