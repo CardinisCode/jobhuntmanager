@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session, request, redirect, flash
-from datetime import datetime
+from datetime import datetime, time
 
 
 def grab_and_display_job_offers(jobOffersRepo, user_id, company_details):
@@ -26,11 +26,11 @@ def grab_and_display_job_offers(jobOffersRepo, user_id, company_details):
 
 
 def cleanup_interview_fields(interview_fields, interview_id):
-
     # Lets start by grabbing the fields we want from the dict:
     interview_type = interview_fields["fields"][interview_id]["interview_type"]
     status = interview_fields["fields"][interview_id]["status"]
     location = interview_fields["fields"][interview_id]["location"]
+    interview_time = interview_fields["fields"][interview_id]["time"]
 
     # Now I can optimise the presentation of the values for these variables:
     if interview_type == "video_or_online":
@@ -58,12 +58,22 @@ def cleanup_interview_fields(interview_fields, interview_id):
     if location == "N/A" or location == "Remote":
         interview_fields["fields"][interview_id]["location"] = None
 
+    time_str = interview_time.strftime("%H:%M")
+    hour_int = int(interview_time.strftime("%H"))
+    if hour_int >= 12:
+        time_str += "pm"
+    else:
+        time_str += "am"
+
+    interview_fields["fields"][interview_id]["time"] = time_str
+
 
 def cleanup_application_details(application_details):
     for heading, value in application_details["fields"].items():
         if value == "N/A":
             application_details["fields"][heading] = None
 
+    interview_time = application_details["fields"]["time"]
     interview_stage = application_details["fields"]["interview_stage"]
     if interview_stage == 0:
         application_details["fields"]["interview_stage"] = "No interview lined up yet."
@@ -80,6 +90,13 @@ def cleanup_application_details(application_details):
     else:
         application_details["fields"]["type"] = emp_type.capitalize()
     
+    interview_time_obj = datetime.strptime(interview_time, '%H:%M')
+    hour_int = int(interview_time_obj.strftime("%H"))
+    if hour_int >= 12:
+        interview_time += "pm"
+    else:
+        interview_time += "am"
+    application_details["fields"]["time"] = interview_time
 
 def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo, jobOffersRepo):
     application = applicationsRepo.grabApplicationByID(application_id)
@@ -128,9 +145,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "company_name": company.name,
         "view_profile": '/company/{}/view_company'.format(company_id), 
     }
-
     company_details["update_url"] = '/company/{}/update_company'.format(company_id)
-    
 
     # Now I want to display all the interviews for this application_id:
     all_interviews_for_app_id = interviewsRepo.grabAllInterviewsByApplicationID(application_id)
@@ -177,6 +192,5 @@ def display_application_details(session, user_id, applicationsRepo, application_
 
     interview_fields["interviews_count"] = count
     job_offer_details = grab_and_display_job_offers(jobOffersRepo, user_id, company_details) 
-
 
     return render_template("view_application.html", details=application_details, interview_details=interview_details, interview_fields=interview_fields, company_details=company_details, job_offer_details=job_offer_details)
