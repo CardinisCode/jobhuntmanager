@@ -340,6 +340,17 @@ h1 {
   text-align: center;
 }
 
+.footer_link {
+  color: white; 
+  font-size: 15px;
+  text-align: center !important;
+}
+
+.footer_link:hover{
+  color: indigo;
+  font-weight: bold;
+}
+
 /* .wpforms-container-full .wpforms-form .wpforms-title {
   font-size: 26px;
   margin: 0 0 10px 0;
