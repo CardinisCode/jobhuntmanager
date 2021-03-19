@@ -321,7 +321,7 @@ h1 {
 }
 
 .list-group-item-action {
-  width: 100%;
+  width: 60%;
   color: #495057;
   text-align: center;
 }
@@ -331,6 +331,13 @@ h1 {
   color: white;
   text-decoration: none;
   background-color:  purple;
+}
+
+.list-group-heading {
+  width: 60%; 
+  color: white;
+  background-color: lightslategray;
+  text-align: center;
 }
 
 /* .wpforms-container-full .wpforms-form .wpforms-title {
