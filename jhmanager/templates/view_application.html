@@ -5,8 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <h1> Applications Details </h1>
-    <hr/>
+    <h1 class="text-center"> Application For {{ company_details.fields.company_name}} </h1>
 
     {% if get_flashed_messages() %}
         {% for message in get_flashed_messages() %}
@@ -14,47 +13,210 @@
         {% endfor %}
     {% endif %}
 
-    <div> 
-        <a href={{ details.update_application_url }}> <i class="fas fa-pencil-alt"> Update</i></a>
-        <a href={{ details.delete_application_url }}> <i class="fas fa-trash"> Delete</i></a>
+    <div class="alignfull background-colour">
+        <div class="aligncenter"> 
+            <div class="grid_experiement full-grid-length">
+                <div class="grid_child"> 
+                    <h2 class="text-center"> Details </h2>
+                    <br/>
+                    <div class="form-row">
+                        <div class="col left-padding"> 
+                            <i class="fas fa-calendar-alt"></i><strong> Date Of Application:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ details.fields.date }} @ {{ details.fields.time }}
+                        </div>
+                    </div>
+                    {% if details.fields.job_ref %}    
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <i class="fas fa-hashtag"></i><strong> Job Reference:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.fields.job_ref }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="form-row"> 
+                        <div class="col left-padding"> 
+                            <i class="fas fa-user-secret"></i> <strong> Job Role:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ details.fields.job_role }}
+                        </div>
+                    </div>
+                    {% if details.fields.salary %}
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <i class="fas fa-hand-holding-usd"></i> <strong> Salary:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.fields.salary }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="form-row"> 
+                        <div class="col left-padding"> 
+                            <strong> Employment Type:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ details.fields.type }}
+                        </div>
+                    </div>
+                    {% if details.fields.description %}
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <i class="fas fa-bars"></i><strong> Job Description:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.fields.description }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if details.fields.technology_stack %}
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <i class="fas fa-bars"></i><strong> Tech Stack:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.fields.technology_stack }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if details.fields.perks %}
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <i class="fas fa-bars"></i><strong> Perks / Extras:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.fields.perks }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if details.fields.platform %}
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <i class="fas fa-newspaper"></i><strong> Job Board / Platform</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.fields.platform }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if details.fields.contact_Received %}
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <i class="fas fa-mobile-alt"></i><strong> Contact Received?</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.fields.contact_Received }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="form-row"> 
+                        <div class="col left-padding"> 
+                            <i class="fas fa-mobile-alt"></i><strong> Interview Stage</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ details.fields.interview_stage }}
+                        </div>
+                    </div>
+                    {% if details.fields.job_url != "http://..." %}
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                </i><strong> URL for Job Posting:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.fields.job_url }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="text-center"> 
+            <a href={{ details.update_application_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+            <a href={{ details.delete_application_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
+            <a href={{ company_details.fields.view_profile }} class="link_button"> <i class="fas fa-eye"> View Company Profile</i></a>
+        </div>
     </div>
-    <br/>
-    <table>
-        <tr>
-            <th> Company Name</th>
-            <td> {{ company_details.fields.company_name }} </td>
-        </tr> 
-
-        {% for heading, field in details.fields.items() %}
-            {% if field != None %}
-                <tr> 
-                    <th> {{ heading }} </th>
-                    <td> {{ field }} </td>
-                </tr>
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            {% if job_offer_details != None and job_offer_details.details != None %}
+                <div class="grid_experiement full-grid-length">
+                    <div class="grid_child"> 
+                        <h3 class="text-center"> Job Offers</h3>
+                        <div class="form-row">
+                            <div class="col left-padding"> 
+                                <i class="fas fa-user-secret"></i><strong> Job Role</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ job_offer_details.details.job_role }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col left-padding"> 
+                                <strong> Offer Status</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ job_offer_details.details.offer_response }}
+                            </div>
+                        </div>
+                        {% if job_offer_details.details.offer_response == "user_accepted" %}
+                            <div class="form-row">
+                                <div class="col left-padding"> 
+                                    <i class="fas fa-calendar-alt"></i><strong> Starting Date:</strong>
+                                </div>
+                                <div class="col right-padding"> 
+                                    {{ job_offer_details.details.starting_date }}
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="form-row">
+                            <div class="col left-padding"> 
+                                <i class="fas fa-hand-holding-usd"></i><strong> Salary Offered</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ job_offer_details.details.salary_offered }}
+                            </div>
+                        </div>
+                        {% if job_offer_details.details.perks_offered %}
+                            <div class="form-row">
+                                <div class="col left-padding"> 
+                                    <i class="fas fa-hand-holding-usd"></i><strong> Perks Offered With The Role</strong>
+                                </div>
+                                <div class="col right-padding"> 
+                                    {{ job_offer_details.details.perks_offered }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <br/>
+                <div class="text-center"> 
+                    <a href={{ job_offer_details.update_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+                </div>
+            {% else %}
+                <h3 class="text-center"> Job Offers</h3>
+                <br/>
+                <div class="text-center"> 
+                    <a href="/add_job_offer" class="link_button"> Add Job Offer</a>
+                </div>
             {% endif %}
-        {% endfor %}
-    </table>
-    <br/> 
-    <div>
-        <a href={{ company_details.fields.view_profile }}> <i class="fas fa-eye"> View Company Profile</i></a>
-        <a href="/add_job_offer"> Add Job Offer</i></a>
-    </div>
-    <br/> 
-    <hr/>
 
-    {% if details.user_notes != None %}
-        <h2> Your notes</h2>
-        <p> {{ details.user_notes }} </p> 
-        <hr/>
-    {% endif %}
-
-    <h3>Notes</h3> 
-    <div> 
-        <a href={{ details.add_note_url }}> <i class="fas fa-plus"> Note</i> </a>
-        <a href={{ details.view_notes_url }}> <i class="fas fa-eye"> View Notes</i> </a>
+        </div>
     </div>
-    <p> </p>
-    <hr/>
+
+    <div class="alignfull background-colour">
+        <div class="aligncenter"> 
+            <h3 class="text-center">Notes</h3> 
+            <div class="text-center"> 
+                <a href={{ details.add_note_url }} class="link_button"> <i class="fas fa-plus"> Note</i> </a>
+                <a href={{ details.view_notes_url }} class="link_button"> <i class="fas fa-eye"> View Notes</i> </a>
+            </div>
+        </div>
+    </div>
 
     <h2> Interviews for this application:</h2>
         {% if interview_details.empty_fields == True %}

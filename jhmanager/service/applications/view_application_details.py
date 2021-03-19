@@ -2,6 +2,29 @@ from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime
 
 
+def grab_and_display_job_offers(jobOffersRepo, user_id, company_details):
+    job_offers = jobOffersRepo.getJobOffersByUserId(user_id)
+    if not job_offers: 
+        return None
+
+    job_offers_details = {}
+    for job_offer in job_offers:
+        job_offer_id = job_offer.job_offer_id
+        company_id = job_offer.company_id
+        job_offers_details["details"] = None
+        if company_id == company_details["fields"]["company_id"]:
+            job_offers_details["details"] = {
+                "offer_response": job_offer.offer_response, 
+                "salary_offered": job_offer.salary_offered, 
+                "starting_date": job_offer.starting_date, 
+                "job_role": job_offer.job_role, 
+                "perks_offered": job_offer.perks_offered
+            }
+            job_offers_details["update_url"] = '/job_offer/{}/update_job_offer'.format(job_offer_id)
+
+    return job_offers_details
+
+
 def cleanup_interview_fields(interview_fields, interview_id):
     # Lets start by grabbing the fields we want from the dict:
     interview_type = interview_fields[interview_id]["Interview Type"]
@@ -41,20 +64,20 @@ def cleanup_application_details(application_details):
     if interview_stage == 0:
         application_details["fields"]["interview_stage"] = "No interview lined up yet."
 
-    emp_type = application_details["fields"]["Type"]
+    emp_type = application_details["fields"]["type"]
     if emp_type == "full_time":
-        application_details["fields"]["Type"] = "Full Time"
+        application_details["fields"]["type"] = "Full Time"
     elif emp_type == "part_time":
-        application_details["fields"]["Type"] = "Part Time"
+        application_details["fields"]["type"] = "Part Time"
     elif emp_type == "temp":
-        application_details["fields"]["Type"] = "Temporary"
+        application_details["fields"]["type"] = "Temporary"
     elif emp_type == "other_emp_type": 
-        application_details["fields"]["Type"] = "Other"
+        application_details["fields"]["type"] = "Other"
     else:
-        application_details["fields"]["Type"] = emp_type.capitalize()
+        application_details["fields"]["type"] = emp_type.capitalize()
     
 
-def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo):
+def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo, jobOffersRepo):
     application = applicationsRepo.grabApplicationByID(application_id)
     app_date = application.app_date
     app_time = application.app_time
@@ -63,19 +86,19 @@ def display_application_details(session, user_id, applicationsRepo, application_
 
     application_details = {}
     application_details["fields"] = {
-        "Job Ref" : application.job_ref,
-        "Date": app_date, 
-        "Time": app_time, 
-        "Job Role" : application.job_role, 
-        "Description" : application.job_description,
-        "Perks" : application.job_perks,
-        "Technology Stack" : application.tech_stack,
-        "Salary" : application.salary,
-        "Platform": application.platform, 
+        "job_ref" : application.job_ref,
+        "date": app_date, 
+        "time": app_time, 
+        "job_role" : application.job_role, 
+        "description" : application.job_description,
+        "perks" : application.job_perks,
+        "technology_stack" : application.tech_stack,
+        "salary" : application.salary,
+        "platform": application.platform, 
         "interview_stage" : application.interview_stage,
-        "Type" : application.employment_type, 
-        "Contact Received?" : application.contact_received, 
-        "Job Url" : application.job_url,
+        "type" : application.employment_type, 
+        "contact_Received?" : application.contact_received, 
+        "job_url" : application.job_url,
     }
     cleanup_application_details(application_details)
 
@@ -144,5 +167,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
 
             cleanup_interview_fields(interview_fields, interview_id)
 
+    job_offer_details = grab_and_display_job_offers(jobOffersRepo, user_id, company_details) 
 
-    return render_template("view_application.html", details=application_details, interview_details=interview_details, interview_fields=interview_fields, company_details=company_details)
+
+    return render_template("view_application.html", details=application_details, interview_details=interview_details, interview_fields=interview_fields, company_details=company_details, job_offer_details=job_offer_details)

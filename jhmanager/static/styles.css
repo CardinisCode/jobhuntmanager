@@ -150,6 +150,10 @@ input[type=select] {
   min-height: 1.3rem;
 }
 
+.full-grid-length {
+  grid-template-columns: 100% !important;
+}
+
 #save_button {
   background-color:rgb(150, 187, 235);
   margin-left: auto;
@@ -245,6 +249,7 @@ hr.thick_border {
 .link_button:hover{
   color: white;
   background: linear-gradient(45deg, purple, indigo);
+  text-decoration: none;
 }
 
 .table_link_button {
