@@ -205,6 +205,11 @@ hr.thick_border {
   width: max-content;
 }
 
+.three-button-grid {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+
 .button-grid{
   display: grid;
   grid-template-columns: 50% 50%;
@@ -260,6 +265,7 @@ hr.thick_border {
   border: solid 2px indigo;
   background: transparent;
   justify-content: center;
+  text-align: center !important;
 }
 
 .table_link_button:hover{
