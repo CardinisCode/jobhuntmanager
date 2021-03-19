@@ -26,17 +26,18 @@ def grab_and_display_job_offers(jobOffersRepo, user_id, company_details):
 
 
 def cleanup_interview_fields(interview_fields, interview_id):
+
     # Lets start by grabbing the fields we want from the dict:
-    interview_type = interview_fields[interview_id]["Interview Type"]
-    status = interview_fields[interview_id]["Status"]
+    interview_type = interview_fields["fields"][interview_id]["interview_type"]
+    status = interview_fields["fields"][interview_id]["status"]
 
     # Now I can optimise the presentation of the values for these variables:
     if interview_type == "video_or_online":
-        interview_fields[interview_id]["Interview Type"] = "Video / Online"
+        interview_fields["fields"][interview_id]["interview_type"] = "Video / Online"
     elif interview_type == "in_person":
-        interview_fields[interview_id]["Interview Type"] = "In Person / On Site"
+        interview_fields["fields"][interview_id]["interview_type"] = "In Person / On Site"
     else:
-        interview_fields[interview_id]["Interview Type"] = "Phone Call"
+        interview_fields["fields"][interview_id]["interview_type"] = "Phone Call"
 
     # Now to focus on 'status':
     if status == "upcoming":
@@ -51,11 +52,10 @@ def cleanup_interview_fields(interview_fields, interview_id):
     else:
         status = 'Interview has been post-poned'
     
-    interview_fields[interview_id]["Status"] = status
+    interview_fields["fields"][interview_id]["status"] = status
 
 
 def cleanup_application_details(application_details):
-   
     for heading, value in application_details["fields"].items():
         if value == "N/A":
             application_details["fields"][heading] = None
@@ -153,16 +153,17 @@ def display_application_details(session, user_id, applicationsRepo, application_
             delete_url = '/applications/{}/interview/{}/delete_interview'.format(application_id, interview_id)
             prepare_url = '/applications/{}/interview/{}/interview_preparation'.format(application_id, interview_id)
             location = interview.location
-            interview_fields[interview_id] = {
+            interview_fields["fields"] ={}
+            interview_fields["fields"][interview_id] = {
                 "ID#": interview_id, 
-                "Date": interview.interview_date, 
-                "Time": interview.interview_time,
-                "Interview Type": interview.interview_type, 
-                "Status": status,
-                "Location": location,
-                "View More": view_more_url,
-                "Delete": delete_url,
-                "Prepare": prepare_url
+                "date": interview.interview_date, 
+                "time": interview.interview_time,
+                "interview_type": interview.interview_type, 
+                "status": status,
+                "location": location,
+                "view_more": view_more_url,
+                "delete_url": delete_url,
+                "prepare_url": prepare_url
             }
 
             cleanup_interview_fields(interview_fields, interview_id)
