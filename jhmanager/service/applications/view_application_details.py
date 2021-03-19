@@ -30,6 +30,7 @@ def cleanup_interview_fields(interview_fields, interview_id):
     # Lets start by grabbing the fields we want from the dict:
     interview_type = interview_fields["fields"][interview_id]["interview_type"]
     status = interview_fields["fields"][interview_id]["status"]
+    location = interview_fields["fields"][interview_id]["location"]
 
     # Now I can optimise the presentation of the values for these variables:
     if interview_type == "video_or_online":
@@ -53,6 +54,9 @@ def cleanup_interview_fields(interview_fields, interview_id):
         status = 'Interview has been post-poned'
     
     interview_fields["fields"][interview_id]["status"] = status
+
+    if location == "N/A" or location == "Remote":
+        interview_fields["fields"][interview_id]["location"] = None
 
 
 def cleanup_application_details(application_details):
@@ -144,17 +148,21 @@ def display_application_details(session, user_id, applicationsRepo, application_
     # we want to grab those details & update the "fields" value to contain these values.
     # These values will be displayed to the user, in a table format. 
     interview_fields = {}
+    count = 0
+
     if all_interviews_for_app_id != None:
         interview_details["empty_fields"] = False 
+        interview_fields["fields"] ={}
         for interview in all_interviews_for_app_id:
+            count += 1
             interview_id = interview.interview_id
             status = interview.status
             view_more_url = "/applications/{}/interview/{}".format(application_id, interview_id)
             delete_url = '/applications/{}/interview/{}/delete_interview'.format(application_id, interview_id)
             prepare_url = '/applications/{}/interview/{}/interview_preparation'.format(application_id, interview_id)
             location = interview.location
-            interview_fields["fields"] ={}
-            interview_fields["fields"][interview_id] = {
+            
+            interview_fields["fields"][count] = {
                 "ID#": interview_id, 
                 "date": interview.interview_date, 
                 "time": interview.interview_time,
@@ -165,9 +173,9 @@ def display_application_details(session, user_id, applicationsRepo, application_
                 "delete_url": delete_url,
                 "prepare_url": prepare_url
             }
+            cleanup_interview_fields(interview_fields, count)
 
-            cleanup_interview_fields(interview_fields, interview_id)
-
+    interview_fields["interviews_count"] = count
     job_offer_details = grab_and_display_job_offers(jobOffersRepo, user_id, company_details) 
 
 

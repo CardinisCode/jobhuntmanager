@@ -134,8 +134,7 @@
                 </div>
             </div>
         </div>
-        <br/>
-        <div class="text-center"> 
+        <div class="text-center link-button-margins"> 
             <a href={{ details.update_application_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
             <a href={{ details.delete_application_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
             <a href={{ company_details.fields.view_profile }} class="link_button"> <i class="fas fa-eye"> View Company Profile</i></a>
@@ -194,7 +193,7 @@
                     </div>
                 </div>
                 <br/>
-                <div class="text-center"> 
+                <div class="text-center link-button-margins"> 
                     <a href={{ job_offer_details.update_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
                 </div>
             {% else %}
@@ -211,7 +210,7 @@
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
             <h3 class="text-center">Notes</h3> 
-            <div class="text-center"> 
+            <div class="text-center link-button-margins"> 
                 <a href={{ details.add_note_url }} class="link_button"> <i class="fas fa-plus"> Note</i> </a>
                 <a href={{ details.view_notes_url }} class="link_button"> <i class="fas fa-eye"> View Notes</i> </a>
             </div>
@@ -223,8 +222,56 @@
             <h3 class="text-center"> Interviews</h3>
             <br/>
             {% if interview_details.empty_fields == True %}
-                <div class="text-center"> 
+                <div class="text-center link-button-margins"> 
                     <a href={{ details.add_interview_url }} class="link_button_primary extra-button-styles"> <i class="fas fa-plus"> Upcoming Interview</i> </a>
+                </div>
+            {% elif interview_fields.interviews_count == 1 %}
+                <div class="single_col_grid"> 
+                    {% for interview_id, rows in interview_fields.fields.items() %}
+                        <div class="grid_child"> 
+                            <div class="form-row">
+                                <div class="col left-padding"> 
+                                    <i class="fas fa-calendar-alt"></i><strong> Date & Time</strong>
+                                </div>
+                                <div class="col right-padding"> 
+                                    {{ rows.date }} @ {{ rows.time }}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col left-padding"> 
+                                    <strong> Type</strong>
+                                </div>
+                                <div class="col right-padding"> 
+                                    {{ rows.interview_type }}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col left-padding"> 
+                                    <strong> Interview Status</strong>
+                                </div>
+                                <div class="col right-padding"> 
+                                    {{ rows.status }}
+                                </div>
+                            </div>
+                            {% if rows.location %}
+                                <div class="form-row">
+                                    <div class="col left-padding"> 
+                                        <strong> Location</strong>
+                                    </div>
+                                    <div class="col right-padding"> 
+                                        {{ rows.location }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="text-center link-button-margins"> 
+                                {% if rows.status == "Upcoming Interview" %}
+                                    <a href={{ rows.prepare_url }} class="link_button"> <i class="fas fa-pencil-alt"> Prepare</i></a>
+                                {% endif %}
+                                <a href={{ rows.view_more }} class="link_button"> <i class="fas fa-eye"> View</i></a>
+                                <a href={{ rows.delete_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             {% else %}
                 <div class="grid_experiement"> 
@@ -264,8 +311,7 @@
                                     </div>
                                 </div>
                             {% endif %}
-                            <br/>
-                            <div class="text-center"> 
+                            <div class="text-center link-button-margins"> 
                                 {% if rows.status == "Upcoming Interview" %}
                                     <a href={{ rows.prepare_url }} class="link_button"> <i class="fas fa-pencil-alt"> Prepare</i></a>
                                 {% endif %}

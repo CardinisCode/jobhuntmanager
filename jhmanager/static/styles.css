@@ -154,6 +154,13 @@ input[type=select] {
   grid-template-columns: 100% !important;
 }
 
+.single_col_grid{
+  display: grid;
+  grid-template-columns: 60%;
+  justify-content: center;
+  grid-gap: 1em;
+}
+
 #save_button {
   background-color:rgb(150, 187, 235);
   margin-left: auto;
@@ -250,6 +257,11 @@ hr.thick_border {
   color: white;
   background: linear-gradient(45deg, purple, indigo);
   text-decoration: none;
+}
+
+.link-button-margins{
+  margin-top: 3rem;
+  margin-bottom: 1rem;
 }
 
 .table_link_button {
