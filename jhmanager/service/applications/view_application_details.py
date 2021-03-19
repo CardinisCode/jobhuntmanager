@@ -7,21 +7,26 @@ def grab_and_display_job_offers(jobOffersRepo, user_id, company_details):
     if not job_offers: 
         return None
 
+    count = 0
     job_offers_details = {}
     for job_offer in job_offers:
         job_offer_id = job_offer.job_offer_id
         company_id = job_offer.company_id
-        job_offers_details["details"] = None
         if company_id == company_details["fields"]["company_id"]:
-            job_offers_details["details"] = {
+            count += 1
+            job_offers_details["details"] = {}
+            job_offers_details["details"][count] = {
                 "offer_response": job_offer.offer_response, 
                 "salary_offered": job_offer.salary_offered, 
                 "starting_date": job_offer.starting_date, 
                 "job_role": job_offer.job_role, 
-                "perks_offered": job_offer.perks_offered
+                "perks_offered": job_offer.perks_offered,
+                "update_url": '/job_offer/{}/update_job_offer'.format(job_offer_id)
             }
             job_offers_details["update_url"] = '/job_offer/{}/update_job_offer'.format(job_offer_id)
 
+    job_offers_details["count"] = count
+ 
     return job_offers_details
 
 
