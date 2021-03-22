@@ -565,3 +565,8 @@ CREATE TABLE IF NOT EXISTS 'application_notes' (
 );
 COMMIT;
 
+
+BEGIN TRANSACTION;
+ALTER TABLE interviews ADD 'video_link' BLOB DEFAULT "N/A";
+COMMIT;
+

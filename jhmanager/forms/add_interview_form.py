@@ -66,6 +66,13 @@ class AddInterviewForm(FlaskForm):
         [validators.optional()],
         render_kw={'placeholder': "Any other form of video medium, not mention in the above list."},
     )
+    video_link = TextAreaField(
+        "Interview Video Link:", 
+        [validators.optional()], 
+        render_kw={'placeholder': "The link for the interview, if applicable. EG: https://join.skype.com/..."},
+    )
+
+
     phone_call = TelField(
         "Telephone Call: ", 
         [validators.optional()],
@@ -81,4 +88,5 @@ class AddInterviewForm(FlaskForm):
         ], 
     default='upcoming',
     )
+
     save_button = SubmitField("Save")

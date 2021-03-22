@@ -15,7 +15,7 @@ def cleanup_fields(details, other_medium):
     # interview_time = details["fields"]["Time"]
     interview_medium = details["interview_fields"]["Medium"]
     interviewer_names = details["interview_fields"]["Interviewer Names"]
-    # status = details["fields"]["Status"]
+    video_link = details["interview_fields"]["Video Link"]
 
     if interviewer_names == "Unknown at present":
         details["interview_fields"]["Interviewer Names"] = ""
@@ -32,7 +32,6 @@ def cleanup_fields(details, other_medium):
     else:
         details["interview_fields"]["Medium"] = interview_medium.capitalize()
 
-    
     if interview_type == "in_person":
         details["interview_fields"]["Type"] = "In Person / On Site"
 
@@ -42,6 +41,8 @@ def cleanup_fields(details, other_medium):
     else:
         details["interview_fields"]["Type"] = "Phone Call"
 
+    if video_link == "N/A":
+        details["interview_fields"]["Video Link"] = None
 
     return True
 
@@ -78,7 +79,8 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
         "Status": interview.status.capitalize(),
         "Medium": medium, 
         "Location": interview.location,
-        "Interviewer Names": interview.interviewer_names
+        "Interviewer Names": interview.interviewer_names, 
+        "Video Link": interview.video_link
     }
 
     cleanup_fields(details, other_medium)
