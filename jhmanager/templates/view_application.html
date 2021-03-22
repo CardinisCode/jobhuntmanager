@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <h1 class="text-center"> Application For {{ company_details.fields.company_name}} </h1>
+    <h1 class="text-center"> {{ company_details.fields.company_name}} </h1>
 
     {% if get_flashed_messages() %}
         {% for message in get_flashed_messages() %}
@@ -17,7 +17,7 @@
         <div class="aligncenter"> 
             <div class="grid_experiement full-grid-length">
                 <div class="grid_child"> 
-                    <h2 class="text-center"> Details </h2>
+                    <h2 class="text-center"> Application Details </h2>
                     <br/>
                     <div class="form-row">
                         <div class="col left-padding"> 

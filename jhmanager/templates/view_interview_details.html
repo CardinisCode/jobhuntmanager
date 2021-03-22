@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <h1> {{ details.company_name}} </h1>
+    <h1 class="text-center"> {{ details.company_name}} </h1>
     <hr/>
 
     {% if get_flashed_messages() %}
@@ -14,34 +14,99 @@
         {% endfor %}
     {% endif %}
 
-    <h2> View Interview Details</h2> 
-    <div> 
-        <a href={{ details.update_url }}> <i class="fas fa-pencil-alt"> Update</i></a>
-        <a href={{ details.delete_url }}> <i class="fas fa-trash"> Delete</i></a>
+    <div class="alignfull background-colour">
+        <div class="aligncenter"> 
+            <div class="grid_experiement full-grid-length">
+                <div class="grid_child"> 
+                    <h2 class="text-center"> Interview Details</h2> 
+                    <br/>
+                    <div class="form-row">
+                        <div class="col left-padding"> 
+                            <i class="fas fa-calendar-alt"></i><strong> Date & Time:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ details.interview_fields.date }} @ {{ details.interview_fields.time }}
+                        </div>
+                    </div>
+                    {% if details.interview_fields.interview_type == 'video_or_online' %}
+                        <div class="form-row">
+                            <div class="col left-padding"> 
+                                <strong> Medium:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.interview_fields.medium }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col left-padding"> 
+                                <strong> Video Link</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.interview_fields.video_link }}
+                            </div>
+                        </div>
+                    {% elif details.interview_fields.interview_type == 'phone_call' %}
+                        <div class="form-row">
+                            <div class="col left-padding"> 
+                                <strong> Contact Number</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.interview_fields.contact_number }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if details.interview_fields.location %}
+                        <div class="form-row">
+                            <div class="col left-padding"> 
+                                <strong> Location</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.interview_fields.location }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if details.interview_fields.interviewer_names %}
+                        <div class="form-row">
+                            <div class="col left-padding"> 
+                                <i class="fas fa-users"></i><strong> Interviewer/s' Names:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.interview_fields.interviewer_names }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="form-row">
+                        <div class="col left-padding"> 
+                            <strong> Interview Status:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ details.interview_fields.status }}
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="text-center link-button-margins"> 
+                        <a href={{ details.update_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+                        <a href={{ details.delete_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <table> 
-        <tr> 
-            <th> Company Name: </th>
-            <td> {{ details.company_details.company_name }}</td>
-        </tr>
-        <br/>
-        {% for heading, value in details.interview_fields.items() %}
-            <tr> 
-                <th> {{ heading }} </th>
-                <td> {{ value }}</td>
-            </tr>
 
-        {% endfor %}
-    </table>
-
-    <br/>
-    <div> 
-        {% if details.interview_fields.Status == 'Upcoming' %}
-            <a href={{ details.view_interview_prep_url }}><i class="fas fa-clipboard"> Prepare </i></a>
-        {% endif %}
-        <a href={{ details.company_details.view_company_url }}> <i class="fas fa-eye"> View Company Profile</i></a>
-        <a href={{ details.return_to_application }}> <i class="fas fa-angle-left"> Go back to Application</i> </a>
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <br/>
+            <div class="text-center link-button-margins"> 
+                {% if details.interview_fields.status == 'Upcoming' %}
+                    <a href={{ details.view_interview_prep_url }} class="link_button_primary text-center"><i class="fas fa-clipboard"> Prepare </i></a>
+                {% endif %}
+                <a href={{ details.company_details.view_company_url }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Company Profile</i></a>
+                <a href={{ details.return_to_application }} class="link_button_primary text-center"> <i class="fas fa-angle-left"> Go back to Application</i> </a>
+            </div>
+        </div>
     </div>
+
+    
 
 
 {% endblock %}

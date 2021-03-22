@@ -9,40 +9,53 @@ def add_company_details(details, company):
     }
 
 def cleanup_fields(details, other_medium):
+        # "date": interview.interview_date,
+        # "time": interview.interview_time,
+        # "interview_type": interview.interview_type,
+        # "status": interview.status.capitalize(),
+        # "medium": medium, 
+        # "location": interview.location,
+        # "interviewer_names": interview.interviewer_names, 
+        # "video_link": interview.video_link, 
+        # "contact_number": interview.contact_number
+
+
     # I want to clean up a few fields to improve how they're displayed:
-    interview_type = details["interview_fields"]["Type"]
-    # interview_date = details["fields"]["Date"]
-    # interview_time = details["fields"]["Time"]
-    interview_medium = details["interview_fields"]["Medium"]
-    interviewer_names = details["interview_fields"]["Interviewer Names"]
-    video_link = details["interview_fields"]["Video Link"]
+    interview_type = details["interview_fields"]["interview_type"]
+    interview_medium = details["interview_fields"]["medium"]
+    interviewer_names = details["interview_fields"]["interviewer_names"]
+    video_link = details["interview_fields"]["video_link"]
+    location = details["interview_fields"]["location"]
 
     if interviewer_names == "Unknown at present":
-        details["interview_fields"]["Interviewer Names"] = ""
+        details["interview_fields"]["Interviewer Names"] = None
 
     if interview_medium == "google_chat":
-        details["interview_fields"]["Medium"] = "Google Chat"
+        details["interview_fields"]["medium"] = "Google Chat"
 
     elif interview_medium == "meet_jit_si":
-        details["interview_fields"]["Medium"] = "Meet.Jit.Si"
+        details["interview_fields"]["medium"] = "Meet.Jit.Si"
 
     elif interview_medium == "other":
-        details["interview_fields"]["Medium"] = other_medium
+        details["interview_fields"]["medium"] = other_medium
 
     else:
-        details["interview_fields"]["Medium"] = interview_medium.capitalize()
+        details["interview_fields"]["medium"] = interview_medium.capitalize()
 
     if interview_type == "in_person":
-        details["interview_fields"]["Type"] = "In Person / On Site"
+        details["interview_fields"]["interview_type"] = "In Person / On Site"
 
     elif interview_type == "video_or_online":
-        details["interview_fields"]["Type"] = "Video / Online"
+        details["interview_fields"]["interview_type"] = "Video / Online"
 
     else:
-        details["interview_fields"]["Type"] = "Phone Call"
+        details["interview_fields"]["interview_type"] = "Phone Call"
 
     if video_link == "N/A":
-        details["interview_fields"]["Video Link"] = None
+        details["interview_fields"]["video_link"] = None
+
+    if location == "N/A":
+        details["interview_fields"]["location"] = None
 
     return True
 
@@ -73,14 +86,15 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
     other_medium = interview.other_medium
 
     details["interview_fields"] = { 
-        "Date": interview.interview_date,
-        "Time": interview.interview_time,
-        "Type": interview.interview_type,
-        "Status": interview.status.capitalize(),
-        "Medium": medium, 
-        "Location": interview.location,
-        "Interviewer Names": interview.interviewer_names, 
-        "Video Link": interview.video_link
+        "date": interview.interview_date,
+        "time": interview.interview_time,
+        "interview_type": interview.interview_type,
+        "status": interview.status.capitalize(),
+        "medium": medium, 
+        "location": interview.location,
+        "interviewer_names": interview.interviewer_names, 
+        "video_link": interview.video_link, 
+        "contact_number": interview.contact_number
     }
 
     cleanup_fields(details, other_medium)
