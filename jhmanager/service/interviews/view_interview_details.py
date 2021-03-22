@@ -9,16 +9,6 @@ def add_company_details(details, company):
     }
 
 def cleanup_fields(details, other_medium):
-        # "date": interview.interview_date,
-        # "time": interview.interview_time,
-        # "interview_type": interview.interview_type,
-        # "status": interview.status.capitalize(),
-        # "medium": medium, 
-        # "location": interview.location,
-        # "interviewer_names": interview.interviewer_names, 
-        # "video_link": interview.video_link, 
-        # "contact_number": interview.contact_number
-
 
     # I want to clean up a few fields to improve how they're displayed:
     interview_type = details["interview_fields"]["interview_type"]
@@ -26,6 +16,7 @@ def cleanup_fields(details, other_medium):
     interviewer_names = details["interview_fields"]["interviewer_names"]
     video_link = details["interview_fields"]["video_link"]
     location = details["interview_fields"]["location"]
+    interview_time = details["interview_fields"]["time"]
 
     if interviewer_names == "Unknown at present":
         details["interview_fields"]["Interviewer Names"] = None
@@ -56,6 +47,15 @@ def cleanup_fields(details, other_medium):
 
     if location == "N/A":
         details["interview_fields"]["location"] = None
+
+    interview_time_str = interview_time.strftime("%H")
+    # interview_time_obj = datetime.strptime(interview_time, '%H:%M')
+    hour_int = int(interview_time.strftime("%H"))
+    if hour_int >= 12:
+        interview_time_str += "pm"
+    else:
+        interview_time_str += "am"
+    details["interview_fields"]["time"] = interview_time_str
 
     return True
 
