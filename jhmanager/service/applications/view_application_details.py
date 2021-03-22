@@ -1,5 +1,6 @@
 from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime, time
+from jhmanager.service.display_dashboard_content import past_dated_interview
 
 
 def cleanup_job_offers(job_offers_details, count):
@@ -60,6 +61,7 @@ def cleanup_interview_fields(interview_fields, interview_id):
     interview_type = interview_fields["fields"][interview_id]["interview_type"]
     status = interview_fields["fields"][interview_id]["status"]
     location = interview_fields["fields"][interview_id]["location"]
+    interview_date = interview_fields["fields"][interview_id]["date"]
     interview_time = interview_fields["fields"][interview_id]["time"]
 
     # Now I can optimise the presentation of the values for these variables:
@@ -96,6 +98,9 @@ def cleanup_interview_fields(interview_fields, interview_id):
         time_str += "am"
 
     interview_fields["fields"][interview_id]["time"] = time_str
+
+    past_dated = past_dated_interview(interview_date, interview_time)
+    interview_fields["fields"][interview_id]["past_dated"] = past_dated
 
 
 def cleanup_application_details(application_details):
@@ -216,7 +221,8 @@ def display_application_details(session, user_id, applicationsRepo, application_
                 "location": location,
                 "view_more": view_more_url,
                 "delete_url": delete_url,
-                "prepare_url": prepare_url
+                "prepare_url": prepare_url,
+                "past_dated": False,
             }
             cleanup_interview_fields(interview_fields, count)
 

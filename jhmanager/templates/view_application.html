@@ -317,6 +317,14 @@
                                     </div>
                                 </div>
                             {% endif %}
+                            <div class="form-row">
+                                <div class="col left-padding"> 
+                                    <strong> Past Dated</strong>
+                                </div>
+                                <div class="col right-padding"> 
+                                    {{ rows.past_dated }}
+                                </div>
+                            </div>
                             <div class="text-center link-button-margins"> 
                                 {% if rows.status == "Upcoming Interview" %}
                                     <a href={{ rows.prepare_url }} class="link_button"> <i class="fas fa-pencil-alt"> Prepare</i></a>
@@ -362,6 +370,14 @@
                                     </div>
                                     <div class="col right-padding"> 
                                         {{ rows.location }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <br/>
+                            {% if rows.past_dated %}
+                                <div class="form-row">
+                                    <div class="col left-padding text-center"> 
+                                        This is a past-dated interview! Update below:
                                     </div>
                                 </div>
                             {% endif %}
