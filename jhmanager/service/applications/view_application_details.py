@@ -223,4 +223,6 @@ def display_application_details(session, user_id, applicationsRepo, application_
     interview_fields["interviews_count"] = count
     job_offer_details = grab_and_display_job_offers(jobOffersRepo, user_id, company_details, companyRepo) 
 
+    interview_fields["add_interview_url"] = '/applications/{}/add_interview'.format(application_id)
+
     return render_template("view_application.html", details=application_details, interview_details=interview_details, interview_fields=interview_fields, company_details=company_details, job_offer_details=job_offer_details)

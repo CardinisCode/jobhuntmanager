@@ -127,37 +127,7 @@ class ApplicationsHistoryRepository:
         
         return application  
 
-
-    def deleteEntryByApplicationID(self, application_id):
-        message = ""
-        try: 
-            cursor = self.db.cursor()
-            command = "DELETE FROM job_applications WHERE application_id = {}".format(application_id)
-            cursor.execute(command)
-            self.db.commit()
-            message = "Application successfully deleted"
-
-        except sqlite3.Error as error:
-            message = "Application failed to delete. " + error
-        finally:
-            return message 
-
-    def deleteByUserID(self, user_id):
-        message = ""
-        try: 
-            cursor = self.db.cursor()
-            command = "DELETE FROM job_applications WHERE user_id = {}".format(user_id)
-            cursor.execute(command)
-            self.db.commit()
-            message = "Application successfully deleted"
-
-        except sqlite3.Error as error:
-            message = "Application failed to delete. " + error
-        finally:
-            return message 
-
-
-
+    
     # def grabApplicationByID(self, application_id):
     #     result = self.sql.getByField('job_applications', 'application_id', application_id)
 
@@ -194,24 +164,71 @@ class ApplicationsHistoryRepository:
 
         return data[0] 
 
+    def updateInterviewStage(self, fields):
+        try: 
+            cursor = self.db.cursor()
+            command = """
+            UPDATE job_applications
+            SET interview_stage = ?
+            WHERE application_id = ?"""
+            cursor.execute(command, tuple(fields.values()))
+            self.db.commit()
+            message = "Interview Stage for this application has been updated!"
+
+        except sqlite3.Error as error:
+            message = "Interview Stage failed to update. " + error
+        finally:
+            return message
+
 
     def updateApplicationByID(self, fields):
         cursor = self.db.cursor()
-
+        
         command = """
-        UPDATE job_applications 
-        SET job_role = ?,
-            employment_type = ?,
-            job_ref = ?,
-            job_description = ?,
-            job_perks = ?,
-            tech_stack = ?,
-            salary = ?,
-            user_notes = ?,
-            platform = ?,
-            job_url = ?
-        WHERE application_id = ?"""
+            UPDATE job_applications 
+            SET job_role = ?,
+                employment_type = ?,
+                job_ref = ?,
+                job_description = ?,
+                job_perks = ?,
+                tech_stack = ?,
+                salary = ?,
+                user_notes = ?,
+                platform = ?,
+                job_url = ?
+            WHERE application_id = ?"""
 
         cursor.execute(command, tuple(fields.values()))
 
         self.db.commit()
+        
+
+
+
+    def deleteEntryByApplicationID(self, application_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM job_applications WHERE application_id = {}".format(application_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Application successfully deleted"
+
+        except sqlite3.Error as error:
+            message = "Application failed to delete. " + error
+        finally:
+            return message 
+
+    def deleteByUserID(self, user_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM job_applications WHERE user_id = {}".format(user_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Application successfully deleted"
+
+        except sqlite3.Error as error:
+            message = "Application failed to delete. " + error
+        finally:
+            return message 

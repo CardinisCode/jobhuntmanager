@@ -87,6 +87,23 @@ def check_if_interview_is_past_dated(interview_date, interview_time):
     return False
 
 
+def update_interview_stage_in_applications_repo(interviewsRepo, application_id, applicationsRepo):
+    application = applicationsRepo.grabApplicationByID(application_id)
+    current_interview_stage = application.interview_stage
+    all_interviews_for_app_id = interviewsRepo.grabAllInterviewsByApplicationID(application_id)
+    interview_count = 0
+    for interview in all_interviews_for_app_id:
+        interview_count += 1
+
+    fields = {
+        "interview_stage": interview_count, 
+        "application_id": application_id
+    }
+
+    message = applicationsRepo.updateInterviewStage(fields)
+    flash(message)
+
+
 def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo, application_id, companyRepo):
     #Grab and verify field data:
     # company_name = form.company_name 
@@ -110,6 +127,8 @@ def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo,
 
     # Add details to application_history in SQL DB:
     interview_id = InsertFieldsIntoInterviewHistory(user_id, interviewsRepo, application_id, interview_date, interview_time, interview_type, interview_location, video_medium, other_medium, contact_number, status, interviewers)
+
+    update_interview_stage_in_applications_repo(interviewsRepo, application_id, applicationsRepo)
 
     redirect_url = "/applications/{}/interview/{}".format(application_id, interview_id)
 

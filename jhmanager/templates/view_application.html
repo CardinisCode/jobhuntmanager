@@ -115,10 +115,10 @@
                     {% endif %}
                     <div class="form-row"> 
                         <div class="col left-padding"> 
-                            <i class="fas fa-mobile-alt"></i><strong> Interview Stage</strong>
+                            <i class="fas fa-mobile-alt"></i><strong> Interview Stage: </strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ details.fields.interview_stage }}
+                            Interview #{{ details.fields.interview_stage }}
                         </div>
                     </div>
                     {% if details.fields.job_url != "http://..." %}
@@ -382,6 +382,10 @@
                     {% endfor %}
                 </div>
             {% endif %}
+            <br/>
+            <div class="text-center give-me-space"> 
+                <a href={{ interview_fields.add_interview_url }} class="link_right link_button_primary"><i class="fas fa-plus"> Add Upcoming Interview</i> </a>
+            </div>
         </div>
     </div>
 
