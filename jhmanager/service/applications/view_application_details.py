@@ -2,28 +2,53 @@ from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime, time
 
 
-def grab_and_display_job_offers(jobOffersRepo, user_id, company_details):
+def cleanup_job_offers(job_offers_details, count):
+    offer_response = job_offers_details["details"][count]["offer_response"]
+    company_name = job_offers_details["details"][count]["company_name"]
+    starting_date = job_offers_details["details"][count]["starting_date"]
+    offer_accepted = job_offers_details["details"][count]["offer_accepted"]
+    if offer_response == "user_accepted":
+        offer_response = "I've Accepted the offer!"
+        offer_accepted = True
+    elif offer_response == "user_declined":
+        offer_response = "I've turned down the offer."
+    elif offer_response == "company_pulled_offer":
+        offer_response = "{} pulled the offer."
+    elif offer_response == "undecided":
+        offer_response = "I am still deciding."
+
+    job_offers_details["details"][count]["offer_response"] = offer_response
+    job_offers_details["details"][count]["offer_accepted"] = offer_accepted
+
+    start_date_str = starting_date.strftime("%Y-%m-%d")
+    job_offers_details["details"][count]["starting_date"] = start_date_str
+
+
+def grab_and_display_job_offers(jobOffersRepo, user_id, company_details, companyRepo):
     job_offers = jobOffersRepo.getJobOffersByUserId(user_id)
     if not job_offers: 
         return None
 
     count = 0
-    job_offers_details = {}
+    job_offers_details = {
+        "details": {}
+    }
     for job_offer in job_offers:
         job_offer_id = job_offer.job_offer_id
         company_id = job_offer.company_id
         if company_id == company_details["fields"]["company_id"]:
             count += 1
-            job_offers_details["details"] = {}
             job_offers_details["details"][count] = {
+                "company_name": companyRepo.getCompanyById(company_id).name,
                 "offer_response": job_offer.offer_response, 
+                "offer_accepted": False,
                 "salary_offered": job_offer.salary_offered, 
                 "starting_date": job_offer.starting_date, 
                 "job_role": job_offer.job_role, 
                 "perks_offered": job_offer.perks_offered,
                 "update_url": '/job_offer/{}/update_job_offer'.format(job_offer_id)
             }
-            job_offers_details["update_url"] = '/job_offer/{}/update_job_offer'.format(job_offer_id)
+            cleanup_job_offers(job_offers_details, count)
 
     job_offers_details["count"] = count
  
@@ -196,6 +221,6 @@ def display_application_details(session, user_id, applicationsRepo, application_
             cleanup_interview_fields(interview_fields, count)
 
     interview_fields["interviews_count"] = count
-    job_offer_details = grab_and_display_job_offers(jobOffersRepo, user_id, company_details) 
+    job_offer_details = grab_and_display_job_offers(jobOffersRepo, user_id, company_details, companyRepo) 
 
     return render_template("view_application.html", details=application_details, interview_details=interview_details, interview_fields=interview_fields, company_details=company_details, job_offer_details=job_offer_details)
