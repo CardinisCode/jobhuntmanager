@@ -361,7 +361,7 @@ def update_specific_interview(application_id, interview_id):
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/delete_interview')
 @login_required
 def delete_specific_interview(application_id, interview_id):
-    return delete_interview(application_id, interview_id, interviewsRepo, interviewPrepRepo)
+    return delete_interview(application_id, interview_id, interviewsRepo, interviewPrepRepo, applicationsRepo)
 
 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation', methods=["GET", "POST"])
