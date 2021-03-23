@@ -5,19 +5,24 @@
 {% endblock %}
 
 {% block main %}
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-danger border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-danger border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
 
-    <h1 class="text-center"> About us</h1>
-    <hr/>
-    <p> Random text</p>
+            <h1 class="text-center link-button-margins"> About us</h1>
+            <p> Random text</p>
+        </div>
+    </div>
 
-    <br/>
-    <h2 class="text-center"> Contact Us </h2>
-    <hr/>
-    <p> If you're having any issues, please contact us at <a href="mailto:jobhuntmanager.contactus@gmail.com">jobhuntmanager.contactus@gmail.com </a></p>
+    <div class="alignfull background-colour"> 
+        <div class="aligncenter"> 
+            <h2 class="text-center link-button-margins"> Contact Us </h2>
+            <p> If you're having any issues, please contact us at <a href="mailto:jobhuntmanager.contactus@gmail.com">jobhuntmanager.contactus@gmail.com </a></p>
+        </div>
+    </div>
 
 {% endblock %}
