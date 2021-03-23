@@ -279,6 +279,11 @@ hr.thick_border {
   margin-bottom: 2rem;
 }
 
+.heading_margins {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 .table_link_button {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;

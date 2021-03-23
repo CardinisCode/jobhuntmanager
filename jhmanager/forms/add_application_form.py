@@ -15,7 +15,7 @@ class AddApplicationForm(FlaskForm):
     )
     
     job_role = StringField(
-        "Job Role: ", 
+        "Job Role / Position: ", 
         validators=[InputRequired(message="Which job role have you applied for?")], 
         render_kw={'placeholder': "The job role you're applying for."},
     )
@@ -78,11 +78,10 @@ class AddApplicationForm(FlaskForm):
     )
 
     location = StringField(
-        "Interview Location: ", 
+        "Location: ", 
         [validators.optional()], 
         render_kw={'placeholder': "Where is the company located? (if you're working from an office/branch/store)"},
         description="Where are their offices and/or where will you be working?",
-        default="Remote", 
     )
 
     salary = StringField(
@@ -114,7 +113,7 @@ class AddApplicationForm(FlaskForm):
         default="http://...", 
     )
 
-    save_application = SubmitField("Save")
+    save_button = SubmitField("Save")
 
 
 
