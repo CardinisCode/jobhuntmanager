@@ -14,6 +14,13 @@
                 {% endfor %}
             {% endif %}
 
+            {% if details.existing_company %}
+                <div class="text-center link-button-margins">
+                    <a href='/address_book' class="link_right link_button_primary"><i class="fas fa-address-book"> View Address Book </i></a>
+                    <a href={{ details.update_url}} class="link_right link_button_primary"> <i class="fas fa-pencil-alt"> Update Company Profile </i></a>
+                </div>
+            {% endif %}
+
             <form action={{ details.action_url }} method="POST"> 
                 <h2 class="text-center">  Add New Company</h2>
                 <hr class="thick_border"> 
@@ -59,9 +66,6 @@
                 </div> 
                 <div class="form-row">
                     <div class="col">
-                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box"><a href='/address_book' class="back_button"> <i class="fas fa-address-book"> Go to Address Book</i></a></dd>
-                    </div>
-                    <div class="col">
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_company_form.save_button }} </dd>
                     </div>
                 </div>
@@ -74,8 +78,5 @@
             </form>
         </div>
     </div>
-
-    
-
 
 {% endblock %}

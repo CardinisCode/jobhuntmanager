@@ -4,7 +4,8 @@ import sqlite3
 
 def display_add_company_form(add_company_form):
     details = {
-        "action_url": '/add_company'
+        "action_url": '/add_company', 
+        "existing_company": False,
     }
     
     return render_template("add_company_form.html", add_company_form=add_company_form, details=details)
@@ -18,7 +19,12 @@ def post_add_company(user_id, add_company_form, applicationsRepo, companyRepo):
     existing_company = companyRepo.grabCompanyByNameAndUserID(company_name, user_id)
     if existing_company != None:
         flash("A company already exists by this name in your Addressbook.")
-        details = {}
+        details = {
+            "action_url": '/add_company', 
+            "existing_company": True, 
+            "company_name": existing_company.name,
+            "update_url": '/company/{}/update_company'.format(existing_company.company_id)
+        }
         details["action_url"] = '/add_company'
         return render_template("add_company_form.html", add_company_form=add_company_form, details=details)
     
