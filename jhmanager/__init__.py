@@ -101,6 +101,7 @@ from jhmanager.forms.update_user_details import ChangePasswordForm
 from jhmanager.forms.delete_account_form import DeleteAccountForm
 from jhmanager.forms.add_company_note_form import AddCompanyNoteForm
 from jhmanager.forms.add_job_offer_form import AddJobOffer
+from jhmanager.forms.warning_form import WarningForm
 
 
 # Configure application
@@ -205,6 +206,8 @@ def display_dashboard():
 def read_about_us():
     return render_template("about_us.html")
 
+
+
 """
 CRUD? 
 Create -> post
@@ -245,6 +248,11 @@ GET /application/{application_id}/interview/
 GET /application/{application_id}/interview/{interview_id}
         -> gets a specific interview
 """
+
+
+
+
+
 
 
 @app.route("/applications")
