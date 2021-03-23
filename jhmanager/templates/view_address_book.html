@@ -5,24 +5,42 @@
 {% endblock %}
 
 {% block main %}
-    <h1 class="text-center"> Address Book:</h1>
-    <hr/>
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <h1 class="text-center"> Address Book:</h1>
 
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-success border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-
-    {% if general_details.empty_table %}
-        <p>  {{ general_details.message }}</a></p>
-    {% else %}
-        <div class="list-group align-items-center">
-            <p class="list-group-item list-group-heading"> Select the Company Name </p>
-            {% for fields in company_details.values() %}
-                <a href={{ fields.view_more_url }} class="list-group-item list-group-item-action" name={{ fields.name }}> {{ fields.company_name }} </a>
-            {% endfor %}
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-success border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
         </div>
+    </div>
+
+    <div class="alignfull background-colour">
+        <div class="aligncenter"> 
+            {% if general_details.empty_table %}
+            <p>  {{ general_details.message }}</a></p>
+        {% else %}
+            <div class="list-group align-items-center">
+                <p class="list-group-item list-group-heading"> Select the Company Name </p>
+                {% for fields in company_details.values() %}
+                    <a href={{ fields.view_more_url }} class="list-group-item list-group-item-action" name={{ fields.name }}> {{ fields.company_name }} </a>
+                {% endfor %}
+            </div>
+            <br/>
+        </div>
+    </div>
+
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <div class="text-center link-button-margins"> 
+                <a href={{ general_details.add_company_url }} class="link_button_primary text-center"> <i class="fas fa-plus"> New Company</i></a>
+            </div>
+        </div>
+    </div>
+
+    
 
     {% endif %}
 

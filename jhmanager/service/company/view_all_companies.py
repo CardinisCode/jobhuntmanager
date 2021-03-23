@@ -3,10 +3,13 @@ from flask import Flask, render_template, session, request, redirect, flash
 
 def display_all_companies_for_user(user_id, companyRepo, applicationsRepo):
     company_entries = companyRepo.getAllCompanyEntriesForUser(user_id)
-    general_details = {}
-    general_details["empty_table"] = False
-    general_details["message"] = None
     company_details = None 
+
+    general_details = {
+        "empty_table": False, 
+        "message": None, 
+        "add_company_url": '/add_company'
+    }
 
     if not company_entries:
         general_details["empty_table"] = True

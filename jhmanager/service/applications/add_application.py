@@ -7,10 +7,8 @@ def display_add_application_form(add_application_form):
 
 
 def add_new_application_to_application_history(user_id, companyRepo, applicationsRepo, application_form, company_id):
-#    date_posted, job_role, emp_type, job_ref, company_spec, job_spec, perks, tech_stack, location, salary, user_notes, platform, job_url, 
    
     # We need to grab current day's date & time when user adds a new application:
-    # application_date = str(datetime.date(datetime.now()))
     application_datetime = datetime.now()
 
     # Now to grab the date value & convert it to string:

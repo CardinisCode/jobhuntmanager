@@ -64,6 +64,8 @@ from jhmanager.service.application_notes.update_app_note import display_update_a
 from jhmanager.service.application_notes.update_app_note import post_update_app_note
 from jhmanager.service.application_notes.delete_app_note import delete_application_note
 
+from jhmanager.service.company.add_company import display_add_company_form
+from jhmanager.service.company.add_company import post_add_company
 from jhmanager.service.company.update_company import display_update_company_profile_form
 from jhmanager.service.company.update_company import post_update_company_profile
 from jhmanager.service.company.view_all_companies import display_all_companies_for_user
@@ -90,6 +92,7 @@ from jhmanager.forms.add_application_form import AddApplicationForm
 from jhmanager.forms.register_form import RegisterUserForm
 from jhmanager.forms.login_form import LoginForm
 from jhmanager.forms.add_interview_prep_form import AddInterviewPrepForm
+from jhmanager.forms.add_company_form import AddCompanyForm
 from jhmanager.forms.update_company_form import UpdateCompany
 from jhmanager.forms.add_application_note_form import AddApplicationNoteForm
 from jhmanager.forms.update_user_details import UpdateEmailAddressForm
@@ -417,14 +420,25 @@ def update_job_offer_details(job_offer_id):
             return display_update_job_offer_form(user_id, job_offer_id, update_job_offer_form, job_offer, companyRepo)
 
 
-
-
 @app.route('/address_book')
 @login_required
 def display_address_book():
     """ Display all business contacts to the user """
     user_id = session["user_id"]
     return display_all_companies_for_user(user_id, companyRepo, applicationsRepo)
+
+
+@app.route('/add_company', methods=["GET", "POST"])
+@login_required
+def add_company():
+    user_id = session["user_id"]
+    add_company_form = AddCompanyForm()
+    if request.method == "GET":
+        return display_add_company_form(add_company_form)
+
+    if request.method == "POST":
+        if add_company_form.validate_on_submit():
+            return post_add_company(user_id, add_company_form, applicationsRepo, companyRepo)
 
 
 @app.route('/company/<int:company_id>/view_company', methods=["GET"])
