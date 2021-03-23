@@ -82,12 +82,35 @@ input:focus {
   box-shadow: none;
 }
 
-input[type=text], [type=tel], [type=url], [type=select], [type=date] {
+input[type=text], [type=tel], [type=url], [type=date], [type=time] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
 } 
+
+select{
+  width: 100% !important;
+  margin: 8px 0;
+  padding: 16px 20px !important;
+  box-sizing: border-box;
+}
+
+.floating-left-col {
+  float: left;
+  width: 50%;
+}
+
+.floating-right-col {
+  float: right;
+  width: 50%;
+}
+
+.form-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
 
 textarea {
@@ -162,6 +185,11 @@ textarea {
   grid-gap: 1em;
 }
 
+.grid_child-simple{
+  padding: 12px 5px;
+  display: grid;
+}
+
 #save_button {
   background: linear-gradient(45deg, purple, indigo); 
   color: white;
@@ -190,13 +218,6 @@ textarea {
 
 .link_middle {
   float:inline-end
-}
-
-select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
 }
 
 hr {

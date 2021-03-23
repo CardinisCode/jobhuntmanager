@@ -23,39 +23,41 @@
                 <br/>
 
                 {{ add_interview_form.csrf_token }}
-                <div class="form-row">
-                    <div class="col">
+                <div class="form-row grid_experiement">
+                    <div class="col grid_child-simple">
                         <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_interview_form.interview_date.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_date }} </dd> 
                     </div>
-                    <div class="col">
+                    <div class="col grid_child-simple">
                         <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_interview_form.interview_time.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_time }} </dd> 
                     </div>
                 </div> 
-                <div class="form-row">
-                    <div class="col">
+                <div class="form-row grid_experiement">
+                    <div class="col grid_child-simple">
                         <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-hand-pointer"></i> {{ add_interview_form.interview_type.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_type }} </dd>
                     </div>
 
-                    <div class="col">
+                    <div class="col grid_child-simple">
                         <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-hand-pointer"></i> {{ add_interview_form.status.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.status }} </dd>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="col">
+                <div class="form-row grid_experiement">
+                    <div class="col grid_child-simple">
                         <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-hand-pointer"></i> {{ add_interview_form.interview_medium.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_medium }} </dd>
                     </div>
+                    <div class="col grid_child-simple">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> If other:</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.other_medium }} </dd>
+                    </div>
+                </div>
+                <div class="form-row">
                     <div class="col">
                         <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_interview_form.video_link.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.video_link }} </dd>
-                    </div>
-                    <div class="col">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> If other:</dt>
-                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.other_medium }} </dd>
                     </div>
                 </div>
 
@@ -73,12 +75,12 @@
                     </div>
                 </div>
 
-                <div class="form-row">
-                    <div class="col">
+                <div class="form-row grid_experiement">
+                    <div class="col grid_child-simple">
                         <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-mobile-alt"></i> {{ add_interview_form.phone_call.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.phone_call }} </dd>
                     </div>
-                    <div class="col">
+                    <div class="col grid_child-simple">
                         <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-thumbtack"></i> {{ add_interview_form.interview_location.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_interview_form.interview_location }} </dd>
                     </div>
