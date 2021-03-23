@@ -5,35 +5,132 @@
 {% endblock %}
 
 {% block main %}
-    <h1> Update Application </h1>
-    <br/>
-    <p> Note: This form will be a little long. Complete the items relevant to you. </p>
-    <p> If you don't complete a field, however, it will be saved automatically as 'N/A'</p>
-    <br/>
-
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-danger border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-
-    <form action='/applications/{{ fields.application_id }}/update_application' method="POST"> 
-        {{ update_form.csrf_token }}
-        {% for field in update_form if field.name != "csrf_token" %}
-            <p> 
-                {% if field.name == "save_application" %}
-                    {{ field }} 
-                {% else %}
-                    <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
-                    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd>
-                {% endif %}
-                {% for error in field.errors %}
-                    {{ error }}
+    <div class="alignfull"> 
+        <div class="aligncenter"> 
+            <h1 class="text-center"> Applications </h1>
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-primary border text-center">{{ message }}</div>
                 {% endfor %}
-            </p>
-        {% endfor %}
+            {% endif %}
+            <h1 class="text-center"> Update Application </h1>
+        
+            <form action={{ fields.update_url }} method="POST"> 
+                {{ update_form.csrf_token }}
+                <h1 class="text-center"> Update Job Application </h1>
+                <hr class="thick_border">
+                <br/>
+                <div class="form-row">
+                    <div class="col">
+                        <dd class="text-center"> Note: This form will be a little long. Complete the items relevant to you. Empty fields will be saved automatically as 'N/A' </dd>
+                        <dd class="text-center"> <strong> All Required fields are marked with an Asterisk *</strong></dd>
+                        <dd class="text-center"></dd> 
+                    </div>
+                </div>
+                <br/>
+                <h3 class="text-center heading_margins"> Role/Job Position</h3>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.date_posted.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.date_posted }}</dd> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.job_ref.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.job_ref }}</dd> 
+                    </div>
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.job_role.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.job_role }}</dd> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.job_description.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.job_description }}</dd> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.tech_stack.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.tech_stack }}</dd> 
+                    </div>
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.job_perks.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.job_perks }}</dd> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.salary.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.salary }}</dd> 
+                    </div>
+                </div>
 
-    </form>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.emp_type.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.emp_type }}</dd> 
+                    </div>
+                </div>
+                <hr/>
+                <h2 class="text-center heading_margins"> Where you found this role</h2>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.platform.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.platform }}</dd> 
+                    </div>
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.job_url.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.job_url }}</dd> 
+                    </div>
+                </div>
+                <hr/>
+                <h3 class="text-center heading_margins"> Company / Client</h3>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.company_name.label }} * Required Field</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.company_name }}</dd> 
+                    </div>
+                </div> 
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.company_description.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.company_description }}</dd> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.industry.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.industry }}</dd> 
+                    </div>
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.location.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.location }}</dd> 
+                    </div>
+                </div>
+                <hr/>
+                <h3 class="text-center heading_margins"> Your Notes </h3>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_form.user_notes.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_form.user_notes }}</dd> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col btn btn-lg">
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_form.save_button }} </dd>
+                    </div>
+                </div>
 
+                {% for field in update_form if field.name != "csrf_token" %}
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endfor %}
+            </form>
+        </div>
+    </div>
 
 {% endblock %}

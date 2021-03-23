@@ -13,9 +13,9 @@
                     <div class="flash alert alert-primary border text-center">{{ message }}</div>
                 {% endfor %}
             {% endif %}
-            
+
             <form action="/add_job_application" method="POST"> 
-                <h1 class="text-center"> Add Job Application </h1>
+                <h2 class="text-center"> Add Job Application </h2>
                 <hr class="thick_border">
                 <br/>
                 {{ add_application_form.csrf_token }}
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <br/>
-                <h2 class="text-center heading_margins"> Role/Job Position</h2>
+                <h3 class="text-center heading_margins"> Role/Job Position</h3>
                 <div class="form-row">
                     <div class="col">
                         <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.date_posted.label }}</dt>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <hr/>
-                <h2 class="text-center heading_margins"> Company / Client</h2>
+                <h3 class="text-center heading_margins"> Company / Client</h3>
                 <div class="form-row">
                     <div class="col">
                         <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.company_name.label }} * Required Field</dt>
@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <hr/>
-                <h2 class="text-center heading_margins"> Your Notes</h2>
+                <h3 class="text-center heading_margins"> Your Notes </h3>
                 <div class="form-row">
                     <div class="col">
                         <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.user_notes.label }}</dt>
