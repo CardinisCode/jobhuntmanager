@@ -11,10 +11,20 @@ def display_add_company_form(add_company_form):
 
 
 def post_add_company(user_id, add_company_form, applicationsRepo, companyRepo):
-    # (user_id, name, description, location, industry, url, interviewers, contact_number)
+    company_name = add_company_form.name.data
+    existing = False 
+
+    # Let's first make sure this company doesn't already exist for this user:
+    existing_company = companyRepo.grabCompanyByNameAndUserID(company_name, user_id)
+    if existing_company != None:
+        flash("A company already exists by this name in your Addressbook.")
+        details = {}
+        details["action_url"] = '/add_company'
+        return render_template("add_company_form.html", add_company_form=add_company_form, details=details)
+    
     company_details = {
         "user_id": user_id, 
-        "name": add_company_form.name.data, 
+        "name": company_name,
         "description": add_company_form.description.data,
         "location": add_company_form.location.data,
         "industry": add_company_form.industry.data, 
