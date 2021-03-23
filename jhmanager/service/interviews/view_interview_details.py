@@ -76,7 +76,8 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
         "update_url": "/applications/{}/interview/{}/update_interview".format(application_id, interview_id),
         "delete_url": "/applications/{}/interview/{}/delete_interview".format(application_id, interview_id),
         "view_interview_prep_url": '/applications/{}/interview/{}/interview_preparation'.format(application_id, interview_id), 
-        "return_to_application": '/applications/{}'.format(application_id)
+        "return_to_application": '/applications/{}'.format(application_id), 
+        "view_notes_url": '/applications/{}/view_application_notes'.format(application_id)
     }
 
     interview = interviewsRepo.grabInterviewByID(interview_id)

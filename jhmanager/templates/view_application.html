@@ -265,8 +265,8 @@
         <div class="aligncenter"> 
             <h3 class="text-center">Notes</h3> 
             <div class="text-center link-button-margins"> 
-                <a href={{ details.add_note_url }} class="link_button_primary text-center"> <i class="fas fa-plus"> Note</i> </a>
-                <a href={{ details.view_notes_url }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Notes</i> </a>
+                <a href={{ details.add_note_url }} class="link_button_primary text-center"> <i class="fas fa-plus"> Note</i></a>
+                <a href={{ details.view_notes_url }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Notes</i></a>
             </div>
         </div>
     </div>
@@ -277,7 +277,7 @@
             <br/>
             {% if interview_details.empty_fields == True %}
                 <div class="text-center link-button-margins"> 
-                    <a href={{ details.add_interview_url }} class="link_button_primary extra-button-styles"> <i class="fas fa-plus"> Upcoming Interview</i> </a>
+                    <a href={{ details.add_interview_url }} class="link_button_primary extra-button-styles"> <i class="fas fa-plus"> Upcoming Interview</i></a>
                 </div>
             {% elif interview_fields.interviews_count == 1 %}
                 <div class="single_col_grid"> 
@@ -394,7 +394,7 @@
             {% endif %}
             <br/>
             <div class="text-center give-me-space"> 
-                <a href={{ interview_fields.add_interview_url }} class="link_right link_button_primary"><i class="fas fa-plus"> Add Upcoming Interview</i> </a>
+                <a href={{ interview_fields.add_interview_url }} class="link_right link_button_primary"><i class="fas fa-plus"> Add Upcoming Interview</i></a>
             </div>
         </div>
     </div>

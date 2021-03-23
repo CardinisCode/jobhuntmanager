@@ -6,7 +6,6 @@
 
 {% block main %}
     <h1 class="text-center"> {{ details.company_name}} </h1>
-    <hr/>
 
     {% if get_flashed_messages() %}
         {% for message in get_flashed_messages() %}
@@ -85,7 +84,10 @@
                     </div>
                     <br/>
                     <div class="text-center link-button-margins"> 
-                        <a href={{ details.update_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+                        {% if details.interview_fields.status == 'Upcoming' %}
+                            <a href={{ details.view_interview_prep_url }} class="link_button"><i class="fas fa-clipboard"> Prepare </i></a>
+                        {% endif %}
+                        <a href={{ details.update_url }} class="link_button" data-toggle="tooltip" data-placement="top" title="Update"> <i class="fas fa-pencil-alt"> Update</i></a>
                         <a href={{ details.delete_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
                     </div>
                 </div>
@@ -97,11 +99,9 @@
         <div class="aligncenter"> 
             <br/>
             <div class="text-center link-button-margins"> 
-                {% if details.interview_fields.status == 'Upcoming' %}
-                    <a href={{ details.view_interview_prep_url }} class="link_button_primary text-center"><i class="fas fa-clipboard"> Prepare </i></a>
-                {% endif %}
+                <a href={{ details.return_to_application }} class="link_button_primary text-center"> <i class="fas fa-angle-left"> Go back to Application</i></a>
                 <a href={{ details.company_details.view_company_url }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Company Profile</i></a>
-                <a href={{ details.return_to_application }} class="link_button_primary text-center"> <i class="fas fa-angle-left"> Go back to Application</i> </a>
+                <a href={{ details.view_notes_url }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Application Notes</i></a>
             </div>
         </div>
     </div>
