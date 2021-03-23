@@ -439,6 +439,9 @@ def add_company():
     if request.method == "POST":
         if add_company_form.validate_on_submit():
             return post_add_company(user_id, add_company_form, applicationsRepo, companyRepo)
+        else:
+            flash("Complete all the fields.")
+            return display_add_company_form(add_company_form)
 
 
 @app.route('/company/<int:company_id>/view_company', methods=["GET"])

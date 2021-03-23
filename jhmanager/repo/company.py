@@ -27,6 +27,17 @@ class CompanyRepository:
     def create(self, fields):
         return self.sql.insert('company', fields)
 
+    def createCompany(self, fields):
+        cursor = self.db.cursor()
+        command = """
+        INSERT INTO company 
+        (user_id, name, description, location, industry, url, interviewers, contact_number)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """
+        result = cursor.execute(command, tuple(fields.values()))
+        self.db.commit()
+
+        return result.lastrowid
     
     def updateUsingApplicationDetails(self, fields):
         cursor = self.db.cursor()
