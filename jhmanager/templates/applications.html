@@ -15,7 +15,6 @@
     {% endif %}
 
     <h2 class="text-center"> Your Application History </h2>
-    <!-- <a href="/add_job_application" class="button right_button">Add Application</a> -->
 
     <!-- <p> Today's date: {{ display_details.todays_date }} </p> -->
     <div class="button-grid"> 
@@ -42,7 +41,7 @@
                     <td class="border-bottom border-right border-left border-top td-styling"> {{ application.job_role.data }}</td>
                     <td class="border-bottom border-right border-left border-top td-styling"> {{ application.interview_stage.data }}</td>
                     <td class="border-bottom border-right border-left border-top td-styling"> {{ application.salary.data }}</td>
-                    <td class="button-grid">
+                    <td class="text-center link-button-margins">
                         <a href={{ application.view_more.data }} class="link_button"> <i class="fas fa-eye"> View</i></a>
                         <a href={{ application.delete.data }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
                     </td>

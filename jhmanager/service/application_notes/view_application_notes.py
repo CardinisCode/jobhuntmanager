@@ -7,12 +7,16 @@ def display_application_notes(user_id, application_id, applicationsRepo, appNote
     application_notes = appNotesRepo.getAppNotesByApplicationID(application_id, user_id)
     company_id = applicationsRepo.grabApplicationByID(application_id).company_id
     add_note_url = '/applications/{}/app_notes/add_note'.format(application_id)
+    return_to_application = '/applications/{}'.format(application_id)
+    company_profile_url = '/company/{}/view_company'.format(company_id)
 
     general_details = {
         "company_id": company_id, 
         "company_name": companyRepo.getCompanyById(company_id).name,
         "application_id": application_id,
-        "add_note_url": add_note_url
+        "add_note_url": add_note_url, 
+        "return_to_application": return_to_application,
+        "company_profile_url": company_profile_url
     }
 
     user_notes_details = None
@@ -23,6 +27,7 @@ def display_application_notes(user_id, application_id, applicationsRepo, appNote
     else:
         note_count = 0
         general_details["empty_table"] = False
+        
         user_notes_details = {} 
         for note in application_notes:
             note_count += 1
@@ -39,5 +44,6 @@ def display_application_notes(user_id, application_id, applicationsRepo, appNote
                 "delete_url": delete_url, 
                 "update_note_url": update_note_url
             }
+            user_notes_details["headings"] = ["#", "Date", "Subject", "Notes"]
 
     return render_template("view_notes_for_application.html", general_details=general_details, user_notes_details=user_notes_details)

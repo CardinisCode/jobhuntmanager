@@ -5,48 +5,60 @@
 {% endblock %}
 
 {% block main %}
-    <h1>  Your Notes for {{ general_details.company_name }}: </h1>
-    <hr/>
+    <div class="alignfull">
+        <div class="aligncenter">   
+            <h1 class="text-center">  Your Notes for {{ general_details.company_name }}: </h1>
 
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-success border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-success border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
 
-    {% if general_details.empty_table %}
-        <p> <a href={{ general_details.add_note_url}}> <i class="fas fa-plus"> Add your first note.</i></a> </p>
-    {% else %}
-        <a href={{ general_details.add_note_url}}> <i class="fas fa-plus"> Add </i></a>
-        <table>
-            <tr class="border-bottom border-right border-left border-top">
-                <th class="border-bottom border-right border-left border-top"> #</th>
-                <th class="border-bottom border-right border-left border-top"> Date</th>
-                <th class="border-bottom border-right border-left border-top"> Subject</th>
-                <th class="border-bottom border-right border-left border-top"> Notes</th>
-                <th class="border-bottom border-right border-left border-top"> View More</th>
-                <th class="border-bottom border-right border-left border-top"> Update</th>
-                <th class="border-bottom border-right border-left border-top"> Delete</th>
+    <div class="alignfull background-colour">
+        <div class="aligncenter"> 
+            <div class="button-grid link-button-margins"> 
+                <a href={{ general_details.add_note_url}} class="link_button_primary"> <i class="fas fa-plus"> Add note.</i></a>
+            </div>
 
-            </tr>
-            {% for entry_id, note_fields in user_notes_details.items() %}
-                <tr class="border-bottom border-right border-left border-top">
-                    <td class="border-bottom border-right border-left border-top"> {{ entry_id }}</td>
-                    <td class="border-bottom border-right border-left border-top"> {{ note_fields.entry_date }}</td>
-                    <td class="border-bottom border-right border-left border-top"> {{ note_fields.subject }}</td>
-                    <td class="border-bottom border-right border-left border-top"> {{ note_fields.note_text }}</td>
-                    <td class="border-bottom border-right border-left border-top">
-                        <a href={{ note_fields.view_note_url }}> <i class="fas fa-eye"> View</i></a>
-                    </td>
-                    <td class="border-bottom border-right border-left border-top">
-                        <a href={{ note_fields.update_note_url }}> <i class="fas fa-trash"> Update</i></a>
-                    </td>
-                    <td class="border-bottom border-right border-left border-top">
-                        <a href={{ note_fields.delete_url }}> <i class="fas fa-trash"> Delete</i></a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% endif %}
+            {% if not general_details.empty_table %}
+                <table>
+                    <tr class="border-bottom border-right border-left border-top blue-row-background">
+                        {% for heading in user_notes_details.headings %}
+                            <th class="border-bottom border-right border-left border-top td-styling"> {{ heading }}</th>
+                        {% endfor %}
+                    </tr>
+        
+        
+                    {% for entry_id, note_fields in user_notes_details.items() %}
+                        {% if entry_id != "headings" %}
+                            <tr>
+                                <td class="border-bottom border-right border-left border-top td-styling"> {{ entry_id }}</td>
+                                <td class="border-bottom border-right border-left border-top td-styling"> {{ note_fields.entry_date }}</td>
+                                <td class="border-bottom border-right border-left border-top td-styling"> {{ note_fields.subject }}</td>
+                                <td class="border-bottom border-right border-left border-top td-styling"> {{ note_fields.note_text }}</td>
+                                <td class="text-center">
+                                    <a href={{ note_fields.view_note_url }} class="link_button"> <i class="fas fa-eye"> View</i></a>
+                                    <a href={{ note_fields.update_note_url }} class="link_button"> <i class="fas fa-trash"> Update</i></a>
+                                    <a href={{ note_fields.delete_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="alignfull">
+        <div class="aligncenter">  
+            <div class="text-center link-button-margins">
+                <a href={{ general_details.return_to_application }} class="link_button_primary text-center"> <i class="fas fa-angle-left"> Go Back To Application</i></a>
+                <a href={{ general_details.company_profile_url }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Company Profile</i></a>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
