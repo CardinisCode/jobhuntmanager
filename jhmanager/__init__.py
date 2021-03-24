@@ -387,7 +387,7 @@ def interview_preparation(application_id, interview_id):
             return display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo)
 
     if request.method == "GET":
-        return display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo)
+        return display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo, interviewsRepo)
 
 
 @app.route('/add_job_offer', methods=["GET", "POST"])

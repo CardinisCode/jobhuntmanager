@@ -16,4 +16,4 @@ class AddInterviewPrepForm(FlaskForm):
         validators=[InputRequired(message="How would you like to answer this question?")],
         render_kw={'placeholder': "Your answer to the above Question."},
     )
-    save_preparation = SubmitField("Save your preparation")
+    save_button = SubmitField("Save your preparation")

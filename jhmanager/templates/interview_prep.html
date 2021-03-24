@@ -5,94 +5,154 @@
 {% endblock %}
 
 {% block main %}
-    <h1 class="text-center"> Prepare for your next Interview </h1>
-    <br/>
-    <p> Not sure where to start? Here are a few links you may find interesting to get you started:</p>
-    <div> 
-        <li> <a href="https://www.glassdoor.co.uk/blog/50-common-interview-questions/">GlassDoor</a></li>
-        <li><a href="https://www.themuse.com/advice/interview-questions-and-answers">The Muse</a></li>
-        <li><a href="https://www.monster.com/career-advice/article/100-potential-interview-questions"> Monster</a></li>
-        <li><a href="https://nationalcareers.service.gov.uk/careers-advice/top-10-interview-questions"> National Careers Service UK</a></li>
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <h1 class="text-center"> Prepare for your next Interview </h1>
+
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-success border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
-    <p>  </p>
-    <!-- Refer user to certain page listing all sites offering Interview prep advice Incl. Reed-->
-    <br/>
-    <!-- 'Select' drop down list -->
-    <!-- Will list all the interviews lined up by company name-->
-    
-    
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-success border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
 
-    <form action={{ details.action_url }} method="POST">
-        <h2 class="text-center"> Add Interview Question:</h2>
-        <hr class="thick_border"> 
-        <br/>
-
-        {{ interview_prep_form.csrf_token }}
-
-        <div class="form-row">
-            <div class="col">
-                <p class="text-center"> Example Question: Tell me about yourself?</p>
+    <div class="alignfull background-colour">
+        <div class="aligncenter"> 
+            <div class="grid_experiement full-grid-length">
+                <div class="grid_child"> 
+                    <h2 class="text-center link-button-margins"> {{ company_details.company_name }} </h2>
+                    <div class="form-row">
+                        <div class="col left-padding"> 
+                            <strong> Description</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ company_details.description}} 
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col left-padding"> 
+                            <strong> Location</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ company_details.location}} 
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col left-padding"> 
+                            <strong> Company Website</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ company_details.website}} 
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col left-padding"> 
+                            <strong> Interviewer/s' Names</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ company_details.interviewers}} 
+                        </div>
+                    </div>
+                    <div class="text-center link-button-margins"> 
+                        <a href={{ company_details.view_profile }} class="link_button"> <i class="fas fa-eye"> View Company Profile</i></a>
+                        <a href={{ company_details.view_notes }} class="link_button"> <i class="fas fa-eye"> View Notes for {{ company_details.company_name }}</i></a>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
 
-        <div class="form-row">
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ interview_prep_form.interview_question.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ interview_prep_form.interview_question }} </dd> 
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <h2 class="text-center link-button-margins"> Research </h2>
+            <p class="text-center"> Not sure where to start? Here are a few links you may find interesting to get you started:</p>
+            <div class="text-center link-button-margins"> 
+                <a href={{ links.glassdoor }} class="link_button"> GlassDoor</a>
+                <a href={{ links.the_muse }} class="link_button"> The Muse</a>
+                <a href={{ links.monster }} class="link_button"> Monster</a>
+                <a href={{ links.national_careers_service_UK }} class="link_button"> National Careers Service UK</a>
             </div>
         </div>
-        <div class="form-row">
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ interview_prep_form.answer_text.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ interview_prep_form.answer_text }} </dd> 
-            </div>
-        </div>
+    </div>
 
-        <div class="form-row">
-            <div class="col btn btn-lg">
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ interview_prep_form.save_preparation }} </dd>
-            </div>
+    <div class="alignfull background-colour">
+        <div class="aligncenter"> 
+            <form action={{ details.action_url }} method="POST">
+                {{ interview_prep_form.csrf_token }}
+                <h2 class="text-center"> Add Interview Question:</h2>
+                <hr class="thick_border"> 
+                <div class="form-row">
+                    <div class="col text-center">
+                        <dt class=".wpforms-title"> Example Question:</dt>
+                        <dd class=".wpforms-description text_box">Tell me about yourself? </dd> 
+                    </div>
+                </div>
+                <br/>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ interview_prep_form.interview_question.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ interview_prep_form.interview_question }} </dd> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ interview_prep_form.answer_text.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ interview_prep_form.answer_text }} </dd> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col btn btn-lg">
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ interview_prep_form.save_button }} </dd>
+                    </div>
+                </div>
+                {% for field in interview_prep_form if field.name != "csrf_token" %}
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endfor %}
+            </form>
         </div>
-
-        {% for field in interview_prep_form if field.name != "csrf_token" %}
-            {% for error in field.errors %}
-                {{ error }}
-            {% endfor %}
-        {% endfor %}
-    </form>
-    <br/>
+    </div>
 
     {% if interview_prep_details != None %}
-        <h2> View Interview Prep</h2>
-        <hr/>
-        
-        {% for prep_id, values in interview_prep_details.items() %}
-            <table class="border-bottom border-right border-left border-top"> 
-                {% for heading, data in values.items() %}
-                    {% if heading == "Q#" %}
-                    <p> Question Number: #{{ data }}</p>
-                    {% else %}
-                        <tr class="border-bottom border-right border-left border-top">
-                            <th class="border-bottom border-right border-left border-top"> {{ heading }} :</th>
-                            <td class="border-bottom border-right border-left border-top"> {{ data }}</td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-            </table>
-            <hr/>
-            <br/>
-        {% endfor %}
+        <div class="alignfull">
+            <div class="aligncenter"> 
+                <h2 class="text-center"> View Interview Prep</h2>
+                <div class="single_col_grid"> 
+                    {% for prep_id, values in interview_prep_details.items() %}
+                        <div class="grid_child"> 
+                            <div class="form-row">
+                                <div class="col left-padding"> 
+                                    <strong> #{{ values.question_number }}: {{ values.Question }} </strong>
+                                </div>
+                                <div class="col right-padding"> 
+                                    {{ values.Answer }} 
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <br/>
+                </div>
+            </div>
+        </div>
+        <div class="alignfull background-colour">
+            <div class="aligncenter"> 
+                <div class="text-center link-button-margins"> 
+                    <a href={{ details.return_to_interview }} class="link_button_primary text-center"> <i class="fas fa-angle-left"> Go back to Interview</i></a>
+                    <a href={{ details.return_to_application }} class="link_button_primary text-center"> <i class="fas fa-angle-double-left"> Go back to Application</i></a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="alignfull">
+            <div class="aligncenter"> 
+                <div class="text-center link-button-margins"> 
+                    <a href={{ details.return_to_interview }} class="link_button_primary text-center"> <i class="fas fa-angle-left"> Go back to Interview</i></a>
+                    <a href={{ details.return_to_application }} class="link_button_primary text-center"> <i class="fas fa-angle-double-left"> Go back to Application</i></a>
+                </div>
+            </div>
+        </div>
     {% endif %}
-
-    <div> 
-        <a href={{ details.return_to_interview }}> <i class="fas fa-angle-left"> Go back to Interview</i> </a>
-        <a href={{ details.return_to_application }} class="link-right"> <i class="fas fa-angle-double-left"> Go back to Application</i> </a>
-    </div>
-
 
 {% endblock %}
