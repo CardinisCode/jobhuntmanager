@@ -209,6 +209,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
             status = interview.status
             view_more_url = "/applications/{}/interview/{}".format(application_id, interview_id)
             delete_url = '/applications/{}/interview/{}/delete_interview'.format(application_id, interview_id)
+            update_url = '/applications/{}/interview/{}/update_interview'.format(application_id, interview_id)
             prepare_url = '/applications/{}/interview/{}/interview_preparation'.format(application_id, interview_id)
             location = interview.location
             
@@ -221,6 +222,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
                 "location": location,
                 "view_more": view_more_url,
                 "delete_url": delete_url,
+                "update_url": update_url,
                 "prepare_url": prepare_url,
                 "past_dated": False,
             }
