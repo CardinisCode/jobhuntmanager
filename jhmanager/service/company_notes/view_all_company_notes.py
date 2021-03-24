@@ -17,7 +17,7 @@ def display_all_notes_for_a_company(company_id, user_id, companyRepo, companyNot
 
     if notes_history != None:
         general_details["empty_table"] = False 
-        general_details["headings"] = ["ID#", "Date", "Subject", "Note", ""]
+        general_details["headings"] = ["ID#", "Date", "Subject", "Note"]
         entry_id = 0
         note_details = {}
         for note in notes_history: 
@@ -29,9 +29,9 @@ def display_all_notes_for_a_company(company_id, user_id, companyRepo, companyNot
             delete_note_url = '/company/{}/company_note/{}/delete_note'.format(company_id, company_note_id)
             note_text = note.note_text[0:10] + "..."
             note_details[entry_id] = {
-                "Date": note.entry_date, 
-                "Subject": note.subject.capitalize(), 
-                "Note_Text": note_text, 
+                "entry_date": note.entry_date, 
+                "subject": note.subject.capitalize(), 
+                "note_text": note_text, 
                 "View_More": view_more_url,
                 "Update_url": update_note_url,
                 "Delete_url": delete_note_url
