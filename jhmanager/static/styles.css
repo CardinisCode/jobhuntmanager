@@ -155,6 +155,11 @@ textarea {
   margin-bottom: 1rem;
 }
 
+.extra-margins{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 
 .grid_experiement{
   display: grid;

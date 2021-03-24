@@ -20,17 +20,16 @@
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
             <div class="button-grid link-button-margins"> 
-                <a href={{ general_details.add_note_url}} class="link_button_primary"> <i class="fas fa-plus"> Add note.</i></a>
+                <a href={{ general_details.add_note_url}} class="link_button_primary"> <i class="fas fa-plus"> Add note</i></a>
             </div>
 
             {% if not general_details.empty_table %}
-                <table>
+                <table class="extra-margins">
                     <tr class="border-bottom border-right border-left border-top blue-row-background">
                         {% for heading in user_notes_details.headings %}
                             <th class="border-bottom border-right border-left border-top td-styling"> {{ heading }}</th>
                         {% endfor %}
                     </tr>
-        
         
                     {% for entry_id, note_fields in user_notes_details.items() %}
                         {% if entry_id != "headings" %}
@@ -48,6 +47,7 @@
                         {% endif %}
                     {% endfor %}
                 </table>
+
             {% endif %}
         </div>
     </div>
