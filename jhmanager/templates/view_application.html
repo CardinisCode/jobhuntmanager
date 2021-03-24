@@ -376,7 +376,7 @@
                                     </div>
                                 {% endif %}
                                 <br/>
-                                {% if rows.past_dated %}
+                                {% if rows.past_dated and rows.status == "Upcoming Interview" %}
                                     <div class="form-row">
                                         <div class="col left-padding text-center"> 
                                             This is a past-dated interview! Update below:
