@@ -6,46 +6,63 @@
 
 {% block main %}
 
-    <h1 class="text-center">  {{ details.company_name }} </h1>
-    <hr/>
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <h1 class="text-center"> {{ details.company_name }}</h1>
 
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-success border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-
-    <h2 class="text-center"> Note Details: </h2>
-    <br/>
-    <table class="center"> 
-        <tr> 
-            <td>  
-                <a href={{ details.update_url }}> <i class="fas fa-pencil-alt"> Update Note </i></a>
-                <a href={{ details.delete_note_url }}> <i class="fas fa-trash"> Delete Note </i></a>
-            </td>
-        </tr>
-        
-        <tr> 
-            <th> Entry Date:  </th>
-            <td> {{ details.date }}</td>
-        </tr>
-        <tr> 
-            <th> Subject: </th>
-            <td> {{ details.subject }}</td>
-        </tr>
-        <tr> 
-            <th> Note: </th>
-            <td> {{ details.note_text }}</td>
-        </tr>
-
-
-    </table>
-
-    <br/>
-    <div> 
-        <a href={{ details.company_notes_url }}> <i class="fas fa-angle-left"> Return to Company Notes</i></a>
-        <a href={{ details.company_profile_url}} class="link-right"> <i class="fas fa-angle-double-left"> Return to Company Profile</i></a>
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-success border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
 
+    <div class="alignfull background-colour">
+        <div class="aligncenter"> 
+            <div class="grid_experiement full-grid-length">
+                <div class="grid_child"> 
+                    <h2 class="text-center extra-margins"> Note Details </h2>
+                    <div class="form-row">
+                        <div class="col left-padding"> 
+                            <i class="fas fa-calendar-alt"></i><strong> Entry Date:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ details.date }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col left-padding"> 
+                            <strong> Subject:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ details.subject }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col left-padding"> 
+                            <strong> Note:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ details.note_text }}
+                        </div>
+                    </div>
+                    <div class="text-center link-button-margins"> 
+                        <a href={{ details.update_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+                        <a href={{ details.delete_note_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <div class="text-center link-button-margins"> 
+                <a href={{ details.company_notes_url }} class="link_button_primary text-center"> <i class="fas fa-angle-left"> Go Back to Company Notes</i></a>
+                <a href={{ details.company_profile_url }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Company Profile</i></a>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
