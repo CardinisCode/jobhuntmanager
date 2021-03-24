@@ -71,6 +71,7 @@ from jhmanager.service.company.update_company import post_update_company_profile
 from jhmanager.service.company.view_all_companies import display_all_companies_for_user
 from jhmanager.service.company.view_company_profile import display_company_profile
 from jhmanager.service.company.add_company_job_application import display_add_company_application_form
+from jhmanager.service.company.add_company_job_application import post_add_company_job_application
 
 from jhmanager.service.company_notes.add_company_note import display_add_company_note_form
 from jhmanager.service.company_notes.add_company_note import post_add_company_note
@@ -250,11 +251,6 @@ GET /application/{application_id}/interview/
 GET /application/{application_id}/interview/{interview_id}
         -> gets a specific interview
 """
-
-
-
-
-
 
 
 @app.route("/applications")
@@ -539,9 +535,17 @@ def delete_company_note(company_id, company_note_id):
 @app.route('/company/<int:company_id>/add_job_application', methods=["GET", "POST"])
 @login_required
 def add_company_job_application(company_id):
+    user_id = session["user_id"]
     add_job_app_form = AddCompanyJobApplicationForm()
     if request.method == "GET":
         return display_add_company_application_form(add_job_app_form, company_id, companyRepo)
+
+    if request.method == "POST":
+        if add_job_app_form.validate_on_submit(): 
+            return post_add_company_job_application(user_id, company_id, applicationsRepo, companyRepo, add_job_app_form)
+        else: 
+            flash("All fields are required.")
+            return display_add_company_application_form(add_job_app_form, company_id, companyRepo)
 
 
 

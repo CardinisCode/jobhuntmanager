@@ -14,15 +14,15 @@
                 {% endfor %}
             {% endif %}
 
-            <form action="/add_job_application" method="POST"> 
+            <form action={{ details.action_url }} method="POST"> 
                 <h2 class="text-center"> Add Job Application </h2>
                 <hr class="thick_border">
                 <br/>
                 {{ add_application_form.csrf_token }}
                 <div class="form-row">
                     <div class="col">
-                        <dd class="text-center"> Note: This form will be shorter than the standard Add Job Application form, used for this site.  </dd>
-                        <dd class="text-center"> Complete the items relevant to you. There are no required fields & empty fields will be saved automatically as 'N/A'</dd>
+                        <dd class="text-center"> Note: This form will be a little long. Complete the items relevant to you. Empty fields will be saved automatically as 'N/A' </dd>
+                        <dd class="text-center"> <strong> All Required fields are marked with an Asterisk *</strong></dd>
                     </div>
                 </div>
                 <br/>
@@ -39,7 +39,7 @@
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.job_ref }}</dd> 
                     </div>
                     <div class="col">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.job_role.label }}</dt>
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.job_role.label }}  * Required Field</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.job_role }}</dd> 
                     </div>
                 </div>
@@ -68,7 +68,7 @@
 
                 <div class="form-row">
                     <div class="col">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.emp_type.label }}</dt>
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.emp_type.label }} * Required Field</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.emp_type }}</dd> 
                     </div>
                 </div>
