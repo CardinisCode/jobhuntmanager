@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Job Application
+{% endblock %}
+
+{% block main %}
+    <div class="alignfull"> 
+        <div class="aligncenter"> 
+            <h1 class="text-center"> {{ details.company_name }} </h1>
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-primary border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <form action="/add_job_application" method="POST"> 
+                <h2 class="text-center"> Add Job Application </h2>
+                <hr class="thick_border">
+                <br/>
+                {{ add_application_form.csrf_token }}
+                <div class="form-row">
+                    <div class="col">
+                        <dd class="text-center"> Note: This form will be shorter than the standard Add Job Application form, used for this site.  </dd>
+                        <dd class="text-center"> Complete the items relevant to you. There are no required fields & empty fields will be saved automatically as 'N/A'</dd>
+                    </div>
+                </div>
+                <br/>
+                <h3 class="text-center heading_margins"> Role/Job Position</h3>
+                <div class="form-row">
+                    <div class="col grid_child">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.date_posted.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.date_posted }}</dd> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col grid_child">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.job_ref.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.job_ref }}</dd> 
+                    </div>
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.job_role.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.job_role }}</dd> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.job_description.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.job_description }}</dd> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.tech_stack.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.tech_stack }}</dd> 
+                    </div>
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.job_perks.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.job_perks }}</dd> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.salary.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.salary }}</dd> 
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.emp_type.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.emp_type }}</dd> 
+                    </div>
+                </div>
+                <hr/>
+                <h2 class="text-center heading_margins"> Where you found this role</h2>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.platform.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.platform }}</dd> 
+                    </div>
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.job_url.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.job_url }}</dd> 
+                    </div>
+                </div>
+                <hr/>
+                <h3 class="text-center heading_margins"> Your Notes </h3>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ add_application_form.user_notes.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.user_notes }}</dd> 
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col btn btn-lg">
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ add_application_form.save_button }} </dd>
+                    </div>
+                </div>
+
+                {% for field in add_application_form if field.name != "csrf_token" %}
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endfor %}
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

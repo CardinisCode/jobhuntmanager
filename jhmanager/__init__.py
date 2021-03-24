@@ -70,6 +70,7 @@ from jhmanager.service.company.update_company import display_update_company_prof
 from jhmanager.service.company.update_company import post_update_company_profile
 from jhmanager.service.company.view_all_companies import display_all_companies_for_user
 from jhmanager.service.company.view_company_profile import display_company_profile
+from jhmanager.service.company.add_company_job_application import display_add_company_application_form
 
 from jhmanager.service.company_notes.add_company_note import display_add_company_note_form
 from jhmanager.service.company_notes.add_company_note import post_add_company_note
@@ -102,6 +103,7 @@ from jhmanager.forms.delete_account_form import DeleteAccountForm
 from jhmanager.forms.add_company_note_form import AddCompanyNoteForm
 from jhmanager.forms.add_job_offer_form import AddJobOffer
 from jhmanager.forms.warning_form import WarningForm
+from jhmanager.forms.add_company_job_app_form import AddCompanyJobApplicationForm
 
 
 # Configure application
@@ -285,7 +287,7 @@ def add_job_application():
             flash("Complete all the fields.")
             return display_add_application_form(add_application_form)
 
-    """ Display Test Add Application form to user """
+    """ Display Add Job Application form to user """
     if request.method == "GET":
         return display_add_application_form(add_application_form)
         
@@ -531,6 +533,17 @@ def update_company_note(company_id, company_note_id):
 @login_required
 def delete_company_note(company_id, company_note_id):
     return delete_specific_company_note(company_id, company_note_id, companyNotesRepo)
+
+
+# Add a job application for a specific company
+@app.route('/company/<int:company_id>/add_job_application', methods=["GET", "POST"])
+@login_required
+def add_company_job_application(company_id):
+    add_job_app_form = AddCompanyJobApplicationForm()
+    if request.method == "GET":
+        return display_add_company_application_form(add_job_app_form, company_id, companyRepo)
+
+
 
 # Add Note for application:
 @app.route('/applications/<int:application_id>/app_notes/add_note', methods=["GET", "POST"])

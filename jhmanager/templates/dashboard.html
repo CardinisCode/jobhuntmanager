@@ -34,12 +34,12 @@
             <br/>
 
             <div class="button-grid"> 
-                <a href={{ display.add_application_url }} class="link_button_primary text-center"><i class="fas fa-plus"> Add Job Application </i></a>
+                <a href={{ display.add_application_url }} class="link_button_primary text-center extra-button-styles"><i class="fas fa-plus"> Add Job Application </i></a>
                 {% if job_offer_details == None %}
-                    <a href="/applications" class="link_button_primary text-center link_middle"><i class="fas fa-eye"> View all Applications</i> </a>
-                    <a href="/add_job_offer" class="link_button_primary text-center link-right"><i class="fas fa-plus"> Add Job Offer</i> </a>
+                    <a href="/applications" class="link_button_primary text-center link_middle extra-button-styles"><i class="fas fa-eye"> View all Applications</i> </a>
+                    <a href="/add_job_offer" class="link_button_primary text-center link-right extra-button-styles"><i class="fas fa-plus"> Add Job Offer</i> </a>
                 {% else %}
-                    <a href="/applications" class="link_button_primary text-center link-right"><i class="fas fa-eye"> View all Applications</i> </a>
+                    <a href="/applications" class="link_button_primary text-center link-right extra-button-styles"><i class="fas fa-eye"> View all Applications</i> </a>
                 {% endif %}
             </div>
         </div>

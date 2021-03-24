@@ -5,10 +5,10 @@ def cleanup_fields(company_details):
     url = company_details["url"]["data"]
     contact_number = company_details["contact_number"]["data"]
     if url == "N/A": 
-        company_details["url"]["data"] = ""
+        company_details["url"]["data"] = None
 
     if contact_number == "Unknown at present":
-        company_details["contact_number"]["data"] = ""
+        company_details["contact_number"]["data"] = None
 
 
 def display_company_profile(company_id, applicationsRepo, companyRepo):
@@ -50,7 +50,8 @@ def display_company_profile(company_id, applicationsRepo, companyRepo):
         "company_name": company.name, 
         "update_url": update_url, 
         "add_note_url": add_note_url,
-        "view_notes_url": view_notes_url
+        "view_notes_url": view_notes_url, 
+        "add_job_application_url": '/company/{}/add_job_application'.format(company_id)
     }
 
     return render_template("view_company_profile.html", general_details=general_details, company_details=company_details)
