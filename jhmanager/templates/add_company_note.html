@@ -5,46 +5,48 @@
 {% endblock %}
 
 {% block main %}
-    <h1 class="text-center"> {{ details.company_name }} </h1>
-    <hr/>
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-danger border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-    
-    <br/>
-    <form action={{ details.action_url }} method="POST"> 
-        <h2 class="text-center"> Add Note:</h2>
-        <hr class="thick_border"> 
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <h1 class="text-center"> {{ details.company_name}} </h1>
 
-        {{ company_note_form.csrf_token }}
-        <div class="form-row">
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-heading"></i> {{ company_note_form.subject.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text-center"> {{ company_note_form.subject }} </dd>
-            </div>
-        </div>
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-danger border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <form action={{ details.action_url }} method="POST"> 
+                {{ company_note_form.csrf_token }}
+                <h1 class="text-center"> Add Company Note </h1>
+                <hr class="thick_border"> 
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-heading"></i> {{ company_note_form.subject.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text-center"> {{ company_note_form.subject }} </dd>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-sticky-note"></i> {{ company_note_form.note_text.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text-center"> {{ company_note_form.note_text }} </dd>
+                    </div>
+                </div>
         
-        <div class="form-row">
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-sticky-note"></i> {{ company_note_form.note_text.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text-center"> {{ company_note_form.note_text }} </dd>
-            </div>
+                <div class="form-row">
+                    <div class="col btn btn-lg">
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ company_note_form.save_button }} </dd>
+                    </div>
+                </div>
+
+                {% for field in company_note_form if field.name != "csrf_token" %}
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endfor %}
+
+            </form>
         </div>
-
-        <div class="form-row">
-            <div class="col">
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text-center"> {{ company_note_form.save_notes }} </dd>
-            </div>
-        </div>
-
-        {% for field in company_note_form if field.name != "csrf_token" %}
-            {% for error in field.errors %}
-                {{ error }}
-            {% endfor %}
-        {% endfor %}
-
-    </form>
+    </div>
 
 {% endblock %}
