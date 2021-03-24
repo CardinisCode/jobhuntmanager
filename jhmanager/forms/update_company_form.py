@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, DateField, TimeField, SelectField, validators
+from wtforms import StringField, SubmitField, TextAreaField, validators
 from wtforms.fields.html5 import TelField, URLField
 import wtforms.widgets.html5
-from wtforms.validators import DataRequired, Email, InputRequired, Optional
+from wtforms.validators import InputRequired, Optional
 
 
 class UpdateCompany(FlaskForm):
@@ -46,8 +46,8 @@ class UpdateCompany(FlaskForm):
     url = URLField(
         "The Company's Website (Link)", 
         [validators.optional()], 
-        render_kw={'placeholder': "The url for the company's website."},          
+        render_kw={'placeholder': "The url for the company's website. EG: http://..."},          
     )
 
-    update_company = SubmitField("Update")
+    save_button = SubmitField("Update")
 

@@ -14,7 +14,7 @@ def create_userprofile_content(session, userRepo, user_id):
 
     user_details = {
         "username": {
-            "heading": "UserName", 
+            "heading": "User Name", 
             "data": username
         },
         "user_email": {

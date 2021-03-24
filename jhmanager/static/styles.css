@@ -115,6 +115,7 @@ select{
 
 textarea {
   width: 100% !important;
+  height: 52px;
   margin: 8px 0;
   padding: 12px 20px;
   box-sizing: border-box;

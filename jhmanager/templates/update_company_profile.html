@@ -4,37 +4,70 @@
     Update Company Profile
 {% endblock %}
 
-{% block main %}
-    <h1> {{ details.company_name }}   </h1>
-    <hr/>
-
-
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-danger border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-
-    <h2>  Update Profile:</h2>
-    <br/>
-
-    <form action={{ details.action_url }} method="POST"> 
-        {{ update_form.csrf_token }}
-        {% for field in update_form if field.name != "csrf_token" %}
-            <p> 
-                {% if field.name == "update_company" %}
-                    {{ field }} 
-                {% else %}
-                    <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ field.label }}</dt>
-                    <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ field }} </dd>
-                {% endif %}
-                {% for error in field.errors %}
-                    {{ error }}
+{% block main %}    
+    <div class="alignfull"> 
+        <div class="aligncenter"> 
+            <h1 class="text-center"> {{ details.company_name }} </h1>
+            
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-danger border text-center">{{ message }}</div>
                 {% endfor %}
-            </p>
-        {% endfor %}
+            {% endif %}
 
-    </form>
+            <form action={{ details.action_url }} method="POST"> 
+                {{ update_company_form.csrf_token }}
+                <h2 class="text-center"> Update Company Profile</h2>
+                <hr class="thick_border"> 
 
+                <div class="form-row grid_experiement">
+                    <div class="col grid_child-simple">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_company_form.name.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.name }} </dd>
+                    </div>
+                    <div class="col grid_child-simple">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title">{{ update_company_form.description.label }} </dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.description }} </dd>
+                    </div>
+                </div>
+                <div class="form-row grid_experiement">
+                    <div class="col grid_child-simple">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_company_form.location.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.location }} </dd>
+                    </div>
+                    <div class="col grid_child-simple">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title">{{ update_company_form.industry.label }} </dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.industry }} </dd>
+                    </div>
+                </div>
+                <div class="form-row grid_experiement">
+                    <div class="col grid_child-simple">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_company_form.interviewers.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.interviewers }} </dd>
+                    </div>
+                    <div class="col grid_child-simple">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title">{{ update_company_form.contact_number.label }} </dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.contact_number }} </dd>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_company_form.url.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.url }} </dd>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col btn btn-lg">
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.save_button }} </dd>
+                    </div>
+                </div>
+                {% for field in update_company_form if field.name != "csrf_token" %}
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endfor %}
+            </form>
+        </div>
+    </div>
 
 {% endblock %}

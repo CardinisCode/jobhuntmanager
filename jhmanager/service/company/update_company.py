@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, flash
 
 
-def display_update_company_profile_form(company_id, update_form, company):
+def display_update_company_profile_form(company_id, update_company_form, company):
     action_url = '/company/{}/update_company'.format(company_id)
 
     details = {
@@ -9,7 +9,7 @@ def display_update_company_profile_form(company_id, update_form, company):
         "action_url": action_url
     }
     
-    return render_template("update_company_profile.html", update_form=update_form, details=details)
+    return render_template("update_company_profile.html", update_company_form=update_company_form, details=details)
 
 
 
