@@ -56,5 +56,5 @@ class ChangePasswordForm(FlaskForm):
         render_kw={'placeholder': "Please repeat your password here."},
     )
 
-    save_password = SubmitField("Save Password")
+    update_button = SubmitField("Save Password")
 
