@@ -15,4 +15,4 @@ class AddCompanyNoteForm(FlaskForm):
         render_kw={'placeholder': "Your notes go here."},
     )
 
-    save_button = SubmitField("Save Notes")
+    save_button = SubmitField("Save Note")

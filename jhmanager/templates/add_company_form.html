@@ -5,9 +5,8 @@
 {% endblock %}
 
 {% block main %}
-    <div class="alignfull"> 
+    <div class="alignfull background-blue"> 
         <div class="aligncenter"> 
-            <h1 class="text-center"> Address Book</h1>
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
                     <div class="flash alert alert-danger border text-center">{{ message }}</div>
@@ -22,7 +21,7 @@
             {% endif %}
 
             <form action={{ details.action_url }} method="POST"> 
-                <h2 class="text-center">  Add New Company</h2>
+                <h1 class="text-center">  Add New Company</h1>
                 <hr class="thick_border"> 
                 <br/>
                 {{ add_company_form.csrf_token }}

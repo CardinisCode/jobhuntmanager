@@ -95,7 +95,8 @@ input[type=text], [type=tel], [type=url], [type=date], [type=time] {
   margin: 8px 0;
   box-sizing: border-box;
   font-size: large;
-  box-shadow: 0 3px 6px 0px rgba(0,0,0,0.16), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
+  border: black;
+  box-shadow: 0 3px 6px 0px rgba(0,0,0,0.23), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
 } 
 
 select{
@@ -103,6 +104,8 @@ select{
   margin: 8px 0;
   padding: 16px 20px !important;
   box-sizing: border-box;
+  border: black;
+  box-shadow: 0 3px 6px 0px rgba(0,0,0,0.23), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
 }
 
 .floating-left-col {
@@ -128,7 +131,8 @@ textarea {
   margin: 8px 0;
   padding: 12px 20px;
   box-sizing: border-box;
-  box-shadow: 0 3px 6px 0px rgba(0,0,0,0.16), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
+  border: black;
+  box-shadow: 0 3px 6px 0px rgba(0,0,0,0.23), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
 }
 
 .field_title{
@@ -139,6 +143,15 @@ textarea {
   font-family: Arial;
   font-size: 12pt;
   width:100%;
+}
+
+#password, #confirm_password, #email, #confirm_email, #username {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: black;
+  box-shadow: 0 3px 6px 0px rgba(0,0,0,0.23), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
 }
 
 .bkground_blue{
@@ -232,13 +245,7 @@ textarea {
   font-size: larger;
 }
 
-#password, #confirm_password {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  box-shadow: 0 3px 6px 0px rgba(0,0,0,0.16), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
-}
+
 
 .link-right {
   justify-self: end;
