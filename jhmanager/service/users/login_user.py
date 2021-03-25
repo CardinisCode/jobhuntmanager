@@ -5,7 +5,10 @@ from passlib.hash import sha256_crypt
 
 
 def display_login_form(login_form):
-    return render_template("login.html", login_form=login_form)
+    details = {
+        "register_url": '/register'
+    }
+    return render_template("login.html", login_form=login_form, details=details)
 
 
 def post_login(login_form, userRepo):
