@@ -49,5 +49,5 @@ class UpdateCompany(FlaskForm):
         render_kw={'placeholder': "The url for the company's website. EG: http://..."},          
     )
 
-    save_button = SubmitField("Update")
+    update_button = SubmitField("Update")
 

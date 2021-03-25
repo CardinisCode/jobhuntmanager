@@ -9,12 +9,21 @@ from flask_fontawesome import FontAwesome
 
 class UpdateEmailAddressForm(FlaskForm):
     email = EmailField(
-        "Email Address", 
+        "Email Address: ", 
         validators=[InputRequired(message="Please provide your email address")],
         render_kw={'placeholder': "The email address you'd like to use."}, 
     )
+
+    confirm_email = EmailField(
+        "Confirm Email Address: ", 
+        validators=[
+            InputRequired(message="Please confirm your email address"),
+            EqualTo('email', message="Both email address fields should match.")
+        ],
+        render_kw={'placeholder': "Confirm the email address you'd like to use."},
+    )
     
-    update_email = SubmitField("Update details") 
+    update_button = SubmitField("Update details") 
 
 
 class UpdateUserNameForm(FlaskForm):
