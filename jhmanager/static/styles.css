@@ -196,7 +196,7 @@ textarea {
   display: grid;
 }
 
-#save_button, #update_button {
+#save_button, #update_button, #delete_account {
   background: linear-gradient(45deg, purple, indigo); 
   color: white;
   margin-left: auto;
@@ -209,7 +209,7 @@ textarea {
   font-size: large;
 }
 
-#save_button:hover, #update_button:hover {
+#save_button:hover, #update_button:hover, #delete_account:hover {
   background: transparent;
   color: indigo; 
   font-weight: bold;

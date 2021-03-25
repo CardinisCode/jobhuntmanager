@@ -14,6 +14,6 @@ class DeleteAccountForm(FlaskForm):
         description="Please provide your account password."
     )
 
-    delete_submit = SubmitField("Delete Account")
+    delete_account = SubmitField("Delete Account")
 
 
