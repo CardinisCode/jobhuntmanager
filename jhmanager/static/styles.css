@@ -154,6 +154,12 @@ textarea {
   box-shadow: 0 3px 6px 0px rgba(0,0,0,0.23), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
 }
 
+.full-width-label {
+  text-align: center;
+  width: 100%;
+}
+
+
 .bkground_blue{
     min-height: 50px;
     display: flex;
@@ -283,12 +289,14 @@ hr.thick_border {
 
 .three-button-grid {
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: 30% 30% 30%;
 }
 
 .button-grid{
   display: grid;
   grid-template-columns: 50% 50%;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 

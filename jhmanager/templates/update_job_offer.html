@@ -5,73 +5,67 @@
 {% endblock %}
 
 {% block main %}
+    <div class="alignfull background-blue"> 
+        <div class="aligncenter"> 
 
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-primary border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-primary border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
 
-    <form action={{ details.action_url }} method="POST"> 
-        <h1 class="text-center"> Update Job Offer </h1>
-        <hr class="thick_border">
-        <br/>
+            <form action={{ details.action_url }} method="POST"> 
+                {{ update_job_offer.csrf_token }}
+                <h1 class="text-center"> {{ details.company_name }} </h1>
+                <h2 class="text-center"> Update Job Offer </h2>
+                <hr class="thick_border">
+        
+                <div class="form-row">
+                    <div class="col">
+                        <label class="wpforms-container-full .wpforms-form .wpforms-title field_title full-width-label "><i class="fas fa-pencil-ruler"></i> {{ update_job_offer.job_role.label }}</label>
+                        {{ update_job_offer.job_role(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col grid_child-simple">
+                        <label class="wpforms-container-full .wpforms-form .wpforms-title field_title"><i class="fas fa-pound-sign"></i> {{ update_job_offer.salary_offered.label }}</label>
+                        {{ update_job_offer.salary_offered(class_="wpforms-container-full .wpforms-form .wpforms-description") }}
+                    </div>
+                    <div class="col grid_child-simple">
+                        <label class="wpforms-container-full .wpforms-form .wpforms-title field_title"><i class="fas fa-bars"></i> {{ update_job_offer.perks_offered.label }}</label>
+                        {{ update_job_offer.perks_offered(class_="wpforms-container-full .wpforms-form .wpforms-description col-lg textarea") }}
+                    </div>
+                </div>
 
-        {{ update_job_offer.csrf_token }}
+                <div class="form-row">
+                    <div class="col grid_child-simple">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-hand-pointer"></i> {{ update_job_offer.offer_response.label }}</dt>
+                        {{ update_job_offer.offer_response(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
+                    </div>
+                    <div class="col grid_child-simple">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-calendar-alt"></i> {{ update_job_offer.starting_date.label }}</dt>
+                        {{ update_job_offer.starting_date(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
+                    </div>
+                </div>
 
-        <div class="form-row">
-            <div class="col">
-                <h2 class="text-center"> {{ details.company_name }} </h2>
-            </div>
+                <div class="form-row">
+                    <div class="col btn btn-lg">
+                        {{ update_job_offer.save_button(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
+                    </div>
+                </div>
+        
+                {% for field in update_job_offer if field.name != "csrf_token" %}
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endfor %}
+            </form>
         </div>
-        <br/>
-        <div class="form-row">
-            <div class="col">
-                {{ update_job_offer.job_role.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
-                {{ update_job_offer.job_role(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
-            </div>
-        </div>
-        <br/>
-        <div class="form-row">
-            <div class="col">
-                {{ update_job_offer.starting_date.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
-                {{ update_job_offer.starting_date(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
-            </div>
-        </div>
-        <br/>
-        <div class="form-row">
-            <div class="col">
-                {{ update_job_offer.salary_offered.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
-                {{ update_job_offer.salary_offered(class_="wpforms-container-full .wpforms-form .wpforms-description") }}
-            </div>
-        </div>
-        <br/>
-        <div class="form-row">
-            <div class="col">
-                {{ update_job_offer.perks_offered.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
-                {{ update_job_offer.perks_offered(class_="wpforms-container-full .wpforms-form .wpforms-description col-lg textarea") }}
-            </div>
-        </div>
-        <br/>
-        <div class="form-row">
-            <div class="col">
-                {{ update_job_offer.offer_response.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
-                {{ update_job_offer.offer_response(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
-            </div>
-        </div>
-        <br/>
-        <div class="form-row">
-            <div class="col btn btn-lg">
-                {{ update_job_offer.save_offer(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
-            </div>
-        </div>
+    </div>
 
-        {% for field in update_job_offer if field.name != "csrf_token" %}
-            {% for error in field.errors %}
-                {{ error }}
-            {% endfor %}
-        {% endfor %}
-    </form>
+
+
+    
 
 
 {% endblock %}

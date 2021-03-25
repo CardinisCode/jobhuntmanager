@@ -5,10 +5,9 @@
 {% endblock %}
 
 {% block main %}
-    <div class="alignfull"> 
+    <div class="alignfull background-blue"> 
         <div class="aligncenter"> 
-            <h1 class="text-center"> {{ details.company_name }} </h1>
-
+            
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
                     <div class="flash alert alert-danger border text-center">{{ message }}</div>
@@ -17,16 +16,16 @@
 
             <form action={{ details.action_url }} method="POST"> 
                 {{ update_interview_form.csrf_token }}
+                <h1 class="text-center"> {{ details.company_name }} </h1>
                 <h2 class="text-center"> Update Interview </h2>
                 <hr class="thick_border"> 
 
+                <label class="full-width-label"><i class="fas fa-calendar-alt"></i> Date & Time </label>
                 <div class="form-row grid_experiement">
                     <div class="col grid_child-simple">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_interview_form.interview_date.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_interview_form.interview_date }} </dd> 
                     </div>
                     <div class="col grid_child-simple">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_interview_form.interview_time.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_interview_form.interview_time }} </dd> 
                     </div>
                 </div> 
@@ -53,7 +52,7 @@
                 </div>
                 <div class="form-row">
                     <div class="col">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_interview_form.video_link.label }}</dt>
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-video"></i> {{ update_interview_form.video_link.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_interview_form.video_link }} </dd>
                     </div>
                 </div>
@@ -67,7 +66,7 @@
 
                 <div class="form-row">
                     <div class="col">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-users"></i> {{ update_interview_form.interviewer_names.label }}</dt>
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-users"></i> {{ update_interview_form.interviewer_names.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_interview_form.interviewer_names }} </dd>
                     </div>
                 </div>

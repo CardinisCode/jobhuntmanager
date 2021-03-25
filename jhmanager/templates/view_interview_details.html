@@ -5,13 +5,18 @@
 {% endblock %}
 
 {% block main %}
-    <h1 class="text-center"> {{ details.company_name}} </h1>
+    <div class="alignfull">
+        <div class="aligncenter">    
+            <h1 class="text-center"> {{ details.company_name}} </h1>
 
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-success border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-success border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            
+        </div>
+    </div>
 
     <div class="alignfull background-colour">
         <div class="aligncenter"> 

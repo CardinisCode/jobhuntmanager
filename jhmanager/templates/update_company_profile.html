@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}    
-    <div class="alignfull"> 
+    <div class="alignfull background-blue"> 
         <div class="aligncenter"> 
             <h1 class="text-center"> {{ details.company_name }} </h1>
             
@@ -22,37 +22,37 @@
 
                 <div class="form-row grid_experiement">
                     <div class="col grid_child-simple">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_company_form.name.label }}</dt>
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-users"></i> {{ update_company_form.name.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.name }} </dd>
                     </div>
                     <div class="col grid_child-simple">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title">{{ update_company_form.description.label }} </dt>
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-bars"></i> {{ update_company_form.description.label }} </dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.description }} </dd>
                     </div>
                 </div>
                 <div class="form-row grid_experiement">
                     <div class="col grid_child-simple">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_company_form.location.label }}</dt>
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-thumbtack"></i> {{ update_company_form.location.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.location }} </dd>
                     </div>
                     <div class="col grid_child-simple">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title">{{ update_company_form.industry.label }} </dt>
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-industry"></i>  {{ update_company_form.industry.label }} </dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.industry }} </dd>
                     </div>
                 </div>
                 <div class="form-row grid_experiement">
                     <div class="col grid_child-simple">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_company_form.interviewers.label }}</dt>
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-users"></i>  {{ update_company_form.interviewers.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.interviewers }} </dd>
                     </div>
                     <div class="col grid_child-simple">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title">{{ update_company_form.contact_number.label }} </dt>
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-mobile-alt"></i> {{ update_company_form.contact_number.label }} </dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.contact_number }} </dd>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_company_form.url.label }}</dt>
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"><strong> {www}</strong> {{ update_company_form.url.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.url }} </dd>
                     </div>
                 </div>

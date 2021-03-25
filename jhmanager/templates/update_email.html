@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <div class="alignfull"> 
+    <div class="alignfull background-blue"> 
         <div class="aligncenter"> 
         
             {% if get_flashed_messages() %}
@@ -18,7 +18,6 @@
                 {{ update_email_form.csrf_token }}
                 <h1 class="text-center"> Update Email </h1> 
                 <hr class="thick_border">
-                <br/>
 
                 <div class="form-row">
                     <div class="col grid_child-simple">

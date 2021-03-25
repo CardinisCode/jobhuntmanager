@@ -44,7 +44,7 @@ class UpdateCompany(FlaskForm):
     )
 
     url = URLField(
-        "The Company's Website (Link)", 
+        "The Company's Website", 
         [validators.optional()], 
         render_kw={'placeholder': "The url for the company's website. EG: http://..."},          
     )
