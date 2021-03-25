@@ -98,7 +98,6 @@ from jhmanager.forms.add_company_form import AddCompanyForm
 from jhmanager.forms.update_company_form import UpdateCompany
 from jhmanager.forms.add_application_note_form import AddApplicationNoteForm
 from jhmanager.forms.update_user_details import UpdateEmailAddressForm
-from jhmanager.forms.update_user_details import UpdateUserNameForm
 from jhmanager.forms.update_user_details import ChangePasswordForm
 from jhmanager.forms.delete_account_form import DeleteAccountForm
 from jhmanager.forms.add_company_note_form import AddCompanyNoteForm

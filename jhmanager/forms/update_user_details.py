@@ -26,16 +26,6 @@ class UpdateEmailAddressForm(FlaskForm):
     update_button = SubmitField("Update details") 
 
 
-class UpdateUserNameForm(FlaskForm):
-    username = StringField(
-        "Username", 
-        validators=[InputRequired(message="This is a required field.")],
-        render_kw={'placeholder': "The username you'd like to use."},         
-    )
-
-    update_username = SubmitField("Update details") 
-
-
 class ChangePasswordForm(FlaskForm):
     password = PasswordField(
         "Password: ", 
