@@ -20,7 +20,6 @@ class AddJobOffer(FlaskForm):
 
     salary_offered = StringField(
         "Salary: ", 
-        default="£ ",
     )
 
     perks_offered = TextAreaField(
@@ -45,5 +44,5 @@ class AddJobOffer(FlaskForm):
         render_kw={'placeholder': "Date you start working at this company, if applicable. YYY-MM-DD"},
     )
 
-    save_offer = SubmitField("Save Job Offer")
+    save_button = SubmitField("Save Job Offer")
 

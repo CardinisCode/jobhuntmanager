@@ -5,9 +5,8 @@
 {% endblock %}
 
 {% block main %}
-    <div class="alignfull">
+    <div class="alignfull background-blue">
         <div class="aligncenter"> 
-            <h1 class="text-center"> {{ details.company_name}} </h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -22,13 +21,13 @@
 
                 <div class="form-row">
                     <div class="col">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-heading"></i> {{ update_note_form.description.label }}</dt>
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-heading"></i> {{ update_note_form.description.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_note_form.description }} </dd>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-sticky-note"></i> {{ update_note_form.notes_text.label }}</dt>
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-sticky-note"></i> {{ update_note_form.notes_text.label }}</dt>
                         <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ update_note_form.notes_text }} </dd>
                     </div>
                 </div>

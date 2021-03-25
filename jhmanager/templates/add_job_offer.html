@@ -5,78 +5,68 @@
 {% endblock %}
 
 {% block main %}
+    <div class="alignfull background-blue"> 
+        <div class="aligncenter"> 
 
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-primary border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-primary border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
 
-    <form action={{ details.action_url }} method="POST"> 
-        <h1 class="text-center"> Add Job Offer </h1>
-        <hr class="thick_border">
-        <br/>
+            <form action={{ details.action_url }} method="POST"> 
+                {{ add_job_offer.csrf_token }}
+                <h1 class="text-center"> Add Job Offer </h1>
+                <hr class="thick_border">
 
-        {{ add_job_offer.csrf_token }}
+                <div class="form-row">
+                    <div class="col grid_child-simple">
+                        <label class="wpforms-container-full .wpforms-form .wpforms-title field_title"><i class="fas fa-hand-pointer"></i> {{ add_job_offer.company_list.label }}</label>
+                        <select id="company_list" name="company_list"> 
+                            <option value="select_company" disabled> Select Company Name</option> 
+                            {% for company in add_job_offer.company_list.choices %}
+                                <option value={{ company[0] }}> {{ company[1] }}</option> 
+                            {% endfor%}
+                        </select>
+                    </div>
+                    <div class="col grid_child-simple">
+                        <label class="wpforms-container-full .wpforms-form .wpforms-title field_title"><i class="fas fa-pencil-ruler"></i> {{ add_job_offer.job_role.label }}</label>
+                        {{ add_job_offer.job_role(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col grid_child-simple">
+                        <label class="wpforms-container-full .wpforms-form .wpforms-title field_title"><i class="fas fa-pound-sign"></i> {{ add_job_offer.salary_offered.label }}</label>
+                        {{ add_job_offer.salary_offered(class_="wpforms-container-full .wpforms-form .wpforms-description") }}
+                    </div>
+                    <div class="col grid_child-simple">
+                        <label class="wpforms-container-full .wpforms-form .wpforms-title field_title"><i class="fas fa-bars"></i> {{ add_job_offer.perks_offered.label }}</label>
+                        {{ add_job_offer.perks_offered(class_="wpforms-container-full .wpforms-form .wpforms-description col-lg textarea") }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col grid_child-simple">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-hand-pointer"></i> {{ add_job_offer.offer_response.label }}</dt>
+                        {{ add_job_offer.offer_response(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
+                    </div>
+                    <div class="col grid_child-simple">
+                        {{ add_job_offer.starting_date.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
+                        {{ add_job_offer.starting_date(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col btn btn-lg">
+                        {{ add_job_offer.save_button(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
+                    </div>
+                </div>
 
-        <div class="form-row">
-            <div class="col">
-                {{ add_job_offer.company_list.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
-                <select id="company_list" name="company_list" class="form-control"> 
-                    {% for company in add_job_offer.company_list.choices %}
-                        <option value={{ company[0] }}> {{ company[1] }}</option> 
-                    {% endfor%}
-                </select>
-            </div>
+                {% for field in add_job_offer if field.name != "csrf_token" %}
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endfor %}
+            </form>
         </div>
-        <br/>
-        <div class="form-row">
-            <div class="col">
-                {{ add_job_offer.job_role.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
-                {{ add_job_offer.job_role(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
-            </div>
-        </div>
-        <br/>
-        <div class="form-row">
-            <div class="col">
-                {{ add_job_offer.starting_date.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
-                {{ add_job_offer.starting_date(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
-            </div>
-        </div>
-        <br/>
-        <div class="form-row">
-            <div class="col">
-                {{ add_job_offer.salary_offered.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
-                {{ add_job_offer.salary_offered(class_="wpforms-container-full .wpforms-form .wpforms-description") }}
-            </div>
-        </div>
-        <br/>
-        <div class="form-row">
-            <div class="col">
-                {{ add_job_offer.perks_offered.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
-                {{ add_job_offer.perks_offered(class_="wpforms-container-full .wpforms-form .wpforms-description col-lg textarea") }}
-            </div>
-        </div>
-        <br/>
-        <div class="form-row">
-            <div class="col">
-                {{ add_job_offer.offer_response.label(class_="wpforms-container-full .wpforms-form .wpforms-title field_title") }}
-                {{ add_job_offer.offer_response(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
-            </div>
-        </div>
-        <br/>
-        <div class="form-row">
-            <div class="col btn btn-lg">
-                {{ add_job_offer.save_offer(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}
-            </div>
-        </div>
-
-        {% for field in add_job_offer if field.name != "csrf_token" %}
-            {% for error in field.errors %}
-                {{ error }}
-            {% endfor %}
-        {% endfor %}
-    </form>
-
+    </div>
 
 {% endblock %}

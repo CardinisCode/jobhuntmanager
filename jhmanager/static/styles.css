@@ -145,7 +145,7 @@ textarea {
   width:100%;
 }
 
-#password, #confirm_password, #email, #confirm_email, #username {
+#password, #confirm_password, #email, #confirm_email, #username, #company_list {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;

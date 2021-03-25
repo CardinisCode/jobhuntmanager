@@ -5,9 +5,8 @@
 {% endblock %}
 
 {% block main %}
-    <div class="alignfull">
+    <div class="alignfull background-blue">
         <div class="aligncenter"> 
-            <h1 class="text-center"> {{ details.company_name}} </h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -17,7 +16,8 @@
 
             <form action={{ details.action_url }} method="POST"> 
                 {{ update_note_form.csrf_token }}
-                <h1 class="text-center"> Update Company Note </h1>
+                <h1 class="text-center"> {{ details.company_name}}</h1>
+                <h2 class="text-center"> Update Company Note </h2>
                 <hr class="thick_border"> 
 
                 <div class="form-row">
