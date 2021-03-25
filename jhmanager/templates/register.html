@@ -5,60 +5,59 @@
 {% endblock %}
 
 {% block main %}
-    
-    <hr/>
+    <div class="alignfull"> 
+        <div class="aligncenter"> 
 
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-danger border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-danger border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
 
-    <form action="/register" method="POST"> 
-        <h1 class="text-center"> Register</h1>
-        <hr class="thick_border"> 
-        <br/>
+            <form action="/register" method="POST"> 
+                {{ register_form.csrf_token }}
+                <h1 class="text-center"> Register</h1>
+                <hr class="thick_border"> 
 
-        {{ register_form.csrf_token }}
-
-        <div class="form-row">
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-user"></i> {{ register_form.username.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ register_form.username }} </dd>
-            </div>
-        </div>
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-user"></i> {{ register_form.username.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ register_form.username }} </dd>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="col">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-at"></i> {{ register_form.email_address.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ register_form.email_address }} </dd>
+                    </div>
+                </div>
         
-        <div class="form-row">
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-at"></i> {{ register_form.email_address.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ register_form.email_address }} </dd>
-            </div>
+                <div class="form-row">
+                    <div class="col grid_child-simple">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-lock"></i> {{ register_form.password.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ register_form.password }} </dd>
+                    </div>
+                    <div class="col grid_child-simple">
+                        <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-lock"></i> {{ register_form.confirm_password.label }}</dt>
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ register_form.confirm_password }} </dd>
+                    </div>
+                </div>
+        
+                <div class="form-row">
+                    <div class="col btn btn-lg">
+                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ register_form.register_button }} </dd>
+                    </div>
+                </div>
+        
+                {% for field in register_form if field.name != "csrf_token" %}
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                {% endfor %}
+        
+            </form>
         </div>
-
-        <div class="form-row">
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-lock"></i> {{ register_form.password.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ register_form.password }} </dd>
-            </div>
-            <div class="col">
-                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-lock"></i> {{ register_form.confirm_password.label }}</dt>
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ register_form.confirm_password }} </dd>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="col btn btn-lg">
-                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ register_form.register_button }} </dd>
-            </div>
-        </div>
-
-        {% for field in register_form if field.name != "csrf_token" %}
-            {% for error in field.errors %}
-                {{ error }}
-            {% endfor %}
-        {% endfor %}
-
-    </form>
-
+    </div>
 
 {% endblock %}

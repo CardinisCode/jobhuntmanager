@@ -196,7 +196,7 @@ textarea {
   display: grid;
 }
 
-#save_button, #update_button, #delete_account {
+#save_button, #update_button, #delete_account, #login_button, #register_button {
   background: linear-gradient(45deg, purple, indigo); 
   color: white;
   margin-left: auto;
@@ -204,12 +204,13 @@ textarea {
   margin-top: 1rem;
   margin-bottom: 1rem;
   text-align: center;
+  border-color: indigo;
   border-style: solid;
   padding: 1rem;
   font-size: large;
 }
 
-#save_button:hover, #update_button:hover, #delete_account:hover {
+#save_button:hover, #update_button:hover, #delete_account:hover, #login_button:hover, #register_button:hover {
   background: transparent;
   color: indigo; 
   font-weight: bold;
@@ -217,6 +218,12 @@ textarea {
   font-size: larger;
 }
 
+#password, #confirm_password {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
 
 .link-right {
   justify-self: end;
