@@ -48,28 +48,34 @@
 
 # To check whether your current version of SQLite supports foreign key constraints or not, you use the following command.
 ```
-PRAGMA foreign_keys;
+    PRAGMA foreign_keys;
 ```
 
 # The command returns an integer value: 1: enable, 0: disabled. If the command returns nothing, it means that your SQLite version doesn’t support foreign key constraints.
 
 # To disable foreign key constraint:
 ```
-PRAGMA foreign_keys = OFF;
+    PRAGMA foreign_keys = OFF;
 ```
 
 # To enable foreign key constraint:
 ```
-PRAGMA foreign_keys = ON;
+    PRAGMA foreign_keys = ON;
 ```
 
 # To read more about FOREIGN KEY constraints:
 ```
-https://www.sqlitetutorial.net/sqlite-foreign-key/
+    https://www.sqlitetutorial.net/sqlite-foreign-key/
 ```
 
 # To Dynamically generate a SelectField list:
 ```
     https://rtjom.com/blog/2016/10/using-wtforms-with-selectfield-and-fieldlist/
+
+```
+
+# To design the Login / all forms:
+```
+    http://w3iscool.com/login-form-in-material-design-with-html-and-css/
 
 ```

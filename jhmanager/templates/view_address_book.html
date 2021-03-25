@@ -20,15 +20,15 @@
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
             {% if general_details.empty_table %}
-            <p>  {{ general_details.message }}</a></p>
-        {% else %}
-            <div class="list-group align-items-center">
-                <p class="list-group-item list-group-heading"> Select the Company Name </p>
-                {% for fields in company_details.values() %}
-                    <a href={{ fields.view_more_url }} class="list-group-item list-group-item-action" name={{ fields.name }}> {{ fields.company_name }} </a>
-                {% endfor %}
-            </div>
-            <br/>
+                <p>  {{ general_details.message }}</a></p>
+            {% else %}
+                <div class="list-group align-items-center">
+                    <p class="list-group-item list-group-heading"> Select the Company Name </p>
+                    {% for fields in company_details.values() %}
+                        <a href={{ fields.view_more_url }} class="list-group-item list-group-item-action" name={{ fields.name }}> {{ fields.company_name }} </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 
@@ -39,11 +39,5 @@
             </div>
         </div>
     </div>
-
-    
-
-    {% endif %}
-
-
 
 {% endblock %}
