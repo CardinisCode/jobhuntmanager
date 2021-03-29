@@ -41,7 +41,7 @@
   overflow: hidden;
   display: block;
   position: relative;
-  padding-bottom: 100px; /* height of your footer */
+  padding-bottom: 50px; /* height of your footer */
  }
 
 footer {
@@ -50,6 +50,7 @@ footer {
   width: 100%;
   background: slategray;
   color: white;
+  padding: 1rem;
 }
 
 .center {
@@ -176,6 +177,18 @@ textarea {
   background: rgba(175, 238, 238, 0.2);
 }
 
+.background-white {
+  background: white !important;
+}
+
+.background-styling {
+  min-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(175, 238, 238, 0.2);
+}
+
 .display-fields{
   padding: 10px;
 }
@@ -192,6 +205,11 @@ textarea {
 .extra-margins{
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.xxx-margins {
+  margin-top: 2rem !important;
+  margin-bottom: 4rem !important;
 }
 
 
@@ -402,8 +420,8 @@ hr.thick_border {
   background: linear-gradient(45deg, purple, indigo);
 }
 
+
 .background-colour {
-  /* background-color: rgba(241, 239, 247, 0.4); */
   background-color: rgba(203, 201, 214, 0.2);
 }
 
