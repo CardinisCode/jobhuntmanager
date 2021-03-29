@@ -64,19 +64,17 @@ table {
 
 form {
   position : relative;
-  width  : 100%;
+  width  : 80%;
   height : 100%;
   margin : 0 auto;
   padding: 1em;
   box-sizing: border-box;
-  background: white;
-  /* background : rgba(175, 238, 238, 0.01); */
+  /* background: white; */
 }
 
-/* background: #fff;
-  margin: 30px auto;
-  max-width: 500px;
-  box-shadow: 0 3px 6px 0px rgba(0,0,0,0.16), 0 3px 6px 0px rgba(0,0,0,0.23) */
+.form-background {
+  background : ghostwhite;
+}
 
 
 input {
@@ -109,6 +107,12 @@ select{
   box-shadow: 0 3px 6px 0px rgba(0,0,0,0.23), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
 }
 
+select:focus {
+  outline: none !important;
+  border-color: black;
+  box-shadow: none;
+}
+
 .floating-left-col {
   float: left;
   width: 50%;
@@ -134,6 +138,8 @@ textarea {
   box-sizing: border-box;
   border: black;
   box-shadow: 0 3px 6px 0px rgba(0,0,0,0.23), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
+  outline: none !important;
+  border-color: black;
 }
 
 .field_title{
@@ -220,6 +226,14 @@ textarea {
   grid-gap: 1em;
 }
 
+.form-grid {
+  display: grid;
+  grid-template-columns: 49% 49%;
+  justify-content: center;
+  grid-gap: 1em;
+  padding: 1rem
+}
+
 .grid_child{
   border: 1px solid #dee2e6!important;
   background: rgba(175, 238, 238, 0.2);
@@ -227,7 +241,15 @@ textarea {
   display: grid;
 }
 
-.grid_child div{
+.form-grid_child{
+  border: 1px solid #dee2e6!important;
+  background: rgba(175, 238, 238, 0.2);
+  padding: 2rem;
+  display: grid;
+  margin-bottom: 2rem;
+}
+
+.grid_child div, .form-grid_child div{
   min-height: 1.3rem;
 }
 
@@ -246,6 +268,9 @@ textarea {
   padding: 12px 5px;
   display: grid;
 }
+
+
+
 
 #save_button, #update_button, #delete_account, #login_button, #register_button {
   background: linear-gradient(45deg, purple, indigo); 
@@ -430,6 +455,14 @@ hr.thick_border {
   margin-right: calc(50% - 50vw) !important;
   padding: 1rem 0 0.5rem;
 }
+
+.alignfull-form {
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  margin-top: calc(55% - 50vw) !important;
+  padding: 1rem 0 0.5rem;
+}
+
 
 .aligncenter {
   clear: both;

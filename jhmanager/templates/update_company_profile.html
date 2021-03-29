@@ -5,9 +5,8 @@
 {% endblock %}
 
 {% block main %}    
-    <div class="alignfull background-blue"> 
+    <div class="alignfull-form form-background"> 
         <div class="aligncenter"> 
-            <h1 class="text-center"> {{ details.company_name }} </h1>
             
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}

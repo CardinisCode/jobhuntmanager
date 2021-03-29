@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <div class="alignfull background-blue">
+    <div class="alignfull-form">
         <div class="aligncenter"> 
 
             {% if get_flashed_messages() %}
@@ -14,39 +14,41 @@
                 {% endfor %}
             {% endif %}
 
-            <form action={{ details.action_url }} method="POST"> 
-                {{ company_note_form.csrf_token }}
+            <div class="form-grid full-grid-length">
+                <form action={{ details.action_url }} method="POST"> 
+                    {{ company_note_form.csrf_token }}
+                    <div class="form-grid_child"> 
+                        <h1 class="text-center"> {{ details.company_name }}</h1>
+                        <h2 class="text-center"> Add Company Note </h2>
+                        <hr class="thick_border"> 
+                        <div class="form-row">
+                            <div class="col">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-heading"></i> {{ company_note_form.subject.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description text-center"> {{ company_note_form.subject }} </dd>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="col">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-sticky-note"></i> {{ company_note_form.note_text.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description text-center"> {{ company_note_form.note_text }} </dd>
+                            </div>
+                        </div>
                 
-                <h1 class="text-center"> {{ details.company_name }}</h1>
-                <h2 class="text-center"> Add Company Note </h2>
-                <hr class="thick_border"> 
-                <div class="form-row">
-                    <div class="col">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-heading"></i> {{ company_note_form.subject.label }}</dt>
-                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text-center"> {{ company_note_form.subject }} </dd>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="col">
-                        <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-sticky-note"></i> {{ company_note_form.note_text.label }}</dt>
-                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text-center"> {{ company_note_form.note_text }} </dd>
-                    </div>
-                </div>
-        
-                <div class="form-row">
-                    <div class="col btn btn-lg">
-                        <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ company_note_form.save_button }} </dd>
-                    </div>
-                </div>
+                        <div class="form-row">
+                            <div class="col btn btn-lg">
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ company_note_form.save_button }} </dd>
+                            </div>
+                        </div>
 
-                {% for field in company_note_form if field.name != "csrf_token" %}
-                    {% for error in field.errors %}
-                        {{ error }}
-                    {% endfor %}
-                {% endfor %}
-
-            </form>
+                        {% for field in company_note_form if field.name != "csrf_token" %}
+                            {% for error in field.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
