@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="alignfull background-colour">
+    <div class="alignfull">
         <div class="aligncenter"> 
             <div class="grid_experiement full-grid-length">
                 <div class="grid_child"> 
@@ -135,16 +135,17 @@
                             </div>
                         </div>
                     {% endif %}
+                    <div class="text-center link-button-margins"> 
+                        <a href={{ details.update_application_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+                        <a href={{ details.delete_application_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
+                        <a href={{ company_details.fields.view_profile }} class="link_button"> <i class="fas fa-eye"> View Company Profile</i></a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="text-center link-button-margins"> 
-            <a href={{ details.update_application_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
-            <a href={{ details.delete_application_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
-            <a href={{ company_details.fields.view_profile }} class="link_button"> <i class="fas fa-eye"> View Company Profile</i></a>
-        </div>
+
     </div>
-    <div class="alignfull">
+    <div class="alignfull background-colour">
         <div class="aligncenter"> 
             <h3 class="text-center"> Job Offers</h3>
             {% if job_offer_details != None %}
@@ -265,7 +266,7 @@
         </div>
     </div>
 
-    <div class="alignfull background-colour">
+    <div class="alignfull">
         <div class="aligncenter"> 
             <h3 class="text-center">Notes</h3> 
             <div class="text-center link-button-margins"> 
@@ -275,7 +276,7 @@
         </div>
     </div>
 
-    <div class="alignfull">
+    <div class="alignfull background-colour">
         <div class="aligncenter"> 
             <h3 class="text-center"> Interviews</h3>
             <br/>

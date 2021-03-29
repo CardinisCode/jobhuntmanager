@@ -2,19 +2,34 @@ from flask import Flask, render_template, session, request, redirect
 from datetime import datetime, time
 
 
+def update_grid_size(display_details):
+    grid_size = display_details["grid_size"]
+    app_count = display_details["app_count"]
+    if app_count == 1:
+        display_details["grid_size"] = app_count
+    elif app_count % 3 == 0: 
+        display_details["grid_size"] = 3
+    elif app_count % 2 == 0:
+        display_details["grid_size"] = 2 
+    else: 
+        display_details["grid_size"] = 4
+
+
+
 def display_all_applications_current_user(session, user_id, applicationsRepo, companyRepo):
     top_ten_applications = applicationsRepo.grabTop10ApplicationsFromHistory(user_id)
 
     display_details = {}
     display_details["fields"] = {}
     display_details["empty_table"] = True
+    display_details["grid_size"] = None
     
     # Let's take the details from "top10applications" 
     # and restructure the data for our html page:
     if top_ten_applications != None:
         display_details["empty_table"] = False
         display_details["headings"] = {
-        "headings_list" : ["#", "Date", "Company Name", "Job Role", "Interview Stage", "Salary"]
+        "headings_list" : ["#", "Date", "Company Name", "Job Role", "Interview Stage"]
         }
         
         entry_id = 0
@@ -70,16 +85,14 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
                 "view_more": {
                     "label": "View More", 
                     "data": application_url,
-                }, 
-                "delete": {
-                    "label": "Delete Note", 
-                    "data": delete_url,
                 }
             }
+            display_details["app_count"] = entry_id
 
             if salary == "N/A":
-                display_details["fields"][app_id]["salary"]["data"] = ""
+                display_details["fields"][app_id]["salary"]["data"] = None
 
-
+        update_grid_size(display_details)
+            
 
     return render_template("applications.html", display_details=display_details)

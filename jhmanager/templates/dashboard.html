@@ -105,9 +105,9 @@
                         {% endif %}
                         <br/>
                         {% if fields.update_url %}
-                        <div class="text-center"> 
-                            <a href={{ fields.update_url }} class="link_button"><i class="fas fa-pencil-alt"> Update</i> </a>
-                        </div>           
+                            <div class="text-center"> 
+                                <a href={{ fields.update_url }} class="link_button"><i class="fas fa-pencil-alt"> Update</i> </a>
+                            </div>           
                         {% endif %}
                         <br/>
                     </div>
@@ -126,6 +126,7 @@
         <div class="aligncenter"> 
             <h2 class="text-center"> Upcoming Interviews </h2>
             <br/>
+            
             <div class="grid_experiement xxx-margins"> 
                 {% if display.all_interviews != None and display.interview_details != None %}
                     {% for company_name, interviews in display.interview_details.items() %}

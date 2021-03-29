@@ -7,7 +7,6 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="text-center"> Job Applications </h1>
         
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -18,11 +17,53 @@
     </div>
 
     <div class="alignfull">
+        <div class="aligncenter">  
+            <h1 class="text-center"> Job Applications </h1>
+            <div class="three-col-grid">
+                {% for application_id, application in display_details.fields.items() %}
+                    <div class="grid_child"> 
+                        <h3 class="text-center"> {{ application.company_name.data }}</h3>
+
+                        <div class="form-row">
+                            <div class="col text-center"> 
+                                {{ application.app_date.data }}
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-row">
+                            <div class="col text-center"> 
+                                {{ application.job_role.data }}
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-row">
+                            <div class="col text-center"> 
+                                {{ application.interview_stage.data }}
+                            </div>
+                        </div>
+                        <div class="text-center link-button-margins"> 
+                            <a href={{ application.view_more.data }} class="link_button"><i class="fas fa-eye"> {{ application.view_more.label }}</i> </a>
+                        </div>  
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <div class="text-center xxx-margins"> 
+                <a href="/add_job_application" class="link_button_primary link-button-margins"> <i class="fas fa-plus"> Job Application </i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="alignfull">
         <div class="aligncenter"> 
             <h2 class="text-center"> Your Application History </h2>
 
             {% if display_details.empty_table != True %}
-                <table class="center"> 
+                <table class="center xxx-margins"> 
                     <tr class="border-bottom border-right border-left border-top blue-row-background">
                         {% for key, value in display_details.items() %}
                             {% if key == "headings"  %}
@@ -35,16 +76,11 @@
                     
                     {% for application_id, application in display_details.fields.items() %}
                         <tr>
-                            <td class="border-bottom border-right border-left border-top td-styling"> {{ application.app_id.data }}</td>
+                            <td class="border-bottom border-right border-left border-top td-styling"><a href={{ application.view_more.data }} class="link_button"><i class="fas fa-eye"> #{{ application.app_id.data }}</i></a></td>
                             <td class="border-bottom border-right border-left border-top td-styling"> {{ application.app_date.data }}</td>
                             <td class="border-bottom border-right border-left border-top td-styling"> {{ application.company_name.data }}</td>
                             <td class="border-bottom border-right border-left border-top td-styling"> {{ application.job_role.data }}</td>
                             <td class="border-bottom border-right border-left border-top td-styling"> {{ application.interview_stage.data }}</td>
-                            <td class="border-bottom border-right border-left border-top td-styling"> {{ application.salary.data }}</td>
-                            <td class="text-center link-button-margins">
-                                <a href={{ application.view_more.data }} class="link_button"> <i class="fas fa-eye"> View</i></a>
-                                <a href={{ application.delete.data }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
-                            </td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -52,13 +88,7 @@
         </div>
     </div>
 
-    <div class="alignfull">
-        <div class="aligncenter"> 
-            <div class="text-center xxx-margins"> 
-                <a href="/add_job_application" class="link_button_primary link-button-margins"> <i class="fas fa-plus"> Job Application </i></a>
-            </div>
-        </div>
-    </div>
+
     
 {% endblock %}
 
