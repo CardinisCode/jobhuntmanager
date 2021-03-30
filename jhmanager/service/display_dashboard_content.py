@@ -1,10 +1,14 @@
 from flask import Flask, render_template, session, flash
 from datetime import datetime, date, time
+from jhmanager.service.cleanup_datetime_display import cleanup_date_format
+from jhmanager.service.cleanup_datetime_display import cleanup_time_format
+from jhmanager.service.cleanup_datetime_display import past_dated
 
 
 def clean_up_job_offer_details(job_offer_details, offer_count):
     company_name = job_offer_details[offer_count]["company_name"]
     offer_response = job_offer_details[offer_count]["offer_response"]
+    start_date = job_offer_details[offer_count]["starting_date"]
     message = ""
     if offer_response == 'user_accepted':
         message = "I've accepted the offer!"
@@ -16,7 +20,7 @@ def clean_up_job_offer_details(job_offer_details, offer_count):
         message = "Still deciding..."
 
     job_offer_details[offer_count]["offer_response"] = message
-
+    job_offer_details[offer_count]["starting_date"] = cleanup_date_format(start_date)
 
 
 def extract_and_display_job_offers(job_offers, companyRepo):
@@ -34,13 +38,11 @@ def extract_and_display_job_offers(job_offers, companyRepo):
         job_offer_id = offer.job_offer_id
         company_id = offer.company_id
         company_name = companyRepo.getCompanyById(company_id).name
-        starting_date = offer.starting_date
-        starting_date_str = starting_date.strftime("%Y-%m-%d")
         update_url = 'job_offer/{}/update_job_offer'.format(job_offer_id)
 
         job_offer_details[offer_count] = {
             "job_offer_id": job_offer_id,
-            "starting_date": starting_date_str, 
+            "starting_date": offer.starting_date, 
             "company_name": company_name,
             "job_role": offer.job_role, 
             "offer_response": offer.offer_response,
@@ -54,43 +56,18 @@ def extract_and_display_job_offers(job_offers, companyRepo):
     return (job_offer_details, offer_count)
 
 
-def past_dated_interview(interview_date, interview_time):
-    past_dated = False 
-
-    current_date = datetime.now().date()
-    current_time = datetime.now().time()
-
-    if interview_date < current_date: 
-        past_dated = True
-    
-    elif interview_date == current_date and interview_time < current_time: 
-        past_dated = True
-
-    return past_dated
-
-
 def cleanup_interview_details(interview_details, other_medium, company_name, interview_id):
     medium = interview_details[company_name][interview_id]["interview_medium"]
     interviewers = interview_details[company_name][interview_id]["interviewers"]
     interview_date = interview_details[company_name][interview_id]["Date"]
     interview_time = interview_details[company_name][interview_id]["Time"]
-    past_dated = past_dated_interview(interview_date, interview_time)
+    past_dated_interview = past_dated(interview_date, interview_time)
 
-    if past_dated:
-        interview_details[company_name][interview_id]["past_dated"] = past_dated
+    if past_dated_interview:
+        interview_details[company_name][interview_id]["past_dated"] = past_dated_interview
 
-    date_str = interview_date.strftime("%Y-%m-%d")
-    interview_details[company_name][interview_id]["Date"] = date_str
-
-
-    time_str = interview_time.strftime("%H:%M")
-    interview_hour_int = int(interview_time.strftime("%H"))
-    if interview_hour_int >= 12:
-        time_str += " pm"
-    else:
-        time_str += " am"
-
-    interview_details[company_name][interview_id]["Time"] = time_str
+    interview_details[company_name][interview_id]["Date"] = cleanup_date_format(interview_date)
+    interview_details[company_name][interview_id]["Time"] = cleanup_time_format(interview_time)
 
     # Lets cleaned up the display of 'Medium':
     if medium == "google_chat":

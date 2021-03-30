@@ -1,6 +1,5 @@
 from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime, time
-from jhmanager.service.display_dashboard_content import past_dated_interview
 
 
 def cleanup_date_format(date_obj): 
@@ -28,3 +27,18 @@ def cleanup_time_format(time_obj):
         time_str += "am"
 
     return time_str
+
+
+def past_dated(date_obj, time_obj):
+    past_dated = False 
+
+    current_date = datetime.now().date()
+    current_time = datetime.now().time()
+
+    if date_obj < current_date: 
+        past_dated = True
+    
+    elif date_obj == current_date and time_obj < current_time: 
+        past_dated = True
+
+    return past_dated
