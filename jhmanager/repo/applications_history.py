@@ -84,7 +84,7 @@ class ApplicationsHistoryRepository:
 
     def grabTop10ApplicationsFromHistory(self, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT * FROM job_applications WHERE user_id = ? ORDER BY date DESC LIMIT 10", (user_id,))
+        result = cursor.execute("SELECT * FROM job_applications WHERE user_id = ? ORDER BY application_id DESC LIMIT 10", (user_id,))
         self.db.commit()
 
         if not result:

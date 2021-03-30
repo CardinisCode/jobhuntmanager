@@ -20,32 +20,37 @@
 
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
-            <h2 class="text-center"> Notes History </h2>
-            <div class="button-grid link-button-margins"> 
+            <h2 class="text-center xxx-margins"> Notes History</h2>
+            {% if not general_details.empty_table %}
+                <div class="four-col-grid extra-margins">
+                    {% for entry_id, note_fields in note_details.items() %}
+                        <a href={{ note_fields.View_More }} class="link_button"> 
+                            <h3 class="text-center"> <i class="fas fa-hashtag"> {{ note_fields.company_note_id }}</i></h3>
+                            <br/>
+                            <div class="form-row">
+                                <div class="col text-center"> 
+                                    <i class="fas fa-calendar-alt"> {{ note_fields.entry_date }}</i>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="form-row">
+                                <div class="col text-center"> 
+                                    <i class="fas fa-heading"> {{ note_fields.subject }}</i>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="form-row">
+                                <div class="col text-center"> 
+                                    <i class="fas fa-sticky-note"> {{ note_fields.note_text }}</i>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="text-center link-button-margins"> 
                 <a href={{ general_details.add_note_url }} class="link_button_primary"> <i class="fas fa-plus"> Add note For {{ general_details.company_name }}</i></a>
             </div>
-            {% if not general_details.empty_table %}
-                <table class="extra-margins">
-                    <tr class="border-bottom border-right border-left border-top blue-row-background">
-                        {% for heading in general_details.headings %}
-                            <th class="border-bottom border-right border-left border-top td-styling"> {{ heading }}</th>
-                        {% endfor %}
-                    </tr>
-                    {% for entry_id, note_fields in note_details.items() %}
-                        <tr>
-                            <td class="border-bottom border-right border-left border-top td-styling"> {{ entry_id }}</td>
-                            <td class="border-bottom border-right border-left border-top td-styling"> {{ note_fields.entry_date }}</td>
-                            <td class="border-bottom border-right border-left border-top td-styling"> {{ note_fields.subject }}</td>
-                            <td class="border-bottom border-right border-left border-top td-styling"> {{ note_fields.note_text }}</td>
-                            <td class="text-center link-button-margins">
-                                <a href={{ note_fields.View_More }} class="link_button"> <i class="fas fa-eye"> View</i></a>
-                                <a href={{ note_fields.Update_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
-                                <a href={{ note_fields.Delete_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% endif %}
         </div>
     </div>
 

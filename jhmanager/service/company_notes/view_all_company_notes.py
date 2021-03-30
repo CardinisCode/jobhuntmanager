@@ -29,6 +29,7 @@ def display_all_notes_for_a_company(company_id, user_id, companyRepo, companyNot
             delete_note_url = '/company/{}/company_note/{}/delete_note'.format(company_id, company_note_id)
             note_text = note.note_text[0:10] + "..."
             note_details[entry_id] = {
+                "company_note_id": company_note_id,
                 "entry_date": note.entry_date, 
                 "subject": note.subject.capitalize(), 
                 "note_text": note_text, 

@@ -34,7 +34,7 @@ class CompanyNotesRepository:
     # Takes a tuple containing the company_id and user_id:
     def getAllNotesByCompanyID(self, fields):
         cursor = self.db.cursor()
-        command = "SELECT * FROM company_notes WHERE company_id = ? and user_id = ? ORDER BY date DESC"
+        command = "SELECT * FROM company_notes WHERE company_id = ? and user_id = ? ORDER BY company_note_id DESC"
         result = cursor.execute(command, (fields))
         self.db.commit()
 
@@ -69,7 +69,7 @@ class CompanyNotesRepository:
 
     def getCompanyNotesByUserID(self, user_id): 
         cursor = self.db.cursor()
-        command = "SELECT * FROM company_notes WHERE user_id = {} ORDER BY date DESC".format(user_id)
+        command = "SELECT * FROM company_notes WHERE user_id = {} ORDER BY company_note_id DESC".format(user_id)
         result = cursor.execute(command)
         self.db.commit()
 
