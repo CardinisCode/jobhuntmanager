@@ -19,17 +19,23 @@
 
     <div class="alignfull background-colour">
         <div class="aligncenter">  
-            <div class="four-col-grid extra-margins">
+            <div class="three-col-grid extra-margins">
                 {% for application_id, application in display_details.fields.items() %}
                     <a href={{ application.view_more }} class="link-cards">
                         <h3 class="text-center"> {{ application.company_name }}</h3>
                         <div class="form-row">
-                            <div class="col text-center"> 
-                                <i class="fas fa-calendar-alt"> {{ application.app_date }}</i>
+                            <div class="col text-center"></i>
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="col text-center"></i>
+                                {{ application.app_date }}
                             </div>
                         </div>
                         <br/>
                         <div class="form-row">
+                            <div class="col text-center"> 
+                                <i class="fas fa-pencil-ruler"></i>
+                            </div>
                             <div class="col text-center"> 
                                 {{ application.job_role }}
                             </div>

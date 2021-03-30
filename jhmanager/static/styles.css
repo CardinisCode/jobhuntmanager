@@ -396,7 +396,7 @@ hr.thick_border {
   opacity: 1;
   color: black;
   border: 1px solid #dee2e6!important;
-  background: rgba(175, 238, 238, 0.2);
+  background: lightgrey;
 }
 
 .link_button:hover, .link-cards:hover{
