@@ -1,5 +1,17 @@
 from flask import Flask, render_template, session, request, redirect
 from datetime import datetime, date
+from jhmanager.service.cleanup_datetime_display import cleanup_date_format
+
+
+def cleanup_app_notes(app_notes_details, entry_id):
+    entry_date = app_notes_details["fields"][entry_id]["entry_date"]
+
+    date_obj = datetime.strptime(entry_date, "%Y-%m-%d")
+    app_notes_details["fields"][entry_id]["entry_date"] = cleanup_date_format(date_obj)
+
+
+
+
 
 
 def display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo, companyNotesRepo):
@@ -27,6 +39,7 @@ def display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo,
             app_notes_id = app_note.app_notes_id
             app_id = app_note.application_id
             company_id = app_note.company_id
+            entry_date_obj =  datetime.strptime(app_note.entry_date, "%Y-%m-%d")
             
             # In case a note exists for an application that's already been deleted:
             if applicationsRepo.grabApplicationByID(app_id) == None:
@@ -41,7 +54,7 @@ def display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo,
 
             app_notes_details["fields"][entry_id] = {
                 "app_notes_id": app_note.app_notes_id, 
-                "entry_date" : app_note.entry_date,
+                "entry_date" : cleanup_date_format(entry_date_obj),
                 "company_name": companyRepo.getCompanyById(company_id).name, 
                 "job_role": applicationsRepo.grabApplicationByID(app_id).job_role,
                 "description": app_note.description, 
@@ -49,8 +62,6 @@ def display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo,
                 "update_note_url": update_note, 
                 "delete_note_url": delete_note
             }
-            app_notes_details["headings"] = ["#", "Entry Date", "Company Name", "Job Role", "Subject"]
-
 
     entry_note_count = 0
     if company_notes != None:
@@ -60,12 +71,15 @@ def display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo,
             company_notes_details["empty_table"] = False
             company_note_id = company_note.company_note_id
             company_id = company_note.company_id
+            entry_date_obj = datetime.strptime(company_note.entry_date, "%Y-%m-%d")
+
             view_note_url = '/company/{}/company_note/{}/view_note_details'.format(company_id, company_note_id)
             update_note_url = '/company/{}/company_note/{}/update_note'.format(company_id, company_note_id)
             delete_note_url = '/company/{}/company_note/{}/delete_note'.format(company_id, company_note_id)
             company_notes_details["fields"][entry_note_count] = {
                 "company_name": companyRepo.getCompanyById(company_id).name, 
-                "entry_date": company_note.entry_date, 
+                "note_id": company_note.company_note_id,
+                "entry_date": cleanup_date_format(entry_date_obj), 
                 "subject": company_note.subject, 
                 "view_company_note_url": view_note_url, 
                 "update_company_note_url": update_note_url, 
