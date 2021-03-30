@@ -122,6 +122,8 @@ class ApplicationsHistoryRepository:
             return None
 
         data = [x for x in result]
+        if not data:
+            return None
 
         application = Application(data[0])
         

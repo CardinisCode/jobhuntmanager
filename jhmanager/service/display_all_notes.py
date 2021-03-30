@@ -27,6 +27,13 @@ def display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo,
             app_notes_id = app_note.app_notes_id
             app_id = app_note.application_id
             company_id = app_note.company_id
+            
+            # In case a note exists for an application that's already been deleted:
+            if applicationsRepo.grabApplicationByID(app_id) == None:
+                applicationsRepo.deleteEntryByApplicationID(app_id)
+                app_notes_details["empty_table"] = True
+                continue
+
             job_role = applicationsRepo.grabApplicationByID(app_id).job_role
             view_note = '/applications/{}/app_notes/{}/view_note'.format(app_id, app_notes_id)
             update_note = '/applications/{}/app_notes/{}/update_note'.format(app_id, app_notes_id)
