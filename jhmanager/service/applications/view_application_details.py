@@ -2,6 +2,7 @@ from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime, time
 from jhmanager.service.display_dashboard_content import past_dated_interview
 from jhmanager.service.cleanup_datetime_display import cleanup_time_format
+from jhmanager.service.cleanup_datetime_display import cleanup_date_format
 
 
 def cleanup_job_offers(job_offers_details, count):
@@ -22,7 +23,7 @@ def cleanup_job_offers(job_offers_details, count):
     job_offers_details["details"][count]["offer_response"] = offer_response
     job_offers_details["details"][count]["offer_accepted"] = offer_accepted
 
-    start_date_str = starting_date.strftime("%Y-%m-%d")
+    start_date_str = cleanup_date_format(starting_date)
     job_offers_details["details"][count]["starting_date"] = start_date_str
 
 
@@ -97,13 +98,17 @@ def cleanup_interview_fields(interview_fields, interview_id):
     past_dated = past_dated_interview(interview_date, interview_time)
     interview_fields["fields"][interview_id]["past_dated"] = past_dated
 
+    date_str = cleanup_date_format(interview_date)
+    interview_fields["fields"][interview_id]["date"] = date_str
+
 
 def cleanup_application_details(application_details):
     for heading, value in application_details["fields"].items():
         if value == "N/A":
             application_details["fields"][heading] = None
 
-    interview_time = application_details["fields"]["time"]
+    time_posted = application_details["fields"]["time"]
+    date_posted = application_details["fields"]["date"]
 
     emp_type = application_details["fields"]["type"]
     if emp_type == "full_time":
@@ -117,13 +122,15 @@ def cleanup_application_details(application_details):
     else:
         application_details["fields"]["type"] = emp_type.capitalize()
     
-    interview_time_obj = datetime.strptime(interview_time, '%H:%M')
-    hour_int = int(interview_time_obj.strftime("%H"))
-    if hour_int >= 12:
-        interview_time += "pm"
-    else:
-        interview_time += "am"
-    application_details["fields"]["time"] = interview_time
+
+    time_obj = datetime.strptime(time_posted, '%H:%M')
+    time_str = cleanup_time_format(time_obj)
+    application_details["fields"]["time"] = time_str
+
+    date_obj = datetime.strptime(date_posted, "%Y-%m-%d")
+    date_str = cleanup_date_format(date_obj)
+    application_details["fields"]["date"] = date_str
+
 
 def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo, jobOffersRepo):
     application = applicationsRepo.grabApplicationByID(application_id)

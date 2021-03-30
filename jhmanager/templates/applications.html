@@ -22,27 +22,27 @@
             <div class="three-col-grid">
                 {% for application_id, application in display_details.fields.items() %}
                     <div class="grid_child"> 
-                        <h3 class="text-center"> {{ application.company_name.data }}</h3>
+                        <h3 class="text-center"> {{ application.company_name }}</h3>
 
                         <div class="form-row">
                             <div class="col text-center"> 
-                                {{ application.app_date.data }}
+                                {{ application.app_date }}
                             </div>
                         </div>
                         <br/>
                         <div class="form-row">
                             <div class="col text-center"> 
-                                {{ application.job_role.data }}
+                                {{ application.job_role }}
                             </div>
                         </div>
                         <br/>
                         <div class="form-row">
                             <div class="col text-center"> 
-                                {{ application.interview_stage.data }}
+                                {{ application.interview_stage }}
                             </div>
                         </div>
                         <div class="text-center link-button-margins"> 
-                            <a href={{ application.view_more.data }} class="link_button"><i class="fas fa-eye"> {{ application.view_more.label }}</i> </a>
+                            <a href={{ application.view_more }} class="link_button"><i class="fas fa-eye"> View More</i> </a>
                         </div>  
                     </div>
                 {% endfor %}

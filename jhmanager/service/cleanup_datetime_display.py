@@ -5,7 +5,12 @@ from jhmanager.service.display_dashboard_content import past_dated_interview
 
 def cleanup_date_format(date_obj): 
     date_str = ""
-
+    months_list = ["Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    year = date_obj.strftime("%Y")
+    month_index = int(date_obj.strftime("%m")) + 1
+    month_str = months_list[month_index]
+    day_str = date_obj.strftime("%d")
+    date_str = day_str + " " + month_str + " " + year
 
     return date_str
 
