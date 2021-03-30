@@ -7,7 +7,8 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="text-center">  View All User Notes </h1>
+            <h1 class="text-center">  Notes </h1>
+            <hr class="thick_border">
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -20,12 +21,11 @@
 
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
-            <h2 class="text-center"> Application Notes</h2>
+            <h2 class="text-center xxx-margins"> Application Notes</h2>
             {% if app_notes_details.empty_table != True %}
-                <div class="four-col-grid">
+                <div class="four-col-grid extra-margins">
                     {% for entry_id, fields in app_notes_details.fields.items() %}
-                        <a href={{ fields.view_note_url }} class="link_button">
-
+                        <a href={{ fields.view_note_url }} class="link-cards">
                             <h3 class="text-center"> <i class="fas fa-hashtag"> {{ fields.app_notes_id }}</i></h3>
                             <div class="form-row">
                                 <div class="col text-center"> 
@@ -57,10 +57,10 @@
     {% if company_notes_details.empty_table != True %}
         <div class="alignfull">
             <div class="aligncenter"> 
-                <h2 class="text-center"> Company Notes</h2>
-                <div class="four-col-grid">
+                <h2 class="text-center xxx-margins"> Company Notes</h2>
+                <div class="four-col-grid extra-margins">
                     {% for entry_id, fields in company_notes_details.fields.items() %}
-                        <a href={{ fields.view_company_note_url }} class="link_button">
+                        <a href={{ fields.view_company_note_url }} class="link-cards">
                             <h3 class="text-center"><i class="fas fa-hashtag"> {{ fields.note_id }}</i></h3>
                             <div class="form-row">
                                 <div class="col text-center"> 

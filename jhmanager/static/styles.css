@@ -289,9 +289,6 @@ textarea {
   display: grid;
 }
 
-
-
-
 #save_button, #update_button, #delete_button, #login_button, #register_button {
   background: linear-gradient(45deg, purple, indigo); 
   color: white;
@@ -389,7 +386,20 @@ hr.thick_border {
   background: transparent;
 }
 
-.link_button:hover{
+.link-cards{
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 16px 12px;
+  text-decoration: none;
+  line-height: 1;
+  opacity: 1;
+  color: black;
+  border: 1px solid #dee2e6!important;
+  background: rgba(175, 238, 238, 0.2);
+}
+
+.link_button:hover, .link-cards:hover{
   color: white;
   background: linear-gradient(45deg, purple, indigo);
   text-decoration: none;
