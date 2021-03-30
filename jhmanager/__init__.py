@@ -88,6 +88,8 @@ from jhmanager.service.job_offers.update_job_offer import post_update_job_offer
 
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 from jhmanager.service.display_all_notes import display_all_user_notes
+from jhmanager.service.cleanup_datetime_display import cleanup_date_format
+from jhmanager.service.cleanup_datetime_display import cleanup_time_format
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm

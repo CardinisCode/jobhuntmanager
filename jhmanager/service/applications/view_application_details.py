@@ -1,6 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime, time
 from jhmanager.service.display_dashboard_content import past_dated_interview
+from jhmanager.service.cleanup_datetime_display import cleanup_time_format
 
 
 def cleanup_job_offers(job_offers_details, count):
@@ -90,13 +91,7 @@ def cleanup_interview_fields(interview_fields, interview_id):
     if location == "N/A" or location == "Remote":
         interview_fields["fields"][interview_id]["location"] = None
 
-    time_str = interview_time.strftime("%H:%M")
-    hour_int = int(interview_time.strftime("%H"))
-    if hour_int >= 12:
-        time_str += "pm"
-    else:
-        time_str += "am"
-
+    time_str = cleanup_time_format(interview_time)
     interview_fields["fields"][interview_id]["time"] = time_str
 
     past_dated = past_dated_interview(interview_date, interview_time)
@@ -109,9 +104,6 @@ def cleanup_application_details(application_details):
             application_details["fields"][heading] = None
 
     interview_time = application_details["fields"]["time"]
-    interview_stage = application_details["fields"]["interview_stage"]
-    if interview_stage == 0:
-        application_details["fields"]["interview_stage"] = "No interview lined up yet."
 
     emp_type = application_details["fields"]["type"]
     if emp_type == "full_time":

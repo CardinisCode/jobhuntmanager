@@ -117,14 +117,25 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div class="form-row"> 
-                        <div class="col left-padding"> 
-                            <i class="fas fa-mobile-alt"></i><strong> Interview Stage: </strong>
+                    {% if details.fields.interview_stage == 0 %}
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <strong> Interview Stage: </strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                No interview lined up yet.
+                            </div>
                         </div>
-                        <div class="col right-padding"> 
-                            Interview #{{ details.fields.interview_stage }}
+                    {% else %}
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <i class="fas fa-mobile-alt"></i><strong> Interview Stage: </strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                Interview #{{ details.fields.interview_stage }}
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                     {% if details.fields.job_url != "http://..." %}
                         <div class="form-row"> 
                             <div class="col left-padding"> 
