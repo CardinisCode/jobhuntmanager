@@ -292,7 +292,7 @@ textarea {
 
 
 
-#save_button, #update_button, #delete_account, #login_button, #register_button {
+#save_button, #update_button, #delete_button, #login_button, #register_button {
   background: linear-gradient(45deg, purple, indigo); 
   color: white;
   margin-left: auto;

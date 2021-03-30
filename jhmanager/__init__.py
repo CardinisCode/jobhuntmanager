@@ -72,6 +72,7 @@ from jhmanager.service.company.view_all_companies import display_all_companies_f
 from jhmanager.service.company.view_company_profile import display_company_profile
 from jhmanager.service.company.add_company_job_application import display_add_company_application_form
 from jhmanager.service.company.add_company_job_application import post_add_company_job_application
+from jhmanager.service.company.delete_company import display_delete_company_form
 from jhmanager.service.company.delete_company import delete_company_from_db
 
 from jhmanager.service.company_notes.add_company_note import display_add_company_note_form
@@ -107,6 +108,7 @@ from jhmanager.forms.add_company_note_form import AddCompanyNoteForm
 from jhmanager.forms.add_job_offer_form import AddJobOffer
 from jhmanager.forms.warning_form import WarningForm
 from jhmanager.forms.add_company_job_app_form import AddCompanyJobApplicationForm
+from jhmanager.forms.delete_form import DeleteCompanyForm
 
 
 # Configure application
@@ -478,7 +480,18 @@ def update_company_profile(company_id):
 @app.route('/company/<int:company_id>/delete_company', methods=["GET", "POST"])
 @login_required
 def delete_company_profile(company_id):
-    return delete_company_from_db(company_id, companyRepo, companyNotesRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, userNotesRepo, jobOffersRepo)
+    delete_company_form = DeleteCompanyForm()
+
+    if request.method == "GET":
+        return display_delete_company_form(company_id, delete_company_form, companyRepo)
+
+    if request.method == "POST":
+        if delete_company_form.validate_on_submit():
+            return delete_company_from_db(company_id, delete_company_form, companyRepo, companyNotesRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, userNotesRepo, jobOffersRepo)
+        
+        else:
+            flash("Complete all the fields.")
+            return display_delete_company_form(company_id, delete_company_form, companyRepo)
 
 
 # View all notes for a specific company:

@@ -20,6 +20,8 @@ class AddJobOffer(FlaskForm):
 
     salary_offered = StringField(
         "Salary: ", 
+        [validators.optional()], 
+        render_kw={'placeholder': "Salary on Offer."},
     )
 
     perks_offered = TextAreaField(
