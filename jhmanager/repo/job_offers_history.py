@@ -110,3 +110,17 @@ class JobOffersRepository:
             message = "Failed to delete all Job offers for this user. " + error
         finally:
             return message 
+
+    def deleteByCompanyID(self, company_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM job_offers WHERE company_id = {}".format(company_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Job offer successfully deleted"
+
+        except sqlite3.Error as error:
+            message = "Failed to delete all Job offers for this company. " + error
+        finally:
+            return message 

@@ -72,6 +72,7 @@ from jhmanager.service.company.view_all_companies import display_all_companies_f
 from jhmanager.service.company.view_company_profile import display_company_profile
 from jhmanager.service.company.add_company_job_application import display_add_company_application_form
 from jhmanager.service.company.add_company_job_application import post_add_company_job_application
+from jhmanager.service.company.delete_company import delete_company_from_db
 
 from jhmanager.service.company_notes.add_company_note import display_add_company_note_form
 from jhmanager.service.company_notes.add_company_note import post_add_company_note
@@ -473,6 +474,12 @@ def update_company_profile(company_id):
         else:
             flash("Complete all the fields.")
             return display_update_company_profile_form(company_id, update_form, company_obj)
+
+@app.route('/company/<int:company_id>/delete_company', methods=["GET", "POST"])
+@login_required
+def delete_company_profile(company_id):
+    return delete_company_from_db(company_id, companyRepo, companyNotesRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, userNotesRepo, jobOffersRepo)
+
 
 # View all notes for a specific company:
 @app.route('/company/<int:company_id>/view_all_company_notes')

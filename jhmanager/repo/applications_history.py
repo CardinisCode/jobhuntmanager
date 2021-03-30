@@ -130,6 +130,27 @@ class ApplicationsHistoryRepository:
         return application  
 
     
+    def getApplicationsByCompanyID(self, company_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM job_applications WHERE company_id = {}".format(company_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        if not result:
+            return None
+
+        data = [x for x in result]
+        if not data:
+            return None
+
+        application_list = []
+        for application in data:
+            application_result = Application(application)
+            application_list.append(application_result)
+        
+        return application_list  
+
+    
     # def grabApplicationByID(self, application_id):
     #     result = self.sql.getByField('job_applications', 'application_id', application_id)
 
@@ -226,6 +247,20 @@ class ApplicationsHistoryRepository:
         try: 
             cursor = self.db.cursor()
             command = "DELETE FROM job_applications WHERE user_id = {}".format(user_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Application successfully deleted"
+
+        except sqlite3.Error as error:
+            message = "Application failed to delete. " + error
+        finally:
+            return message 
+
+    def deleteByCompanyID(self, company_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM job_applications WHERE company_id = {}".format(company_id)
             cursor.execute(command)
             self.db.commit()
             message = "Application successfully deleted"
