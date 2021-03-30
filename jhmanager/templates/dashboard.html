@@ -114,7 +114,7 @@
                 {% endfor %}
                 </div>
                 <br/>
-                <div class="text-center give-me-space"> 
+                <div class="text-center xxx-margins"> 
                     <a href="/add_job_offer" class="link_right link_button_primary"><i class="fas fa-plus"> Add Job Offer</i> </a>
                 </div>
             </div>
@@ -122,13 +122,12 @@
         <!-- <hr/> -->
     {% endif %}
 
-    <div class="alignfull"> 
-        <div class="aligncenter"> 
-            <h2 class="text-center"> Upcoming Interviews </h2>
-            <br/>
-            
-            <div class="grid_experiement xxx-margins"> 
-                {% if display.all_interviews != None and display.interview_details != None %}
+    {% if display.all_interviews != None and display.interview_details != None %}
+        <div class="alignfull"> 
+            <div class="aligncenter"> 
+                <h2 class="text-center"> Upcoming Interviews </h2>
+                <br/>
+                <div class="grid_experiement xxx-margins"> 
                     {% for company_name, interviews in display.interview_details.items() %}
                         <div class="grid_child"> 
                             {% for interview_id, fields in interviews.items() %}
@@ -141,7 +140,6 @@
                                         {{ fields.Date }} @ {{ fields.Time }}
                                     </div>
                                 </div>
-
                                 <div class="form-row">
                                     {% if fields.interview_type == 'in_person' %}
                                         <div class="col left-padding"> 
@@ -166,7 +164,6 @@
                                         </div>
                                     {% endif %}
                                 </div>
-
                                 {% if fields.interviewers %}
                                     <div class="form-row">
                                         <div class="col left-padding"> 
@@ -191,8 +188,7 @@
                                     <div class="form-row"></div>
                                 {% endif %}
                                 <br/>
-
-                                <div class="text-center"> 
+                                <div class="text-center xxx-margins"> 
                                     {% if fields.past_dated == False %}
                                         <a href={{ fields.prepare_url }} class="link_button"> <i class="fas fa-clipboard"> Prepare</i></a>
                                     {% endif %}
@@ -203,11 +199,9 @@
                             {% endfor %}
                         </div>
                     {% endfor %}
-                {% endif %}
+                </div>
             </div>
         </div>
-    </div>
-        <!-- <hr/> -->
-
+    {% endif %}
 
 {% endblock %}
