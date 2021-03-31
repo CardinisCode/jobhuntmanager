@@ -3,24 +3,7 @@ from datetime import datetime, date, time
 from jhmanager.service.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_datetime_display import cleanup_time_format
 from jhmanager.service.cleanup_datetime_display import past_dated
-
-
-def clean_up_job_offer_details(job_offer_details, offer_count):
-    company_name = job_offer_details[offer_count]["company_name"]
-    offer_response = job_offer_details[offer_count]["offer_response"]
-    start_date = job_offer_details[offer_count]["starting_date"]
-    message = ""
-    if offer_response == 'user_accepted':
-        message = "I've accepted the offer!"
-    elif offer_response == 'user_declined':
-        message = "I've declined the offer."
-    elif offer_response == 'company_pulled_offer':
-        message = "{} pulled the offer.".format(company_name)
-    else:
-        message = "Still deciding..."
-
-    job_offer_details[offer_count]["offer_response"] = message
-    job_offer_details[offer_count]["starting_date"] = cleanup_date_format(start_date)
+from jhmanager.service.job_offers.cleanup_job_offer_fields import cleanup_job_offer
 
 
 def extract_and_display_job_offers(job_offers, companyRepo):
@@ -31,7 +14,7 @@ def extract_and_display_job_offers(job_offers, companyRepo):
     if not job_offers: 
         return (job_offer_details, offer_count)
 
-    job_offer_details = {}
+    job_offer_details = {"details": {}}
     for offer in job_offers: 
         offer_count += 1
         count_list.append(offer_count)
@@ -41,17 +24,18 @@ def extract_and_display_job_offers(job_offers, companyRepo):
         company_name = companyRepo.getCompanyById(company_id).name
         view_offer_url = '/applications/{}/job_offers/{}'.format(application_id, job_offer_id)
 
-        job_offer_details[offer_count] = {
+        job_offer_details["details"][offer_count] = {
             "job_offer_id": job_offer_id,
             "starting_date": offer.starting_date, 
             "company_name": company_name,
             "job_role": offer.job_role, 
             "offer_response": offer.offer_response,
+            "offer_accepted": False,
             "salary_offered": offer.salary_offered, 
             "perks_offered": offer.perks_offered,
             "view_offer_url": view_offer_url, 
         }
-        clean_up_job_offer_details(job_offer_details, offer_count)
+        cleanup_job_offer(job_offer_details, offer_count)
 
 
     return (job_offer_details, offer_count)

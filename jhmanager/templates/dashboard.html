@@ -52,7 +52,7 @@
                 <br/>
 
                 <div class="grid_experiement extra-margins">
-                {% for job_offer_id, fields in display.job_offer_details.items() %}
+                {% for job_offer_id, fields in display.job_offer_details.details.items() %}
                     <a href={{ fields.view_offer_url }} class="link-cards">
                         <h3 class="text-center"> {{ fields.company_name }}</h3>
                         <div class="form-row">

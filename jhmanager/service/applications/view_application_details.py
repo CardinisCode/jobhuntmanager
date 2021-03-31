@@ -3,29 +3,8 @@ from datetime import datetime, time
 from jhmanager.service.cleanup_datetime_display import cleanup_time_format
 from jhmanager.service.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_datetime_display import past_dated
-
-
-def cleanup_job_offers(job_offers_details, count):
-    offer_response = job_offers_details["details"][count]["offer_response"]
-    company_name = job_offers_details["details"][count]["company_name"]
-    starting_date = job_offers_details["details"][count]["starting_date"]
-    offer_accepted = job_offers_details["details"][count]["offer_accepted"]
-    if offer_response == "user_accepted":
-        offer_response = "I've Accepted the offer!"
-        offer_accepted = True
-    elif offer_response == "user_declined":
-        offer_response = "I've turned down the offer."
-    elif offer_response == "company_pulled_offer":
-        offer_response = "{} pulled the offer."
-    elif offer_response == "undecided":
-        offer_response = "I am still deciding."
-
-    job_offers_details["details"][count]["offer_response"] = offer_response
-    job_offers_details["details"][count]["offer_accepted"] = offer_accepted
-
-    start_date_str = cleanup_date_format(starting_date)
-    job_offers_details["details"][count]["starting_date"] = start_date_str
-
+from jhmanager.service.job_offers.cleanup_job_offer_fields import cleanup_job_offer
+    
 
 def grab_and_display_job_offers(application_id, jobOffersRepo, user_id, company_details, companyRepo):
     job_offers = jobOffersRepo.getJobOffersByUserId(user_id)
@@ -60,7 +39,7 @@ def grab_and_display_job_offers(application_id, jobOffersRepo, user_id, company_
                 "update_url": update_url, 
                 "view_url": view_url
             }
-            cleanup_job_offers(job_offers_details, count)
+            cleanup_job_offer(job_offers_details, count)
 
     job_offers_details["count"] = count
  

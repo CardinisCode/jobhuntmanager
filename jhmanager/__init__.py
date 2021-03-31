@@ -89,6 +89,7 @@ from jhmanager.service.job_offers.view_job_offer import display_job_offer
 from jhmanager.service.job_offers.update_job_offer import display_update_job_offer_form
 from jhmanager.service.job_offers.update_job_offer import post_update_job_offer
 from jhmanager.service.job_offers.delete_job_offer import delete_job_offer_from_db
+from jhmanager.service.job_offers.cleanup_job_offer_fields import cleanup_offer_response
 
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 from jhmanager.service.display_all_notes import display_all_user_notes

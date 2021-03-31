@@ -1,25 +1,38 @@
 from flask import Flask, render_template, session, request, redirect, flash
 from jhmanager.service.cleanup_datetime_display import cleanup_date_format
+from jhmanager.service.job_offers.cleanup_job_offer_fields import cleanup_offer_response
+from jhmanager.service.job_offers.cleanup_job_offer_fields import cleanup_interview_stage
 
 
 def cleanup_job_offer_details(job_offer_details):
-    starting_date = cleanup_date_format(job_offer_details["starting_date"])
-    job_offer_details["starting_date"] = starting_date
+    starting_date = job_offer_details["starting_date"]
+    job_offer_details["starting_date"] = cleanup_date_format(starting_date)
 
     offer_response = job_offer_details["offer_response"]
-
-    message = ""
-    if offer_response == 'user_accepted':
-        message = "I've accepted the offer!"
-    elif offer_response == 'user_declined':
-        message = "I've declined the offer."
-    elif offer_response == 'company_pulled_offer':
-        message = "{} pulled the offer.".format(company_name)
-    else:
-        message = "Still deciding..."
-    job_offer_details["offer_response"] = message
+    job_offer_details["offer_response"] = cleanup_offer_response(offer_response)
 
     
+def cleanup_app_details(application_details):
+    interview_stage = application_details["interview_stage"]
+    application_details["interview_stage"] = cleanup_interview_stage(interview_stage)
+
+    emp_type = application_details["emp_type"]
+    job_description = application_details["job_description"] 
+
+    if emp_type == "full_time":
+        application_details["emp_type"] = "Full Time"
+    elif emp_type == "part_time":
+        application_details["emp_type"] = "Part Time"
+    elif emp_type == "temp":
+        application_details["emp_type"] = "Temporary"
+    elif emp_type == "contract":
+        application_details["emp_type"] = "Contract"
+    else: 
+        application_details["emp_type"] = "Other"
+
+    if job_description == "N/A":
+        application_details["job_description"] = "None provided."
+
 
 def display_job_offer(job_offer_id, jobOffersRepo, companyRepo, applicationsRepo):
     job_offer = jobOffersRepo.getJobOfferByJobOfferID(job_offer_id)
@@ -55,5 +68,6 @@ def display_job_offer(job_offer_id, jobOffersRepo, companyRepo, applicationsRepo
         "emp_type": application.employment_type,
         "view_application": '/applications/{}'.format(application_id)
     }
+    cleanup_app_details(application_details)
 
     return render_template("view_job_offer.html", job_offer_details=job_offer_details, company_details=company_details, application_details=application_details)
