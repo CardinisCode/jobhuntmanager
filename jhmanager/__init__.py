@@ -445,12 +445,6 @@ def delete_job_offer_details(application_id, job_offer_id):
     return delete_job_offer_from_db(application_id, job_offer_id, jobOffersRepo)    
 
 
-# @app.route('/job_offer/<int:job_offer_id>/delete_job_offer')
-# @login_required
-# def delete_job_offer_details(job_offer_id):
-#     return delete_job_offer_from_db(job_offer_id, jobOffersRepo)    
-
-
 @app.route('/address_book')
 @login_required
 def display_address_book():

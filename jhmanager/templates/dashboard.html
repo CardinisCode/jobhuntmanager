@@ -51,9 +51,9 @@
                 <h2 class="text-center"> Job Offers </h2>
                 <br/>
 
-                <div class="grid_experiement">
+                <div class="grid_experiement extra-margins">
                 {% for job_offer_id, fields in display.job_offer_details.items() %}
-                    <div class="grid_child"> 
+                    <a href={{ fields.view_offer_url }} class="link-cards">
                         <h3 class="text-center"> {{ fields.company_name }}</h3>
                         <div class="form-row">
                             <div class="col left-padding"> 
@@ -63,6 +63,7 @@
                                 {{ fields.starting_date }}
                             </div>
                         </div>
+                        <br/>
                         {% if fields.job_role %}
                             <div class="form-row"> 
                                 <div class="col left-padding"> 
@@ -73,6 +74,7 @@
                                 </div>
                             </div>
                         {% endif %}
+                        <br/>
                         {% if fields.offer_response %}
                             <div class="form-row"> 
                                 <div class="col left-padding"> 
@@ -83,6 +85,7 @@
                                 </div>
                             </div>
                         {% endif %}
+                        <br/>
                         {% if fields.salary_offered %}
                             <div class="form-row"> 
                                 <div class="col left-padding"> 
@@ -93,6 +96,7 @@
                                 </div>    
                             </div>                
                         {% endif %}
+                        <br/>
                         {% if fields.perks_offered %}
                             <div class="form-row"> 
                                 <div class="col left-padding"> 
@@ -103,12 +107,7 @@
                                 </div> 
                             </div>         
                         {% endif %}
-                        <br/>
-                        <div class="text-center"> 
-                            <a href={{ fields.view_offer_url }} class="link_button"><i class="fas fa-eye"> View</i></a>
-                        </div>           
-                        <br/>
-                    </div>
+                    </a>
                 {% endfor %}
                 </div>
                 <br/>
