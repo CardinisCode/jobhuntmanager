@@ -30,6 +30,19 @@ def cleanup_interview_status(status):
     return updated_status
 
 
+def cleanup_medium(medium, other_medium):
+    # Lets cleaned up the display of 'Medium':
+    updated_medium = ""
+    if medium == "google_chat":
+        updated_medium = "Google Chat"
+    elif medium == "meet_jit_si":
+        updated_medium = "Meet.Jit.Si"
+    elif medium == "other":
+        updated_medium = other_medium
+    else: 
+        updated_medium = medium.capitalize()
+
+
 def cleanup_interview_fields(interview_fields, interview_id):
     # Lets start by grabbing the fields we want from the dict:
     interview_type = interview_fields["fields"][interview_id]["interview_type"]
@@ -48,4 +61,13 @@ def cleanup_interview_fields(interview_fields, interview_id):
     interview_time = interview_fields["fields"][interview_id]["time"]
     interview_fields["fields"][interview_id]["time"] = cleanup_time_format(interview_time)
     interview_fields["fields"][interview_id]["past_dated"] = past_dated(interview_date, interview_time)
+
+    contact_number = interview_fields["fields"][interview_id]["contact_number"]
+    if contact_number == "N/A":
+        interview_fields["fields"][interview_id]["contact_number"] = "Not Provided"
+
+    medium = interview_fields["fields"][interview_id]["interview_medium"]
+    other_medium = interview_fields["fields"][interview_id]["other_medium"]
+    interview_fields["fields"][interview_id]["interview_medium"] = cleanup_medium(medium, other_medium)
+
 

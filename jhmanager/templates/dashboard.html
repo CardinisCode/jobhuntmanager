@@ -122,75 +122,72 @@
                 <h2 class="text-center"> Upcoming Interviews </h2>
                 <br/>
                 <div class="grid_experiement xxx-margins"> 
-                    {% for company_name, interviews in display.interview_details.items() %}
+                    {% for interview_id, interview_details in display.interview_details.fields.items() %}
                         <div class="grid_child"> 
-                            {% for interview_id, fields in interviews.items() %}
-                                <h4 class="text-center"> {{ company_name }} </h4>
-                                <div class="form-row">
+                            <h4 class="text-center"> {{ interview_details.company_name }} </h4>
+                            <div class="form-row">
+                                <div class="col left-padding"> 
+                                    <i class="fas fa-calendar-alt"> Date & Time:</i>
+                                </div>
+                                <div class="col right-padding"> 
+                                    {{ interview_details.date }} @ {{ interview_details.time }}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                {% if interview_details.interview_type == 'in_person' %}
                                     <div class="col left-padding"> 
-                                        <i class="fas fa-calendar-alt"> Date & Time:</i>
+                                        <i class="fas fa-location-arrow"> Location: </i> 
                                     </div>
                                     <div class="col right-padding"> 
-                                        {{ fields.Date }} @ {{ fields.Time }}
+                                        {{ interview_details.Location }} 
                                     </div>
-                                </div>
+                                {% elif interview_details.interview_type == 'video_or_online' %}
+                                    <div class="col left-padding"> 
+                                        <i class="fas fa-video"> Medium: </i>
+                                    </div>
+                                    <div class="col right-padding"> 
+                                        {{ interview_details.interview_medium }} 
+                                    </div>
+                                {% else %}
+                                    <div class="col left-padding"> 
+                                        <i class="fas fa-mobile-alt"></i> <strong> Contact Number:</strong> 
+                                    </div>
+                                    <div class="col right-padding"> 
+                                        {{ interview_details.contact_number }} 
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {% if interview_details.interviewers %}
                                 <div class="form-row">
-                                    {% if fields.interview_type == 'in_person' %}
-                                        <div class="col left-padding"> 
-                                            <i class="fas fa-location-arrow"> Location: </i> 
-                                        </div>
-                                        <div class="col right-padding"> 
-                                            {{ fields.Location }} 
-                                        </div>
-                                    {% elif fields.interview_type == 'video_or_online' %}
-                                        <div class="col left-padding"> 
-                                            <i class="fas fa-video"> Medium: </i>
-                                        </div>
-                                        <div class="col right-padding"> 
-                                            {{ fields.interview_medium }} 
-                                        </div>
-                                    {% else %}
-                                        <div class="col left-padding"> 
-                                            <i class="fas fa-mobile-alt"></i> <strong> Contact Number:</strong> 
-                                        </div>
-                                        <div class="col right-padding"> 
-                                            {{ fields.contact_number }} 
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                {% if fields.interviewers %}
-                                    <div class="form-row">
-                                        <div class="col left-padding"> 
-                                            <i class="fas fa-users"> Interviewers: </i>
-                                        </div>
-                                        <div class="col right-padding"> 
-                                            {{ fields.interviewers }} 
-                                        </div>
+                                    <div class="col left-padding"> 
+                                        <i class="fas fa-users"> Interviewers: </i>
                                     </div>
-                                {% else %}
-                                    <div class="form-row"></div>
-                                {% endif %}
-                                {% if fields.past_dated %}
-                                    <br/>
-                                    <div class="form-row">
-                                        <div class="col text-center"> 
-
-                                            This is a past-dated interview! Update below:
-                                        </div>
+                                    <div class="col right-padding"> 
+                                        {{ interview_details.interviewers }} 
                                     </div>
-                                {% else %}
-                                    <div class="form-row"></div>
-                                {% endif %}
-                                <br/>
-                                <div class="text-center xxx-margins"> 
-                                    {% if fields.past_dated == False %}
-                                        <a href={{ fields.prepare_url }} class="link_button"> <i class="fas fa-clipboard"> Prepare</i></a>
-                                    {% endif %}
-                                    <a href={{ fields.View_More }} class="link_button"><i class="fas fa-eye"> View More</i></a>
-                                    <a href={{ fields.update_url }} class="link_button"><i class="fas fa-pencil-alt"> Update</i></a>
                                 </div>
+                            {% else %}
+                                <div class="form-row"></div>
+                            {% endif %}
+                            {% if interview_details.past_dated %}
                                 <br/>
-                            {% endfor %}
+                                <div class="form-row">
+                                    <div class="col text-center"> 
+                                        This is a past-dated interview! Update below:
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="form-row"></div>
+                            {% endif %}
+                            <br/>
+                            <div class="text-center xxx-margins"> 
+                                {% if interview_details.past_dated == False %}
+                                    <a href={{ interview_details.prepare_url }} class="link_button"> <i class="fas fa-clipboard"> Prepare</i></a>
+                                {% endif %}
+                                <a href={{ interview_details.View_More }} class="link_button"><i class="fas fa-eye"> View More</i></a>
+                                <a href={{ interview_details.update_url }} class="link_button"><i class="fas fa-pencil-alt"> Update</i></a>
+                            </div>
+                            <br/>
                         </div>
                     {% endfor %}
                 </div>

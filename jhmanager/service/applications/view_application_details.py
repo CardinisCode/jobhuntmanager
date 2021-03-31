@@ -48,48 +48,6 @@ def grab_and_display_job_offers(application_id, jobOffersRepo, user_id, company_
     return job_offers_details
 
 
-# def cleanup_interview_fields(interview_fields, interview_id):
-#     # Lets start by grabbing the fields we want from the dict:
-#     interview_type = interview_fields["fields"][interview_id]["interview_type"]
-#     status = interview_fields["fields"][interview_id]["status"]
-#     location = interview_fields["fields"][interview_id]["location"]
-#     interview_date = interview_fields["fields"][interview_id]["date"]
-#     interview_time = interview_fields["fields"][interview_id]["time"]
-
-#     # Now I can optimise the presentation of the values for these variables:
-#     if interview_type == "video_or_online":
-#         interview_fields["fields"][interview_id]["interview_type"] = "Video / Online"
-#     elif interview_type == "in_person":
-#         interview_fields["fields"][interview_id]["interview_type"] = "In Person / On Site"
-#     else:
-#         interview_fields["fields"][interview_id]["interview_type"] = "Phone Call"
-
-#     # Now to focus on 'status':
-#     if status == "upcoming":
-#         status = 'Upcoming Interview'
-
-#     elif status == "done":
-#         status = 'Interview Done'
-    
-#     elif status == "cancelled":
-#         status = 'The interview has been cancelled'
-    
-#     else:
-#         status = 'Interview has been post-poned'
-    
-#     interview_fields["fields"][interview_id]["status"] = status
-
-#     if location == "N/A" or location == "Remote":
-#         interview_fields["fields"][interview_id]["location"] = None
-
-#     time_str = cleanup_time_format(interview_time)
-#     interview_fields["fields"][interview_id]["time"] = time_str
-#     interview_fields["fields"][interview_id]["past_dated"] = past_dated(interview_date, interview_time)
-
-#     date_str = cleanup_date_format(interview_date)
-#     interview_fields["fields"][interview_id]["date"] = date_str
-
-
 def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo, jobOffersRepo):
     application = applicationsRepo.grabApplicationByID(application_id)
     app_date = application.app_date
@@ -175,6 +133,9 @@ def display_application_details(session, user_id, applicationsRepo, application_
                 "date": interview.interview_date, 
                 "time": interview.interview_time,
                 "interview_type": interview.interview_type, 
+                "interview_medium": interview.medium, 
+                "other_medium": interview.other_medium,
+                "contact_number": interview.contact_number,
                 "status": status,
                 "location": location,
                 "view_more": view_more_url,

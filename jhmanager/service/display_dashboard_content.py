@@ -4,6 +4,7 @@ from jhmanager.service.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_datetime_display import cleanup_time_format
 from jhmanager.service.cleanup_datetime_display import past_dated
 from jhmanager.service.job_offers.cleanup_job_offer_fields import cleanup_job_offer
+from jhmanager.service.interviews.cleanup_interview_fields import cleanup_interview_fields
 
 
 def extract_and_display_job_offers(job_offers, companyRepo):
@@ -41,33 +42,33 @@ def extract_and_display_job_offers(job_offers, companyRepo):
     return (job_offer_details, offer_count)
 
 
-def cleanup_interview_details(interview_details, other_medium, company_name, interview_id):
-    medium = interview_details[company_name][interview_id]["interview_medium"]
-    interviewers = interview_details[company_name][interview_id]["interviewers"]
-    interview_date = interview_details[company_name][interview_id]["Date"]
-    interview_time = interview_details[company_name][interview_id]["Time"]
-    past_dated_interview = past_dated(interview_date, interview_time)
+# def cleanup_interview_details(interview_details, other_medium, company_name, interview_id):
+    # medium = interview_details[company_name][interview_id]["interview_medium"]
+    # interviewers = interview_details[company_name][interview_id]["interviewers"]
+    # interview_date = interview_details[company_name][interview_id]["Date"]
+    # interview_time = interview_details[company_name][interview_id]["Time"]
+    # past_dated_interview = past_dated(interview_date, interview_time)
 
-    if past_dated_interview:
-        interview_details[company_name][interview_id]["past_dated"] = past_dated_interview
+    # if past_dated_interview:
+    #     interview_details[company_name][interview_id]["past_dated"] = past_dated_interview
 
-    interview_details[company_name][interview_id]["Date"] = cleanup_date_format(interview_date)
-    interview_details[company_name][interview_id]["Time"] = cleanup_time_format(interview_time)
+    # interview_details[company_name][interview_id]["Date"] = cleanup_date_format(interview_date)
+    # interview_details[company_name][interview_id]["Time"] = cleanup_time_format(interview_time)
 
-    # Lets cleaned up the display of 'Medium':
-    if medium == "google_chat":
-        interview_details[company_name][interview_id]["interview_medium"] = "Google Chat"
-    elif medium == "meet_jit_si":
-        interview_details[company_name][interview_id]["interview_medium"] = "Meet.Jit.Si"
-    elif medium == "other":
-        interview_details[company_name][interview_id]["interview_medium"] = other_medium
-    else: 
-        interview_details[company_name][interview_id]["interview_medium"] = medium.capitalize()
+    # # Lets cleaned up the display of 'Medium':
+    # if medium == "google_chat":
+    #     interview_details[company_name][interview_id]["interview_medium"] = "Google Chat"
+    # elif medium == "meet_jit_si":
+    #     interview_details[company_name][interview_id]["interview_medium"] = "Meet.Jit.Si"
+    # elif medium == "other":
+    #     interview_details[company_name][interview_id]["interview_medium"] = other_medium
+    # else: 
+    #     interview_details[company_name][interview_id]["interview_medium"] = medium.capitalize()
 
-    if interviewers == "Unknown at present":
-        interview_details[company_name][interview_id]["interviewers"] = None
+    # if interviewers == "Unknown at present":
+    #     interview_details[company_name][interview_id]["interviewers"] = None
 
-    return "Done"
+    # return "Done"
 
 
 def extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo): 
@@ -75,6 +76,7 @@ def extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo
         interview_details = None
     else: 
         interview_details = {}
+        interview_details["fields"] = {}
         for interview in all_interviews:
             interview_id = interview.interview_id
             application_id = interview.application_id
@@ -84,23 +86,23 @@ def extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo
             update_url = '/applications/{}/interview/{}/update_interview'.format(application_id, interview_id)
             other_medium = interview.other_medium
             
-            interview_details[company_name] = {} 
-            interview_details[company_name][interview_id] = {
-                "Date": interview.interview_date, 
-                "Time": interview.interview_time,
-                "Location": interview.location,
+            interview_details["fields"][interview_id] = {
+                "date": interview.interview_date, 
+                "time": interview.interview_time,
+                "company_name": company_name,
+                "location": interview.location,
                 "View_More": view_more_url, 
                 "status": interview.status,
                 "interview_type": interview.interview_type,
                 "interview_medium": interview.medium, 
+                "other_medium": interview.other_medium,
                 "contact_number": interview.contact_number,
                 "interviewers": interview.interviewer_names,
                 "past_dated": False, 
                 "update_url": update_url, 
                 "prepare_url": '/applications/{}/interview/{}/interview_preparation'.format(application_id, interview_id)
             }
-            cleanup_interview_details(interview_details, other_medium, company_name, interview_id)
-
+            cleanup_interview_fields(interview_details, interview_id)
 
     return interview_details
 
@@ -115,7 +117,6 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
     # Firstly: applications
     applications_today = applicationsRepo.grabTodaysApplicationCount(date_str, user_id)
     interviews_today = interviewsRepo.grabTodaysInterviewCount(date_str, user_id)
-    # all_interviews = interviewsRepo.grabAllInterviewsForUserID(user_id)
     all_interviews = interviewsRepo.grabUpcomingInterviewsByUserID(user_id)
     interview_details = extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo)
 
