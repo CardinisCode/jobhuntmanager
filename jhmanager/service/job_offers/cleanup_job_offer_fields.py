@@ -29,11 +29,3 @@ def cleanup_offer_response(offer_response):
     return updated_offer_response
 
 
-def cleanup_interview_stage(interview_stage): 
-    updated_interview_stage = ""
-    if interview_stage == 0:
-        updated_interview_stage = "No interview lined up yet."
-    else:
-        updated_interview_stage = "Interview #" + str(interview_stage) + "."
-    
-    return updated_interview_stage
