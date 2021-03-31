@@ -21,10 +21,12 @@ def cleanup_job_offer_details(job_offer_details):
 
     
 
-def display_job_offer(job_offer_id, jobOffersRepo, companyRepo):
+def display_job_offer(job_offer_id, jobOffersRepo, companyRepo, applicationsRepo):
     job_offer = jobOffersRepo.getJobOfferByJobOfferID(job_offer_id)
     company = companyRepo.getCompanyById(job_offer.company_id)
     application_id = job_offer.application_id
+    application = applicationsRepo.grabApplicationByID(application_id)
+
     update_url = '/applications/{}/job_offers/{}/update_job_offer'.format(application_id, job_offer_id)
     delete_url = '/applications/{}/job_offers/{}/delete_job_offer'.format(application_id, job_offer_id)
     company_profile_url = '/company/{}/view_company'.format(company.company_id)
@@ -47,4 +49,11 @@ def display_job_offer(job_offer_id, jobOffersRepo, companyRepo):
         "profile_url": company_profile_url,
     }
 
-    return render_template("view_job_offer.html", job_offer_details=job_offer_details, company_details=company_details)
+    application_details = {
+        "interview_stage": application.interview_stage, 
+        "job_description": application.job_description, 
+        "emp_type": application.employment_type,
+        "view_application": '/applications/{}'.format(application_id)
+    }
+
+    return render_template("view_job_offer.html", job_offer_details=job_offer_details, company_details=company_details, application_details=application_details)

@@ -416,7 +416,7 @@ def job_offer_form(application_id):
 @login_required
 def view_job_offer_details(application_id, job_offer_id):
     if request.method == "GET":
-        return display_job_offer(job_offer_id, jobOffersRepo, companyRepo)
+        return display_job_offer(job_offer_id, jobOffersRepo, companyRepo, applicationsRepo)
 
 
 @app.route('/applications/<int:application_id>/job_offers/<int:job_offer_id>/update_job_offer', methods=["GET", "POST"])
