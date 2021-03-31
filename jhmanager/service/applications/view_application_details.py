@@ -46,6 +46,7 @@ def grab_and_display_job_offers(application_id, jobOffersRepo, user_id, company_
         company_id = job_offer.company_id
         application_id = job_offer.application_id
         view_url = '/applications/{}/job_offers/{}'.format(application_id, job_offer_id)
+        update_url = '/applications/{}/job_offers/{}/update_job_offer'.format(application_id, job_offer_id)
         if company_id == company_details["fields"]["company_id"]:
             count += 1
             job_offers_details["details"][count] = {
@@ -56,7 +57,7 @@ def grab_and_display_job_offers(application_id, jobOffersRepo, user_id, company_
                 "starting_date": job_offer.starting_date, 
                 "job_role": job_offer.job_role, 
                 "perks_offered": job_offer.perks_offered,
-                "update_url": '/job_offer/{}/update_job_offer'.format(job_offer_id), 
+                "update_url": update_url, 
                 "view_url": view_url
             }
             cleanup_job_offers(job_offers_details, count)
