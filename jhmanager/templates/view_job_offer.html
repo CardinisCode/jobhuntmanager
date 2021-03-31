@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    View Application
+{% endblock %}
+
+{% block main %}
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <h1 class="text-center"> Job Offer </h1>
+
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-success border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <div class="grid_experiement full-grid-length">
+                <div class="grid_child"> 
+                    <h2 class="text-center"> Details </h2>
+                    <br/>
+                    <div class="form-row">
+                        <div class="col left-padding"> 
+                            <i class="fas fa-calendar-alt"></i><strong> Starting Date</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ display.starting_date }}
+                        </div>
+                    </div>
+                    <div class="form-row"> 
+                        <div class="col left-padding"> 
+                            <i class="fas fa-pencil-ruler"></i><strong> Job Role:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ display.job_role }}
+                        </div>
+                    </div>
+                    {% if display.salary %}
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <i class="fas fa-hand-holding-usd"></i> <strong> Salary on Offer:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ display.salary }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if display.perks_offered %}
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <i class="fas fa-bars"></i><strong> Perks / Extras:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ display.perks_offered }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="form-row"> 
+                        <div class="col left-padding"> 
+                            <strong> offer_response </strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ display.offer_response }}
+                        </div>
+                    </div>
+                    <div class="text-center link-button-margins"> 
+                        <a href={{ display.update_offer_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+                        <a href={{ display.delete_offer_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alignfull">
+            <div class="aligncenter"> 
+                <div class="text-center link-button-margins"> 
+                    <a href={{ display.company_profile_url }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Company Profile</i></a>
+                </div>
+            </div>
+        </div>
+    
+        
+{% endblock %}
