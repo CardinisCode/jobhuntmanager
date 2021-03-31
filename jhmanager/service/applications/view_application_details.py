@@ -27,7 +27,7 @@ def cleanup_job_offers(job_offers_details, count):
     job_offers_details["details"][count]["starting_date"] = start_date_str
 
 
-def grab_and_display_job_offers(jobOffersRepo, user_id, company_details, companyRepo):
+def grab_and_display_job_offers(application_id, jobOffersRepo, user_id, company_details, companyRepo):
     job_offers = jobOffersRepo.getJobOffersByUserId(user_id)
     if not job_offers: 
         return None
@@ -49,11 +49,12 @@ def grab_and_display_job_offers(jobOffersRepo, user_id, company_details, company
                 "starting_date": job_offer.starting_date, 
                 "job_role": job_offer.job_role, 
                 "perks_offered": job_offer.perks_offered,
-                "update_url": '/job_offer/{}/update_job_offer'.format(job_offer_id)
+                "update_url": '/job_offer/{}/update_job_offer'.format(job_offer_id), 
             }
             cleanup_job_offers(job_offers_details, count)
 
     job_offers_details["count"] = count
+    job_offers_details["add_job_offer"] = '/applications/{}/add_job_offer'.format(application_id)
  
     return job_offers_details
 
@@ -223,7 +224,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
             cleanup_interview_fields(interview_fields, count)
 
     interview_fields["interviews_count"] = count
-    job_offer_details = grab_and_display_job_offers(jobOffersRepo, user_id, company_details, companyRepo) 
+    job_offer_details = grab_and_display_job_offers(application_id, jobOffersRepo, user_id, company_details, companyRepo) 
 
     interview_fields["add_interview_url"] = '/applications/{}/add_interview'.format(application_id)
 

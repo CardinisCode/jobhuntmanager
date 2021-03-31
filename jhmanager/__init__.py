@@ -396,20 +396,37 @@ def interview_preparation(application_id, interview_id):
         return display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo, interviewsRepo)
 
 
-@app.route('/add_job_offer', methods=["GET", "POST"])
+@app.route('/applications/<int:application_id>/add_job_offer', methods=["GET", "POST"])
 @login_required
-def job_offer_form():
+def job_offer_form(application_id):
     user_id = session["user_id"]
     add_job_offer = AddJobOffer()
     if request.method == "GET":
-        return display_add_job_offer_form(user_id, add_job_offer, companyRepo)
+        return display_add_job_offer_form(application_id, user_id, add_job_offer, companyRepo)
 
     if request.method == "POST":
         if add_job_offer.validate_on_submit():
             return post_add_job_offer(user_id, add_job_offer, companyRepo, applicationsRepo, jobOffersRepo)
         else: 
             flash("Complete all fields.")
-            return display_add_job_offer_form(user_id, add_job_offer, companyRepo)
+            return display_add_job_offer_form(application_id, user_id, add_job_offer, companyRepo)
+
+
+
+# @app.route('/add_job_offer', methods=["GET", "POST"])
+# @login_required
+# def job_offer_form():
+#     user_id = session["user_id"]
+#     add_job_offer = AddJobOffer()
+#     if request.method == "GET":
+#         return display_add_job_offer_form(user_id, add_job_offer, companyRepo)
+
+#     if request.method == "POST":
+#         if add_job_offer.validate_on_submit():
+#             return post_add_job_offer(user_id, add_job_offer, companyRepo, applicationsRepo, jobOffersRepo)
+#         else: 
+#             flash("Complete all fields.")
+#             return display_add_job_offer_form(user_id, add_job_offer, companyRepo)
 
 
 @app.route('/job_offer/<int:job_offer_id>/view_job_offer', methods=["GET", "POST"])
