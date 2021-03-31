@@ -439,30 +439,16 @@ def update_job_offer_details(application_id, job_offer_id):
             return display_update_job_offer_form(application_id, user_id, job_offer_id, update_job_offer_form, job_offer, companyRepo)
 
 
-# @app.route('/job_offer/<int:job_offer_id>/update_job_offer', methods=["GET", "POST"])
-# @login_required
-# def update_job_offer_details(job_offer_id):
-#     user_id = session["user_id"]
-
-#     job_offer = jobOffersRepo.getJobOfferByJobOfferID(job_offer_id)
-#     update_job_offer_form = AddJobOffer(obj=job_offer)
-
-#     if request.method == "GET":
-#         return display_update_job_offer_form(user_id, job_offer_id, update_job_offer_form, job_offer, companyRepo)
-
-#     if request.method == "POST":
-#         if update_job_offer_form.validate_on_submit():
-#             return post_update_job_offer(job_offer_id, user_id, update_job_offer_form, jobOffersRepo)
-
-#         else: 
-#             flash("Complete all the fields.")
-#             return display_update_job_offer_form(user_id, job_offer_id, update_job_offer_form, job_offer, companyRepo)
-
-
-@app.route('/job_offer/<int:job_offer_id>/delete_job_offer')
+@app.route('/applications/<int:application_id>/job_offers/<int:job_offer_id>/delete_job_offer')
 @login_required
-def delete_job_offer_details(job_offer_id):
-    return delete_job_offer_from_db(job_offer_id, jobOffersRepo)    
+def delete_job_offer_details(application_id, job_offer_id):
+    return delete_job_offer_from_db(application_id, job_offer_id, jobOffersRepo)    
+
+
+# @app.route('/job_offer/<int:job_offer_id>/delete_job_offer')
+# @login_required
+# def delete_job_offer_details(job_offer_id):
+#     return delete_job_offer_from_db(job_offer_id, jobOffersRepo)    
 
 
 @app.route('/address_book')

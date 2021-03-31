@@ -24,8 +24,9 @@ def cleanup_job_offer_details(job_offer_details):
 def display_job_offer(job_offer_id, jobOffersRepo, companyRepo):
     job_offer = jobOffersRepo.getJobOfferByJobOfferID(job_offer_id)
     company = companyRepo.getCompanyById(job_offer.company_id)
-    update_url = '/job_offer/{}/update_job_offer'.format(job_offer_id)
-    delete_url = '/job_offer/{}/delete_job_offer'.format(job_offer_id)
+    application_id = job_offer.application_id
+    update_url = '/applications/{}/job_offers/{}/update_job_offer'.format(application_id, job_offer_id)
+    delete_url = '/applications/{}/job_offers/{}/delete_job_offer'.format(application_id, job_offer_id)
     company_profile_url = '/company/{}/view_company'.format(company.company_id)
 
     job_offer_details = {
