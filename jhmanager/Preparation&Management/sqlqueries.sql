@@ -570,3 +570,21 @@ BEGIN TRANSACTION;
 ALTER TABLE interviews ADD 'video_link' BLOB DEFAULT "N/A";
 COMMIT;
 
+
+BEGIN TRANSACTION;
+DROP TABLE job_offers;
+CREATE TABLE job_offers(
+    'job_offer_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    'user_id' INTEGER NOT NULL, 
+    'company_id' INTEGER NOT NULL, 
+    'application_id' INTEGER NOT NULL, 
+    'job_role' TEXT NOT NULL,
+    'starting_date' DATETIME NOT NULL, 
+    'salary_offered' TEXT NOT NULL,
+    'perks_offered' TEXT NOT NULL,
+    'offer_response' TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id), 
+    FOREIGN KEY (company_id) REFERENCES company (company_id),
+    FOREIGN KEY (application_id) REFERENCES job_applications (application_id)
+);
+COMMIT;

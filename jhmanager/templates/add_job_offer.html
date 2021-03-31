@@ -19,16 +19,16 @@
                 <h1 class="text-center"> Add Job Offer </h1>
                 <hr class="thick_border">
 
-                <div class="form-row">
+                <div class="form-row grid_experiement">
                     <div class="col grid_child-simple">
-                        <label class="wpforms-container-full .wpforms-form .wpforms-title field_title"><i class="fas fa-hand-pointer"></i> {{ add_job_offer.company_list.label }}</label>
-                        <select id="company_list" name="company_list"> 
-                            <option value="select_company" disabled> Select Company Name</option> 
-                            {% for company in add_job_offer.company_list.choices %}
-                                <option value={{ company[0] }}> {{ company[1] }}</option> 
-                            {% endfor%}
-                        </select>
+                        <h3 class="text-center">Company Name: </h3>
                     </div>
+                    <div class="col grid_child-simple">
+                        <h3 class="text-center">{{ details.company_name }} </h3>
+                    </div>
+                </div> 
+
+                <div class="form-row">
                     <div class="col grid_child-simple">
                         <label class="wpforms-container-full .wpforms-form .wpforms-title field_title"><i class="fas fa-pencil-ruler"></i> {{ add_job_offer.job_role.label }}</label>
                         {{ add_job_offer.job_role(class_="wpforms-container-full .wpforms-form .wpforms-description text_box") }}

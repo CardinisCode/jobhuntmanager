@@ -29,14 +29,19 @@ def cleanup_job_offers(job_offers_details, count):
 
 def grab_and_display_job_offers(application_id, jobOffersRepo, user_id, company_details, companyRepo):
     job_offers = jobOffersRepo.getJobOffersByUserId(user_id)
+
+    job_offers_details = {
+        "empty_table": True,
+        "add_job_offer": '/applications/{}/add_job_offer'.format(application_id), 
+    }
+
     if not job_offers: 
-        return None
+        return job_offers_details
 
     count = 0
-    job_offers_details = {
-        "details": {}
-    }
+    job_offers_details["details"] = {}
     for job_offer in job_offers:
+        job_offers_details["empty_table"] = False
         job_offer_id = job_offer.job_offer_id
         company_id = job_offer.company_id
         if company_id == company_details["fields"]["company_id"]:
@@ -54,7 +59,6 @@ def grab_and_display_job_offers(application_id, jobOffersRepo, user_id, company_
             cleanup_job_offers(job_offers_details, count)
 
     job_offers_details["count"] = count
-    job_offers_details["add_job_offer"] = '/applications/{}/add_job_offer'.format(application_id)
  
     return job_offers_details
 

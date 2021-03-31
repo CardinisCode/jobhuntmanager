@@ -159,7 +159,7 @@
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
             <h3 class="text-center"> Job Offers</h3>
-            {% if job_offer_details != None %}
+            {% if job_offer_details.empty_table != True %}
                 {% if job_offer_details.count == 1 %}
                     <div class="single_col_grid">
                         {% for job_offer_id, rows in job_offer_details.details.items() %}
@@ -201,7 +201,7 @@
                                 {% if rows.perks_offered %}
                                     <div class="form-row">
                                         <div class="col left-padding"> 
-                                            <i class="fas fa-hand-holding-usd"></i><strong> Perks Offered With The Role</strong>
+                                            <i class="fas fa-bars"></i><strong> Perks Offered With The Role</strong>
                                         </div>
                                         <div class="col right-padding"> 
                                             {{ rows.perks_offered }}
@@ -270,10 +270,9 @@
                     </div>
                 {% endif %}
             {% endif %}
-                <div class="text-center link-button-margins"> 
-                    <a href={{ job_offer_details.add_job_offer }} class="link_button_primary text-center"> Add Job Offer</a>
-                </div>
-
+            <div class="text-center link-button-margins"> 
+                <a href={{ job_offer_details.add_job_offer }} class="link_button_primary text-center"> Add Job Offer</a>
+            </div>
         </div>
     </div>
 

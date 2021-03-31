@@ -402,14 +402,14 @@ def job_offer_form(application_id):
     user_id = session["user_id"]
     add_job_offer = AddJobOffer()
     if request.method == "GET":
-        return display_add_job_offer_form(application_id, user_id, add_job_offer, companyRepo)
+        return display_add_job_offer_form(application_id, user_id, add_job_offer, companyRepo, applicationsRepo)
 
     if request.method == "POST":
         if add_job_offer.validate_on_submit():
-            return post_add_job_offer(user_id, add_job_offer, companyRepo, applicationsRepo, jobOffersRepo)
+            return post_add_job_offer(application_id, user_id, add_job_offer, companyRepo, applicationsRepo, jobOffersRepo)
         else: 
             flash("Complete all fields.")
-            return display_add_job_offer_form(application_id, user_id, add_job_offer, companyRepo)
+            return display_add_job_offer_form(application_id, user_id, add_job_offer, companyRepo, applicationsRepo)
 
 
 
