@@ -42,35 +42,6 @@ def extract_and_display_job_offers(job_offers, companyRepo):
     return (job_offer_details, offer_count)
 
 
-# def cleanup_interview_details(interview_details, other_medium, company_name, interview_id):
-    # medium = interview_details[company_name][interview_id]["interview_medium"]
-    # interviewers = interview_details[company_name][interview_id]["interviewers"]
-    # interview_date = interview_details[company_name][interview_id]["Date"]
-    # interview_time = interview_details[company_name][interview_id]["Time"]
-    # past_dated_interview = past_dated(interview_date, interview_time)
-
-    # if past_dated_interview:
-    #     interview_details[company_name][interview_id]["past_dated"] = past_dated_interview
-
-    # interview_details[company_name][interview_id]["Date"] = cleanup_date_format(interview_date)
-    # interview_details[company_name][interview_id]["Time"] = cleanup_time_format(interview_time)
-
-    # # Lets cleaned up the display of 'Medium':
-    # if medium == "google_chat":
-    #     interview_details[company_name][interview_id]["interview_medium"] = "Google Chat"
-    # elif medium == "meet_jit_si":
-    #     interview_details[company_name][interview_id]["interview_medium"] = "Meet.Jit.Si"
-    # elif medium == "other":
-    #     interview_details[company_name][interview_id]["interview_medium"] = other_medium
-    # else: 
-    #     interview_details[company_name][interview_id]["interview_medium"] = medium.capitalize()
-
-    # if interviewers == "Unknown at present":
-    #     interview_details[company_name][interview_id]["interviewers"] = None
-
-    # return "Done"
-
-
 def extract_and_display_interviews(all_interviews, applicationsRepo, companyRepo): 
     if not all_interviews: 
         interview_details = None
