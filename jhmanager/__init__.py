@@ -412,6 +412,12 @@ def job_offer_form(application_id):
             return display_add_job_offer_form(application_id, user_id, add_job_offer, companyRepo, applicationsRepo)
 
 
+@app.route('/applications/<int:application_id>/job_offers/<int:job_offer_id>', methods=["GET", "POST"])
+@login_required
+def view_job_offer_details(application_id, job_offer_id):
+    if request.method == "GET":
+        return display_job_offer(job_offer_id, jobOffersRepo, companyRepo)
+
 
 # @app.route('/add_job_offer', methods=["GET", "POST"])
 # @login_required
@@ -429,11 +435,11 @@ def job_offer_form(application_id):
 #             return display_add_job_offer_form(user_id, add_job_offer, companyRepo)
 
 
-@app.route('/job_offer/<int:job_offer_id>/view_job_offer', methods=["GET", "POST"])
-@login_required
-def view_job_offer_details(job_offer_id):
-    if request.method == "GET":
-        return display_job_offer(job_offer_id, jobOffersRepo, companyRepo)
+# @app.route('/job_offer/<int:job_offer_id>/view_job_offer', methods=["GET", "POST"])
+# @login_required
+# def view_job_offer_details(job_offer_id):
+#     if request.method == "GET":
+#         return display_job_offer(job_offer_id, jobOffersRepo, companyRepo)
 
 
 @app.route('/job_offer/<int:job_offer_id>/update_job_offer', methods=["GET", "POST"])

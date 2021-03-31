@@ -37,8 +37,9 @@ def extract_and_display_job_offers(job_offers, companyRepo):
         count_list.append(offer_count)
         job_offer_id = offer.job_offer_id
         company_id = offer.company_id
+        application_id = offer.application_id
         company_name = companyRepo.getCompanyById(company_id).name
-        view_offer_url = '/job_offer/{}/view_job_offer'.format(job_offer_id)
+        view_offer_url = '/applications/{}/job_offers/{}'.format(application_id, job_offer_id)
 
         job_offer_details[offer_count] = {
             "job_offer_id": job_offer_id,
