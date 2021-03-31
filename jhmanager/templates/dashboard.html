@@ -104,13 +104,9 @@
                             </div>         
                         {% endif %}
                         <br/>
-                        {% if fields.update_url %}
-                            <div class="text-center"> 
-                                <a href={{ fields.view_offer_url }} class="link_button"><i class="fas fa-eye"> View</i></a>
-                                <a href={{ fields.update_url }} class="link_button"><i class="fas fa-pencil-alt"> Update</i></a>
-                                <a href={{ fields.delete_url }} class="link_button"><i class="fas fa-trash"> Delete</i></a>
-                            </div>           
-                        {% endif %}
+                        <div class="text-center"> 
+                            <a href={{ fields.view_offer_url }} class="link_button"><i class="fas fa-eye"> View</i></a>
+                        </div>           
                         <br/>
                     </div>
                 {% endfor %}

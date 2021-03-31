@@ -28,7 +28,7 @@
                             <i class="fas fa-calendar-alt"></i><strong> Starting Date</strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ display.starting_date }}
+                            {{ job_offer_details.starting_date }}
                         </div>
                     </div>
                     <div class="form-row"> 
@@ -36,26 +36,26 @@
                             <i class="fas fa-pencil-ruler"></i><strong> Job Role:</strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ display.job_role }}
+                            {{ job_offer_details.job_role }}
                         </div>
                     </div>
-                    {% if display.salary %}
+                    {% if job_offer_details.salary %}
                         <div class="form-row"> 
                             <div class="col left-padding"> 
                                 <i class="fas fa-hand-holding-usd"></i> <strong> Salary on Offer:</strong>
                             </div>
                             <div class="col right-padding"> 
-                                {{ display.salary }}
+                                {{ job_offer_details.salary }}
                             </div>
                         </div>
                     {% endif %}
-                    {% if display.perks_offered %}
+                    {% if job_offer_details.perks_offered %}
                         <div class="form-row"> 
                             <div class="col left-padding"> 
                                 <i class="fas fa-bars"></i><strong> Perks / Extras:</strong>
                             </div>
                             <div class="col right-padding"> 
-                                {{ display.perks_offered }}
+                                {{ job_offer_details.perks_offered }}
                             </div>
                         </div>
                     {% endif %}
@@ -64,24 +64,53 @@
                             <strong> offer_response </strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ display.offer_response }}
+                            {{ job_offer_details.offer_response }}
                         </div>
                     </div>
                     <div class="text-center link-button-margins"> 
-                        <a href={{ display.update_offer_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
-                        <a href={{ display.delete_offer_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
+                        <a href={{ job_offer_details.update_offer_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+                        <a href={{ job_offer_details.delete_offer_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="alignfull">
-            <div class="aligncenter"> 
-                <div class="text-center link-button-margins"> 
-                    <a href={{ display.company_profile_url }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Company Profile</i></a>
+        <div class="alignfull background-colour">
+            <div class="aligncenter">  
+                <div class="grid_experiement extra-margins">
+                    <a href={{ company_details.profile_url }} class="link-cards">
+                        <h3 class="text-center"> Company Details</h3>
+                        <div class="form-row">
+                            <div class="col left-padding"> 
+                                <strong> Name:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ company_details.name }}
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <strong> Description:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ company_details.description }}
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <strong> Industry:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ company_details.industry }}
+                            </div>
+                        </div>
+                    </a>
+
                 </div>
             </div>
         </div>
-    
+
         
 {% endblock %}
