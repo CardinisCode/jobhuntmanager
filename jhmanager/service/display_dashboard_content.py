@@ -39,6 +39,7 @@ def extract_and_display_job_offers(job_offers, companyRepo):
         company_id = offer.company_id
         company_name = companyRepo.getCompanyById(company_id).name
         update_url = 'job_offer/{}/update_job_offer'.format(job_offer_id)
+        delete_url = '/job_offer/{}/delete_job_offer'.format(job_offer_id)
 
         job_offer_details[offer_count] = {
             "job_offer_id": job_offer_id,
@@ -48,7 +49,8 @@ def extract_and_display_job_offers(job_offers, companyRepo):
             "offer_response": offer.offer_response,
             "salary_offered": offer.salary_offered, 
             "perks_offered": offer.perks_offered, 
-            "update_url": update_url
+            "update_url": update_url,
+            "delete_url": delete_url
         }
         clean_up_job_offer_details(job_offer_details, offer_count)
 

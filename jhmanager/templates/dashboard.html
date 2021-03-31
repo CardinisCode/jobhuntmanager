@@ -106,7 +106,8 @@
                         <br/>
                         {% if fields.update_url %}
                             <div class="text-center"> 
-                                <a href={{ fields.update_url }} class="link_button"><i class="fas fa-pencil-alt"> Update</i> </a>
+                                <a href={{ fields.update_url }} class="link_button"><i class="fas fa-pencil-alt"> Update</i></a>
+                                <a href={{ fields.delete_url }} class="link_button"><i class="fas fa-trash"> Delete</i></a>
                             </div>           
                         {% endif %}
                         <br/>
@@ -193,7 +194,7 @@
                                         <a href={{ fields.prepare_url }} class="link_button"> <i class="fas fa-clipboard"> Prepare</i></a>
                                     {% endif %}
                                     <a href={{ fields.View_More }} class="link_button"><i class="fas fa-eye"> View More</i></a>
-                                    <a href={{ fields.update_url }} class="link_button"><i class="fas fa-pencil-alt"> Update Details</i></a>
+                                    <a href={{ fields.update_url }} class="link_button"><i class="fas fa-pencil-alt"> Update</i></a>
                                 </div>
                                 <br/>
                             {% endfor %}
