@@ -108,7 +108,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "salary" : application.salary,
         "platform": application.platform, 
         "interview_stage" : application.interview_stage,
-        "type" : application.employment_type, 
+        "emp_type" : application.employment_type, 
         "contact_Received?" : application.contact_received, 
         "job_url" : application.job_url,
     }

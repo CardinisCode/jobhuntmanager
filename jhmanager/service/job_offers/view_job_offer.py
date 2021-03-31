@@ -2,6 +2,7 @@ from flask import Flask, render_template, session, request, redirect, flash
 from jhmanager.service.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.job_offers.cleanup_job_offer_fields import cleanup_offer_response
 from jhmanager.service.applications.cleanup_app_fields import cleanup_interview_stage
+from jhmanager.service.applications.cleanup_app_fields import cleanup_application_details
 
 
 def cleanup_job_offer_details(job_offer_details):
@@ -10,28 +11,6 @@ def cleanup_job_offer_details(job_offer_details):
 
     offer_response = job_offer_details["offer_response"]
     job_offer_details["offer_response"] = cleanup_offer_response(offer_response)
-
-    
-def cleanup_app_details(application_details):
-    interview_stage = application_details["interview_stage"]
-    application_details["interview_stage"] = cleanup_interview_stage(interview_stage)
-
-    emp_type = application_details["emp_type"]
-    job_description = application_details["job_description"] 
-
-    if emp_type == "full_time":
-        application_details["emp_type"] = "Full Time"
-    elif emp_type == "part_time":
-        application_details["emp_type"] = "Part Time"
-    elif emp_type == "temp":
-        application_details["emp_type"] = "Temporary"
-    elif emp_type == "contract":
-        application_details["emp_type"] = "Contract"
-    else: 
-        application_details["emp_type"] = "Other"
-
-    if job_description == "N/A":
-        application_details["job_description"] = "None provided."
 
 
 def display_job_offer(job_offer_id, jobOffersRepo, companyRepo, applicationsRepo):
@@ -62,12 +41,15 @@ def display_job_offer(job_offer_id, jobOffersRepo, companyRepo, applicationsRepo
         "profile_url": company_profile_url,
     }
 
-    application_details = {
+    application_details = {}
+    application_details["fields"] = {
         "interview_stage": application.interview_stage, 
         "job_description": application.job_description, 
         "emp_type": application.employment_type,
+        "date": "N/A",
+        "time": "N/A", 
         "view_application": '/applications/{}'.format(application_id)
     }
-    cleanup_app_details(application_details)
+    cleanup_application_details(application_details)
 
     return render_template("view_job_offer.html", job_offer_details=job_offer_details, company_details=company_details, application_details=application_details)

@@ -107,14 +107,14 @@
                             </div>
                         </div>
                     </a>
-                    <a href={{ application_details.view_application }} class="link-cards">
+                    <a href={{ application_details.fields.view_application }} class="link-cards">
                         <h3 class="text-center"> Application Details</h3>
                         <div class="form-row">
                             <div class="col left-padding"> 
                                 <strong> Job Description:</strong>
                             </div>
                             <div class="col right-padding"> 
-                                {{ application_details.job_description }}
+                                {{ application_details.fields.job_description }}
                             </div>
                         </div>
                         <br/>
@@ -123,7 +123,7 @@
                                 <strong> Employment Type:</strong>
                             </div>
                             <div class="col right-padding"> 
-                                {{ application_details.emp_type }}
+                                {{ application_details.fields.emp_type }}
                             </div>
                         </div>
                         <br/>
@@ -132,7 +132,7 @@
                                 <strong> Interview Stage:</strong>
                             </div>
                             <div class="col right-padding"> 
-                                {{ application_details.interview_stage }}
+                                {{ application_details.fields.interview_stage }}
                             </div>
                         </div>
                     </a>

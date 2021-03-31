@@ -35,15 +35,20 @@ def cleanup_application_details(application_details):
         if value == "N/A":
             application_details["fields"][heading] = None
 
+    interview_stage = application_details["fields"]["interview_stage"]
+    application_details["fields"]["interview_stage"] = cleanup_interview_stage(interview_stage)
+
     time_posted = application_details["fields"]["time"]
-    time_obj = datetime.strptime(time_posted, '%H:%M')
-    application_details["fields"]["time"] = cleanup_time_format(time_obj)
+    if time_posted:
+        time_obj = datetime.strptime(time_posted, '%H:%M')
+        application_details["fields"]["time"] = cleanup_time_format(time_obj)
 
     date_posted = application_details["fields"]["date"]
-    date_obj = datetime.strptime(date_posted, "%Y-%m-%d")
-    application_details["fields"]["date"] = cleanup_date_format(date_obj)
+    if date_posted: 
+        date_obj = datetime.strptime(date_posted, "%Y-%m-%d")
+        application_details["fields"]["date"] = cleanup_date_format(date_obj)
 
-    emp_type = application_details["fields"]["type"]
+    emp_type = application_details["fields"]["emp_type"]
     application_details["fields"]["type"] = cleanup_emp_type_field(emp_type)
     
     
