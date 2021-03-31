@@ -331,14 +331,14 @@
                                         </div>
                                     </div>
                                 {% endif %}
-                                <div class="form-row">
-                                    <div class="col left-padding"> 
-                                        <strong> Past Dated</strong>
+                                {% if rows.past_dated %}
+                                    <br/>
+                                    <div class="form-row">
+                                        <div class="col text-center"> 
+                                            This is a past-dated interview! Update below:
+                                        </div>
                                     </div>
-                                    <div class="col right-padding"> 
-                                        {{ rows.past_dated }}
-                                    </div>
-                                </div>
+                                {% endif %}
                                 <div class="text-center link-button-margins"> 
                                     {% if rows.status == "Upcoming Interview" %}
                                         <a href={{ rows.prepare_url }} class="link_button"> <i class="fas fa-pencil-alt"> Prepare</i></a>
