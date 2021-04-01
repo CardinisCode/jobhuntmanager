@@ -8,7 +8,6 @@
     <div class="alignfull">
         <div class="aligncenter"> 
             <h1 class="text-center">  Notes </h1>
-            <hr class="thick_border">
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -25,7 +24,7 @@
             {% if app_notes_details.empty_table != True %}
                 <div class="three-col-grid extra-margins">
                     {% for entry_id, fields in app_notes_details.fields.items() %}
-                        <a href={{ fields.view_note_url }} class="link-cards">
+                        <a href={{ fields.view_note_url }} class="link-cards-alt-colour">
                             <h3 class="text-center"> {{ fields.description }}</i></h3>
                             <div class="form-row">
                                 <div class="col text-center"> 

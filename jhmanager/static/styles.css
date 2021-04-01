@@ -261,6 +261,13 @@ textarea {
   display: grid;
 }
 
+.grid_child-alt-colour {
+  border: 1px solid #dee2e6!important;
+  background: white;
+  padding: 12px 5px;
+  display: grid;
+}
+
 .form-grid_child{
   border: 1px solid #dee2e6!important;
   background: rgba(175, 238, 238, 0.2);
@@ -399,7 +406,20 @@ hr.thick_border {
   background: lightgrey;
 }
 
-.link_button:hover, .link-cards:hover{
+.link-cards-alt-colour {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 16px 12px;
+  text-decoration: none;
+  line-height: 1;
+  opacity: 1;
+  color: black;
+  border: 1px solid #dee2e6!important;
+  background: white;
+}
+
+.link_button:hover, .link-cards:hover, .link-cards-alt-colour:hover {
   color: white;
   background: linear-gradient(45deg, purple, indigo);
   text-decoration: none;
@@ -477,7 +497,8 @@ hr.thick_border {
 
 
 .background-colour {
-  background-color: rgba(203, 201, 214, 0.2);
+  /* background-color: rgba(203, 201, 214, 0.2); */
+  background: lightblue;
 }
 
 .alignfull {

@@ -28,6 +28,7 @@ def grab_and_display_job_offers(application_id, jobOffersRepo, user_id, company_
         application_id = job_offer.application_id
         view_url = '/applications/{}/job_offers/{}'.format(application_id, job_offer_id)
         update_url = '/applications/{}/job_offers/{}/update_job_offer'.format(application_id, job_offer_id)
+        delete_url = '/applications/{}/job_offers/{}/delete_job_offer'.format(application_id, job_offer_id)
         if company_id == company_details["fields"]["company_id"]:
             count += 1
             job_offers_details["details"][count] = {
@@ -39,7 +40,8 @@ def grab_and_display_job_offers(application_id, jobOffersRepo, user_id, company_
                 "job_role": job_offer.job_role, 
                 "perks_offered": job_offer.perks_offered,
                 "update_url": update_url, 
-                "view_url": view_url
+                "view_url": view_url, 
+                "delete_url": delete_url
             }
             cleanup_job_offer(job_offers_details, count)
 
@@ -57,6 +59,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
 
     application_details = {}
     application_details["fields"] = {
+        "app_id": application.app_id,
         "job_ref" : application.job_ref,
         "date": app_date, 
         "time": app_time, 
@@ -93,6 +96,8 @@ def display_application_details(session, user_id, applicationsRepo, application_
     company_details["fields"] = {
         "company_id": company_id,
         "company_name": company.name,
+        "description": company.description,
+        "website": company.url,
         "view_profile": '/company/{}/view_company'.format(company_id), 
     }
     company_details["update_url"] = '/company/{}/update_company'.format(company_id)

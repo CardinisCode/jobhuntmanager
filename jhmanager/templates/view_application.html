@@ -7,7 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="text-center"> {{ company_details.fields.company_name}} </h1>
+            <h1 class="text-center"> Application </h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -19,10 +19,18 @@
 
     <div class="alignfull">
         <div class="aligncenter"> 
-            <div class="grid_experiement full-grid-length">
+            <div class="single_col_grid">
                 <div class="grid_child"> 
-                    <h2 class="text-center"> Application Details </h2>
+                    <h2 class="text-center"> Details </h2>
                     <br/>
+                    <div class="form-row"> 
+                        <div class="col left-padding"> 
+                            <strong> Company Name:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ company_details.fields.company_name}}
+                        </div>
+                    </div>
                     <div class="form-row">
                         <div class="col left-padding"> 
                             <i class="fas fa-calendar-alt"></i><strong> Date Of Application:</strong>
@@ -49,24 +57,6 @@
                             {{ details.fields.job_role }}
                         </div>
                     </div>
-                    {% if details.fields.salary %}
-                        <div class="form-row"> 
-                            <div class="col left-padding"> 
-                                <i class="fas fa-hand-holding-usd"></i> <strong> Salary:</strong>
-                            </div>
-                            <div class="col right-padding"> 
-                                {{ details.fields.salary }}
-                            </div>
-                        </div>
-                    {% endif %}
-                    <div class="form-row"> 
-                        <div class="col left-padding"> 
-                            <strong> Employment Type:</strong>
-                        </div>
-                        <div class="col right-padding"> 
-                            {{ details.fields.type }}
-                        </div>
-                    </div>
                     {% if details.fields.description %}
                         <div class="form-row"> 
                             <div class="col left-padding"> 
@@ -87,16 +77,36 @@
                             </div>
                         </div>
                     {% endif %}
+                    <div class="form-row"> 
+                        <div class="col left-padding"> 
+                            <strong> Employment Type:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ details.fields.type }}
+                        </div>
+                    </div>
+                    {% if details.fields.salary %}
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <i class="fas fa-hand-holding-usd"></i> <strong> Salary:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.fields.salary }}
+                            </div>
+                        </div>
+                    {% endif %}
                     {% if details.fields.perks %}
                         <div class="form-row"> 
                             <div class="col left-padding"> 
-                                <i class="fas fa-bars"></i><strong> Perks / Extras:</strong>
+                                <i class="fas fa-hand-holding-usd"></i> <strong> Perks Offered:</strong>
                             </div>
                             <div class="col right-padding"> 
                                 {{ details.fields.perks }}
                             </div>
                         </div>
                     {% endif %}
+                    
+
                     {% if details.fields.platform %}
                         <div class="form-row"> 
                             <div class="col left-padding"> 
@@ -104,16 +114,6 @@
                             </div>
                             <div class="col right-padding"> 
                                 {{ details.fields.platform }}
-                            </div>
-                        </div>
-                    {% endif %}
-                    {% if details.fields.contact_Received %}
-                        <div class="form-row"> 
-                            <div class="col left-padding"> 
-                                <i class="fas fa-mobile-alt"></i><strong> Contact Received?</strong>
-                            </div>
-                            <div class="col right-padding"> 
-                                {{ details.fields.contact_Received }}
                             </div>
                         </div>
                     {% endif %}
@@ -136,6 +136,16 @@
                             </div>
                         </div>
                     {% endif %}
+                    {% if details.fields.contact_Received %}
+                        <div class="form-row"> 
+                            <div class="col left-padding"> 
+                                <i class="fas fa-mobile-alt"></i><strong> Contact Received?</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ details.fields.contact_Received }}
+                            </div>
+                        </div>
+                    {% endif %}
                     {% if details.fields.job_url != "http://..." %}
                         <div class="form-row"> 
                             <div class="col left-padding"> 
@@ -146,16 +156,17 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div class="text-center link-button-margins"> 
-                        <a href={{ details.update_application_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
-                        <a href={{ details.delete_application_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
-                        <a href={{ company_details.fields.view_profile }} class="link_button"> <i class="fas fa-eye"> View Company Profile</i></a>
-                    </div>
                 </div>
             </div>
         </div>
-
     </div>
+
+    <div class="text-center xxx-margins"> 
+        <a href={{ details.update_application_url }} class="link_button_primary"><i class="fas fa-pencil-alt"> Update Application</i></a>
+        <a href={{ details.delete_application_url }} class="link_button_primary"> <i class="fas fa-trash"> Delete Application</i></a>
+        <a href={{ company_details.fields.view_profile }} class="link_button_primary"> <i class="fas fa-eye"> View Company Profile</i></a>
+    </div>
+
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
             <h3 class="text-center"> Job Offers</h3>
@@ -163,7 +174,7 @@
                 {% if job_offer_details.count == 1 %}
                     <div class="single_col_grid">
                         {% for job_offer_id, rows in job_offer_details.details.items() %}
-                            <div class="grid_child"> 
+                            <div class="grid_child-alt-colour"> 
                                 <div class="form-row">
                                     <div class="col left-padding"> 
                                         <i class="fas fa-user-secret"></i><strong> Job Role</strong>
@@ -211,6 +222,7 @@
                                 <div class="text-center link-button-margins"> 
                                     <a href={{ rows.view_url }} class="link_button"><i class="fas fa-eye"> View</i></a>
                                     <a href={{ rows.update_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+                                    <a href={{ rows.delete_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
                                 </div>
                             </div>
                         {% endfor %}
@@ -296,7 +308,7 @@
                 {% if interview_fields.interviews_count == 1 %}
                     <div class="single_col_grid"> 
                         {% for interview_id, rows in interview_fields.fields.items() %}
-                            <div class="grid_child"> 
+                            <div class="grid_child-alt-colour"> 
                                 <div class="form-row">
                                     <div class="col left-padding"> 
                                         <i class="fas fa-calendar-alt"></i><strong> Date & Time</strong>
