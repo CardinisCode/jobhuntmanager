@@ -101,6 +101,7 @@ from jhmanager.service.address_book.view_address_book import display_address_boo
 
 from jhmanager.service.contacts_directory.view_contact_list import display_contacts_for_user
 from jhmanager.service.contacts_directory.add_new_contact import display_add_new_contact_form
+from jhmanager.service.contacts_directory.add_new_contact import post_add_new_contact
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -471,9 +472,18 @@ def view_contact_list():
 @app.route('/address_book/contact_list/add_contact', methods=["GET", "POST"])
 @login_required
 def add_contact():
+    user_id = session["user_id"]
     new_contact_form = AddNewContactForm()
     if request.method == "GET":
         return display_add_new_contact_form(new_contact_form)
+
+    if request.method == "POST":
+        if new_contact_form.validate_on_submit():
+            return post_add_new_contact(new_contact_form, user_id, contactRepo)
+
+        else: 
+            flash("Complete all the fields.")
+            return display_add_new_contact_form(new_contact_form)
 
 
 @app.route('/address_book/company_directory')

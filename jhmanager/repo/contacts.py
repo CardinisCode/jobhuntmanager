@@ -52,3 +52,5 @@ class ContactRepository:
             contact_list.append(contact_result)
 
         return contact_list
+
+    
