@@ -96,6 +96,8 @@ from jhmanager.service.display_all_notes import display_all_user_notes
 from jhmanager.service.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_datetime_display import cleanup_time_format
 
+from jhmanager.service.address_book.view_address_book import display_address_book
+
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
 from jhmanager.forms.register_form import RegisterUserForm
@@ -448,13 +450,19 @@ def delete_job_offer_details(application_id, job_offer_id):
 
 @app.route('/address_book')
 @login_required
-def display_address_book():
+def view_address_book():
     """ Display all business contacts to the user """
     user_id = session["user_id"]
+    return display_address_book(user_id, companyRepo)
+
+
+@app.route('/address_book/company_directory')
+@login_required
+def display_company_directory():
     return display_all_companies_for_user(user_id, companyRepo, applicationsRepo)
 
 
-@app.route('/add_company', methods=["GET", "POST"])
+@app.route('/address_book/add_company', methods=["GET", "POST"])
 @login_required
 def add_company():
     user_id = session["user_id"]

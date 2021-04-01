@@ -102,6 +102,29 @@ class CompanyRepository:
 
         return company_list
 
+    def getTop6CompaniesByUserID(self, user_id):
+        cursor = self.db.cursor()
+        command = """  
+        SELECT * FROM company
+        WHERE user_id = {}
+        ORDER BY name
+        LIMIT 6
+        """.format(user_id)
+
+        result = cursor.execute(command)
+        self.db.commit()
+
+        company_list = []
+
+        if not result: 
+            return None
+
+        for company in result:
+            company_result = Company(company)
+            company_list.append(company_result)
+
+        return company_list
+
     
     def updateByID(self, fields):
         cursor = self.db.cursor()

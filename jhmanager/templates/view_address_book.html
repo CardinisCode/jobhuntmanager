@@ -19,24 +19,33 @@
 
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
-            {% if general_details.empty_table %}
-                <p>  {{ general_details.message }}</a></p>
-            {% else %}
-                <div class="list-group align-items-center">
-                    <p class="list-group-item list-group-heading"><i class="fas fa-hand-pointer"></i> Select the Company Name </p>
-                    {% for fields in company_details.values() %}
-                        <a href={{ fields.view_more_url }} class="list-group-item list-group-item-action" name={{ fields.name }}> {{ fields.company_name }} </a>
+            <h2 class="card-headings"> Companies</h2>
+            {% if not display.empty_list %}
+                <div class="three-col-grid extra-margins">
+                    {% for company_id, company_details in company_details.fields.items() %}
+                        <a href={{ company_details.view_company }} class="link-cards-alt-colour">
+                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> {{ company_details.name }}</h3>
+                            <div class="card-content"> 
+                                <div class="form-row">
+                                    <div class="col"> 
+                                        <i class="fas fa-pencil-ruler"> {{ company_details.description }}</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     {% endfor %}
                 </div>
             {% endif %}
+            <div class="text-center xxx-margins"> 
+                <a href={{ display.add_company }} class="link_button_primary text-center"> <i class="fas fa-plus"> New Company</i></a>
+                <a href={{ display.company_directory }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Company Directory</i></a>
+            </div>
         </div>
     </div>
 
     <div class="alignfull">
         <div class="aligncenter"> 
-            <div class="text-center xxx-margins"> 
-                <a href={{ general_details.add_company_url }} class="link_button_primary text-center"> <i class="fas fa-plus"> New Company</i></a>
-            </div>
+
         </div>
     </div>
 

@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Address Book
+{% endblock %}
+
+{% block main %}
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <h1 class="text-center"> Company Directory:</h1>
+
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-success border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="alignfull background-colour">
+        <div class="aligncenter"> 
+            {% if general_details.empty_table %}
+                <p>  {{ general_details.message }}</a></p>
+            {% else %}
+                <div class="list-group align-items-center">
+                    <p class="list-group-item list-group-heading"><i class="fas fa-hand-pointer"></i> Select the Company Name </p>
+                    {% for fields in company_details.values() %}
+                        <a href={{ fields.view_more_url }} class="list-group-item list-group-item-action" name={{ fields.name }}> {{ fields.company_name }} </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <div class="text-center xxx-margins"> 
+                <a href={{ general_details.add_company_url }} class="link_button_primary text-center"> <i class="fas fa-plus"> New Company</i></a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

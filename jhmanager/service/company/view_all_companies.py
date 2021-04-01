@@ -8,7 +8,7 @@ def display_all_companies_for_user(user_id, companyRepo, applicationsRepo):
     general_details = {
         "empty_table": False, 
         "message": None, 
-        "add_company_url": '/add_company'
+        "add_company_url": '/address_book/add_company'
     }
 
     if not company_entries:
@@ -32,4 +32,4 @@ def display_all_companies_for_user(user_id, companyRepo, applicationsRepo):
             }
 
 
-    return render_template("view_address_book.html", general_details=general_details, company_details=company_details)
+    return render_template("view_all_companies.html", general_details=general_details, company_details=company_details)

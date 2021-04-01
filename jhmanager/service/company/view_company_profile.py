@@ -2,10 +2,7 @@ from flask import Flask, render_template, session, request, redirect, flash
 
 
 def cleanup_fields(company_details):
-    url = company_details["url"]["data"]
     contact_number = company_details["contact_number"]["data"]
-    if url == "N/A": 
-        company_details["url"]["data"] = None
 
     if contact_number == "Unknown at present":
         company_details["contact_number"]["data"] = None
@@ -32,10 +29,6 @@ def display_company_profile(company_id, applicationsRepo, companyRepo):
             "label": "Industry: ", 
             "data": company.industry            
         },
-        "url": {
-            "label": "Website: ", 
-            "data": company.url             
-        }, 
         "interviewers": {
             "label": "Interviewers: ", 
             "data": company.interviewers            
@@ -47,8 +40,13 @@ def display_company_profile(company_id, applicationsRepo, companyRepo):
     }
     cleanup_fields(company_details)
 
+    company_website = company.url
+    if company_website == "N/A" or company_website == "http://" or company_website == "https://":
+        company_website = None
+
     general_details = {
         "company_name": company.name, 
+        "company_website": company_website,
         "update_url": update_url, 
         "add_note_url": add_note_url,
         "view_notes_url": view_notes_url, 

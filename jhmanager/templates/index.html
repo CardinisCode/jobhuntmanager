@@ -5,13 +5,24 @@
 {% endblock %}
 
 {% block main %}
-    <h1> Welcome to Job Hunt Manager! </h1>
-    <hr/>
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <h1 class="text-center heading_margins"> Welcome to Job Hunt Manager! </h1>
 
-    {% if get_flashed_messages() %}
-        {% for message in get_flashed_messages() %}
-            <div class="flash alert alert-success border text-center">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-success border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+    </div>
+
+    <div class="alignfull background-colour"> 
+        <div class="aligncenter"> 
+            <h2 class="text-center heading_margins"> All your job Applications in 1 place </h2>
+            <img src="../static/images/applications_screenshot_2.jpg" alt="application_screenshot">
+        </div>
+    </div>
 
 {% endblock %}
