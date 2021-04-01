@@ -64,7 +64,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "date": app_date, 
         "time": app_time, 
         "job_role" : application.job_role, 
-        "description" : application.job_description,
+        "job_description" : application.job_description,
         "perks" : application.job_perks,
         "technology_stack" : application.tech_stack,
         "salary" : application.salary,

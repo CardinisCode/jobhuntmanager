@@ -56,13 +56,13 @@
                             {{ details.fields.job_role }}
                         </div>
                     </div>
-                    {% if details.fields.description %}
+                    {% if details.fields.job_description %}
                         <div class="form-row"> 
                             <div class="col left-padding"> 
                                 <i class="fas fa-bars"></i><strong> Job Description:</strong>
                             </div>
                             <div class="col right-padding"> 
-                                {{ details.fields.description }}
+                                {{ details.fields.job_description }}
                             </div>
                         </div>
                     {% endif %}
@@ -81,7 +81,7 @@
                             <strong> Employment Type:</strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ details.fields.type }}
+                            {{ details.fields.emp_type }}
                         </div>
                     </div>
                     {% if details.fields.salary %}

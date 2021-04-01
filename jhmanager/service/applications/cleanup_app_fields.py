@@ -49,8 +49,10 @@ def cleanup_application_details(application_details):
         application_details["fields"]["date"] = cleanup_date_format(date_obj)
 
     emp_type = application_details["fields"]["emp_type"]
-    application_details["fields"]["type"] = cleanup_emp_type_field(emp_type)
-    
-    
+    application_details["fields"]["emp_type"] = cleanup_emp_type_field(emp_type)
+
+    description = application_details["fields"]["job_description"]
+    if not description:
+        application_details["fields"]["job_description"] = "None provided."
 
 
