@@ -25,31 +25,24 @@
                 <div class="three-col-grid extra-margins">
                     {% for entry_id, fields in app_notes_details.fields.items() %}
                         <a href={{ fields.view_note_url }} class="link-cards-alt-colour">
-                            <h3 class="text-center"> {{ fields.description }}</i></h3>
-                            <div class="form-row">
-                                <div class="col text-center"> 
-                                    <i class="fas fa-calendar-alt"></i>
+                            <h3 class="card-headings"><i class="fas fa-heading"> {{ fields.description }}</i></h3>
+                            <div class="card-content"> 
+                                <div class="form-row">
+                                    <div class="col"> 
+                                        <i class="fas fa-calendar-alt"> {{ fields.entry_date }}</i>
+                                    </div>
                                 </div>
-                                <div class="col text-center"> 
-                                    {{ fields.entry_date }}
+                                <br/>
+                                <div class="form-row">
+                                    <div class="col"> 
+                                        <i class="fas fa-users"> {{ fields.company_name }}</i>
+                                    </div>
                                 </div>
-                            </div>
-                            <br/>
-                            <div class="form-row">
-                                <div class="col text-center"> 
-                                    <i class="fas fa-users"></i> 
-                                </div>
-                                <div class="col text-center"> 
-                                    {{ fields.company_name }}
-                                </div>
-                            </div>
-                            <br/>
-                            <div class="form-row">
-                                <div class="col text-center"> 
-                                    <i class="fas fa-pencil-ruler"></i>
-                                </div>
-                                <div class="col text-center"> 
-                                    {{ fields.job_role }}
+                                <br/>
+                                <div class="form-row">
+                                    <div class="col"> 
+                                        <i class="fas fa-pencil-ruler"> {{ fields.job_role }}</i>
+                                    </div>
                                 </div>
                             </div>
                         </a>
@@ -66,22 +59,18 @@
                 <div class="three-col-grid extra-margins">
                     {% for entry_id, fields in company_notes_details.fields.items() %}
                         <a href={{ fields.view_company_note_url }} class="link-cards">
-                            <h3 class="text-center">{{ fields.subject }}</h3>
-                            <div class="form-row">
-                                <div class="col text-center"> 
-                                    <i class="fas fa-calendar-alt"></i>
+                            <h3 class="card-headings"><i class="fas fa-heading"> {{ fields.subject }}</i></h3>
+                            <div class="card-content"> 
+                                <div class="form-row">
+                                    <div class="col"> 
+                                        <i class="fas fa-calendar-alt"> {{ fields.entry_date }} </i>
+                                    </div>
                                 </div>
-                                <div class="col text-center"> 
-                                    {{ fields.entry_date }} 
-                                </div>
-                            </div>
-                            <br/>
-                            <div class="form-row">
-                                <div class="col text-center"> 
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <div class="col text-center"> 
-                                    {{ fields.company_name }}
+                                <br/>
+                                <div class="form-row">
+                                    <div class="col"> 
+                                        <i class="fas fa-users"> {{ fields.company_name }}</i>
+                                    </div>
                                 </div>
                             </div>
                         </a>

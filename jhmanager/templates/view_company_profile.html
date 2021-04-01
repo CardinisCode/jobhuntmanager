@@ -17,11 +17,11 @@
         </div>
     </div>
 
-    <div class="alignfull background-colour">
+    <div class="alignfull">
         <div class="aligncenter"> 
-            <div class="grid_experiement full-grid-length">
+            <div class="full-grid-length">
                 <div class="grid_child"> 
-                    <h2 class="text-center extra-button-styles"> Company Profile </h2>
+                    <h2 class="text-center card-headings"> Company Profile </h2>
                     {% for fields in company_details.values() %}
                         {% if fields.data %}
                             <div class="form-row">
@@ -40,24 +40,18 @@
                     </div>
                 </div>
             </div>
+            <div class="text-center link-button-margins">
+                <a href={{ general_details.add_job_application_url}} class="link_button_primary text-center"> <i class="fas fa-plus"> Add Job Application For {{ general_details.company_name }}</i></a>
+            </div>
         </div>
     </div>
 
-    <div class="alignfull"> 
+    <div class="alignfull background-colour xxx-margins"> 
         <div class="aligncenter"> 
             <h3 class="text-center">Notes:</h3> 
             <div class="text-center link-button-margins">
                 <a href={{ general_details.add_note_url}} class="link_button_primary text-center"> <i class="fas fa-plus"> Add Note For {{ general_details.company_name }}</i></a>
                 <a href={{ general_details.view_notes_url}} class="link_button_primary text-center"> <i class="fas fa-plus"> View All Notes For {{ general_details.company_name }}</i></a>
-            </div>
-        </div>
-    </div>
-
-    <div class="alignfull background-colour">
-        <div class="aligncenter"> 
-            <h3 class="text-center">Job Applications</h3> 
-            <div class="text-center xxx-margins">
-                <a href={{ general_details.add_job_application_url}} class="link_button_primary text-center"> <i class="fas fa-plus"> Add Job Application For {{ general_details.company_name }}</i></a>
             </div>
         </div>
     </div>

@@ -7,7 +7,6 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="text-center"> {{ note_details.company_name }}</h1>
             
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -18,11 +17,19 @@
         </div>
     </div>
 
-    <div class="alignfull background-colour">
+    <div class="alignfull">
         <div class="aligncenter"> 
-            <div class="grid_experiement full-grid-length">
-                <div class="grid_child"> 
-                    <h2 class="text-center extra-margins"> Note Details </h2>
+            <h1 class="text-center"> Note Details</h1>
+            <div class="single_col_grid">
+                <div class="grid_child">
+                    <div class="form-row">
+                        <div class="col left-padding"> 
+                            <strong> Company Name:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ note_details.company_name }}
+                        </div>
+                    </div>
                     <div class="form-row">
                         <div class="col left-padding"> 
                             <i class="fas fa-calendar-alt"></i><strong> Date Posted:</strong>
@@ -33,7 +40,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col left-padding"> 
-                            <strong> Subject:</strong>
+                            <i class="fas fa-heading"></i><strong> Subject:</strong>
                         </div>
                         <div class="col right-padding"> 
                             {{ note_details.Subject }}
@@ -41,7 +48,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col left-padding"> 
-                            <strong> Note:</strong>
+                            <i class="fas fa-sticky-note"></i><strong> Note:</strong>
                         </div>
                         <div class="col right-padding"> 
                             {{ note_details.Note }}
@@ -56,7 +63,7 @@
         </div>
     </div>
 
-    <div class="alignfull">
+    <div class="alignfull background-colour">
         <div class="aligncenter"> 
             <div class="text-center xxx-margins"> 
                 <a href={{ general_details.view_application }} class="link_button_primary text-center"> <i class="fas fa-angle-double-left"> Go Back to Application Notes</i></a>

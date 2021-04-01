@@ -22,20 +22,14 @@
         <div class="aligncenter"> 
             <h2 class="text-center xxx-margins"> Notes History</h2>
             {% if not general_details.empty_table %}
-                <div class="four-col-grid extra-margins">
+                <div class="three-col-grid extra-margins">
                     {% for entry_id, note_fields in note_details.items() %}
-                        <a href={{ note_fields.View_More }} class="link_button"> 
-                            <h3 class="text-center"> <i class="fas fa-hashtag"> {{ note_fields.company_note_id }}</i></h3>
+                        <a href={{ note_fields.View_More }} class="link-cards-alt-colour"> 
+                            <h3 class="text-center"><i class="fas fa-heading"> {{ note_fields.subject }}</i></h3>
                             <br/>
                             <div class="form-row">
                                 <div class="col text-center"> 
                                     <i class="fas fa-calendar-alt"> {{ note_fields.entry_date }}</i>
-                                </div>
-                            </div>
-                            <br/>
-                            <div class="form-row">
-                                <div class="col text-center"> 
-                                    <i class="fas fa-heading"> {{ note_fields.subject }}</i>
                                 </div>
                             </div>
                             <br/>

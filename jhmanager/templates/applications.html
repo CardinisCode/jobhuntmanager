@@ -22,25 +22,15 @@
             <div class="three-col-grid extra-margins">
                 {% for application_id, application in display_details.fields.items() %}
                     <a href={{ application.view_more }} class="link-cards-alt-colour">
-                        <h3 class="text-center"> {{ application.company_name }}</h3>
-                        <div class="form-row">
-                            <div class="col left-padding"></i>
-                                <i class="fas fa-calendar-alt"></i>
+                        <h3 class="card-headings"> {{ application.company_name }}</h3>
+                        <div class="card-content"> 
+                            <div class="form-row">
+                                <div class="col"> 
+                                    <i class="fas fa-pencil-ruler"> {{ application.job_role }}</i>
+                                </div>
                             </div>
-                            <div class="col right-padding"></i>
-                                {{ application.app_date }}
-                            </div>
+                            <br/>
                         </div>
-                        <br/>
-                        <div class="form-row">
-                            <div class="col left-padding"> 
-                                <i class="fas fa-pencil-ruler"></i>
-                            </div>
-                            <div class="col right-padding"> 
-                                {{ application.job_role }}
-                            </div>
-                        </div>
-                        <br/>
                         <div class="form-row">
                             <div class="col text-center"> 
                                 {{ application.interview_stage }}

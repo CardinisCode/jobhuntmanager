@@ -262,7 +262,7 @@ textarea {
 }
 
 .grid_child-alt-colour {
-  border: 1px solid #dee2e6!important;
+  border: 1px solid lightgrey !important;
   background: white;
   padding: 12px 5px;
   display: grid;
@@ -403,7 +403,7 @@ hr.thick_border {
   opacity: 1;
   color: black;
   border: 1px solid #dee2e6!important;
-  background: lightgrey;
+  background: rgba(175, 238, 238, 0.2);
 }
 
 .link-cards-alt-colour {
@@ -415,7 +415,7 @@ hr.thick_border {
   line-height: 1;
   opacity: 1;
   color: black;
-  border: 1px solid #dee2e6!important;
+  border: 1px solid lightgrey !important;
   background: white;
 }
 
@@ -469,6 +469,18 @@ hr.thick_border {
   margin-bottom: 1rem;
 }
 
+.card-headings {
+  margin-top: 1rem;
+  margin-bottom: 2rem !important;
+  text-align: center !important;
+}
+
+.card-content {
+  text-align: left;
+  font-weight: bold;
+  padding: 1rem 4rem;
+}
+
 .table_link_button {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -498,7 +510,7 @@ hr.thick_border {
 
 .background-colour {
   /* background-color: rgba(203, 201, 214, 0.2); */
-  background: lightblue;
+  background: linear-gradient(45deg, ghostwhite, whitesmoke);
 }
 
 .alignfull {
