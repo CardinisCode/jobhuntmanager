@@ -588,3 +588,18 @@ CREATE TABLE job_offers(
     FOREIGN KEY (application_id) REFERENCES job_applications (application_id)
 );
 COMMIT;
+
+
+BEGIN TRANSACTION;
+CREATE TABLE indiv_contacts( 
+    'contact_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    'user_id' INTEGER NOT NULL, 
+    'full_name' TEXT NOT NULL,
+    'job_title' TEXT NOT NULL,
+    'contact_number' TEXT DEFAULT "N/A",
+    'company_name' TEXT DEFAULT "N/A",
+    'email_address' TEXT DEFAULT "N/A",
+    'linkedin_profile' TEXT DEFAULT "N/A",
+    FOREIGN KEY (user_id) REFERENCES users (user_id) 
+);
+COMMIT;

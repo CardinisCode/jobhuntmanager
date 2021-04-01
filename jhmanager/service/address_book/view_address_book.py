@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, flash
 
 
-def display_address_book(user_id, companyRepo):
+def display_address_book(user_id, companyRepo, contactRepo):
     display = {
         "company_directory": '/address_book/company_directory', 
         "add_company": '/address_book/add_company', 
@@ -24,6 +24,17 @@ def display_address_book(user_id, companyRepo):
                 "view_company": view_company
             }
 
-    return render_template("view_address_book.html", display=display, company_details=company_details)
+    contacts_list = contactRepo.getContactsByUserID(user_id)
+    contacts_details = {
+        "empty_list": True, 
+        "message": "No contacts to display", 
+        "view_contacts": '/address_book/contact_list'
+    }
+    if contacts_list:
+        contacts_details["fields"] = {}
+        contacts_details["empty_list"] = False
+        contacts_details["message"] = "There are contacts to display"
+
+    return render_template("view_address_book.html", display=display, company_details=company_details, contacts_details=contacts_details)
 
 

@@ -21,9 +21,6 @@ class CompanyRepository:
         self.sql = SqlDatabase(db=db)
         self.db = db
 
-    # def addColumnToTable(self, name, datatype):
-    #     ALTER TABLE users ADD date datetime;
-
     def create(self, fields):
         return self.sql.insert('company', fields)
 

@@ -32,4 +32,4 @@ def display_all_companies_for_user(user_id, companyRepo, applicationsRepo):
             }
 
 
-    return render_template("view_all_companies.html", general_details=general_details, company_details=company_details)
+    return render_template("view_company_directory.html", general_details=general_details, company_details=company_details)

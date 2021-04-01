@@ -26,6 +26,7 @@ from jhmanager.repo.user_notes import UserNotesRepository
 from jhmanager.repo.company_notes import CompanyNotesRepository
 from jhmanager.repo.job_offers_history import JobOffersRepository
 from jhmanager.repo.application_notes import ApplicationNotesRepository
+from jhmanager.repo.contacts import ContactRepository
 
 from jhmanager.service.users.register_user import display_register_form
 from jhmanager.service.users.register_user import post_register_user
@@ -98,6 +99,8 @@ from jhmanager.service.cleanup_datetime_display import cleanup_time_format
 
 from jhmanager.service.address_book.view_address_book import display_address_book
 
+from jhmanager.service.contacts_directory.view_contact_list import display_contacts_for_user
+
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
 from jhmanager.forms.register_form import RegisterUserForm
@@ -157,6 +160,7 @@ userNotesRepo = UserNotesRepository(db)
 companyNotesRepo = CompanyNotesRepository(db)
 jobOffersRepo = JobOffersRepository(db)
 appNotesRepo = ApplicationNotesRepository(db)
+contactRepo = ContactRepository(db)
 
 @app.route("/")
 def index():
@@ -453,12 +457,20 @@ def delete_job_offer_details(application_id, job_offer_id):
 def view_address_book():
     """ Display all business contacts to the user """
     user_id = session["user_id"]
-    return display_address_book(user_id, companyRepo)
+    return display_address_book(user_id, companyRepo, contactRepo)
+
+
+@app.route('/address_book/contact_list')
+@login_required
+def view_contact_list():
+    user_id = session["user_id"]
+    return display_contacts_for_user(user_id, contactRepo)
 
 
 @app.route('/address_book/company_directory')
 @login_required
 def display_company_directory():
+    user_id = session["user_id"]
     return display_all_companies_for_user(user_id, companyRepo, applicationsRepo)
 
 

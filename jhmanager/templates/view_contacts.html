@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Address Book
+{% endblock %}
+
+{% block main %}
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <h1 class="text-center"> Contacts Directory:</h1>
+
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-success border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="alignfull background-colour">
+        <div class="aligncenter"> 
+            {% if general_details.empty_table %}
+                {{ general_details.message }}
+            {% else %}
+                {{ general_details.message }}
+            {% endif %}
+            <div class="text-center xxx-margins"> 
+                Add Link here
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
