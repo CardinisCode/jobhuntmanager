@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add New Contact
+{% endblock %}
+
+{% block main %}
+    <div class="alignfull-form"> 
+        <div class="aligncenter"> 
+
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-danger border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        
+            <div class="form-grid full-grid-length">
+                <form action={{ details.action_url}} method="POST"> 
+                    {{ new_contact_form.csrf_token }}
+                    <div class="form-grid_child"> 
+                        <h2 class="text-center"> Add New Contact </h2>
+                        <hr class="thick_border"> 
+
+                        <div class="form-row">
+                            <div class="col grid_child-simple">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-user-alt"></i> {{ new_contact_form.full_name.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ new_contact_form.full_name}}</dd> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col grid_child-simple">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-pencil-ruler"></i> {{ new_contact_form.job_title.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ new_contact_form.job_title}}</dd> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col grid_child-simple">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-mobile-alt"></i> {{ new_contact_form.contact_number.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ new_contact_form.contact_number}}</dd> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col grid_child-simple">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-users"></i> {{ new_contact_form.company_name.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ new_contact_form.company_name}}</dd> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col grid_child-simple">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-at"></i> {{ new_contact_form.email_address.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ new_contact_form.email_address}}</dd> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col grid_child-simple">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <strong>in</strong> {{ new_contact_form.linkedin_profile.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ new_contact_form.linkedin_profile}}</dd> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col btn btn-lg">
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ new_contact_form.save_button }} </dd>
+                            </div>
+                        </div>
+
+                        {% for field in new_contact_form if field.name != "csrf_token" %}
+                            {% for error in field.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        {% endfor %}
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

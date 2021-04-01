@@ -148,17 +148,18 @@ textarea {
 
 #textarea {
   font-family: Arial;
-  font-size: 12pt;
+  font-size: 12pt !important;
   width:100%;
 }
 
-#password, #confirm_password, #email, #confirm_email, #username, #company_list {
+#password, #confirm_password, #email, #confirm_email, #username, #company_list, #email_address, #company_name, #linkedin_profile, #contact_number, #full_name, #job_title {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
   border: black;
   box-shadow: 0 3px 6px 0px rgba(0,0,0,0.23), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
+  font-size: 16pt;
 }
 
 .full-width-label {

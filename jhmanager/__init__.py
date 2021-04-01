@@ -100,6 +100,7 @@ from jhmanager.service.cleanup_datetime_display import cleanup_time_format
 from jhmanager.service.address_book.view_address_book import display_address_book
 
 from jhmanager.service.contacts_directory.view_contact_list import display_contacts_for_user
+from jhmanager.service.contacts_directory.add_new_contact import display_add_new_contact_form
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -117,6 +118,7 @@ from jhmanager.forms.add_job_offer_form import AddJobOffer
 from jhmanager.forms.warning_form import WarningForm
 from jhmanager.forms.add_company_job_app_form import AddCompanyJobApplicationForm
 from jhmanager.forms.delete_form import DeleteCompanyForm
+from jhmanager.forms.add_new_contact_form import AddNewContactForm
 
 
 # Configure application
@@ -465,6 +467,13 @@ def view_address_book():
 def view_contact_list():
     user_id = session["user_id"]
     return display_contacts_for_user(user_id, contactRepo)
+
+@app.route('/address_book/contact_list/add_contact', methods=["GET", "POST"])
+@login_required
+def add_contact():
+    new_contact_form = AddNewContactForm()
+    if request.method == "GET":
+        return display_add_new_contact_form(new_contact_form)
 
 
 @app.route('/address_book/company_directory')

@@ -28,7 +28,8 @@ def display_address_book(user_id, companyRepo, contactRepo):
     contacts_details = {
         "empty_list": True, 
         "message": "No contacts to display", 
-        "view_contacts": '/address_book/contact_list'
+        "view_contacts": '/address_book/contact_list',
+        "add_new_contact": '/address_book/contact_list/add_contact'
     }
     if contacts_list:
         contacts_details["fields"] = {}
