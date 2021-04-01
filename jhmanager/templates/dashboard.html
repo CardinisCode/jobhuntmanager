@@ -54,7 +54,7 @@
                 <div class="grid_experiement extra-margins">
                 {% for job_offer_id, fields in display.job_offer_details.details.items() %}
                     <a href={{ fields.view_offer_url }} class="link-cards-alt-colour">
-                        <h3 class="text-center"> {{ fields.company_name }}</h3>
+                        <i class="fas fa-hand-pointer"></i><h3 class="text-center"> {{ fields.company_name }}</h3>
                         <div class="form-row">
                             <div class="col left-padding"> 
                                 <i class="fas fa-calendar-alt"></i><strong> Starting Date:</strong>
@@ -107,6 +107,11 @@
                                 </div> 
                             </div>         
                         {% endif %}
+                        <div class="form-row">
+                            <div class="col view-more-styling"> 
+                                <i class="fas fa-hand-pointer"></i> Click to view Job Offer Details.
+                            </div>
+                        </div>
                     </a>
                 {% endfor %}
                 </div>
@@ -117,22 +122,23 @@
     {% endif %}
 
     {% if display.all_interviews != None and display.interview_details != None %}
-        <div class="alignfull"> 
+        <div class="alignfull xxx-margins"> 
             <div class="aligncenter"> 
-                <h2 class="text-center"> Upcoming Interviews </h2>
+                <h2 class="text-center heading_margins"> Upcoming Interviews </h2>
                 <br/>
-                <div class="grid_experiement xxx-margins"> 
+                <div class="grid_experiement"> 
                     {% for interview_id, interview_details in display.interview_details.fields.items() %}
-                        <div class="grid_child"> 
-                            <h4 class="text-center"> {{ interview_details.company_name }} </h4>
+                        <a href={{ interview_details.View_More }} class="link-cards">
+                            <i class="fas fa-hand-pointer"></i><h4 class="card-headings"> {{ interview_details.company_name }} </h4>
                             <div class="form-row">
                                 <div class="col left-padding"> 
-                                    <i class="fas fa-calendar-alt"> Date & Time:</i>
+                                    <i class="fas fa-calendar-alt"></i> Date & Time:</i>
                                 </div>
                                 <div class="col right-padding"> 
                                     {{ interview_details.date }} @ {{ interview_details.time }}
                                 </div>
                             </div>
+                            <br/>
                             <div class="form-row">
                                 {% if interview_details.interview_type == 'in_person' %}
                                     <div class="col left-padding"> 
@@ -150,13 +156,14 @@
                                     </div>
                                 {% else %}
                                     <div class="col left-padding"> 
-                                        <i class="fas fa-mobile-alt"></i> <strong> Contact Number:</strong> 
+                                        <i class="fas fa-mobile-alt"> Contact Number:</i>
                                     </div>
                                     <div class="col right-padding"> 
                                         {{ interview_details.contact_number }} 
                                     </div>
                                 {% endif %}
                             </div>
+                            <br/>
                             {% if interview_details.interviewers %}
                                 <div class="form-row">
                                     <div class="col left-padding"> 
@@ -169,26 +176,19 @@
                             {% else %}
                                 <div class="form-row"></div>
                             {% endif %}
+                            <br/>
                             {% if interview_details.past_dated %}
                                 <br/>
                                 <div class="form-row">
                                     <div class="col text-center"> 
-                                        This is a past-dated interview! Update below:
+                                        This is a past-dated interview!
                                     </div>
                                 </div>
                             {% else %}
                                 <div class="form-row"></div>
                             {% endif %}
                             <br/>
-                            <div class="text-center xxx-margins"> 
-                                {% if interview_details.past_dated == False %}
-                                    <a href={{ interview_details.prepare_url }} class="link_button"> <i class="fas fa-clipboard"> Prepare</i></a>
-                                {% endif %}
-                                <a href={{ interview_details.View_More }} class="link_button"><i class="fas fa-eye"> View More</i></a>
-                                <a href={{ interview_details.update_url }} class="link_button"><i class="fas fa-pencil-alt"> Update</i></a>
-                            </div>
-                            <br/>
-                        </div>
+                        </a>
                     {% endfor %}
                 </div>
             </div>

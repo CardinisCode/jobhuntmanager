@@ -25,7 +25,7 @@
                 <div class="three-col-grid extra-margins">
                     {% for entry_id, fields in app_notes_details.fields.items() %}
                         <a href={{ fields.view_note_url }} class="link-cards-alt-colour">
-                            <h3 class="card-headings"><i class="fas fa-heading"> {{ fields.description }}</i></h3>
+                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings"><i class="fas fa-heading"> {{ fields.description }}</i></h3>
                             <div class="card-content"> 
                                 <div class="form-row">
                                     <div class="col"> 
@@ -56,10 +56,10 @@
         <div class="alignfull">
             <div class="aligncenter"> 
                 <h2 class="text-center xxx-margins"> Company Notes</h2>
-                <div class="three-col-grid extra-margins">
+                <div class="three-col-grid xxx-margins">
                     {% for entry_id, fields in company_notes_details.fields.items() %}
                         <a href={{ fields.view_company_note_url }} class="link-cards">
-                            <h3 class="card-headings"><i class="fas fa-heading"> {{ fields.subject }}</i></h3>
+                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings"><i class="fas fa-heading"> {{ fields.subject }}</i></h3>
                             <div class="card-content"> 
                                 <div class="form-row">
                                     <div class="col"> 
