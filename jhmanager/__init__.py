@@ -104,6 +104,7 @@ from jhmanager.service.contacts_directory.add_new_contact import display_add_new
 from jhmanager.service.contacts_directory.add_new_contact import post_add_new_contact
 from jhmanager.service.contacts_directory.view_contact_details import display_contact_details
 from jhmanager.service.contacts_directory.update_contact import display_update_contact_form
+from jhmanager.service.contacts_directory.update_contact import post_update_contact
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -503,6 +504,14 @@ def update_contact(contact_id):
 
     if request.method == "GET":
         return display_update_contact_form(contact_id, update_contact_form)
+
+    if request.method == "POST":
+        if update_contact_form.validate_on_submit():
+            return post_update_contact(contact_id, user_id, update_contact_form, contactRepo)
+
+        else: 
+            flash("Complete all the fields.")
+            return display_update_contact_form(contact_id, update_contact_form)
 
 
 @app.route('/address_book/company_directory')

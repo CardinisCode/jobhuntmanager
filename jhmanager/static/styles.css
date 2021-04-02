@@ -384,15 +384,6 @@ hr.thick_border {
   padding: 1rem 4rem;
 }
 
-.contact-card-top {
-  text-align: center;
-  font-weight: bold;
-  background: rgba(175, 238, 238, 0.2);
-}
-
-.contact-card-bottom {
-  background: ghostwhite;
-}
 
 .link_button_primary:hover{
   color: indigo;

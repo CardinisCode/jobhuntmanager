@@ -67,4 +67,19 @@ class ContactRepository:
 
         return contact_details
 
-    
+    def updateByContactID(self, fields):
+        cursor = self.db.cursor()
+
+        command = """
+        UPDATE indiv_contacts 
+        SET full_name = ?,
+            job_title = ?,
+            contact_number = ?,
+            company_name = ?, 
+            email_address = ?, 
+            linkedin_profile = ?
+        WHERE contact_id = ?"""
+
+        cursor.execute(command, tuple(fields.values()))
+
+        self.db.commit()
