@@ -57,13 +57,12 @@
                             </div>
                         </div>
                     {% endif %}
-                    {% if contact_details.fields.linkedin_profile %}    
-                        <div class="form-row"> 
-                            <div class="col text-center"> 
-                                <a href={{ contact_details.fields.linkedin_profile }}> {in} {{ contact_details.fields.linkedin_profile }} </a>
-                            </div>
-                        </div>
-                    {% endif %}
+                    <div class="text-center link-button-margins"> 
+                        {% if contact_details.fields.linkedin_profile %}
+                            <a href={{ contact_details.fields.linkedin_profile }}> {in} {{ contact_details.fields.linkedin_profile }} </a>
+                        {% endif %}
+                        <a href={{ contact_details.fields.update_contact }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+                    </div>
                 </div>
             </div>
         </div>

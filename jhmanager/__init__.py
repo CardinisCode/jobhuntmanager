@@ -103,6 +103,7 @@ from jhmanager.service.contacts_directory.view_contact_list import display_conta
 from jhmanager.service.contacts_directory.add_new_contact import display_add_new_contact_form
 from jhmanager.service.contacts_directory.add_new_contact import post_add_new_contact
 from jhmanager.service.contacts_directory.view_contact_details import display_contact_details
+from jhmanager.service.contacts_directory.update_contact import display_update_contact_form
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -493,6 +494,15 @@ def view_contact_details(contact_id):
     return display_contact_details(contact_id, contactRepo)
 
 
+@app.route('/address_book/contact_list/<int:contact_id>/update_contact', methods=["GET", "POST"])
+@login_required
+def update_contact(contact_id):
+    user_id = session["user_id"]
+    contact = contactRepo.getContactByContactID(contact_id)
+    update_contact_form = AddNewContactForm(obj=contact)
+
+    if request.method == "GET":
+        return display_update_contact_form(contact_id, update_contact_form)
 
 
 @app.route('/address_book/company_directory')

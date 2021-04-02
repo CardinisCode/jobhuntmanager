@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Update Contact Details 
+{% endblock %}
+
+{% block main %}
+    <div class="alignfull-form"> 
+        <div class="aligncenter"> 
+
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-danger border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        
+            <div class="form-grid full-grid-length">
+                <form action={{ details.action_url}} method="POST"> 
+                    {{ update_contact_form.csrf_token }}
+                    <div class="form-grid_child"> 
+                        <h2 class="text-center"> Update Contact Details </h2>
+                        <hr class="thick_border"> 
+
+                        <div class="form-row">
+                            <div class="col grid_child-simple">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-user-alt"></i> {{ update_contact_form.full_name.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_contact_form.full_name}}</dd> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col grid_child-simple">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-pencil-ruler"></i> {{ update_contact_form.job_title.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_contact_form.job_title}}</dd> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col grid_child-simple">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-mobile-alt"></i> {{ update_contact_form.contact_number.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_contact_form.contact_number}}</dd> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col grid_child-simple">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-users"></i> {{ update_contact_form.company_name.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_contact_form.company_name}}</dd> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col grid_child-simple">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-at"></i> {{ update_contact_form.email_address.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_contact_form.email_address}}</dd> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col grid_child-simple">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <strong>in</strong> {{ update_contact_form.linkedin_profile.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_contact_form.linkedin_profile}}</dd> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col btn btn-lg">
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_contact_form.save_button }} </dd>
+                            </div>
+                        </div>
+
+                        {% for field in update_contact_form if field.name != "csrf_token" %}
+                            {% for error in field.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        {% endfor %}
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
