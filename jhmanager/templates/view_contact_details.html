@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    View Application
+    View Contact Details
 {% endblock %}
 
 {% block main %}
@@ -21,50 +21,45 @@
             <div class="single_col_grid">
                 <h1 class="card-headings"> {{ contact_details.fields.full_name }} </h1>
                 <div class="grid_child"> 
-                    <div class="form-row"> 
-                        <div class="col left-padding"> 
-                            <strong> Job Title:</strong>
+                    {% if contact_details.fields.job_title %} 
+                        <div class="form-row"> 
+                            <div class="col text-center"> 
+                                <i class="fas fa-pencil-ruler"> {{ contact_details.fields.job_title }}</i> 
+                            </div>
                         </div>
-                        <div class="col right-padding"> 
-                            {{ contact_details.fields.job_title }}
+                    {% else %}
+                        <div class="form-row"> 
+                            <div class="col text-center"> 
+                                <i class="fas fa-pencil-ruler"></i> 
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col left-padding"> 
-                            <strong> Company Name:</strong>
+                    {% endif %}
+                    {% if contact_details.fields.company_name %} 
+                        <div class="form-row">
+                            <div class="col text-center"> 
+                                <i class="fas fa-users"> {{ contact_details.fields.company_name }}</i>
+                            </div>
                         </div>
-                        <div class="col right-padding"> 
-                            {{ contact_details.fields.company_name }}
-                        </div>
-                    </div>
+                    {% endif %}
                     <hr>
                     {% if contact_details.fields.contact_number %}    
                         <div class="form-row"> 
-                            <div class="col left-padding"> 
-                                <i class="fas fa-mobile-alt"></i><strong> Contact Number:</strong>
-                            </div>
-                            <div class="col right-padding"> 
-                                {{ contact_details.fields.contact_number }} 
+                            <div class="col text-center"> 
+                                <i class="fas fa-mobile-alt"> {{ contact_details.fields.contact_number }} </i>
                             </div>
                         </div>
                     {% endif %}
                     {% if contact_details.fields.email_address %}    
                         <div class="form-row"> 
-                            <div class="col left-padding"> 
-                                <i class="fas fa-at"></i><strong> Email Address:</strong>
-                            </div>
-                            <div class="col right-padding"> 
-                                {{ contact_details.fields.email_address }} 
+                            <div class="col text-center"> 
+                                <i class="fas fa-at"> {{ contact_details.fields.email_address }} </i> 
                             </div>
                         </div>
                     {% endif %}
                     {% if contact_details.fields.linkedin_profile %}    
                         <div class="form-row"> 
-                            <div class="col left-padding"> 
-                                <strong> {in} Linkedin Profile:</strong>
-                            </div>
-                            <div class="col right-padding"> 
-                                <a href={{ contact_details.fields.linkedin_profile }}>{{ contact_details.fields.linkedin_profile }} </a>
+                            <div class="col text-center"> 
+                                <a href={{ contact_details.fields.linkedin_profile }}> {in} {{ contact_details.fields.linkedin_profile }} </a>
                             </div>
                         </div>
                     {% endif %}
