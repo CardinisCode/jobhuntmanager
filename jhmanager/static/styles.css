@@ -367,6 +367,32 @@ hr.thick_border {
   margin-top: 2rem;
 }
 
+.heading_margins {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-headings {
+  margin-top: 1rem;
+  margin-bottom: 2rem !important;
+  text-align: center !important;
+}
+
+.card-content {
+  text-align: left;
+  font-weight: bold;
+  padding: 1rem 4rem;
+}
+
+.contact-card-top {
+  text-align: center;
+  font-weight: bold;
+  background: rgba(175, 238, 238, 0.2);
+}
+
+.contact-card-bottom {
+  background: ghostwhite;
+}
 
 .link_button_primary:hover{
   color: indigo;
@@ -465,22 +491,7 @@ hr.thick_border {
   align-self: center !important;
 }
 
-.heading_margins {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
 
-.card-headings {
-  margin-top: 1rem;
-  margin-bottom: 2rem !important;
-  text-align: center !important;
-}
-
-.card-content {
-  text-align: left;
-  font-weight: bold;
-  padding: 1rem 4rem;
-}
 
 .table_link_button {
   -webkit-border-radius: 4px;
