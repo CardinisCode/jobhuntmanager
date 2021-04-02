@@ -49,47 +49,49 @@
             {% if not contacts_details.empty_list %}
                 <div class="four-col-grid xxx-margins">
                     {% for contact_id, contact in contacts_details.fields.items() %}
-                        <div class="grid_child"> 
-                            <div class="form-row">
-                                <div class="col text-center"> 
-                                    {{ contact.full_name }}
+                        <a href={{ contact.view_contact }} class="link-cards">
+                            <div class="card-content"> 
+                                <div class="form-row">
+                                    <div class="col text-center"> 
+                                        {{ contact.full_name }}
+                                    </div>
                                 </div>
+                                <div class="form-row">
+                                    <div class="col text-center"> 
+                                        {{ contact.job_title }}
+                                    </div>
+                                </div>
+                                {% if contact.company_name %}
+                                    <div class="form-row">
+                                        <div class="col text-center"> 
+                                            <i class="fas fa-users"> {{ contact.company_name }}</i>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <hr/>
+                                {% if contact.contact_number %}
+                                    <div class="form-row">
+                                        <div class="col text-center"> 
+                                            {{ contact.contact_number }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if contact.email_address %}
+                                    <div class="form-row">
+                                        <div class="col text-center"> 
+                                            {{ contact.email_address }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if contact.email_address %}
+                                    <div class="form-row">
+                                        <div class="col text-center"> 
+                                            <strong> in</strong> {{ contact.linkedin_profile }}
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </div>
-                            <div class="form-row">
-                                <div class="col text-center"> 
-                                    {{ contact.job_title }}
-                                </div>
-                            </div>
-                            {% if contact.company_name %}
-                                <div class="form-row">
-                                    <div class="col text-center"> 
-                                        <i class="fas fa-users"> {{ contact.company_name }}</i>
-                                    </div>
-                                </div>
-                            {% endif %}
-                            <hr/>
-                            {% if contact.contact_number %}
-                                <div class="form-row">
-                                    <div class="col text-center"> 
-                                        {{ contact.contact_number }}
-                                    </div>
-                                </div>
-                            {% endif %}
-                            {% if contact.email_address %}
-                                <div class="form-row">
-                                    <div class="col text-center"> 
-                                        {{ contact.email_address }}
-                                    </div>
-                                </div>
-                            {% endif %}
-                            {% if contact.email_address %}
-                                <div class="form-row">
-                                    <div class="col text-center"> 
-                                        <strong> in</strong> {{ contact.linkedin_profile }}
-                                    </div>
-                                </div>
-                            {% endif %}
-                        </div>
+                        </a>
                     {% endfor %}
                 </div>
             {% endif %}

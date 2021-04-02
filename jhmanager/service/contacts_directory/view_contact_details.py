@@ -7,7 +7,9 @@ def display_contact_details(contact_id, contactRepo):
 
     contact_details = {
         "empty_contact": True, 
-        "fields": None
+        "fields": None, 
+        "address_book": '/address_book', 
+        "contacts_list": '/address_book/contact_list'
     }
 
     if contact:
@@ -15,7 +17,7 @@ def display_contact_details(contact_id, contactRepo):
         contact_details["fields"] = {}
         contact_id = contact.contact_id
         company_name = contact.company_name
-        contact_details["fields"][contact_id] = {
+        contact_details["fields"] = {
             "full_name": contact.full_name, 
             "job_title": contact.job_title, 
             "contact_number": contact.contact_number, 
@@ -23,7 +25,7 @@ def display_contact_details(contact_id, contactRepo):
             "email_address": contact.email_address, 
             "linkedin_profile": contact.linkedin_profile
         }
-        cleanup_contact_details(contact_details, contact_id)
+        # cleanup_contact_details(contact_details, contact_id)
 
 
-    return None
+    return render_template("view_contact_details.html", contact_details=contact_details)

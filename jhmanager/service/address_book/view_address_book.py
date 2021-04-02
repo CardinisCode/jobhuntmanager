@@ -38,13 +38,15 @@ def display_address_book(user_id, companyRepo, contactRepo):
 
         for contact in contacts_list:
             contact_id = contact.contact_id
+            view_contact = '/address_book/contact_list/{}/view_contact'.format(contact_id)
             contacts_details["fields"][contact_id] = {
                 "full_name": contact.full_name, 
                 "job_title": contact.job_title,
                 "contact_number": contact.contact_number, 
                 "company_name": contact.company_name, 
                 "email_address": contact.email_address, 
-                "linkedin_profile": contact.linkedin_profile
+                "linkedin_profile": contact.linkedin_profile, 
+                "view_contact": view_contact
             }
             
 
