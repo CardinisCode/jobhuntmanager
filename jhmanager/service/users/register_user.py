@@ -34,4 +34,4 @@ def post_register_user(session, userRepo, register_form):
     session["user_id"] = registeration_confirmation
 
     flash('Registration Complete!')
-    return redirect("/")
+    return redirect("/dashboard")
