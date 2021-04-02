@@ -12,14 +12,21 @@ def cleanup_company_name(company_name):
     return company_name
 
 
+def cleanup_field_value(field_value):
+    if field_value:
+        field_value = (" ".join([x.capitalize() for x in field_value.split(' ')]))
+    return field_value
+
+
+
 def cleanup_contact_details(contact_details, contact_id):
     for heading, value in contact_details["fields"].items():
         if value == "N/A":
             contact_details["fields"][heading] = None
 
-    contact_details["fields"]["company_name"] = cleanup_company_name(contact_details["fields"]["company_name"])
+    contact_details["fields"]["company_name"] = cleanup_field_value(contact_details["fields"]["company_name"])
     contact_details["fields"]["full_name"] = cleanup_full_name(contact_details["fields"]["full_name"])
-    contact_details["fields"]["job_title"] = contact_details["fields"]["job_title"].capitalize()
+    contact_details["fields"]["job_title"] = cleanup_field_value(contact_details["fields"]["job_title"])
 
 
 

@@ -53,6 +53,29 @@ class ContactRepository:
 
         return contact_list
 
+    def getTop8ContactsByUserID(self, user_id):
+        cursor = self.db.cursor()
+        command = """  
+        SELECT * FROM indiv_contacts
+        WHERE user_id = {}
+        ORDER BY full_name
+        LIMIT 8
+        """.format(user_id)
+
+        result = cursor.execute(command)
+        self.db.commit()
+
+        contact_list = []
+
+        if not result: 
+            return None
+
+        for contact in result:
+            contact_result = Contact(contact)
+            contact_list.append(contact_result)
+
+        return contact_list
+
     def getContactByContactID(self, contact_id):
         cursor = self.db.cursor()
         command = "SELECT * FROM indiv_contacts WHERE contact_id = {}".format(contact_id)

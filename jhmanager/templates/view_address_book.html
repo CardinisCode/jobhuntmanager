@@ -21,13 +21,13 @@
         <div class="aligncenter"> 
             <h2 class="card-headings"> Companies</h2>
             {% if not display.empty_list %}
-                <div class="three-col-grid extra-margins">
+                <div class="four-col-grid extra-margins">
                     {% for company_id, company_details in company_details.fields.items() %}
                         <a href={{ company_details.view_company }} class="link-cards-alt-colour">
-                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> {{ company_details.name }}</h3>
+                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings"><i class="fas fa-users"></i> {{ company_details.name }}</h3>
                             <div class="card-content"> 
                                 <div class="form-row">
-                                    <div class="col"> 
+                                    <div class="col text-center"> 
                                         <i class="fas fa-pencil-ruler"> {{ company_details.description }}</i>
                                     </div>
                                 </div>
@@ -50,13 +50,14 @@
                 <div class="four-col-grid xxx-margins">
                     {% for contact_id, contact in contacts_details.fields.items() %}
                         <a href={{ contact.view_contact }} class="link-cards">
-                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> {{ contact.full_name }}</h3>
+                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings"><i class="fas fa-user-alt"></i> {{ contact.full_name }}</h3>
                             <div class="card-content"> 
                                 <div class="form-row">
                                     <div class="col text-center"> 
-                                        <i class="fas fa-pencil-ruler"> {{ contact.job_title }} </i>
+                                        <i class="fas fa-pencil-ruler"> {{ contact.job_title }}</i>
                                     </div>
                                 </div>
+                                <br/>
                                 {% if contact.company_name %}
                                     <div class="form-row">
                                         <div class="col text-center"> 

@@ -9,7 +9,7 @@ def display_address_book(user_id, companyRepo, contactRepo):
         "empty_list": True
     }
 
-    company_list = companyRepo.getTop6CompaniesByUserID(user_id)
+    company_list = companyRepo.getTop8CompaniesByUserID(user_id)
 
     company_details = {}
     if company_list:
@@ -25,7 +25,7 @@ def display_address_book(user_id, companyRepo, contactRepo):
                 "view_company": view_company
             }
 
-    contacts_list = contactRepo.getContactsByUserID(user_id)
+    contacts_list = contactRepo.getTop8ContactsByUserID(user_id)
     contacts_details = {
         "empty_list": True, 
         "message": "No contacts to display", 

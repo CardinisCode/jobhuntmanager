@@ -18,16 +18,40 @@
     </div>
 
     <div class="alignfull background-colour">
-        <div class="aligncenter"> 
-            {% if general_details.empty_table %}
-                {{ general_details.message }}
-            {% else %}
-                {{ general_details.message }}
+        <div class="aligncenter xxx-margins"> 
+            {% if not general_details.empty_list %}
+                <div class="five-col-grid xxx-margins">
+                    {% for contact_id, contact in contact_details.fields.items() %}
+                        <a href={{ contact.view_contact }} class="link-cards-alt-colour">
+                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings-alt"> {{ contact.full_name }}</h3>
+                            <div class="card-content-alt"> 
+                                <div class="form-row">
+                                    <div class="col text-center"> 
+                                        {{ contact.job_title }} </i>
+                                    </div>
+                                </div>
+                                {% if contact.company_name %}
+                                    <div class="form-row">
+                                        <div class="col text-center"> 
+                                            <i class="fas fa-users"> {{ contact.company_name }}</i>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
             {% endif %}
+        </div>
+    </div>
+
+    <div class="alignfull">
+        <div class="aligncenter xxx-margins"> 
             <div class="text-center xxx-margins"> 
-                Add Link here
+                <a href={{ general_details.add_new_contact }} class="link_button_primary"><i class="fas fa-plus"> Add New Contact</i></a>
             </div>
         </div>
     </div>
+
 
 {% endblock %}
