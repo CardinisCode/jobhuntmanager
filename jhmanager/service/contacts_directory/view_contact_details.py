@@ -25,7 +25,7 @@ def display_contact_details(contact_id, contactRepo):
             "email_address": contact.email_address, 
             "linkedin_profile": contact.linkedin_profile
         }
-        # cleanup_contact_details(contact_details, contact_id)
+        cleanup_contact_details(contact_details, contact_id)
 
 
     return render_template("view_contact_details.html", contact_details=contact_details)
