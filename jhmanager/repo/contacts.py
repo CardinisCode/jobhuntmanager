@@ -53,4 +53,18 @@ class ContactRepository:
 
         return contact_list
 
+    def getContactByContactID(self, contact_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM indiv_contacts WHERE contact_id = {}".format(contact_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        if not result:
+            return None
+
+        data = [x for x in result][0]
+        contact_details = Contact(data)
+
+        return contact_details
+
     

@@ -102,6 +102,7 @@ from jhmanager.service.address_book.view_address_book import display_address_boo
 from jhmanager.service.contacts_directory.view_contact_list import display_contacts_for_user
 from jhmanager.service.contacts_directory.add_new_contact import display_add_new_contact_form
 from jhmanager.service.contacts_directory.add_new_contact import post_add_new_contact
+from jhmanager.service.contacts_directory.view_contact_details import display_contact_details
 
 from jhmanager.forms.add_interview_form import AddInterviewForm
 from jhmanager.forms.add_application_form import AddApplicationForm
@@ -484,6 +485,14 @@ def add_contact():
         else: 
             flash("Complete all the fields.")
             return display_add_new_contact_form(new_contact_form)
+
+
+@app.route('/address_book/contact_list/<int:contact_id>/view_contact')
+@login_required
+def view_contact_details(contact_id):
+    return display_contact_details(contact_id, contactRepo)
+
+
 
 
 @app.route('/address_book/company_directory')

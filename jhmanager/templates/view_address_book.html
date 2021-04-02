@@ -46,10 +46,56 @@
     <div class="alignfull">
         <div class="aligncenter xxx-margins"> 
             <h2 class="card-headings"> Individual Contacts</h2>
-            
+            {% if not contacts_details.empty_list %}
+                <div class="four-col-grid xxx-margins">
+                    {% for contact_id, contact in contacts_details.fields.items() %}
+                        <div class="grid_child"> 
+                            <div class="form-row">
+                                <div class="col text-center"> 
+                                    {{ contact.full_name }}
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col text-center"> 
+                                    {{ contact.job_title }}
+                                </div>
+                            </div>
+                            {% if contact.company_name %}
+                                <div class="form-row">
+                                    <div class="col text-center"> 
+                                        <i class="fas fa-users"> {{ contact.company_name }}</i>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <hr/>
+                            {% if contact.contact_number %}
+                                <div class="form-row">
+                                    <div class="col text-center"> 
+                                        {{ contact.contact_number }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if contact.email_address %}
+                                <div class="form-row">
+                                    <div class="col text-center"> 
+                                        {{ contact.email_address }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if contact.email_address %}
+                                <div class="form-row">
+                                    <div class="col text-center"> 
+                                        <strong> in</strong> {{ contact.linkedin_profile }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <div class="text-center xxx-margins"> 
-                <a href={{ contacts_details.add_new_contact }} class="link_button_primary text-center"><i class="fas fa-plus"> Add New Contact</i></a>
-                <a href={{ contacts_details.view_contacts }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Contacts</i></a>
+                <a href={{ contacts_details.add_new_contact }} class="link_button_primary"><i class="fas fa-plus"> Add New Contact</i></a>
+                <a href={{ contacts_details.view_contacts }} class="link_button_primary"> <i class="fas fa-eye"> View Contacts</i></a>
             </div>
         </div>
     </div>
