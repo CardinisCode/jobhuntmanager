@@ -36,6 +36,18 @@ def display_address_book(user_id, companyRepo, contactRepo):
         contacts_details["empty_list"] = False
         contacts_details["message"] = "There are contacts to display"
 
+        for contact in contacts_list:
+            contact_id = contact.contact_id
+            contacts_details["fields"][contact_id] = {
+                "full_name": contact.full_name, 
+                "job_title": contact.job_title,
+                "contact_number": contact.contact_number, 
+                "company_name": contact.company_name, 
+                "email_address": contact.email_address, 
+                "linkedin_profile": contact.linkedin_profile
+            }
+            
+
     return render_template("view_address_book.html", display=display, company_details=company_details, contacts_details=contacts_details)
 
 
