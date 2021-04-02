@@ -83,3 +83,31 @@ class ContactRepository:
         cursor.execute(command, tuple(fields.values()))
 
         self.db.commit()
+
+    def deleteByContactID(self, contact_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM indiv_contacts WHERE contact_id = {}".format(contact_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Contact has been deleted successfully."
+
+        except sqlite3.Error as error:
+            message = "Contact has failed to delete. " + error
+        finally:
+            return message
+
+    def deleteByUserID(self, user_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM indiv_contacts WHERE user_id = {}".format(user_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Contact has been deleted successfully."
+
+        except sqlite3.Error as error:
+            message = "Contact has failed to delete. " + error
+        finally:
+            return message
