@@ -15,7 +15,7 @@ def display_add_interview(add_interview_form, application_id, applicationsRepo, 
     return render_template('add_interview.html', add_interview_form=add_interview_form, details=details)
 
 
-def InsertFieldsIntoInterviewHistory(user_id,interviewsRepo, application_id, interview_date, interview_time, interview_type, interview_location, video_medium, other_medium, contact_number, status, interviewers, video_link):
+def InsertFieldsIntoInterviewHistory(user_id,interviewsRepo, application_id, interview_date, interview_time, interview_type, interview_location, video_medium, other_medium, contact_number, status, interviewers, video_link, extra_notes):
     interview_type = interview_type.data
 
     interviewers = interviewers.data
@@ -46,6 +46,10 @@ def InsertFieldsIntoInterviewHistory(user_id,interviewsRepo, application_id, int
     if not video_link:
         video_link = "N/A"
 
+    extra_notes = extra_notes.data
+    if not extra_notes:
+        extra_notes = "N/A"
+
     # Lets grab the date & time provided by the user:
     interview_date = interview_date.data
     interview_time = interview_time.data
@@ -59,7 +63,7 @@ def InsertFieldsIntoInterviewHistory(user_id,interviewsRepo, application_id, int
     # application_id, interview_date, interview_time, interview_type, interview_location, video_medium, other_medium, contact_number, status, interviewers
 
     # Now let's insert our values into interview_history:
-    fields = (user_id, application_id, app_date_str, app_time_str, interview_type, location, medium, other_medium, contact_number, status, interviewers, video_link)
+    fields = (user_id, application_id, app_date_str, app_time_str, interview_type, location, medium, other_medium, contact_number, status, interviewers, video_link, extra_notes)
     interview_id = interviewsRepo.InsertNewInterviewDetails(fields)
 
     # If it gets here, the new interview has been successfully added to the repo.
@@ -121,6 +125,7 @@ def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo,
     contact_number = form.phone_call
     status = form.status
     video_link = form.video_link
+    extra_notes= form.extra_notes
 
     # I want to check if the interview  date & time are future dated or in the past. 
     # & if its a past-dated interview, we want the user to verify if they've had the interview or if it was cancelled.
@@ -131,7 +136,7 @@ def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo,
         return display_add_interview(form, application_id, applicationsRepo, companyRepo)
 
     # Add details to interview_history in SQL DB:
-    interview_id = InsertFieldsIntoInterviewHistory(user_id, interviewsRepo, application_id, interview_date, interview_time, interview_type, interview_location, video_medium, other_medium, contact_number, status, interviewers, video_link)
+    interview_id = InsertFieldsIntoInterviewHistory(user_id, interviewsRepo, application_id, interview_date, interview_time, interview_type, interview_location, video_medium, other_medium, contact_number, status, interviewers, video_link, extra_notes)
 
     update_interview_stage_in_applications_repo(interviewsRepo, application_id, applicationsRepo)
 

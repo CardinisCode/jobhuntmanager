@@ -19,6 +19,7 @@ class Interview:
         self.status = db_fields[10]
         self.interviewer_names = db_fields[11]
         self.video_link = db_fields[12]
+        self.extra_notes = db_fields[13]
 
 
 class InterviewsHistoryRepository:
@@ -40,7 +41,7 @@ class InterviewsHistoryRepository:
     def InsertNewInterviewDetails(self, arguments):
         cursor = self.db.cursor()
         # application_id, app_date_str, app_time_str, interview_type, location, medium, other_medium, contact_number, status, interviewers
-        command = "INSERT INTO interviews (user_id, application_id, date, time, interview_type, interview_location, interview_medium, other_medium, contact_number, status, interviewer_names, video_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        command = "INSERT INTO interviews (user_id, application_id, date, time, interview_type, interview_location, interview_medium, other_medium, contact_number, status, interviewer_names, video_link, extra_notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         result = cursor.execute(command, (arguments))
         self.db.commit()
 

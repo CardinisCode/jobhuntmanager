@@ -72,7 +72,6 @@ class AddInterviewForm(FlaskForm):
         render_kw={'placeholder': "The link for the interview, if applicable. EG: https://join.skype.com/..."},
     )
 
-
     phone_call = TelField(
         "Telephone Call: ", 
         [validators.optional()],
@@ -87,6 +86,12 @@ class AddInterviewForm(FlaskForm):
             ('post-poned', 'Interview has been post-poned')
         ], 
     default='upcoming',
+    )
+
+    extra_notes = TextAreaField(
+        "Extra Notes:", 
+        [validators.optional()], 
+        render_kw={'placeholder': "Extra notes for this interview. You may want to include your meeting ID & Password, where applicable."},
     )
 
     save_button = SubmitField("Save")

@@ -603,3 +603,8 @@ CREATE TABLE indiv_contacts(
     FOREIGN KEY (user_id) REFERENCES users (user_id) 
 );
 COMMIT;
+
+
+BEGIN TRANSACTION;
+ALTER TABLE interviews ADD 'extra_notes' BLOB DEFAULT "N/A";
+COMMIT;
