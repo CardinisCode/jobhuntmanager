@@ -32,6 +32,9 @@ def cleanup_interview_status(status):
 
 def cleanup_medium(medium, other_medium):
     # Lets cleaned up the display of 'Medium':
+    if other_medium == "N/A":
+        other_medium = "Not provided"
+        
     updated_medium = ""
     if medium == "google_chat":
         updated_medium = "Google Chat"
@@ -41,6 +44,8 @@ def cleanup_medium(medium, other_medium):
         updated_medium = other_medium
     else: 
         updated_medium = medium.capitalize()
+
+    return updated_medium
 
 
 def cleanup_interview_fields(interview_fields, interview_id):
@@ -71,3 +76,29 @@ def cleanup_interview_fields(interview_fields, interview_id):
     interview_fields["fields"][interview_id]["interview_medium"] = cleanup_medium(medium, other_medium)
 
 
+
+def cleanup_fields_for_single_interview(interview_details, other_medium):
+    # random_list = []
+    for heading, value in interview_details["fields"].items():
+        if value == "N/A":
+            interview_details["fields"][heading] = None
+
+    # I want to clean up a few fields to improve how they're displayed:
+    interview_type = interview_details["fields"]["interview_type"]
+    interview_medium = interview_details["fields"]["medium"]
+    interview_date = interview_details["fields"]["date"]
+    interview_time = interview_details["fields"]["time"]
+    contact_number = interview_details["fields"]["contact_number"]
+    video_link = interview_details["fields"]["video_link"]
+
+    interview_details["fields"]["medium"] = cleanup_medium(interview_medium, other_medium)
+    interview_details["fields"]["interview_type"] = cleanup_interview_type(interview_type)
+
+    interview_details["fields"]["time"] = cleanup_time_format(interview_time)
+    interview_details["fields"]["date"] = cleanup_date_format(interview_date)
+
+    if not contact_number:
+        interview_details["fields"]["contact_number"] = "Not Provided"
+
+    if not video_link:
+        interview_details["fields"]["video_link"] = "Not Provided"

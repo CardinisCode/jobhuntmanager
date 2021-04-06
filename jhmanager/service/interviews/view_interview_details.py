@@ -1,6 +1,9 @@
 from flask import Flask, render_template, session, request, redirect
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
+from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_type
+from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_medium
+from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_fields_for_single_interview
 from datetime import datetime, time
 
 
@@ -9,59 +12,6 @@ def add_company_details(details, company):
         "company_name" : company.name, 
         "view_company_url": '/company/{}/view_company'.format(company.company_id)
     }
-
-def cleanup_fields(details, other_medium):
-
-    # I want to clean up a few fields to improve how they're displayed:
-    interview_type = details["interview_fields"]["interview_type"]
-    interview_medium = details["interview_fields"]["medium"]
-    interviewer_names = details["interview_fields"]["interviewer_names"]
-    video_link = details["interview_fields"]["video_link"]
-    location = details["interview_fields"]["location"]
-    interview_time = details["interview_fields"]["time"]
-
-    if interviewer_names == "Unknown at present":
-        details["interview_fields"]["Interviewer Names"] = None
-
-    if interview_medium == "google_chat":
-        details["interview_fields"]["medium"] = "Google Chat"
-
-    elif interview_medium == "meet_jit_si":
-        details["interview_fields"]["medium"] = "Meet.Jit.Si"
-
-    elif interview_medium == "other":
-        details["interview_fields"]["medium"] = other_medium
-
-    else:
-        details["interview_fields"]["medium"] = interview_medium.capitalize()
-
-    if interview_type == "in_person":
-        details["interview_fields"]["interview_type"] = "In Person / On Site"
-
-    elif interview_type == "video_or_online":
-        details["interview_fields"]["interview_type"] = "Video / Online"
-
-    else:
-        details["interview_fields"]["interview_type"] = "Phone Call"
-
-    if video_link == "N/A":
-        details["interview_fields"]["video_link"] = None
-
-    if location == "N/A":
-        details["interview_fields"]["location"] = None
-
-    
-
-    interview_time_str = interview_time.strftime("%H")
-    # interview_time_obj = datetime.strptime(interview_time, '%H:%M')
-    hour_int = int(interview_time.strftime("%H"))
-    if hour_int >= 12:
-        interview_time_str += "pm"
-    else:
-        interview_time_str += "am"
-    details["interview_fields"]["time"] = interview_time_str
-
-    return True
 
 
 def display_interview_details(session, user_id, interviewsRepo, application_id, interview_id, applicationsRepo, companyRepo):
@@ -90,7 +40,9 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
     medium = interview.medium
     other_medium = interview.other_medium
 
-    details["interview_fields"] = { 
+    interview_details = {}
+    interview_details["fields"] = {
+        "interview_id": interview_id,
         "date": interview.interview_date,
         "time": interview.interview_time,
         "interview_type": interview.interview_type,
@@ -102,8 +54,7 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
         "contact_number": interview.contact_number
     }
 
-    cleanup_fields(details, other_medium)
+    cleanup_fields_for_single_interview(interview_details, other_medium)
     add_company_details(details, company)
 
-
-    return render_template("view_interview_details.html", details=details)
+    return render_template("view_interview_details.html", details=details, interview_details=interview_details)
