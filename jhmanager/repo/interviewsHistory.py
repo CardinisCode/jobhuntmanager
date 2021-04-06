@@ -148,7 +148,8 @@ class InterviewsHistoryRepository:
             other_medium = ?,
             contact_number = ?,
             status = ?, 
-            video_link = ?
+            video_link = ?, 
+            extra_notes = ?
         WHERE interview_id = ? AND application_id = ?"""
 
         cursor.execute(command, tuple(fields.values()))

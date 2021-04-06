@@ -38,6 +38,7 @@ def post_update_interview(update_interview_form, user_id, application_id, interv
         "phone_call" : update_interview_form.phone_call.data, 
         "status" : update_interview_form.status.data,
         "video_link": update_interview_form.video_link.data,
+        "extra_notes": update_interview_form.extra_notes.data,
         "interview_id": interview_id,
         "application_id": application_id,
     }    
