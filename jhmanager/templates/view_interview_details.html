@@ -31,6 +31,24 @@
                             {{ interview_details.fields.date }} @ {{ interview_details.fields.time }}
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="col left-padding"> 
+                            <i class="fas fa-exclamation"></i> <strong> Interview Status:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ interview_details.fields.status }}
+                        </div>
+                    </div>
+                    {% if interview_details.fields.interviewer_names %}
+                        <div class="form-row">
+                            <div class="col left-padding"> 
+                                <i class="fas fa-users"></i><strong> Interviewer/s' Names:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ interview_details.fields.interviewer_names }}
+                            </div>
+                        </div>
+                    {% endif %}
                     {% if interview_details.fields.interview_type == 'Video / Online' %}
                         <div class="form-row">
                             <div class="col left-padding"> 
@@ -60,24 +78,19 @@
                             </div>
                         </div>
                     {% endif %}
-                    {% if interview_details.fields.interviewer_names %}
+                    <br/>
+                    {% if interview_details.fields.extra_notes %}
                         <div class="form-row">
                             <div class="col left-padding"> 
-                                <i class="fas fa-users"></i><strong> Interviewer/s' Names:</strong>
+                                <i class="fas fa-sticky-note"></i><strong> Interview Notes</strong>
                             </div>
-                            <div class="col right-padding"> 
-                                {{ interview_details.fields.interviewer_names }}
+                        </div>
+                        <div class="form-row">
+                            <div class="col left-padding"> 
+                                {{ interview_details.fields.extra_notes }}
                             </div>
                         </div>
                     {% endif %}
-                    <div class="form-row">
-                        <div class="col left-padding"> 
-                            <i class="fas fa-exclamation"></i> <strong> Interview Status:</strong>
-                        </div>
-                        <div class="col right-padding"> 
-                            {{ interview_details.fields.status }}
-                        </div>
-                    </div>
                     {% if interview_details.fields.past_dated and interview_details.fields.status != "Done" %}
                         <div class="form-row">
                             <div class="col card-warning-message"> 
