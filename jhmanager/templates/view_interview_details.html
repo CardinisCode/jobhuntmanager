@@ -40,14 +40,6 @@
                                 {{ interview_details.fields.medium }}
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="col left-padding"> 
-                                <i class="fas fa-video"></i> <strong> Video Link</strong>
-                            </div>
-                            <div class="col right-padding"> 
-                                {{ interview_details.fields.video_link }}
-                            </div>
-                        </div>
                     {% elif interview_details.fields.interview_type == 'Phone Call' %}
                         <div class="form-row">
                             <div class="col left-padding"> 
@@ -97,6 +89,9 @@
                     <div class="text-center link-button-margins"> 
                         {% if interview_details.fields.status == 'Upcoming' %}
                             <a href={{ details.view_interview_prep_url }} class="link_button"><i class="fas fa-clipboard"> Prepare </i></a>
+                        {% endif %}
+                        {% if interview_details.fields.video_link and interview_details.fields.interview_type == 'Video / Online' %}
+                            <a href={{ interview_details.fields.video_link }} class="link_button"> <i class="fas fa-video"> Join Interview Meeting</i></a>
                         {% endif %}
                         <a href={{ details.update_url }} class="link_button" data-toggle="tooltip" data-placement="top" title="Update"> <i class="fas fa-pencil-alt"> Update</i></a>
                         <a href={{ details.delete_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
