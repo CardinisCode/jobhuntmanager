@@ -42,8 +42,6 @@ class InterviewPreparationRepository:
         
         return interview_prep_entry  
 
-
-
     def getAllInterviewPrepEntriesByInterviewId(self, interview_id, user_id):
         cursor = self.db.cursor()
         command = "SELECT * FROM interview_preparation WHERE interview_id = {} and user_id = {}".format(interview_id, user_id)
@@ -60,6 +58,25 @@ class InterviewPreparationRepository:
             interview_prep_entries_list.append(interview_prep_result)
 
         return interview_prep_entries_list
+
+    def updateByInterviewPrepID(self, fields):
+        output = None
+        try: 
+            cursor = self.db.cursor()
+            command = """
+            UPDATE interview_preparation
+            SET specific_question = ?,
+                specific_answer = ?
+            WHERE interview_prep_id = ?"""
+            cursor.execute(command, tuple(fields.values()))
+            self.db.commit()
+            output = True
+
+        except:
+            output = False
+        finally:
+            return output
+    
 
     def deleteByInterviewPrepID(self, interview_prep_id):
         message = ""

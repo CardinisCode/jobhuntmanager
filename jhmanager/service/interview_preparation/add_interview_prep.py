@@ -56,15 +56,15 @@ def display_interview_preparation_form(user_id, interview_prep_form, application
 
 
 def post_add_interview_preparation(user_id, application_id, interview_id, interview_prep_form, applicationsRepo, interviewPrepRepo):
-    question_data = interview_prep_form.interview_question.data
+    question_data = interview_prep_form.question
     answer_data = interview_prep_form.answer_text.data
 
     form_details = {
         "user_id": user_id,
         "application_id": application_id,
         "interview_id": interview_id,
-        "question_data": question_data, 
-        "answer_data": answer_data,
+        "question_data": interview_prep_form.question.data, 
+        "answer_data": interview_prep_form.answer.data,
     }
 
     interviewPrepRepo.addInterviewPrep(form_details)
