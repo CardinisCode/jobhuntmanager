@@ -52,7 +52,8 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
         "interviewer_names": interview.interviewer_names, 
         "video_link": interview.video_link, 
         "contact_number": interview.contact_number, 
-        "past_dated": False 
+        "past_dated": False, 
+        "display_video_link": False,
     }
 
     cleanup_fields_for_single_interview(interview_details, other_medium)

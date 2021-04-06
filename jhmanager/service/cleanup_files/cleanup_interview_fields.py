@@ -2,6 +2,7 @@ from flask import Flask, render_template, session, request, redirect, flash
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
 from jhmanager.service.cleanup_files.cleanup_datetime_display import past_dated
+from datetime import datetime, time
 
 
 def cleanup_interview_type(interview_type):
@@ -75,6 +76,22 @@ def cleanup_interview_fields(interview_fields, interview_id):
     other_medium = interview_fields["fields"][interview_id]["other_medium"]
     interview_fields["fields"][interview_id]["interview_medium"] = cleanup_medium(medium, other_medium)
 
+    # display_video_link = interview_fields["fields"][interview_id]["display_video_link"]
+    # if not interview_details["fields"]["past_dated"] and interview_details.fields.interview_type == 'Video / Online': 
+    #     # Now we can check if the interview matches the current date:
+    #     if check_interview_is_today(interview_date): 
+    #         # The interview is today, so we can display the link to the user:
+    #         interview_details["fields"]["display_video_link"] = True
+
+
+def check_interview_is_today(interview_date):
+    interview_is_today = False 
+    current_date = datetime.now().date()
+    if interview_date == current_date:
+        interview_is_today = True
+    
+    return interview_is_today
+
 
 
 def cleanup_fields_for_single_interview(interview_details, other_medium):
@@ -90,6 +107,7 @@ def cleanup_fields_for_single_interview(interview_details, other_medium):
     interview_time = interview_details["fields"]["time"]
     contact_number = interview_details["fields"]["contact_number"]
     video_link = interview_details["fields"]["video_link"]
+    display_video_link = interview_details["fields"]["display_video_link"]
 
     interview_details["fields"]["medium"] = cleanup_medium(interview_medium, other_medium)
     interview_details["fields"]["interview_type"] = cleanup_interview_type(interview_type)
@@ -103,3 +121,10 @@ def cleanup_fields_for_single_interview(interview_details, other_medium):
 
     if not video_link:
         interview_details["fields"]["video_link"] = "Not Provided"
+
+    if not interview_details["fields"]["past_dated"] and interview_details["fields"]["interview_type"] == 'Video / Online': 
+        # Now we can check if the interview matches the current date and the user actually provided a video link:
+        if check_interview_is_today(interview_date) and interview_details["fields"]["video_link"]: 
+            # The interview is today, so we can display the link to the user:
+            interview_details["fields"]["display_video_link"] = True
+
