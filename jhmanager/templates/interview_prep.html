@@ -63,7 +63,7 @@
         </div>
     </div>
 
-    <div class="alignfull">
+    <div class="alignfull background-colour">
         <div class="aligncenter"> 
             <h2 class="text-center link-button-margins"> Research </h2>
             <p class="text-center"> Not sure where to start? Here are a few links you may find interesting to get you started:</p>
@@ -122,22 +122,21 @@
     </div>
 
     {% if interview_prep_details != None %}
-        <div class="alignfull">
+        <div class="alignfull background-colour">
             <div class="aligncenter"> 
                 <h2 class="text-center"> View Interview Prep</h2>
                 <div class="single_col_grid"> 
                     {% for prep_id, values in interview_prep_details.items() %}
-                        <div class="grid_child"> 
+                        <div class="grid_child-alt-colour">
+                            <h4 class="card-headings"> #{{ values.question_number }}: {{ values.Question }}</h4>
                             <div class="form-row">
                                 <div class="col left-padding"> 
-                                    <strong> #{{ values.question_number }}: {{ values.Question }} </strong>
-                                </div>
-                                <div class="col right-padding"> 
                                     {{ values.Answer }} 
                                 </div>
                             </div>
                             <div class="text-center link-button-margins"> 
-                                <a href={{ values.delete_prep_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>  
+                                <a href={{ values.update_prep_entry }} class="link_button"><i class="fas fa-pencil-alt"> Update</i></a>
+                                <a href={{ values.delete_prep_entry }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>  
                             </div>
                         </div>
                     {% endfor %}
@@ -145,16 +144,16 @@
                 </div>
             </div>
         </div>
-        <div class="alignfull background-colour">
+        <div class="alignfull">
             <div class="aligncenter"> 
-                <div class="text-center link-button-margins"> 
+                <div class="text-center xxx-margins"> 
                     <a href={{ details.return_to_interview }} class="link_button_primary text-center"> <i class="fas fa-angle-left"> Go back to Interview</i></a>
                     <a href={{ details.return_to_application }} class="link_button_primary text-center"> <i class="fas fa-angle-double-left"> Go back to Application</i></a>
                 </div>
             </div>
         </div>
     {% else %}
-        <div class="alignfull">
+        <div class="alignfull background-colour">
             <div class="aligncenter"> 
                 <div class="text-center xxx-margins"> 
                     <a href={{ details.return_to_interview }} class="link_button_primary text-center"> <i class="fas fa-angle-left"> Go back to Interview</i></a>

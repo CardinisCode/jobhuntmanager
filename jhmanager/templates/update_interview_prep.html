@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Update Interview Preparation Details
+{% endblock %}
+
+{% block main %}
+    <div class="alignfull"> 
+        <div class="aligncenter"> 
+            
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-danger border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="form-grid full-grid-length">
+                <form action={{ details.action_url }} method="POST">
+                    {{ update_interview_prep_form.csrf_token }}
+                    <div class="form-grid_child">  
+                        <h2 class="text-center"> Update Interview Preparation:</h2>
+                        <hr class="thick_border"> 
+                        <div class="form-row">
+                            <div class="col text-center">
+                                <dt class=".wpforms-title"> Example Question:</dt>
+                                <dd class=".wpforms-description text_box">Tell me about yourself? </dd> 
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="form-row">
+                            <div class="col">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_interview_prep_form.interview_question.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_interview_prep_form.interview_question }} </dd> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_interview_prep_form.answer_text.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_interview_prep_form.answer_text }} </dd> 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col btn btn-lg">
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_interview_prep_form.save_button }} </dd>
+                            </div>
+                        </div>
+                        {% for field in update_interview_prep_form if field.name != "csrf_token" %}
+                            {% for error in field.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

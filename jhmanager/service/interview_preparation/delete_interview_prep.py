@@ -7,6 +7,6 @@ def delete_interview_prep_details(application_id, interview_id, interview_prep_i
 
     interviewPrepRepo.deleteByInterviewPrepID(interview_prep_id)
 
-    redirect_url = '/applications/{}/interview/{}'.format(application_id, interview_id)
+    redirect_url = '/applications/{}/interview/{}/interview_preparation'.format(application_id, interview_id)
     flash("Interview preparation for subject: {} has been deleted.".format(subject))
     return redirect(redirect_url)
