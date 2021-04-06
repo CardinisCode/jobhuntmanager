@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session, request, redirect, flash
-from jhmanager.service.address_book.cleanup_addressbook_values import cleanup_contact_fields
+from jhmanager.service.cleanup_files.cleanup_addressbook_values import cleanup_contact_fields
 
 
 def display_contacts_for_user(user_id, contactRepo):

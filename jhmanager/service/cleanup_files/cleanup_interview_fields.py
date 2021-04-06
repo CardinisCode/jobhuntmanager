@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, flash
-from jhmanager.service.cleanup_datetime_display import cleanup_date_format
-from jhmanager.service.cleanup_datetime_display import cleanup_time_format
-from jhmanager.service.cleanup_datetime_display import past_dated
+from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
+from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
+from jhmanager.service.cleanup_files.cleanup_datetime_display import past_dated
 
 
 def cleanup_interview_type(interview_type):

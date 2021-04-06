@@ -1,6 +1,6 @@
 from flask import Flask, render_template, session, request, redirect
 from datetime import datetime, time
-from jhmanager.service.cleanup_datetime_display import cleanup_date_format
+from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 
 
 def update_grid_size(display_details):

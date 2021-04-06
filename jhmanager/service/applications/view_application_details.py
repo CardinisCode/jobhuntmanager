@@ -1,11 +1,11 @@
 from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime, time
-from jhmanager.service.cleanup_datetime_display import cleanup_time_format
-from jhmanager.service.cleanup_datetime_display import cleanup_date_format
-from jhmanager.service.cleanup_datetime_display import past_dated
-from jhmanager.service.job_offers.cleanup_job_offer_fields import cleanup_job_offer
-from jhmanager.service.applications.cleanup_app_fields import cleanup_application_details
-from jhmanager.service.interviews.cleanup_interview_fields import cleanup_interview_fields
+from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
+from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
+from jhmanager.service.cleanup_files.cleanup_datetime_display import past_dated
+from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_job_offer
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_application_details
+from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_fields
     
 
 def grab_and_display_job_offers(application_id, jobOffersRepo, user_id, company_details, companyRepo):

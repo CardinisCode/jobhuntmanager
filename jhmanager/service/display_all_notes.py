@@ -1,6 +1,6 @@
 from flask import Flask, render_template, session, request, redirect
 from datetime import datetime, date
-from jhmanager.service.cleanup_datetime_display import cleanup_date_format
+from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 
 
 def cleanup_app_notes(app_notes_details, entry_id):

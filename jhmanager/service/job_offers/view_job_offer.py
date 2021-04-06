@@ -1,8 +1,8 @@
 from flask import Flask, render_template, session, request, redirect, flash
-from jhmanager.service.cleanup_datetime_display import cleanup_date_format
-from jhmanager.service.job_offers.cleanup_job_offer_fields import cleanup_offer_response
-from jhmanager.service.applications.cleanup_app_fields import cleanup_interview_stage
-from jhmanager.service.applications.cleanup_app_fields import cleanup_application_details
+from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
+from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_offer_response
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_interview_stage
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_application_details
 
 
 def cleanup_job_offer_details(job_offer_details):

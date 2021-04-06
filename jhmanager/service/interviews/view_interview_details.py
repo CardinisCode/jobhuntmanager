@@ -1,4 +1,6 @@
 from flask import Flask, render_template, session, request, redirect
+from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
+from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
 from datetime import datetime, time
 
 
@@ -47,6 +49,8 @@ def cleanup_fields(details, other_medium):
 
     if location == "N/A":
         details["interview_fields"]["location"] = None
+
+    
 
     interview_time_str = interview_time.strftime("%H")
     # interview_time_obj = datetime.strptime(interview_time, '%H:%M')

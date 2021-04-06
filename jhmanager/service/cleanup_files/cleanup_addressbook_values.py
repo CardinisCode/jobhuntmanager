@@ -1,6 +1,6 @@
 from flask import Flask, render_template, session, request, redirect, flash
-from jhmanager.service.contacts_directory.cleanup_contact import cleanup_full_name
-from jhmanager.service.contacts_directory.cleanup_contact import cleanup_field_value
+from jhmanager.service.cleanup_files.cleanup_contact import cleanup_full_name
+from jhmanager.service.cleanup_files.cleanup_contact import cleanup_field_value
 
 
 
