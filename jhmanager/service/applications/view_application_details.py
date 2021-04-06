@@ -4,7 +4,7 @@ from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_tim
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_files.cleanup_datetime_display import past_dated
 from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_job_offer
-from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_application_details
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_details_for_specific_application
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_fields
     
 
@@ -74,7 +74,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "contact_Received?" : application.contact_received, 
         "job_url" : application.job_url,
     }
-    cleanup_application_details(application_details)
+    cleanup_details_for_specific_application(application_details)
 
     application_details["update_application_url"] = '/applications/{}/update_application'.format(application_id)
     application_details["delete_application_url"] = '/applications/{}/delete'.format(application_id)

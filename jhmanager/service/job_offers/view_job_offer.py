@@ -2,7 +2,7 @@ from flask import Flask, render_template, session, request, redirect, flash
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_offer_response
 from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_interview_stage
-from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_application_details
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_details_for_specific_application
 
 
 def cleanup_job_offer_details(job_offer_details):
@@ -50,6 +50,6 @@ def display_job_offer(job_offer_id, jobOffersRepo, companyRepo, applicationsRepo
         "time": "N/A", 
         "view_application": '/applications/{}'.format(application_id)
     }
-    cleanup_application_details(application_details)
+    cleanup_details_for_specific_application(application_details)
 
     return render_template("view_job_offer.html", job_offer_details=job_offer_details, company_details=company_details, application_details=application_details)

@@ -30,7 +30,7 @@ def cleanup_interview_stage(interview_stage):
     return updated_interview_stage
 
 
-def cleanup_application_details(application_details):
+def cleanup_details_for_specific_application(application_details):
     for heading, value in application_details["fields"].items():
         if value == "N/A":
             application_details["fields"][heading] = None
@@ -56,3 +56,21 @@ def cleanup_application_details(application_details):
         application_details["fields"]["job_description"] = "None provided."
 
 
+def cleanup_application_fields(display_details, app_id):
+    interview_stage = display_details["fields"][app_id]["interview_stage"]
+    app_date = display_details["fields"][app_id]["app_date"]
+    salary = display_details["fields"][app_id]["salary"]
+
+
+    if interview_stage == 0:
+        Interview_stage_str = "No Interview lined up yet."
+    else:
+        Interview_stage_str = "Interview #{interview_stage}".format(interview_stage=str(interview_stage))
+
+    display_details["fields"][app_id]["interview_stage"] = Interview_stage_str
+
+    if salary == "N/A":
+        display_details["fields"][app_id]["salary"] = None
+
+    date_obj = datetime.strptime(app_date, "%Y-%m-%d")
+    display_details["fields"][app_id]["app_date"] = cleanup_date_format(date_obj)

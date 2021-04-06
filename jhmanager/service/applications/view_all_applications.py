@@ -1,6 +1,7 @@
 from flask import Flask, render_template, session, request, redirect
 from datetime import datetime, time
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_application_fields
 
 
 def update_grid_size(display_details):
@@ -17,23 +18,23 @@ def update_grid_size(display_details):
 
 
 
-def cleanup_fields(display_details, app_id):
-    interview_stage = display_details["fields"][app_id]["interview_stage"]
-    app_date = display_details["fields"][app_id]["app_date"]
-    salary = display_details["fields"][app_id]["salary"]
+# def cleanup_fields(display_details, app_id):
+#     interview_stage = display_details["fields"][app_id]["interview_stage"]
+#     app_date = display_details["fields"][app_id]["app_date"]
+#     salary = display_details["fields"][app_id]["salary"]
 
-    if interview_stage == 0:
-        Interview_stage_str = "No Interview lined up yet."
-    else:
-        Interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage=str(interview_stage))
+#     if interview_stage == 0:
+#         Interview_stage_str = "No Interview lined up yet."
+#     else:
+#         Interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage=str(interview_stage))
 
-    display_details["fields"][app_id]["interview_stage"] = Interview_stage_str
+#     display_details["fields"][app_id]["interview_stage"] = Interview_stage_str
 
-    if salary == "N/A":
-        display_details["fields"][app_id]["salary"] = None
+#     if salary == "N/A":
+#         display_details["fields"][app_id]["salary"] = None
 
-    date_obj = datetime.strptime(app_date, "%Y-%m-%d")
-    display_details["fields"][app_id]["app_date"] = cleanup_date_format(date_obj)
+#     date_obj = datetime.strptime(app_date, "%Y-%m-%d")
+#     display_details["fields"][app_id]["app_date"] = cleanup_date_format(date_obj)
 
 
 
@@ -78,7 +79,7 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
                 "view_more": application_url,
             }
             display_details["app_count"] = entry_id
-            cleanup_fields(display_details, app_id) 
+            cleanup_application_fields(display_details, app_id) 
 
         update_grid_size(display_details)
 
