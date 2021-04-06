@@ -38,11 +38,11 @@ class InterviewsHistoryRepository:
         return result
 
 
-    def InsertNewInterviewDetails(self, arguments):
+    def InsertNewInterviewDetails(self, fields):
         cursor = self.db.cursor()
         # application_id, app_date_str, app_time_str, interview_type, location, medium, other_medium, contact_number, status, interviewers
         command = "INSERT INTO interviews (user_id, application_id, date, time, interview_type, interview_location, interview_medium, other_medium, contact_number, status, interviewer_names, video_link, extra_notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-        result = cursor.execute(command, (arguments))
+        result = cursor.execute(command, tuple(fields.values()))
         self.db.commit()
 
         return result.lastrowid
