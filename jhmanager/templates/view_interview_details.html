@@ -7,7 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter">    
-            <h1 class="text-center"> {{ details.company_name}} </h1>
+            <h1 class="text-center"> Interview Details </h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -22,8 +22,7 @@
         <div class="aligncenter"> 
             <div class="single_col_grid">
                 <div class="grid_child"> 
-                    <h2 class="text-center"> Interview Details</h2> 
-                    <br/>
+                    <h2 class="card-headings"> {{ details.company_name}}</h2> 
                     <div class="form-row">
                         <div class="col left-padding"> 
                             <i class="fas fa-calendar-alt"></i><strong> Date & Time:</strong>
@@ -35,7 +34,7 @@
                     {% if interview_details.fields.interview_type == 'Video / Online' %}
                         <div class="form-row">
                             <div class="col left-padding"> 
-                                <strong> Medium:</strong>
+                                <i class="fas fa-video"></i> <strong> Medium:</strong>
                             </div>
                             <div class="col right-padding"> 
                                 {{ interview_details.fields.medium }}
@@ -43,7 +42,7 @@
                         </div>
                         <div class="form-row">
                             <div class="col left-padding"> 
-                                <strong> Video Link</strong>
+                                <i class="fas fa-video"></i> <strong> Video Link</strong>
                             </div>
                             <div class="col right-padding"> 
                                 {{ interview_details.fields.video_link }}
@@ -52,7 +51,7 @@
                     {% elif interview_details.fields.interview_type == 'Phone Call' %}
                         <div class="form-row">
                             <div class="col left-padding"> 
-                                <strong> Contact Number</strong>
+                                <i class="fas fa-mobile-alt"></i> <strong> Contact Number</strong>
                             </div>
                             <div class="col right-padding"> 
                                 {{ interview_details.fields.contact_number }}
@@ -62,7 +61,7 @@
                     {% if interview_details.fields.location %}
                         <div class="form-row">
                             <div class="col left-padding"> 
-                                <strong> Location</strong>
+                                <i class="fas fa-thumbtack"></i> <strong> Location</strong>
                             </div>
                             <div class="col right-padding"> 
                                 {{ interview_details.fields.location }}
@@ -81,12 +80,19 @@
                     {% endif %}
                     <div class="form-row">
                         <div class="col left-padding"> 
-                            <strong> Interview Status:</strong>
+                            <i class="fas fa-exclamation"></i> <strong> Interview Status:</strong>
                         </div>
                         <div class="col right-padding"> 
                             {{ interview_details.fields.status }}
                         </div>
                     </div>
+                    {% if interview_details.fields.past_dated and interview_details.fields.status != "Done" %}
+                        <div class="form-row">
+                            <div class="col card-warning-message"> 
+                                <i class="fas fa-exclamation"></i> This is a past-dated interview!
+                            </div>
+                        </div>
+                    {% endif %}
                     <br/>
                     <div class="text-center link-button-margins"> 
                         {% if interview_details.fields.status == 'Upcoming' %}

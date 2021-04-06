@@ -173,14 +173,11 @@
                             {% endif %}
                             <br/>
                             {% if interview_details.past_dated %}
-                                <br/>
                                 <div class="form-row">
-                                    <div class="col text-center"> 
-                                        This is a past-dated interview!
+                                    <div class="col card-warning-message"> 
+                                        <i class="fas fa-exclamation"></i> This is a past-dated interview!
                                     </div>
                                 </div>
-                            {% else %}
-                                <div class="form-row"></div>
                             {% endif %}
                             <br/>
                         </a>

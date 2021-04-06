@@ -94,6 +94,7 @@ def cleanup_fields_for_single_interview(interview_details, other_medium):
     interview_details["fields"]["medium"] = cleanup_medium(interview_medium, other_medium)
     interview_details["fields"]["interview_type"] = cleanup_interview_type(interview_type)
 
+    interview_details["fields"]["past_dated"] = past_dated(interview_date, interview_time)
     interview_details["fields"]["time"] = cleanup_time_format(interview_time)
     interview_details["fields"]["date"] = cleanup_date_format(interview_date)
 

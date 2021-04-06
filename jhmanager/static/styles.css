@@ -402,6 +402,13 @@ hr.thick_border {
   padding: 1rem 2rem;
 }
 
+.card-warning-message {
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center !important;
+  margin-top: 1rem;
+}
+
 
 .link_button_primary:hover{
   color: indigo;
