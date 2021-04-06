@@ -19,9 +19,9 @@
 
     <div class="alignfull">
         <div class="aligncenter"> 
-            <div class="grid_experiement full-grid-length">
+            <div class="single_col_grid">
                 <div class="grid_child"> 
-                    <h2 class="text-center link-button-margins"> {{ company_details.company_name }} </h2>
+                    <h2 class="card-headings"> {{ company_details.company_name }} </h2>
                     <div class="form-row">
                         <div class="col left-padding"> 
                             <strong> Description</strong>
@@ -135,6 +135,9 @@
                                 <div class="col right-padding"> 
                                     {{ values.Answer }} 
                                 </div>
+                            </div>
+                            <div class="text-center link-button-margins"> 
+                                <a href={{ values.delete_prep_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>  
                             </div>
                         </div>
                     {% endfor %}

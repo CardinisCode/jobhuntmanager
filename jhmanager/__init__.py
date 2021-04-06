@@ -56,6 +56,7 @@ from jhmanager.service.interviews.update_interview import post_update_interview
 from jhmanager.service.interviews.delete_an_interview import delete_interview
 from jhmanager.service.interview_preparation.add_interview_prep import display_interview_preparation_form
 from jhmanager.service.interview_preparation.add_interview_prep import post_add_interview_preparation
+from jhmanager.service.interview_preparation.delete_interview_prep import delete_interview_prep_details
 
 from jhmanager.service.application_notes.add_app_note import display_application_note_form
 from jhmanager.service.application_notes.add_app_note import post_application_add_note
@@ -408,6 +409,15 @@ def interview_preparation(application_id, interview_id):
 
     if request.method == "GET":
         return display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo, interviewsRepo)
+
+
+
+
+@app.route('/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation/<int:interview_prep_id>/delete_interview_prep_entry', methods=["GET", "POST"])
+@login_required
+def delete_interview_prep(application_id, interview_id, interview_prep_id):
+    return delete_interview_prep_details(application_id, interview_id, interview_prep_id, interviewPrepRepo)
+
 
 
 @app.route('/applications/<int:application_id>/add_job_offer', methods=["GET", "POST"])

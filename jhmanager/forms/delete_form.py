@@ -14,6 +14,5 @@ class DeleteCompanyForm(FlaskForm):
     delete_button = SubmitField("Submit")
 
 
-
             #     ("yes", "Yes, please delete this company profile."), 
             # ("no", "No, take me back to the company profile.")

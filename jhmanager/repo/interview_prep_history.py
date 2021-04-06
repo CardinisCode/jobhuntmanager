@@ -25,6 +25,24 @@ class InterviewPreparationRepository:
 
         return result.lastrowid
 
+    def getEntryByInterviewPrepID(self, interview_prep_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM interview_preparation WHERE interview_prep_id = {}".format(interview_prep_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        if not result:
+            return None
+
+        data = [x for x in result]
+        if not data:
+            return None
+
+        interview_prep_entry = InterviewPreparation(data[0])
+        
+        return interview_prep_entry  
+
+
 
     def getAllInterviewPrepEntriesByInterviewId(self, interview_id, user_id):
         cursor = self.db.cursor()
@@ -42,6 +60,20 @@ class InterviewPreparationRepository:
             interview_prep_entries_list.append(interview_prep_result)
 
         return interview_prep_entries_list
+
+    def deleteByInterviewPrepID(self, interview_prep_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM interview_preparation WHERE interview_prep_id = {}".format(interview_prep_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Details for Interview Preparation deleted successfully."
+
+        except sqlite3.Error as error:
+            message = "Details for Interview Preparation failed to delete. " + error
+        finally:
+            return message
 
     def deleteByInterviewID(self, interview_prep_id):
         message = ""
