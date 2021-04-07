@@ -1,4 +1,8 @@
 from flask import Flask, render_template, session, request, redirect, flash
+from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
+from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
+from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_type
+from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_status
 
 
 def display_interview_prep_details(application_id, interview_id, interview_prep_id, interviewPrepRepo, applicationsRepo, companyRepo, interviewsRepo):
@@ -25,7 +29,7 @@ def display_interview_prep_details(application_id, interview_id, interview_prep_
         "name": company.name, 
         "description": company.description,
         "location": company.location,
-        "industry": company.industry
+        "industry": company.industry, 
     }
 
     general_details["application_details"] = {
@@ -35,9 +39,10 @@ def display_interview_prep_details(application_id, interview_id, interview_prep_
     }
 
     general_details["interview_details"] = {
-        "date": interview.interview_date, 
-        "time": interview.interview_time, 
-        "interviewers": interview.interviewer_names,
+        "date": cleanup_date_format(interview.interview_date), 
+        "time": cleanup_time_format(interview.interview_time), 
+        "interview_type": cleanup_interview_type(interview.interview_type),
+        "status": cleanup_interview_status(interview.status)
     }
 
     update_prep_link = '/applications/{}/interview/{}/interview_preparation/{}/update_interview_prep_entry'.format(application.app_id, interview.interview_id, interview_prep.interview_prep_id)

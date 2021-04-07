@@ -41,12 +41,57 @@
             <div class="three-col-grid">
                 <a href={{ general_details.links.view_interview }} class="link-cards-alt-colour">
                     <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Interview </h3>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            <i class="fas fa-calendar-alt"> {{ general_details.interview_details.date }} @ {{ general_details.interview_details.time }}</i>
+                        </div>
+                    </div>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.interview_details.status }}
+                        </div>
+                    </div>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.interview_details.interview_type }}
+                        </div>
+                    </div>
                 </a>
                 <a href={{ general_details.links.company_profile }} class="link-cards-alt-colour">
                     <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Company </h3>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.company_details.name }}
+                        </div>
+                    </div>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.company_details.description }}
+                        </div>
+                    </div>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.company_details.location }}
+                        </div>
+                    </div>
                 </a>
                 <a href={{ general_details.links.view_application }} class="link-cards-alt-colour">
                     <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Application </h3>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.application_details.job_role }}
+                        </div>
+                    </div>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.application_details.job_description }}
+                        </div>
+                    </div>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            Interview #{{ general_details.application_details.interview_stage }}
+                        </div>
+                    </div>
                 </a>
             </div>
         </div>
