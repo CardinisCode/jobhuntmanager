@@ -462,7 +462,20 @@ hr.thick_border {
   background: white;
 }
 
-.link_button:hover, .link-cards:hover, .link-cards-alt-colour:hover {
+.thin-link-cards {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 12px 8px;
+  text-decoration: none;
+  line-height: 1;
+  opacity: 1;
+  color: black;
+  border: 1px solid lightgrey !important;
+  background: white;
+}
+
+.link_button:hover, .link-cards:hover, .link-cards-alt-colour:hover, .thin-link-cards:hover {
   color: white;
   background: linear-gradient(45deg, purple, indigo);
   text-decoration: none;

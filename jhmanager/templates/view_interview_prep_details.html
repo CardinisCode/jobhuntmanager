@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    View Interview Prep Details
+{% endblock %}
+
+{% block main %}
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <h1 class="text-center"> Interview Preparation </h1>
+
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-success border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <div class="single_col_grid">
+                <div class="grid_child"> 
+                    <h2 class="card-headings"> {{ general_details.interview_prep_details.question }} </h2>
+                    <div class="form-row">
+                        <div class="col left-padding"> 
+                            {{ general_details.interview_prep_details.answer }}
+                        </div>
+                    </div>
+                    <div class="text-center link-button-margins"> 
+                        <a href={{ general_details.links.update_prep }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+                        <a href={{ general_details.links.delete_prep }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alignfull background-colour xxx-margins">
+        <div class="aligncenter">  
+            <div class="three-col-grid">
+                <a href={{ general_details.links.view_interview }} class="link-cards-alt-colour">
+                    <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Interview </h3>
+                </a>
+                <a href={{ general_details.links.company_profile }} class="link-cards-alt-colour">
+                    <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Company </h3>
+                </a>
+                <a href={{ general_details.links.view_application }} class="link-cards-alt-colour">
+                    <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Application </h3>
+                </a>
+            </div>
+        </div>
+    </div>
+
+        
+{% endblock %}

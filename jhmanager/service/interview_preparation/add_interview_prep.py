@@ -26,14 +26,12 @@ def display_interview_preparation_form(user_id, interview_prep_form, application
         for entry in interview_prep_entries: 
             question_number += 1
             prep_id = entry.interview_prep_id
-            update_prep_entry = '/applications/{}/interview/{}/interview_preparation/{}/update_interview_prep_entry'.format(application_id, interview_id, prep_id)
-            delete_prep_entry = '/applications/{}/interview/{}/interview_preparation/{}/delete_interview_prep_entry'.format(application_id, interview_id, prep_id)
+            view_prep_entry = '/applications/{}/interview/{}/interview_preparation/{}/view_interview_prep_entry'.format(application_id, interview_id, prep_id)
             interview_prep_details[prep_id] = {
                 "Question": entry.question,
                 "Answer": entry.answer, 
                 "question_number": question_number,
-                "update_prep_entry": update_prep_entry,
-                "delete_prep_entry": delete_prep_entry
+                "view_prep_entry": view_prep_entry,
             }
     
     details = {
@@ -56,9 +54,6 @@ def display_interview_preparation_form(user_id, interview_prep_form, application
 
 
 def post_add_interview_preparation(user_id, application_id, interview_id, interview_prep_form, applicationsRepo, interviewPrepRepo):
-    question_data = interview_prep_form.question
-    answer_data = interview_prep_form.answer_text.data
-
     form_details = {
         "user_id": user_id,
         "application_id": application_id,

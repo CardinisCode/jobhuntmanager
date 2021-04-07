@@ -418,7 +418,7 @@ def interview_preparation(application_id, interview_id):
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation/<int:interview_prep_id>/view_interview_prep_entry')
 @login_required
 def view_interview_prep_entry(application_id, interview_id, interview_prep_id):
-    return display_interview_prep_details(application_id, interview_id, interview_prep_id, interviewPrepRepo, applicationsRepo, companyRepo)
+    return display_interview_prep_details(application_id, interview_id, interview_prep_id, interviewPrepRepo, applicationsRepo, companyRepo, interviewsRepo)
 
 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation/<int:interview_prep_id>/update_interview_prep_entry', methods=["GET", "POST"])

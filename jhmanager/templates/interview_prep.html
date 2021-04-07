@@ -78,7 +78,6 @@
 
     <div class="alignfull-form">
         <div class="aligncenter"> 
-
             <div class="form-grid full-grid-length">
                 <form action={{ details.action_url }} method="POST">
                     {{ interview_prep_form.csrf_token }}
@@ -117,28 +116,18 @@
                     </div>
                 </form>
             </div>
-            
         </div>
     </div>
 
     {% if interview_prep_details != None %}
         <div class="alignfull background-colour">
             <div class="aligncenter"> 
-                <h2 class="text-center"> View Interview Prep</h2>
-                <div class="single_col_grid"> 
+                <h2 class="card-headings"> View Interview Prep</h2>
+                <div class="three-col-grid"> 
                     {% for prep_id, values in interview_prep_details.items() %}
-                        <div class="grid_child-alt-colour">
-                            <h4 class="card-headings"> #{{ values.question_number }}: {{ values.Question }}</h4>
-                            <div class="form-row">
-                                <div class="col left-padding"> 
-                                    {{ values.Answer }} 
-                                </div>
-                            </div>
-                            <div class="text-center link-button-margins"> 
-                                <a href={{ values.update_prep_entry }} class="link_button"><i class="fas fa-pencil-alt"> Update</i></a>
-                                <a href={{ values.delete_prep_entry }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>  
-                            </div>
-                        </div>
+                        <a href={{ values.view_prep_entry }} class="thin-link-cards">
+                            <i class="fas fa-hand-pointer"></i><h4 class="card-headings"> #{{ values.question_number }}: {{ values.Question }} </h4>
+                        </a>
                     {% endfor %}
                     <br/>
                 </div>
