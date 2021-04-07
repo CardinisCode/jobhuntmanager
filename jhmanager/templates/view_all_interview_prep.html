@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    View Interview Preparation
+{% endblock %}
+
+{% block main %}
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <h1 class="text-center"> Interview Preparation </h1>
+
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-success border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="alignfull background-colour">
+        <div class="aligncenter">  
+            <div class="three-col-grid extra-margins">
+                {% for interview_prep_id, prep_fields in general_details.interview_prep_details.fields.items() %}
+                    <a href={{ prep_fields.view_prep_link }} class="link-cards-alt-colour">
+                        <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> {{ prep_fields.question }}</h3>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <div class="text-center xxx-margins"> 
+                <a href={{ general_details.links.add_interview_prep }} class="link_right link_button_primary"><i class="fas fa-eye"> View All Interview Preparation</i></a>
+            </div>
+        </div>
+    </div>
+
+        
+{% endblock %}

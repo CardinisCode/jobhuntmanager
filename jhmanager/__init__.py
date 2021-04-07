@@ -57,6 +57,7 @@ from jhmanager.service.interviews.delete_an_interview import delete_interview
 from jhmanager.service.interview_preparation.add_interview_prep import display_interview_preparation_form
 from jhmanager.service.interview_preparation.add_interview_prep import post_add_interview_preparation
 from jhmanager.service.interview_preparation.view_interview_prep_details import display_interview_prep_details
+from jhmanager.service.interview_preparation.view_all_interview_prep import display_all_interview_prep_entries
 from jhmanager.service.interview_preparation.update_interview_prep import display_update_interview_prep_form
 from jhmanager.service.interview_preparation.update_interview_prep import post_update_interview_preparation
 from jhmanager.service.interview_preparation.delete_interview_prep import delete_interview_prep_details
@@ -396,6 +397,12 @@ def update_specific_interview(application_id, interview_id):
 def delete_specific_interview(application_id, interview_id):
     return delete_interview(application_id, interview_id, interviewsRepo, interviewPrepRepo, applicationsRepo)
 
+
+@app.route('/applications/<int:application_id>/interview/<int:interview_id>/view_all_preparation')
+@login_required
+def view_all_interview_preparation(application_id, interview_id):
+    user_id = session["user_id"]
+    return display_all_interview_prep_entries(application_id, interview_id, user_id, interviewPrepRepo)
 
 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation', methods=["GET", "POST"])

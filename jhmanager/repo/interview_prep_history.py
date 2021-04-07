@@ -44,7 +44,7 @@ class InterviewPreparationRepository:
 
     def getAllInterviewPrepEntriesByInterviewId(self, interview_id, user_id):
         cursor = self.db.cursor()
-        command = "SELECT * FROM interview_preparation WHERE interview_id = {} and user_id = {}".format(interview_id, user_id)
+        command = "SELECT * FROM interview_preparation WHERE interview_id = {} and user_id = {} ORDER BY specific_question".format(interview_id, user_id)
         result = cursor.execute(command)
         self.db.commit()
 
