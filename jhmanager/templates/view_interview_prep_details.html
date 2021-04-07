@@ -82,11 +82,13 @@
                             {{ general_details.application_details.job_role }}
                         </div>
                     </div>
-                    <div class="form-row extra-margins">
-                        <div class="col text-center"> 
-                            {{ general_details.application_details.job_description }}
+                    {% if general_details.application_details.job_description %}
+                        <div class="form-row extra-margins">
+                            <div class="col text-center"> 
+                                {{ general_details.application_details.job_description }}
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                     <div class="form-row extra-margins">
                         <div class="col text-center"> 
                             Interview #{{ general_details.application_details.interview_stage }}
