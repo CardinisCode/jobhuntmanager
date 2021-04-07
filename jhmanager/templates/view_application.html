@@ -328,7 +328,7 @@
                                     </div>
                                 {% endif %}
                                 <div class="text-center link-button-margins"> 
-                                    {% if rows.status == "Upcoming Interview" %}
+                                    {% if rows.status == "Upcoming Interview" and not rows.past_dated %}
                                         <a href={{ rows.prepare_url }} class="link_button"> <i class="fas fa-pencil-alt"> Prepare</i></a>
                                     {% endif %}
                                     <a href={{ rows.view_more }} class="link_button"> <i class="fas fa-eye"> View</i></a>
@@ -385,7 +385,7 @@
                                     </div>
                                 {% endif %}
                                 <div class="text-center link-button-margins"> 
-                                    {% if rows.status == "Upcoming Interview" %}
+                                    {% if rows.status == "Upcoming Interview" and not rows.past_dated %}
                                         <a href={{ rows.prepare_url }} class="link_button"> <i class="fas fa-pencil-alt"> Prepare</i></a>
                                     {% endif %}
                                     <a href={{ rows.view_more }} class="link_button"> <i class="fas fa-eye"> View</i></a>
