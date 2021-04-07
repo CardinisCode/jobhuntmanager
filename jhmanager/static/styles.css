@@ -284,6 +284,14 @@ textarea {
   margin-bottom: 2rem;
 }
 
+.form-grid-child-alt {
+  border: 1px solid #dee2e6!important;
+  background: white;
+  padding: 2rem;
+  display: grid;
+  margin-bottom: 2rem;
+}
+
 .grid_child div, .form-grid_child div, .three-col-grid div, .four-col-grid div, .five-col-grid div {
   min-height: 1.3rem;
 }
@@ -472,7 +480,7 @@ hr.thick_border {
   opacity: 1;
   color: black;
   border: 1px solid lightgrey !important;
-  background: white;
+  background: rgba(175, 238, 238, 0.2);
 }
 
 .link_button:hover, .link-cards:hover, .link-cards-alt-colour:hover, .thin-link-cards:hover {

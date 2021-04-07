@@ -4,6 +4,7 @@ from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_tim
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_type
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_status
 from jhmanager.service.cleanup_files.cleanup_general_fields import replace_na_value_with_none
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_interview_stage
 
 
 def display_interview_prep_details(application_id, interview_id, interview_prep_id, interviewPrepRepo, applicationsRepo, companyRepo, interviewsRepo):
@@ -36,7 +37,7 @@ def display_interview_prep_details(application_id, interview_id, interview_prep_
     general_details["application_details"] = {
         "job_role": application.job_role, 
         "job_description": replace_na_value_with_none(application.job_description), 
-        "interview_stage": application.interview_stage,
+        "interview_stage": cleanup_interview_stage(application.interview_stage),
     }
 
     general_details["interview_details"] = {
