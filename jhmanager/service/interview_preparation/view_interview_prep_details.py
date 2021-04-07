@@ -51,6 +51,7 @@ def display_interview_prep_details(application_id, interview_id, interview_prep_
     delete_prep_link = '/applications/{}/interview/{}/interview_preparation/{}/delete_interview_prep_entry'.format(application.app_id, interview.interview_id, interview_prep.interview_prep_id)
     view_interview = '/applications/{}/interview/{}'.format(application.app_id, interview.interview_id)
     view_all_interview_prep = '/applications/{}/interview/{}/view_all_preparation'.format(application.app_id, interview.interview_id)
+    add_interview_prep = '/applications/{}/interview/{}/interview_preparation'.format(application.app_id, interview.interview_id)
     general_details["links"] = {
         "company_profile": '/company/{}/view_company'.format(company.company_id),
         "company_website": company.url,
@@ -59,6 +60,7 @@ def display_interview_prep_details(application_id, interview_id, interview_prep_
         "update_prep": update_prep_link,
         "view_all_interview_prep": view_all_interview_prep,
         "delete_prep": delete_prep_link, 
+        "add_interview_prep": add_interview_prep
     }
 
 
