@@ -100,7 +100,7 @@
                     {% endif %}
                     <br/>
                     <div class="text-center link-button-margins"> 
-                        {% if interview_details.fields.status == 'Upcoming' and not interview_details.fields.past_dated %}
+                        {% if interview_details.fields.status == 'Upcoming Interview' and not interview_details.fields.past_dated %}
                             <a href={{ general_details.links.view_interview_prep_url }} class="link_button"><i class="fas fa-clipboard"> Prepare </i></a>
                         {% endif %}
                         {% if interview_details.fields.display_video_link %}

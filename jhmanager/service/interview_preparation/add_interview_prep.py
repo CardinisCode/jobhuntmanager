@@ -23,7 +23,7 @@ def display_interview_preparation_form(user_id, interview_prep_form, application
     }
 
     general_details["company_details"] = {
-        "company_name": company.name, 
+        "name": company.name, 
         "description": replace_na_value_with_none(company.description), 
         "location": replace_na_value_with_none(company.location), 
         "website": company.url, 
