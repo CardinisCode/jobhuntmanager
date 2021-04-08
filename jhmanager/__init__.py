@@ -54,6 +54,8 @@ from jhmanager.service.interviews.view_interview_details import display_intervie
 from jhmanager.service.interviews.update_interview import display_update_interview_form
 from jhmanager.service.interviews.update_interview import post_update_interview
 from jhmanager.service.interviews.delete_an_interview import delete_interview
+from jhmanager.service.interviews.view_all_interviews import display_all_interviews_for_application
+
 from jhmanager.service.interview_preparation.add_interview_prep import display_interview_preparation_form
 from jhmanager.service.interview_preparation.add_interview_prep import post_add_interview_preparation
 from jhmanager.service.interview_preparation.view_interview_prep_details import display_interview_prep_details
@@ -364,6 +366,13 @@ def add_interview(application_id):
     """ Display add_interview Form to user """
     if request.method == "GET":
         return display_add_interview(add_interview_form, application_id, applicationsRepo, companyRepo)
+
+
+# View all interviews for an application:
+@app.route('/applications/<int:application_id>/view_all_interviews')
+@login_required
+def view_all_interviews_for_application(application_id):
+    return display_all_interviews_for_application(application_id, interviewsRepo, companyRepo, applicationsRepo)
 
 
 # View a specific interview:

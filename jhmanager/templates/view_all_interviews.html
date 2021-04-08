@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Interviews For Application
+{% endblock %}
+
+{% block main %}
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <h1 class="text-center"> Interviews </h1>
+        
+            {% if get_flashed_messages() %}
+                {% for message in get_flashed_messages() %}
+                    <div class="flash alert alert-success border text-center">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="alignfull background-colour">
+        <div class="aligncenter">  
+            <div class="three-col-grid extra-margins">
+                {% for interview_id, interview in interview_details.fields.items() %}
+                    <a href={{ interview.view_interview }} class="link-cards-alt-colour">
+                        <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> {{ interview.date }} @ {{ interview.time }}</h3>
+                        <div class="card-content"> 
+                            <div class="form-row extra-margins">
+                                <div class="col"> 
+                                    {{ interview.interview_type }}
+                                </div>
+                            </div>
+                            <div class="form-row extra-margins">
+                                <div class="col"> 
+                                    {{ interview.status }}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+

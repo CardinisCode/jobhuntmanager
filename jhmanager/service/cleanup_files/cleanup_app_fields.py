@@ -30,6 +30,16 @@ def cleanup_interview_stage(interview_stage):
     return updated_interview_stage
 
 
+def cleanup_urls(url):
+    if url == "N/A" or url == "n/a":
+        return None
+
+    elif url == "http://" or url == "https://":
+        return None
+
+    return url
+
+
 def cleanup_details_for_specific_application(application_details):
     for heading, value in application_details["fields"].items():
         if value == "N/A":

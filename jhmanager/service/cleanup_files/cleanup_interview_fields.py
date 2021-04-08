@@ -76,13 +76,6 @@ def cleanup_interview_fields(interview_fields, interview_id):
     other_medium = interview_fields["fields"][interview_id]["other_medium"]
     interview_fields["fields"][interview_id]["interview_medium"] = cleanup_medium(medium, other_medium)
 
-    # display_video_link = interview_fields["fields"][interview_id]["display_video_link"]
-    # if not interview_details["fields"]["past_dated"] and interview_details.fields.interview_type == 'Video / Online': 
-    #     # Now we can check if the interview matches the current date:
-    #     if check_interview_is_today(interview_date): 
-    #         # The interview is today, so we can display the link to the user:
-    #         interview_details["fields"]["display_video_link"] = True
-
 
 def check_interview_is_today(interview_date):
     interview_is_today = False 

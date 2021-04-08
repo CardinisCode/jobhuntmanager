@@ -1,8 +1,7 @@
 from flask import Flask, render_template, session, request, redirect
 
 
-def prepare_company_website_url(company): 
-    company_url = company.url
+def prepare_company_website_url(company_url): 
     if company_url == "N/A" or company_url == "n/a":
         return None
 
