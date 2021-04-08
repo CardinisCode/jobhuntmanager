@@ -2,6 +2,7 @@ from flask import Flask, render_template, session, request, redirect
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_fields_for_single_interview
 from jhmanager.service.cleanup_files.cleanup_general_fields import replace_na_value_with_none
 from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_interview_stage
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_emp_type_field
 from jhmanager.service.cleanup_files.cleanup_company_fields import prepare_company_website_url
 from datetime import datetime, time
 
@@ -20,13 +21,15 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
     general_details["company_details"] = {
         "name": company.name, 
         "description": replace_na_value_with_none(company.description), 
-        "location": replace_na_value_with_none(company.location)
+        "location": replace_na_value_with_none(company.location), 
+        "industry": replace_na_value_with_none(company.industry),
     }
 
     general_details["application_details"] = {
         "job_role": application.job_role, 
         "job_description": replace_na_value_with_none(application.job_description), 
-        "interview_stage": cleanup_interview_stage(application.interview_stage)
+        "interview_stage": cleanup_interview_stage(application.interview_stage), 
+        "emp_type": cleanup_emp_type_field(application.employment_type), 
     }
 
 
@@ -38,7 +41,8 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
         "delete_interview": "/applications/{}/interview/{}/delete_interview".format(application_id, interview_id),
         "view_interview_prep_url": '/applications/{}/interview/{}/interview_preparation'.format(application_id, interview_id), 
         "view_application": '/applications/{}'.format(application_id), 
-        "view_notes_url": '/applications/{}/view_application_notes'.format(application_id), 
+        "view_application_notes": '/applications/{}/view_application_notes'.format(application_id), 
+        "view_company_notes": '/company/{}/view_all_company_notes'.format(company.company_id)
     }
 
     other_medium = interview.other_medium
