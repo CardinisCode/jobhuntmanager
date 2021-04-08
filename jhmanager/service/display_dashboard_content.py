@@ -53,7 +53,7 @@ def extract_and_display_interviews(user_id, interviewsRepo, applicationsRepo, co
 
     interview_details = {
         "interviews_count": 0, 
-        "fields": None
+        "fields": None, 
     }
 
     count = 0
