@@ -47,63 +47,59 @@
     <!-- <hr/> -->
     <div class="alignfull background-colour">
         <div class="aligncenter">  
-            {% if display.job_offer_details != None %}
+            {% if display.job_offer_details %}
                 <h2 class="text-center"> Job Offers </h2>
                 <br/>
 
                 <div class="grid_experiement extra-margins">
-                {% for job_offer_id, fields in display.job_offer_details.details.items() %}
-                    <a href={{ fields.view_offer_url }} class="link-cards-alt-colour">
-                        <i class="fas fa-hand-pointer"></i><h3 class="text-center"> {{ fields.company_name }}</h3>
+                {% for job_offer_id, job_offer in display.job_offer_details.fields.items() %}
+                    <a href={{ job_offer.view_offer_url }} class="link-cards-alt-colour">
+                        <i class="fas fa-hand-pointer"></i><h3 class="text-center"> {{ job_offer.company_name }}</h3>
                         <div class="form-row">
                             <div class="col left-padding"> 
                                 <i class="fas fa-calendar-alt"></i><strong> Starting Date:</strong>
                             </div>
                             <div class="col right-padding"> 
-                                {{ fields.starting_date }}
+                                {{ job_offer.starting_date }}
                             </div>
                         </div>
-                        <br/>
-                        {% if fields.job_role %}
-                            <div class="form-row"> 
+                        {% if job_offer.job_role %}
+                            <div class="form-row extra-margins"> 
                                 <div class="col left-padding"> 
                                     <i class="fas fa-pencil-ruler"></i> <strong> Job Role:</strong>
                                 </div>
                                 <div class="col right-padding"> 
-                                    {{ fields.job_role }}
+                                    {{ job_offer.job_role }}
                                 </div>
                             </div>
                         {% endif %}
-                        <br/>
-                        {% if fields.offer_response %}
-                            <div class="form-row"> 
+                        {% if job_offer.offer_response %}
+                            <div class="form-row extra-margins"> 
                                 <div class="col left-padding"> 
                                     <i class="fas fa-question"></i><strong> Offer Response:</strong>
                                 </div>
                                 <div class="col right-padding"> 
-                                    {{ fields.offer_response }}
+                                    {{ job_offer.offer_response }}
                                 </div>
                             </div>
                         {% endif %}
-                        <br/>
-                        {% if fields.salary_offered %}
-                            <div class="form-row"> 
+                        {% if job_offer.salary_offered %}
+                            <div class="form-row extra-margins"> 
                                 <div class="col left-padding"> 
                                     <i class="fas fa-hand-holding-usd"></i><strong> Salary On Offer:</strong>
                                 </div>  
                                 <div class="col right-padding"> 
-                                    {{ fields.salary_offered }}
+                                    {{ job_offer.salary_offered }}
                                 </div>    
                             </div>                
                         {% endif %}
-                        <br/>
-                        {% if fields.perks_offered %}
-                            <div class="form-row"> 
+                        {% if job_offer.perks_offered %}
+                            <div class="form-row extra-margins"> 
                                 <div class="col left-padding"> 
                                     <i class="fas fa-bars"></i><strong> Perks Offered: </strong>
                                 </div>  
                                 <div class="col right-padding"> 
-                                    {{ fields.perks_offered }}
+                                    {{ job_offer.perks_offered }}
                                 </div> 
                             </div>         
                         {% endif %}

@@ -12,7 +12,7 @@ def extract_and_display_job_offers(user_id, jobOffersRepo, companyRepo):
 
     job_offer_details = {
         "offer_count": 0, 
-        "details": None
+        "fields": None
     }
     offer_count = 0
     count_list = []
@@ -20,7 +20,7 @@ def extract_and_display_job_offers(user_id, jobOffersRepo, companyRepo):
     if not job_offers: 
         return job_offer_details
 
-    job_offer_details = {"details": {}}
+    job_offer_details = {"fields": {}}
     for offer in job_offers: 
         offer_count += 1
         count_list.append(offer_count)
@@ -30,7 +30,7 @@ def extract_and_display_job_offers(user_id, jobOffersRepo, companyRepo):
         company_name = companyRepo.getCompanyById(company_id).name
         view_offer_url = '/applications/{}/job_offers/{}'.format(application_id, job_offer_id)
 
-        job_offer_details["details"][offer_count] = {
+        job_offer_details["fields"][offer_count] = {
             "job_offer_id": job_offer_id,
             "starting_date": offer.starting_date, 
             "company_name": company_name,

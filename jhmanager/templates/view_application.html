@@ -144,8 +144,9 @@
                 {% if job_offer_details.count == 1 %}
                     <div class="single_col_grid">
                         {% for job_offer_id, job_offer in job_offer_details.fields.items() %}
-                            <div class="grid_child-alt-colour"> 
-                                <div class="form-row">
+                            <a href={{ job_offer.view_url }} class="link-cards-alt-colour">
+                                <i class="fas fa-hand-pointer"></i><h3 class="text-center"> {{ job_offer.job_role }}</h3>
+                                <div class="form-row extra-margins">
                                     <div class="col left-padding"> 
                                         <i class="fas fa-user-secret"></i><strong> Job Role</strong>
                                     </div>
@@ -153,7 +154,7 @@
                                         {{ job_offer.job_role }}
                                     </div>
                                 </div>
-                                <div class="form-row">
+                                <div class="form-row extra-margins">
                                     <div class="col left-padding"> 
                                         <strong> Offer Status</strong>
                                     </div>
@@ -162,7 +163,7 @@
                                     </div>
                                 </div>
                                 {% if job_offer.offer_accepted %}
-                                    <div class="form-row">
+                                    <div class="form-row extra-margins">
                                         <div class="col left-padding"> 
                                             <i class="fas fa-calendar-alt"></i><strong> Starting Date:</strong>
                                         </div>
@@ -171,7 +172,7 @@
                                         </div>
                                     </div>
                                 {% endif %}
-                                <div class="form-row">
+                                <div class="form-row extra-margins">
                                     <div class="col left-padding"> 
                                         <i class="fas fa-hand-holding-usd"></i><strong> Salary Offered</strong>
                                     </div>
@@ -180,7 +181,7 @@
                                     </div>
                                 </div>
                                 {% if job_offer.perks_offered %}
-                                    <div class="form-row">
+                                    <div class="form-row extra-margins">
                                         <div class="col left-padding"> 
                                             <i class="fas fa-bars"></i><strong> Perks Offered With The Role</strong>
                                         </div>
@@ -189,19 +190,15 @@
                                         </div>
                                     </div>
                                 {% endif %}
-                                <div class="text-center link-button-margins"> 
-                                    <a href={{ job_offer.view_url }} class="link_button"><i class="fas fa-eye"> View</i></a>
-                                    <a href={{ job_offer.update_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
-                                    <a href={{ job_offer.delete_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
-                                </div>
-                            </div>
+                            </a>
                         {% endfor %}
                     </div>
                 {% else %}
                     <div class="grid_experiement">
                         {% for job_offer_id, job_offer in job_offer_details.fields.items() %}
-                            <div class="grid_child"> 
-                                <div class="form-row">
+                            <a href={{ job_offer.view_url }} class="link-cards-alt-colour">
+                                <i class="fas fa-hand-pointer"></i><h3 class="text-center"> {{ job_offer.job_role }}</h3>
+                                <div class="form-row extra-margins">
                                     <div class="col left-padding"> 
                                         <i class="fas fa-user-secret"></i><strong> Job Role</strong>
                                     </div>
@@ -209,7 +206,7 @@
                                         {{ job_offer.job_role }}
                                     </div>
                                 </div>
-                                <div class="form-row">
+                                <div class="form-row extra-margins">
                                     <div class="col left-padding"> 
                                         <strong> Offer Status</strong>
                                     </div>
@@ -218,7 +215,7 @@
                                     </div>
                                 </div>
                                 {% if job_offer.offer_accepted %}
-                                    <div class="form-row">
+                                    <div class="form-row extra-margins">
                                         <div class="col left-padding"> 
                                             <i class="fas fa-calendar-alt"></i><strong> Starting Date:</strong>
                                         </div>
@@ -227,7 +224,7 @@
                                         </div>
                                     </div>
                                 {% endif %}
-                                <div class="form-row">
+                                <div class="form-row extra-margins">
                                     <div class="col left-padding"> 
                                         <i class="fas fa-hand-holding-usd"></i><strong> Salary Offered</strong>
                                     </div>
@@ -236,20 +233,16 @@
                                     </div>
                                 </div>
                                 {% if job_offer.perks_offered %}
-                                    <div class="form-row">
+                                    <div class="form-row extra-margins">
                                         <div class="col left-padding"> 
-                                            <strong> Perks Offered With The Role</strong>
+                                            <i class="fas fa-bars"></i><strong> Perks Offered With The Role</strong>
                                         </div>
                                         <div class="col right-padding"> 
                                             {{ job_offer.perks_offered }}
                                         </div>
                                     </div>
                                 {% endif %}
-                                <div class="text-center link-button-margins"> 
-                                    <a href={{ job_offer.view_url }} class="link_button"><i class="fas fa-eye"> View</i></a>
-                                    <a href={{ job_offer.update_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
-                                </div>
-                            </div>
+                            </a>
                         {% endfor %}
                     </div>
                 {% endif %}
@@ -260,14 +253,15 @@
         </div>
     </div>
 
-    <div class="alignfull background-colour">
+    
+    <div class="alignfull">
         <div class="aligncenter"> 
             <h3 class="text-center heading_margins"> Interviews</h3>
             {% if not general_details.interview_details.empty_fields %}
                 {% if interview_fields.interviews_count == 1 %}
                     <div class="single_col_grid"> 
                         {% for interview_id, interview in interview_fields.fields.items() %}
-                            <a href={{ interview.view_more }} class="link-cards-alt-colour">
+                            <a href={{ interview.view_more }} class="link-cards">
                                 <div class="grid_child-alt-colour"> 
                                     <div class="form-row">
                                         <div class="col left-padding"> 
@@ -307,7 +301,7 @@
                 {% else %}
                     <div class="three-col-grid extra-margins"> 
                         {% for interview_id, interview in interview_fields.fields.items() %}
-                            <a href={{ interview.view_more }} class="link-cards-alt-colour">
+                            <a href={{ interview.view_more }} class="link-cards">
                                 <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> #{{ interview.number }}</h3>
                                 <div class="form-row extra-margins">
                                     <div class="col text-center"> 
@@ -338,7 +332,7 @@
         </div>
     </div>
 
-    <div class="alignfull xxx-margins">
+    <div class="alignfull background-colour xxx-margins">
         <div class="aligncenter"> 
             <h3 class="text-center">Notes</h3> 
             <div class="text-center link-button-margins"> 

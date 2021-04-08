@@ -41,9 +41,7 @@ def grab_and_display_job_offers(application_id, user_id, company, jobOffersRepo)
                     "starting_date": job_offer.starting_date, 
                     "job_role": job_offer.job_role, 
                     "perks_offered": job_offer.perks_offered,
-                    "update_url": '/applications/{}/job_offers/{}/update_job_offer'.format(application_id, job_offer_id), 
                     "view_url": '/applications/{}/job_offers/{}'.format(application_id, job_offer_id), 
-                    "delete_url": '/applications/{}/job_offers/{}/delete_job_offer'.format(application_id, job_offer_id)
                 }
                 cleanup_job_offer(job_offers_details, job_offer_id)
 
@@ -143,7 +141,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "add_job_offer": '/applications/{}/add_job_offer'.format(application_id), 
     }
 
-    interview_fields["interviews_count"] = count
+    general_details["interview_details"]["interviews_count"] = count
     job_offer_details = grab_and_display_job_offers(application_id, user_id, company, jobOffersRepo) 
 
     return render_template("view_application.html", application_details=application_details, interview_fields=interview_fields, job_offer_details=job_offer_details, general_details=general_details)

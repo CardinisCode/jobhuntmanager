@@ -3,16 +3,16 @@ from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_dat
 
 
 def cleanup_job_offer(job_offers_details, count):
-    offer_response = job_offers_details["details"][count]["offer_response"]
-    job_offers_details["details"][count]["offer_response"] = cleanup_offer_response(offer_response)
+    offer_response = job_offers_details["fields"][count]["offer_response"]
+    job_offers_details["fields"][count]["offer_response"] = cleanup_offer_response(offer_response)
 
-    starting_date = job_offers_details["details"][count]["starting_date"]
-    job_offers_details["details"][count]["starting_date"] = cleanup_date_format(starting_date)
+    starting_date = job_offers_details["fields"][count]["starting_date"]
+    job_offers_details["fields"][count]["starting_date"] = cleanup_date_format(starting_date)
 
-    offer_accepted = job_offers_details["details"][count]["offer_accepted"]
+    offer_accepted = job_offers_details["fields"][count]["offer_accepted"]
     if offer_response == "user_accepted":
         offer_accepted = True
-        job_offers_details["details"][count]["offer_accepted"] = offer_accepted
+        job_offers_details["fields"][count]["offer_accepted"] = offer_accepted
 
 
 def cleanup_offer_response(offer_response):
