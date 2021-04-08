@@ -133,6 +133,23 @@ class InterviewsHistoryRepository:
 
         return interviews_list
 
+    def getTop6InterviewsByApplicationID(self, application_id):
+        cursor = self.db.cursor()
+        command = "SELECT * FROM interviews where application_id = {} ORDER BY date DESC, time DESC LIMIT 6".format(application_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        interviews_list = [] 
+
+        for interview in result:
+            interview_result = Interview(interview)
+            interviews_list.append(interview_result)
+
+        if interviews_list == []:
+            return None
+
+        return interviews_list
+
 
     def updateInterview(self, fields):
         cursor = self.db.cursor()

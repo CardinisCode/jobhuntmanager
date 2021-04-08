@@ -92,10 +92,9 @@ def display_application_details(session, user_id, applicationsRepo, application_
     }
 
     # Now I want to display all the interviews for this application_id:
-    all_interviews_for_app_id = interviewsRepo.grabAllInterviewsByApplicationID(application_id)
+    all_interviews_for_app_id = interviewsRepo.getTop6InterviewsByApplicationID(application_id)
 
     # Lets build the interview dict to be displayed to the user.
-    # I'll set the default value for "fields" key to be None, as there are currently no values to display.
     general_details["interview_details"] = {
         "empty_fields" : True,
         "interviews_count": 0
