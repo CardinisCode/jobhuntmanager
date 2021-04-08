@@ -32,17 +32,16 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
         "emp_type": cleanup_emp_type_field(application.employment_type), 
     }
 
-
-    website_link = prepare_company_website_url(company)
     general_details["links"] = {
-        "company_website": website_link,
+        "company_website": prepare_company_website_url(company),
         "company_profile": '/company/{}/view_company'.format(company.company_id), 
         "update_interview": "/applications/{}/interview/{}/update_interview".format(application_id, interview_id),
         "delete_interview": "/applications/{}/interview/{}/delete_interview".format(application_id, interview_id),
-        "view_interview_prep_url": '/applications/{}/interview/{}/interview_preparation'.format(application_id, interview_id), 
+        "view_interview_prep_url": '/applications/{}/interview/{}/interview_preparation'.format(application_id, interview_id),
+        "view_all_interview_prep": '/applications/{}/interview/{}/view_all_preparation'.format(application_id, interview_id), 
         "view_application": '/applications/{}'.format(application_id), 
         "view_application_notes": '/applications/{}/view_application_notes'.format(application_id), 
-        "view_company_notes": '/company/{}/view_all_company_notes'.format(company.company_id)
+        "view_company_notes": '/company/{}/view_all_company_notes'.format(company.company_id), 
     }
 
     other_medium = interview.other_medium

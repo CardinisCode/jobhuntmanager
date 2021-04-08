@@ -412,7 +412,7 @@ def delete_specific_interview(application_id, interview_id):
 @login_required
 def view_all_interview_preparation(application_id, interview_id):
     user_id = session["user_id"]
-    return display_all_interview_prep_entries(application_id, interview_id, user_id, interviewPrepRepo)
+    return display_all_interview_prep_entries(application_id, interview_id, user_id, applicationsRepo, interviewsRepo, interviewPrepRepo, companyRepo)
 
 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation', methods=["GET", "POST"])
@@ -445,14 +445,14 @@ def update_interview_prep(application_id, interview_id, interview_prep_id):
     update_interview_prep_form = AddInterviewPrepForm(obj=interview_prep_entry)
     
     if request.method == "GET":
-        return display_update_interview_prep_form(application_id, interview_id, interview_prep_id, update_interview_prep_form, applicationsRepo, companyRepo)
+        return display_update_interview_prep_form(application_id, interview_id, interview_prep_id, update_interview_prep_form, applicationsRepo, companyRepo, interviewsRepo)
 
     if request.method == "POST":
         if update_interview_prep_form.validate_on_submit():
             return post_update_interview_preparation(application_id, interview_id, interview_prep_id, update_interview_prep_form, interviewPrepRepo)
         else:
             flash("Complete all the fields.")
-            return display_update_interview_prep_form(application_id, interview_id, interview_prep_id, update_interview_prep_form, applicationsRepo, companyRepo)
+            return display_update_interview_prep_form(application_id, interview_id, interview_prep_id, update_interview_prep_form, applicationsRepo, companyRepo, interviewsRepo)
 
 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation/<int:interview_prep_id>/delete_interview_prep_entry', methods=["GET", "POST"])

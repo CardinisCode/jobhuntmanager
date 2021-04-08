@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    View Interview Preparation
+    View All Interview Preparation
 {% endblock %}
 
 {% block main %}
@@ -17,26 +17,95 @@
         </div>
     </div>
 
+    {% if general_details.interview_prep_details %}
+        <div class="alignfull background-colour">
+            <div class="aligncenter">  
+                <div class="three-col-grid extra-margins">
+                    {% for interview_prep_id, prep_fields in general_details.interview_prep_details.fields.items() %}
+                        <a href={{ prep_fields.view_prep_link }} class="link-cards-alt-colour">
+                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> {{ prep_fields.question }}</h3>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="alignfull">
+            <div class="aligncenter"> 
+                <div class="text-center xxx-margins"> 
+                    <a href={{ general_details.links.add_interview_prep }} class="link_right link_button_primary"><i class="fas fa-plus"> Add Interview Preparation</i></a>
+                </div>
+            </div>
+        </div>   
+    {% else %}
+        <div class="alignfull background-colour">
+            <div class="aligncenter"> 
+                <div class="text-center xxx-margins"> 
+                    <a href={{ general_details.links.add_interview_prep }} class="link_right link_button_primary"><i class="fas fa-plus"> Add Interview Preparation</i></a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
-    <div class="alignfull background-colour">
+    <div class="alignfull xxx-margins">
         <div class="aligncenter">  
-            <div class="three-col-grid extra-margins">
-                {% for interview_prep_id, prep_fields in general_details.interview_prep_details.fields.items() %}
-                    <a href={{ prep_fields.view_prep_link }} class="link-cards-alt-colour">
-                        <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> {{ prep_fields.question }}</h3>
-                    </a>
-                {% endfor %}
+            <div class="three-col-grid">
+                <a href={{ general_details.links.view_interview }} class="link-cards">
+                    <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Interview </h3>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            <i class="fas fa-calendar-alt"> {{ general_details.interview_details.date }} @ {{ general_details.interview_details.time }}</i>
+                        </div>
+                    </div>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.interview_details.status }}
+                        </div>
+                    </div>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.interview_details.interview_type }}
+                        </div>
+                    </div>
+                </a>
+                <a href={{ general_details.links.company_profile }} class="link-cards-alt-colour">
+                    <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Company </h3>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.company_details.name }}
+                        </div>
+                    </div>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.company_details.description }}
+                        </div>
+                    </div>
+
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.company_details.location }}
+                        </div>
+                    </div>
+                </a>
+                <a href={{ general_details.links.view_application }} class="link-cards-alt-colour">
+                    <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Application </h3>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.application_details.job_role }}
+                        </div>
+                    </div>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.application_details.employment_type }}
+                        </div>
+                    </div>
+                    <div class="form-row extra-margins">
+                        <div class="col text-center"> 
+                            {{ general_details.application_details.interview_stage }}
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
-
-    <div class="alignfull">
-        <div class="aligncenter"> 
-            <div class="text-center xxx-margins"> 
-                <a href={{ general_details.links.add_interview_prep }} class="link_right link_button_primary"><i class="fas fa-plus"> Add Interview Preparation</i></a>
-            </div>
-        </div>
-    </div>
-
         
 {% endblock %}
