@@ -3,6 +3,9 @@ from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_int
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_status
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_interview_stage
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_emp_type_field
+from jhmanager.service.cleanup_files.cleanup_general_fields import replace_na_value_with_none
 
 
 def display_all_interviews_for_application(application_id, interviewsRepo, companyRepo, applicationsRepo):
@@ -13,11 +16,26 @@ def display_all_interviews_for_application(application_id, interviewsRepo, compa
     general_details = {
         "links": {}, 
         "company_name": company.name,
+        "application_details": {}, 
+        "company_details": {}
+    }
+
+    general_details["application_details"] = {
+        "job_role": application.job_role, 
+        "interview_stage": cleanup_interview_stage(application.interview_stage), 
+        "employment_type": cleanup_emp_type_field(application.employment_type)
+    }
+
+    general_details["company_details"] = {
+        "name": company.name, 
+        "description": replace_na_value_with_none(company.description), 
+        "location": replace_na_value_with_none(company.location)
     }
 
     general_details["links"] = {
         "add_new_interview": '/applications/{}/add_interview'.format(application_id),
-        "view_application": '/applications/{}'.format(application_id)
+        "view_application": '/applications/{}'.format(application_id), 
+        "view_company_profile": '/company/{}/view_company'.format(company.company_id)
     }
 
     interview_details = None
