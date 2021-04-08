@@ -2,6 +2,7 @@ from flask import Flask, render_template, session, request, redirect
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_fields_for_single_interview
 from jhmanager.service.cleanup_files.cleanup_general_fields import replace_na_value_with_none
 from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_interview_stage
+from jhmanager.service.cleanup_files.cleanup_company_fields import prepare_company_website_url
 from datetime import datetime, time
 
 
@@ -28,8 +29,10 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
         "interview_stage": cleanup_interview_stage(application.interview_stage)
     }
 
+
+    website_link = prepare_company_website_url(company)
     general_details["links"] = {
-        "company_website": company.url,
+        "company_website": website_link,
         "company_profile": '/company/{}/view_company'.format(company.company_id), 
         "update_interview": "/applications/{}/interview/{}/update_interview".format(application_id, interview_id),
         "delete_interview": "/applications/{}/interview/{}/delete_interview".format(application_id, interview_id),

@@ -108,6 +108,9 @@
                         {% endif %}
                         <a href={{ general_details.links.update_interview }} class="link_button" data-toggle="tooltip" data-placement="top" title="Update"> <i class="fas fa-pencil-alt"> Update</i></a>
                         <a href={{ general_details.links.delete_interview }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
+                        {% if general_details.links.company_website %}
+                            <a href={{ general_details.links.company_website }} class="link_button"><i class="fas fa-eye"> View Company Website</i></a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -119,9 +122,63 @@
             <div class="grid_experiement extra-margins">
                 <a href={{ general_details.links.view_application }} class="link-cards-alt-colour">
                     <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Application </h3>
+                    <div class="form-row extra-margins">
+                        <div class="col left-padding"> 
+                            <strong> Job Role:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ general_details.application_details.job_role }}
+                        </div>
+                    </div>
+                    {% if general_details.application_details.job_description %}
+                        <div class="form-row extra-margins">
+                            <div class="col left-padding"> 
+                                <strong> Job Description:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ general_details.application_details.job_description }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="form-row extra-margins">
+                        <div class="col left-padding"> 
+                            <strong> Interview Stage:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ general_details.application_details.interview_stage }}
+                        </div>
+                    </div>
                 </a>
                 <a href={{ general_details.links.company_profile }} class="link-cards-alt-colour">
                     <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Company </h3>
+                    <div class="form-row extra-margins">
+                        <div class="col left-padding"> 
+                            <strong> Name:</strong>
+                        </div>
+                        <div class="col right-padding"> 
+                            {{ general_details.company_details.name }}
+                        </div>
+                    </div>
+                    {% if general_details.company_details.description %}
+                        <div class="form-row extra-margins">
+                            <div class="col left-padding"> 
+                                <strong> Description:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ general_details.company_details.description }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if general_details.company_details.location %}
+                        <div class="form-row extra-margins">
+                            <div class="col left-padding"> 
+                                <strong> Location:</strong>
+                            </div>
+                            <div class="col right-padding"> 
+                                {{ general_details.company_details.location }}
+                            </div>
+                        </div>
+                    {% endif %}
                 </a>
             </div>
         </div>
