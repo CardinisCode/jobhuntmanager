@@ -356,6 +356,7 @@ hr.thick_border {
   border: 1px solid black;
 }
 
+
 .give-me-space{
   margin: 1rem 0;
   display: grid;
@@ -401,6 +402,19 @@ hr.thick_border {
   margin-top: 1rem;
   margin-bottom: 1rem !important;
   text-align: center !important;
+}
+
+.card-heads-bottom-margin {
+  margin-bottom: 2rem !important;
+  text-align: center !important;
+}
+
+.card-headings-with-bottom-border {
+  padding: 2rem; 
+  border-bottom: 2px solid black;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  text-align: center;
 }
 
 .card-content {
