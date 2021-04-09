@@ -421,6 +421,16 @@ hr.thick_border {
   margin-top: 1rem;
 }
 
+.link-alt-colour {
+  color: royalblue;
+}
+
+.link-alt-colour:hover {
+  color:purple; 
+  font-weight: bolder;
+  text-decoration: none;
+}
+
 
 .link_button_primary:hover{
   color: indigo;
