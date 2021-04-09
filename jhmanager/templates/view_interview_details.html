@@ -36,7 +36,7 @@
                             <i class="fas fa-exclamation"></i> <strong> Interview Status:</strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ interview_details.fields.status }}
+                            {{ interview_details.fields.status }} <a href={{ general_details.links.update_interview_status }}><i class="fas fa-pencil-alt"> Update</i></a>
                         </div>
                     </div>
                     {% if interview_details.fields.interviewer_names %}

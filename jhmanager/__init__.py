@@ -55,6 +55,8 @@ from jhmanager.service.interviews.update_interview import display_update_intervi
 from jhmanager.service.interviews.update_interview import post_update_interview
 from jhmanager.service.interviews.delete_an_interview import delete_interview
 from jhmanager.service.interviews.view_all_interviews import display_all_interviews_for_application
+from jhmanager.service.interviews.update_interview_status import display_update_status_form
+from jhmanager.service.interviews.update_interview_status import post_update_interview_status
 
 from jhmanager.service.interview_preparation.add_interview_prep import display_interview_preparation_form
 from jhmanager.service.interview_preparation.add_interview_prep import post_add_interview_preparation
@@ -132,6 +134,7 @@ from jhmanager.forms.warning_form import WarningForm
 from jhmanager.forms.add_company_job_app_form import AddCompanyJobApplicationForm
 from jhmanager.forms.delete_form import DeleteCompanyForm
 from jhmanager.forms.add_new_contact_form import AddNewContactForm
+from jhmanager.forms.update_interview_status_form import UpdateInterviewStatusForm
 
 
 # Configure application
@@ -236,7 +239,6 @@ def display_dashboard():
 @app.route("/about_us")
 def read_about_us():
     return render_template("about_us.html")
-
 
 
 """
@@ -400,6 +402,21 @@ def update_specific_interview(application_id, interview_id):
 
     if request.method == "GET":
         return display_update_interview_form(update_interview_form, application_id, interview_id, applicationsRepo, companyRepo)
+
+
+@app.route('/applications/<int:application_id>/interview/<int:interview_id>/update_interview_status', methods=["GET", "POST"])
+@login_required
+def update_interview_status(application_id, interview_id):
+    update_status_form = UpdateInterviewStatusForm()
+    if request.method == "GET":
+        return display_update_status_form(update_status_form, application_id, interview_id, interviewsRepo, applicationsRepo, companyRepo)
+
+    if request.method == "POST":
+        if update_status_form.validate_on_submit():
+            return post_update_interview_status(update_status_form, application_id, interview_id, interviewsRepo)
+        else:
+            flash("Complete all the fields.")
+            return display_update_status_form(update_status_form, application_id, interview_id, interviewsRepo, applicationsRepo, companyRepo)
 
 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/delete_interview')

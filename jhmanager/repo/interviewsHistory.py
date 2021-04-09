@@ -173,6 +173,19 @@ class InterviewsHistoryRepository:
 
         self.db.commit()
 
+
+    def updateInterviewStatus(self, fields):
+        cursor = self.db.cursor()
+
+        command = """
+        UPDATE interviews 
+        SET status = ?
+        WHERE interview_id = ?"""
+
+        cursor.execute(command, tuple(fields.values()))
+
+        self.db.commit()
+
     def deleteByInterviewID(self, interview_id):
         message = ""
         try: 

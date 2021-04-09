@@ -42,6 +42,7 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
         "view_application": '/applications/{}'.format(application_id), 
         "view_application_notes": '/applications/{}/view_application_notes'.format(application_id), 
         "view_company_notes": '/company/{}/view_all_company_notes'.format(company.company_id), 
+        "update_interview_status": '/applications/{}/interview/{}/update_interview_status'.format(application_id, interview_id)
     }
 
     other_medium = interview.other_medium

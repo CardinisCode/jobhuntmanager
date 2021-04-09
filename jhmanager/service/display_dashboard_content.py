@@ -50,9 +50,10 @@ def extract_and_display_job_offers(user_id, jobOffersRepo, companyRepo):
 
 def extract_and_display_interviews(user_id, interviewsRepo, applicationsRepo, companyRepo): 
     all_interviews = interviewsRepo.grabUpcomingInterviewsByUserID(user_id)
+    current_date = datetime.now().date()
 
     interview_details = {
-        "interviews_count": 0, 
+        "todays_interviews_count": 0, 
         "fields": None, 
     }
 
@@ -60,8 +61,8 @@ def extract_and_display_interviews(user_id, interviewsRepo, applicationsRepo, co
     if all_interviews:
         interview_details["fields"] = {}
         for interview in all_interviews:
-            count += 1
             interview_id = interview.interview_id
+            interview_date = interview.interview_date
             application_id = interview.application_id
             company_id = applicationsRepo.grabApplicationByID(application_id).company_id
             company_name = companyRepo.getCompanyById(company_id).name
@@ -85,7 +86,10 @@ def extract_and_display_interviews(user_id, interviewsRepo, applicationsRepo, co
             }
             cleanup_interview_fields(interview_details, interview_id)
 
-    interview_details["interviews_count"] = count
+            if interview_date == current_date: 
+                count += 1
+
+    interview_details["todays_interviews_count"] = count
 
     return interview_details
 
@@ -114,7 +118,7 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
     display = {
         'current_date': current_date,
         "applications_today": app_today_count,
-        "interviews_today": interview_details["interviews_count"],
+        "interviews_today": interview_details["todays_interviews_count"],
         "job_offer_count": job_offer_details["offer_count"],
         "message": message,
         "interview_details": interview_details, 
