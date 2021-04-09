@@ -8,7 +8,7 @@
 
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="text-center"> {{ details.company_name }}</h1>
+            <h1 class="card-headings"><i class="fas fa-sticky-note"></i> Note </h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -18,49 +18,47 @@
         </div>
     </div>
 
-    <div class="alignfull background-colour">
+    <div class="alignfull">
         <div class="aligncenter"> 
-            <div class="grid_experiement full-grid-length">
+            <div class="single_col_grid">
                 <div class="grid_child"> 
-                    <h2 class="text-center extra-margins"> Note Details </h2>
+                    <h2 class="card-headings"> Details </h2>
                     <div class="form-row">
-                        <div class="col left-padding"> 
-                            <i class="fas fa-calendar-alt"></i><strong> Entry Date:</strong>
-                        </div>
+                        <label class="col left-padding"><i class="fas fa-users"></i> Company Name:</label>
                         <div class="col right-padding"> 
-                            {{ details.date }}
+                            {{ general_details.note_details.company_name }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col left-padding"> 
-                            <strong> Subject:</strong>
-                        </div>
+                        <label class="col left-padding"><i class="fas fa-calendar-alt"></i> Entry Date:</label>
                         <div class="col right-padding"> 
-                            {{ details.subject }}
+                            {{ general_details.note_details.date }}
                         </div>
                     </div>
+                    <br/>
                     <div class="form-row">
-                        <div class="col left-padding"> 
-                            <strong> Note:</strong>
-                        </div>
-                        <div class="col right-padding"> 
-                            {{ details.note_text }}
+                        <label class="col left-padding"><i class="fas fa-heading"></i> {{ general_details.note_details.subject }}:</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col note-text-styling"> 
+                            <i class="fas fa-sticky-note"></i> {{ general_details.note_details.note_text }}
                         </div>
                     </div>
                     <div class="text-center link-button-margins"> 
-                        <a href={{ details.update_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
-                        <a href={{ details.delete_note_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
+                        <a href={{ general_details.links.update_note }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+                        <a href={{ general_details.links.delete_note }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="alignfull">
+    <div class="alignfull background-colour">
         <div class="aligncenter"> 
             <div class="text-center xxx-margins"> 
-                <a href={{ details.company_notes_url }} class="link_button_primary text-center"> <i class="fas fa-angle-left"> Go Back to Company Notes</i></a>
-                <a href={{ details.company_profile_url }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Company Profile</i></a>
+                <a href={{ general_details.links.view_company_notes }} class="link_button_primary"> <i class="fas fa-angle-left"> Go Back to Company Notes</i></a>
+                <a href={{ general_details.links.view_company_profile }} class="link_button_primary"> <i class="fas fa-eye"> View Company Profile</i></a>
+                <a href={{ general_details.links.add_new_note }} class="link_button_primary"> <i class="fas fa-plus"> Add New Note</i></a>
             </div>
         </div>
     </div>

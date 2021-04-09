@@ -7,6 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
+            <h1 class="card-headings"><i class="fas fa-sticky-note"></i> Note </h1>
             
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -19,9 +20,9 @@
 
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="text-center"> Note Details</h1>
             <div class="single_col_grid">
                 <div class="grid_child">
+                    <h2 class="card-headings"> Details</h2>
                     <div class="form-row">
                         <label class="col left-padding"><i class="fas fa-users"></i> Company Name:</label>
                         <div class="col right-padding"> 
@@ -36,7 +37,7 @@
                     </div>
                     <br/>
                     <div class="form-row">
-                        <label class="col text-center"><i class="fas fa-heading"></i> {{ general_details.note_details.subject }}:</label>
+                        <label class="col left-padding"><i class="fas fa-heading"></i> {{ general_details.note_details.subject }}:</label>
                     </div>
                     <div class="form-row">
                         <div class="col note-text-styling"> 
