@@ -7,8 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter">    
-            <h1 class="text-center"> Interview </h1>
-
+            
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
                     <div class="flash alert alert-success border text-center">{{ message }}</div>
@@ -20,9 +19,10 @@
 
     <div class="alignfull extra-margins">
         <div class="aligncenter"> 
-            <div class="single_col_grid">
+            <div class="full-grid-length">
                 <div class="grid_child"> 
-                    <h2 class="card-headings"> Details</h2> 
+                    <h1 class="card-headings-with-bottom-border"> Interview </h1>
+                    <h2 class="card-heads-bottom-margin"> Details</h2> 
                     <div class="form-row">
                         <div class="col left-padding"> 
                             <i class="fas fa-calendar-alt"></i><strong> Date & Time:</strong>

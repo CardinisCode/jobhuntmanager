@@ -7,7 +7,6 @@
 {% block main %}
     <div class="alignfull"> 
         <div class="aligncenter"> 
-            <h1 class="text-center"> {{ general_details.company_name }} </h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -20,8 +19,9 @@
     <div class="alignfull">
         <div class="aligncenter"> 
             <div class="full-grid-length">
-                <div class="grid_child"> 
-                    <h2 class="text-center card-headings"> Company Profile </h2>
+                <div class="grid_child">
+                    <h1 class="card-headings-with-bottom-border"> {{ general_details.company_name }} </h1>
+                    <h2 class="card-heads-bottom-margin"> Company Profile </h2>
                     {% for fields in company_details.values() %}
                         {% if fields.data %}
                             <div class="form-row">
@@ -43,13 +43,18 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="alignfull background-colour"> 
+        <div class="aligncenter"> 
             <div class="text-center link-button-margins">
                 <a href={{ general_details.add_job_application_url}} class="link_button_primary text-center"> <i class="fas fa-plus"> Add Job Application For {{ general_details.company_name }}</i></a>
             </div>
         </div>
     </div>
 
-    <div class="alignfull background-colour xxx-margins"> 
+    <div class="alignfull xxx-margins"> 
         <div class="aligncenter"> 
             <h3 class="text-center">Notes:</h3> 
             <div class="text-center link-button-margins">

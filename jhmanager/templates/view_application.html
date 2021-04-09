@@ -7,7 +7,6 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="text-center"> Application </h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -19,9 +18,10 @@
 
     <div class="alignfull">
         <div class="aligncenter"> 
-            <div class="single_col_grid">
+            <div class="full-grid-length">
                 <div class="grid_child"> 
-                    <h2 class="card-headings"> {{ general_details.company_details.company_name}}</h2>
+                    <h1 class="card-headings-with-bottom-border"> Application </h1>
+                    <h2 class="card-heads-bottom-margin"> {{ general_details.company_details.company_name}}</h2>
                     <div class="form-row">
                         <div class="col left-padding"> 
                             <i class="fas fa-calendar-alt"></i><strong> Date Of Application:</strong>

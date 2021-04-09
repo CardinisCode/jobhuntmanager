@@ -210,8 +210,13 @@ textarea {
 }
 
 .extra-margins{
-  margin-top: 1rem;
+  margin-top: 1rem ;
   margin-bottom: 1rem;
+}
+
+.extra-padding {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
 }
 
 .bottom-margins {
@@ -625,6 +630,12 @@ hr.thick_border {
   text-align: justify;
 }
 
+.prep-text-styling {
+  padding-left: 5rem !important;
+  padding-right: 5rem !important;
+  text-align: justify;
+}
+
 h3, h4 {
   margin-bottom: 1.5rem !important;
 }
@@ -636,12 +647,6 @@ h1 {
 .td-styling {
   padding: 0.5rem;
 }
-
-/* .list_group_heading {
-  text-align: center;
-  background-color: #495057 !important;
-  color: white;
-} */
 
 .list-group-item {
   position: relative;

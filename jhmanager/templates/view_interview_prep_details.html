@@ -7,7 +7,6 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="text-center"> Interview Preparation </h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -17,14 +16,17 @@
         </div>
     </div>
 
-    <div class="alignfull">
+    <div class="alignfull bottom-margins">
         <div class="aligncenter"> 
-            <div class="single_col_grid">
+            <div class="full-grid-length">
                 <div class="grid_child"> 
-                    <h2 class="card-headings"> {{ general_details.interview_prep_details.question }} </h2>
+                    <h1 class="card-headings-with-bottom-border"> Interview Preparation </h1>
                     <div class="form-row">
-                        <div class="col left-padding"> 
-                            {{ general_details.interview_prep_details.answer }}
+                        <label class="col text-center"> <strong>Q:</strong> {{ general_details.interview_prep_details.question }}</label>
+                    </div>
+                    <div class="form-row">
+                        <div class="col prep-text-styling"> 
+                            <strong> A: </strong> {{ general_details.interview_prep_details.answer }}
                         </div>
                     </div>
                     <div class="text-center link-button-margins"> 
@@ -36,7 +38,7 @@
         </div>
     </div>
 
-    <div class="alignfull background-colour xxx-margins">
+    <div class="alignfull background-colour extra-padding">
         <div class="aligncenter">  
             <div class="three-col-grid">
                 <a href={{ general_details.links.view_interview }} class="link-cards-alt-colour">
@@ -61,7 +63,7 @@
                     <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Company </h3>
                     <div class="form-row extra-margins">
                         <div class="col text-center"> 
-                            {{ general_details.company_details.name }}
+                            <i class="fas fa-users"> {{ general_details.company_details.name }} </i>
                         </div>
                     </div>
                     <div class="form-row extra-margins">
@@ -80,7 +82,7 @@
                     <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Application </h3>
                     <div class="form-row extra-margins">
                         <div class="col text-center"> 
-                            {{ general_details.application_details.job_role }}
+                            <i class="fas fa-pencil-ruler"> {{ general_details.application_details.job_role }}</i>
                         </div>
                     </div>
                     {% if general_details.application_details.job_description %}
@@ -92,7 +94,7 @@
                     {% endif %}
                     <div class="form-row extra-margins">
                         <div class="col text-center"> 
-                            Interview #{{ general_details.application_details.interview_stage }}
+                           {{ general_details.application_details.interview_stage }}
                         </div>
                     </div>
                 </a>

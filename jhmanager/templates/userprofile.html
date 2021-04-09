@@ -7,7 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="text-center"> User Profile </h1>
+            
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
                     <div class="flash alert alert-success border text-center">{{ message }}</div>
@@ -18,21 +18,18 @@
 
     <div class="alignfull">
         <div class="aligncenter"> 
-            <div class="grid_experiement full-grid-length">
+            <div class="full-grid-length">
                 <div class="grid_child"> 
-                    <h2 class="text-center extra-margins"> Your Details </h2>
+                    <h1 class="card-headings-with-bottom-border"> User Profile </h1>
+                    <h2 class="card-heads-bottom-margin"> Your Details </h2>
                     <div class="form-row">
-                        <div class="col left-padding"> 
-                            <strong> {{ user_details.username.heading }} </strong>
-                        </div>
+                        <label class="col left-padding"><i class="fas fa-user-alt"></i> {{ user_details.username.heading }}</label>
                         <div class="col right-padding"> 
                             {{ user_details.username.data }} 
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col left-padding"> 
-                            <strong> {{ user_details.user_email.heading }}</strong>
-                        </div>
+                        <label class="col left-padding"><i class="fas fa-at"></i> {{ user_details.user_email.heading }}</label>
                         <div class="col right-padding"> 
                             {{ user_details.user_email.data }}  <a href={{ user_details.user_email.update_url }} class="link-alt-colour"> <i class="fas fa-pencil-alt"> Update</i></a>
                         </div>
