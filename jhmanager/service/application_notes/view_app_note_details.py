@@ -19,6 +19,7 @@ def display_application_note_details(application_id, app_notes_id, appNotesRepo,
         "view_application": '/applications/{}'.format(application_id),
         "update_note": '/applications/{}/app_notes/{}/update_note'.format(application_id, app_notes_id), 
         "delete_note": "/applications/{}/app_notes/{}/delete_note".format(application_id, app_notes_id), 
+        "add_new_note": '/applications/{}/app_notes/add_note'.format(application_id)
     }
 
     note_date_obj = datetime.strptime(app_notes.entry_date, "%Y-%m-%d")
