@@ -605,6 +605,12 @@ hr.thick_border {
   padding-right: 30px !important;
 }
 
+.note-text-styling {
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+  text-align: justify;
+}
+
 h3, h4 {
   margin-bottom: 1.5rem !important;
 }
