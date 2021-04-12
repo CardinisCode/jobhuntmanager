@@ -409,6 +409,13 @@ hr.thick_border {
   text-align: center !important;
 }
 
+.headings-underlined {
+  margin-top: 1rem;
+  margin-bottom: 2rem !important;
+  text-align: center !important;
+  text-decoration-line: underline;
+}
+
 .card-heads-bottom-margin {
   margin-bottom: 2rem !important;
   text-align: center !important;
@@ -426,6 +433,13 @@ hr.thick_border {
   text-align: left;
   font-weight: bold;
   padding: 1rem 4rem;
+}
+
+.card-content-alt-colour {
+  text-align: left;
+  font-weight: bold;
+  padding: 1rem 4rem;
+  background-color: white;
 }
 
 .card-content-alt {
@@ -714,6 +728,48 @@ select:-webkit-autofill:focus {
 
 .link-div-styling-with-xtra-margins {
   text-align: center;
-  margin-top: 2rem !important;
+  margin-top: 3rem !important;
   margin-bottom: 4rem !important;
+}
+
+.screenshot-img {
+  max-width:80%;
+  border: 1px solid black;
+  justify-self: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.screenshot-img-styling {
+  height: 18rem;
+  width: 30rem;
+  border: 1px solid black;
+  justify-self: center;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  display: block;
+}
+
+.screenshot-contacts-styling {
+  height: 13rem;
+  width: 33rem;
+  border: 1px solid black;
+  justify-self: center;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  display: block;
+}
+
+.screenshot-labels {
+  font-weight: bold;
+  text-align: center;
+  margin: 1rem;
+}
+
+.screenshot-grid {
+  display: grid;
+  text-align: left;
+  font-weight: bold;
+  padding: 1rem 4rem;
 }

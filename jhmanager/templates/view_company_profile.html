@@ -20,14 +20,12 @@
         <div class="aligncenter"> 
             <div class="full-grid-length">
                 <div class="grid_child">
-                    <h1 class="card-headings-with-bottom-border"> {{ general_details.company_name }} </h1>
-                    <h2 class="card-heads-bottom-margin"> Company Profile </h2>
+                    <h1 class="card-headings-with-bottom-border"><i class="fas fa-users"></i> Company Profile</h1>
+                    <h2 class="card-heads-bottom-margin"> {{ general_details.company_name }} </h2>
                     {% for fields in company_details.values() %}
                         {% if fields.data %}
                             <div class="form-row">
-                                <div class="col left-padding"> 
-                                    <strong> {{ fields.label }}</strong>
-                                </div>
+                                <label class="col left-padding">{{ fields.label }}</label>
                                 <div class="col right-padding"> 
                                     {{ fields.data }}
                                 </div>
@@ -56,7 +54,7 @@
 
     <div class="alignfull xxx-margins"> 
         <div class="aligncenter"> 
-            <h3 class="text-center">Notes:</h3> 
+            <h3 class="text-center"><i class="fas fa-sticky-note"></i> Notes / Research:</h3> 
             <div class="text-center link-button-margins">
                 <a href={{ general_details.add_note_url}} class="link_button_primary text-center"> <i class="fas fa-plus"> Add Note For {{ general_details.company_name }}</i></a>
                 <a href={{ general_details.view_notes_url}} class="link_button_primary text-center"> <i class="fas fa-plus"> View All Notes For {{ general_details.company_name }}</i></a>

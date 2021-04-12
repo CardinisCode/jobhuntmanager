@@ -3,13 +3,6 @@ from datetime import datetime, time
 
 
 def display_add_job_offer_form(application_id, user_id, add_job_offer, companyRepo, applicationsRepo):
-    # all_companies_for_user = companyRepo.getAllCompanyEntriesForUser(user_id)
-    # company_names = []
-    # for company in all_companies_for_user:
-    #     company_names.append(company.name)
-
-    # add_job_offer.company_list.choices = [(int(company.company_id), company.name) for company in all_companies_for_user]
-
     application = applicationsRepo.grabApplicationByID(application_id)
     company = companyRepo.getCompanyById(application.company_id)
     action_url = '/applications/{}/add_job_offer'.format(application_id)
@@ -37,21 +30,9 @@ def post_add_job_offer(application_id, user_id, add_job_offer, companyRepo, appl
         "offer_response": add_job_offer.offer_response.data
     }
 
-    jobOffersRepo.addJobOfferToHistory(fields)
+    job_offer_id = jobOffersRepo.addJobOfferToHistory(fields)
     flash("Job offer saved in the DB.")
 
-    redirect_url = '/applications/{}'.format(application_id)
+    redirect_url = '/applications/{}/job_offers/{}'.format(application_id, job_offer_id)
 
     return redirect(redirect_url)
-
-
-
-    #     <div class="col grid_child-simple">
-    #     <label class="wpforms-container-full .wpforms-form .wpforms-title field_title"><i class="fas fa-hand-pointer"></i> {{ add_job_offer.company_list.label }}</label>
-    #     <select id="company_list" name="company_list"> 
-    #         <option value="select_company" disabled> Select Company Name</option> 
-    #         {% for company in add_job_offer.company_list.choices %}
-    #             <option value={{ company[0] }}> {{ company[1] }}</option> 
-    #         {% endfor%}
-    #     </select>
-    # </div>

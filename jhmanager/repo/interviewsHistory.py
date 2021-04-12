@@ -135,7 +135,7 @@ class InterviewsHistoryRepository:
 
     def getTop6InterviewsByApplicationID(self, application_id):
         cursor = self.db.cursor()
-        command = "SELECT * FROM interviews where application_id = {} ORDER BY date DESC, time DESC LIMIT 6".format(application_id)
+        command = "SELECT * FROM interviews where application_id = {} ORDER BY date, time LIMIT 6".format(application_id)
         result = cursor.execute(command)
         self.db.commit()
 
