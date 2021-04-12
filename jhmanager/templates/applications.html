@@ -7,7 +7,6 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="text-center"> Job Applications </h1>
         
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -19,6 +18,7 @@
 
     <div class="alignfull background-colour">
         <div class="aligncenter">  
+            <h1 class="card-headings-with-bottom-border"> Job Applications </h1>
             <div class="three-col-grid extra-margins">
                 {% for application_id, application in display_details.fields.items() %}
                     <a href={{ application.view_more }} class="link-cards-alt-colour">

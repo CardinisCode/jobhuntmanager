@@ -101,6 +101,31 @@ class ApplicationsHistoryRepository:
             applications_list.append(application_result)
 
         return applications_list
+ 
+
+    def getAllApplicationsByUserID(self, user_id):
+        cursor = self.db.cursor()
+        command = """  
+            SELECT * FROM job_applications
+            WHERE user_id = {}
+        """.format(user_id)
+        result = cursor.execute(command)
+        self.db.commit()
+
+        if not result:
+            return None
+
+        data = [x for x in result]
+        if not result: 
+            return None
+
+        applications_list = []
+
+        for application in data:
+            application_result = Application(application)
+            applications_list.append(application_result)
+
+        return applications_list
 
 
     def grabApplicationDetailsByApplicationID(self, application_id):
@@ -149,43 +174,7 @@ class ApplicationsHistoryRepository:
             application_list.append(application_result)
         
         return application_list  
-
-    
-    # def grabApplicationByID(self, application_id):
-    #     result = self.sql.getByField('job_applications', 'application_id', application_id)
-
-    #     application_result = Application(result)
-
-    #     return application_result
-      
-    def getFullApplicationByApplicationID(self, application_id):
-        cursor = self.db.cursor()
-
-        command = """
-        SELECT job_role,
-            employment_type,
-            job_ref,
-            c.name,
-            c.description,
-            c.industry,
-            job_description,
-            job_perks,
-            tech_stack,
-            c.location,
-            salary,
-            user_notes,
-            platform,
-            job_url 
-        FROM job_applications as A 
-        INNER JOIN company C ON A.company_id = C.company_id 
-        WHERE A.application_id = ?"""
-
-        result = cursor.execute(command, application_id)
-        self.db.commit()
-
-        data = [d for d in result]
-
-        return data[0] 
+ 
 
     def updateInterviewStage(self, fields):
         try: 

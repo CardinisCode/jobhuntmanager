@@ -94,6 +94,17 @@ def extract_and_display_interviews(user_id, interviewsRepo, applicationsRepo, co
     return interview_details
 
 
+def get_application_count(applications):
+    app_count = 0
+    if not applications: 
+        return app_count
+
+    for application in applications:
+        app_count += 1
+
+    return app_count
+
+
 def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo, jobOffersRepo):
     #1: Let's grab today's date as this will help us when we're grabbing interviews & applications for the current date:
     current_date = date.today()
@@ -105,25 +116,26 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
 
     # Now to grab the figures/stats we'll be displaying at the top of the dashboard:
     applications_today = applicationsRepo.grabTodaysApplicationCount(date_str, user_id)
+    all_applications = applicationsRepo.getAllApplicationsByUserID(user_id)
     interviews_today = interviewsRepo.grabTodaysInterviewCount(date_str, user_id)
 
     # Sadly SQLite doesn't have the functionality to return COUNT(*) from SQLite to Python
     # So we'll have manually count the number of rows returned from the SQL query:
-    app_today_count = 0
-    for app in applications_today:
-        app_today_count += 1
+    today_app_count = get_application_count(applications_today)
+    all_app_count = get_application_count(all_applications)
 
     message = "All good!"
 
     display = {
         'current_date': current_date,
-        "applications_today": app_today_count,
+        "applications_today": today_app_count,
         "interviews_today": interview_details["todays_interviews_count"],
         "job_offer_count": job_offer_details["offer_count"],
         "message": message,
         "interview_details": interview_details, 
         "job_offer_details": job_offer_details,
-        "add_application_url": '/add_job_application'
+        "add_application_url": '/add_job_application',
+        "total_application_count": all_app_count
     }
 
     return render_template("dashboard.html", display=display)

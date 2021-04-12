@@ -7,7 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="text-center"> All Notes </h1>
+            <h1 class="card-headings-with-bottom-border"> All Notes </h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -20,10 +20,16 @@
 
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
-            <h2 class="text-center xxx-margins"> Application Notes</h2>
-            {% if app_notes_details.empty_table != True %}
+            <h2 class="card-headings"> Application Notes</h2>
+            {% if general_details.application_count == 0 %}
+                <h3 class="card-headings"> Start adding your job applications:</h3>
+                <div class="link-div-styling"> 
+                    <a href={{ general_details.links.add_job_application }} class="link_button_primary text-center extra-button-styles"><i class="fas fa-plus"> Add Job Application </i></a>
+                </div>
+            {% endif %}
+            {% if not general_details.app_notes_details.empty_table %}
                 <div class="three-col-grid extra-margins">
-                    {% for entry_id, fields in app_notes_details.fields.items() %}
+                    {% for entry_id, fields in general_details.app_notes_details.fields.items() %}
                         <a href={{ fields.view_note_url }} class="link-cards-alt-colour">
                             <i class="fas fa-hand-pointer"></i><h3 class="card-headings"><i class="fas fa-heading"> {{ fields.description }}</i></h3>
                             <div class="card-content"> 
@@ -52,12 +58,18 @@
         </div>
     </div>
 
-    {% if company_notes_details.empty_table != True %}
-        <div class="alignfull">
-            <div class="aligncenter"> 
-                <h2 class="text-center xxx-margins"> Company Notes</h2>
+    <div class="alignfull">
+        <div class="aligncenter"> 
+            <h2 class="card-headings xxx-margins"> Company Notes</h2>
+            {% if general_details.company_count == 0 %}
+                <h3 class="card-headings"> Start adding Companies from your wishlist:</h3>
+                <div class="link-div-styling"> 
+                    <a href={{ general_details.links.add_company }} class="link_button_primary text-center extra-button-styles"><i class="fas fa-plus"> Add Company</i></a>
+                </div>
+            {% endif %}
+            {% if not general_details.company_notes_details.empty_table %}
                 <div class="three-col-grid xxx-margins">
-                    {% for entry_id, fields in company_notes_details.fields.items() %}
+                    {% for entry_id, fields in general_details.company_notes_details.fields.items() %}
                         <a href={{ fields.view_company_note_url }} class="link-cards">
                             <i class="fas fa-hand-pointer"></i><h3 class="card-headings"><i class="fas fa-heading"> {{ fields.subject }}</i></h3>
                             <div class="card-content"> 
@@ -76,18 +88,19 @@
                         </a>
                     {% endfor %}
                 </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if general_details.display_bottom_links %}
+        <div class="alignfull background-colour">
+            <div class="aligncenter"> 
+                <div class="link-div-styling-with-xtra-margins" role="group"> 
+                    <a href='/address_book/company_directory' class="link_button_primary text-center"><i class="fas fa-eye"> View Company Directory</i></a>
+                    <a href="/applications" class="link_button_primary text-center"><i class="fas fa-eye"> View all Applications</i></a>
+                </div>
             </div>
         </div>
     {% endif %}
-
-
-    <div class="alignfull background-colour">
-        <div class="aligncenter"> 
-            <div class="text-center xxx-margins" role="group"> 
-                <a href='/address_book' class="link_button_primary text-center"><i class="fas fa-eye"> View Company Address Book</i></a>
-                <a href="/applications" class="link_button_primary text-center"><i class="fas fa-eye"> View all Applications</i></a>
-            </div>
-        </div>
-    </div>
 
 {% endblock %}

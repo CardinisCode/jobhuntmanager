@@ -25,7 +25,7 @@ def post_register_user(session, userRepo, register_form):
 
     existing_email = userRepo.getByUserEmail(email_address)
     if existing_email:
-        flash("This email already registered. ")
+        flash("This email already been registered.")
         return render_template("register.html", register_form=register_form)
 
     #3) Now that we've checked that this user doesn't already exist, we can safely add their details 
