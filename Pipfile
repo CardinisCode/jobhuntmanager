@@ -15,6 +15,7 @@ wtforms-components = "*"
 pytest = "*"
 flask-mail = "*"
 flask-security = "*"
+gunicorn = "*"
 
 [dev-packages]
 
