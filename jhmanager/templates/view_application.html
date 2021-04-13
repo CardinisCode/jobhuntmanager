@@ -7,6 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
+            <h1 class="h1-heading"> Application Details</h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -18,9 +19,8 @@
 
     <div class="alignfull">
         <div class="aligncenter"> 
-            <div class="single_col_grid">
+            <div class="full-grid-length">
                 <div class="grid_child"> 
-                    <h1 class="h1-heading"> Application </h1>
                     <h2 class="heading-extra-margins"><i class="fas fa-users"></i> {{ general_details.company_details.company_name}}</h2>
                     <div class="form-row">
                         <label class="col left-padding"><i class="fas fa-calendar-alt"></i> Date Of Application:</label>
@@ -102,14 +102,14 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div class="text-center link-button-margins"> 
-                        <a href={{ general_details.links.update_application }} class="link_button"><i class="fas fa-pencil-alt"> Update</i></a>
-                        <a href={{ general_details.links.delete_application }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>  
-                        {% if general_details.links.view_job_posting %}
-                            <a href={{ general_details.links.view_job_posting }} class="link_button"> <i class="fas fa-eye"> View Job Posting</i></a>
-                        {% endif %}
-                        <a href={{ general_details.links.company_profile }} class="link_button"> <i class="fas fa-eye"> View Company Profile</i></a>
-                    </div>
+                </div>
+                <div class="text-center link-button-margins"> 
+                    <a href={{ general_details.links.update_application }} class="link_button"><i class="fas fa-pencil-alt"> Update</i></a>
+                    <a href={{ general_details.links.delete_application }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>  
+                    {% if general_details.links.view_job_posting %}
+                        <a href={{ general_details.links.view_job_posting }} class="link_button"> <i class="fas fa-eye"> View Job Posting</i></a>
+                    {% endif %}
+                    <a href={{ general_details.links.company_profile }} class="link_button"> <i class="fas fa-eye"> View Company Profile</i></a>
                 </div>
             </div>
         </div>
@@ -117,7 +117,7 @@
 
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
-            <h3 class="text-center"> Job Offers</h3>
+            <h3 class="heading"> Job Offers</h3>
             {% if not job_offer_details.empty_table %}
                 {% if job_offer_details.count == 1 %}
                     <div class="single_col_grid">
@@ -216,12 +216,13 @@
     
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h3 class="text-center heading_margins"> Interviews</h3>
+            <h3 class="heading"> Interviews</h3>
             {% if not general_details.interview_details.empty_fields %}
                 {% if interview_fields.interviews_count == 1 %}
                     <div class="single_col_grid"> 
                         {% for interview_id, interview in interview_fields.fields.items() %}
                             <a href={{ interview.view_more }} class="link-cards">
+                                <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> #{{ interview.number }}</h3>
                                 <div class="grid_child-alt-colour"> 
                                     <div class="form-row">
                                         <div class="col left-padding"> 
@@ -246,14 +247,6 @@
                                             </div>
                                         </div>
                                     {% endif %}
-                                    <div class="text-center link-button-margins"> 
-                                        {% if interview.status == "Upcoming Interview" and not interview.past_dated %}
-                                            <a href={{ interview.prepare_url }} class="link_button"> <i class="fas fa-pencil-alt"> Prepare</i></a>
-                                        {% endif %}
-                                        <a href={{ interview.view_more }} class="link_button"> <i class="fas fa-eye"> View</i></a>
-                                        <a href={{ interview.update_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
-                                        <a href={{ interview.delete_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
-                                    </div>
                                 </div>
                             </a>
                         {% endfor %}
@@ -285,16 +278,15 @@
                     </div>
                 {% endif %}
             {% endif %}
-            <div class="text-center xxx-margins"> 
-                <a href={{ general_details.links.add_interview }} class="link_right link_button_primary"><i class="fas fa-plus"> Add Upcoming Interview</i></a>
-                <a href={{ general_details.links.view_interviews }} class="link_right link_button_primary"><i class="fas fa-eye"> View All Interviews For This Application</i></a>
+            <div class="text-center link-button-margins"> 
+                <a href={{ general_details.links.add_interview }} class="link_button_primary"><i class="fas fa-plus"> Add Upcoming Interview</i></a>
+                <a href={{ general_details.links.view_interviews }} class="link_button_primary"><i class="fas fa-eye"> View All Interviews For This Application</i></a>
             </div>
         </div>
     </div>
-
     <div class="alignfull background-colour xxx-margins">
         <div class="aligncenter"> 
-            <h3 class="text-center">Notes</h3> 
+            <h3 class="heading"><i class="fas fa-sticky-note"></i> Notes</h3> 
             <div class="text-center link-button-margins"> 
                 <a href={{ general_details.links.add_note }} class="link_button_primary text-center"> <i class="fas fa-plus"> Note</i></a>
                 <a href={{ general_details.links.view_notes }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Notes</i></a>

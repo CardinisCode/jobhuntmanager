@@ -18,13 +18,8 @@
                 <form action={{ general_details.links.action_url }} method="POST"> 
                     {{ update_status_form.csrf_token }}
                     <div class="form-grid_child"> 
-                        <h2 class="text-center"> Update Interview Status </h2>
-                        <hr class="thick_border"> 
-                        <div class="form-row extra-margins">
-                            <div class="col text-center">
-                                <h3 class="text-center">{{ general_details.company_name }} </h3>
-                            </div>
-                        </div> 
+                        <h1 class="h1-heading"> Update Interview Status </h1>
+                        <h2 class="heading-extra-margins"><i class="fas fa-users"></i> {{ general_details.company_name}}</h2>
                         <div class="form-row extra-margins">
                             <div class="col left-paddinge">
                                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_status_form.status.label }}</dt>

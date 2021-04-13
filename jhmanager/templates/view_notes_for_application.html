@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    View User Notes For Application
+    View Application Notes
 {% endblock %}
 
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter">   
-            <h1 class="text-center">  Your Notes for {{ general_details.company_name }}: </h1>
+            <h1 class="h1-heading"><i class="fas fa-sticky-note"></i> Application Notes History</h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -17,36 +17,30 @@
         </div>
     </div>
 
-    <div class="alignfull background-colour">
+    <div class="alignfull">
         <div class="aligncenter"> 
-            <div class="button-grid link-button-margins"> 
-                <a href={{ general_details.add_note_url}} class="link_button_primary"> <i class="fas fa-plus"> Add note</i></a>
+            <h2 class="heading"><i class="fas fa-users"></i> {{ general_details.company.name }}</h2>
+            <div class="text-center link-button-margins"> 
+                <a href={{ general_details.links.add_note }} class="link_button_primary"> <i class="fas fa-plus"> Add Note For {{ general_details.company.name }}</i></a>
             </div>
-
-            {% if not general_details.empty_table %}
-                <table class="extra-margins">
-                    <tr class="border-bottom border-right border-left border-top blue-row-background">
-                        {% for heading in user_notes_details.headings %}
-                            <th class="border-bottom border-right border-left border-top td-styling"> {{ heading }}</th>
-                        {% endfor %}
-                    </tr>
-        
-                    {% for entry_id, note_fields in user_notes_details.items() %}
-                        {% if entry_id != "headings" %}
-                            <tr>
-                                <td class="border-bottom border-right border-left border-top td-styling"> {{ entry_id }}</td>
-                                <td class="border-bottom border-right border-left border-top td-styling"> {{ note_fields.entry_date }}</td>
-                                <td class="border-bottom border-right border-left border-top td-styling"> {{ note_fields.subject }}</td>
-                                <td class="border-bottom border-right border-left border-top td-styling"> {{ note_fields.note_text }}</td>
-                                <td class="text-center">
-                                    <a href={{ note_fields.view_note_url }} class="link_button"> <i class="fas fa-eye"> View</i></a>
-                                    <a href={{ note_fields.update_note_url }} class="link_button"> <i class="fas fa-trash"> Update</i></a>
-                                    <a href={{ note_fields.delete_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
-                                </td>
-                            </tr>
-                        {% endif %}
+            {% if not general_details.user_notes_details.empty_table %}
+                <div class="three-col-grid-with-padding background-colour">
+                    {% for entry_id, note_fields in general_details.user_notes_details.fields.items() %}
+                        <a href={{ note_fields.view_note }} class="link-cards-alt-colour"> 
+                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings"><i class="fas fa-heading"> {{ note_fields.subject }}</i></h3>
+                            <div class="form-row">
+                                <div class="col text-center"> 
+                                    <i class="fas fa-calendar-alt"> {{ note_fields.entry_date }}</i>
+                                </div>
+                            </div>
+                            <div class="form-row extra-margins">
+                                <div class="col text-center"> 
+                                    <i class="fas fa-sticky-note"> {{ note_fields.note_text }}</i>
+                                </div>
+                            </div>
+                        </a>
                     {% endfor %}
-                </table>
+                </div>
 
             {% endif %}
         </div>
@@ -55,8 +49,8 @@
     <div class="alignfull">
         <div class="aligncenter">  
             <div class="text-center xxx-margins">
-                <a href={{ general_details.return_to_application }} class="link_button_primary text-center"> <i class="fas fa-angle-left"> Go Back To Application</i></a>
-                <a href={{ general_details.company_profile_url }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Company Profile</i></a>
+                <a href={{ general_details.links.view_application }} class="link_button_primary text-center"> <i class="fas fa-angle-left"> Go Back To Application</i></a>
+                <a href={{ general_details.links.company_profile }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Company Profile</i></a>
             </div>
         </div>
     </div>

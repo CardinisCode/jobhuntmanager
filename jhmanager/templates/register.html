@@ -18,23 +18,17 @@
                 <form action="/register" method="POST"> 
                     {{ register_form.csrf_token }}
                     <div class="form-grid_child"> 
-                        <h1 class="text-center"> Register</h1>
-                        <hr class="thick_border"> 
-
+                        <h1 class="h1-heading-extra-margins"> Register</h1>
                         <div class="form-row">
-                            <div class="col">
+                            <div class="col grid_child-simple">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-user"></i> {{ register_form.username.label }}</dt>
+                                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ register_form.username }} </dd>
+                            </div>
+                            <div class="col grid_child-simple">
                                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-user"></i> {{ register_form.username.label }}</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ register_form.username }} </dd>
                             </div>
                         </div>
-                        
-                        <div class="form-row">
-                            <div class="col">
-                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-at"></i> {{ register_form.email_address.label }}</dt>
-                                <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ register_form.email_address }} </dd>
-                            </div>
-                        </div>
-                
                         <div class="form-row">
                             <div class="col grid_child-simple">
                                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-lock"></i> {{ register_form.password.label }}</dt>
@@ -65,8 +59,8 @@
 
     <div class="alignfull-disclaimer background-colour end-page-margins"> 
         <div class="aligncenter"> 
-            <h2 class="card-heads-bottom-margin"><i class="fas fa-exclamation"></i> Disclaimer</h2>
-            <h3 class="card-headings">Please note that this is a pilot product. </h3>
+            <h2 class="heading-extra-margins"><i class="fas fa-exclamation"></i> Disclaimer</h2>
+            <h3 class="headings">Please note that this is a pilot product. </h3>
             <p> Although passwords have been hashed, no salting has been implemented.
                 As a precaution, please do not use personal information (or passwords) when testing this product. 
                 A suggestion may be to use your favourite fictional character, as I've done when testing this product. 

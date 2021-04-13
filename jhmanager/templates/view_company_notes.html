@@ -7,7 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="text-center"> {{ general_details.company_name }}</h1>
+            <h1 class="h1-heading"><i class="fas fa-sticky-note"></i> Company Notes History</h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -20,20 +20,18 @@
 
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
-            <h2 class="text-center xxx-margins"> Notes History</h2>
+            <h2 class="heading"><i class="fas fa-users"></i> {{ general_details.company_name }}</h2>
             {% if not general_details.empty_table %}
                 <div class="three-col-grid extra-margins">
                     {% for entry_id, note_fields in note_details.items() %}
                         <a href={{ note_fields.View_More }} class="link-cards-alt-colour"> 
-                            <i class="fas fa-hand-pointer"></i><h3 class="text-center"><i class="fas fa-heading"> {{ note_fields.subject }}</i></h3>
-                            <br/>
+                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings"><i class="fas fa-heading"> {{ note_fields.subject }}</i></h3>
                             <div class="form-row">
                                 <div class="col text-center"> 
                                     <i class="fas fa-calendar-alt"> {{ note_fields.entry_date }}</i>
                                 </div>
                             </div>
-                            <br/>
-                            <div class="form-row">
+                            <div class="form-row extra-margins">
                                 <div class="col text-center"> 
                                     <i class="fas fa-sticky-note"> {{ note_fields.note_text }}</i>
                                 </div>

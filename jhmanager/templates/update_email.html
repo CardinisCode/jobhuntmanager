@@ -18,16 +18,14 @@
                 <form action={{ details.update_url}} method="POST"> 
                     {{ update_email_form.csrf_token }}
                     <div class="form-grid_child"> 
-                        <h1 class="text-center"> Update Email </h1> 
-                        <hr class="thick_border">
-
+                        <h1 class="h1-heading-extra-margins"> Update Email </h1> 
                         <div class="form-row">
                             <div class="col grid_child-simple">
-                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_email_form.email.label }}</dt>
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-at"></i> {{ update_email_form.email.label }}</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_email_form.email }}</dd> 
                             </div>
                             <div class="col grid_child-simple">
-                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ update_email_form.confirm_email.label }}</dt>
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-at"></i> {{ update_email_form.confirm_email.label }}</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ update_email_form.confirm_email }}</dd> 
                             </div>
                         </div>

@@ -18,15 +18,13 @@
                 <form action="/login" method="POST"> 
                     {{ login_form.csrf_token }}
                     <div class="form-grid_child"> 
-                        <h1 class="h1-heading"> Login</h1>
-                        <br/>
+                        <h1 class="h1-heading-extra-margins"> Login</h1>
                         <div class="form-row text-center">
                             <div class="col">
                                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-user"></i> {{ login_form.username.label }}</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description text-center"> {{ login_form.username }} </dd>
                             </div>
                         </div>
-                
                         <div class="form-row text-center">
                             <div class="col">
                                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-lock"></i> {{ login_form.password.label }}</dt>

@@ -7,7 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="card-headings-with-bottom-border"> Address Book:</h1>
+            <h1 class="h1-heading"><i class="fas fa-address-book"></i> Address Book:</h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -19,7 +19,7 @@
 
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
-            <h2 class="card-headings"><i class="fas fa-users"></i> COMPANIES</h2>
+            <h2 class="heading-extra-margins"><i class="fas fa-users"></i> COMPANIES</h2>
             <div class="link-div-styling-with-xtra-margins"> 
                 <a href={{ display.add_company }} class="link_button_primary text-center"> <i class="fas fa-plus"> New Company</i></a>
                 <a href={{ display.company_directory }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Company Directory</i></a>
@@ -45,7 +45,7 @@
 
     <div class="alignfull">
         <div class="aligncenter xxx-margins"> 
-            <h2 class="card-headings"><i class="fas fa-user-alt"></i> INDIVIDUAL CONTACTS</h2>
+            <h2 class="heading-extra-margins"><i class="fas fa-user-alt"></i> INDIVIDUAL CONTACTS</h2>
             <div class="link-div-styling-with-xtra-margins"> 
                 <a href={{ contacts_details.add_new_contact }} class="link_button_primary"><i class="fas fa-plus"> Add New Contact</i></a>
                 <a href={{ contacts_details.view_contacts }} class="link_button_primary"> <i class="fas fa-eye"> View Contacts</i></a>

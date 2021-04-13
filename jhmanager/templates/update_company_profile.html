@@ -18,14 +18,16 @@
                 <form action={{ details.action_url }} method="POST"> 
                     {{ update_company_form.csrf_token }}
                     <div class="form-grid_child">
-                        <h2 class="text-center"> Update Company Profile</h2>
-                        <hr class="thick_border"> 
-                        <div class="form-row grid_experiement">
-                            <div class="col grid_child-simple">
+                        <h1 class="h1-heading"> Update Company Profile</h1>
+                        <h2 class="heading-extra-margins"><i class="fas fa-users"></i> {{ details.company_name }} </h2>
+                        <div class="form-row">
+                            <div class="col">
                                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-users"></i> {{ update_company_form.name.label }}</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.name }} </dd>
                             </div>
-                            <div class="col grid_child-simple">
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
                                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-bars"></i> {{ update_company_form.description.label }} </dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_company_form.description }} </dd>
                             </div>

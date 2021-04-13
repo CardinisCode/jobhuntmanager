@@ -7,6 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
+            <h1 class="h1-heading"><i class="fas fa-sticky-note"></i> Note </h1>
             
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -19,23 +20,13 @@
 
     <div class="alignfull">
         <div class="aligncenter"> 
-            <div class="sfull-grid-length">
-                <div class="grid_child">
-                    <h1 class="card-headings-with-bottom-border"><i class="fas fa-sticky-note"></i> Note </h1>
-                    <h2 class="card-heads-bottom-margin"> Details</h2>
-                    <div class="form-row">
-                        <label class="col left-padding"><i class="fas fa-users"></i> Company Name:</label>
-                        <div class="col right-padding"> 
-                            {{ general_details.note_details.company_name }}
+            <div class="full-grid-length">
+                <div class="note-grid">
+                    <div class="form-row note-label extra-margins">
+                        <div class="col left-padding"> 
+                            {{ general_details.note_details.date }}, {{ general_details.note_details.company_name }}
                         </div>
                     </div>
-                    <div class="form-row">
-                        <label class="col left-padding"><i class="fas fa-calendar-alt"></i> Date Posted:</label>
-                        <div class="col right-padding"> 
-                            {{ general_details.note_details.date }}
-                        </div>
-                    </div>
-                    <br/>
                     <div class="form-row">
                         <label class="col left-padding"><i class="fas fa-heading"></i> {{ general_details.note_details.subject }}:</label>
                     </div>
@@ -44,11 +35,11 @@
                             <i class="fas fa-sticky-note"></i> {{ general_details.note_details.note }}
                         </div>
                     </div>
-                    <div class="text-center link-button-margins"> 
-                        <a href={{ general_details.links.update_note }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
-                        <a href={{ general_details.links.delete_note }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
-                        <a href={{ general_details.links.add_new_note }} class="link_button"> <i class="fas fa-plus"> Add New Note</i></a>
-                    </div>
+                </div>
+                <div class="text-center link-button-margins"> 
+                    <a href={{ general_details.links.update_note }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+                    <a href={{ general_details.links.delete_note }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
+                    <a href={{ general_details.links.add_new_note }} class="link_button"> <i class="fas fa-plus"> Add New Note</i></a>
                 </div>
             </div>
         </div>

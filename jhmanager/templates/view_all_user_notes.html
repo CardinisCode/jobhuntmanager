@@ -7,7 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="card-headings-with-bottom-border"><i class="fas fa-sticky-note"></i> All Notes </h1>
+            <h1 class="h1-heading"><i class="fas fa-sticky-note"></i> All Notes </h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -18,17 +18,19 @@
         </div>
     </div>
 
-    <div class="alignfull background-colour">
+    <div class="alignfull">
         <div class="aligncenter"> 
-            <h2 class="card-headings"> Application Notes</h2>
+            <h2 class="heading"> Application Notes</h2>
             {% if general_details.application_count == 0 %}
-                <h3 class="card-headings"> Start adding your job applications:</h3>
+                <h2 class="heading-extra-margins"> Application Notes</h2>
+
+                <h3 class="heading"> Start adding your job applications:</h3>
                 <div class="link-div-styling"> 
                     <a href={{ general_details.links.add_job_application }} class="link_button_primary text-center extra-button-styles"><i class="fas fa-plus"> Add Job Application </i></a>
                 </div>
             {% endif %}
             {% if not general_details.app_notes_details.empty_table %}
-                <div class="three-col-grid extra-margins">
+                <div class="three-col-grid-with-padding background-colour">
                     {% for entry_id, fields in general_details.app_notes_details.fields.items() %}
                         <a href={{ fields.view_note_url }} class="link-cards-alt-colour">
                             <i class="fas fa-hand-pointer"></i><h3 class="card-headings"><i class="fas fa-heading"> {{ fields.description }}</i></h3>

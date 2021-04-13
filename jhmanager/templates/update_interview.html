@@ -18,16 +18,8 @@
                 <form action={{ details.action_url }} method="POST"> 
                     {{ update_interview_form.csrf_token }}
                     <div class="form-grid_child"> 
-                        <h2 class="text-center"> Update Interview </h2>
-                        <hr class="thick_border"> 
-                        <div class="form-row grid_experiement">
-                            <div class="col grid_child-simple">
-                                <h3 class="text-center">Company Name: </h3>
-                            </div>
-                            <div class="col grid_child-simple">
-                                <h3 class="text-center">{{ details.company_name }} </h3>
-                            </div>
-                        </div> 
+                        <h1 class="h1-heading"> Update Interview </h1>
+                        <h2 class="heading-extra-margins"><i class="fas fa-users"></i> {{ details.company_name }}</h2>
 
                         <label class="full-width-label"><i class="fas fa-calendar-alt"></i> Date & Time </label>
                         <div class="form-row grid_experiement">
@@ -49,13 +41,15 @@
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_interview_form.status }} </dd>
                             </div>
                         </div>
-                        <div class="form-row grid_experiement">
-                            <div class="col grid_child-simple">
+                        <div class="form-row">
+                            <div class="col">
                                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-hand-pointer"></i> {{ update_interview_form.interview_medium.label }}</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_interview_form.interview_medium }} </dd>
                             </div>
-                            <div class="col grid_child-simple">
-                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> If other:</dt>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-arrow-up"></i> If other:</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_interview_form.other_medium }} </dd>
                             </div>
                         </div>
@@ -69,13 +63,13 @@
                         <br/>
                         <div class="form-row">
                             <div class="col">
-                                <h4 class="text-center"> Complete the below where applicable: </h4>
+                                <h4 class="heading"> Complete the below where applicable: </h4>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="col">
-                                <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-users"></i> {{ update_interview_form.interviewer_names.label }}</dt>
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-users"></i> {{ update_interview_form.interviewer_names.label }}</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description text_box">{{ update_interview_form.interviewer_names }} </dd>
                             </div>
                         </div>
@@ -91,7 +85,7 @@
                             </div>
                         </div>
 
-                        <h3 class="text-center heading_margins"><i class="fas fa-sticky-note"></i> Your Notes </h3>
+                        <h3 class="heading-extra-margins"><i class="fas fa-sticky-note"></i> Your Notes </h3>
                         <dd> <strong> Suggestion:</strong> You can save the Meeting ID & Password/Passcode in this box below.</dd>
                         <div class="form-row">
                             <div class="col">

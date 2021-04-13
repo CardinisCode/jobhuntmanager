@@ -7,6 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
+            <h1 class="h1-heading"><i class="fas fa-user-alt"></i> {{ contact_details.fields.full_name }} </h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -20,8 +21,7 @@
         <div class="aligncenter"> 
             <div class="full-grid-length">
                 <div class="grid_child"> 
-                    <h1 class="card-headings-with-bottom-border"> {{ contact_details.fields.full_name }} </h1>
-                    <h2 class="card-heads-bottom-margin"> Contact Details</h2>
+                    <h2 class="heading-extra-margins"> Contact Details</h2>
                     {% if contact_details.fields.job_title %} 
                         <div class="form-row"> 
                             <label class="col left-padding"><i class="fas fa-pencil-ruler"></i> Job Title:</label>
@@ -54,20 +54,24 @@
                             </div>
                         </div>
                     {% endif %}
-                    <br/>
-                    <div class="text-center link-button-margins"> 
-                        <a href={{ contact_details.fields.linkedin_profile }} class="link_button"><i class="fas fa-eye"> View Linkedin Profile</i></a>
-                        <a href={{ contact_details.fields.update_contact }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
-                        <a href={{ contact_details.fields.delete_contact }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
-                    </div>
+                </div>
+                <div class="text-center link-button-margins"> 
+                    <a href={{ contact_details.fields.update_contact }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+                    <a href={{ contact_details.fields.delete_contact }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
+                    <a href={{ contact_details.fields.linkedin_profile }} class="link_button"><i class="fas fa-eye"> View Linkedin Profile</i></a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="text-center xxx-margins"> 
-        <a href={{ contact_details.address_book }} class="link_button_primary"><i class="fas fa-angle-double-left"> Go to Address Book</i></a>
-        <a href={{ contact_details.contacts_list }} class="link_button_primary"><i class="fas fa-angle-left"> Go to Contacts</i></a>
+    <div class="alignfull background-colour xxx-margins">
+        <div class="aligncenter"> 
+            <div class="text-center xxx-margins"> 
+                <a href={{ contact_details.address_book }} class="link_button_primary"><i class="fas fa-angle-double-left"> Go to Address Book</i></a>
+                <a href={{ contact_details.contacts_list }} class="link_button_primary"><i class="fas fa-angle-left"> Go to Contacts</i></a>
+            </div>
+        </div>
     </div>
+        
 
 {% endblock %}

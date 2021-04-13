@@ -7,6 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
+            <h1 class="h1-heading"> Job Offer Details </h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -20,46 +21,45 @@
         <div class="aligncenter"> 
             <div class="full-grid-length">
                 <div class="grid_child"> 
-                    <h1 class="card-headings-with-bottom-border"> Job Offer </h1>
-                    <h2 class="card-heads-bottom-margin"> Details </h2>
+                    <h2 class="card-heads-bottom-margin"><i class="fas fa-users"></i> {{ general_details.company_details.name }} </h2>
                     <div class="form-row">
                         <label class="col left-padding"><i class="fas fa-calendar-alt"></i> Starting Date:</label>
                         <div class="col right-padding"> 
-                            {{ job_offer_details.starting_date }}
+                            {{ general_details.job_offer_details.starting_date }}
                         </div>
                     </div>
                     <div class="form-row"> 
                         <label class="col left-padding"><i class="fas fa-pencil-ruler"></i> Job Role:</label>
                         <div class="col right-padding"> 
-                            {{ job_offer_details.job_role }}
+                            {{ general_details.job_offer_details.job_role }}
                         </div>
                     </div>
-                    {% if job_offer_details.salary %}
+                    {% if general_details.job_offer_details.salary %}
                         <div class="form-row">
                             <label class="col left-padding"><i class="fas fa-hand-holding-usd"></i> Salary on Offer:</label> 
                             <div class="col right-padding"> 
-                                {{ job_offer_details.salary }}
+                                {{ general_details.job_offer_details.salary }}
                             </div>
                         </div>
                     {% endif %}
-                    {% if job_offer_details.perks_offered %}
+                    {% if general_details.job_offer_details.perks_offered %}
                         <div class="form-row"> 
                             <label class="col left-padding"><i class="fas fa-bars"></i> Perks / Extras:</label> 
                             <div class="col right-padding"> 
-                                {{ job_offer_details.perks_offered }}
+                                {{ general_details.job_offer_details.perks_offered }}
                             </div>
                         </div>
                     {% endif %}
                     <div class="form-row"> 
                         <label class="col left-padding"> Offer Response:</label> 
                         <div class="col right-padding"> 
-                            {{ job_offer_details.offer_response }}
+                            {{ general_details.job_offer_details.offer_response }}
                         </div>
                     </div>
-                    <div class="text-center link-button-margins"> 
-                        <a href={{ job_offer_details.update_offer_url }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
-                        <a href={{ job_offer_details.delete_offer_url }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
-                    </div>
+                </div>
+                <div class="text-center link-button-margins"> 
+                    <a href={{ general_details.links.update_offer }} class="link_button"> <i class="fas fa-pencil-alt"> Update</i></a>
+                    <a href={{ general_details.links.delete_offer }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
                 </div>
             </div>
         </div>
@@ -68,14 +68,14 @@
     <div class="alignfull background-colour xxx-margins">
         <div class="aligncenter">  
             <div class="grid_experiement extra-margins">
-                <a href={{ company_details.profile_url }} class="link-cards-alt-colour">
+                <a href={{ general_details.links.company_profile }} class="link-cards-alt-colour">
                     <h3 class="text-center"> Company Details</h3>
                     <div class="form-row extra-margins">
                         <div class="col left-padding"> 
                             <strong> Name:</strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ company_details.name }}
+                            {{ general_details.company_details.name }}
                         </div>
                     </div>
                     <br/>
@@ -84,7 +84,7 @@
                             <strong> Description:</strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ company_details.description }}
+                            {{ general_details.company_details.description }}
                         </div>
                     </div>
                     <br/>
@@ -93,18 +93,18 @@
                             <strong> Industry:</strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ company_details.industry }}
+                            {{ general_details.company_details.industry }}
                         </div>
                     </div>
                 </a>
-                <a href={{ application_details.fields.view_application }} class="link-cards-alt-colour">
+                <a href={{ general_details.links.view_application }} class="link-cards-alt-colour">
                     <h3 class="text-center"> Application Details</h3>
                     <div class="form-row extra-margins">
                         <div class="col left-padding"> 
                             <strong> Job Description:</strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ application_details.fields.job_description }}
+                            {{ general_details.application_details.fields.job_description }}
                         </div>
                     </div>
                     <br/>
@@ -113,7 +113,7 @@
                             <strong> Employment Type:</strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ application_details.fields.emp_type }}
+                            {{ general_details.application_details.fields.emp_type }}
                         </div>
                     </div>
                     <br/>
@@ -122,7 +122,7 @@
                             <strong> Interview Stage:</strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ application_details.fields.interview_stage }}
+                            {{ general_details.application_details.fields.interview_stage }}
                         </div>
                     </div>
                 </a>

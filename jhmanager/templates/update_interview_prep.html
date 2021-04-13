@@ -7,6 +7,7 @@
 {% block main %}
     <div class="alignfull"> 
         <div class="aligncenter"> 
+            <h1 class="h1-heading"> Update Interview Preparation</h1>
             
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -17,9 +18,9 @@
         </div>
     </div>
 
-    <div class="alignfull background-colour">
+    <div class="alignfull">
         <div class="aligncenter"> 
-            <h2 class="text-center heading_margins"> Research </h2>
+            <h2 class="heading-extra-margins"> Research </h2>
             <p class="text-center"> Not sure where to start? The following links should help shed some light on how to best answer the top interview Questions:</p>
             <div class="text-center link-button-margins"> 
                 <a href={{ general_details.links.glassdoor }} class="link_button"> GlassDoor</a>
@@ -30,11 +31,11 @@
         </div>
     </div>
 
-    <div class="alignfull">
+    <div class="alignfull background-colour">
         <div class="aligncenter"> 
-            <h2 class="text-center heading_margins"> Background </h2>
+            <h2 class="heading-extra-margins"> Background </h2>
             <div class="three-col-grid xxx-margins"> 
-                <a href={{ general_details.links.view_interview }} class="link-cards">
+                <a href={{ general_details.links.view_interview }} class="link-cards-alt-colour">
                     <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Interview </h3>
                     <div class="form-row extra-margins">
                         <div class="col text-center"> 
@@ -52,7 +53,7 @@
                         </div>
                     </div>
                 </a>
-                <a href={{ general_details.links.view_interview }} class="link-cards">
+                <a href={{ general_details.links.view_interview }} class="link-cards-alt-colour">
                     <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Company </h3>
                     <div class="form-row extra-margins">
                         <div class="col text-center"> 
@@ -74,7 +75,7 @@
                         </div>
                     {% endif %}
                 </a>
-                <a href={{ general_details.links.view_application }} class="link-cards">
+                <a href={{ general_details.links.view_application }} class="link-cards-alt-colour">
                     <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Application </h3>
                     <div class="form-row extra-margins">
                         <div class="col text-center"> 
@@ -101,18 +102,17 @@
         </div>
     </div>
 
-    <div class="alignfull-form background-colour">
+    <div class="alignfull-form">
         <div class="aligncenter"> 
             <div class="form-grid full-grid-length">
-                <form action={{ details.action_url }} method="POST">
+                <form action={{ general_details.links.action_url }} method="POST">
                     {{ update_interview_prep_form.csrf_token }}
                     <div class="form-grid_child">  
-                        <h2 class="text-center"> Update Interview Preparation:</h2>
-                        <hr class="thick_border"> 
+                        <h2 class="h1-heading-extra-margins"> Update Interview Preparation:</h2>
                         <div class="form-row">
                             <div class="col text-center">
-                                <dt class=".wpforms-title"> Example Question:</dt>
-                                <dd class=".wpforms-description text_box">Tell me about yourself? </dd> 
+                                <label><strong> Q:</strong> Example Question</label>
+                                <dd class=".wpforms-description text_box"><strong>A:</strong> Tell me about yourself? </dd> 
                             </div>
                         </div>
                         <br/>
