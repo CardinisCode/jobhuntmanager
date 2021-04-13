@@ -749,6 +749,7 @@ select:-webkit-autofill:focus {
   margin-left: 1rem;
   margin-right: 1rem;
   display: block;
+  background-color: white;
 }
 
 .screenshot-contacts-styling {
@@ -759,6 +760,7 @@ select:-webkit-autofill:focus {
   margin-left: 1rem;
   margin-right: 1rem;
   display: block;
+  background-color: white;
 }
 
 .screenshot-labels {
