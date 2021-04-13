@@ -446,6 +446,12 @@ hr.thick_border {
   border-bottom: 2px solid black;
 }
 
+.left-heading {
+  margin-top: 1rem;
+  margin-bottom: 2rem !important;
+  text-align: left !important;
+}
+
 .card-headings {
   margin-top: 1rem;
   margin-bottom: 2rem !important;
@@ -658,9 +664,7 @@ hr.thick_border {
   background: linear-gradient(45deg, purple, indigo);
 }
 
-
 .background-colour {
-  /* background-color: rgba(203, 201, 214, 0.2); */
   background: linear-gradient(45deg, ghostwhite, whitesmoke);
 }
 
@@ -698,8 +702,6 @@ hr.thick_border {
 .right-padding {
   padding-right: 30px !important;
 }
-
-
 
 .prep-text-styling {
   padding-left: 5rem !important;
@@ -864,3 +866,16 @@ select:-webkit-autofill:focus {
   font-size: 16px;
 }
 
+.end-message {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+
+.warning {
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center !important;
+  margin-top: 1rem;
+}

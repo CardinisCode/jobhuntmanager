@@ -6,28 +6,60 @@
 
 {% block main %}
     <div class="alignfull">
-        <div class="aligncenter"> 
+        <div class="aligncenter">
+            <h1 class="h1-heading"> About </h1> 
+
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
                     <div class="flash alert alert-danger border text-center">{{ message }}</div>
                 {% endfor %}
             {% endif %}
+        
+        </div>
+    </div>
 
-            <h1 class="text-center heading_margins"> About</h1>
-            <h2 class="text-center"> Random... </h2>
-            <p> Designed to make your life, as a job hunt, easier & more convenient</p>
-            <p> Store every thing regarding your job hunting in 1 place!</p>
-            <p> free, pilot </p>
-            <p> focused on job hunters, store & manage notes, applications, interviews & prep, </p>
-            <p> security: Dont use personal info when using this pilot product.</p>
+    <div class="alignfull background-colour">
+        <div class="aligncenter">
+            <h2 class="heading-extra-margins"> Purpose</h2>
+            <p> 
+                The Job Hunt Manager is a web-application where you can store all matters related to job hunting:
+                <ul>
+                    <li> Job Applications</li>
+                    <li> Upcoming Interviews</li>
+                    <li> Interview Preparation </li>
+                    <li> Take Notes </li>
+                    <li> Contacts</li>
+                    <li> Companies from your wish list</li>
+                </ul>
+            </p>
+            <p class="warning"> This specific version is a Pilot, and therefore is only intended as a proof of concept. </p>
+        </div>
+    </div>
+
+    <div class="alignfull">
+        <div class="aligncenter">
+            <h2 class="heading-extra-margins"><i class="fas fa-key"></i> Security</h2>
+            <p> 
+                Each user's password is hashed and there are no administrators. So your details can only be seen by you and you alone. 
+                However no password salting has been used so please do not use your private information when utilizing this application.
+            </p>
         </div>
     </div>
 
     <div class="alignfull background-colour"> 
         <div class="aligncenter"> 
-            <h3 class="text-center link-button-margins"> Contact Us </h3>
-            <p> If you're having any issues, please contact us at <a href="mailto:jobhuntmanager.contactus@gmail.com">jobhuntmanager.contactus@gmail.com </a></p>
+            <h3 class="text-center link-button-margins"><i class="fas fa-at"></i> Contact Us </h3>
+            <p> Feel free to provide feedback and suggestions at <a href="mailto:jobhuntmanager.contactus@gmail.com">jobhuntmanager.contactus@gmail.com </a></p>
         </div>
     </div>
+
+    <div class="alignfull end-page-margins"> 
+        <div class="aligncenter"> 
+            <p class="end-message extra-margins">
+                Good luck with your job hunting!!
+            </p>
+        </div>
+    </div>
+
 
 {% endblock %}
