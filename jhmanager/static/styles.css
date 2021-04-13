@@ -869,7 +869,7 @@ select:-webkit-autofill:focus {
 .end-message {
   text-align: center;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 24px;
 }
 
 
@@ -879,3 +879,11 @@ select:-webkit-autofill:focus {
   text-align: center !important;
   margin-top: 1rem;
 }
+
+.paragraph {
+  text-align: justify;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+}
+
+
