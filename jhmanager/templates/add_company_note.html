@@ -18,9 +18,8 @@
                 <form action={{ details.action_url }} method="POST"> 
                     {{ company_note_form.csrf_token }}
                     <div class="form-grid_child"> 
-                        <h1 class="text-center"> {{ details.company_name }}</h1>
-                        <h2 class="text-center"><i class="fas fa-sticky-note"></i> Add Company Note </h2>
-                        <hr class="thick_border"> 
+                        <h1 class="h1-heading"><i class="fas fa-sticky-note"></i> Add Company Note</h1>
+                        <h2 class="heading-extra-margins"><i class="fas fa-users"></i> {{ details.company_name }} </h2>
                         <div class="form-row">
                             <div class="col">
                                 <dt class="wpforms-container-full .wpforms-form .wpforms-title text-center"> <i class="fas fa-heading"></i> {{ company_note_form.subject.label }}</dt>

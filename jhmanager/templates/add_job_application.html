@@ -17,17 +17,17 @@
                 <form action="/add_job_application" method="POST"> 
                     {{ add_application_form.csrf_token }}
                     <div class="form-grid_child"> 
-                        <h1 class="text-center"> Add Job Application </h1>
-                        <hr class="thick_border">
+                        <h1 class="h1-heading"> Add Job Application </h1>
+                        <h2 class="heading">Please Note:</h2>
                         <div class="form-row">
                             <div class="col">
-                                <dd class="text-center"> Note: This form will be a little long. Complete the items relevant to you. Empty fields will be saved automatically as 'N/A' </dd>
-                                <dd class="text-center"> <strong> All Required fields are marked with an Asterisk *</strong></dd>
+                                <dd class="text-center"> This form will be a little long. Complete the items relevant to you. Empty fields will be saved automatically as 'N/A' </dd>
+                                <dd class="card-warning-message">All Required fields are marked with an Asterisk *</dd>
                                 <dd class="text-center"></dd> 
                             </div>
                         </div>
                         <br/>
-                        <h3 class="text-center heading_margins"> Role/Job Position</h3>
+                        <h3 class="heading-extra-margins"> Role/Job Position</h3>
                         <div class="form-row">
                             <div class="col">
                                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-history"></i> {{ add_application_form.date_posted.label }}</dt>
@@ -40,7 +40,7 @@
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.job_ref }}</dd> 
                             </div>
                             <div class="col grid_child-simple">
-                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-pencil-ruler"></i> {{ add_application_form.job_role.label }} * Required Field</dt>
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-pencil-ruler"></i> {{ add_application_form.job_role.label }} *</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.job_role }}</dd> 
                             </div>
                         </div>
@@ -65,14 +65,16 @@
                                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-pound-sign"></i> {{ add_application_form.salary.label }}</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.salary }}</dd> 
                             </div>
+                        </div>
+                        <div class="form-row">
                             <div class="col grid_child-simple">
-                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-hand-pointer"></i> {{ add_application_form.emp_type.label }} * Required Field</dt>
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-hand-pointer"></i> {{ add_application_form.emp_type.label }} *</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.emp_type }}</dd> 
                             </div>
                         </div>
 
                         <hr/>
-                        <h2 class="text-center heading_margins"> Where you found this role</h2>
+                        <h2 class="heading-extra-margins"> Where you found this role</h2>
                         <div class="form-row">
                             <div class="col">
                                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-newspaper"></i> {{ add_application_form.platform.label }}</dt>
@@ -84,10 +86,10 @@
                             </div>
                         </div>
                         <hr/>
-                        <h3 class="text-center heading_margins"> Company / Client</h3>
+                        <h3 class="heading-extra-margins"> Company / Client</h3>
                         <div class="form-row">
                             <div class="col grid_child-simple">
-                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-users"></i> {{ add_application_form.company_name.label }} * Required Field</dt>
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-users"></i> {{ add_application_form.company_name.label }} *</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.company_name }}</dd> 
                             </div>
                         </div> 
@@ -108,7 +110,7 @@
                             </div>
                         </div>
                         <hr/>
-                        <h3 class="text-center heading_margins"><i class="fas fa-sticky-note"></i> Your Notes </h3>
+                        <h3 class="heading-extra-margins"><i class="fas fa-sticky-note"></i> Your Notes </h3>
                         <div class="form-row">
                             <div class="col">
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ add_application_form.user_notes }}</dd> 

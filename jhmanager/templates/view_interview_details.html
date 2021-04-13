@@ -21,29 +21,23 @@
         <div class="aligncenter"> 
             <div class="full-grid-length">
                 <div class="grid_child"> 
-                    <h1 class="card-headings-with-bottom-border"> Interview </h1>
-                    <h2 class="card-heads-bottom-margin"> Details</h2> 
+                    <h1 class="h1-heading"> Interview </h1>
+                    <h2 class="heading-extra-margins"> Details</h2> 
                     <div class="form-row">
-                        <div class="col left-padding"> 
-                            <i class="fas fa-calendar-alt"></i><strong> Date & Time:</strong>
-                        </div>
+                        <label class="col left-padding"><i class="fas fa-calendar-alt"></i> Date & Time:</label>
                         <div class="col right-padding"> 
                             {{ interview_details.fields.date }} @ {{ interview_details.fields.time }}
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col left-padding"> 
-                            <i class="fas fa-exclamation"></i> <strong> Interview Status:</strong>
-                        </div>
+                        <label class="col left-padding"><i class="fas fa-exclamation"></i> Interview Status:</label>
                         <div class="col right-padding"> 
                             {{ interview_details.fields.status }} <a href={{ general_details.links.update_interview_status }} class="link-alt-colour"><i class="fas fa-pencil-alt"> Update</i></a>
                         </div>
                     </div>
                     {% if interview_details.fields.interviewer_names %}
                         <div class="form-row">
-                            <div class="col left-padding"> 
-                                <i class="fas fa-users"></i><strong> Interviewer/s' Names:</strong>
-                            </div>
+                            <label class="col left-padding"><i class="fas fa-users"></i> Interviewer/s' Names:</label>
                             <div class="col right-padding"> 
                                 {{ interview_details.fields.interviewer_names }}
                             </div>
@@ -51,18 +45,14 @@
                     {% endif %}
                     {% if interview_details.fields.interview_type == 'Video / Online' %}
                         <div class="form-row">
-                            <div class="col left-padding"> 
-                                <i class="fas fa-video"></i> <strong> Medium:</strong>
-                            </div>
+                            <label class="col left-padding"><i class="fas fa-video"></i> Medium:</label>
                             <div class="col right-padding"> 
                                 {{ interview_details.fields.medium }}
                             </div>
                         </div>
                     {% elif interview_details.fields.interview_type == 'Phone Call' %}
                         <div class="form-row">
-                            <div class="col left-padding"> 
-                                <i class="fas fa-mobile-alt"></i> <strong> Contact Number</strong>
-                            </div>
+                            <label class="col left-padding"><i class="fas fa-mobile-alt"></i> Contact Number:</label>
                             <div class="col right-padding"> 
                                 {{ interview_details.fields.contact_number }}
                             </div>
@@ -70,9 +60,7 @@
                     {% endif %}
                     {% if interview_details.fields.location %}
                         <div class="form-row">
-                            <div class="col left-padding"> 
-                                <i class="fas fa-thumbtack"></i> <strong> Location</strong>
-                            </div>
+                            <label class="col left-padding"><i class="fas fa-thumbtack"></i> Location:</label>
                             <div class="col right-padding"> 
                                 {{ interview_details.fields.location }}
                             </div>
@@ -81,9 +69,7 @@
                     <br/>
                     {% if interview_details.fields.extra_notes %}
                         <div class="form-row">
-                            <div class="col left-padding"> 
-                                <i class="fas fa-sticky-note"></i><strong> Interview Notes</strong>
-                            </div>
+                            <label class="col left-padding"><i class="fas fa-sticky-note"></i> Interview Notes:</label>
                         </div>
                         <div class="form-row">
                             <div class="col left-padding"> 

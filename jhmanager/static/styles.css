@@ -86,6 +86,7 @@ input:focus {
   outline: none !important;
   border-color: black;
   box-shadow: none;
+  font-size: larger;
 }
 
 input[type=text], [type=tel], [type=url], [type=date], [type=time] {
@@ -93,7 +94,7 @@ input[type=text], [type=tel], [type=url], [type=date], [type=time] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
-  font-size: large;
+  font-size: 12pt;
   border: black;
   box-shadow: 0 3px 6px 0px rgba(0,0,0,0.23), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
 } 
@@ -105,6 +106,7 @@ select{
   box-sizing: border-box;
   border: black;
   box-shadow: 0 3px 6px 0px rgba(0,0,0,0.23), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
+  font-size: 12pt;
 }
 
 select:focus {
@@ -132,7 +134,7 @@ select:focus {
 
 textarea {
   width: 100% !important;
-  height: 52px;
+  height: 100% !important;
   margin: 8px 0;
   padding: 12px 20px;
   box-sizing: border-box;
@@ -140,6 +142,7 @@ textarea {
   box-shadow: 0 3px 6px 0px rgba(0,0,0,0.23), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
   outline: none !important;
   border-color: black;
+  font-size: 12pt;
 }
 
 .field_title{
@@ -148,22 +151,20 @@ textarea {
 
 #textarea {
   font-family: Arial;
-  font-size: 12pt !important;
   width:100%;
 }
 
-#password, #confirm_password, #email, #confirm_email, #username, #company_list, #email_address, #company_name, #linkedin_profile, #contact_number, #full_name, #job_title {
+#password, #confirm_password, #email, #confirm_email, #username, #company_list, #email_address, #company_name, #linkedin_profile, #contact_number, #full_name, #job_title, #extra_notes  {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
   border: black;
   box-shadow: 0 3px 6px 0px rgba(0,0,0,0.23), 0 3px 6px 0px rgba(0,0,0,0.23) !important;
-  font-size: 16pt;
 }
 
 .full-width-label {
-  text-align: center;
+  text-align: left;
   width: 100%;
 }
 
@@ -210,8 +211,8 @@ textarea {
 }
 
 .extra-margins{
-  margin-top: 1rem ;
-  margin-bottom: 1rem;
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
 }
 
 .extra-padding {
@@ -401,6 +402,26 @@ hr.thick_border {
   margin-bottom: 1rem;
 }
 
+.heading {
+  margin-top: 1rem;
+  margin-bottom: 2rem !important;
+  text-align: center !important;
+}
+
+.heading-extra-margins {
+  margin-top: 1rem;
+  margin-bottom: 3rem !important;
+  text-align: center !important;
+}
+
+.h1-heading {
+  margin-top: 1rem;
+  margin-bottom: 1rem !important;
+  padding: 1rem 1rem 2rem 1rem;
+  text-align: center;
+  border-bottom: 2px solid black;
+}
+
 .card-headings {
   margin-top: 1rem;
   margin-bottom: 2rem !important;
@@ -417,6 +438,14 @@ hr.thick_border {
   margin-top: 1rem;
   margin-bottom: 2rem !important;
   text-align: center !important;
+  text-decoration-line: underline;
+}
+
+.bottom-border {
+  border-bottom: 2px solid black;
+}
+
+.underlined-text {
   text-decoration-line: underline;
 }
 

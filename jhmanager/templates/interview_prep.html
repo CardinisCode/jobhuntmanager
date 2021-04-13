@@ -7,7 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="text-center"> Prepare for your Interview </h1>
+            <h1 class="h1-heading"> Prepare for your Interview </h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -19,7 +19,7 @@
 
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
-            <h2 class="text-center heading_margins"> Research </h2>
+            <h2 class="heading-extra-margins"> Research </h2>
             <p class="text-center"> Not sure where to start? The following links should help shed some light on how to best answer the top interview Questions:</p>
             <div class="text-center link-button-margins"> 
                 <a href={{ general_details.links.glassdoor }} class="link_button"> GlassDoor</a>
@@ -32,7 +32,7 @@
 
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h2 class="text-center heading_margins"> Background </h2>
+            <h2 class="heading-extra-margins"> Background </h2>
             <div class="three-col-grid xxx-margins"> 
                 <a href={{ general_details.links.view_interview }} class="link-cards">
                     <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> Interview </h3>
@@ -109,15 +109,14 @@
                 <form action={{ general_details.links.action_url }} method="POST">
                     {{ interview_prep_form.csrf_token }}
                     <div class="form-grid-child-alt">  
-                        <h2 class="text-center"> Add Interview Question:</h2>
-                        <hr class="thick_border"> 
+                        <h2 class="h1-heading"> Add Interview Question:</h2>
+                        <br/>
                         <div class="form-row">
-                            <div class="col text-center">
-                                <dt class=".wpforms-title"> Example Question:</dt>
-                                <dd class=".wpforms-description text_box">Tell me about yourself? </dd> 
+                            <div class="col text-center extra-margins">
+                                <label><strong> Q:</strong> Example Question</label>
+                                <dd class=".wpforms-description text_box"><strong>A:</strong>Tell me about yourself? </dd> 
                             </div>
                         </div>
-                        <br/>
                         <div class="form-row">
                             <div class="col">
                                 <dt class="wpforms-container-full .wpforms-form .wpforms-title"> {{ interview_prep_form.question.label }}</dt>
@@ -149,7 +148,7 @@
     {% if general_details.interview_prep_details.fields %}
         <div class="alignfull xxx-margins">
             <div class="aligncenter"> 
-                <h2 class="card-headings"> View Interview Prep</h2>
+                <h2 class="heading-extra-margins"> View Interview Prep</h2>
                 <div class="three-col-grid xxx-margins"> 
                     {% for prep_id, values in general_details.interview_prep_details.fields.items() %}
                         <a href={{ values.view_prep_entry }} class="thin-link-cards">
