@@ -228,6 +228,10 @@ textarea {
   margin-bottom: 4rem !important;
 }
 
+.end-page-margins {
+  margin-bottom: 4rem !important;
+}
+
 
 .grid_experiement{
   display: grid;
@@ -620,6 +624,12 @@ hr.thick_border {
   padding: 1rem 0 0.5rem;
 }
 
+.alignfull-disclaimer {
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  padding: 1rem 0 0.5rem;
+  margin-top: 0;
+}
 
 .aligncenter {
   clear: both;
