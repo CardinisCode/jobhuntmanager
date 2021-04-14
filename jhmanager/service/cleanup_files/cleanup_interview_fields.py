@@ -41,6 +41,8 @@ def cleanup_medium(medium, other_medium):
         updated_medium = "Google Chat"
     elif medium == "meet_jit_si":
         updated_medium = "Meet.Jit.Si"
+    elif medium == "ms_teams":
+        updated_medium = "Microsoft Teams"
     elif medium == "other":
         updated_medium = other_medium
     else: 

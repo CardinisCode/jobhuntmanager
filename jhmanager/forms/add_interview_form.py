@@ -52,17 +52,18 @@ class AddInterviewForm(FlaskForm):
     interview_medium = SelectField(
         "Video Interview Medium: ", 
         choices=[
+            ('ms_teams', 'Microsoft Teams'),
             ('skype', 'Skype'),
             ('zoom', 'Zoom'),
             ('google_chat', 'Google Chat'),
             ('meet_jit_si', 'Meet.jit.si'),
             ('other', 'Other')
         ], 
-    default='zoom', 
+    default='ms_teams', 
 
     )
     other_medium = StringField(
-        "Other Medium: ", 
+        "Other Interview Medium: ", 
         [validators.optional()],
         render_kw={'placeholder': "Any other form of video medium, not mention in the above list."},
     )
