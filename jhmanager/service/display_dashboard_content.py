@@ -160,12 +160,13 @@ def display_todays_applications(user_id, current_date, applicationsRepo, company
 
     for application in applications:
         application_id = application.app_id
-        app_date = application.app_date
+        app_datetime = datetime.strptime(application.app_date, "%Y-%m-%d") 
+        app_date = app_datetime.date()
         present_date = present_dated(app_date)
         company = companyRepo.getCompanyById(application.company_id)
 
         if not present_date: 
-            return todays_applications
+            continue
 
         todays_applications["empty_table"] = False
         todays_applications["fields"][application_id] = {

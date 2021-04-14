@@ -50,5 +50,5 @@ def present_dated(date_obj):
 
     if date_obj == current_date: 
         date_is_today = True
-
+        
     return date_is_today
