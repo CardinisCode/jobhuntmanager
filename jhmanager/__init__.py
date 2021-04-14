@@ -208,14 +208,14 @@ def register_user():
 def test_login():
     """Log user in"""
     login_form = LoginForm()
-    app.logger.info("{} {}".format(str(login_form.username), str(login_form.password)))
+    app.logger.info("{} {}".format(str(login_form.username.data), str(login_form.password.data)))
     if request.method == "POST":
         if login_form.validate_on_submit():
             app.logger.info("Successfully logged in {}".format(str(login_form.username)))
             return post_login(login_form, userRepo)
         else:
             flash("Complete all the fields.")
-            app.logger.error("Failed to log in {} {}".format(str(login_form.username), str(login_form.password)))
+            app.logger.error("Failed to log in {}".format(login_form.errors))
             return display_login_form(login_form)
 
     """ Display Login form to the user """
