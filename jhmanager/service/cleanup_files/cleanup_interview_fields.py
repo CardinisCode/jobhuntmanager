@@ -93,7 +93,7 @@ def cleanup_upcoming_interview_fields(upcoming_interviews, interview_id):
     contact_number = upcoming_interviews["fields"][interview_id]["contact_number"]
     if contact_number == "N/A":
         contact_number = None 
-        interview_fields["fields"][interview_id]["contact_number"] = contact_number
+        upcoming_interviews["fields"][interview_id]["contact_number"] = contact_number
 
     if interview_type == "Video / Online": 
         interview_string += ", " + updated_medium

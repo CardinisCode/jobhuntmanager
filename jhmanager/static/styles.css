@@ -424,6 +424,13 @@ hr.thick_border {
   text-align: center !important;
 }
 
+.heading-left {
+  margin-top: 1rem;
+  margin-bottom: 2rem !important;
+  text-align: left !important;
+  padding: 1rem 1.5rem;
+}
+
 .heading-extra-margins {
   margin-top: 1rem;
   margin-bottom: 3rem !important;

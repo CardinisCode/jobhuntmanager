@@ -19,21 +19,19 @@
 
     <div class="alignfull">
         <div class="aligncenter">  
-            <h2 class="heading-extra-margins"> Today's Stats:</h2>
-            <div class="form-row">
-                <div class="col">
-                    <dt class="text-center border-bottom border-right border-left border-top bkground_blue"> Applications Submitted Today</dt>
-                    <dd class="text-center border-bottom border-right border-left border-top display-fields"> {{ display.applications_today }}</dd>
+            <h2 class="heading-extra-margins"> Happening Today</h2>
+            {% if not display.interviews_today.empty_table %}
+                <h3 class="heading-left"> Interviews:</h3>
+                <div class="list-group"> 
+                    <ul> 
+                        {% for interview_id, interview_details in display.interviews_today.fields.items() %}
+                            <li> <a href={{ interview_details.view_interview }} class="list-group-item list-group-item-styling">
+                                {{ interview_details.interview_string }}
+                            </a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                <div class="col">
-                    <dt class="text-center border-bottom border-right border-left border-top bkground_blue"> Interviews Today</dt>
-                    <dd class="text-center border-bottom border-right border-left border-top display-fields"> {{ display.interviews_today }}</dd>
-                </div>
-                <div class="col">
-                    <dt class="text-center border-bottom border-right border-left border-top bkground_blue"> Job Offers</dt>
-                    <dd class="text-center border-bottom border-right border-left border-top display-fields"> {{ display.job_offer_count }}</dd>
-                </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 

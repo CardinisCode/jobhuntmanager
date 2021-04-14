@@ -1,5 +1,5 @@
 from jhmanager.repo.database import SqlDatabase
-from datetime import date, time
+from datetime import datetime, date, time
 from flask import flash
 import sqlite3
 
@@ -23,20 +23,10 @@ class Interview:
 
 
 class InterviewsHistoryRepository:
+    
     def __init__(self, db):
         self.db = db
         self.sql = SqlDatabase(db=db)
-
-    def grabTodaysInterviewCount(self, todays_date, user_id):
-        cursor = self.db.cursor()
-
-        command = "SELECT * FROM job_applications as A INNER JOIN interviews as I on A.application_id = I.application_id WHERE A.user_id = ? and I.date = ?"
-
-        result = cursor.execute(command, (user_id,todays_date,))
-        self.db.commit()
-
-        return result
-
 
     def InsertNewInterviewDetails(self, fields):
         cursor = self.db.cursor()
