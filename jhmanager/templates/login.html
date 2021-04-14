@@ -16,7 +16,7 @@
 
             <div class="form-grid full-grid-length">
                 <form action="/login" method="POST"> 
-                    {{ login_form.csrf_token }}
+                    {{ login_form.hidden_tag() }}
                     <div class="form-grid_child"> 
                         <h1 class="h1-heading-extra-margins"> Login</h1>
                         <div class="form-row text-center">
