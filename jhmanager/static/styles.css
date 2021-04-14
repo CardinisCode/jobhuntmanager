@@ -593,7 +593,16 @@ hr.thick_border {
   background: rgba(175, 238, 238, 0.2);
 }
 
-.link_button:hover, .link-cards:hover, .link-cards-alt-colour:hover, .thin-link-cards:hover {
+
+.list-group-item-styling {
+  width: 80%;
+  color: #495057;
+  text-align: left;
+  background-color: rgba(175, 238, 238, 0.2) !important;
+  border: 1px solid lightgrey !important;
+}
+
+.link_button:hover, .link-cards:hover, .link-cards-alt-colour:hover, .thin-link-cards:hover, .list-group-item-styling:hover {
   color: white;
   background: linear-gradient(45deg, purple, indigo);
   text-decoration: none;

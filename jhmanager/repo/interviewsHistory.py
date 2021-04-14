@@ -74,7 +74,7 @@ class InterviewsHistoryRepository:
 
     def grabUpcomingInterviewsByUserID(self, user_id):
         cursor = self.db.cursor()
-        command = "SELECT * FROM interviews WHERE user_id={} and status = 'upcoming' ORDER BY date DESC, time DESC".format(user_id)
+        command = "SELECT * FROM interviews WHERE user_id={} ORDER BY date, time".format(user_id)
         result = cursor.execute(command)
         self.db.commit()
 
