@@ -3,12 +3,14 @@ from datetime import datetime, date, time
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
 from jhmanager.service.cleanup_files.cleanup_datetime_display import past_dated
+from jhmanager.service.cleanup_files.cleanup_datetime_display import present_dated
 from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_job_offer
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_fields
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_status
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_type
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_upcoming_interview_fields
 from jhmanager.service.cleanup_files.cleanup_interview_fields import check_interview_is_today
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_applications_for_dashboard
 
 
 def extract_and_display_job_offers(user_id, jobOffersRepo, companyRepo):
@@ -104,8 +106,7 @@ def get_application_count(applications):
     return app_count
 
 
-def display_todays_interviews(user_id, interviewsRepo, applicationsRepo, companyRepo):
-    current_date = datetime.now().date()
+def display_todays_interviews(user_id, current_date, interviewsRepo, applicationsRepo, companyRepo):
     interviews = interviewsRepo.grabAllInterviewsForUserID(user_id)
     
     todays_interviews_details = {
@@ -146,37 +147,68 @@ def display_todays_interviews(user_id, interviewsRepo, applicationsRepo, company
     return todays_interviews_details
 
 
+def display_todays_applications(user_id, current_date, applicationsRepo, companyRepo):
+    applications = applicationsRepo.getAllApplicationsByUserID(user_id)
+
+    todays_applications = {
+        "empty_table": True, 
+        "fields": {}
+    }
+
+    if not applications:
+        return todays_applications
+
+    for application in applications:
+        application_id = application.app_id
+        app_date = application.app_date
+        present_date = present_dated(app_date)
+        company = companyRepo.getCompanyById(application.company_id)
+
+        if not present_date: 
+            return todays_applications
+
+        todays_applications["empty_table"] = False
+        todays_applications["fields"][application_id] = {
+            "company_name": company.name,
+            "job_role": application.job_role,
+            "emp_type": application.employment_type,
+            "salary": application.salary,
+            "presentation_str": None,
+            "view_application": '/applications/{}'.format(application_id)
+        }
+        cleanup_applications_for_dashboard(todays_applications, application_id)
+
+    return todays_applications
+
+
 def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo, jobOffersRepo):
     #1: Let's grab today's date as this will help us when we're grabbing interviews & applications for the current date:
-    current_date = date.today()
+    current_date = current_date = datetime.now().date()
     date_format = "%Y-%m-%d"
     date_str = current_date.strftime(date_format)
 
     job_offer_details = extract_and_display_job_offers(user_id, jobOffersRepo, companyRepo)
-
-    # Now to grab the figures/stats we'll be displaying at the top of the dashboard:
-    applications_today = applicationsRepo.grabTodaysApplicationCount(date_str, user_id)
-    all_applications = applicationsRepo.getAllApplicationsByUserID(user_id)
-    interviews_today = display_todays_interviews(user_id, interviewsRepo, applicationsRepo, companyRepo)
     upcoming_interviews = display_upcoming_interviews(user_id, interviewsRepo, applicationsRepo, companyRepo)
+
+    # Now to grab the current-day's information we'll be displaying at the top of the dashboard:
+    interviews_today = display_todays_interviews(user_id, current_date, interviewsRepo, applicationsRepo, companyRepo)
+    applications_today = display_todays_applications(user_id, current_date, applicationsRepo, companyRepo)
 
     # Sadly SQLite doesn't have the functionality to return COUNT(*) from SQLite to Python
     # So we'll have manually count the number of rows returned from the SQL query:
     today_app_count = get_application_count(applications_today)
-    all_app_count = get_application_count(all_applications)
 
     message = "All good!"
 
     display = {
         'current_date': current_date,
-        "applications_today": today_app_count,
         "interviews_today": interviews_today,
+        "applications_today": applications_today,
         "job_offer_count": job_offer_details["offer_count"],
         "message": message,
         "upcoming_interviews": upcoming_interviews,
         "job_offer_details": job_offer_details,
         "add_application_url": '/add_job_application',
-        "total_application_count": all_app_count
     }
 
     return render_template("dashboard.html", display=display)

@@ -32,6 +32,17 @@
                     </ul>
                 </div>
             {% endif %}
+            {% if not display.applications_today.empty_table %}
+                <h3 class="heading-left"> Applications Submitted:</h3>
+                <div class="list-group"> 
+                    <ul> 
+                        {% for application_id, application_details in display.applications_today.fields.items() %}
+                            <li> <a href={{ application_details.view_application }} class="list-group-item list-group-item-styling">
+                                {{ application_details.presentation_str }}
+                            </a></li>
+                        {% endfor %}
+                    </ul>
+            {% endif %}
         </div>
     </div>
 

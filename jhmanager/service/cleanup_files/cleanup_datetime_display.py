@@ -30,15 +30,25 @@ def cleanup_time_format(time_obj):
 
 
 def past_dated(date_obj, time_obj):
-    past_dated = False 
+    date_is_past_dated = False 
 
     current_date = datetime.now().date()
     current_time = datetime.now().time()
 
     if date_obj < current_date: 
-        past_dated = True
+        date_is_past_dated = True
     
     elif date_obj == current_date and time_obj < current_time: 
-        past_dated = True
+        date_is_past_dated = True
 
-    return past_dated
+    return date_is_past_dated
+
+
+def present_dated(date_obj):
+    current_date = datetime.now().date()
+    date_is_today = False 
+
+    if date_obj == current_date: 
+        date_is_today = True
+
+    return date_is_today
