@@ -9,6 +9,7 @@ from flask_bootstrap import Bootstrap
 from flask_datepicker import datepicker
 from flask_fontawesome import FontAwesome
 from flask_mail import Mail, Message
+from flask_wtf.csrf import CSRFProtect
 
 from datetime import datetime, date
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
@@ -140,6 +141,7 @@ from jhmanager.forms.update_interview_status_form import UpdateInterviewStatusFo
 
 # Configure application
 app = Flask(__name__, instance_relative_config=True)
+csrf = CSRFProtect(app)
 mail = Mail()
 fa = FontAwesome(app)
 
