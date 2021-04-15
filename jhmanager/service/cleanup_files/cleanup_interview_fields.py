@@ -96,25 +96,21 @@ def cleanup_upcoming_interview_fields(upcoming_interviews, interview_id):
         upcoming_interviews["fields"][interview_id]["contact_number"] = contact_number
 
     if interview_type == "Video / Online": 
-        interview_string += ", " + updated_medium
+        interview_string += ", " + updated_medium + "."
 
     elif interview_type == "In Person / On Site" and location:
-        interview_string += ", " + location
+        interview_string += ", " + location + "."
 
     elif interview_type == "Phone Call" and contact_number:
-        interview_string += ", " + contact_number
+        interview_string += ", " + contact_number + "."
+
+    else:
+        interview_string += "."
 
     upcoming_interviews["fields"][interview_id]["interview_medium"] = updated_medium
     upcoming_interviews["fields"][interview_id]["date"] = interview_date_str
     upcoming_interviews["fields"][interview_id]["time"] = interview_time_str
     upcoming_interviews["fields"][interview_id]["interview_string"] = interview_string
-
-
-
-
-
-
-
 
 
 def cleanup_interview_fields(interview_fields, interview_id):

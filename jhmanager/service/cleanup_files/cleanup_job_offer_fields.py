@@ -47,7 +47,7 @@ def cleanup_job_offer_fields_for_dashboard(job_offer_details, job_offer_id):
     elif salary and salary != "N/A":
         presentation_str += ", " + salary
 
-    presentation_str += ", " + (offer_response.rstrip("!"))
+    presentation_str += ", " + (offer_response.rstrip("!")) + "."
 
 
     job_offer_details["fields"][job_offer_id]["presentation_str"] = presentation_str

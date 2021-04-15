@@ -20,6 +20,18 @@
     <div class="alignfull">
         <div class="aligncenter">  
             <h2 class="heading-extra-margins"> Happening Today</h2>
+            {% if not display.job_offers_today.empty_table %}
+                <h3 class="heading-left"> Job Offers Received:</h3>
+                <div class="list-group"> 
+                    <ul> 
+                        {% for job_offer_id, job_offer in display.job_offers_today.fields.items() %}
+                            <li> <a href={{ job_offer.view_job_offer }} class="list-group-item list-group-item-styling">
+                                {{ job_offer.presentation_str }}
+                            </a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
             {% if not display.interviews_today.empty_table %}
                 <h3 class="heading-left"> Interviews:</h3>
                 <div class="list-group"> 

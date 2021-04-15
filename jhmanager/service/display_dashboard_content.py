@@ -223,7 +223,6 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
     interviews_today = display_todays_interviews(user_id, current_date, interviewsRepo, applicationsRepo, companyRepo)
     applications_today = display_todays_applications(user_id, current_date, applicationsRepo, companyRepo)
     job_offers_today = display_todays_job_offers(user_id, applicationsRepo, interviewsRepo, companyRepo, jobOffersRepo)
-    raise ValueError(job_offers_today)
 
     message = "All good!"
 
@@ -231,6 +230,7 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
         'current_date': current_date,
         "interviews_today": interviews_today,
         "applications_today": applications_today,
+        "job_offers_today": job_offers_today,
         "job_offer_count": job_offer_details["offer_count"],
         "message": message,
         "upcoming_interviews": upcoming_interviews,
