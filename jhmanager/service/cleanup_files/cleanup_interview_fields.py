@@ -52,9 +52,10 @@ def cleanup_medium(medium, other_medium):
 def check_interview_is_today(interview_date):
     interview_is_today = False 
     current_date = datetime.now().date()
+
     if interview_date == current_date:
         interview_is_today = True
-    
+
     return interview_is_today
 
 

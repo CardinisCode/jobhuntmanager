@@ -17,14 +17,32 @@
         </div>
     </div>
 
+    {% if not display.todays_interviews.empty_table %}
+        <div class="alignfull">
+            <div class="aligncenter">  
+                <h2 class="heading"> Your Interviews For The Day:</h2>
+                <div class="list-group">
+                    <ul>
+                        {% for interview_id, interview in display.todays_interviews.fields.items() %}
+                            <li> <a href={{ interview.view_interview }} class="list-group-item list-group-item-styling">
+                                {{ interview.interview_string }}
+                            </a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    {% endif %}
+
     <div class="alignfull">
         <div class="aligncenter">  
             <h2 class="heading"> Added Today</h2>
-            {% if not display.job_offers_today.empty_table %}
+            {% if not display.job_offers_added_today.empty_table %}
                 <h3 class="heading-left"> Job Offers Received:</h3>
                 <div class="list-group"> 
                     <ul> 
-                        {% for job_offer_id, job_offer in display.job_offers_today.fields.items() %}
+                        {% for job_offer_id, job_offer in display.job_offers_added_today.fields.items() %}
                             <li> <a href={{ job_offer.view_job_offer }} class="list-group-item list-group-item-styling">
                                 {{ job_offer.presentation_str }}
                             </a></li>
@@ -32,11 +50,11 @@
                     </ul>
                 </div>
             {% endif %}
-            {% if not display.interviews_today.empty_table %}
+            {% if not display.interviews_added_today.empty_table %}
                 <h3 class="heading-left"> Interviews:</h3>
                 <div class="list-group"> 
                     <ul> 
-                        {% for interview_id, interview_details in display.interviews_today.fields.items() %}
+                        {% for interview_id, interview_details in display.interviews_added_today.fields.items() %}
                             <li> <a href={{ interview_details.view_interview }} class="list-group-item list-group-item-styling">
                                 {{ interview_details.interview_string }}
                             </a></li>
@@ -44,11 +62,11 @@
                     </ul>
                 </div>
             {% endif %}
-            {% if not display.applications_today.empty_table %}
+            {% if not display.applications_added_today.empty_table %}
                 <h3 class="heading-left"> Applications Submitted:</h3>
                 <div class="list-group"> 
                     <ul> 
-                        {% for application_id, application_details in display.applications_today.fields.items() %}
+                        {% for application_id, application_details in display.applications_added_today.fields.items() %}
                             <li> <a href={{ application_details.view_application }} class="list-group-item list-group-item-styling">
                                 {{ application_details.presentation_str }}
                             </a></li>

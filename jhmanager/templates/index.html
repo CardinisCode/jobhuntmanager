@@ -7,7 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="th1-heading"> Welcome to Job Hunt Manager! </h1>
+            <h1 class="h1-heading"> Welcome to Job Hunt Manager! </h1>
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -18,13 +18,6 @@
         </div>
     </div>
 
-    <div class="alignfull background-colour"> 
-        <div class="aligncenter"> 
-            <h2 class="heading-extra-margins"> View Your Daily Stats </h2>
-            <img class="screenshot-img" src="../static/images/daily_stats_jpg.jpg" alt="dashboard_screenshot">
-        </div>
-    </div>
-
     <div class="alignfull">
         <div class="aligncenter">  
             <h2 class="heading-extra-margins"> Start Your Job Hunting Journey </h2>
@@ -32,39 +25,45 @@
                 <div class="screenshot-grid"> 
                     <img class="screenshot-img-styling" src="../static/images/add_job_application.jpg" alt="add_application_screenshot">
                     <div class="screenshot-labels">
-                        <label class="text-center"><i class="fas fa-plus"></i> Add Job Application</label>
+                        <label class="text-center"><i class="fas fa-plus"></i> Add the job Applications you're submitting</label>
                     </div>
                 </div>
                 <div class="screenshot-grid"> 
                     <img class="screenshot-img-styling" src="../static/images/add_interview_screenshot.jpg" alt="add_interview_screenshot">
                     <div class="screenshot-labels">
-                        <label class="text-center"><i class="fas fa-plus"></i> Add Interview</label>
+                        <label class="text-center"><i class="fas fa-plus"></i> Add Your Upcoming Interviews</label>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="alignfull xxx-margins background-colour">
+    <div class="alignfull end-page-margins"> 
+        <div class="aligncenter"> 
+            <h2 class="heading-extra-margins"> View Your Progress </h2>
+            <img class="screenshot-img-no-border" src="../static/images/users_progress.jpg" alt="dashboard_screenshot">
+        </div>
+    </div>
+
+    <div class="alignfull background-colour">
         <div class="aligncenter">  
             <h2 class="heading-extra-margins"> Build Your Network </h2>
             <div class="grid_experiement extra-margins">
                 <div class="screenshot-grid"> 
                     <img class="screenshot-contacts-styling" src="../static/images/top_indiv_contacts_jpg.jpg" alt="add_indiv_contact_screenshot">
                     <div class="screenshot-labels">
-                        <label class="text-center"><i class="fas fa-plus"></i> Add Individual Contact</label>
+                        <label class="text-center"><i class="fas fa-plus"></i> Add people you connect with</label>
                     </div>
                 </div>
                 <div class="screenshot-grid"> 
                     <img class="screenshot-contacts-styling" src="../static/images/top_company_entries_jpg.jpg" alt="add_company_screenshot">
                     <div class="screenshot-labels">
-                        <label class="text-center"><i class="fas fa-plus"></i> Add Company</label>
+                        <label class="text-center"><i class="fas fa-plus"></i> Add companies from your wishlist</label>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-                
 
 {% endblock %}

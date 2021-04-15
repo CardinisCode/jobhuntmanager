@@ -93,7 +93,7 @@ def extract_and_display_job_offers(user_id, jobOffersRepo, companyRepo):
     return job_offer_details
 
 
-def display_todays_job_offers(user_id, applicationsRepo, interviewsRepo, companyRepo, jobOffersRepo):
+def display_job_offers_added_today(user_id, applicationsRepo, interviewsRepo, companyRepo, jobOffersRepo):
     job_offers = jobOffersRepo.getJobOffersByUserId(user_id)
 
     job_offer_details = {
@@ -174,7 +174,7 @@ def display_upcoming_interviews(user_id, interviewsRepo, applicationsRepo, compa
     return upcoming_interviews
 
 
-def display_todays_interviews(user_id, current_date, interviewsRepo, applicationsRepo, companyRepo):
+def display_interviews_added_today(user_id, current_date, interviewsRepo, applicationsRepo, companyRepo):
     interviews = interviewsRepo.grabAllInterviewsForUserID(user_id)
     
     todays_interviews_details = {
@@ -215,7 +215,51 @@ def display_todays_interviews(user_id, current_date, interviewsRepo, application
     return todays_interviews_details
 
 
-def display_todays_applications(user_id, current_date, applicationsRepo, companyRepo):
+def display_today_interviews(user_id, applicationsRepo, interviewsRepo, companyRepo):
+    interviews = interviewsRepo.grabAllInterviewsForUserID(user_id)
+
+    todays_interviews = {
+        "empty_table": True, 
+        "fields": {}
+    }
+
+    if not interviews:
+        return todays_interviews
+
+    for interview in interviews:
+        interview_id = interview.interview_id
+        application = applicationsRepo.grabApplicationByID(interview.application_id)
+        company = companyRepo.getCompanyById(application.company_id)
+
+        interview_date = interview.interview_date
+        present_day_interview = check_interview_is_today(interview_date)
+
+        if not present_day_interview:
+            continue
+
+        todays_interviews["empty_table"] = False 
+        todays_interviews["fields"][interview_id] = {
+            "date": interview_date, 
+            "time": interview.interview_time,
+            "company_name": company.name,
+            "location": interview.location,
+            "status": interview.status,
+            "interview_type": interview.interview_type,
+            "interview_medium": interview.medium, 
+            "other_medium": interview.other_medium,
+            "contact_number": interview.contact_number,
+            "interviewers": interview.interviewer_names,
+            "job_role": application.job_role,
+            "interview_today": False,
+            "interview_string": None,
+            "view_interview": '/applications/{}/interview/{}'.format(application.app_id, interview_id), 
+        }
+        cleanup_upcoming_interview_fields(todays_interviews, interview_id)
+
+    return todays_interviews
+
+
+def display_applications_added_today(user_id, current_date, applicationsRepo, companyRepo):
     applications = applicationsRepo.getAllApplicationsByUserID(user_id)
 
     todays_applications = {
@@ -260,9 +304,12 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
     upcoming_interviews = display_upcoming_interviews(user_id, interviewsRepo, applicationsRepo, companyRepo)
 
     # Now to grab the current-day's information we'll be displaying at the top of the dashboard:
-    interviews_today = display_todays_interviews(user_id, current_date, interviewsRepo, applicationsRepo, companyRepo)
-    applications_today = display_todays_applications(user_id, current_date, applicationsRepo, companyRepo)
-    job_offers_today = display_todays_job_offers(user_id, applicationsRepo, interviewsRepo, companyRepo, jobOffersRepo)
+    interviews_added_today = display_interviews_added_today(user_id, current_date, interviewsRepo, applicationsRepo, companyRepo)
+    applications_added_today = display_applications_added_today(user_id, current_date, applicationsRepo, companyRepo)
+    job_offers_added_today = display_job_offers_added_today(user_id, applicationsRepo, interviewsRepo, companyRepo, jobOffersRepo)
+
+    # Lets grab any interviews that the user has today:
+    todays_interviews = display_today_interviews(user_id, applicationsRepo, interviewsRepo, companyRepo)
 
     # Now to gather the user's overall/total stats so far:
     user_stats = get_users_stats(user_id, interviewsRepo, applicationsRepo, companyRepo, jobOffersRepo)
@@ -270,9 +317,10 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
     message = "All good!"
 
     display = {
-        "interviews_today": interviews_today,
-        "applications_today": applications_today,
-        "job_offers_today": job_offers_today,
+        "interviews_added_today": interviews_added_today,
+        "applications_added_today": applications_added_today,
+        "job_offers_added_today": job_offers_added_today,
+        "todays_interviews": todays_interviews, 
         "message": message,
         "upcoming_interviews": upcoming_interviews,
         "job_offer_details": job_offer_details,
