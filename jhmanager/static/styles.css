@@ -69,7 +69,6 @@ form {
   margin : 0 auto;
   padding: 1em;
   box-sizing: border-box;
-  /* background: white; */
 }
 
 .form-background {
@@ -911,6 +910,13 @@ select:-webkit-autofill:focus {
 
 .soft-bottom-border {
   border: 1px solid #dee2e6!important;
+}
+
+.stats-grid {
+  margin-left: calc(35% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  grid-template-columns: 100% !important;
+  margin-bottom: 1rem;
 }
 
 .stats-grid-child {
