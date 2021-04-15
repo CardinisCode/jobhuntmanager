@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session, request, redirect
 from datetime import datetime, date
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
-from jhmanager.service.display_dashboard_content import get_application_count
+from jhmanager.service.cleanup_files.cleanup_app_fields import get_application_count
 
 
 def cleanup_app_notes(app_notes_details, entry_id):

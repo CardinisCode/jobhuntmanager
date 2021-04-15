@@ -5,6 +5,7 @@ from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_tim
 from jhmanager.service.cleanup_files.cleanup_datetime_display import past_dated
 from jhmanager.service.cleanup_files.cleanup_datetime_display import present_dated
 from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_job_offer
+from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_job_offer_fields_for_dashboard
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_fields
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_status
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_type
@@ -67,8 +68,28 @@ def display_todays_job_offers(user_id, applicationsRepo, interviewsRepo, company
 
     for job_offer in job_offers:
         job_offer_id = job_offer.job_offer_id
+        application = applicationsRepo.grabApplicationByID(job_offer.application_id)
+        company = companyRepo.getCompanyById(job_offer.company_id)
 
-
+        # Lets check if this job offer was added today:
+        entry_date_obj = datetime.strptime(job_offer.entry_date, "%Y-%m-%d")
+        present_date = present_dated(entry_date_obj.date())
+        if not present_date:
+            continue
+            
+        job_offer_details["empty_table"] = False 
+        job_offer_details["fields"][job_offer_id] = {
+            "offer_response": job_offer.offer_response,
+            "job_role": job_offer.job_role,
+            "company_name": company.name,
+            "salary": job_offer.salary_offered, 
+            "starting_date": job_offer.starting_date,
+            "offer_accepted": False,
+            "presentation_str": None,
+            "view_job_offer": '/applications/{}/job_offers/{}'.format(application.app_id, job_offer_id)
+        }
+        cleanup_job_offer_fields_for_dashboard(job_offer_details, job_offer_id)
+    
     return job_offer_details
 
 
@@ -111,17 +132,6 @@ def display_upcoming_interviews(user_id, interviewsRepo, applicationsRepo, compa
                 cleanup_upcoming_interview_fields(upcoming_interviews, interview_id)
 
     return upcoming_interviews
-
-
-def get_application_count(applications):
-    app_count = 0
-    if not applications: 
-        return app_count
-
-    for application in applications:
-        app_count += 1
-
-    return app_count
 
 
 def display_todays_interviews(user_id, current_date, interviewsRepo, applicationsRepo, companyRepo):
@@ -213,10 +223,7 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
     interviews_today = display_todays_interviews(user_id, current_date, interviewsRepo, applicationsRepo, companyRepo)
     applications_today = display_todays_applications(user_id, current_date, applicationsRepo, companyRepo)
     job_offers_today = display_todays_job_offers(user_id, applicationsRepo, interviewsRepo, companyRepo, jobOffersRepo)
-
-    # Sadly SQLite doesn't have the functionality to return COUNT(*) from SQLite to Python
-    # So we'll have manually count the number of rows returned from the SQL query:
-    today_app_count = get_application_count(applications_today)
+    raise ValueError(job_offers_today)
 
     message = "All good!"
 
