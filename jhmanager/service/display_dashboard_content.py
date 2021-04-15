@@ -54,6 +54,24 @@ def extract_and_display_job_offers(user_id, jobOffersRepo, companyRepo):
     return job_offer_details
 
 
+def display_todays_job_offers(user_id, applicationsRepo, interviewsRepo, companyRepo, jobOffersRepo):
+    job_offers = jobOffersRepo.getJobOffersByUserId(user_id)
+
+    job_offer_details = {
+        "empty_table": True, 
+        "fields": {}
+    }
+
+    if not job_offers: 
+        return job_offer_details
+
+    for job_offer in job_offers:
+        job_offer_id = job_offer.job_offer_id
+
+
+    return job_offer_details
+
+
 def display_upcoming_interviews(user_id, interviewsRepo, applicationsRepo, companyRepo):
     all_interviews = interviewsRepo.grabUpcomingInterviewsByUserID(user_id)
     current_date = datetime.now().date()
@@ -194,6 +212,7 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
     # Now to grab the current-day's information we'll be displaying at the top of the dashboard:
     interviews_today = display_todays_interviews(user_id, current_date, interviewsRepo, applicationsRepo, companyRepo)
     applications_today = display_todays_applications(user_id, current_date, applicationsRepo, companyRepo)
+    job_offers_today = display_todays_job_offers(user_id, applicationsRepo, interviewsRepo, companyRepo, jobOffersRepo)
 
     # Sadly SQLite doesn't have the functionality to return COUNT(*) from SQLite to Python
     # So we'll have manually count the number of rows returned from the SQL query:

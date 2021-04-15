@@ -18,11 +18,13 @@ def display_add_job_offer_form(application_id, user_id, add_job_offer, companyRe
 def post_add_job_offer(application_id, user_id, add_job_offer, companyRepo, applicationsRepo, jobOffersRepo):
     application = applicationsRepo.grabApplicationByID(application_id)
     company = companyRepo.getCompanyById(application.company_id)
+    current_date = datetime.now().date()
 
     fields = {
         "user_id": user_id,
         "company_id": company.company_id,
         "application_id": application_id,
+        "entry_date": current_date, 
         "job_role": add_job_offer.job_role.data,
         "starting_date": add_job_offer.starting_date.data, 
         "salary_offered": add_job_offer.salary_offered.data,

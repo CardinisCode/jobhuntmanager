@@ -13,11 +13,12 @@ class JobOffer:
         self.user_id = db_fields[1]
         self.company_id = db_fields[2]
         self.application_id = db_fields[3]
-        self.job_role = db_fields[4]
-        self.starting_date = datetime.strptime(db_fields[5], self.date_str)
-        self.salary_offered = db_fields[6]
-        self.perks_offered = db_fields[7]
-        self.offer_response = db_fields[8]
+        self.entry_date = db_fields[4]
+        self.job_role = db_fields[5]
+        self.starting_date = datetime.strptime(db_fields[6], self.date_str)
+        self.salary_offered = db_fields[7]
+        self.perks_offered = db_fields[8]
+        self.offer_response = db_fields[9]
 
 
 class JobOffersRepository:
@@ -28,8 +29,8 @@ class JobOffersRepository:
     def addJobOfferToHistory(self, fields):
         cursor = self.db.cursor()
         command  = """ 
-        INSERT INTO job_offers(user_id, company_id, application_id, job_role, starting_date, salary_offered, perks_offered, offer_response)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO job_offers(user_id, company_id, application_id, entry_date, job_role, starting_date, salary_offered, perks_offered, offer_response)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """
         result = cursor.execute(command, tuple(fields.values()))
         self.db.commit()
