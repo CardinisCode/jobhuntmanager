@@ -15,7 +15,7 @@
 
             <div class="form-grid full-grid-length">
                 <form action="/add_job_application" method="POST"> 
-                    {{ add_application_form.csrf_token }}
+                    {{ add_application_form.hidden_tag() }}
                     <div class="form-grid_child"> 
                         <h1 class="h1-heading"> Add Job Application </h1>
                         <h2 class="heading">Please Note:</h2>

@@ -16,7 +16,7 @@
         
             <div class="form-grid full-grid-length">
                 <form action={{ details.action_url}} method="POST"> 
-                    {{ new_contact_form.csrf_token }}
+                    {{ new_contact_form.hidden_tag() }}
                     <div class="form-grid_child"> 
                         <h1 class="h1-heading-extra-margins"><i class="fas fa-user-alt"></i> Add New Contact </h1>
                         <div class="form-row grid_experiement">

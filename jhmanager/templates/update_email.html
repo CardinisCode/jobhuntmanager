@@ -16,7 +16,7 @@
 
             <div class="form-grid full-grid-length"> 
                 <form action={{ details.update_url}} method="POST"> 
-                    {{ update_email_form.csrf_token }}
+                    {{ update_email_form.hidden_tag() }}
                     <div class="form-grid_child"> 
                         <h1 class="h1-heading-extra-margins"> Update Email </h1> 
                         <div class="form-row">

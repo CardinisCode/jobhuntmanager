@@ -16,7 +16,7 @@
 
             <div class="form-grid full-grid-length">
                 <form action="/register" method="POST"> 
-                    {{ register_form.csrf_token }}
+                    {{ register_form.hidden_tag() }}
                     <div class="form-grid_child"> 
                         <h1 class="h1-heading-extra-margins"> Register</h1>
                         <div class="form-row">

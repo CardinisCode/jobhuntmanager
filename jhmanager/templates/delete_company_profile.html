@@ -16,7 +16,7 @@
 
             <div class="form-grid full-grid-length">
                 <form action={{ display.action_url }} method="POST"> 
-                    {{ delete_company_form.csrf_token }}
+                    {{ delete_company_form.hidden_tag() }}
                     <div class="form-grid_child"> 
                         <h1 class="h1-heading"> Delete Company Profile </h1>
                         <h2 class="heading-extra-margins"><i class="fas fa-users"></i> {{ display.company_name }}</h2>

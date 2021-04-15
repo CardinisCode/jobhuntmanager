@@ -107,7 +107,7 @@
         <div class="aligncenter"> 
             <div class="form-grid full-grid-length">
                 <form action={{ general_details.links.action_url }} method="POST">
-                    {{ interview_prep_form.csrf_token }}
+                    {{ interview_prep_form.hidden_tag() }}
                     <div class="form-grid-child-alt">  
                         <h2 class="h1-heading-extra-margins"> Add Interview Question:</h2>
                         <div class="form-row">

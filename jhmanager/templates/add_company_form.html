@@ -22,7 +22,7 @@
 
             <div class="form-grid full-grid-length">
                 <form action={{ details.action_url }} method="POST"> 
-                    {{ add_company_form.csrf_token }}
+                    {{ add_company_form.hidden_tag() }}
                     <div class="form-grid_child"> 
                         <h1 class="h1-heading-extra-margins">  Add New Company</h1>
                         <div class="form-row">

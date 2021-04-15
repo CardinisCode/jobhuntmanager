@@ -15,7 +15,7 @@
         
             <div class="form-grid full-grid-length">
                 <form action={{ fields.update_url }} method="POST"> 
-                    {{ update_form.csrf_token }}
+                    {{ update_form.hidden_tag() }}
                     <div class="form-grid_child"> 
                         <h1 class="h1-heading-extra-margins"> Update Job Application </h1>
                         <h2 class="heading">Please Note:</h2>

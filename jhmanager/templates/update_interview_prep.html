@@ -106,7 +106,7 @@
         <div class="aligncenter"> 
             <div class="form-grid full-grid-length">
                 <form action={{ general_details.links.action_url }} method="POST">
-                    {{ update_interview_prep_form.csrf_token }}
+                    {{ update_interview_prep_form.hidden_tag() }}
                     <div class="form-grid_child">  
                         <h2 class="h1-heading-extra-margins"> Update Interview Preparation:</h2>
                         <div class="form-row">

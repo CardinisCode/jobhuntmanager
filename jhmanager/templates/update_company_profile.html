@@ -16,7 +16,7 @@
 
             <div class="form-grid full-grid-length">
                 <form action={{ details.action_url }} method="POST"> 
-                    {{ update_company_form.csrf_token }}
+                    {{ update_company_form.hidden_tag() }}
                     <div class="form-grid_child">
                         <h1 class="h1-heading"> Update Company Profile</h1>
                         <h2 class="heading-extra-margins"><i class="fas fa-users"></i> {{ details.company_name }} </h2>
