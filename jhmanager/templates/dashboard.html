@@ -19,7 +19,7 @@
 
     <div class="alignfull">
         <div class="aligncenter">  
-            <h2 class="heading-extra-margins"> Added Today</h2>
+            <h2 class="heading"> Added Today</h2>
             {% if not display.job_offers_today.empty_table %}
                 <h3 class="heading-left"> Job Offers Received:</h3>
                 <div class="list-group"> 
@@ -58,13 +58,49 @@
         </div>
     </div>
 
+    {% if not display.users_stats.all_tables_empty %}
+        <div class="alignfull background-colour">
+            <div class="aligncenter">  
+                <h2 class="card-headings"> Your Progress So Far </h2>
+                <div class="full-grid-length"> 
+                    <div class="stats-grid-child"> 
+                        {% if display.users_stats.application_count %}
+                            <div class="form-row">
+                                <label class="stats-label-col stats-col-styling"> Applications Submitted</label>
+                                <div class="stats-col right-padding stats-col-styling"> 
+                                    {{ display.users_stats.application_count }}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if display.users_stats.interviews_count %}
+                            <div class="form-row">
+                                <label class="stats-label-col stats-col-styling"> Interviews Lined Up:</label>
+                                <div class="stats-col right-padding stats-col-styling"> 
+                                    {{ display.users_stats.interviews_count }}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if display.users_stats.interviews_count %}
+                            <div class="form-row">
+                                <label class="stats-label-col stats-col-styling"> Job Offers Received:</label>
+                                <div class="stats-col right-padding stats-col-styling"> 
+                                    {{ display.users_stats.job_offers_count }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
     {% if display.total_application_count == 0 %}
         <div class="alignfull">
             <div class="aligncenter">  
                 {% if display.total_application_count == 0 %}
                     <h2 class="card-headings"> Start adding your job applications:</h2>
                     <div class="link-div-styling"> 
-                        <a href={{ display.add_application_url }} class="link_button_primary text-center extra-button-styles"><i class="fas fa-plus"> Add Job Application </i></a>
+                        <a href={{ display.add_application_url }} class="link_button_primary extra-button-styles"><i class="fas fa-plus"> Add Job Application </i></a>
                     </div>
                 {% endif %}
             </div>
@@ -73,12 +109,12 @@
         <div class="alignfull">
             <div class="aligncenter">  
                 <div class="link-div-styling"> 
-                    <a href={{ display.add_application_url }} class="link_button_primary text-center extra-button-styles"><i class="fas fa-plus"> Add Job Application </i></a>
+                    <a href={{ display.add_application_url }} class="link_button_primary extra-button-styles"><i class="fas fa-plus"> Add Job Application </i></a>
                     {% if job_offer_details == None %}
-                        <a href="/applications" class="link_button_primary text-center link_middle extra-button-styles"><i class="fas fa-eye"> View all Applications</i> </a>
-                        <a href="/add_job_offer" class="link_button_primary text-center link-right extra-button-styles"><i class="fas fa-plus"> Add Job Offer</i> </a>
+                        <a href="/applications" class="link_button_primary link_middle extra-button-styles"><i class="fas fa-eye"> View all Applications</i> </a>
+                        <a href="/add_job_offer" class="link_button_primary link-right extra-button-styles"><i class="fas fa-plus"> Add Job Offer</i> </a>
                     {% else %}
-                        <a href="/applications" class="link_button_primary text-center link-right extra-button-styles"><i class="fas fa-eye"> View all Applications</i> </a>
+                        <a href="/applications" class="link_button_primary link-right extra-button-styles"><i class="fas fa-eye"> View all Applications</i> </a>
                     {% endif %}
                 </div>
             </div>
@@ -150,17 +186,17 @@
     {% endif %}
 
     {% if not display.upcoming_interviews.empty_table %}
-        <div class="alignfull"> 
+        <div class="alignfull end-page-margins"> 
             <div class="aligncenter"> 
-                <h2 class="card-headings"> A: Upcoming Interviews </h2>
+                <h2 class="card-headings"> Upcoming Interviews </h2>
                 <div class="three-col-grid-with-padding"> 
                     {% for interview_id, interview in display.upcoming_interviews.fields.items() %}
                         <a href={{ interview.view_interview }} class="link-cards">
-                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> {{ interview.company_name }}</h3>
+                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings-simple"> {{ interview.company_name }}</h3>
                             <div class="card-content"> 
                                 <div class="form-row">
                                     <div class="col extra-margins"> 
-                                        <i class="fas fa-calendar-alt"></i> {{ interview.date }} @ {{ interview.time }}
+                                         {{ interview.date }} @ {{ interview.time }}
                                     </div>
                                 </div>
                                 {% if interview.interview_type == "Video / Online" %}
@@ -190,42 +226,6 @@
                             </div>
                         </a>
                     {% endfor %}
-                </div>
-            </div>
-        </div>
-    {% endif %}
-
-    {% if not display.users_stats.all_tables_empty %}
-        <div class="alignfull background-colour end-page-margins">
-            <div class="aligncenter">  
-                <h2 class="card-headings"> Your Progress So Far </h2>
-                <div class="full-grid-length"> 
-                    <div class="stats-grid-child"> 
-                        {% if display.users_stats.application_count %}
-                            <div class="form-row">
-                                <label class="stats-label-col stats-col-styling"> Applications Submitted</label>
-                                <div class="stats-col right-padding stats-col-styling"> 
-                                    {{ display.users_stats.application_count }}
-                                </div>
-                            </div>
-                        {% endif %}
-                        {% if display.users_stats.interviews_count %}
-                            <div class="form-row">
-                                <label class="stats-label-col stats-col-styling"> Interviews Lined Up:</label>
-                                <div class="stats-col right-padding stats-col-styling"> 
-                                    {{ display.users_stats.interviews_count }}
-                                </div>
-                            </div>
-                        {% endif %}
-                        {% if display.users_stats.interviews_count %}
-                            <div class="form-row">
-                                <label class="stats-label-col stats-col-styling"> Job Offers Received:</label>
-                                <div class="stats-col right-padding stats-col-styling"> 
-                                    {{ display.users_stats.job_offers_count }}
-                                </div>
-                            </div>
-                        {% endif %}
-                    </div>
                 </div>
             </div>
         </div>
