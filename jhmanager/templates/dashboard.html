@@ -85,7 +85,7 @@
         </div>
     {% endif %}
 
-    {% if display.job_offer_details.fields %}
+    {% if not display.job_offer_details.empty_table %}
         <div class="alignfull background-colour">
             <div class="aligncenter">  
                 <h2 class="card-headings"> Job Offers </h2>

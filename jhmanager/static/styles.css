@@ -429,6 +429,7 @@ hr.thick_border {
   margin-bottom: 2rem !important;
   text-align: left !important;
   padding: 1rem 1.5rem;
+  font-size: 1.5rem !important;
 }
 
 .heading-extra-margins {
@@ -607,6 +608,7 @@ hr.thick_border {
   text-align: left;
   background-color: rgba(175, 238, 238, 0.2) !important;
   border: 1px solid lightgrey !important;
+  font-size: 1.2rem !important;
 }
 
 .link_button:hover, .link-cards:hover, .link-cards-alt-colour:hover, .thin-link-cards:hover, .list-group-item-styling:hover {

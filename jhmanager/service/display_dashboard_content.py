@@ -102,6 +102,7 @@ def display_upcoming_interviews(user_id, interviewsRepo, applicationsRepo, compa
         "fields": {}
     }
 
+    interviews_list = {}
     if all_interviews: 
         for interview in all_interviews:
             interview_id = interview.interview_id
@@ -110,6 +111,7 @@ def display_upcoming_interviews(user_id, interviewsRepo, applicationsRepo, compa
             interview_date = interview.interview_date
             interview_time = interview.interview_time
             past_dated_interview = past_dated(interview.interview_date, interview.interview_time)
+            interviews_list[interview_id] = [interview_date, interview_time, past_dated_interview]
 
             if not past_dated_interview:
                 upcoming_interviews["empty_table"] = False 
