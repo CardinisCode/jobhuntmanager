@@ -17,65 +17,163 @@
         </div>
     </div>
 
-    {% if not display.todays_interviews.empty_table %}
-        <div class="alignfull">
-            <div class="aligncenter">  
-                <h2 class="heading"> Your Interviews For The Day:</h2>
-                <div class="list-group">
-                    <ul>
-                        {% for interview_id, interview in display.todays_interviews.fields.items() %}
-                            <li> <a href={{ interview.view_interview }} class="list-group-item list-group-item-styling">
-                                {{ interview.interview_string }}
-                            </a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-
+    <div class="alignfull"> 
+        <div class="aligncenter"> 
+            <div class="dashboard-grid"> 
+                {% if not display.todays_interviews.empty_table %}
+                    {% for interview_id, interview in display.todays_interviews.fields.items() %}
+                        <a href={{ interview.view_interview }} class="link-cards">
+                            <div class="dashboard-col-heading-grid"> 
+                                Interview Today
+                            </div>
+                            <div class="dashboard-col-content"> 
+                                <div class="form-row">
+                                    <div class="col normal-margins"> 
+                                        <i class="fas fa-calendar-alt"></i> {{ interview.date }} @ {{ interview.time }}
+                                    </div>
+                                </div>
+                                {% if interview.interview_type == "Video / Online" %}
+                                    <div class="form-row">
+                                        <div class="col normal-margins"> 
+                                            <i class="fas fa-video"></i> {{ interview.interview_type }}
+                                        </div>
+                                    </div>
+                                {% elif interview.interview_type == "In Person / On Site" %}
+                                    <div class="form-row">
+                                        <div class="col normal-margins"> 
+                                            <i class="fas fa-thumbtack"></i> {{ interview.interview_type }}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="form-row">
+                                        <div class="col normal-margins"> 
+                                            <i class="fas fa-mobile-alt"></i> {{ interview.interview_type }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div class="form-row">
+                                    <div class="col normal-margins"> 
+                                        <i class="fas fa-exclamation"></i> {{ interview.status }}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% endif %}
+                {% if not display.job_offer_details.empty_table %}
+                    {% for job_offer_id, job_offer in display.job_offer_details.fields.items() %}
+                        <a href={{ job_offer.view_offer }} class="link-cards">
+                            <div class="dashboard-col-heading-grid"> 
+                                New Job Offer!
+                            </div>
+                            <div class="dashboard-col-content"> 
+                                {% if job_offer.offer_response == "Offer Accepted!" %}
+                                    <div class="form-row">
+                                        <div class="col normal-margins">     
+                                            <i class="fas fa-calendar-alt"></i> {{ job_offer.starting_date }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if job_offer.job_role %}
+                                    <div class="form-row"> 
+                                        <div class="col normal-margins"> 
+                                            <i class="fas fa-pencil-ruler"></i> {{ job_offer.job_role }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div class="form-row"> 
+                                    <div class="col normal-margins"> 
+                                        <i class="fas fa-question"></i> {{ job_offer.offer_response }}
+                                    </div>
+                                </div>
+                                {% if job_offer.salary_offered %}
+                                    <div class="form-row"> 
+                                        <div class="col normal-margins"> 
+                                            <i class="fas fa-hand-holding-usd"></i> {{ job_offer.salary_offered }}
+                                        </div>    
+                                    </div>                
+                                {% endif %}
+                                {% if job_offer.perks_offered %}
+                                    <div class="form-row"> 
+                                        <div class="col normal-margins"> 
+                                            <i class="fas fa-bars"></i> {{ job_offer.perks_offered }}
+                                        </div> 
+                                    </div>         
+                                {% endif %}
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% endif %}
+                {% if not display.upcoming_interviews.empty_table %}
+                    {% for interview_id, interview in display.upcoming_interviews.fields.items() %}
+                        <a href={{ interview.view_interview }} class="link-cards">
+                            <div class="dashboard-col-heading-grid"> 
+                                Upcoming Interview
+                            </div>
+                            <div class="dashboard-col-content">
+                                <div class="form-row">
+                                    <div class="col normal-margins"> 
+                                         {{ interview.date }} @ {{ interview.time }}
+                                    </div>
+                                </div>
+                                {% if interview.interview_type == "Video / Online" %}
+                                    <div class="form-row">
+                                        <div class="col normal-margins"> 
+                                            <i class="fas fa-video"></i> {{ interview.interview_type }}
+                                        </div>
+                                    </div>
+                                {% elif interview.interview_type == "In Person / On Site" %}
+                                    <div class="form-row">
+                                        <div class="col normal-margins"> 
+                                            <i class="fas fa-thumbtack"></i> {{ interview.interview_type }}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="form-row">
+                                        <div class="col normal-margins"> 
+                                            <i class="fas fa-mobile-alt"></i> {{ interview.interview_type }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div class="form-row">
+                                    <div class="col normal-margins"> 
+                                        <i class="fas fa-exclamation"></i> {{ interview.status }}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% endif %}
+                {% if not display.applications_added_today.empty_table %}
+                    {% for application_id, application in display.applications_added_today.fields.items() %}
+                        <a href={{ application.view_application }} class="link-cards">
+                            <div class="dashboard-col-heading-grid"> 
+                                Job Application Added Today
+                            </div>
+                            <div class="dashboard-col-content">
+                                <div class="form-row">
+                                    <div class="col normal-margins"> 
+                                        <i class="fas fa-exclamation"></i> {{ application.job_role }}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col normal-margins"> 
+                                        <i class="fas fa-exclamation"></i> {{ application.company_name }}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col normal-margins"> 
+                                        <i class="fas fa-exclamation"></i> {{ application.emp_type }}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
-    {% endif %}
-
-    <div class="alignfull">
-        <div class="aligncenter">  
-            <h2 class="heading"> Added Today</h2>
-            {% if not display.job_offers_added_today.empty_table %}
-                <h3 class="heading-left"> Job Offers Received:</h3>
-                <div class="list-group"> 
-                    <ul> 
-                        {% for job_offer_id, job_offer in display.job_offers_added_today.fields.items() %}
-                            <li> <a href={{ job_offer.view_job_offer }} class="list-group-item list-group-item-styling">
-                                {{ job_offer.presentation_str }}
-                            </a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-            {% if not display.interviews_added_today.empty_table %}
-                <h3 class="heading-left"> Interviews:</h3>
-                <div class="list-group"> 
-                    <ul> 
-                        {% for interview_id, interview_details in display.interviews_added_today.fields.items() %}
-                            <li> <a href={{ interview_details.view_interview }} class="list-group-item list-group-item-styling">
-                                {{ interview_details.interview_string }}
-                            </a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-            {% if not display.applications_added_today.empty_table %}
-                <h3 class="heading-left"> Applications Submitted:</h3>
-                <div class="list-group"> 
-                    <ul> 
-                        {% for application_id, application_details in display.applications_added_today.fields.items() %}
-                            <li> <a href={{ application_details.view_application }} class="list-group-item list-group-item-styling">
-                                {{ application_details.presentation_str }}
-                            </a></li>
-                        {% endfor %}
-                    </ul>
-            {% endif %}
-        </div>
     </div>
-
+    
     {% if not display.users_stats.all_tables_empty %}
         <div class="alignfull background-colour">
             <div class="aligncenter">  
@@ -113,7 +211,7 @@
     {% endif %}
 
     {% if display.total_application_count == 0 %}
-        <div class="alignfull">
+        <div class="alignfull end-page-margins-min">
             <div class="aligncenter">  
                 {% if display.total_application_count == 0 %}
                     <h2 class="card-headings"> Start adding your job applications:</h2>
@@ -124,7 +222,7 @@
             </div>
         </div>
     {% else %}
-        <div class="alignfull">
+        <div class="alignfull end-page-margins-min">
             <div class="aligncenter">  
                 <div class="link-div-styling"> 
                     <a href={{ display.add_application_url }} class="link_button_primary extra-button-styles"><i class="fas fa-plus"> Add Job Application </i></a>
@@ -134,116 +232,6 @@
                     {% else %}
                         <a href="/applications" class="link_button_primary link-right extra-button-styles"><i class="fas fa-eye"> View all Applications</i> </a>
                     {% endif %}
-                </div>
-            </div>
-        </div>
-    {% endif %}
-
-    {% if not display.job_offer_details.empty_table %}
-        <div class="alignfull background-colour">
-            <div class="aligncenter">  
-                <h2 class="card-headings"> Job Offers </h2>
-                <div class="grid_experiement extra-margins">
-                {% for job_offer_id, job_offer in display.job_offer_details.fields.items() %}
-                    <a href={{ job_offer.view_offer_url }} class="link-cards-alt-colour">
-                        <i class="fas fa-hand-pointer"></i><h3 class="text-center"> {{ job_offer.company_name }}</h3>
-                        <div class="form-row">
-                            <div class="col left-padding"> 
-                                <i class="fas fa-calendar-alt"></i><strong> Starting Date:</strong>
-                            </div>
-                            <div class="col right-padding"> 
-                                {{ job_offer.starting_date }}
-                            </div>
-                        </div>
-                        {% if job_offer.job_role %}
-                            <div class="form-row extra-margins"> 
-                                <div class="col left-padding"> 
-                                    <i class="fas fa-pencil-ruler"></i> <strong> Job Role:</strong>
-                                </div>
-                                <div class="col right-padding"> 
-                                    {{ job_offer.job_role }}
-                                </div>
-                            </div>
-                        {% endif %}
-                        {% if job_offer.offer_response %}
-                            <div class="form-row extra-margins"> 
-                                <div class="col left-padding"> 
-                                    <i class="fas fa-question"></i><strong> Offer Response:</strong>
-                                </div>
-                                <div class="col right-padding"> 
-                                    {{ job_offer.offer_response }}
-                                </div>
-                            </div>
-                        {% endif %}
-                        {% if job_offer.salary_offered %}
-                            <div class="form-row extra-margins"> 
-                                <div class="col left-padding"> 
-                                    <i class="fas fa-hand-holding-usd"></i><strong> Salary On Offer:</strong>
-                                </div>  
-                                <div class="col right-padding"> 
-                                    {{ job_offer.salary_offered }}
-                                </div>    
-                            </div>                
-                        {% endif %}
-                        {% if job_offer.perks_offered %}
-                            <div class="form-row extra-margins"> 
-                                <div class="col left-padding"> 
-                                    <i class="fas fa-bars"></i><strong> Perks Offered: </strong>
-                                </div>  
-                                <div class="col right-padding"> 
-                                    {{ job_offer.perks_offered }}
-                                </div> 
-                            </div>         
-                        {% endif %}
-                    </a>
-                {% endfor %}
-                </div>
-                <br/>
-            </div>
-        </div>
-    {% endif %}
-
-    {% if not display.upcoming_interviews.empty_table %}
-        <div class="alignfull end-page-margins"> 
-            <div class="aligncenter"> 
-                <h2 class="card-headings"> Upcoming Interviews </h2>
-                <div class="three-col-grid-with-padding"> 
-                    {% for interview_id, interview in display.upcoming_interviews.fields.items() %}
-                        <a href={{ interview.view_interview }} class="link-cards">
-                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings-simple"> {{ interview.company_name }}</h3>
-                            <div class="card-content"> 
-                                <div class="form-row">
-                                    <div class="col extra-margins"> 
-                                         {{ interview.date }} @ {{ interview.time }}
-                                    </div>
-                                </div>
-                                {% if interview.interview_type == "Video / Online" %}
-                                    <div class="form-row">
-                                        <div class="col extra-margins"> 
-                                            <i class="fas fa-video"></i> {{ interview.interview_type }}
-                                        </div>
-                                    </div>
-                                {% elif interview.interview_type == "In Person / On Site" %}
-                                    <div class="form-row">
-                                        <div class="col extra-margins"> 
-                                            <i class="fas fa-thumbtack"></i> {{ interview.interview_type }}
-                                        </div>
-                                    </div>
-                                {% else %}
-                                    <div class="form-row">
-                                        <div class="col extra-margins"> 
-                                            <i class="fas fa-mobile-alt"></i> {{ interview.interview_type }}
-                                        </div>
-                                    </div>
-                                {% endif %}
-                                <div class="form-row">
-                                    <div class="col extra-margins"> 
-                                        <i class="fas fa-exclamation"></i> {{ interview.status }}
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    {% endfor %}
                 </div>
             </div>
         </div>

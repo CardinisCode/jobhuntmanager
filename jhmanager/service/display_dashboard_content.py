@@ -75,7 +75,7 @@ def extract_and_display_job_offers(user_id, jobOffersRepo, companyRepo):
         company_id = offer.company_id
         application_id = offer.application_id
         company_name = companyRepo.getCompanyById(company_id).name
-        view_offer_url = '/applications/{}/job_offers/{}'.format(application_id, job_offer_id)
+        view_offer = '/applications/{}/job_offers/{}'.format(application_id, job_offer_id)
 
         job_offer_details["fields"][offer_count] = {
             "job_offer_id": job_offer_id,
@@ -86,7 +86,7 @@ def extract_and_display_job_offers(user_id, jobOffersRepo, companyRepo):
             "offer_accepted": False,
             "salary_offered": offer.salary_offered, 
             "perks_offered": offer.perks_offered,
-            "view_offer_url": view_offer_url, 
+            "view_offer": view_offer, 
         }
         cleanup_job_offer(job_offer_details, offer_count)
 

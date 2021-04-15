@@ -230,6 +230,10 @@ textarea {
   margin-bottom: 4rem !important;
 }
 
+.end-page-margins-min {
+  margin-bottom: 2rem !important;
+}
+
 .grid_experiement{
   display: grid;
   grid-template-columns: 49% 49%;
@@ -451,6 +455,10 @@ hr.thick_border {
   margin-top: 1rem;
   margin-bottom: 2rem !important;
   text-align: left !important;
+}
+
+.card-col {
+  line-height:2;
 }
 
 .card-headings {
@@ -921,8 +929,6 @@ select:-webkit-autofill:focus {
 }
 
 .stats-grid {
-  margin-left: calc(35% - 50vw) !important;
-  margin-right: calc(50% - 50vw) !important;
   grid-template-columns: 100% !important;
   margin-bottom: 1rem;
 }
@@ -949,6 +955,29 @@ select:-webkit-autofill:focus {
   background-color: white;
   border-bottom: 1px solid #dee2e6!important;
 }
+
+.dashboard-grid {
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 1rem;
+}
+
+.dashboard-col-heading-grid {
+  padding: 0.5rem; 
+  font-weight: bold;
+  border-bottom: solid 1px grey;
+  text-align: center;
+}
+
+.dashboard-col-content {
+  padding: 0.5rem; 
+}
+
+.normal-margins {
+  margin: 0.5rem 0 !important;
+}
+
+
 
 
 
