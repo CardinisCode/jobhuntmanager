@@ -6,16 +6,14 @@ from datetime import datetime, time
 
 
 def cleanup_interview_type(interview_type):
-    updated_interview_type = ""
     if interview_type == "video_or_online":
-        updated_interview_type = "Video / Online"
+        return "Video / Online"
     elif interview_type == "in_person":
-        updated_interview_type = "In Person / On Site"
+        return "In Person / On Site"
+    elif interview_type == "phone_call":
+        return "Phone Call"
     else:
-        updated_interview_type = "Phone Call"
-    
-    return updated_interview_type
-
+        return interview_type
 
 def cleanup_interview_status(status):
     updated_status = ""
@@ -95,18 +93,21 @@ def cleanup_upcoming_interview_fields(upcoming_interviews, interview_id):
         contact_number = None 
         upcoming_interviews["fields"][interview_id]["contact_number"] = contact_number
 
-    if interview_type == "Video / Online": 
+    interview_type_updated = cleanup_interview_type(interview_type)
+
+    if interview_type_updated == "Video / Online": 
         interview_string += ", " + updated_medium + "."
 
-    elif interview_type == "In Person / On Site" and location:
+    elif interview_type_updated == "In Person / On Site" and location:
         interview_string += ", " + location + "."
 
-    elif interview_type == "Phone Call" and contact_number:
+    elif interview_type_updated == "Phone Call" and contact_number:
         interview_string += ", " + contact_number + "."
 
     else:
         interview_string += "."
 
+    upcoming_interviews["fields"][interview_id]["interview_type"] = interview_type_updated
     upcoming_interviews["fields"][interview_id]["interview_medium"] = updated_medium
     upcoming_interviews["fields"][interview_id]["date"] = interview_date_str
     upcoming_interviews["fields"][interview_id]["time"] = interview_time_str

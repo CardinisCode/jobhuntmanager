@@ -19,7 +19,7 @@
 
     <div class="alignfull">
         <div class="aligncenter">  
-            <h2 class="heading-extra-margins"> Happening Today</h2>
+            <h2 class="heading-extra-margins"> Added Today</h2>
             {% if not display.job_offers_today.empty_table %}
                 <h3 class="heading-left"> Job Offers Received:</h3>
                 <div class="list-group"> 
@@ -150,17 +150,46 @@
     {% endif %}
 
     {% if not display.upcoming_interviews.empty_table %}
-        <div class="alignfull xxx-margins"> 
+        <div class="alignfull end-page-margins"> 
             <div class="aligncenter"> 
-                <h2 class="card-headings"> Upcoming Interviews </h2>
-                <div class="list-group"> 
-                    <ul> 
-                        {% for interview_id, interview_details in display.upcoming_interviews.fields.items() %}
-                            <li> <a href={{ interview_details.view_interview }} class="list-group-item list-group-item-styling">
-                                {{ interview_details.interview_string }}
-                            </a></li>
-                        {% endfor %}
-                    </ul>
+                <h2 class="card-headings"> A: Upcoming Interviews </h2>
+                <div class="three-col-grid-with-padding"> 
+                    {% for interview_id, interview in display.upcoming_interviews.fields.items() %}
+                        <a href={{ interview.view_interview }} class="link-cards">
+                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> {{ interview.company_name }}</h3>
+                            <div class="card-content"> 
+                                <div class="form-row">
+                                    <div class="col extra-margins"> 
+                                        <i class="fas fa-calendar-alt"></i> {{ interview.date }} @ {{ interview.time }}
+                                    </div>
+                                </div>
+                                {% if interview.interview_type == "Video / Online" %}
+                                    <div class="form-row">
+                                        <div class="col extra-margins"> 
+                                            <i class="fas fa-video"></i> {{ interview.interview_type }}
+                                        </div>
+                                    </div>
+                                {% elif interview.interview_type == "In Person / On Site" %}
+                                    <div class="form-row">
+                                        <div class="col extra-margins"> 
+                                            <i class="fas fa-thumbtack"></i> {{ interview.interview_type }}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="form-row">
+                                        <div class="col extra-margins"> 
+                                            <i class="fas fa-mobile-alt"></i> {{ interview.interview_type }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div class="form-row">
+                                    <div class="col extra-margins"> 
+                                        <i class="fas fa-exclamation"></i> {{ interview.status }}
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
                 </div>
             </div>
         </div>
