@@ -76,7 +76,6 @@ form {
   background : ghostwhite;
 }
 
-
 input {
   width: 100%;
   padding: 5px;
@@ -131,7 +130,6 @@ select:focus {
   clear: both;
 }
 
-
 textarea {
   width: 100% !important;
   height: 100% !important;
@@ -167,7 +165,6 @@ textarea {
   text-align: left;
   width: 100%;
 }
-
 
 .bkground_blue{
     min-height: 50px;
@@ -232,7 +229,6 @@ textarea {
 .end-page-margins {
   margin-bottom: 4rem !important;
 }
-
 
 .grid_experiement{
   display: grid;
@@ -364,8 +360,6 @@ textarea {
   font-size: larger;
 }
 
-
-
 .link-right {
   justify-self: end;
 }
@@ -381,7 +375,6 @@ hr {
 hr.thick_border {
   border: 1px solid black;
 }
-
 
 .give-me-space{
   margin: 1rem 0;
@@ -534,7 +527,6 @@ hr.thick_border {
   text-decoration: none;
 }
 
-
 .link_button_primary:hover{
   color: indigo;
   background: transparent;
@@ -599,7 +591,6 @@ hr.thick_border {
   border: 1px solid lightgrey !important;
   background: rgba(175, 238, 238, 0.2);
 }
-
 
 .list-group-item-styling {
   width: 80%;
@@ -889,7 +880,6 @@ select:-webkit-autofill:focus {
   font-size: 24px;
 }
 
-
 .warning {
   font-size: 1.1rem;
   font-weight: bold;
@@ -902,5 +892,37 @@ select:-webkit-autofill:focus {
   padding-left: 30px !important;
   padding-right: 30px !important;
 }
+
+.display-text-right {
+  text-align: right;
+}
+
+.soft-bottom-border {
+  border: 1px solid #dee2e6!important;
+}
+
+.stats-grid-child {
+  border: 1px solid #dee2e6!important;
+  display: grid;
+  margin: auto; 
+  width: 60%;
+}
+
+.stats-label-col {
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.stats-col {
+  text-align: right;
+}
+
+.stats-col-styling {
+  padding: 1rem 1.5rem !important;
+  width: 50%;
+  background-color: white;
+  border-bottom: 1px solid #dee2e6!important;
+}
+
 
 

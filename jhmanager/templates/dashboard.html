@@ -150,7 +150,7 @@
     {% endif %}
 
     {% if not display.upcoming_interviews.empty_table %}
-        <div class="alignfull end-page-margins"> 
+        <div class="alignfull"> 
             <div class="aligncenter"> 
                 <h2 class="card-headings"> A: Upcoming Interviews </h2>
                 <div class="three-col-grid-with-padding"> 
@@ -190,6 +190,42 @@
                             </div>
                         </a>
                     {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if not display.users_stats.all_tables_empty %}
+        <div class="alignfull background-colour end-page-margins">
+            <div class="aligncenter">  
+                <h2 class="card-headings"> Your Progress So Far </h2>
+                <div class="full-grid-length"> 
+                    <div class="stats-grid-child"> 
+                        {% if display.users_stats.application_count %}
+                            <div class="form-row">
+                                <label class="stats-label-col stats-col-styling"> Applications Submitted</label>
+                                <div class="stats-col right-padding stats-col-styling"> 
+                                    {{ display.users_stats.application_count }}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if display.users_stats.interviews_count %}
+                            <div class="form-row">
+                                <label class="stats-label-col stats-col-styling"> Interviews Lined Up:</label>
+                                <div class="stats-col right-padding stats-col-styling"> 
+                                    {{ display.users_stats.interviews_count }}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if display.users_stats.interviews_count %}
+                            <div class="form-row">
+                                <label class="stats-label-col stats-col-styling"> Job Offers Received:</label>
+                                <div class="stats-col right-padding stats-col-styling"> 
+                                    {{ display.users_stats.job_offers_count }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

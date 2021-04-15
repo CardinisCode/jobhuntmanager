@@ -14,11 +14,52 @@ from jhmanager.service.cleanup_files.cleanup_interview_fields import check_inter
 from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_applications_for_dashboard
 
 
+def get_users_stats(user_id, interviewsRepo, applicationsRepo, companyRepo, jobOffersRepo):
+    applications = applicationsRepo.getAllApplicationsByUserID(user_id)
+    interviews = interviewsRepo.grabAllInterviewsForUserID(user_id)
+    job_offers = jobOffersRepo.getJobOffersByUserId(user_id)
+    
+    users_stats = {
+        "application_count": None, 
+        "interviews_count": None, 
+        "job_offers_count": None,
+        "all_tables_empty": False,
+    }
+
+    if not applications and not interviews and not job_offers:
+        users_stats["all_tables_empty"] = True
+        return users_stats
+
+    if applications: 
+        app_count = 0
+        for application in applications:
+            app_count += 1
+        
+        if app_count >= 1:
+            users_stats["application_count"] = app_count
+
+    if interviews: 
+        interview_count = 0
+        for interview in interviews:
+            interview_count += 1
+
+        if interview_count >= 1:
+            users_stats["interviews_count"] = interview_count
+
+    if job_offers: 
+        offer_count = 0
+        for job_offer in job_offers:
+            offer_count += 1
+        
+        if offer_count >= 1:
+            users_stats["job_offers_count"] = offer_count
+
+    return users_stats
+
 def extract_and_display_job_offers(user_id, jobOffersRepo, companyRepo):
     job_offers = jobOffersRepo.getJobOffersByUserId(user_id)
 
     job_offer_details = {
-        "offer_count": 0, 
         "fields": None
     }
     offer_count = 0
@@ -29,7 +70,6 @@ def extract_and_display_job_offers(user_id, jobOffersRepo, companyRepo):
 
     job_offer_details = {"fields": {}}
     for offer in job_offers: 
-        offer_count += 1
         count_list.append(offer_count)
         job_offer_id = offer.job_offer_id
         company_id = offer.company_id
@@ -49,8 +89,6 @@ def extract_and_display_job_offers(user_id, jobOffersRepo, companyRepo):
             "view_offer_url": view_offer_url, 
         }
         cleanup_job_offer(job_offer_details, offer_count)
-
-    job_offer_details["offer_count"] = offer_count
 
     return job_offer_details
 
@@ -226,17 +264,19 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
     applications_today = display_todays_applications(user_id, current_date, applicationsRepo, companyRepo)
     job_offers_today = display_todays_job_offers(user_id, applicationsRepo, interviewsRepo, companyRepo, jobOffersRepo)
 
+    # Now to gather the user's overall/total stats so far:
+    user_stats = get_users_stats(user_id, interviewsRepo, applicationsRepo, companyRepo, jobOffersRepo)
+
     message = "All good!"
 
     display = {
-        'current_date': current_date,
         "interviews_today": interviews_today,
         "applications_today": applications_today,
         "job_offers_today": job_offers_today,
-        "job_offer_count": job_offer_details["offer_count"],
         "message": message,
         "upcoming_interviews": upcoming_interviews,
         "job_offer_details": job_offer_details,
+        "users_stats": user_stats,
         "add_application_url": '/add_job_application',
     }
 
