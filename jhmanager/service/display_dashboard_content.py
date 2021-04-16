@@ -60,15 +60,18 @@ def extract_and_display_job_offers(user_id, jobOffersRepo, companyRepo):
     job_offers = jobOffersRepo.getJobOffersByUserId(user_id)
 
     job_offer_details = {
+        "empty_table": True,
         "fields": None
     }
     offer_count = 0
     count_list = []
 
-    if not job_offers: 
+    if not job_offers:
         return job_offer_details
 
-    job_offer_details = {"fields": {}}
+    job_offer_details["fields"] =  {}
+    job_offer_details["empty_table"] = False
+
     for offer in job_offers: 
         count_list.append(offer_count)
         job_offer_id = offer.job_offer_id
@@ -294,6 +297,15 @@ def display_applications_added_today(user_id, current_date, applicationsRepo, co
     return todays_applications
 
 
+# This function will check if all the tables, to be presented at the top of the dashboard, are empty:
+# (This would be true for a new user)
+def check_if_all_tables_empty(todays_interviews, job_offer_details, upcoming_interviews, applications_added_today):
+    if not todays_interviews and not job_offer_details and not upcoming_interviews and not applications_added_today: 
+        return True
+
+    return False
+
+
 def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo, jobOffersRepo):
     #1: Let's grab today's date as this will help us when we're grabbing interviews & applications for the current date:
     current_date = current_date = datetime.now().date()
@@ -314,6 +326,8 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
     # Now to gather the user's overall/total stats so far:
     user_stats = get_users_stats(user_id, interviewsRepo, applicationsRepo, companyRepo, jobOffersRepo)
 
+    all_tables_empty = check_if_all_tables_empty(todays_interviews, job_offer_details, upcoming_interviews, applications_added_today)
+
     message = "All good!"
 
     display = {
@@ -326,6 +340,7 @@ def create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo
         "job_offer_details": job_offer_details,
         "users_stats": user_stats,
         "add_application_url": '/add_job_application',
+        "all_tables_empty": all_tables_empty,
     }
 
     return render_template("dashboard.html", display=display)
