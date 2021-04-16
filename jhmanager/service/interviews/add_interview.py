@@ -3,12 +3,12 @@ from datetime import datetime, time
 
 
 def display_add_interview(add_interview_form, application_id, applicationsRepo, companyRepo):
-    company_id = applicationsRepo.grabApplicationByID(application_id).company_id
-    company_name = companyRepo.getCompanyById(company_id).name
+    application = applicationsRepo.grabApplicationByID(application_id)
+    company = companyRepo.getCompanyById(application.company_id)
 
     details = {
         "application_id": application_id,
-        "company_name": company_name, 
+        "company_name": company.name, 
         "action_url": '/applications/{}/add_interview'.format(application_id)
     }
 
@@ -71,7 +71,7 @@ def check_if_interview_is_past_dated(interview_date, interview_time):
 def update_interview_stage_in_applications_repo(interviewsRepo, application_id, applicationsRepo):
     application = applicationsRepo.grabApplicationByID(application_id)
     current_interview_stage = application.interview_stage
-    all_interviews_for_app_id = interviewsRepo.grabAllInterviewsByApplicationID(application_id)
+    all_interviews_for_app_id = interviewsRepo.grabInterviewsByApplicationID(application_id)
     interview_count = 0
     for interview in all_interviews_for_app_id:
         interview_count += 1

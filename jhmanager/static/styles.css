@@ -698,6 +698,7 @@ hr.thick_border {
 .alignfull {
   margin-left: calc(50% - 50vw) !important;
   margin-right: calc(50% - 50vw) !important;
+  margin-bottom: 1rem;
   padding: 1rem 0 0.5rem;
 }
 
@@ -1009,6 +1010,7 @@ select:-webkit-autofill:focus {
 .normal-margins {
   margin: 0.5rem 0 !important;
 }
+
 
 
 
