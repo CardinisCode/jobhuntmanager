@@ -49,6 +49,7 @@ from jhmanager.service.applications.update_application import display_update_app
 from jhmanager.service.applications.update_application import post_update_application
 from jhmanager.service.applications.view_application_details import display_application_details
 from jhmanager.service.applications.view_all_applications import display_all_applications_current_user
+from jhmanager.service.applications.delete_all_applications import delete_all_applications_for_user
 
 from jhmanager.service.interviews.add_interview import display_add_interview
 from jhmanager.service.interviews.add_interview import post_add_interview
@@ -328,6 +329,14 @@ def add_job_application():
 @login_required
 def delete_specific_application(application_id):
     return delete_application(application_id, applicationsRepo, interviewsRepo, interviewPrepRepo, userNotesRepo)
+
+
+""" Delete all applications """
+@app.route('/applications/delete_all_applications', methods=["GET"])
+@login_required
+def delete_all_applications():
+    user_id = session["user_id"]
+    return delete_all_applications_for_user(user_id, userRepo, applicationsRepo, userNotesRepo, interviewPrepRepo, interviewsRepo, jobOffersRepo)
 
 
 """ Update a Specific application """
@@ -870,5 +879,6 @@ def display_caledar():
 def display_tips_and_advise():
     """ Display Tips and Advise to users """
     return render_template("tipsandadvise.html")
+
 
 

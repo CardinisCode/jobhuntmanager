@@ -4,48 +4,12 @@ from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_dat
 from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_application_fields
 
 
-def update_grid_size(display_details):
-    grid_size = display_details["grid_size"]
-    app_count = display_details["app_count"]
-    if app_count == 1:
-        display_details["grid_size"] = app_count
-    elif app_count % 3 == 0: 
-        display_details["grid_size"] = 3
-    elif app_count % 2 == 0:
-        display_details["grid_size"] = 2 
-    else: 
-        display_details["grid_size"] = 4
-
-
-
-# def cleanup_fields(display_details, app_id):
-#     interview_stage = display_details["fields"][app_id]["interview_stage"]
-#     app_date = display_details["fields"][app_id]["app_date"]
-#     salary = display_details["fields"][app_id]["salary"]
-
-#     if interview_stage == 0:
-#         Interview_stage_str = "No Interview lined up yet."
-#     else:
-#         Interview_stage_str = "Interview #{interview_stage} lined up.".format(interview_stage=str(interview_stage))
-
-#     display_details["fields"][app_id]["interview_stage"] = Interview_stage_str
-
-#     if salary == "N/A":
-#         display_details["fields"][app_id]["salary"] = None
-
-#     date_obj = datetime.strptime(app_date, "%Y-%m-%d")
-#     display_details["fields"][app_id]["app_date"] = cleanup_date_format(date_obj)
-
-
-
-
 def display_all_applications_current_user(session, user_id, applicationsRepo, companyRepo):
     top_ten_applications = applicationsRepo.grabTop10ApplicationsFromHistory(user_id)
 
     display_details = {}
     display_details["fields"] = {}
     display_details["empty_table"] = True
-    display_details["grid_size"] = None
     
     # Let's take the details from "top10applications" 
     # and restructure the data for our html page:
@@ -67,7 +31,6 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
 
             # # application_url = "/applications/{application_id}"
             application_url = "/applications/{}".format(app_id)
-            delete_url = "/applications/{}/delete".format(app_id)
 
             display_details["fields"][app_id] = {
                 "app_id": entry_id,
@@ -81,6 +44,10 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
             display_details["app_count"] = entry_id
             cleanup_application_fields(display_details, app_id) 
 
-        update_grid_size(display_details)
+        display_details["links"] = {
+            "add_application": "/add_job_application", 
+            "delete_all_applications": '/applications/delete_all_applications'
+        }
+
 
     return render_template("applications.html", display_details=display_details)
