@@ -9,17 +9,18 @@ class Interview:
         self.interview_id = db_fields[0]
         self.application_id = db_fields[1]
         self.user_id = db_fields[2]
-        self.interview_date = date.fromisoformat(db_fields[3])
-        self.interview_time = time.fromisoformat(db_fields[4])
-        self.interview_type = db_fields[5]
-        self.location = db_fields[6]
-        self.medium = db_fields[7]
-        self.other_medium = db_fields[8]
-        self.contact_number = db_fields[9]
-        self.status = db_fields[10]
-        self.interviewer_names = db_fields[11]
-        self.video_link = db_fields[12]
-        self.extra_notes = db_fields[13]
+        self.entry_date = date.fromisoformat(db_fields[3])
+        self.interview_date = date.fromisoformat(db_fields[4])
+        self.interview_time = time.fromisoformat(db_fields[5])
+        self.interview_type = db_fields[6]
+        self.location = db_fields[7]
+        self.medium = db_fields[8]
+        self.other_medium = db_fields[9]
+        self.contact_number = db_fields[10]
+        self.status = db_fields[11]
+        self.interviewer_names = db_fields[12]
+        self.video_link = db_fields[13]
+        self.extra_notes = db_fields[14]
 
 
 class InterviewsHistoryRepository:
@@ -30,8 +31,12 @@ class InterviewsHistoryRepository:
 
     def InsertNewInterviewDetails(self, fields):
         cursor = self.db.cursor()
-        # application_id, app_date_str, app_time_str, interview_type, location, medium, other_medium, contact_number, status, interviewers
-        command = "INSERT INTO interviews (user_id, application_id, date, time, interview_type, interview_location, interview_medium, other_medium, contact_number, status, interviewer_names, video_link, extra_notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        command = """
+        INSERT INTO interviews 
+            (application_id, user_id, entry_date, interview_date, interview_time, interview_type, interview_location, interview_medium, other_medium, contact_number, status, interviewer_names, video_link, extra_notes)
+        VALUES 
+            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """ 
         result = cursor.execute(command, tuple(fields.values()))
         self.db.commit()
 
@@ -39,32 +44,14 @@ class InterviewsHistoryRepository:
 
     def grabTop5InterviewsForUser(self, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT * FROM interviews WHERE user_id = ? ORDER BY date DESC, time DESC LIMIT 5;", (user_id,))
+        result = cursor.execute("SELECT * FROM interviews WHERE user_id = ? ORDER BY interview_date DESC, interview_time DESC LIMIT 5;", (user_id,))
         self.db.commit()
 
         return result
 
-
-    def grabAllInterviewsByApplicationID(self, application_id):
-        cursor = self.db.cursor()
-        command = "SELECT * FROM interviews WHERE application_id={} ORDER BY date DESC, time DESC".format(application_id)
-        result = cursor.execute(command)
-        self.db.commit()
-
-        interviews_list = [] 
-
-        for interview in result:
-            interview_result = Interview(interview)
-            interviews_list.append(interview_result)
-
-        if interviews_list == []:
-            return None
-
-        return interviews_list
-
     def grabUpcomingInterviewsByUserID(self, user_id):
         cursor = self.db.cursor()
-        command = "SELECT * FROM interviews WHERE user_id={} ORDER BY date, time".format(user_id)
+        command = "SELECT * FROM interviews WHERE user_id={} ORDER BY interview_date, interview_time".format(user_id)
         result = cursor.execute(command)
         self.db.commit()
 
@@ -82,7 +69,7 @@ class InterviewsHistoryRepository:
     
     def grabAllInterviewsForUserID(self, user_id):
         cursor = self.db.cursor()
-        command = "SELECT * FROM interviews WHERE user_id={} ORDER BY date DESC, time DESC".format(user_id)
+        command = "SELECT * FROM interviews WHERE user_id={} ORDER BY interview_date DESC, interview_time DESC".format(user_id)
         result = cursor.execute(command)
         self.db.commit()
 
@@ -108,7 +95,7 @@ class InterviewsHistoryRepository:
     
     def grabInterviewsByApplicationID(self, application_id):
         cursor = self.db.cursor()
-        command = "SELECT * FROM interviews where application_id = {} ORDER BY date DESC, time DESC".format(application_id)
+        command = "SELECT * FROM interviews where application_id = {} ORDER BY interview_date DESC, interview_time DESC".format(application_id)
         result = cursor.execute(command)
         self.db.commit()
 
@@ -125,7 +112,7 @@ class InterviewsHistoryRepository:
 
     def getTop6InterviewsByApplicationID(self, application_id):
         cursor = self.db.cursor()
-        command = "SELECT * FROM interviews where application_id = {} ORDER BY date, time LIMIT 6".format(application_id)
+        command = "SELECT * FROM interviews where application_id = {} ORDER BY interview_date, interview_time LIMIT 6".format(application_id)
         result = cursor.execute(command)
         self.db.commit()
 
@@ -146,8 +133,8 @@ class InterviewsHistoryRepository:
 
         command = """
         UPDATE interviews 
-        SET date = ?,
-            time = ?,
+        SET interview_date = ?,
+            interview_time = ?,
             interviewer_names = ?,
             interview_type = ?,
             interview_location = ?,

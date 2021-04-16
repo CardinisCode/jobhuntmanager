@@ -628,3 +628,27 @@ CREATE TABLE job_offers(
     FOREIGN KEY (application_id) REFERENCES job_applications (application_id)
 );
 COMMIT;
+
+
+BEGIN TRANSACTION;
+DROP TABLE interviews;
+CREATE TABLE interviews(
+    'interview_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+    'application_id' INTEGER NOT NULL,
+    'user_id' INTEGER NOT NULL, 
+    'entry_date' DATETIME NOT NULL, 
+    'interview_date' DATETIME NOT NULL, 
+    'interview_time' DATETIME NOT NULL,
+    'interview_type' TEXT NOT NULL,
+    'interview_location' TEXT NOT NULL DEFAULT "Remote",
+    'interview_medium' TEXT,
+    'other_medium' TEXT DEFAULT "N/A",
+    'contact_number' TEXT DEFAULT "N/A",
+    'status' TEXT NOT NULL DEFAULT "upcoming",
+    'interviewer_names' TEXT DEFAULT "Unknown at present", 'video_link' BLOB DEFAULT "N/A",
+    'extra_notes' BLOB DEFAULT "N/A",
+    FOREIGN KEY (application_id) REFERENCES applications (application_id), 
+    FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
+COMMIT;
+```

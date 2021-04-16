@@ -22,6 +22,7 @@ def InsertFieldsIntoInterviewHistory(interview_fields, interviewsRepo):
             interview_fields[heading] = "N/A"
 
     # Lets grab the date & time provided by the user:
+    entry_date = interview_fields["entry_date"]
     interview_date = interview_fields["interview_date"]
     interview_time = interview_fields["interview_time"]
 
@@ -33,6 +34,9 @@ def InsertFieldsIntoInterviewHistory(interview_fields, interviewsRepo):
     time_format = "%H:%M"
     time_str = interview_time.strftime(time_format)
     interview_fields["interview_time"] = time_str
+
+    entry_date_str = entry_date.strftime(date_format)
+    interview_fields["entry_date"] = entry_date_str
 
     # Now let's insert our values into interview_history:
     interview_id = interviewsRepo.InsertNewInterviewDetails(interview_fields)
@@ -84,23 +88,24 @@ def update_interview_stage_in_applications_repo(interviewsRepo, application_id, 
 def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo, application_id, companyRepo):
     #Grab and verify field data:
 
-    # user_id, application_id, date, time, interview_type, interview_location, interview_medium, other_medium, contact_number, status, interviewer_names, video_link, extra_notes
-
+    # We'll need these values for the conditional logic we'll need in a bit:
     interview_date = form.interview_date.data
     interview_time = form.interview_time.data
     status = form.status.data
     
+    # The fields we'll need for our SQL insert query:
     interview_fields = {
-        "user_id": user_id, 
         "application_id": application_id,
-        "interview_date": interview_date, 
-        "interview_time": interview_time, 
+        "user_id": user_id, 
+        "entry_date": datetime.now().date(),
+        "interview_date": form.interview_date.data, 
+        "interview_time": form.interview_time.data, 
         "interview_type": form.interview_type.data, 
         "interview_location": form.interview_location.data, 
         "interview_medium": form.interview_medium.data, 
         "other_medium": form.other_medium.data,
         "contact_number": form.phone_call.data, 
-        "status": status,
+        "status": form.status.data,
         "interviewer_names": form.interviewer_names.data,
         "video_link": form.video_link.data,
         "extra_notes": form.extra_notes.data

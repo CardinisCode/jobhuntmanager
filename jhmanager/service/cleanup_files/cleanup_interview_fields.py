@@ -59,62 +59,6 @@ def check_interview_is_today(interview_date):
     return interview_is_today
 
 
-def cleanup_upcoming_interview_fields(upcoming_interviews, interview_id):
-    interview_date = upcoming_interviews["fields"][interview_id]["date"] 
-    upcoming_interviews["fields"][interview_id]["interview_today"] = check_interview_is_today(interview_date)
-    interview_date_str = cleanup_date_format(interview_date)
-
-    interview_time = upcoming_interviews["fields"][interview_id]["time"] 
-    interview_time_str = cleanup_time_format(interview_time)
-    
-    interview_status = upcoming_interviews["fields"][interview_id]["status"] 
-    upcoming_interviews["fields"][interview_id]["status"] = cleanup_interview_status(interview_status)
-    
-    interview_string = ""
-    interview_string += interview_date_str + " @ " + interview_time_str + ", "
-
-    job_role = upcoming_interviews["fields"][interview_id]["job_role"]
-    interview_string += job_role.capitalize() + ", "
-
-    company_name = upcoming_interviews["fields"][interview_id]["company_name"]
-    interview_string += company_name.capitalize()
-
-    medium = upcoming_interviews["fields"][interview_id]["interview_medium"]
-    other_medium = upcoming_interviews["fields"][interview_id]["other_medium"]
-    updated_medium = cleanup_medium(medium, other_medium)
-
-    interview_type = cleanup_interview_type(upcoming_interviews["fields"][interview_id]["interview_type"])
-    location = upcoming_interviews["fields"][interview_id]["location"] 
-    if location == "N/A" or location == "Remote":
-        location = None 
-        upcoming_interviews["fields"][interview_id]["location"] = location
-
-    contact_number = upcoming_interviews["fields"][interview_id]["contact_number"]
-    if contact_number == "N/A":
-        contact_number = None 
-        upcoming_interviews["fields"][interview_id]["contact_number"] = contact_number
-
-    interview_type_updated = cleanup_interview_type(interview_type)
-
-    if interview_type_updated == "Video / Online": 
-        interview_string += ", " + updated_medium + "."
-
-    elif interview_type_updated == "In Person / On Site" and location:
-        interview_string += ", " + location + "."
-
-    elif interview_type_updated == "Phone Call" and contact_number:
-        interview_string += ", " + contact_number + "."
-
-    else:
-        interview_string += "."
-
-    upcoming_interviews["fields"][interview_id]["interview_type"] = interview_type_updated
-    upcoming_interviews["fields"][interview_id]["interview_medium"] = updated_medium
-    upcoming_interviews["fields"][interview_id]["date"] = interview_date_str
-    upcoming_interviews["fields"][interview_id]["time"] = interview_time_str
-    upcoming_interviews["fields"][interview_id]["interview_string"] = interview_string
-
-
 def cleanup_interview_fields(interview_fields, interview_id):
     # Lets start by grabbing the fields we want from the dict:
     interview_type = interview_fields["fields"][interview_id]["interview_type"]
