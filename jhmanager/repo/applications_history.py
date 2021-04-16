@@ -4,7 +4,6 @@ from flask import flash
 from datetime import datetime
 
 
-
 class Application:
     date_str = '%Y-%m-%d'
     
@@ -44,23 +43,29 @@ class ApplicationsHistoryRepository:
         self.db = db
         self.sql = SqlDatabase(db=db)
 
-    def addApplicationToHistory(self, arguments):
+    def addApplicationToHistory(self, fields):
         cursor = self.db.cursor()
-        result = cursor.execute("INSERT INTO job_applications (job_role, date, time, date_posted, employment_type, job_ref, job_description, tech_stack, job_perks, platform, location, salary, user_notes, job_url, user_id, company_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (arguments))
+        command = """ 
+            INSERT INTO job_applications
+                (user_id, company_id, app_date, app_time, date_posted, job_role, platform, employment_type, job_description, user_notes, job_perks, tech_stack, job_url, job_ref, salary)
+            VALUES 
+                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """ 
+        result = cursor.execute(command, tuple(fields.values()))
         self.db.commit()
 
         return result.lastrowid
 
     def grabTodaysApplicationCount(self, todays_date, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT * FROM job_applications WHERE date = ? AND user_id = ?", (todays_date, user_id,))
+        result = cursor.execute("SELECT * FROM job_applications WHERE app_date = ? AND user_id = ?", (todays_date, user_id,))
         self.db.commit()
 
         return result
 
     def grabTop5ApplicationsFromHistory(self, user_id):
         cursor = self.db.cursor()
-        result = cursor.execute("SELECT date, job_ref, c.name, job_role, platform, employment_type, interview_stage, contact_received, salary FROM applications AS A INNER JOIN company C ON A.company_id = C.company_id WHERE A.user_id = ? ORDER BY date DESC LIMIT 5", (user_id,))
+        result = cursor.execute("SELECT app_date, job_ref, c.name, job_role, platform, employment_type, interview_stage, contact_received, salary FROM applications AS A INNER JOIN company C ON A.company_id = C.company_id WHERE A.user_id = ? ORDER BY app_date DESC LIMIT 5", (user_id,))
         self.db.commit()
 
         return result

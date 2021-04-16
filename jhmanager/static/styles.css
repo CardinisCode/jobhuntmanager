@@ -865,11 +865,44 @@ select:-webkit-autofill:focus {
   margin: 1rem;
 }
 
-.screenshot-grid {
+.landingpage-grid-group {
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   display: grid;
-  text-align: left;
+  grid-gap: 1em;
+  margin-bottom: 2.5rem;
+}
+
+.heading-grid {
+  padding: 0.5rem; 
   font-weight: bold;
-  padding: 1rem 4rem;
+  border-bottom: solid 1px grey;
+  text-align: center;
+}
+
+.landingpage-img-grid {
+  padding: 1rem;
+  background-color: white;
+  border: solid 1px darkgray;
+  border-radius: 15px/15px;
+}
+
+.landingpage-img-grid img {
+  border: solid 1px gainsboro;
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 15px/15px;
+}
+
+.landingpage-img-label {
+  font-weight: bold;
+  text-align: center !important;
+  padding: 0.5rem; 
+}
+
+.lp-sj-img-styling img {
+  border: solid 1px grey;
+  object-fit: cover;
 }
 
 .note-label {

@@ -21,59 +21,36 @@ def add_new_application_to_application_history(user_id, companyRepo, application
     time_format = "%H:%M"
     app_time_str = app_time.strftime(time_format)
 
+    date_posted = application_form.date_posted.data
+    date_posted_str = date_posted.strftime(date_format)
+
     # Before we add the fields to our SQL db, lets make sure we first grab the data for each field:
-    job_role = application_form.job_role.data
-    data_posted_data = application_form.date_posted.data
+    fields = {
+        "user_id": user_id, 
+        "company_id": company_id, 
+        "app_date": app_date_str, 
+        "app_time": app_time_str, 
+        "date_posted": date_posted_str, 
+        "job_role": application_form.job_role.data, 
+        "platform": application_form.platform.data, 
+        "employment_type": application_form.emp_type.data, 
+        "job_description": application_form.job_description.data, 
+        "user_notes": application_form.user_notes.data, 
+        "job_perks": application_form.job_perks.data,
+        "tech_stack": application_form.tech_stack.data, 
+        "job_url": application_form.job_url.data, 
+        "job_ref": application_form.job_ref.data, 
+        "salary": application_form.salary.data,
+    }
 
-    # Since these are optional fields for the user, 
-    # lets make sure each field actually has data to insert into the db:
-    emp_type = application_form.emp_type.data
-    if not emp_type:
-        emp_type = "N/A"
-
-    job_ref = application_form.job_ref.data
-    if not job_ref:
-        job_ref = "N/A"
-
-    company_spec = application_form.company_description.data
-    if not company_spec:
-        company_spec = "N/A"
-
-    job_spec = application_form.job_description.data
-    if not job_spec:
-        job_spec = "N/A"
-
-    perks = application_form.job_perks.data
-    if not perks:
-        perks = "N/A"    
-
-    tech_stack = application_form.tech_stack.data
-    if not tech_stack:
-        tech_stack = "N/A" 
-
-    location = application_form.location.data
-    if not location:
-        location = "N/A" 
-
-    salary = application_form.salary.data
-    if not salary:
-        salary = "N/A" 
-
-    user_notes = application_form.user_notes.data
-    if not user_notes:
-        user_notes = "N/A" 
-
-    platform = application_form.platform.data
-    if not platform:
-        platform = "N/A"     
-
-    job_url = application_form.job_url.data
-    if not job_url:
-        job_url = "N/A" 
-
+    # Now that we have the values stored, let's replaced empty fields with 'N/A':
+    for heading, value in fields.items():
+        if value == "": 
+            fields[heading] = "N/A"
+        elif value == "https://" or value == "http://":
+            fields[heading] = "N/A"
 
     # Now we finish off by adding the details into the SQL db:
-    fields = (job_role, app_date_str, app_time_str, data_posted_data, emp_type, job_ref, job_spec, tech_stack, perks, platform, location, salary, user_notes, job_url, user_id, company_id)
     application_id = applicationsRepo.addApplicationToHistory(fields)
 
     return application_id
