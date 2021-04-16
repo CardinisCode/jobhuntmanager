@@ -680,3 +680,46 @@ CREATE TABLE job_applications(
     FOREIGN KEY (company_id) REFERENCES company (company_id)
 );
 COMMIT;
+
+
+BEGIN TRANSACTION;
+DROP TABLE job_offers;
+CREATE TABLE job_offers(
+    'job_offer_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    'user_id' INTEGER NOT NULL, 
+    'company_id' INTEGER NOT NULL, 
+    'application_id' INTEGER NOT NULL, 
+    'entry_date' DATETIME NOT NULL,
+    'job_role' TEXT NOT NULL,
+    'starting_date' DATETIME NOT NULL, 
+    'salary_offered' TEXT NOT NULL,
+    'perks_offered' TEXT NOT NULL,
+    'offer_response' TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id), 
+    FOREIGN KEY (company_id) REFERENCES company (company_id),
+    FOREIGN KEY (application_id) REFERENCES job_applications (application_id)
+);
+CREATE TABLE job_applications(
+    'application_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    'user_id' INTEGER NOT NULL, 
+    'company_id' INTEGER NOT NULL, 
+    'app_date' DATETIME NOT NULL, 
+    'app_time' TIME NOT NULL,
+    'date_posted' DATETIME NOT NULL,
+    'job_role' TEXT NOT NULL DEFAULT "N/A", 
+    'platform' TEXT DEFAULT "N/A", 
+    'interview_stage' INTEGER  NOT NULL DEFAULT 0, 
+    'employment_type' TEXT DEFAULT "N/A",
+    'contact_received' TEXT NOT NULL DEFAULT "No",
+    'location' TEXT DEFAULT "Remote",
+    'job_description' BLOB DEFAULT "N/A", 
+    'user_notes' BLOB DEFAULT "N/A",
+    'job_perks' TEXT DEFAULT "N/A",
+    'tech_stack' TEXT DEFAULT "N/A",
+    'job_url' BLOB DEFAULT "N/A",
+    'job_ref' TEXT DEFAULT "N/A",
+    'salary' TEXT DEFAULT "N/A", 
+    FOREIGN KEY (user_id) REFERENCES users (user_id),
+    FOREIGN KEY (company_id) REFERENCES company (company_id)
+);
+COMMIT;
