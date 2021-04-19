@@ -20,12 +20,11 @@ def post_add_company(user_id, add_company_form, applicationsRepo, companyRepo):
     if existing_company != None:
         flash("A company already exists by this name in your Addressbook.")
         details = {
-            "action_url": '/add_company', 
+            "action_url": '/address_book/add_company', 
             "existing_company": True, 
             "company_name": existing_company.name,
             "update_url": '/company/{}/update_company'.format(existing_company.company_id)
         }
-        details["action_url"] = '/add_company'
         return render_template("add_company_form.html", add_company_form=add_company_form, details=details)
     
     company_details = {
