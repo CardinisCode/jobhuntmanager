@@ -5,13 +5,6 @@ from wtforms.fields.html5 import DateField
 
 
 class AddJobOffer(FlaskForm):
-    # company_list = SelectField(
-    #     'Select the Company: ', 
-    #     choices=[], 
-    #     coerce=int,
-    #     validate_choice=False
-    # )
-
     job_role = StringField(
         "Job Role: ", 
         validators=[InputRequired(message="Job role on offer")], 

@@ -5,7 +5,6 @@ from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_tim
 from jhmanager.service.cleanup_files.cleanup_datetime_display import past_dated
 from jhmanager.service.cleanup_files.cleanup_datetime_display import present_dated
 from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_job_offer
-from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_job_offer_fields_for_dashboard
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_fields
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_status
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_type
@@ -75,21 +74,23 @@ def display_job_offers(user_id, jobOffersRepo, companyRepo):
     for offer in job_offers: 
         count_list.append(offer_count)
         job_offer_id = offer.job_offer_id
-        company_id = offer.company_id
+        company = companyRepo.getCompanyById(offer.company_id)
         application_id = offer.application_id
-        company_name = companyRepo.getCompanyById(company_id).name
-        view_offer = '/applications/{}/job_offers/{}'.format(application_id, job_offer_id)
+        
+        entry_date_obj = datetime.strptime(offer.entry_date, "%Y-%m-%d")
+        present_dated_offer =  present_dated(entry_date_obj)
 
         job_offer_details["fields"][offer_count] = {
             "job_offer_id": job_offer_id,
             "starting_date": offer.starting_date, 
-            "company_name": company_name,
+            "company_name": company.name,
             "job_role": offer.job_role, 
             "offer_response": offer.offer_response,
             "offer_accepted": False,
             "salary_offered": offer.salary_offered, 
             "perks_offered": offer.perks_offered,
-            "view_offer": view_offer, 
+            "present_dated_offer": present_dated_offer,
+            "view_offer": '/applications/{}/job_offers/{}'.format(application_id, job_offer_id), 
         }
         cleanup_job_offer(job_offer_details, offer_count)
 

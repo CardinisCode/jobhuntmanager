@@ -64,9 +64,19 @@
                     {% if not display.job_offer_details.empty_table %}
                         {% for job_offer_id, job_offer in display.job_offer_details.fields.items() %}
                             <a href={{ job_offer.view_offer }} class="link-cards">
-                                <div class="dashboard-col-heading-grid"> 
-                                    New Job Offer!
-                                </div>
+                                {% if job_offer.offer_accepted %}
+                                    <div class="dashboard-col-heading-grid"> 
+                                        Your New Job!
+                                    </div>
+                                {% elif job_offer.present_dated_offer %}
+                                    <div class="dashboard-col-heading-grid"> 
+                                        New Job Offer!
+                                    </div>
+                                {% else %}
+                                    <div class="dashboard-col-heading-grid"> 
+                                        Job Offer Status
+                                    </div>
+                                {% endif %}
                                 <div class="dashboard-col-content"> 
                                     {% if job_offer.offer_response == "Offer Accepted!" %}
                                         <div class="form-row">
@@ -75,6 +85,11 @@
                                             </div>
                                         </div>
                                     {% endif %}
+                                    <div class="form-row"> 
+                                        <div class="col normal-margins"> 
+                                            <i class="fas fa-users"></i> {{ job_offer.company_name }}
+                                        </div>
+                                    </div>
                                     {% if job_offer.job_role %}
                                         <div class="form-row"> 
                                             <div class="col normal-margins"> 
@@ -82,11 +97,25 @@
                                             </div>
                                         </div>
                                     {% endif %}
-                                    <div class="form-row"> 
-                                        <div class="col normal-margins"> 
-                                            <i class="fas fa-question"></i> {{ job_offer.offer_response }}
+                                    {% if job_offer.offer_accepted %}
+                                        <div class="form-row"> 
+                                            <div class="col normal-margins"> 
+                                                <i class="fas fa-handshake"></i> {{ job_offer.offer_response }}
+                                            </div>
                                         </div>
-                                    </div>
+                                    {% elif job_offer.offer_response == "Offer Declined." %}
+                                        <div class="form-row"> 
+                                            <div class="col normal-margins"> 
+                                                <i class="fas fa-thumbs-down"></i> {{ job_offer.offer_response }}
+                                            </div>
+                                        </div>
+                                    {% elif job_offer.offer_response == "{{ job_offer.company_name }} pulled the offer." %}
+                                        <div class="form-row"> 
+                                            <div class="col normal-margins"> 
+                                                <i class="fas fa-question"></i> sdasdsdas {{ job_offer.offer_response }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                     {% if job_offer.salary_offered %}
                                         <div class="form-row"> 
                                             <div class="col normal-margins"> 

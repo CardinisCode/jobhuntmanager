@@ -9,8 +9,9 @@ def cleanup_job_offer_details(job_offer_details):
     starting_date = job_offer_details["starting_date"]
     job_offer_details["starting_date"] = cleanup_date_format(starting_date)
 
+    company_name = job_offer_details["company_name"]
     offer_response = job_offer_details["offer_response"]
-    job_offer_details["offer_response"] = cleanup_offer_response(offer_response)
+    job_offer_details["offer_response"] = cleanup_offer_response(offer_response, company_name)
 
 
 def display_job_offer(job_offer_id, jobOffersRepo, companyRepo, applicationsRepo):
@@ -24,6 +25,7 @@ def display_job_offer(job_offer_id, jobOffersRepo, companyRepo, applicationsRepo
         "salary_offered": job_offer.salary_offered, 
         "perks_offered": job_offer.perks_offered, 
         "offer_response": job_offer.offer_response, 
+        "company_name": company.name
     }
     cleanup_job_offer_details(job_offer_details)
 
