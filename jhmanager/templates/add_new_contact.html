@@ -21,11 +21,11 @@
                         <h1 class="h1-heading-extra-margins"><i class="fas fa-user-alt"></i> Add New Contact </h1>
                         <div class="form-row grid_experiement">
                             <div class="col grid_child-simple">
-                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-user-alt"></i> {{ new_contact_form.full_name.label }}</dt>
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-user-alt"></i> {{ new_contact_form.full_name.label }} *</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ new_contact_form.full_name }}</dd> 
                             </div>
                             <div class="col grid_child-simple">
-                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-pencil-ruler"></i> {{ new_contact_form.job_title.label }} *</dt>
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-pencil-ruler"></i> {{ new_contact_form.job_title.label }}</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ new_contact_form.job_title }}</dd> 
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ new_contact_form.company_name }}</dd> 
                             </div>
                             <div class="col grid_child-simple">
-                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-mobile-alt"></i> Contact Number: *</dt>
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"><i class="fas fa-mobile-alt"></i> Contact Number: </dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description">{{ new_contact_form.contact_number}}</dd> 
                             </div>
                         </div>

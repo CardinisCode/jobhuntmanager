@@ -87,10 +87,6 @@ def cleanup_interview_fields(interview_fields, interview_id):
     interview_fields["fields"][interview_id]["interview_medium"] = cleanup_medium(medium, other_medium)
 
 
-
-
-
-
 def cleanup_fields_for_single_interview(interview_details, other_medium):
     # random_list = []
     for heading, value in interview_details["fields"].items():

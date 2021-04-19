@@ -4,7 +4,7 @@ import sqlite3
 
 def display_add_company_form(add_company_form):
     details = {
-        "action_url": '/add_company', 
+        "action_url": '/address_book/add_company', 
         "existing_company": False,
     }
     
