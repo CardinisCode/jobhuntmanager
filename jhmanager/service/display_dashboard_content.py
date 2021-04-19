@@ -63,7 +63,6 @@ def display_job_offers(user_id, jobOffersRepo, companyRepo):
         "fields": None
     }
     offer_count = 0
-    count_list = []
 
     if not job_offers:
         return job_offer_details
@@ -72,11 +71,10 @@ def display_job_offers(user_id, jobOffersRepo, companyRepo):
     job_offer_details["empty_table"] = False
 
     for offer in job_offers: 
-        count_list.append(offer_count)
+        offer_count += 1
         job_offer_id = offer.job_offer_id
         company = companyRepo.getCompanyById(offer.company_id)
         application_id = offer.application_id
-        
         entry_date_obj = datetime.strptime(offer.entry_date, "%Y-%m-%d")
         present_dated_offer =  present_dated(entry_date_obj)
 
@@ -93,7 +91,7 @@ def display_job_offers(user_id, jobOffersRepo, companyRepo):
             "view_offer": '/applications/{}/job_offers/{}'.format(application_id, job_offer_id), 
         }
         cleanup_job_offer(job_offer_details, offer_count)
-
+    
     return job_offer_details
 
 

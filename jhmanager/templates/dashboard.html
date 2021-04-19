@@ -103,16 +103,16 @@
                                                 <i class="fas fa-handshake"></i> {{ job_offer.offer_response }}
                                             </div>
                                         </div>
-                                    {% elif job_offer.offer_response == "Offer Declined." %}
+                                    {% elif job_offer.offer_response == "Still deciding..." %}
                                         <div class="form-row"> 
                                             <div class="col normal-margins"> 
-                                                <i class="fas fa-thumbs-down"></i> {{ job_offer.offer_response }}
+                                                <i class="fas fa-question-circle"></i> {{ job_offer.offer_response }}
                                             </div>
                                         </div>
-                                    {% elif job_offer.offer_response == "{{ job_offer.company_name }} pulled the offer." %}
+                                    {% else %}
                                         <div class="form-row"> 
                                             <div class="col normal-margins"> 
-                                                <i class="fas fa-question"></i> sdasdsdas {{ job_offer.offer_response }}
+                                                <i class="fas fa-exclamation"></i> {{ job_offer.offer_response }}
                                             </div>
                                         </div>
                                     {% endif %}
