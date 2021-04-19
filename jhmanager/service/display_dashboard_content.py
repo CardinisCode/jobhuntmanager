@@ -178,7 +178,7 @@ def display_today_interviews(user_id, applicationsRepo, interviewsRepo, companyR
             "interview_string": None,
             "view_interview": '/applications/{}/interview/{}'.format(application.app_id, interview_id), 
         }
-        cleanup_upcoming_interview_fields(todays_interviews, interview_id)
+        cleanup_interview_fields(todays_interviews, interview_id)
 
     return todays_interviews
 
