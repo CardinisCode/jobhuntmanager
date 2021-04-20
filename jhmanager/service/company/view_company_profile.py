@@ -1,22 +1,13 @@
 from flask import Flask, render_template, session, request, redirect, flash
-
-
-def cleanup_fields(company_details):
-    contact_number = company_details["contact_number"]["data"]
-
-    if contact_number == "Unknown at present":
-        company_details["contact_number"]["data"] = None
+from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_company_profile
+from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_company_website
 
 
 def display_company_profile(company_id, applicationsRepo, companyRepo):
     company = companyRepo.getCompanyById(company_id)
 
-    update_url = '/company/{}/update_company'.format(company_id)
-    add_note_url = '/company/{}/add_company_note'.format(company_id)
-    view_notes_url = '/company/{}/view_all_company_notes'.format(company_id)
-    delete_url = '/company/{}/delete_company'.format(company_id)
-
     company_details = {
+        "company_name": company.name,
         "description": {
             "label": "Description: ", 
             "data": company.description
@@ -36,22 +27,23 @@ def display_company_profile(company_id, applicationsRepo, companyRepo):
         "contact_number": {
             "label": "Contact Number: ", 
             "data": company.contact_number
-        }
+        }, 
+        "all_fields_empty": False,
     }
-    cleanup_fields(company_details)
-
-    company_website = company.url
-    if company_website == "N/A" or company_website == "http://" or company_website == "https://":
-        company_website = None
+    cleanup_company_profile(company_details)
 
     general_details = {
-        "company_name": company.name, 
-        "company_website": company_website,
-        "update_url": update_url, 
-        "add_note_url": add_note_url,
-        "view_notes_url": view_notes_url, 
-        "add_job_application_url": '/company/{}/add_job_application'.format(company_id), 
-        "delete_url": delete_url
+        "links": {}, 
+        "company_details": company_details
     }
 
-    return render_template("view_company_profile.html", general_details=general_details, company_details=company_details)
+    general_details["links"] = {
+        "company_website": cleanup_company_website(company.url),
+        "update_company": '/company/{}/update_company'.format(company_id), 
+        "add_note": '/company/{}/add_company_note'.format(company_id),
+        "view_notes": '/company/{}/view_all_company_notes'.format(company_id), 
+        "add_job_application": '/company/{}/add_job_application'.format(company_id), 
+        "delete_company": '/company/{}/delete_company'.format(company_id)
+    }
+
+    return render_template("view_company_profile.html", general_details=general_details)
