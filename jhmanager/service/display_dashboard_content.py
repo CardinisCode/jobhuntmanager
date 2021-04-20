@@ -9,7 +9,7 @@ from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_int
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_status
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_type
 from jhmanager.service.cleanup_files.cleanup_interview_fields import check_interview_is_today
-from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_applications_for_dashboard
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_application_fields
 
 
 def get_users_stats(user_id, interviewsRepo, applicationsRepo, companyRepo, jobOffersRepo):
@@ -212,7 +212,7 @@ def display_applications_added_today(user_id, current_date, applicationsRepo, co
             "presentation_str": None,
             "view_application": '/applications/{}'.format(application_id)
         }
-        cleanup_applications_for_dashboard(todays_applications, application_id)
+        cleanup_application_fields(todays_applications, application_id)
 
     return todays_applications
 

@@ -72,48 +72,15 @@ def cleanup_details_for_specific_application(application_details):
     emp_type = application_details["fields"]["emp_type"]
     application_details["fields"]["emp_type"] = cleanup_emp_type_field(emp_type)
 
-    description = application_details["fields"]["job_description"]
-    if not description:
-        application_details["fields"]["job_description"] = "None provided."
 
+def cleanup_application_fields(application_details, app_id):
+    for heading, value in application_details["fields"].items():
+        if value == "N/A":
+            application_details["fields"][heading] = None
 
-def cleanup_applications_for_dashboard(todays_applications, application_id):
-    company_name = todays_applications["fields"][application_id]["company_name"]
-    job_role = todays_applications["fields"][application_id]["job_role"]
-    presentation_str = ""
-    emp_type = cleanup_emp_type_field(todays_applications["fields"][application_id]["emp_type"])
-    salary = todays_applications["fields"][application_id]["salary"]
+    interview_stage = cleanup_interview_stage(application_details["fields"][app_id]["interview_stage"])
+    application_details["fields"][app_id]["interview_stage"] = interview_stage
 
-    company_name_list = company_name.split(" ")
-    updated_company_name = ""
-    for name in company_name_list:
-        updated_company_name += name.capitalize() + " "
-    updated_company_name = updated_company_name.rstrip(" ")
-
-    presentation_str += job_role + ", " + updated_company_name + ", " + emp_type
-    
-    if salary != "N/A":
-        presentation_str += ", " + salary + "."
-
-    todays_applications["fields"][application_id]["salary"] = salary
-    todays_applications["fields"][application_id]["presentation_str"] = presentation_str
-    todays_applications["fields"][application_id]["emp_type"] = emp_type
-
-
-def cleanup_application_fields(display_details, app_id):
-    interview_stage = display_details["fields"][app_id]["interview_stage"]
-    app_date = display_details["fields"][app_id]["app_date"]
-    salary = display_details["fields"][app_id]["salary"]
-
-    if interview_stage == 0:
-        Interview_stage_str = "No Interview lined up yet."
-    else:
-        Interview_stage_str = "Interview #{interview_stage}".format(interview_stage=str(interview_stage))
-
-    display_details["fields"][app_id]["interview_stage"] = Interview_stage_str
-
-    if salary == "N/A":
-        display_details["fields"][app_id]["salary"] = None
-
+    app_date = application_details["fields"][app_id]["app_date"]
     date_obj = datetime.strptime(app_date, "%Y-%m-%d")
-    display_details["fields"][app_id]["app_date"] = cleanup_date_format(date_obj)
+    application_details["fields"][app_id]["app_date"] = cleanup_date_format(date_obj)
