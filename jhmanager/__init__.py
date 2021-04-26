@@ -145,6 +145,7 @@ app = Flask(__name__, instance_relative_config=True)
 csrf = CSRFProtect(app)
 mail = Mail()
 fa = FontAwesome(app)
+bootstrap = Bootstrap(app)
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True

@@ -7,9 +7,11 @@ from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_applicati
 def display_all_applications_current_user(session, user_id, applicationsRepo, companyRepo):
     top_ten_applications = applicationsRepo.grabTop10ApplicationsFromHistory(user_id)
 
-    display_details = {}
-    display_details["fields"] = {}
-    display_details["empty_table"] = True
+    display_details = {
+        "fields": {}, 
+        "empty_table": True, 
+        "links": {}
+    }
     
     # Let's take the details from "top10applications" 
     # and restructure the data for our html page:
@@ -44,10 +46,9 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
             display_details["app_count"] = entry_id
             cleanup_application_fields(display_details, app_id) 
 
-        display_details["links"] = {
-            "add_application": "/add_job_application", 
-            "delete_all_applications": '/applications/delete_all_applications'
-        }
-
+    display_details["links"] = {
+        "add_application": "/add_job_application", 
+        "delete_all_applications": '/applications/delete_all_applications'
+    }
 
     return render_template("applications.html", display_details=display_details)

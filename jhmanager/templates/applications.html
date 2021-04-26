@@ -18,27 +18,29 @@
     </div>
 
     <div class="alignfull">
-        <div class="aligncenter">  
-            <div class="three-col-grid-with-padding background-colour">
-                {% for application_id, application in display_details.fields.items() %}
-                    <a href={{ application.view_more }} class="link-cards-alt-colour">
-                        <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> {{ application.company_name }}</h3>
-                        <div class="card-content"> 
+        <div class="aligncenter"> 
+            {% if not display_details.empty_table %} 
+                <div class="three-col-grid-with-padding background-colour">
+                    {% for application_id, application in display_details.fields.items() %}
+                        <a href={{ application.view_more }} class="link-cards-alt-colour">
+                            <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> {{ application.company_name }}</h3>
+                            <div class="card-content"> 
+                                <div class="form-row">
+                                    <div class="col"> 
+                                        <i class="fas fa-pencil-ruler"> {{ application.job_role }}</i>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
                             <div class="form-row">
-                                <div class="col"> 
-                                    <i class="fas fa-pencil-ruler"> {{ application.job_role }}</i>
+                                <div class="col text-center"> 
+                                    {{ application.interview_stage }}
                                 </div>
                             </div>
-                            <br/>
-                        </div>
-                        <div class="form-row">
-                            <div class="col text-center"> 
-                                {{ application.interview_stage }}
-                            </div>
-                        </div>
-                    </a>
-                {% endfor %}
-            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
     </div>
 
