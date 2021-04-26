@@ -660,10 +660,14 @@ def delete_company_profile(company_id):
         return display_delete_company_form(company_id, delete_company_form, companyRepo)
 
     if request.method == "POST":
+        app.logger.info('Successfully reached POST for delete_company_form')
         if delete_company_form.validate_on_submit():
+            app.logger.info('Successfully "validate on submit" for delete_company_form')
             return delete_company_from_db(company_id, delete_company_form, companyRepo, companyNotesRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, userNotesRepo, jobOffersRepo)
         
         else:
+            app.logger.info(delete_company_form.confirm_choice.data)
+            app.logger.info('Failed to "validate on submit" for delete_company_form', delete_company_form.errors.values())
             flash("Complete all the fields.")
             return display_delete_company_form(company_id, delete_company_form, companyRepo)
 

@@ -21,13 +21,9 @@ def display_delete_company_form(company_id, delete_company_form, companyRepo):
 def delete_company_from_db(company_id, delete_company_form, companyRepo, companyNotesRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, userNotesRepo, jobOffersRepo):
     # Let's review the user's selection:
     customer_choice = delete_company_form.confirm_choice.data
-    if customer_choice == "no":
+    if customer_choice == 1:
         flash("No changes made.")
         return redirect("/address_book")
-
-    # elif customer_choice == "default":
-    #     flash("You have not made a selection.")
-    #     return display_delete_company_form(company_id, delete_company_form, companyRepo)
 
     else:
         # Knowing they selected 'yes', we can now delete the company profile:
@@ -38,7 +34,6 @@ def delete_company_from_db(company_id, delete_company_form, companyRepo, company
         jobOffersRepo.deleteByCompanyID(company_id)
 
         applications = applicationsRepo.getApplicationsByCompanyID(company_id)
-        application_id = None
         if applications:
             for application in applications:
                 application_id = application.app_id

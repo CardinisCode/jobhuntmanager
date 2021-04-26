@@ -6,7 +6,7 @@ from wtforms.validators import InputRequired
 class DeleteCompanyForm(FlaskForm):
     confirm_choice = SelectField(
         "Confirm your choice", 
-        choices=[], 
+        choices=[(1, "No"),(0, "Yes")], 
         coerce=int,
         validators=[InputRequired()],
     )
