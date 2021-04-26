@@ -21,20 +21,34 @@
         <div class="aligncenter"> 
             <h2 class="heading-extra-margins"><i class="fas fa-users"></i> COMPANIES</h2>
             <div class="link-div-styling-with-xtra-margins"> 
-                <a href={{ display.add_company }} class="link_button_primary text-center"> <i class="fas fa-plus"> New Company</i></a>
-                <a href={{ display.company_directory }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Company Directory</i></a>
+                <a href={{ general_details.links.add_company }} class="link_button_primary text-center"> <i class="fas fa-plus"> New Company</i></a>
+                <a href={{ general_details.links.company_directory }} class="link_button_primary text-center"> <i class="fas fa-eye"> View Company Directory</i></a>
             </div>
-            {% if not display.empty_list %}
+            {% if not company_contacts.empty_list %}
                 <div class="four-col-grid-with-padding background-colour">
-                    {% for company_id, company_details in company_details.fields.items() %}
+                    {% for company_id, company_details in company_contacts.fields.items() %}
                         <a href={{ company_details.view_company }} class="link-cards-alt-colour">
                             <i class="fas fa-hand-pointer"></i><h3 class="card-headings"><i class="fas fa-users"></i> {{ company_details.name }}</h3>
                             <div class="card-content"> 
-                                <div class="form-row">
-                                    <div class="col card-line"> 
-                                        <i class="fas fa-pencil-ruler"> {{ company_details.description }}</i>
+                                {% if company_details.description %}
+                                    <div class="form-row">
+                                        <div class="col card-line"> 
+                                            <i class="fas fa-pencil-ruler"> {{ company_details.description }}</i>
+                                        </div>
                                     </div>
-                                </div>
+                                {% elif company_details.location %}
+                                    <div class="form-row">
+                                        <div class="col card-line"> 
+                                            <i class="fas fa-pencil-ruler"> {{ company_details.description }}</i>
+                                        </div>
+                                    </div>
+                                {% elif company_details.industry %}
+                                    <div class="form-row">
+                                        <div class="col card-line"> 
+                                            <i class="fas fa-pencil-ruler"> {{ company_details.description }}</i>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </div>
                         </a>
                     {% endfor %}
@@ -47,12 +61,12 @@
         <div class="aligncenter xxx-margins"> 
             <h2 class="heading-extra-margins"><i class="fas fa-user-alt"></i> INDIVIDUAL CONTACTS</h2>
             <div class="link-div-styling-with-xtra-margins"> 
-                <a href={{ contacts_details.add_new_contact }} class="link_button_primary"><i class="fas fa-plus"> Add New Contact</i></a>
-                <a href={{ contacts_details.view_contacts }} class="link_button_primary"> <i class="fas fa-eye"> View Contacts</i></a>
+                <a href={{ general_details.links.add_new_contact }} class="link_button_primary"><i class="fas fa-plus"> Add New Contact</i></a>
+                <a href={{ general_details.links.view_contacts }} class="link_button_primary"> <i class="fas fa-eye"> View Contacts</i></a>
             </div>
-            {% if not contacts_details.empty_list %}
+            {% if not indiv_contacts.empty_list %}
                 <div class="four-col-grid-with-padding background-colour">
-                    {% for contact_id, contact in contacts_details.fields.items() %}
+                    {% for contact_id, contact in indiv_contacts.fields.items() %}
                         <a href={{ contact.view_contact }} class="link-cards-alt-colour">
                             <i class="fas fa-hand-pointer"></i><h3 class="card-headings"><i class="fas fa-user-alt"></i> {{ contact.full_name }}</h3>
                             <div class="card-content"> 
