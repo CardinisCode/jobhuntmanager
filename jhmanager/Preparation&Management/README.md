@@ -1,85 +1,51 @@
-This Should detail what your project is about and what problem your program will solve
+# Project Hunt Manager
 
-## Getting Started
+## Video Demo:  <URL HERE>
 
-Setup environment variables, in the terminal copy and enter these lines of code:
-(**** You'll need to do this every time you close and reopen this project. ***)
+## Description: 
+A web-based application for any one looking to manage their job hunting. Its intended to be a place where a user can store job applications, interviews, interview preparation, notes, & contacts. Plus the user can add companies from their wishlist. 
 
-```
-export FLASK_ENV=development                      
-export FLASK_DEBUG=1                              
-export FLASK_APP=application.py 
-```
+The application uses Python, Flask, WTForms, HTML, CSS & a little JavaScript. 
 
-Run Flask server:
+I have narrowed down the application for fellow software engineers, so the Job application form is very much in the scope of the software engineering industry. 
 
-```
-flask run
-```
+## Pages:
 
+### Layout: 
+The general layout for all html templates, which is referenced to by all the remaining html templates. 
 
-# Requirements:
-```
-fontawesome-free==0.1.5
-```
-
-# Important things to highlight: 
--   Deletes are hard deletes, for the purpose of this pilot product. So if the user selects to delete something, it will permanently delete the information.
+### About us:
+This page tells/informs the user:
+- what this application is about, 
+- why I developed this application, 
+- the research I carried out before putting this application together,
+- security, & 
+- how they could contact me if they want to. 
 
 
+### Forms: 
+All the below mentioned forms are created using Flask WTForms:
 
-# Using a form to create a button 
+#### Add Job Application (Form):
+A form to add a job application, with all the details of a regular job application. 
 
-```
-<form action="https://google.com">
-    <input type="submit" value="Go to Google" />
-</form>
-```
+#### Add Application Note (Form):
+A form to add a note for a specific application, which is useful at any stage of the job application. 
 
-# Using an 'a' (anchor) reference and just style it to look like a button
+#### Add Job Offer (Form): 
+Allows user to add a job offer received, and is linked to a job application. 
 
-```
-<a href="https://google.com" class="button">Go to Google</a>
-```
+#### Add Company (Form):
+Allows user to create the company profile for a company on the user's wishlist. This will create a company 'contact', where the user can also gather research, make notes or create a job application. 
 
-# Setting up a link to another page on your website:
-```
-<a href="/html_file_name">Page Name</a>
-EG: <a href="/add_job_application" class="button left_button">Add Application</a>
-```
+#### Add Company Note (Form):
+A form to add a note for a specific company, which can be accessed at any point from the company's profile. 
 
-## FLASK:
+#### Add Company Job Application (Form):
+A form to add a job application for a specific company. It is like the 'add job application' form but without the company details section.
 
-# WTForms:
-# Going to use WTForms to assist me in creating forms
-# Since it allows me to pre-populate fields as well. 
 
-# To use this, install the relevant library:
-```
-pip3 install flask-wtf
-```
 
-# To access Flask's Datepicker
-# For Python3:
-```
-pip3 install Flask-Datepicker
-```
-
-# Inside Flask App, Add:
-```
-from flask import Flask, render_template
-from flask_bootstrap import Bootstrap
-from flask_datepicker import datepicker
-
-app = Flask(__name__)
-Bootstrap(app)
-datepicker(app)
-```
-
-# To install FontAwesome: 
-```
-pip3 install Flask-FontAwesome
-```
 
 
 
