@@ -19,6 +19,12 @@
 
     <div class="alignfull-form"> 
         <div class="aligncenter"> 
+            <h2 class="heading italics"><i class="fas fa-key"></i> Passwords are hashed, but not salted!</h2>
+        </div>
+    </div>
+
+    <div class="alignfull-form"> 
+        <div class="aligncenter"> 
             <div class="form-grid full-grid-length">
                 <form action="/register" method="POST"> 
                     {{ register_form.hidden_tag() }}
@@ -30,7 +36,7 @@
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ register_form.username }} </dd>
                             </div>
                             <div class="col grid_child-simple">
-                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-user"></i> {{ register_form.email_address.label }}</dt>
+                                <dt class="wpforms-container-full .wpforms-form .wpforms-title"> <i class="fas fa-at"></i> {{ register_form.email_address.label }}</dt>
                                 <dd class="wpforms-container-full .wpforms-form .wpforms-description"> {{ register_form.email_address }} </dd>
                             </div>
                         </div>
@@ -68,7 +74,9 @@
             <h3 class="headings">Please note that this is a pilot product. </h3>
             <p> Although passwords have been hashed, no salting has been implemented.
                 As a precaution, please do not use personal information (or passwords) when testing this product. 
-                A suggestion may be to use your favourite fictional character, as I've done when testing this product. 
+            </p>
+            <p> 
+                <strong> Recommendation: </strong> Use your favourite fictional character. I've done this through out the testing process!
             </p>
         </div>
     </div>

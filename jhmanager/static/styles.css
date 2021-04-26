@@ -645,6 +645,10 @@ hr.thick_border {
   margin-bottom: 2rem;
 }
 
+.italics {
+  font-style: italic !important;
+}
+
 .accordion-button {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -801,6 +805,12 @@ h1 {
 .footer_link:hover{
   color: indigo;
   font-weight: bold;
+}
+
+.font-text {
+  color: white; 
+  font-size: 14px;
+  text-align: center !important;
 }
 
 label {
