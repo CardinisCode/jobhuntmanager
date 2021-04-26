@@ -206,10 +206,12 @@ def display_applications_added_today(user_id, current_date, applicationsRepo, co
         todays_applications["empty_table"] = False
         todays_applications["fields"][application_id] = {
             "company_name": company.name,
+            "app_date": application.app_date,
             "job_role": application.job_role,
             "emp_type": application.employment_type,
             "salary": application.salary,
             "presentation_str": None,
+            "interview_stage": application.interview_stage,
             "view_application": '/applications/{}'.format(application_id)
         }
         cleanup_application_fields(todays_applications, application_id)

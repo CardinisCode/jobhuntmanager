@@ -81,6 +81,9 @@ def cleanup_application_fields(application_details, app_id):
     interview_stage = cleanup_interview_stage(application_details["fields"][app_id]["interview_stage"])
     application_details["fields"][app_id]["interview_stage"] = interview_stage
 
+    emp_type = application_details["fields"][app_id]["emp_type"]
+    application_details["fields"][app_id]["emp_type"] = cleanup_emp_type_field(emp_type)
+
     app_date = application_details["fields"][app_id]["app_date"]
     date_obj = datetime.strptime(app_date, "%Y-%m-%d")
     application_details["fields"][app_id]["app_date"] = cleanup_date_format(date_obj)
