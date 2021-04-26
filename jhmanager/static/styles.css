@@ -1025,6 +1025,17 @@ select:-webkit-autofill:focus {
   margin: 0.5rem 0 !important;
 }
 
+.hr-less-margins {
+  margin-top: 2rem !important;
+  margin-bottom: 0 !important;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
 
 
 

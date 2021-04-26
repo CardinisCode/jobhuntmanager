@@ -11,12 +11,22 @@ def cleanup_app_notes(app_notes_details, entry_id):
     app_notes_details["fields"][entry_id]["entry_date"] = cleanup_date_format(date_obj)
 
 
-def get_company_count(company_list):
+# def get_company_count(company_list):
+#     count = 0
+#     if not company_list:
+#         return count
+
+#     for company in company_list:
+#         count += 1
+
+#     return count
+
+def get_entries_count(sql_list):
     count = 0
-    if not company_list:
+    if not sql_list:
         return count
 
-    for company in company_list:
+    for entry in sql_list:
         count += 1
 
     return count
@@ -26,16 +36,18 @@ def display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo,
     application_notes = appNotesRepo.getAppNotesByUserId(user_id)
     company_notes = companyNotesRepo.getCompanyNotesByUserID(user_id)
     all_applications = applicationsRepo.getAllApplicationsByUserID(user_id)
-    application_count = get_application_count(all_applications)
+    application_count = get_entries_count(all_applications)
+    app_note_count = get_entries_count(application_notes)
 
     all_companies = companyRepo.getAllCompanyEntriesForUser(user_id)
-    company_count = get_company_count(all_companies)
+    company_count = get_entries_count(all_companies)
 
     general_details = {
         "links": {}, 
         "app_notes_details": {}, 
         "company_notes_details": {},
         "application_count": application_count, 
+        "app_note_count": app_note_count,  
         "company_count": company_count, 
         "display_bottom_links": True 
     }
@@ -61,7 +73,7 @@ def display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo,
     }
 
     entry_id = 0
-    if application_notes != None:
+    if application_notes:
         general_details["app_notes_details"]["fields"] = {}
         for app_note in application_notes:
             entry_id += 1
