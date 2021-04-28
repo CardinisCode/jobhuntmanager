@@ -7,7 +7,7 @@
 {% block main %}
     <div class="alignfull">
         <div class="aligncenter"> 
-            <h1 class="h1-heading"> Welcome to Job Hunt Manager! </h1>
+            
 
             {% if get_flashed_messages() %}
                 {% for message in get_flashed_messages() %}
@@ -15,6 +15,25 @@
                 {% endfor %}
             {% endif %}
 
+        </div>
+    </div>
+
+    <div class="alignfull"> 
+        <div class="aligncenter"> 
+            <h1 class="h1-heading"> Welcome to Job Hunt Manager! </h1>
+            <div class="greeting-card"> 
+                <h3 class="heading"> Manage all your job applications, interviews, preparation & notes: </h3>
+                <h3 class="heading"> In 1 place! </h3>
+                <br/>
+                <h4 class="heading"><a href="https://www.edx.org/course/introduction-computer-science-harvardx-cs50x" class="cs50-link"> CS50x</a> Final Project</h4>
+                <h4 class="heading-extra-margins"> By Andrea Folgado, London (UK)</h4>
+
+                <div class="link-div-styling"> 
+                    <a href="https://github.com/CardinisCode/jobhuntmanager" class="link_button_primary"> Github Repo</a>
+                    <a href="https://www.linkedin.com/in/acfolgado/" class="link_button_primary"> Linkedin Profile</a>
+                    <a href="mailto:jobhuntmanager.contactus@gmail.com" class="link_button_primary"> Email Me</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -29,7 +48,7 @@
         </div>
     </div>
 
-    <div class="alignfull background-colour"> 
+    <div class="alignfull background-colour end-page-margins"> 
         <div class="aligncenter"> 
             <div class="landingpage-grid-group"> 
                 <div class="landingpage-img-grid">

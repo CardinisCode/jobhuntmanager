@@ -873,17 +873,4 @@ def delete_user_account(user_id):
             return display_delete_user_form(user_id, delete_account_form)
 
 
-@app.route("/calendar")
-@login_required
-def display_caledar():
-    """ Display User's calendar """
-    return render_template("calendar.html")
-
-@app.route("/tipsandadvise")
-@login_required
-def display_tips_and_advise():
-    """ Display Tips and Advise to users """
-    return render_template("tipsandadvise.html")
-
-
 

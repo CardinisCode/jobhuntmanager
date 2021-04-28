@@ -554,10 +554,16 @@ hr.thick_border {
   color: royalblue;
 }
 
-.link-alt-colour:hover {
+.cs50-link {
+  color: red;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.link-alt-colour:hover, .cs50-link:hover {
   color:purple; 
   font-weight: bolder;
-  text-decoration: none;
+  text-decoration: underline !important;
 }
 
 .link_button_primary:hover{
@@ -1038,6 +1044,15 @@ select:-webkit-autofill:focus {
 .hr-less-margins {
   margin-top: 2rem !important;
   margin-bottom: 0 !important;
+}
+
+.greeting-card {
+  background: rgba(175, 238, 238, 0.2);
+  margin: 1rem;
+  padding: 1rem;
+  text-align: center;
+  border: solid 1px gainsboro;
+  border-radius: 15px/15px;
 }
 
 
