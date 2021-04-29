@@ -73,8 +73,10 @@ def update_interview_stage_in_applications_repo(interviewsRepo, application_id, 
     current_interview_stage = application.interview_stage
     all_interviews_for_app_id = interviewsRepo.grabInterviewsByApplicationID(application_id)
     interview_count = 0
-    for interview in all_interviews_for_app_id:
-        interview_count += 1
+
+    if all_interviews_for_app_id:
+        for interview in all_interviews_for_app_id:
+            interview_count += 1
 
     fields = {
         "interview_stage": interview_count, 
