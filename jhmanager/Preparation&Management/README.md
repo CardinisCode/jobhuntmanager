@@ -2,6 +2,8 @@
 
 ## Video Demo:  <URL HERE>
 
+## Link to Heroku-hosted site: https://jobhuntmanger.herokuapp.com/
+
 ## Description: 
 A web-based application for any one looking to manage their job hunting. Its intended to be a place where a user can store job applications, interviews, interview preparation, notes, & contacts. Plus the user can add companies from their wishlist. 
 
