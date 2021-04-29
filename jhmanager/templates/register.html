@@ -19,12 +19,6 @@
 
     <div class="alignfull-form"> 
         <div class="aligncenter"> 
-            <h2 class="heading italics"><i class="fas fa-key"></i> Passwords are hashed, but not salted!</h2>
-        </div>
-    </div>
-
-    <div class="alignfull-form"> 
-        <div class="aligncenter"> 
             <div class="form-grid full-grid-length">
                 <form action="/register" method="POST"> 
                     {{ register_form.hidden_tag() }}
@@ -65,19 +59,6 @@
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
-
-    <div class="alignfull-disclaimer background-colour end-page-margins"> 
-        <div class="aligncenter"> 
-            <h2 class="heading-extra-margins"><i class="fas fa-exclamation"></i> Disclaimer</h2>
-            <h3 class="headings">Please note that this is a pilot product. </h3>
-            <p> Although passwords have been hashed, no salting has been implemented.
-                As a precaution, please do not use personal information (or passwords) when testing this product. 
-            </p>
-            <p> 
-                <strong> Recommendation: </strong> Use your favourite fictional character. I've done this through out the testing process!
-            </p>
         </div>
     </div>
 
