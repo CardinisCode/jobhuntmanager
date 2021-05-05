@@ -27,7 +27,199 @@ The files in this project are divided into the following sections:
 -   7)  Templates
 
 ## 1: Forms:
+All forms are created using WTForms - a library I found that works well with Python & Flask. Using WTForms allowed me to create Form templates that I could instantiate either as a blank form or with values from one of the SQL tables. WTForms also offers the field/data validation and comes included with CSRF protection. 
+These forms are saved in jhmanager/forms. 
 
+Below are the names of the files stored in the 'Forms' directory: 
+-   add_application_form.py
+-   add_application_note_form.py
+-   add_company_form.py
+-   add_company_job_app_form.py
+-   add_company_note_form.py
+-   add_interview_form.py
+-   add_interview_prep_form.py
+-   add_job_offer_form.py
+-   add_new_contact_form.py
+-   delete_account_form.py
+-   delete_form.py
+-   login_form.py
+-   register_form.py
+-   update_company_form.py
+-   update_interview_status_form.py
+-   update_user_details.py
+
+Below I will go into detail to tell you what form/s are in each file and what the form does. 
+
+### add_application_form.py
+#### Form name: 
+    AddApplicationForm()
+#### Functionality: 
+    This form includes all the fields that I've commonly seen on job application forms (online and in person). 
+#### Fields:
+    date_posted, job_role, emp_type, job_ref, company_name, company_description, industry, job_description, job_perks, tech_stack, location, salary, user_notes, platform, job_url. 
+#### Template used:
+    add_job_application.html
+
+### add_application_note_form.py
+#### Form name: 
+    AddApplicationNoteForm()
+#### Functionality: 
+    This form is simple in nature and only has 2 fields: The subject and content for a form. 
+#### Fields:
+    description, notes_text
+#### Template used:
+    add_application_note.html
+
+### add_company_form.py
+#### Form name: 
+    AddCompanyForm()
+#### Functionality: 
+    This Form has fields relevant to a company and puts together 'contact' info for a specific company.
+#### Fields:
+    name, description, location, industry, interviewers, url
+#### Template used:
+    add_company_form.html
+
+### add_company_job_app_form.py
+#### Form name: 
+    AddCompanyJobApplicationForm()
+#### Functionality: 
+    This form is very similar to the AddApplicationForm(), except it doesn't include any fields relevant to a company. 
+#### Fields:
+    date_posted, job_role, emp_type, job_ref, job_description, job_perks, tech_stack, salary, user_notes, platform, job_url. 
+#### Template used:
+    add_company_job_application.html
+
+### add_company_note_form.py
+#### Form name: 
+    AddCompanyNoteForm()
+#### Functionality: 
+    I kept this form simple in nature, so that it resembles a note we'd scribble in a note book. 
+#### Fields:
+    subject, note_text
+#### Template used:
+    add_company_note.html
+
+### add_interview_form.py
+#### Form name: 
+    AddInterviewForm()
+#### Functionality: 
+    This form includes fields relevant to an interview. I added fields relevant to interviews done 1) in person, 2) over video call & 3) over a phone call. 
+#### Fields:
+    interview_date, interview_time, interviewer_names, interview_type, interview_location, interview_medium, other_medium, video_link, phone_call, status, extra_notes. 
+#### Template used:
+    add_interview.html
+
+### add_interview_prep_form.py
+#### Form name: 
+    AddInterviewPrepForm()
+#### Functionality: 
+    This form is similar in nature to the note forms, except the 2 fields are 'Question' and 'Answer'. It allows the user to add the interview Question and the answer the user is planning to say in response to the Question. 
+#### Fields:
+    question, answer
+#### Template used:
+    interview_prep.html
+            
+### add_job_offer_form.py
+#### Form name: 
+    AddJobOffer()
+#### Functionality: 
+    This form allows the user to add a job offer they've received and gives the user the field 'offer_response' so the user can select if they've accepted (or rejected) the offer or if they're still thinking about it. 
+#### Fields: 
+    job_role, salary_offered, perks_offered, offer_response, starting_date. 
+#### Template used:
+    add_job_offer.html
+
+### add_new_contact_form.py
+#### Form name:
+    AddNewContactForm()
+#### Functionality: 
+    This form asks the user for information very much relevant for putting together contact information. Making connections is very important when looking for work as we often have a higher chance of getting a job when we know someone on the inside of the company we're looking to work for. We're also more likely to know of a vacacy through the network we build. 
+#### Fields:
+    full_name, job_title, contact_number, company_name, email_address, linkedin_profile.
+#### Template used:
+    add_new_contact.html
+
+### delete_account_form.py
+#### Form name:
+    DeleteAccountForm()
+#### Functionality: 
+    This form is presented to the user when they select the 'Delete Account' button in their User Profile. The form asks the user to enter their account password and once the user submits the form, their account is hard (entirely) deleted from the application's database. 
+#### Fields:
+    password
+#### Template used:
+    delete_account.html
+
+### delete_form.py
+#### Form name:
+    DeleteCompanyForm()
+#### Functionality: 
+    The user is presented with a select fields with 2 options. I believe by asking the user to manually select an option, they're less likely to make this choice by accident or by using a bot. If the user chooses the "Yes....", & submits the form, then the company (and all data related to this company) will be hard deleted from the application's databases. For this reason, there is a warning presented above this option to notify the user of the consequences of deleting this company contact.
+#### Fields:
+    confirm_choice
+#### Template used:
+    delete_company_profile.html
+
+### login_form.py
+#### Form name: 
+    LoginForm()
+#### Functionality: 
+    Presents the user with a simple form, which allows the user to log into their account on the application. 
+#### Fields:
+    username, password
+#### Template used:
+    login.html
+
+### register_form.py
+#### Form name: 
+    RegisterUserForm()  
+#### Functionality: 
+    This form as the registration form & the values of this form will be used to create an account for the user. The user is asked to provide an unique username & email address. If either already exists in our database, the user will be asked to provide another username / email address. The 'confirm_password' field serves to ask the user to type a password in twice & ensure that both password values match. 
+#### Fields:
+    username, email_address, password, confirm_password. 
+#### Template used:
+    register.html
+
+### update_company_form.py
+#### Form name: 
+    UpdateCompany() 
+#### Functionality: 
+    This form is very similar to the AddApplicationForm(), except it doesn't include any fields relevant to a company. 
+#### Fields:
+    date_posted, job_role, emp_type, job_ref, job_description, job_perks, tech_stack, salary, user_notes, platform, job_url. 
+#### Template used:
+    update_company_profile.html
+
+### update_interview_status_form.py
+#### Form name: 
+    UpdateInterviewStatusForm() 
+#### Functionality: 
+    This form is very simple and serves to allow the user to update only the status of an interview. Once an interview has been completed/deleted/post-poned, the user will want to update the status without having to worry/focus on any of the other interview fields (on AddInterviewForm()). 
+#### Fields:
+    status
+#### Template used:
+    update_interview_status.html
+
+### update_user_details.py
+#### Form name: 
+    UpdateEmailAddressForm() 
+#### Functionality: 
+    This form serves to allow the user to update the email address linked to their account. The user is asked to provide the new email address twice. I added validators to ensure that the user provides the same email address in both fields.
+#### Fields:
+    email, confirm_email
+#### Template used:
+    update_email.html
+
+#### Form name: 
+    ChangePasswordForm()
+#### Functionality: 
+    This form serves to allow the user to change the password on their account. The user is asked to provide the new password twice. I added validators to ensure that the user provides the same password in both fields. Since these two fields are each designated as a 'PasswordField', the fields hide what the user enters into these fields, even as they're typing. 
+#### Fields:
+    password, confirm_password
+#### Template used:
+    change_password.html
+
+---------------------------------------------------------------
 
 ## 7: Pages / Templates:
 These templates can be divided into the following categories:
