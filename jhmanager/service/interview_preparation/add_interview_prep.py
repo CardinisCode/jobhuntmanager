@@ -91,7 +91,7 @@ def post_add_interview_preparation(user_id, application_id, interview_id, interv
 
     interviewPrepRepo.addInterviewPrep(form_details)
     
-    flash("Details added to DB.")
+    flash("Interview Preparation entry saved successfully.")
 
     # '/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation'
     redirect_url = "/applications/{}/interview/{}/interview_preparation".format(application_id, interview_id)

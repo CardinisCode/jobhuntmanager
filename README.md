@@ -18,7 +18,6 @@ The application uses:
 
 I have narrowed down the application for fellow software engineers, so the Job application form is very much in the scope of the software engineering industry. 
 
-
 ## Files:
 The files in this project are divided into the following sections:
 
