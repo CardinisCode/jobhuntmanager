@@ -3,7 +3,8 @@
 
 A Web-based application aimed at job hunters looking to manage all aspects of their job hunt in one place. 
 
-## Video Demo:  <URL HERE> -> In progress...
+## Video Demo:  
+    https://youtu.be/bX6YD33VKIw
 
 ## Link to Heroku-hosted site: 
     https://jobhuntmanger.herokuapp.com/
