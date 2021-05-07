@@ -110,7 +110,8 @@ DROP TABLE application_history;
 You could delete it using a transaction:
 ```
 BEGIN TRANSACTION;
-DROP TABLE application_history;
+DROP TABLE user_notes;
+DROP TABLE general_preparation;
 COMMIT;
 ```
 
