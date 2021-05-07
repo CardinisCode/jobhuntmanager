@@ -216,32 +216,40 @@ Below I will go into detail to tell you what form/s are in each file and what th
     change_password.html
 
 ---------------------------------------------------------------
-### 2: Models:
+### 2: Preparation & Management:
 
 
 
 ---------------------------------------------------------------
-### 3: Preparation & Management:
-
-
----------------------------------------------------------------
-### 4: Repo:
+### 3: Repo:
 This file contains all the Repositories used for this project.
 
+#### __init__.py
+#### application_notes.py
+#### applications_history.py
+#### company_notes.py
+#### company.py
+#### contacts.py
+#### interview_prep_history.py
+#### interviewsHistory.py
+#### job_offers_history.py
+#### user_notes.py
+#### users.py
+
 
 ---------------------------------------------------------------
-### 5: Service:
+### 4: Service:
 This includes all the Python functionality to build the 'back-end' of the application. 
 
 
 ---------------------------------------------------------------
-### 6: Static:
+### 5: Static:
 
 
 
 ---------------------------------------------------------------
 
-### 7: Pages / Templates:
+### 6: Pages / Templates:
 These templates can be divided into the following categories:
 -   General
 -   Users
@@ -789,3 +797,14 @@ Presents the user with the 'AddApplicationNoteForm()' but pre-filled with the en
 The note is designed to let the user update their existing notes; to fix minor mistakes or to add more content to a note. Once this form has been successfully submitted & processed, the user will be redirected to 'view_app_note_details.html'.
 
 
+
+### 7: Tests: 
+### 8: __init__.py:
+### 8: helpers_from_cs50_finance.py
+### 9: jhmanager.db
+### 10: schema.sql
+### 11: commonly_used_links
+### 12: Makefile
+### 13: requirements.txt
+### 14: setup.py
+### 15: wsgi.py
