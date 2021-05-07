@@ -4,10 +4,21 @@
 A Web-based application aimed at job hunters looking to manage all aspects of their job hunt in one place. 
 
 ## Video Demo:  
+```
     https://youtu.be/bX6YD33VKIw
+```
+
+This video is made using iMovie. 
 
 ## Link to Heroku-hosted site: 
+```
     https://jobhuntmanger.herokuapp.com/
+```
+### Bugs:
+    -   Heroku starts up the database every time the user logs in, creating the database from scratch every time. So the application doesn't successfully "save" the user's progress. 
+    -   Heroku doesn't seem to accept / work with the CSRF tokens used by WTForms. So occassionally, upon submitting a form, the user is met with the error "CSRF token missing". There's a missing element/s that I'm missing to make this work. 
+
+These bugs are exclusive to the Heroku-hosted site, and are not present when running this application locally on one's computer. 
 
 ## Description: 
 A web-based application for any one looking to manage their job hunting. Its intended to be a place where a user can store job applications, interviews, interview preparation, notes, & contacts. Plus the user can add companies from their wishlist. 
@@ -19,7 +30,7 @@ The application uses:
 
 I have narrowed down the application for fellow software engineers, so the Job application form is very much in the scope of the software engineering industry. 
 
-# Please note: 
+## Please note: 
 Deletes are hard deletes, for the purpose of this pilot product. So if the user selects to delete something, it will permanently delete the information from the SQLite3 database.
 
 ## Files:
@@ -30,25 +41,6 @@ All forms are created using WTForms - a library I found that works well with Pyt
 These forms are saved in jhmanager/forms. 
 
 Below are the names of the files stored in the 'Forms' directory: 
--   add_application_form.py
--   add_application_note_form.py
--   add_company_form.py
--   add_company_job_app_form.py
--   add_company_note_form.py
--   add_interview_form.py
--   add_interview_prep_form.py
--   add_job_offer_form.py
--   add_new_contact_form.py
--   delete_account_form.py
--   delete_form.py
--   login_form.py
--   register_form.py
--   update_company_form.py
--   update_interview_status_form.py
--   update_user_details.py
-
-Below I will go into detail to tell you what form/s are in each file and what the form does. 
-
 #### add_application_form.py
 ##### Form name: 
     AddApplicationForm()
@@ -218,48 +210,109 @@ Below I will go into detail to tell you what form/s are in each file and what th
 ##### Template used:
     change_password.html
 
----------------------------------------------------------------
+
+# ---------------------------------------------------------------
 ### 2: Preparation & Management:
 These are the files:
 #### credits_and_resources_used.md
+    This is where I stored links / resources I used / found useful for this project. 
 #### notes_to_self.md
+    These are notes I added as I researched and tried out various aspects. Info added in this file acts as a point of reference, since I figured I'd end up using this information a few times through out the development of this application. 
 #### pitch#1.md
-#### setup_todo_list.md
-sqlqueries.sql
+    This is the pitch and premise of this project. I put this together before I even started working on the project. 
+#### plan_project.md
+    This is where I did some planning & acts as a story mapping session. Sadly I didn't get to use all of my ideas for this project as I realised the scope of this project was going far beyond what was expected for this course. 
+#### sqlqueries.sql
+    Includes all the queries I used when interacting with SQLite3 throughout the development of the application. 
+#### todo_list.md
+    In the first few weeks of developing this application, I realised I was going all over the place and losing track of what I was working on & what needed to still get done. So I broke down what needed to get done for the project as big chunks, and then focused on 1 chunk at a time. When working on a chunk, I'd break it down into smaller/more detailed points. This allowed me to control what I focused on and I could keep track of what I'd already completed. 
 
+    I ended up using Trello, for this functionality, towards the end of the development process. I always had a notepad on me throughout the development process, and when I came up with new ideas/concepts that needed to get done, I added them to Trello. This allowed me to keep on track & focused, without losing those interesting ideas that come to mind while working. 
 
-
-
-
----------------------------------------------------------------
+# ---------------------------------------------------------------
 ### 3: Repo:
-This file contains all the Repositories used for this project.
+This file contains all the Repositories used for this project, with each Repository (Repo) interacting with a specific table in the database. 
 
-#### __init__.py
-#### application_notes.py
-#### applications_history.py
-#### company_notes.py
-#### company.py
-#### contacts.py
-#### interview_prep_history.py
-#### interviewsHistory.py
-#### job_offers_history.py
-#### user_notes.py
+In each Repo, there are two classes:
+    1: Sets the field attributes which exist in a specific SQL table. 
+    -   Each attribute is the name of a column in the table. 
+    -   This can makes it so much easier to call on specific column values in each table entry. 
+
+    2) Consists of the functions which interact with the SQL database. 
+    -   This includes g etting / inserting / updating / deleting an entry from/in a SQL table. 
+    -   Each function:
+        -   Sets up the cursor connection to the table
+        -   Executes a command
+        -   Commits the query
+        -   Returns the result of the query 
+
+#### __init__.py:
+
+#### application_notes.py:
+##### SQL Table:
+    application_notes
+##### Classes:
+    ApplicationNotes, ApplicationNotesRepository
+
+#### applications_history.py:
+##### SQL Table:
+    job_applications
+##### Classes:
+    Application, ApplicationsHistoryRepository
+
+#### company_notes.py:
+##### SQL Table:
+    company_notes
+##### Classes:
+    CompanyNotes, CompanyNotesRepository
+
+#### company.py:
+##### SQL Table:
+    company
+##### Classes:
+    Company, CompanyRepository
+
+#### contacts.py:
+##### SQL Table:
+    indiv_contacts
+##### Classes:
+    Contact, ContactRepository
+
+#### interview_prep_history.py:
+##### SQL Table:
+    interview_preparation
+##### Classes:
+    InterviewPreparation, InterviewPreparationRepository
+
+#### interviewsHistory.py:
+##### SQL Table:
+    interviews
+##### Classes:
+    Interview, InterviewsHistoryRepository
+
+#### job_offers_history.py:
+##### SQL Table:
+    job_offers
+##### Classes:
+    JobOffer, JobOffersRepository
+
 #### users.py
+##### SQL Table:
+    users
+##### Classes:
+    User, UserRepository
 
-
----------------------------------------------------------------
+# ---------------------------------------------------------------
 ### 4: Service:
 This includes all the Python functionality to build the 'back-end' of the application. 
 
 
----------------------------------------------------------------
+# ---------------------------------------------------------------
 ### 5: Static:
 
 
 
----------------------------------------------------------------
-
+# ---------------------------------------------------------------
 ### 6: Pages / Templates:
 These templates can be divided into the following categories:
 -   General
@@ -807,8 +860,7 @@ Presents the user with the 'AddApplicationNoteForm()' but pre-filled with the en
 
 The note is designed to let the user update their existing notes; to fix minor mistakes or to add more content to a note. Once this form has been successfully submitted & processed, the user will be redirected to 'view_app_note_details.html'.
 
-
-
+# ---------------------------------------------------------------
 ### 7: Tests: 
 ### 8: __init__.py:
 ### 8: helpers_from_cs50_finance.py

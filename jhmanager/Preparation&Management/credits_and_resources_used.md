@@ -75,6 +75,14 @@ Related to:
     PRAGMA foreign_keys;
 ```
 
+## Planning 
+### Trello 
+This web application helped me to manage what needed to get done. Whenever I was working on something and came up with ideas, I'd note the ideas on Trello. This helped keep me on track whilst not losing those interesting ideas along the way. 
+
+```
+www.trello.com
+```
+
 ### Good to know: 
 ```
 The command returns an integer value: 1: enable, 0: disabled. If the command returns nothing, it means that your SQLite version doesn’t support foreign key constraints.
