@@ -246,7 +246,7 @@ In each Repo, there are two classes:
         -   Commits the query
         -   Returns the result of the query 
 
-#### __init__.py:
+#### __init__.py
 
 #### application_notes.py:
 ##### SQL Table:
@@ -305,7 +305,214 @@ In each Repo, there are two classes:
 # ---------------------------------------------------------------
 ### 4: Service:
 This includes all the Python functionality to build the 'back-end' of the application. 
+These files are broken down into the 11 directories that cover specific sections / functionality of the application. 
 
+Within each directory are the CRUD elements: 
+-   Create
+    -   I started such files & functions with 'add_...'
+-   Read
+    -   I started 'Read' files with 'view_...'
+    -   & 'Read' functions with 'get_...'
+-   Update
+    -   These files / functions start with 'update_...'
+-   Delete 
+    -   These files / functions start with 'delete_...'
+
+#### address_book:
+This manages the functionality for the address book template. 
+
+##### view_address_book.py
+###### display_address_book():
+    Calls on both the 'Company' and 'indiv_contacts' tables & grabs the top 8 entries from each table. 
+    Linked to Template: 'view_address_book.html'
+
+#### application_notes:
+This where you'll find all the Python files related to Application Notes.
+
+###### add_app_note.py:
+    Functions:
+    -   display_application_note_form()
+        -   Stores the company_name & action_url to be displayed to the user.
+        -   Renders the template:  add_application_note.html
+            -   with a blank instance of the AddApplicationNoteForm() Form. 
+    -   post_application_add_note()
+        -   Grabs the values added to the form fields & the current date
+        -   Calls on the insertNewNote() function to insert these values, 
+            as a single entry, into the SQL table 'application_notes'. 
+
+###### delete_app_note.py:
+    Function:
+    -   delete_application_note()
+        -   Deletes a specific application note from the 'application_notes' table in
+            the SQL database, using the note's specific ID. 
+        -   Redirects the user to template: 'view_notes_for_application.html'
+
+###### update_app_note.py:
+    Functions:
+    -   display_update_app_note_form()
+        -   Stores the company_name & action_url to be displayed to the user.
+        -   Renders the template:  update_application_note.html
+            -   with an instance of the AddApplicationNoteForm() Form, populated with the values for a specific application note entry. 
+
+    -   post_update_app_note():
+        1)  Grabs the values added to the form fields
+        2)  Calls on the updateByID() function to update these values for a specific entry in the SQL table 'application_notes'. 
+        3)  Redirects the user to template: 'view_app_note_details.html'
+
+###### view_app_note_details.py:
+    Functions:
+    -   display_application_note_details()
+        -   Grabs all the values / attributes for a specific application note entry
+        -   Grabs the values needed for URL links to be presented to the user
+        -   Values are 'cleaned' using functions from the 'clean_files' directory.
+            -   To improve the presention of the values
+            -   To implement consistency of string formats across all templates. 
+        -   Renders the Template: 'view_app_note_details.html'
+
+###### view_application_notes.py:
+    Function:
+    -   display_application_notes():
+        -   Grabs all entries from the appNotesRepo for a specific user. 
+        -   Grabs & stores all information to be displayed to the user, including URL links
+        -   Renders the template: 'view_notes_for_application.html'
+
+
+#### applications:
+This where you'll find all the Python files related to job applications. 
+
+##### add_application.py:
+In this file we find the functionality to:
+-   display the form to the user, 
+-   extract the form field values
+-   Insert these values into the relevant SQL table
+-   Redirect the user to the template: 'view_application.html'
+
+Functions:
+-   display_add_application_form():
+    -   Handles GET functionality
+        -   with a blank instance of the AddApplicationForm() Form. 
+    -   Renders Template: 'add_job_application.html'
+
+-   add_new_application_to_application_history():
+    -   Grabs the 'date' and 'time' form values & converts the values to the string type
+    -   Grabs all the value arguments it receives & stores them in a single dictionary
+    -   Inserts the values into the 'job_applications' table.
+
+-   add_or_update_company():
+    -   Determines if a company already exists in the 'company' table
+        -   If yes: It updates the existing entry for this company
+        -   Else: It inserts a new entry for this company. 
+
+-   post_add_application():
+    -   Handles POST functionality
+    -   Calls on the add_or_update_company() function
+    -   Calls on the add_new_application_to_application_history() function
+    -   Redirects to the template: 'view_application.html'
+
+##### delete_all_applications.py:
+In this file we find the functionality to:
+-   Delete all job application, and all interview, interview_preparation, note, & job offer entries linked to these applications, from their perspective SQL tables. 
+-   Redirect the user back to the 'dashboard.html' template.
+
+Function:
+-   delete_all_applications_for_user()
+    -   Deletes all application entries linked to the current user's user_id.
+        -   These application entries are deleted from the 'job_applications' table
+    -   This also deletes the following entries linked to this UserID:
+        -   interviews (Table: interviews)
+        -   interview preparations (Table: interview_preparation)
+        -   application notes (Table: application_notes)
+        -   job offers (Table: job_offers)
+    -   Redirects to template: 'dashboard.html'
+
+##### delete_an_application.py:
+In this file we find the functionality to:
+-   Delete both a specific job application, and all interview, interview_preparation, note, & job offer entries linked to this application, from their perspective SQL tables. 
+-   Redirect the user back to the 'applications.html' template.
+
+Function:
+-   delete_application()
+    -   Deletes a specific entry in the 'job_applications' table. 
+    -   Deletes all entries linked to a specific application ID:
+        -   interviews (Table: interviews)
+        -   interview preparations (Table: interview_preparation)
+        -   application notes (Table: application_notes)
+        -   job offers (Table: job_offers)
+    -   Redirects to template: 'applications.html'    
+
+##### update_application.py:
+In this file we find the functionality to:
+-   Display the AddApplicationForm(), with the details of a specific application, to the user via the template 'update_application.html'
+-   Grab the details from the form, update the relevant entry in the 'job_applications'
+    table, and then redirect the user to 'view_application.html' so that the user can view the application they've just updated. 
+
+Functions:
+-   display_update_application_form()
+    -   Handles GET functionality
+    -   Stores the company_name & action_url to be displayed to the user.
+    -   Renders the template:  update_application.html
+        -   With an instance of the AddApplicationForm() Form, 
+            populated with the values for a specific application entry.
+
+-   post_update_application()
+    -   Handles POST functionality
+    -   Gets all the form values & stores them in a single dictionary
+    -   Calls on the updateApplicationByID() method, in the 'ApplicationsHistoryRepository', to update a specific entry in the 'job_applications' (SQL) table.
+    -   Gets all form values relevant to a Company & stores them in their own dictionary
+    -   Using the 'Company' values, it calls on the updateUsingApplicationDetails(), in the CompanyRepository(), 
+        to update a specific entry in the 'job_applications' (SQL) table.
+    -   Redirects to the template: 'view_application.html'
+
+##### view_all_applications.py:
+In this file we find the functionality to:
+-   Grab the top 10 application entries (if there are any), 
+    and to add these entries to a dictionary (together with a few other necessary details). These details are displayed to the user on the template 'applications.html'. 
+
+Function:
+-   display_all_applications_current_user()
+    -   Grabs the top 10 Application entries for a specific User
+        -   From the 'job_applications' SQL table
+    -   Creates a Dictionary
+        -   With a key: 'empty_table' & value: True
+    -   Determines if there are any applications in the SQL table for the User
+        -   If yes: 
+            -   It structures the values for each application in a dictionary
+            -   Cleans up the values
+            -   Updates the value for the 'empty_table' key to False
+    -   Adds the links, to be displayed to the user, in the main dictionary.
+    -   Renders the template: 'applications.html'
+
+##### view_application_details.py:
+In this file we find the functionality to:
+-   Grab the entry details for a specific application 
+-   Grab the entry details for the company linked to this application
+-   Grab all Job offers linked to this Job Application
+-   Grab all interviews linked to this Job Application
+-   Store the links to be presented to the user
+-   Store these details to a dictionary (together with a few other necessary details)
+    in a dictionary. 
+-   Display all this information to the user on the template 'view_application.html'
+
+Functions:
+-   grab_and_display_job_offers()
+-   display_application_details()
+
+
+#### cleanup_files:
+
+#### company:
+
+#### company_notes:
+
+#### contacts_directory:
+
+#### interview_preparation:
+
+#### interviews:
+
+#### job_offers:
+
+#### users:
 
 # ---------------------------------------------------------------
 ### 5: Static:
