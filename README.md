@@ -19,6 +19,9 @@ The application uses:
 
 I have narrowed down the application for fellow software engineers, so the Job application form is very much in the scope of the software engineering industry. 
 
+# Please note: 
+Deletes are hard deletes, for the purpose of this pilot product. So if the user selects to delete something, it will permanently delete the information from the SQLite3 database.
+
 ## Files:
 The files in this project are divided into the following sections:
 
@@ -217,6 +220,14 @@ Below I will go into detail to tell you what form/s are in each file and what th
 
 ---------------------------------------------------------------
 ### 2: Preparation & Management:
+These are the files:
+#### credits_and_resources_used.md
+#### notes_to_self.md
+#### pitch#1.md
+#### setup_todo_list.md
+sqlqueries.sql
+
+
 
 
 
@@ -803,8 +814,7 @@ The note is designed to let the user update their existing notes; to fix minor m
 ### 8: helpers_from_cs50_finance.py
 ### 9: jhmanager.db
 ### 10: schema.sql
-### 11: commonly_used_links
-### 12: Makefile
-### 13: requirements.txt
-### 14: setup.py
-### 15: wsgi.py
+### 11: Makefiles
+### 12: requirements.txt
+### 13: setup.py
+### 14: wsgi.py

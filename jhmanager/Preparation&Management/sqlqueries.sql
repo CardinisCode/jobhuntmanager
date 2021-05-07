@@ -1,22 +1,10 @@
+# SQLite3 Queries:
+Various SQLite3 queries I used regularly when interacting with SQLite3. 
 
+## Create:
+### To create a new table: 
 ```
 CREATE TABLE IF NOT EXISTS 'users' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'username' TEXT NOT NULL, 'hash' TEXT NOT NULL, 'email' TEXT NOT NULL);
-CREATE UNIQUE INDEX 'user_id' ON "users" ("id");
-
-
-INSERT INTO users (username, hash, email)
-VALUES ('marypoppins1', 'pbkdf2:sha256:150000$USxcihqi$866e1852c8cc6936a41405ebe2825160f2950b8516fdf18c2eaa603b2d54c134', 'marypoppins@gmail.com');
-
-"INSERT INTO users (username, hash, email) VALUES (?, ?, ?)", (username, hashed_password, email))
-
-
-ALTER TABLE users ADD date datetime;
-
-cursor = self.db.execute("SELECT * FROM users WHERE email=?", (email,))
-
-cursor = self.db.execute("ALTER TABLE company_directory ADD column=? datatype=?", (name, datatype,)) ??? Valid? 
-user = cursor.fetchone()
-
 CREATE TABLE IF NOT EXISTS 'company_directory' ('id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 'company_name' TEXT NOT NULL);
 CREATE UNIQUE INDEX 'company_id' ON "company_directory" ("id");
 
@@ -27,74 +15,25 @@ CREATE TABLE IF NOT EXISTS 'interview_history' ('id' INTEGER PRIMARY KEY AUTOINC
 CREATE UNIQUE INDEX 'interview_id' ON "interview_history" ("id");
 ```
 
-
-# Checking to see if a value exists in a column of a table using SQLite3:
-# Using EXISTS:
+### To create an unique Index:
 ```
-"SELECT EXISTS(SELECT company_name FROM application_history WHERE company_name LIKE ? and user_id = ?)", (pattern, user_name,)
-
+CREATE UNIQUE INDEX 'user_id' ON "users" ("id");
 ```
 
-# Updating fields in a table:
-```
-"UPDATE application_history SET interview_stage = interview_stage WHERE user_id = ? AND company_name LIKE ?", (user_id, company_name,)
-
-UPDATE application_history SET interview_stage = "First interview lined up" WHERE user_id = 2 AND company_name LIKE 'Noir';
-
-```
-
-
-# Adding a column to an existing table in SQLite3
+## Update a table:
+### To add a column to an existing table in SQLite3
 ```
 ALTER TABLE users ADD date datetime;
 EG: ALTER TABLE application_history ADD "job_url" TEXT NOT NULL DEFAULT "N/A";
-```
 
 ALTER TABLE application_history ADD "job_ref" TEXT NOT NULL DEFAULT "N/A";
-
-# Adding values to a table in SQLite3
-```
-"INSERT INTO users (username, hash, email) VALUES (?, ?, ?)", (username, hashed_password, email))
 ```
 
-# Grabbing application details for user_id 2:
-``` 
-"select id, job_role, date from application_history WHERE user_id = 2 ORDER BY id DESC;"
+#### Adding multiple fields to a table: 
+Note there's no way to add numerous columns at once, so I've instead created a transaction, in which all the alter table commands will be completed.
 
-```
-
-# Args for .connect when using SQLite3
-```
-sqlite3.connect(database[, timeout, detect_types, isolation_level, check_same_thread, factory, cached_statements, uri])
-
-EG: db = sqlite3.connect('jhmanager.db', detect_types=sqlite3.PARSE_DECLTYPES, check_same_thread=False)
-```
-
-# Deleting a column to recreate it with the correct datatype
-# Requires deleting the entire table.
 ```
 BEGIN TRANSACTION;
-CREATE TEMPORARY TABLE applications_backup(id, company_name, date, job_role, platform, interview_stage, user_id, employment_type);
-
-INSERT INTO applications_backup SELECT id, company_name, date, job_role, platform, interview_stage, user_id, employment_type FROM application_history;
-
-DROP TABLE application_history;
-
-CREATE TABLE IF NOT EXISTS application_history("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "company_name" TEXT NOT NULL DEFAULT "N/A", "date" DATETIME NOT NULL, "job_role" TEXT NOT NULL DEFAULT "N/A", "platform" TEXT NOT NULL DEFAULT "N/A", "interview_stage" TEXT NOT NULL DEFAULT "N/A", "user_id" INTEGER, "employment_type" TEXT NOT NULL DEFAULT "N/A");
-
-INSERT INTO application_history SELECT id, company_name, date, job_role, platform, interview_stage, user_id, employment_type FROM applications_backup;
-
-DROP TABLE applications_backup;
-
-COMMIT;
-
-```
-
-# Let's re-add the relevant columns as 1 transaction: 
-# Note there's no way to add numerous columns at once, so I've instead created a transaction, in which all the alter table commands will be completed.
-```
-BEGIN TRANSACTION;
-
 ALTER TABLE application_history ADD "contact_received" TEXT NOT NULL DEFAULT "No";
 ALTER TABLE application_history ADD "location" TEXT NOT NULL DEFAULT "Remote";
 ALTER TABLE application_history ADD "job_description" BLOB NOT NULL DEFAULT "N/A";
@@ -103,10 +42,104 @@ ALTER TABLE application_history ADD "job_perks" BLOB NOT NULL DEFAULT "N/A";
 ALTER TABLE application_history ADD "company_descrip" BLOB NOT NULL DEFAULT "N/A";
 ALTER TABLE application_history ADD "tech_stack" BLOB NOT NULL DEFAULT "N/A";
 ALTER TABLE application_history ADD "job_url" BLOB NOT NULL DEFAULT "N/A";
-
 COMMIT;
 ```
 
+### To Update fields in a table:
+```
+"UPDATE application_history SET interview_stage = interview_stage WHERE user_id = ? AND company_name LIKE ?", (user_id, company_name,);
+UPDATE application_history SET interview_stage = "First interview lined up" WHERE user_id = 2 AND company_name LIKE 'Noir';
+```
+
+## Insert an entry into a table:
+There are a few ways to insert an entry (with its values/attributes) into a table (in SQLite3):
+
+### Option 1:
+```
+INSERT INTO users (username, hash, email)
+VALUES ('marypoppins1', 'pbkdf2:sha256:150000$USxcihqi$866e1852c8cc6936a41405ebe2825160f2950b8516fdf18c2eaa603b2d54c134', 'marypoppins@gmail.com');
+
+``` 
+### Option 2:
+```
+"INSERT INTO users (username, hash, email) VALUES (?, ?, ?)", (username, hashed_password, email));
+```
+
+## Get values / entry from a table:
+### Grabbing values in a table from the users repo:
+```
+cursor = self.db.execute("SELECT * FROM users WHERE email=?", (email,))
+```
+
+### Grabbing application details for user_id 2:
+``` 
+"select id, job_role, date from application_history WHERE user_id = 2 ORDER BY id DESC;"
+```
+
+### To grab only the last entry in a SQLquery: 
+```
+user = cursor.fetchone()
+```
+
+### Get an entry but order the entries by Date and then by time:
+``` 
+BEGIN TRANSACTION;
+SELECT * FROM interview_history
+WHERE user_id = 2
+ORDER BY
+    date DESC, 
+    time DESC 
+LIMIT 10;
+COMMIT;
+```
+
+## To check if a value exists in a column of a table using SQLite3:
+### Using EXISTS:
+```
+"SELECT EXISTS(SELECT company_name FROM application_history WHERE company_name LIKE ? and user_id = ?)", (pattern, user_name,)
+```
+
+## Deleting entries:
+Deleting a column to recreate it with the correct datatype requires deleting the entire table.
+
+You could just delete the table altogether:
+```
+DROP TABLE application_history;
+```
+
+You could delete it using a transaction:
+```
+BEGIN TRANSACTION;
+DROP TABLE application_history;
+COMMIT;
+```
+
+Transactions are useful when you want to do several things in 1 session. 
+Here we will create a temporary table, copy the data across into the temp table, 
+delete the table & then recreate the table we want before moving the entries into the newly created table.
+
+```
+BEGIN TRANSACTION;
+CREATE TEMPORARY TABLE applications_backup(id, company_name, date, job_role, platform, interview_stage, user_id, employment_type);
+INSERT INTO applications_backup SELECT id, company_name, date, job_role, platform, interview_stage, user_id, employment_type FROM application_history;
+DROP TABLE application_history;
+CREATE TABLE IF NOT EXISTS application_history("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "company_name" TEXT NOT NULL DEFAULT "N/A", "date" DATETIME NOT NULL, "job_role" TEXT NOT NULL DEFAULT "N/A", "platform" TEXT NOT NULL DEFAULT "N/A", "interview_stage" TEXT NOT NULL DEFAULT "N/A", "user_id" INTEGER, "employment_type" TEXT NOT NULL DEFAULT "N/A");
+INSERT INTO application_history SELECT id, company_name, date, job_role, platform, interview_stage, user_id, employment_type FROM applications_backup;
+DROP TABLE applications_backup;
+COMMIT;
+```
+
+
+
+## Connecting to the SQLite3 database:
+### Arguments for .connect when using SQLite3:
+```
+sqlite3.connect(database[, timeout, detect_types, isolation_level, check_same_thread, factory, cached_statements, uri])
+
+EG: db = sqlite3.connect('jhmanager.db', detect_types=sqlite3.PARSE_DECLTYPES, check_same_thread=False)
+```
+
+## Query examples:
 
 # I want to recreate the application_history with certain fields not being required:
 
@@ -466,7 +499,6 @@ CREATE TABLE IF NOT EXISTS interviews(
 COMMIT;
 ```
 
-
 ```
 BEGIN TRANSACTION;
 DROP TABLE interview_preparation;
@@ -481,20 +513,6 @@ CREATE TABLE IF NOT EXISTS interview_preparation(
     FOREIGN KEY (application_id) REFERENCES job_applications (application_id),
     FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
-COMMIT;
-
-```
-
-
-# Updating a SQL query to order by Date and then by time:
-``` 
-BEGIN TRANSACTION;
-SELECT * FROM interview_history
-WHERE user_id = 2
-ORDER BY
-    date DESC, 
-    time DESC 
-LIMIT 10;
 COMMIT;
 ```
 
@@ -515,8 +533,6 @@ CREATE TABLE IF NOT EXISTS 'interview_preparation' (
 COMMIT;
 ```
 
-
-
 BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS company_notes(
     'company_note_id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
@@ -529,8 +545,6 @@ CREATE TABLE IF NOT EXISTS company_notes(
     FOREIGN KEY (company_id) REFERENCES company (company_id)
 );
 COMMIT;
-
-
 
 BEGIN TRANSACTION;
 DROP TABLE job_offers;
@@ -569,7 +583,6 @@ COMMIT;
 BEGIN TRANSACTION;
 ALTER TABLE interviews ADD 'video_link' BLOB DEFAULT "N/A";
 COMMIT;
-
 
 BEGIN TRANSACTION;
 DROP TABLE job_offers;
@@ -653,7 +666,6 @@ CREATE TABLE interviews(
 COMMIT;
 ```
 
-
 BEGIN TRANSACTION;
 DROP TABLE job_applications;
 CREATE TABLE job_applications(
@@ -680,7 +692,6 @@ CREATE TABLE job_applications(
     FOREIGN KEY (company_id) REFERENCES company (company_id)
 );
 COMMIT;
-
 
 BEGIN TRANSACTION;
 DROP TABLE job_offers;
