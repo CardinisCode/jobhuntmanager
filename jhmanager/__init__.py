@@ -22,7 +22,6 @@ from jhmanager.repo.users import UserRepository
 from jhmanager.repo.company import CompanyRepository
 from jhmanager.repo.applications_history import ApplicationsHistoryRepository
 from jhmanager.repo.interviewsHistory import InterviewsHistoryRepository
-from jhmanager.repo.general_prep_history import PreparationRepository
 from jhmanager.repo.interview_prep_history import InterviewPreparationRepository
 from jhmanager.repo.company_notes import CompanyNotesRepository
 from jhmanager.repo.job_offers_history import JobOffersRepository
@@ -177,7 +176,6 @@ companyRepo = CompanyRepository(db)
 applicationsRepo = ApplicationsHistoryRepository(db)
 interviewsRepo = InterviewsHistoryRepository(db)
 interviewPrepRepo = InterviewPreparationRepository(db)
-personalPrepRepo = PreparationRepository(db)
 companyNotesRepo = CompanyNotesRepository(db)
 jobOffersRepo = JobOffersRepository(db)
 appNotesRepo = ApplicationNotesRepository(db)
