@@ -1,11 +1,12 @@
 from flask import Flask, render_template, session, request, redirect, flash
 
 
-def delete_application(application_id, applicationsRepo, interviewsRepo, interviewPrepRepo, userNotesRepo):
+def delete_application(application_id, applicationsRepo, interviewsRepo, interviewPrepRepo, appNotesRepo, jobOffersRepo):
     # To delete an application, I simply the relevant SQL query in applicationsRepo, using the application_id.
     applicationsRepo.deleteEntryByApplicationID(application_id)
     interviewsRepo.deleteByApplicationID(application_id)
-    userNotesRepo.deleteByApplicationID(application_id)
+    appNotesRepo.deleteByApplicationID(application_id)
+    jobOffersRepo.deleteByApplicationID(application_id)
 
-    # Once the application is deleted, I'll redirect the user to all their applications:
+    # Once the application is deleted, the user will be redirected the 'Applications' page:
     return redirect('/applications')

@@ -24,7 +24,6 @@ from jhmanager.repo.applications_history import ApplicationsHistoryRepository
 from jhmanager.repo.interviewsHistory import InterviewsHistoryRepository
 from jhmanager.repo.general_prep_history import PreparationRepository
 from jhmanager.repo.interview_prep_history import InterviewPreparationRepository
-from jhmanager.repo.user_notes import UserNotesRepository
 from jhmanager.repo.company_notes import CompanyNotesRepository
 from jhmanager.repo.job_offers_history import JobOffersRepository
 from jhmanager.repo.application_notes import ApplicationNotesRepository
@@ -179,7 +178,6 @@ applicationsRepo = ApplicationsHistoryRepository(db)
 interviewsRepo = InterviewsHistoryRepository(db)
 interviewPrepRepo = InterviewPreparationRepository(db)
 personalPrepRepo = PreparationRepository(db)
-userNotesRepo = UserNotesRepository(db)
 companyNotesRepo = CompanyNotesRepository(db)
 jobOffersRepo = JobOffersRepository(db)
 appNotesRepo = ApplicationNotesRepository(db)
@@ -329,7 +327,7 @@ def add_job_application():
 @app.route('/applications/<int:application_id>/delete', methods=["GET"])
 @login_required
 def delete_specific_application(application_id):
-    return delete_application(application_id, applicationsRepo, interviewsRepo, interviewPrepRepo, userNotesRepo)
+    return delete_application(application_id, applicationsRepo, interviewsRepo, interviewPrepRepo, appNotesRepo, jobOffersRepo)
 
 
 """ Delete all applications """
@@ -337,7 +335,7 @@ def delete_specific_application(application_id):
 @login_required
 def delete_all_applications():
     user_id = session["user_id"]
-    return delete_all_applications_for_user(user_id, userRepo, applicationsRepo, userNotesRepo, interviewPrepRepo, interviewsRepo, jobOffersRepo)
+    return delete_all_applications_for_user(user_id, userRepo, applicationsRepo, appNotesRepo, interviewPrepRepo, interviewsRepo, jobOffersRepo)
 
 
 """ Update a Specific application """
@@ -660,14 +658,10 @@ def delete_company_profile(company_id):
         return display_delete_company_form(company_id, delete_company_form, companyRepo)
 
     if request.method == "POST":
-        app.logger.info('Successfully reached POST for delete_company_form')
         if delete_company_form.validate_on_submit():
-            app.logger.info('Successfully "validate on submit" for delete_company_form')
-            return delete_company_from_db(company_id, delete_company_form, companyRepo, companyNotesRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, userNotesRepo, jobOffersRepo)
+            return delete_company_from_db(company_id, delete_company_form, companyRepo, companyNotesRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, companyNotesRepo, jobOffersRepo)
         
         else:
-            app.logger.info(delete_company_form.confirm_choice.data)
-            app.logger.info('Failed to "validate on submit" for delete_company_form', delete_company_form.errors.values())
             flash("Complete all the fields.")
             return display_delete_company_form(company_id, delete_company_form, companyRepo)
 
@@ -867,7 +861,7 @@ def delete_user_account(user_id):
         
     if request.method == "POST":
         if delete_account_form.validate_on_submit():
-            return post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, userNotesRepo, interviewPrepRepo, interviewsRepo, companyRepo, companyNotesRepo, jobOffersRepo, contactRepo)
+            return post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, appNotesRepo, interviewPrepRepo, interviewsRepo, companyRepo, companyNotesRepo, jobOffersRepo, contactRepo)
         else:
             flash("Failed to delete the account.")
             return display_delete_user_form(user_id, delete_account_form)
