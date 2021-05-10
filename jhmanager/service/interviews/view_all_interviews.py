@@ -3,8 +3,6 @@ from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_int
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_status
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
-from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_interview_stage
-from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_emp_type_field
 from jhmanager.service.cleanup_files.cleanup_general_fields import replace_na_value_with_none
 
 

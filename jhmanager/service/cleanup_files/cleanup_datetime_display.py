@@ -29,16 +29,36 @@ def cleanup_time_format(time_obj):
     return time_str
 
 
+def verify_value_is_date_obj(date_value):
+    value_obj = None
+    if type(date_value) == 'str':
+        value_obj = datetime.strptime(date_value, "%Y-%m-%d")
+    else:
+        value_obj = date_value
+    return value_obj
+
+
+def verify_value_is_time_obj(time_value):
+    value_obj = None
+    if type(time_value) == 'str':
+        value_obj = datetime.strptime(time_value, "%H:%M")
+    else:
+        value_obj = time_value
+    return value_obj
+
+
 def past_dated(date_obj, time_obj):
+    updated_date_obj = verify_value_is_date_obj(date_obj)
+    updated_time_obj = verify_value_is_time_obj(time_obj)
     date_is_past_dated = False 
 
     current_date = datetime.now().date()
     current_time = datetime.now().time()
 
-    if date_obj < current_date: 
+    if type(updated_date_obj) == type(current_date) and updated_date_obj < current_date: 
         date_is_past_dated = True
     
-    elif date_obj == current_date and time_obj < current_time: 
+    elif updated_date_obj == current_date and updated_time_obj < current_time: 
         date_is_past_dated = True
 
     return date_is_past_dated

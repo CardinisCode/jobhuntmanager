@@ -17,6 +17,14 @@ def cleanup_offer_response(offer_response, company_name):
     return updated_offer_response
 
 
+def cleanup_specific_job_offer(job_offer_details):
+    starting_date = job_offer_details["starting_date"]
+    job_offer_details["starting_date"] = cleanup_date_format(starting_date)
+    company_name = job_offer_details["company_name"]
+    offer_response = job_offer_details["offer_response"]
+    job_offer_details["offer_response"] = cleanup_offer_response(offer_response, company_name)
+
+
 def cleanup_job_offer(job_offers_details, count):
     company_name = job_offers_details["fields"][count]["company_name"]
     offer_response = job_offers_details["fields"][count]["offer_response"]

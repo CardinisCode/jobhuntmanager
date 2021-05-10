@@ -1,21 +1,10 @@
 from flask import Flask, render_template, session, request, redirect, flash
+from jhmanager.service.cleanup_files.cleanup_general_fields import cleanup_field_value
 
 
 def cleanup_full_name(full_name):
     updated_full_name = (" ".join([x.capitalize() for x in full_name.split(' ')]))
     return updated_full_name
-
-
-def cleanup_company_name(company_name):
-    if company_name:
-        company_name = (" ".join([x.capitalize() for x in company_name.split(' ')]))
-    return company_name
-
-
-def cleanup_field_value(field_value):
-    if field_value:
-        field_value = (" ".join([x.capitalize() for x in field_value.split(' ')]))
-    return field_value
 
 
 # This takes a dictionary for a specific contact and cleans up the presentation of each of its fields:

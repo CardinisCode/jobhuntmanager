@@ -4,11 +4,12 @@ from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_tim
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_files.cleanup_datetime_display import past_dated
 from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_job_offer
-from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_details_for_specific_application
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_specific_job_application
 from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_urls
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_fields
-from jhmanager.service.cleanup_files.cleanup_company_fields import prepare_company_website_url
+from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_company_website
 from jhmanager.service.cleanup_files.cleanup_general_fields import replace_na_value_with_none
+from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_specific_company
     
 
 def grab_and_display_job_offers(application_id, user_id, company, jobOffersRepo):
@@ -50,31 +51,29 @@ def grab_and_display_job_offers(application_id, user_id, company, jobOffersRepo)
     return job_offers_details
 
 
-def grab_and_display_interviews(interviewsRepo, application_id, general_details):
+def grab_and_display_interviews(interviewsRepo, application_id):
     all_interviews_for_app_id = interviewsRepo.getTop6InterviewsByApplicationID(application_id)
     
     # Lets build the interview dict to be displayed to the user.
-    general_details["interview_details"] = {
+    interview_details = {
         "empty_fields" : True,
         "interviews_count": 0,
         "fields": None
     }
-    
+
     # In the case that there are actually interviews for this application, 
     # we want to grab those details & update the "fields" value to contain these values.
     # These values will be displayed to the user, in a table format. 
-    interview_fields = None
     count = 0
 
     if all_interviews_for_app_id:
-        general_details["interview_details"]["empty_fields"] = False 
-        interview_fields = {}
-        interview_fields["fields"] = {}
+        interview_details["empty_fields"] = False 
+        interview_details["fields"] = {}
 
         for interview in all_interviews_for_app_id:
             count += 1
             interview_id = interview.interview_id
-            interview_fields["fields"][interview_id] = {
+            interview_details["fields"][interview_id] = {
                 "number": count, 
                 "date": interview.interview_date, 
                 "time": interview.interview_time,
@@ -87,29 +86,20 @@ def grab_and_display_interviews(interviewsRepo, application_id, general_details)
                 "past_dated": False,
                 "view_more": "/applications/{}/interview/{}".format(application_id, interview_id),
             }
-            cleanup_interview_fields(interview_fields, interview_id)
+            cleanup_interview_fields(interview_details, interview_id)
 
-        general_details["interview_details"]["fields"] = interview_fields["fields"]   
-        general_details["interview_details"]["interviews_count"] = count
+    interview_details["interviews_count"] =  count 
+    return interview_details
 
 
 def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo, jobOffersRepo):
     application = applicationsRepo.grabApplicationByID(application_id)
     app_date = application.app_date
     app_time = application.app_time
-    company_id = application.company_id
-    company = companyRepo.getCompanyById(company_id)
-
-    general_details = {
-        "links": {}, 
-        "company_details": {}, 
-        "interview_details": {},
-        "user_notes": replace_na_value_with_none(application.user_notes)
-    }
+    company = companyRepo.getCompanyById(application.company_id)
 
     application_details = {}
     application_details["fields"] = {
-        "app_id": application.app_id,
         "job_ref" : application.job_ref,
         "date": app_date, 
         "time": app_time, 
@@ -123,18 +113,28 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "emp_type" : application.employment_type, 
         "contact_received?" : application.contact_received, 
     }
-    cleanup_details_for_specific_application(application_details)
+    cleanup_specific_job_application(application_details)
 
     # Lets grab some company details:
-    general_details["company_details"] = {
-        "company_id": company.company_id,
-        "company_name": company.name,
+    company_details = {}
+    company_details["fields"] = {
+        "name": company.name,
         "description": company.description,
     }
+    cleanup_specific_company(company_details)
 
-    # Now I want to display all the interviews for this application_id:
-    grab_and_display_interviews(interviewsRepo, application_id, general_details)
+    # Now I want to display all the interviews & Job offers for this application_id:
+    interview_details = grab_and_display_interviews(interviewsRepo, application_id)
+    job_offer_details = grab_and_display_job_offers(application_id, user_id, company, jobOffersRepo) 
     
+    general_details = {
+        "links": {}, 
+        "application_details": application_details, 
+        "company_details": company_details, 
+        "interview_details": interview_details, 
+        "job_offer_details": job_offer_details,
+    }
+
     general_details["links"] = {
         "update_application": '/applications/{}/update_application'.format(application_id), 
         "delete_application": '/applications/{}/delete'.format(application_id), 
@@ -143,12 +143,10 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "add_interview": '/applications/{}/add_interview'.format(application_id), 
         "view_interviews": '/applications/{}/view_all_interviews'.format(application_id), 
         "company_profile": '/company/{}/view_company'.format(company.company_id), 
-        "company_website": prepare_company_website_url(company.url), 
+        "company_website": cleanup_company_website(company.url), 
         "update_company": '/company/{}/update_company'.format(company.company_id),
         "view_job_posting": cleanup_urls(application.job_url),
         "add_job_offer": '/applications/{}/add_job_offer'.format(application_id), 
     }
 
-    job_offer_details = grab_and_display_job_offers(application_id, user_id, company, jobOffersRepo) 
-
-    return render_template("view_application.html", application_details=application_details, job_offer_details=job_offer_details, general_details=general_details)
+    return render_template("view_application.html", general_details=general_details)

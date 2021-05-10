@@ -1,17 +1,8 @@
 from flask import Flask, render_template, session, request, redirect, flash
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
-from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_offer_response
-from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_interview_stage
-from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_details_for_specific_application
-
-
-def cleanup_job_offer_details(job_offer_details):
-    starting_date = job_offer_details["starting_date"]
-    job_offer_details["starting_date"] = cleanup_date_format(starting_date)
-
-    company_name = job_offer_details["company_name"]
-    offer_response = job_offer_details["offer_response"]
-    job_offer_details["offer_response"] = cleanup_offer_response(offer_response, company_name)
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_specific_job_application
+from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_specific_job_offer
+from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_specific_company
 
 
 def display_job_offer(job_offer_id, jobOffersRepo, companyRepo, applicationsRepo):
@@ -27,13 +18,15 @@ def display_job_offer(job_offer_id, jobOffersRepo, companyRepo, applicationsRepo
         "offer_response": job_offer.offer_response, 
         "company_name": company.name
     }
-    cleanup_job_offer_details(job_offer_details)
+    cleanup_specific_job_offer(job_offer_details)
 
-    company_details = {
+    company_details = {}
+    company_details["fields"] = {
         "name": company.name, 
         "description": company.description, 
         "industry": company.industry, 
     }
+    cleanup_specific_company(company_details)
 
     application_details = {}
     application_details["fields"] = {
@@ -43,7 +36,7 @@ def display_job_offer(job_offer_id, jobOffersRepo, companyRepo, applicationsRepo
         "date": "N/A",
         "time": "N/A", 
     }
-    cleanup_details_for_specific_application(application_details)
+    cleanup_specific_job_application(application_details)
 
     links = {
         "update_offer": '/applications/{}/job_offers/{}/update_job_offer'.format(application.app_id, job_offer_id), 

@@ -518,7 +518,7 @@ Responsible for cleaning up all fields to related to the 'job_applications' SQL 
     -   Responsible for "cleaning up" how the 'interview_stage' value is presented
 -   cleanup_urls()
     -   Responsible for verifying a URL, provided by the user, to see if it's left blank or incomplete. If so, its value is replaced with 'None'. 
--   cleanup_details_for_specific_application()
+-   cleanup_specific_job_application()
     -   Responsible for "cleaning up" how the values for a specific 'job_application' entry is presented.
 -   cleanup_application_fields()
     -   Responsible for "cleaning up" how the values, for each entry in a SQL query, are presented. It's related specifically to the 'job_applications' table. 
@@ -526,8 +526,16 @@ Responsible for cleaning up all fields to related to the 'job_applications' SQL 
 ##### cleanup_app_note_fields.py
 Responsible for cleaning up all fields to related to the 'application_notes' SQL table. 
 
+###### Functions:
+-   cleanup_app_notes()
+    -   Responsible for cleaning up the presentation of a specific application note's 'date' value. 
+
+
 ##### cleanup_company_fields.py
 Responsible for cleaning up all fields to related to the 'company' SQL table.
+
+###### Functions:
+
 
 
 ##### cleanup_contact.py
@@ -535,10 +543,17 @@ Responsible for cleaning up all fields to related to the 'indiv_contacts' SQL ta
 
 
 ##### cleanup_datetime_display.py
-##### cleanup_general_fields.py
-##### cleanup_interview_fields.py
-##### cleanup_job_offer_fields.py
+Responsible for cleaning up all datetime, date & time type fields across all the files in the Service directory.
 
+##### cleanup_general_fields.py
+Responsible for cleaning up fields that are used by multiple different functions across the Service directory. 
+
+##### cleanup_interview_fields.py
+Responsible for cleaning up all fields to related to the 'interviews' SQL table.
+
+
+##### cleanup_job_offer_fields.py
+Responsible for cleaning up all fields to related to the 'job_offers' SQL table.
 
 #### company:
 

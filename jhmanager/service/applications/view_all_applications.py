@@ -22,15 +22,12 @@ def display_all_applications_current_user(session, user_id, applicationsRepo, co
             entry_id += 1
             app_id = application.app_id
             app_date = application.app_date
-            company_id = application.company_id
-
-            # # Now that we have the company_id, we can grab the company_name:
-            company_name = companyRepo.getCompanyById(company_id).name
+            company = companyRepo.getCompanyById(application.company_id)
 
             display_details["fields"][app_id] = {
                 "app_id": entry_id,
                 "app_date": application.app_date,
-                "company_name": company_name,
+                "company_name": company.name,
                 "job_role": application.job_role,
                 "interview_stage": application.interview_stage,                  
                 "salary": application.salary,       

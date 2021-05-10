@@ -22,7 +22,7 @@
         <div class="aligncenter"> 
             <div class="full-grid-length">
                 <div class="grid_child"> 
-                    <h2 class="heading-extra-margins"><i class="fas fa-users"></i> {{ general_details.company_details.name }}</h2> 
+                    <h2 class="heading-extra-margins"><i class="fas fa-users"></i> {{ general_details.company_details.fields.name }}</h2> 
                     <div class="form-row">
                         <label class="col left-padding"><i class="fas fa-calendar-alt"></i> Date & Time:</label>
                         <div class="col right-padding"> 
@@ -121,16 +121,16 @@
                             <strong> Job Role:</strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ general_details.application_details.job_role }}
+                            {{ general_details.application_details.fields.job_role }}
                         </div>
                     </div>
-                    {% if general_details.application_details.job_description %}
+                    {% if general_details.application_details.fields.job_description %}
                         <div class="form-row extra-margins">
                             <div class="col left-padding"> 
                                 <strong> Job Description:</strong>
                             </div>
                             <div class="col right-padding"> 
-                                {{ general_details.application_details.job_description }}
+                                {{ general_details.application_details.fields.job_description }}
                             </div>
                         </div>
                     {% endif %}
@@ -139,7 +139,7 @@
                             <strong> Interview Stage:</strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ general_details.application_details.interview_stage }}
+                            {{ general_details.application_details.fields.interview_stage }}
                         </div>
                     </div>
                     <div class="form-row extra-margins">
@@ -147,7 +147,7 @@
                             <strong> Employment Type:</strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ general_details.application_details.emp_type }}
+                            {{ general_details.application_details.fields.emp_type }}
                         </div>
                     </div>
                 </a>
@@ -158,36 +158,36 @@
                             <strong> Name:</strong>
                         </div>
                         <div class="col right-padding"> 
-                            {{ general_details.company_details.name }}
+                            {{ general_details.company_details.fields.name }}
                         </div>
                     </div>
-                    {% if general_details.company_details.description %}
+                    {% if general_details.company_details.fields.description %}
                         <div class="form-row extra-margins">
                             <div class="col left-padding"> 
                                 <strong> Description:</strong>
                             </div>
                             <div class="col right-padding"> 
-                                {{ general_details.company_details.description }}
+                                {{ general_details.company_details.fields.description }}
                             </div>
                         </div>
                     {% endif %}
-                    {% if general_details.company_details.location %}
+                    {% if general_details.company_details.fields.location %}
                         <div class="form-row extra-margins">
                             <div class="col left-padding"> 
                                 <strong> Location:</strong>
                             </div>
                             <div class="col right-padding"> 
-                                {{ general_details.company_details.location }}
+                                {{ general_details.company_details.fields.location }}
                             </div>
                         </div>
                     {% endif %}
-                    {% if general_details.company_details.industry %}
+                    {% if general_details.company_details.fields.industry %}
                         <div class="form-row">
                             <div class="col left-padding"> 
                                 <strong> Industry:</strong>
                             </div>
                             <div class="col right-padding"> 
-                                {{ general_details.company_details.industry }}
+                                {{ general_details.company_details.fields.industry }}
                             </div>
                         </div>
                     {% endif %}

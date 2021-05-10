@@ -108,7 +108,7 @@ from jhmanager.service.address_book.view_address_book import display_address_boo
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
 from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_offer_response
-from jhmanager.service.cleanup_files.cleanup_company_fields import prepare_company_website_url
+from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_company_website
 
 from jhmanager.service.contacts_directory.view_contact_list import display_contacts_for_user
 from jhmanager.service.contacts_directory.add_new_contact import display_add_new_contact_form

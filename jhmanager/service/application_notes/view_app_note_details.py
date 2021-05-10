@@ -1,5 +1,6 @@
 from flask import Flask, render_template, session, request, redirect
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
+from jhmanager.service.cleanup_files.cleanup_general_fields import cleanup_field_value
 from datetime import datetime, time
 
 
@@ -27,8 +28,8 @@ def display_application_note_details(application_id, app_notes_id, appNotesRepo,
     general_details["note_details"] = {
         "note_id": app_notes.app_notes_id,
         "date": cleanup_date_format(note_date_obj),
-        "company_name": company.name,
-        "subject": app_notes.description, 
+        "company_name": cleanup_field_value(company.name),
+        "subject": cleanup_field_value(app_notes.description), 
         "note": app_notes.notes_text, 
     }
 

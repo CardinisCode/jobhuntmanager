@@ -1,5 +1,6 @@
 from flask import Flask, render_template, session, request, redirect, flash
 from jhmanager.service.cleanup_files.cleanup_contact_fields import cleanup_each_contact_entry
+from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_company_fields
 
 
 def display_address_book(user_id, companyRepo, contactRepo):
@@ -22,6 +23,8 @@ def display_address_book(user_id, companyRepo, contactRepo):
                 "location": company.location,
                 "view_company": view_company
             }
+            cleanup_company_fields(company_contacts, company_id)
+
 
     contacts_list = contactRepo.getTop8ContactsByUserID(user_id)
     indiv_contacts = {

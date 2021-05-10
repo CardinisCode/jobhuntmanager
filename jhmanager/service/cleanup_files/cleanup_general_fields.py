@@ -18,3 +18,9 @@ def get_count(sql_query):
         count += 1
 
     return count
+
+
+def cleanup_field_value(field_value):
+    if field_value:
+        field_value = (" ".join([x.capitalize() for x in field_value.split(' ')]))
+    return field_value

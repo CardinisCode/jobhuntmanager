@@ -2,6 +2,7 @@ from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime, time
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
+from jhmanager.service.cleanup_files.cleanup_general_fields import cleanup_field_value
 
 
 def cleanup_emp_type_field(emp_type):
@@ -40,26 +41,23 @@ def cleanup_urls(url):
     return url
 
 
-def cleanup_details_for_specific_application(application_details):
-    for heading, value in application_details["fields"].items():
+def cleanup_specific_job_application(application):
+    for heading, value in application["fields"].items():
         if value == "N/A":
-            application_details["fields"][heading] = None
-
-    interview_stage = application_details["fields"]["interview_stage"]
-    application_details["fields"]["interview_stage"] = cleanup_interview_stage(interview_stage)
-
-    time_posted = application_details["fields"]["time"]
-    if time_posted:
-        time_obj = datetime.strptime(time_posted, '%H:%M')
-        application_details["fields"]["time"] = cleanup_time_format(time_obj)
-
-    date_posted = application_details["fields"]["date"]
-    if date_posted: 
-        date_obj = datetime.strptime(date_posted, "%Y-%m-%d")
-        application_details["fields"]["date"] = cleanup_date_format(date_obj)
-
-    emp_type = application_details["fields"]["emp_type"]
-    application_details["fields"]["emp_type"] = cleanup_emp_type_field(emp_type)
+            application["fields"][heading] = None
+        elif heading == "interview_stage":
+            application["fields"][heading] = cleanup_interview_stage(value)
+        elif heading == "emp_type":
+            application["fields"][heading] = cleanup_emp_type_field(value)
+        elif heading == "time":
+            time_obj = datetime.strptime(value, '%H:%M')
+            application["fields"]["time"] = cleanup_time_format(time_obj)
+        elif heading == "date":
+            date_obj = datetime.strptime(value, "%Y-%m-%d")
+            application["fields"]["date"] = cleanup_date_format(date_obj)
+        
+        else:
+            application["fields"][heading] = cleanup_field_value(value)
 
 
 def cleanup_application_fields(application_details, app_id):

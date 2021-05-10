@@ -21,84 +21,84 @@
         <div class="aligncenter"> 
             <div class="full-grid-length">
                 <div class="grid_child"> 
-                    <h2 class="heading-extra-margins"><i class="fas fa-users"></i> {{ general_details.company_details.company_name}}</h2>
+                    <h2 class="heading-extra-margins"><i class="fas fa-users"></i> {{ general_details.company_details.fields.name}}</h2>
                     <div class="form-row">
                         <label class="col left-padding"><i class="fas fa-calendar-alt"></i> Date Of Application:</label>
                         <div class="col right-padding"> 
-                            {{ application_details.fields.date }} @ {{ application_details.fields.time }}
+                            {{ general_details.application_details.fields.date }} @ {{ general_details.application_details.fields.time }}
                         </div>
                     </div>
-                    {% if application_details.fields.job_ref %}    
+                    {% if general_details.application_details.fields.job_ref %}    
                         <div class="form-row"> 
                             <label class="col left-padding"><i class="fas fa-hashtag"></i> Job Reference:</label>
                             <div class="col right-padding"> 
-                                {{ application_details.fields.job_ref }}
+                                {{ general_details.application_details.fields.job_ref }}
                             </div>
                         </div>
                     {% endif %}
                     <div class="form-row"> 
                         <label class="col left-padding"><i class="fas fa-pencil-ruler"></i> Job Role:</label>
                         <div class="col right-padding"> 
-                            {{ application_details.fields.job_role }}
+                            {{ general_details.application_details.fields.job_role }}
                         </div>
                     </div>
-                    {% if application_details.fields.job_description %}
+                    {% if general_details.application_details.fields.job_description %}
                         <div class="form-row"> 
                             <label class="col left-padding"><i class="fas fa-bars"></i> Job Description:</label>
                             <div class="col right-padding"> 
-                                {{ application_details.fields.job_description }}
+                                {{ general_details.application_details.fields.job_description }}
                             </div>
                         </div>
                     {% endif %}
-                    {% if application_details.fields.technology_stack %}
+                    {% if general_details.application_details.fields.technology_stack %}
                         <div class="form-row"> 
                             <label class="col left-padding"><i class="fas fa-bars"></i> Tech Stack:</label>
                             <div class="col right-padding"> 
-                                {{ application_details.fields.technology_stack }}
+                                {{ general_details.application_details.fields.technology_stack }}
                             </div>
                         </div>
                     {% endif %}
                     <div class="form-row"> 
                         <label class="col left-padding"><i class="fas fa-pencil-ruler"></i> Contract Type:</label>
                         <div class="col right-padding"> 
-                            {{ application_details.fields.emp_type }}
+                            {{ general_details.application_details.fields.emp_type }}
                         </div>
                     </div>
-                    {% if application_details.fields.salary %}
+                    {% if general_details.application_details.fields.salary %}
                         <div class="form-row"> 
                             <label class="col left-padding"><i class="fas fa-hand-holding-usd"></i> Salary:</label>
                             <div class="col right-padding"> 
-                                {{ application_details.fields.salary }}
+                                {{ general_details.application_details.fields.salary }}
                             </div>
                         </div>
                     {% endif %}
-                    {% if application_details.fields.perks %}
+                    {% if general_details.application_details.fields.perks %}
                         <div class="form-row"> 
                             <label class="col left-padding"><i class="fas fa-bars"></i> Perks Offered:</label>
                             <div class="col right-padding"> 
-                                {{ application_details.fields.perks }}
+                                {{ general_details.application_details.fields.perks }}
                             </div>
                         </div>
                     {% endif %}
-                    {% if application_details.fields.platform %}
+                    {% if general_details.application_details.fields.platform %}
                         <div class="form-row"> 
                             <label class="col left-padding"><i class="fas fa-newspaper"></i> Job Board / Platform:</label>
                             <div class="col right-padding"> 
-                                {{ application_details.fields.platform }}
+                                {{ general_details.application_details.fields.platform }}
                             </div>
                         </div>
                     {% endif %}
                     <div class="form-row"> 
                         <label class="col left-padding"> Interview Stage:</label>
                         <div class="col right-padding"> 
-                            {{ application_details.fields.interview_stage }}
+                            {{ general_details.application_details.fields.interview_stage }}
                         </div>
                     </div>
-                    {% if application_details.fields.contact_received %}
+                    {% if general_details.application_details.fields.contact_received %}
                         <div class="form-row"> 
                             <label class="col left-padding"><i class="fas fa-mobile-alt"></i> Contact Received?</label>
                             <div class="col right-padding"> 
-                                {{ application_details.fields.contact_received }}
+                                {{ general_details.application_details.fields.contact_received }}
                             </div>
                         </div>
                     {% endif %}
@@ -118,18 +118,12 @@
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
             <h3 class="heading"> Job Offers</h3>
-            {% if not job_offer_details.empty_table %}
-                {% if job_offer_details.count == 1 %}
+            {% if not general_details.job_offer_details.empty_table %}
+                {% if general_details.job_offer_details.count == 1 %}
                     <div class="single_col_grid">
-                        {% for job_offer_id, job_offer in job_offer_details.fields.items() %}
+                        {% for job_offer_id, job_offer in general_details.job_offer_details.fields.items() %}
                             <a href={{ job_offer.view_url }} class="link-cards-alt-colour">
                                 <i class="fas fa-hand-pointer"></i><h3 class="text-center"> {{ job_offer.job_role }}</h3>
-                                <div class="form-row extra-margins">
-                                    <label class="col left-padding"><i class="fas fa-pencil-ruler"></i> Job Role:</label>
-                                    <div class="col right-padding"> 
-                                        {{ job_offer.job_role }}
-                                    </div>
-                                </div>
                                 {% if job_offer.offer_accepted %}
                                     <div class="form-row extra-margins">
                                         <label class="col left-padding"><i class="fas fa-calendar-alt"></i> Starting Date:</label>
@@ -172,7 +166,7 @@
                     </div>
                 {% else %}
                     <div class="grid_experiement">
-                        {% for job_offer_id, job_offer in job_offer_details.fields.items() %}
+                        {% for job_offer_id, job_offer in general_details.job_offer_details.fields.items() %}
                             <a href={{ job_offer.view_url }} class="link-cards-alt-colour">
                                 <i class="fas fa-hand-pointer"></i><h3 class="text-center"> {{ job_offer.job_role }}</h3>
                                 <div class="form-row extra-margins">

@@ -87,38 +87,68 @@ def cleanup_interview_fields(interview_fields, interview_id):
     interview_fields["fields"][interview_id]["interview_medium"] = cleanup_medium(medium, other_medium)
 
 
-def cleanup_fields_for_single_interview(interview_details, other_medium):
-    # random_list = []
+def cleanup_specific_interview(interview_details, other_medium):
     for heading, value in interview_details["fields"].items():
         if value == "N/A":
             interview_details["fields"][heading] = None
+        elif heading == "status":
+            interview_details["fields"][heading] = cleanup_interview_status(value)
+        elif heading == "medium":
+            interview_details["fields"][heading] = cleanup_medium(value, other_medium)
+        elif heading == "interview_type":
+            interview_details["fields"][heading] = cleanup_interview_type(value)
+        elif heading == "time":
+            interview_details["fields"][heading] = cleanup_time_format(value)
+        elif heading == "date":
+            interview_details["fields"][heading] = cleanup_date_format(value)
+        elif heading == "contact_number" or heading == "video_link":
+            if not value:
+                interview_details["fields"][heading] = "Not Provided"
+        else:
+            interview_details["fields"][heading] = cleanup_field_value(value)
 
-    # I want to clean up a few fields to improve how they're displayed:
-    interview_type = interview_details["fields"]["interview_type"]
-    interview_medium = interview_details["fields"]["medium"]
     interview_date = interview_details["fields"]["date"]
     interview_time = interview_details["fields"]["time"]
-    contact_number = interview_details["fields"]["contact_number"]
-    video_link = interview_details["fields"]["video_link"]
-    display_video_link = interview_details["fields"]["display_video_link"]
-    interview_details["fields"]["status"] = cleanup_interview_status(interview_details["fields"]["status"])
-
-    interview_details["fields"]["medium"] = cleanup_medium(interview_medium, other_medium)
-    interview_details["fields"]["interview_type"] = cleanup_interview_type(interview_type)
-
     interview_details["fields"]["past_dated"] = past_dated(interview_date, interview_time)
-    interview_details["fields"]["time"] = cleanup_time_format(interview_time)
-    interview_details["fields"]["date"] = cleanup_date_format(interview_date)
-
-    if not contact_number:
-        interview_details["fields"]["contact_number"] = "Not Provided"
-
-    if not video_link:
-        interview_details["fields"]["video_link"] = "Not Provided"
-
     if not interview_details["fields"]["past_dated"] and interview_details["fields"]["interview_type"] == 'Video / Online': 
         # Now we can check if the interview matches the current date and the user actually provided a video link:
         if check_interview_is_today(interview_date) and interview_details["fields"]["video_link"]: 
             # The interview is today, so we can display the link to the user:
             interview_details["fields"]["display_video_link"] = True
+
+
+# def cleanup_fields_for_single_interview(interview_details, other_medium):
+#     # random_list = []
+#     for heading, value in interview_details["fields"].items():
+#         if value == "N/A":
+#             interview_details["fields"][heading] = None
+
+#     # I want to clean up a few fields to improve how they're displayed:
+#     interview_type = interview_details["fields"]["interview_type"]
+#     interview_medium = interview_details["fields"]["medium"]
+#     interview_date = interview_details["fields"]["date"]
+#     interview_time = interview_details["fields"]["time"]
+#     contact_number = interview_details["fields"]["contact_number"]
+#     video_link = interview_details["fields"]["video_link"]
+#     display_video_link = interview_details["fields"]["display_video_link"]
+#     interview_details["fields"]["status"] = cleanup_interview_status(interview_details["fields"]["status"])
+
+#     interview_details["fields"]["medium"] = cleanup_medium(interview_medium, other_medium)
+#     interview_details["fields"]["interview_type"] = cleanup_interview_type(interview_type)
+
+#     interview_details["fields"]["past_dated"] = past_dated(interview_date, interview_time)
+#     interview_details["fields"]["time"] = cleanup_time_format(interview_time)
+#     interview_details["fields"]["date"] = cleanup_date_format(interview_date)
+
+#     if not contact_number:
+#         interview_details["fields"]["contact_number"] = "Not Provided"
+
+#     if not video_link:
+#         interview_details["fields"]["video_link"] = "Not Provided"
+
+#     if not interview_details["fields"]["past_dated"] and interview_details["fields"]["interview_type"] == 'Video / Online': 
+#         # Now we can check if the interview matches the current date and the user actually provided a video link:
+#         if check_interview_is_today(interview_date) and interview_details["fields"]["video_link"]: 
+#             # The interview is today, so we can display the link to the user:
+#             interview_details["fields"]["display_video_link"] = True
 
