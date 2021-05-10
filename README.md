@@ -508,12 +508,9 @@ In this file we find the functionality to clean up values in the various functio
 EG: random_value => Random Value. 
 
 The files in this directory:
-##### cleanup_addressbook_values.py
-###### Functions 
--   cleanup_contact_fields()
-    -   Responsible for "cleaning" contact-related fields.
-
 ##### cleanup_app_fields.py
+Responsible for cleaning up all fields to related to the 'job_applications' SQL table. 
+
 ###### Functions:
 -   cleanup_emp_type_field()
     -   Responsible for "cleaning up" how the 'employment_type' value is presented
@@ -522,15 +519,25 @@ The files in this directory:
 -   cleanup_urls()
     -   Responsible for verifying a URL, provided by the user, to see if it's left blank or incomplete. If so, its value is replaced with 'None'. 
 -   cleanup_details_for_specific_application()
+    -   Responsible for "cleaning up" how the values for a specific 'job_application' entry is presented.
 -   cleanup_application_fields()
+    -   Responsible for "cleaning up" how the values, for each entry in a SQL query, are presented. It's related specifically to the 'job_applications' table. 
+
+##### cleanup_app_note_fields.py
+Responsible for cleaning up all fields to related to the 'application_notes' SQL table. 
 
 ##### cleanup_company_fields.py
+Responsible for cleaning up all fields to related to the 'company' SQL table.
+
+
 ##### cleanup_contact.py
+Responsible for cleaning up all fields to related to the 'indiv_contacts' SQL table.
+
+
 ##### cleanup_datetime_display.py
 ##### cleanup_general_fields.py
 ##### cleanup_interview_fields.py
 ##### cleanup_job_offer_fields.py
-
 
 
 #### company:
