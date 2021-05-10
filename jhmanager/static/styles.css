@@ -314,6 +314,12 @@ textarea {
   display: grid;
 }
 
+.grid-child-transparent {
+  background: transparent;
+  padding: 12px 5px;
+  display: grid;
+}
+
 .form-grid_child{
   border: 1px solid #dee2e6!important;
   background: rgba(175, 238, 238, 0.2);
@@ -618,6 +624,18 @@ hr.thick_border {
   background: white;
 }
 
+.interview-link-cards {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 16px 12px;
+  text-decoration: none;
+  line-height: 1;
+  opacity: 1;
+  color: black;
+  background: white;
+}
+
 .thin-link-cards {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -640,7 +658,7 @@ hr.thick_border {
   font-size: 1rem !important;
 }
 
-.link_button:hover, .link-cards:hover, .link-cards-alt-colour:hover, .thin-link-cards:hover, .list-group-item-styling:hover {
+.link_button:hover, .link-cards:hover, .link-cards-alt-colour:hover, .thin-link-cards:hover, .list-group-item-styling:hover, .interview-link-cards:hover {
   color: white;
   background: linear-gradient(45deg, purple, indigo);
   text-decoration: none;

@@ -495,10 +495,43 @@ In this file we find the functionality to:
 
 Functions:
 -   grab_and_display_job_offers()
+        Extracts the job offer entries from the 'job_offers' SQL table & adds the information to a dictionary
+-   grab_and_display_interviews()
+        Extracts the interview entries from the 'interviews' SQL table & adds the information to a dictionary
 -   display_application_details()
+    -   Extracts the job application entries from the 'job_applications' SQL table & adds the information to a dictionary
+    -   Renders the "view_application.html" template, with the above 3 dictionaries. 
 
 
 #### cleanup_files:
+In this file we find the functionality to clean up values in the various functions in the 'service' directory. So once a value has been extracted from the relevant SQL table, it will be "cleaned" to ensure it looks both presentable and just more like every day language. 
+EG: random_value => Random Value. 
+
+The files in this directory:
+##### cleanup_addressbook_values.py
+###### Functions 
+-   cleanup_contact_fields()
+    -   Responsible for "cleaning" contact-related fields.
+
+##### cleanup_app_fields.py
+###### Functions:
+-   cleanup_emp_type_field()
+    -   Responsible for "cleaning up" how the 'employment_type' value is presented
+-   cleanup_interview_stage()
+    -   Responsible for "cleaning up" how the 'interview_stage' value is presented
+-   cleanup_urls()
+    -   Responsible for verifying a URL, provided by the user, to see if it's left blank or incomplete. If so, its value is replaced with 'None'. 
+-   cleanup_details_for_specific_application()
+-   cleanup_application_fields()
+
+##### cleanup_company_fields.py
+##### cleanup_contact.py
+##### cleanup_datetime_display.py
+##### cleanup_general_fields.py
+##### cleanup_interview_fields.py
+##### cleanup_job_offer_fields.py
+
+
 
 #### company:
 

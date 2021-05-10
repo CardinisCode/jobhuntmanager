@@ -40,17 +40,6 @@ def cleanup_urls(url):
     return url
 
 
-def get_application_count(applications):
-    count = 0
-    if not applications:
-        return count
-
-    for application in applications:
-        count += 1
-
-    return count
-
-
 def cleanup_details_for_specific_application(application_details):
     for heading, value in application_details["fields"].items():
         if value == "N/A":

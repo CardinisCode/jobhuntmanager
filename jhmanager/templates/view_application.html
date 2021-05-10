@@ -227,21 +227,13 @@
         <div class="aligncenter"> 
             <h3 class="heading"> Interviews</h3>
             {% if not general_details.interview_details.empty_fields %}
-                {% if interview_fields.interviews_count == 1 %}
+                {% if general_details.interview_details.interviews_count == 1 %}
                     <div class="single_col_grid"> 
-                        {% for interview_id, interview in interview_fields.fields.items() %}
+                        {% for interview_id, interview in general_details.interview_details.fields.items() %}
                             <a href={{ interview.view_more }} class="link-cards">
-                                <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> #{{ interview.number }}</h3>
-                                <div class="grid_child-alt-colour"> 
-                                    <div class="form-row">
-                                        <div class="col left-padding"> 
-                                            <i class="fas fa-calendar-alt"></i><strong> Date & Time</strong>
-                                        </div>
-                                        <div class="col right-padding"> 
-                                            {{ interview.date }} @ {{ interview.time }}
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
+                                <div class="grid-child-transparent"> 
+                                    <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> {{ interview.date }} @ {{ interview.time }}</h3>
+                                    <div class="form-row extra-margins">
                                         <div class="col left-padding"> 
                                             <strong> Interview Status</strong>
                                         </div>
@@ -249,8 +241,26 @@
                                             {{ interview.status }}
                                         </div>
                                     </div>
+                                    <div class="form-row extra-margins">
+                                        {% if interview.interview_type == "Video / Online" %}
+                                            <label class="col left-padding"> Medium: </label>
+                                            <div class="col right-padding"> 
+                                                {{ interview.interview_medium }}
+                                            </div>
+                                        {% elif interview.interview_type == "In Person / On Site" %}
+                                            <label class="col left-padding"> Location: </label>
+                                            <div class="col right-padding"> 
+                                                {{ interview.location }}
+                                            </div>
+                                        {% else %}
+                                            <label class="col left-padding"> Contact Number: </label>
+                                            <div class="col right-padding"> 
+                                                {{ interview.contact_number }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
                                     {% if interview.past_dated and interview.status != "Interview Done" %}
-                                        <div class="form-row">
+                                        <div class="form-row extra-margins">
                                             <div class="col card-warning-message"> 
                                                 <i class="fas fa-exclamation"></i> This is a past-dated interview!
                                             </div>
@@ -262,7 +272,7 @@
                     </div>
                 {% else %}
                     <div class="three-col-grid extra-margins"> 
-                        {% for interview_id, interview in interview_fields.fields.items() %}
+                        {% for interview_id, interview in general_details.interview_details.fields.items() %}
                             <a href={{ interview.view_more }} class="link-cards">
                                 <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> #{{ interview.number }}</h3>
                                 <div class="form-row extra-margins">

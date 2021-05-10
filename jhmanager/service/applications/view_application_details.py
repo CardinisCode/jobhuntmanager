@@ -50,6 +50,49 @@ def grab_and_display_job_offers(application_id, user_id, company, jobOffersRepo)
     return job_offers_details
 
 
+def grab_and_display_interviews(interviewsRepo, application_id, general_details):
+    all_interviews_for_app_id = interviewsRepo.getTop6InterviewsByApplicationID(application_id)
+    
+    # Lets build the interview dict to be displayed to the user.
+    general_details["interview_details"] = {
+        "empty_fields" : True,
+        "interviews_count": 0,
+        "fields": None
+    }
+    
+    # In the case that there are actually interviews for this application, 
+    # we want to grab those details & update the "fields" value to contain these values.
+    # These values will be displayed to the user, in a table format. 
+    interview_fields = None
+    count = 0
+
+    if all_interviews_for_app_id:
+        general_details["interview_details"]["empty_fields"] = False 
+        interview_fields = {}
+        interview_fields["fields"] = {}
+
+        for interview in all_interviews_for_app_id:
+            count += 1
+            interview_id = interview.interview_id
+            interview_fields["fields"][interview_id] = {
+                "number": count, 
+                "date": interview.interview_date, 
+                "time": interview.interview_time,
+                "interview_type": interview.interview_type, 
+                "interview_medium": interview.medium, 
+                "other_medium": interview.other_medium,
+                "contact_number": interview.contact_number,
+                "status": interview.status,
+                "location": interview.location,
+                "past_dated": False,
+                "view_more": "/applications/{}/interview/{}".format(application_id, interview_id),
+            }
+            cleanup_interview_fields(interview_fields, interview_id)
+
+        general_details["interview_details"]["fields"] = interview_fields["fields"]   
+        general_details["interview_details"]["interviews_count"] = count
+
+
 def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo, jobOffersRepo):
     application = applicationsRepo.grabApplicationByID(application_id)
     app_date = application.app_date
@@ -90,43 +133,8 @@ def display_application_details(session, user_id, applicationsRepo, application_
     }
 
     # Now I want to display all the interviews for this application_id:
-    all_interviews_for_app_id = interviewsRepo.getTop6InterviewsByApplicationID(application_id)
-
-    # Lets build the interview dict to be displayed to the user.
-    general_details["interview_details"] = {
-        "empty_fields" : True,
-        "interviews_count": 0
-    }
+    grab_and_display_interviews(interviewsRepo, application_id, general_details)
     
-    # In the case that there are actually interviews for this application, 
-    # we want to grab those details & update the "fields" value to contain these values.
-    # These values will be displayed to the user, in a table format. 
-    interview_fields = None
-    count = 0
-
-    if all_interviews_for_app_id != None:
-        general_details["interview_details"]["empty_fields"] = False 
-        interview_fields = {}
-        interview_fields["fields"] = {}
-
-        for interview in all_interviews_for_app_id:
-            count += 1
-            interview_id = interview.interview_id
-            interview_fields["fields"][interview_id] = {
-                "number": count, 
-                "date": interview.interview_date, 
-                "time": interview.interview_time,
-                "interview_type": interview.interview_type, 
-                "interview_medium": interview.medium, 
-                "other_medium": interview.other_medium,
-                "contact_number": interview.contact_number,
-                "status": interview.status,
-                "location": interview.location,
-                "past_dated": False,
-                "view_more": "/applications/{}/interview/{}".format(application_id, interview_id),
-            }
-            cleanup_interview_fields(interview_fields, interview_id)
-
     general_details["links"] = {
         "update_application": '/applications/{}/update_application'.format(application_id), 
         "delete_application": '/applications/{}/delete'.format(application_id), 
@@ -141,7 +149,6 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "add_job_offer": '/applications/{}/add_job_offer'.format(application_id), 
     }
 
-    general_details["interview_details"]["interviews_count"] = count
     job_offer_details = grab_and_display_job_offers(application_id, user_id, company, jobOffersRepo) 
 
-    return render_template("view_application.html", application_details=application_details, interview_fields=interview_fields, job_offer_details=job_offer_details, general_details=general_details)
+    return render_template("view_application.html", application_details=application_details, job_offer_details=job_offer_details, general_details=general_details)

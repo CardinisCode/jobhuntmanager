@@ -18,7 +18,7 @@ def display_delete_company_form(company_id, delete_company_form, companyRepo):
     return render_template("delete_company_profile.html", display=display, delete_company_form=delete_company_form)
 
 
-def delete_company_from_db(company_id, delete_company_form, companyRepo, companyNotesRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, companyNotesRepo, jobOffersRepo):
+def delete_company_from_db(company_id, delete_company_form, companyRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, companyNotesRepo, jobOffersRepo):
     # Let's review the user's selection:
     customer_choice = delete_company_form.confirm_choice.data
     if customer_choice == 1:

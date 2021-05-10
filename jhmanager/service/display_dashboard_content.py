@@ -10,6 +10,7 @@ from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_int
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_type
 from jhmanager.service.cleanup_files.cleanup_interview_fields import check_interview_is_today
 from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_application_fields
+from jhmanager.service.cleanup_files.cleanup_general_fields import get_count
 
 
 def get_users_stats(user_id, interviewsRepo, applicationsRepo, companyRepo, jobOffersRepo):
@@ -28,29 +29,17 @@ def get_users_stats(user_id, interviewsRepo, applicationsRepo, companyRepo, jobO
         users_stats["all_tables_empty"] = True
         return users_stats
 
-    if applications: 
-        app_count = 0
-        for application in applications:
-            app_count += 1
-        
-        if app_count >= 1:
-            users_stats["application_count"] = app_count
+    app_count = get_count(applications)
+    if app_count >= 1:
+        users_stats["application_count"] = app_count
 
-    if interviews: 
-        interview_count = 0
-        for interview in interviews:
-            interview_count += 1
+    interview_count = get_count(interviews)
+    if interview_count >= 1:
+        users_stats["interviews_count"] = interview_count
 
-        if interview_count >= 1:
-            users_stats["interviews_count"] = interview_count
-
-    if job_offers: 
-        offer_count = 0
-        for job_offer in job_offers:
-            offer_count += 1
-        
-        if offer_count >= 1:
-            users_stats["job_offers_count"] = offer_count
+    job_offers_count = get_count(job_offers)
+    if job_offers_count >= 1:
+        users_stats["job_offers_count"] = job_offers_count
 
     return users_stats
     

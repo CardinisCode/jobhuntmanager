@@ -7,3 +7,14 @@ def replace_na_value_with_none(value):
 
     else:
         return value.capitalize()
+
+
+def get_count(sql_query):
+    count = 0
+    if not sql_query:
+        return count
+
+    for entry in sql_query:
+        count += 1
+
+    return count
