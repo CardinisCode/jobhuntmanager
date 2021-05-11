@@ -32,17 +32,15 @@ def cleanup_company_profile(company_details):
         
         for label, value in fields.items():
             if value == "N/A" or value == "Unknown at present" or value == "":
-                company_details[heading][value] = None
+                company_details[heading][label] = None
             else:
-                company_details[heading][data] = cleanup_field_value(value)
+                company_details[heading][label] = cleanup_field_value(value)
 
 
 # Clean up the values for a specific company:
 def cleanup_specific_company(company_details):
     for heading, value in company_details["fields"].items():
-        if heading == "company_name":
-            continue 
-        elif value == "N/A" or value == "Unknown at present" or value == "":
+        if value == "N/A" or value == "Unknown at present" or value == "":
             company_details["fields"][heading] = None
         else:
             company_details["fields"][heading] = cleanup_field_value(value) 

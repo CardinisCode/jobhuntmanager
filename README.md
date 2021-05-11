@@ -530,12 +530,30 @@ Responsible for cleaning up all fields to related to the 'application_notes' SQL
 -   cleanup_app_notes()
     -   Responsible for cleaning up the presentation of a specific application note's 'date' value. 
 
-
 ##### cleanup_company_fields.py
 Responsible for cleaning up all fields to related to the 'company' SQL table.
 
 ###### Functions:
+-   cleanup_company_website()
+    -   Takes a company URL that the user has provided and checks to see if its blank (which saves as "N/A") or incomplete ("Http://" or "https://"). If the value is classified as invalid, the function returns None. 
 
+-   check_if_all_company_fields_empty()
+    -   Runs through the field values stored for a company, and if all the values are empty (saved as "N/A"), then the function returns True.
+    -   I created this function for the 'cleanup_company_profile()' function, which is in turn called on by the 'display_company_profile()' function in services/company/view_company_profile.py
+
+-   cleanup_company_profile()
+    -   This functions cleans the field values stored for a company, to improve how these values are presented to the user. If a field value is stored as "N/A", "Unknown at present" or if its entirely empty (""), then it's value is replaced with "None". 
+    -   This allows me to only present information that that the user would actually want to see. If a field was left blank, then there's no point in displaying "N/A" or "" to the user.
+    -   This function is used exclusively by the 'display_company_profile()' function in services/company/view_company_profile.py 
+
+-   cleanup_specific_company()
+    -   This function runs through all the field values for a specific company entry. For each entry, it checks if the field value is "N/A", "Unknown at present" or simply blank. 
+        -   If so, it replaces those values with "None".
+        -   Otherwise it "cleans" the value using the 'cleanup_field_value()' functionality. 
+
+-   cleanup_company_fields()
+    -   This works pretty much in the same way as cleanup_specific_company() except it's specifically used when iterating through several company entries. The dictionary format it receives will therefore have  a slightly different structure and use a "company_id" key to distinguish one company entry from the other entries in the dictionary. 
+    -   This function also cleans a company's "view_company" field value (company website URL). 
 
 
 ##### cleanup_contact.py
