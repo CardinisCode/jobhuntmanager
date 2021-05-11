@@ -669,7 +669,95 @@ Responsible for cleaning up all fields to related to the 'interviews' SQL table.
 Responsible for cleaning up all fields to related to the 'job_offers' SQL table.
 
 #### company:
-Responsible for cleaning up all fields to related to the 'company' SQL table.
+Responsible for cleaning up all fields to related to the 'company' SQL table. 
+
+The files in this directory:
+##### add_company.py
+Handles the functionality behind adding a company contact, and handles everything from presenting the form to processing the information that the user provides & storing that data as a single entry in the 'company' SQL table. 
+
+###### Functions:
+-   display_add_company_form()
+    -   This function takes a blank instance of the 'add_company_form'. 
+    -   It stores some data that is presented to the user, including the URL that gets actioned to present the form to the user in the form of a dictionary. 
+    -   It renders the form to the template "add_company_form.html" together with the content from the dictionary.
+
+-   post_add_company()
+    -   Extracts the information received in each field of the 'add_company_form'.
+    -   It checks the company name the user provides & runs a check against the current entries in the 'company' SQL table.
+        -   If it finds another entry that's very similar, it redirects the user back to the form, with the flashed message notifying the user that they've already saved a company with a similar name.
+    -   Otherwise, it grabs all the values provided for this specific company & stores it in a dictionary before inserting the entry into the SQL database before returning the unique ID for the newly-created entry.
+        -> This calls on the 'createCompany' method within the 'companyRepo' & connects to the 'company' table. 
+    -   Finally the user is redirectly to the route: '/company/{}/view_company', which renders to the 'view_company_profile.html' template. 
+
+##### add_company_job_application.py
+Handles the functionality behind adding a job application for a specific company. This covers everything from presenting the form to processing the information that the user provides & storing that data as a single entry in the 'job_applications' SQL table. 
+
+###### Functions:
+-   display_add_company_application_form()
+    -   Takes a few arguments: 
+        -   'add_application_form', which is a blank instance of the 'AddCompanyJobApplicationForm()' Form. 
+        -   company_id
+            ->  The unique ID for a specific company. 
+        -   companyRepo 
+    -   It puts together a dictionary consisting of the company name for a specific company (to which this application entry will link to) & the URL to be actioned (the very same route used display a job application form to the user). 
+    -   It renders the template 'add_company_job_application.html' with the details from the 'add_application_form' form & the dictionary. 
+
+-   add_new_application_to_application_history()
+    -   Deals specifically with:
+        -   Extracting data (input from the user) from the form
+        -   Converting the interview 'date' and 'time' values to the 'str' data-type
+        -   Storing all the required data into a single dictionary
+        -   Checking all the 'job_application' attributes / keys for blank values & replacing these values with "N/A". 
+            ->  This is because most of the columns in the 'job_applications' table do not accept 'NULL' (blank) values.
+        -   Inserting these values into the 'job_applications' SQL table & returning the unique ID for the newly-created entry. 
+
+-   post_add_company_job_application()
+    -   Calls on the 'add_new_application_to_application_history()' function & redirects the user to the 'view_application.html' template for the newly created job application entry. 
+
+
+##### update_company.py
+Handles the functionality behind updating an existing company. This covers everything from displaying the form (to the user) to updating the values for this company in the 'company' SQL table.
+
+###### Functions:
+-   display_update_company_profile_form()
+    -   Takes (as one of its arguemnts):  a blank instance of the 'UpdateCompany' Form.  
+    -   Grabs the company name for a specific company & the action URL for this company (it's routing location) & stores it in a 'details' dictionary. 
+    -   Renders the template "update_company_profile.html" with the 'UpdateCompany' Form and the values in the 'details' dictionary. 
+
+-   post_update_company_profile()
+    -   Grabs all the values from the 'UpdateCompany' Form, submitted by the user, & stores these values in a dictionary
+    -   Calls on the 'updateByID' method, in the companyRepo, to update this entry in the 'company' SQL table. 
+    -   Redirects the user back to the 'view_company_profile.html' template for this specific company. 
+
+##### delete_company.py
+Handles the functionality behind deleting a specific 'company'. 
+
+###### Functions:
+-   display_delete_company_form()
+    -   Handles the functionality behind presenting a form to the user, asking them to confirm if they want to proceed with deleting a specific company. 
+    -   Includes a dictionary with: 
+        -   The company name
+            ->  for the company the user wants to delete)
+        -   The action_url 
+            ->  the route which connects this form with the POST functionality for this delete request. 
+    -   includes a list of choices the user will have to choose from on the form. These choices are then dynamically updated as the values for the 'confirm_choice' field which will be displayed on the form. 
+        ->  This functionality allowed me to play around with the idea of providing a form dynamic values, which are added to a specific instantiation of a form. 
+    -   Renders the 'delete_company_form' to the "delete_company_profile.html" template, together with the values from the dictionary. 
+
+-   delete_company_from_db()
+    -   Verifies which option the user selected from the 'confirm_choice' field. 
+        -   If the user selects option 1:   
+            -   The company entry remains untouched. 
+
+        -   If the user selects option 0:
+            -   The company entry is deleted from the 'company' SQL table, 
+            -   All entries from all the other SQL tables, which  are linked to this company entry (identified by its unique company_id), are also deleted.
+
+    -   The user is redirected back to the 'view_addressbook.html' template   
+
+
+##### view_all_companies.py
+##### view_company_profile.py
 
 
 #### company_notes:
