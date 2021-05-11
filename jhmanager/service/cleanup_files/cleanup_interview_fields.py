@@ -1,7 +1,9 @@
 from flask import Flask, render_template, session, request, redirect, flash
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
+from jhmanager.service.cleanup_files.cleanup_datetime_display import present_dated
 from jhmanager.service.cleanup_files.cleanup_datetime_display import past_dated
+from jhmanager.service.cleanup_files.cleanup_general_fields import cleanup_field_value
 from datetime import datetime, time
 
 
@@ -47,16 +49,6 @@ def cleanup_medium(medium, other_medium):
         updated_medium = medium.capitalize()
 
     return updated_medium
-
-
-def check_interview_is_today(interview_date):
-    interview_is_today = False 
-    current_date = datetime.now().date()
-
-    if interview_date == current_date:
-        interview_is_today = True
-
-    return interview_is_today
 
 
 def cleanup_interview_fields(interview_fields, interview_id):
@@ -112,7 +104,7 @@ def cleanup_specific_interview(interview_details, other_medium):
     interview_details["fields"]["past_dated"] = past_dated(interview_date, interview_time)
     if not interview_details["fields"]["past_dated"] and interview_details["fields"]["interview_type"] == 'Video / Online': 
         # Now we can check if the interview matches the current date and the user actually provided a video link:
-        if check_interview_is_today(interview_date) and interview_details["fields"]["video_link"]: 
+        if present_dated(interview_date) and interview_details["fields"]["video_link"]: 
             # The interview is today, so we can display the link to the user:
             interview_details["fields"]["display_video_link"] = True
 

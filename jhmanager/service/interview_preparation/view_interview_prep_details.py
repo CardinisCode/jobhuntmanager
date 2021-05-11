@@ -1,7 +1,6 @@
 from flask import Flask, render_template, session, request, redirect, flash
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
-from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_type
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_status
 from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_specific_job_application
 from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_specific_company

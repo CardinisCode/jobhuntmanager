@@ -640,29 +640,56 @@ Responsible for cleaning up all fields to related to the 'interviews' SQL table.
 
 ###### Functions:
 -   cleanup_interview_type()
+    -   Takes a string value, specifically for the 'interview_type' field. 
+    -   This function runs through the possible values for this field, since it as provided to the user as a Select list, and improves the presentation of the value. Once complete, it returns the updated value.
+    -   This is used by the 'cleanup_interview_fields()' function from within the same file: 'cleanup_interview_fields.py'
+
 -   cleanup_interview_status()
+    -   Takes a string value, specifically for the interview 'status' field. 
+    -   This function runs through the possible values for this field, since it as provided to the user as a Select list, and improves the presentation of the value. Once complete, it returns the updated value.
+    -   This is used by the 'cleanup_interview_fields()' function from within the same file: 'cleanup_interview_fields.py'
+
 -   cleanup_medium()
--   check_interview_is_today()
+    -   Takes a string value, specifically for the 'interview_medium' field. 
+    -   This function runs through the possible values for this field, since it as provided to the user as a Select list, and improves the presentation of the value. Once complete, it returns the updated value.
+    -   This is used by the 'cleanup_interview_fields()' function from within the same file: 'cleanup_interview_fields.py'  
+
 -   cleanup_interview_fields()
+    -   Takes a dictionary of interview entries and a specific interview ID. 
+    -   It cleans up all the values for a specific interview, using its unique interview ID, to improve how each value will be presented to the user (so it's in plain everyday language).
+    -   One instance: services/applications/view_application_details.py, Line 85
+
 -   cleanup_specific_interview()
+    -   Takes a dictionary for a specific interview entry, with the interview attributes as its keys. 
+    -   It cleans up the interview values to improve how each value will be presented to the user (so it's in plain everyday language).
+    -   One instance: services/interviews/view_interview_details.py, Line 31
 
 
 ##### cleanup_job_offer_fields.py
 Responsible for cleaning up all fields to related to the 'job_offers' SQL table.
 
 #### company:
+Responsible for cleaning up all fields to related to the 'company' SQL table.
+
 
 #### company_notes:
+Responsible for cleaning up all fields to related to the 'company_notes' SQL table.
 
 #### contacts_directory:
+Responsible for cleaning up all fields to related to the 'indiv_contacts' SQL table.
 
 #### interview_preparation:
+Responsible for cleaning up all fields to related to the 'interview_preparation' SQL table.
 
 #### interviews:
+Responsible for cleaning up all fields to related to the 'interviews' SQL table.
 
 #### job_offers:
+Responsible for cleaning up all fields to related to the 'job_offers' SQL table.
+
 
 #### users:
+Responsible for cleaning up all fields to related to the 'users' SQL table.
 
 # ---------------------------------------------------------------
 ### 5: Static:

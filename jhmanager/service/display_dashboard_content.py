@@ -5,7 +5,6 @@ from jhmanager.service.cleanup_files.cleanup_datetime_display import present_dat
 from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_job_offer
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_fields
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_status
-from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_type
 from jhmanager.service.cleanup_files.cleanup_interview_fields import check_interview_is_today
 from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_application_fields
 from jhmanager.service.cleanup_files.cleanup_general_fields import get_count
