@@ -559,15 +559,92 @@ Responsible for cleaning up all fields to related to the 'company' SQL table.
 ##### cleanup_contact.py
 Responsible for cleaning up all fields to related to the 'indiv_contacts' SQL table.
 
+###### Functions:
+-   cleanup_full_name()
+    -   Specifically focuses on "cleaning" a "full_name" field. 
+    -   Takes a long string, splits the string by its spaces, capitalises the first letter, and then joins everything together back together, seperated by spaces, before returning the final string. 
+
+-   cleanup_specific_contact_entry()
+    -   Responsible for dealing with a specific contact. 
+    -   Takes a 'contact' dictionary & cleans up the values for each of the dictionary's keys (contact attributes)
+    -   Calls on the functions cleanup_full_name() & cleanup_field_value to improve the presentation of the 'contact' attributes / keys. 
+
+-   cleanup_each_contact_entry()
+    -   Takes a 'contact' dictionary and is responsible for dealing with a 'contact' entry within a bigger dictionary of contacts. 
+    -   Otherwise it works pretty much the same as cleanup_specific_contact_entry(), cleaning each value for a contact to improve it's presentation before a contact is displayed to the user. 
+
 
 ##### cleanup_datetime_display.py
 Responsible for cleaning up all datetime, date & time type fields across all the files in the Service directory.
 
+###### Functions:
+-   cleanup_date_format()
+    -   Takes a date object and restructures how the date object will be dsiplayed to the user (as a string)
+    -   EG: "02-01-2021" / "%Y-%m-%d" -> "02 Jan 2021".
+    -   One instance: services/application_notes/view_app_note_details.py, Line 30
+
+-   cleanup_time_format()
+    -   Takes a time object and determines if the time is before or after 12pm. It will then convert the date value back to string and add "am" or "pm" at the end, based on whether/not it's morning or afternoon/evening, before returning the final string. 
+    -   EG: 
+        -   "11:35" / "%H:%M" -> "11:35am".
+        -   "15:09" / "%H:%M" -> "15:09pm". 
+    -   One instance: services/cleanup_files/cleanup_app_fields.py, Line 54
+
+-   verify_value_is_date_obj()
+    -   Takes a 'date' value, and checks to see if the data type for this value value is the 'str' type. 
+        ->  If yes, it will converts the 'date' value to its 'datetime.date' eqivalent & returns the result
+        ->  Else: The 'date' value remains unchanged and is returned. 
+    -   I created this function to ensure that the 'date' value provided when calling the 'past_dated()' function is in fact a 'datetime.date' data type. 
+    -   Used by / called by the 'past_dated() function. 
+
+-   verify_value_is_time_obj()
+    -   Takes a 'time' value and checks to see if the data type for this value value is the 'str' type, pretty much the same as the 'verify_value_is_date_obj()' function does. 
+    -   Like the 'verify_value_is_date_obj()' function, if the value is a 'str' value, this functions converts the value to a 'datetime.time' data type. 
+    -   Used by / called by the 'past_dated() function. 
+
+-   past_dated()
+    -   Takes 2 arguments: a datetime.date and a datetime.time calues. 
+    -   It compares these 2 values to the current date & time to establish if the provided date & time are past-dated / in the past.  
+        -   If yes: It returns True
+        -   Otherwise: False 
+    -   One instance: services/display_dashboard_content.py, Line 102
+
+-   present_dated()
+    -   Takes a datetime.date-type value and compares it to the current day's date. 
+        -   If the provided datetime value matches the current day's date, then it returns True
+        -   Else: it returns False 
+    -   One instance: services/display_dashboard_content.py, Line 66
+
+
 ##### cleanup_general_fields.py
-Responsible for cleaning up fields that are used by multiple different functions across the Service directory. 
+Responsible for cleaning up fields that are used by multiple different functions across the Service directory, including files & functions from within the 'cleanup_files' directory.
+
+###### Functions:
+-   replace_na_value_with_none()
+    -   Takes a 'str'-type value and checks if the value is "N/A". 
+        -   If yes, it will return True
+        -   Else: Returns False 
+    -   Since I've replaced empty form values with "N/A" before storing / updating these values in the SQL database, this function replaces these values with 'None'. This serves to represent the fact that the user has not yet provided a value for that field.
+    -   One instance: services/interview_preparation/view_all_interview_prep.py, Line 27
+
+-   get_count()
+    -   Takes a SQL list of entries, counts the number of entries and returns the end result/figure. 
+    -   One instance: services/display_dashboard_content.py, Line 30
+
+-   cleanup_field_value()
+    -   Takes a string value, splits the string by the spaces, capitalizes the first letter of every word, and then adds  a space before joining everything back to together as a new string. 
+    -   One instance: services/cleanup_files/acleanup_contact_fields.py, Line 16
 
 ##### cleanup_interview_fields.py
 Responsible for cleaning up all fields to related to the 'interviews' SQL table.
+
+###### Functions:
+-   cleanup_interview_type()
+-   cleanup_interview_status()
+-   cleanup_medium()
+-   check_interview_is_today()
+-   cleanup_interview_fields()
+-   cleanup_specific_interview()
 
 
 ##### cleanup_job_offer_fields.py

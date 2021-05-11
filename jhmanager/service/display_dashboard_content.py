@@ -1,7 +1,5 @@
 from flask import Flask, render_template, session, flash
 from datetime import datetime, date, time
-from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
-from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
 from jhmanager.service.cleanup_files.cleanup_datetime_display import past_dated
 from jhmanager.service.cleanup_files.cleanup_datetime_display import present_dated
 from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_job_offer

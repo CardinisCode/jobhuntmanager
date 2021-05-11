@@ -14,7 +14,6 @@ def cleanup_date_format(date_obj):
     return date_str
 
 
-
 def cleanup_time_format(time_obj):
     time_str = ""
     time_format = "%H:%M"
