@@ -5,6 +5,7 @@ from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_compa
 
 def display_address_book(user_id, companyRepo, contactRepo):
     company_list = companyRepo.getTop8CompaniesByUserID(user_id)
+    
     company_contacts = {
         "empty_list": True,
         "fields": None
@@ -15,13 +16,12 @@ def display_address_book(user_id, companyRepo, contactRepo):
         company_contacts["fields"] = {}
         for company in company_list:
             company_id = company.company_id
-            view_company = '/company/{}/view_company'.format(company_id)
             company_contacts["fields"][company_id] = {
                 "name": company.name,
                 "description": company.description,
                 "industry": company.industry, 
                 "location": company.location,
-                "view_company": view_company
+                "view_company": '/company/{}/view_company'.format(company_id)
             }
             cleanup_company_fields(company_contacts, company_id)
 

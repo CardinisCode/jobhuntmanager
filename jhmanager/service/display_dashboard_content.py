@@ -1,11 +1,9 @@
 from flask import Flask, render_template, session, flash
 from datetime import datetime, date, time
 from jhmanager.service.cleanup_files.cleanup_datetime_display import past_dated
-from jhmanager.service.cleanup_files.cleanup_datetime_display import present_dated
 from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_job_offer
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_fields
-from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_status
-from jhmanager.service.cleanup_files.cleanup_interview_fields import check_interview_is_today
+from jhmanager.service.cleanup_files.cleanup_datetime_display import present_dated
 from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_application_fields
 from jhmanager.service.cleanup_files.cleanup_general_fields import get_count
 
@@ -141,7 +139,7 @@ def display_today_interviews(user_id, applicationsRepo, interviewsRepo, companyR
         company = companyRepo.getCompanyById(application.company_id)
 
         interview_date = interview.interview_date
-        present_day_interview = check_interview_is_today(interview_date)
+        present_day_interview = present_dated(interview_date)
 
         if not present_day_interview:
             continue

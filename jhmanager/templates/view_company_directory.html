@@ -19,12 +19,12 @@
 
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
-            {% if general_details.empty_table %}
+            {% if general_details.empty_list %}
                 <p>  {{ general_details.message }}</a></p>
             {% else %}
                 <div class="list-group align-items-center">
                     <p class="list-group-item list-group-heading"><i class="fas fa-hand-pointer"></i> Select the Company Name </p>
-                    {% for fields in company_details.fields.values() %}
+                    {% for fields in general_details.company_contacts.fields.values() %}
                         <a href={{ fields.view_company }} class="list-group-item list-group-item-action" name={{ fields.name }}> {{ fields.company_name }} </a>
                     {% endfor %}
                 </div>

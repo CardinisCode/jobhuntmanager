@@ -757,6 +757,13 @@ Handles the functionality behind deleting a specific 'company'.
 
 
 ##### view_all_companies.py
+Handles the functionality behind displaying all the companies that the user has already added/created so far, with each company being a link to the 'view_company_profile.html' template for the selected company. 
+
+###### Functions:
+-   display_all_companies_for_user()
+    -   Grabs all existing company entries in the 'company' SQL table (if there are any)
+    -   
+
 ##### view_company_profile.py
 
 

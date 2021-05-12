@@ -48,8 +48,8 @@ def cleanup_specific_company(company_details):
 
 # Clean up fields for a company, when part of a dictionary of companies:
 def cleanup_company_fields(company_contacts, company_id):
-    if not company_contacts.empty_list:
-        for heading, value in company_contacts.fields.company_id.items():
+    if not company_contacts["empty_list"]:
+        for heading, value in company_contacts["fields"][company_id].items():
             if value == "N/A":
                 # If the value is N/A it means this field was left blank. So lets replace it with 'None'
                 company_contacts["fields"][company_id][heading] = None
