@@ -20,17 +20,14 @@ def display_all_companies_for_user(user_id, companyRepo, applicationsRepo):
             entry_id += 1
             company_id = company.company_id
             company_contacts["fields"][entry_id] = {
-                "company_id": company_id,
-                "company_name": company,
+                "company_name": company.name,
                 "view_company": '/company/{}/view_company'.format(company_id)
             }
             cleanup_company_fields(company_contacts, entry_id)
-
 
     general_details = {
         "add_company_url": '/address_book/add_company', 
         "company_contacts": company_contacts
     }
-
 
     return render_template("view_company_directory.html", general_details=general_details)
