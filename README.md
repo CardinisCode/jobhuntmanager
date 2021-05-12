@@ -142,7 +142,7 @@ This form can be found via the 'Register' link on the top navigational bar of th
 
 #### update_company_form.py
 Contains the Form class 'UpdateCompany()', but it has all fields found on the 'AddCompanyForm()'. It's important to note was this form was created before I created the 'AddCompanyForm()', when I didn't yet have the 'add company' functionality. 
-    
+        
 This form gets called with all the information already provided for a specific company, & serves to allow the update the details for a specific company already in the user's company directory. This form can be found by viewing a company's 'company profile'. 
 
 #### update_interview_status_form.py
@@ -150,69 +150,55 @@ Contains the Form class 'UpdateInterviewStatusForm()', which allows the user to 
 
 The reason I created this form was to give the user the option to specifically update a specific interview field, without having to focus/worry about any of the other interview-related fields, which should make updating the status really quick & easy. The form presents the user with 1 field, which is a drop-down list with 4 options: Upcoming Interview, Interview Done, Interview Cancelled' & Interview has been post-poned.
 
-
 #### update_user_details.py
 ##### Form name: 
-    UpdateEmailAddressForm() 
-##### Functionality: 
-    This form serves to allow the user to update the email address linked to their account. The user is asked to provide the new email address twice. I added validators to ensure that the user provides the same email address in both fields.
-##### Fields:
-    email, confirm_email
-##### Template used:
-    update_email.html
+Contains the following 2 Form classes:
 
-##### Form name: 
-    ChangePasswordForm()
-##### Functionality: 
-    This form serves to allow the user to change the password on their account. The user is asked to provide the new password twice. I added validators to ensure that the user provides the same password in both fields. Since these two fields are each designated as a 'PasswordField', the fields hide what the user enters into these fields, even as they're typing. 
-##### Fields:
-    password, confirm_password
-##### Template used:
-    change_password.html
+###### UpdateEmailAddressForm() 
+Offers the user the option to update the email address they have saved to their user account on the application.
 
+###### ChangePasswordForm()
+Offers the user the option to update the password they have saved to their user account on the application. The user is asked to enter their account password twice to minimize the chance of the user making an accidental typing error, when entering the new password. 
+
+The links to both these forms can be found on the 'User Profile', the link to which is found on the top navigational bar.
 
 # ---------------------------------------------------------------
 ### 2: Preparation & Management:
 These are the files:
 #### credits_and_resources_used.md
     This is where I stored links / resources I used / found useful for this project. 
+
 #### notes_to_self.md
-    These are notes I added as I researched and tried out various aspects. Info added in this file acts as a point of reference, since I figured I'd end up using this information a few times through out the development of this application. 
+    These are notes I added as I researched and tried out various aspects. Info added in this file acts as a point of reference, since I figured I'd end up using this information a few times through out the development of this application.
+
 #### pitch#1.md
     This is the pitch and premise of this project. I put this together before I even started working on the project. 
+
 #### plan_project.md
     This is where I did some planning & acts as a story mapping session. Sadly I didn't get to use all of my ideas for this project as I realised the scope of this project was going far beyond what was expected for this course. 
+
 #### sqlqueries.sql
-    Includes all the queries I used when interacting with SQLite3 throughout the development of the application. 
+    Includes all the queries I used when interacting with SQLite3 throughout the development of the application.
+
 #### todo_list.md
-    In the first few weeks of developing this application, I realised I was going all over the place and losing track of what I was working on & what needed to still get done. So I broke down what needed to get done for the project as big chunks, and then focused on 1 chunk at a time. When working on a chunk, I'd break it down into smaller/more detailed points. This allowed me to control what I focused on and I could keep track of what I'd already completed. 
+    In the first few weeks of developing this application, I realised I was going all over the place and losing track of what I was working on & what needed to still get done. So I broke down what needed to get done for the project as big chunks, and then focused on 1 chunk at a time. When working on a chunk, I'd break it down into smaller/more detailed points. This allowed me to control what I focused on and I could keep track of what I'd already completed.
 
     I ended up using Trello, for this functionality, towards the end of the development process. I always had a notepad on me throughout the development process, and when I came up with new ideas/concepts that needed to get done, I added them to Trello. This allowed me to keep on track & focused, without losing those interesting ideas that come to mind while working. 
 
 # ---------------------------------------------------------------
 ### 3: Repo:
-This file contains all the Repositories used for this project, with each Repository (Repo) interacting with a specific table in the database. 
+Each file in the Repo directory interacts with a specific table in the SQL database & includes the following types of SQL queries:
+-   Insert
+-   Select
+-   Update
+-   Delete
 
-In each Repo, there are two classes:
-    1: Sets the field attributes which exist in a specific SQL table. 
-    -   Each attribute is the name of a column in the table. 
-    -   This can makes it so much easier to call on specific column values in each table entry. 
-
-    2) Consists of the functions which interact with the SQL database. 
-    -   This includes g etting / inserting / updating / deleting an entry from/in a SQL table. 
-    -   Each function:
-        -   Sets up the cursor connection to the table
-        -   Executes a command
-        -   Commits the query
-        -   Returns the result of the query 
+The methods in each of these files are used / called on by the functions within the Services directory.
 
 #### __init__.py
 
 #### application_notes.py:
-##### SQL Table:
-    application_notes
-##### Classes:
-    ApplicationNotes, ApplicationNotesRepository
+This is a repository file which relates specifically to Application notes & includes the following 2 classes: ApplicationNotes & ApplicationNotesRepository. 
 
 #### applications_history.py:
 ##### SQL Table:

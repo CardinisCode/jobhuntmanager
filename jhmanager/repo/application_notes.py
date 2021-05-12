@@ -104,21 +104,7 @@ class ApplicationNotesRepository:
             return None
 
         return notes_list    
-
-
-    def getUserNotesByID(self, application_id, app_notes_id):
-        cursor = self.db.cursor()
-        command = "SELECT * FROM application_notes WHERE application_id = {} and app_notes_id = {}".format(application_id, app_notes_id)
-        result = cursor.execute(command)
-        self.db.commit()
-
-        if not result:
-            return None
-
-        data = [x for x in result][0]
-        note_details = ApplicationNotes(data)
-
-        return note_details  
+        
 
     def deleteByAppNoteID(self, app_notes_id):
         message = ""

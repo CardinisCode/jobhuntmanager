@@ -14,7 +14,6 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
     other_medium = interview.other_medium
     interview_details = {}
     interview_details["fields"] = {
-        "interview_id": interview_id,
         "date": interview.interview_date, 
         "time": interview.interview_time, 
         "interview_type": interview.interview_type, 

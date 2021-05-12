@@ -1,6 +1,12 @@
 # Project Hunt Manager: Technical Readme
 This technical readme goes into more detailed look at how each function works & which Repositories each function connects to. 
 
+To be clear this technical Readme only looks at the application's functions found in the following directories:
+-   Forms
+-   Repo
+-   Services
+-   Static
+
 The files in this project:
 ## Forms: 
 All forms are created using WTForms - a library I found that works well with Python & Flask. 
@@ -9,7 +15,7 @@ Each Form is a class, but WTForms is unique in that each form attribute is defin
 
 WTForms also offers the field/data validation and comes included with CSRF protection. These forms are saved in jhmanager/forms. 
 
-These are the files in the forms directory:
+These are the files in this directory:
 ### add_application_form.py
 #### Form name: 
     AddApplicationForm()
@@ -187,5 +193,175 @@ These are the files in the forms directory:
     This form is very simple and serves to allow the user to update only the status of an interview. Once an interview has been completed/deleted/post-poned, the user will want to update the status without having to worry/focus on any of the other interview fields (on AddInterviewForm()). 
 ##### Fields:
     status
-##### Template used:
+##### Renders to the template:
     update_interview_status.html
+##### Related to SQL table: 
+    'company'
+
+#### update_user_details.py
+##### Form name: 
+    UpdateEmailAddressForm() 
+##### Functionality: 
+    This form serves to allow the user to update the email address linked to their account. The user is asked to provide the new email address twice. I added validators to ensure that the user provides the same email address in both fields.
+##### Fields:
+    email, confirm_email
+##### Renders to the template:
+    update_email.html
+##### Related to SQL table: 
+    'users'
+
+##### Form name: 
+    ChangePasswordForm()
+##### Functionality: 
+    This form serves to allow the user to change the password on their account. The user is asked to provide the new password twice. I added validators to ensure that the user provides the same password in both fields. Since these two fields are each designated as a 'PasswordField', the fields hide what the user enters into these fields, even as they're typing. 
+##### Fields:
+    password, confirm_password
+##### Renders to the template:
+    change_password.html
+##### Related to SQL table: 
+    'users'
+
+## Repo:
+This file contains all the Repositories used for this project, with each Repository (Repo) interacting with a specific table in the database. 
+
+In each Repo, there are two classes:
+    1: Sets the field attributes which exist in a specific SQL table. 
+    -   Each attribute is the name of a column in the table. 
+    -   This can makes it so much easier to call on specific column values in each table entry. 
+
+    2) Consists of the functions which interact with the SQL database. 
+    -   These functions will carry out one of the following types of queries:
+        -   Insert, Select, Update, Delete
+
+    -   Each function:
+        -   Sets up the cursor connection to the table
+        -   Executes a command
+        -   Commits the query
+        -   Takes the result of the query & Instantiates either a single entry, or an entry in a list of entries, using the first class.
+        -   At the end it returns either a single object or a list of objects.
+
+These are the files in this directory:
+
+#### __init__.py
+This file has no functions within it & serves only to define this 'Repo' directory as a module.
+
+#### application_notes.py:
+This is a repository file which relates specifically to Application notes & includes the following 2 classes: ApplicationNotes & ApplicationNotesRepository. 
+
+##### ApplicationNotes:
+This is the class which defines the fields for a specific application note, where each field is a column name found in the 'application_notes' SQL table. 
+
+Setting this class up allowed me to instantiate a specific ApplicationNote with a pre-set list of fields, which can be called on by another function in the Service directory for any application note.
+
+##### ApplicationNotesRepository:
+This class contains methods which interact with the 'application_notes' table in the SQL database, which carry out one of the following functions:
+-   Insert
+-   Select
+-   Update
+-   Delete
+
+###### Connects to SQL table:
+    application_notes
+
+These methods include: 
+###### insertNewNote
+Takes (input): 
+    A dictionary of values for a specific note to be inserted (as a single entry) into the 'application_notes' table
+Functionality (Algorithm):
+    Runs a SQL 'INSERT' query to values for an application note into the perspective column fields. 
+Returns (output): 
+    The unique identifier (app_notes_id) for the newly created entry. 
+
+###### getNoteByAppNoteID
+Takes (input): 
+    The app_notes_id for a specific application note
+Functionality (Algorithm):
+    Runs a SQL 'SELECT' query to grab a specific entry in the SQL table, using the note's 'app_notes_id'. It then instantiates the 'ApplicationNotes' class with the values received from the SQL query. 
+Returns (output): 
+    An instantiated object ('ApplicationNotes') with the values for a specific application note. 
+
+###### getApplicationNotesForCompany
+Takes (input): 
+    company_id, user_id
+Functionality (Algorithm):
+-   Runs a SQL query to 'SELECT' all entries in the 'application_notes' table for a specific company (via the company_id) & for a specific user (via their user_id). The SQL query returns a list of entries. 
+-   Iterates through each entry in the list, instantiating each entry using the 'ApplicationNotes' class, before adding these entries to a list of its own. 
+Returns (output): 
+    A list of application notes, where each note is an object. 
+
+###### getAppNotesByApplicationID
+Takes (input): 
+    application_id, user_id
+Functionality (Algorithm):
+-   Runs a SQL query to 'SELECT' all entries in the 'application_notes' table for a specific application (via the application_id) & for a specific user (via their user_id). The SQL query returns a list of entries. 
+-   Iterates through each entry in the list, instantiating each entry using the 'ApplicationNotes' class, before adding these entries to a list of its own. 
+Returns (output): 
+    A list of application notes, where each note is an object. 
+
+###### getAppNotesByUserId
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a SQL query to 'SELECT' all entries in the 'application_notes' table for a specific user (via their user_id). The SQL query returns a list of entries. 
+-   Iterates through each entry in the list, instantiating each entry using the 'ApplicationNotes' class, before adding these entries to a list of its own. 
+Returns (output): 
+    A list of application notes, where each note is an object. 
+
+###### deleteByAppNoteID
+Takes (input): 
+    app_notes_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' an entry, from the 'application_notes' table, using the note's app_notes_id. 
+Returns (output): 
+    No output is returned
+
+###### deleteByApplicationID
+Takes (input): 
+    application_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'application_notes' table, linked to the note's foreign key 'application_id'. 
+Returns (output): 
+    No output is returned
+
+###### deleteByUserID
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'application_notes' table, linked to the note's foreign key 'user_id'. 
+Returns (output): 
+    No output is returned
+
+###### updateByID
+Takes (input): 
+    A dictionary of fields related to a specific application note
+Functionality (Algorithm):
+-   Runs a SQL query to 'UPDATE' the entry in the 'application_notes' table where the 'app_notes_id' for a specific note matches with the primary key for an existing entry in the table.
+Returns (output): 
+    No output is returned
+
+#### applications_history.py:
+This is a repository file which relates specifically to a Job Application & includes the following 2 classes: Application & ApplicationsHistoryRepository. 
+
+##### Application
+This is the class which defines the fields for a specific job application, where each field is a column name found in the 'job_applications' SQL table. 
+
+Setting this class up allowed me to instantiate a specific Application with a pre-set list of fields, which can be called on by another function in the Service directory for any job application.
+
+##### ApplicationsHistoryRepository
+This class contains methods which interact with the 'job_applications' table in the SQL database, which carry out one of the following functions:
+-   Insert
+-   Select
+-   Update
+-   Delete
+
+###### Connects to SQL table:
+    job_applications
+
+These methods include: 
+###### addApplicationToHistory
+
+
+
+
+
+
