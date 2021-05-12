@@ -14,9 +14,6 @@ def display_add_company_note_form(company_id, company_note_form, companyRepo):
 
 
 def post_add_company_note(user_id, company_id, company_note_form, companyNotesRepo): 
-    subject = company_note_form.subject.data
-    note_text = company_note_form.note_text.data
-
     entry_date = datetime.now().date()
     date_format = "%Y-%m-%d"
     entry_date_str = entry_date.strftime(date_format)

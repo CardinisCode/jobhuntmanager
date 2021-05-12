@@ -1,3 +1,4 @@
+from jhmanager.repo.company import CompanyRepository
 from flask import Flask, render_template, session, request, redirect, flash
 from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_company_fields
 

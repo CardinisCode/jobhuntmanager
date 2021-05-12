@@ -31,165 +31,125 @@ The application uses:
 I have narrowed down the application for fellow software engineers, so the Job application form is very much in the scope of the software engineering industry. 
 
 ## Please note: 
-Deletes are hard deletes, for the purpose of this pilot product. So if the user selects to delete something, it will permanently delete the information from the SQLite3 database.
+-   Deletes are hard deletes, for the purpose of this pilot product. So if the user selects to delete something, it will permanently delete the information from the SQLite3 database.
+
+-   This Readme simply describes what each function & file does/serves, so I'll give a brief TLDR for each file/function. I'll go into more technical depth in the technical_readme.md (jhmanager/technical_readme.md).
 
 ## Files:
 The files in this project are divided into the following sections:
 
 ### 1: Forms:
-All forms are created using WTForms - a library I found that works well with Python & Flask. Using WTForms allowed me to create Form templates that I could instantiate either as a blank form or with values from one of the SQL tables. WTForms also offers the field/data validation and comes included with CSRF protection. 
-These forms are saved in jhmanager/forms. 
+Each of the below forms request specific information from the user and link to a specific SQL database table. 
 
 Below are the names of the files stored in the 'Forms' directory: 
+
 #### add_application_form.py
-##### Form name: 
-    AddApplicationForm()
-##### Functionality: 
-    This form includes all the fields that I've commonly seen on job application forms (online and in person). 
-##### Fields:
-    date_posted, job_role, emp_type, job_ref, company_name, company_description, industry, job_description, job_perks, tech_stack, location, salary, user_notes, platform, job_url. 
-##### Template used:
-    add_job_application.html
+Contains the Form class 'AddApplicationForm()', where each field name relates to the fields you'd expect on a typical job application form (online). The form allows the user a means to enter in the information for a specific job role they've applied to, which they've discovered on a job board / in a newspaper / via word-of-mouth. 
+
+Each job application added (by the user) is added as an unique entry into the SQL database.
 
 #### add_application_note_form.py
-##### Form name: 
-    AddApplicationNoteForm()
-##### Functionality: 
-    This form is simple in nature and only has 2 fields: The subject and content for a form. 
-##### Fields:
-    description, notes_text
-##### Template used:
-    add_application_note.html
+Contains the Form class 'AddApplicationNoteForm()' & when rendered to a template, it has 2 simple fields: description & notes_text. The form allows the user to add a note which will link directly to a specific job application. 
+
+The logic behind this form is to allow the user to create a note for a specific job application at any point from the job application to the job offer. 
 
 #### add_company_form.py
-##### Form name: 
-    AddCompanyForm()
-##### Functionality: 
-    This Form has fields relevant to a company and puts together 'contact' info for a specific company.
-##### Fields:
-    name, description, location, industry, interviewers, url
-##### Template used:
-    add_company_form.html
+Contains the Form class 'AddCompanyForm()', & is used to pull together information regarding a specific company. Each company added (by the user) is added as an unique entry into the SQL database.
+
+The logic behind this form comes from the idea that the user may want to build a directory of companies that they either want to work for or have already worked for.
+
+The link to the form can be found on/in:
+-   The addressbook (accessed by the 'Addressbook' tab at the top of the page)
+-   The company directory (accessed via the Addressbook.)
 
 #### add_company_job_app_form.py
-##### Form name: 
-    AddCompanyJobApplicationForm()
-##### Functionality: 
-    This form is very similar to the AddApplicationForm(), except it doesn't include any fields relevant to a company. 
-##### Fields:
-    date_posted, job_role, emp_type, job_ref, job_description, job_perks, tech_stack, salary, user_notes, platform, job_url. 
-##### Template used:
-    add_company_job_application.html
+Contains the Form class 'AddCompanyJobApplicationForm()' & it is used to add a job application entry for a specific company. The form has the same basic concept as the 'AddApplicationForm()', except it doesn't include any fields related to the company. 
+
+The logic behind this form is the idea that the user is adding a job application for a company they've already created, so this form doesn't include any fields related to a company. This makes the form shorter and therefore quicker to complete. 
+
+The link is this form can be found on a company's profile (on the 'view_company_profile.html' template). 
 
 #### add_company_note_form.py
-##### Form name: 
-    AddCompanyNoteForm()
-##### Functionality: 
-    I kept this form simple in nature, so that it resembles a note we'd scribble in a note book. 
-##### Fields:
-    subject, note_text
-##### Template used:
-    add_company_note.html
+Contains the Form class 'AddCompanyForm()', & when rendered to a template, it has 2 simple fields: subject & note_text. The form allows the user to add a note which will link directly to a specific company.  
+
+The logic behind this form is the idea that the user may want to add note linked to a specific company they've already added to their company directory.  
 
 #### add_interview_form.py
-##### Form name: 
-    AddInterviewForm()
-##### Functionality: 
-    This form includes fields relevant to an interview. I added fields relevant to interviews done 1) in person, 2) over video call & 3) over a phone call. 
-##### Fields:
-    interview_date, interview_time, interviewer_names, interview_type, interview_location, interview_medium, other_medium, video_link, phone_call, status, extra_notes. 
-##### Template used:
-    add_interview.html
+Contains the Form class 'AddInterviewForm()' & is used to add a job interview that the user has lined up. It's linked both to a specific job application & the company with which they have the interview. 
+
+The logic behind this form is the idea that the user will want to store the details of an upcoming interview & for that interview to be easily accessible. The interview form also has the option to add the link to the video call if the interview will be done remotely via Teams / Skype / Discord etc, which allows the user to quickly start up their interview session. 
+
+Likewise the user can enter the location to the interview or contact details for the interviews for quick access on the day of the interview. The link to this form can be found on the 'view_application.html' template. 
 
 #### add_interview_prep_form.py
-##### Form name: 
-    AddInterviewPrepForm()
-##### Functionality: 
-    This form is similar in nature to the note forms, except the 2 fields are 'Question' and 'Answer'. It allows the user to add the interview Question and the answer the user is planning to say in response to the Question. 
-##### Fields:
-    question, answer
-##### Template used:
-    interview_prep.html
-            
+Contains the Form class 'AddInterviewPrepForm()' & is used to allow the user to add an interview preparation entry for a specific interview. Each interview Preparation entry is linked to a specific interview, job application & company. 
+
+The logic behind this form is the idea is to allow the user a place to prepare for an interview, where each entry has 2 fields:
+-   Question:
+    -   A question they're expecting to get asked in the interview 
+-   Answer:
+    -   Here the user can plan how to best answer this question in the context of the role they're interviewing for & the company they're interviewing with.
+
+The link to this form can be found when viewing the details for a specific interview, and only whilst the interview date & time are still in the future. As soon as the interview date & time are in the past, the link to this form will no longer display to the user. In terms of templates this would be 'view_interview_details.html'. 
+
+Another link to this form can be found by viewing the interview preparation that the user has already done. 
+-   The link to view the interview preparation can also be found by viewing the details for a specific interview. 
+
 #### add_job_offer_form.py
-##### Form name: 
-    AddJobOffer()
-##### Functionality: 
-    This form allows the user to add a job offer they've received and gives the user the field 'offer_response' so the user can select if they've accepted (or rejected) the offer or if they're still thinking about it. 
-##### Fields: 
-    job_role, salary_offered, perks_offered, offer_response, starting_date. 
-##### Template used:
-    add_job_offer.html
+Contains the Form class 'AddJobOffer()', & is used to allow the user to add a job offer they've received from a company. This job offer is also connected to the specific job application they've submitted to this company. 
+
+The idea behind this form is to allow the user to keep a track of any/all job offers they receive in their job hunt journey (and the company & job application to which these job offers are connected to). 
+
+The link to this form can be found by viewing the details for a specific job application the user has already added to their profile.
+
 
 #### add_new_contact_form.py
-##### Form name:
-    AddNewContactForm()
-##### Functionality: 
-    This form asks the user for information very much relevant for putting together contact information. Making connections is very important when looking for work as we often have a higher chance of getting a job when we know someone on the inside of the company we're looking to work for. We're also more likely to know of a vacacy through the network we build. 
-##### Fields:
-    full_name, job_title, contact_number, company_name, email_address, linkedin_profile.
-##### Template used:
-    add_new_contact.html
+Contains the Form class 'AddJobOffer()' & used to put together all the information you'd expect for a 'contact' profil. This includes everything from the person's Full name to their email address.  
+
+This form asks the user for information very much relevant for putting together contact information. Making connections is very important when looking for work as we often have a higher chance of getting a job when we know someone on the inside of the company we're looking to work for. We're also more likely to know of a vacacy through the network we build. 
+
+The link to this form can be found:
+-   On the Addressbook, via the 'Addressbook' tab on the top naviational bar. 
+-   In the Contacts directory, which can be accessed via the Addressbook
 
 #### delete_account_form.py
-##### Form name:
-    DeleteAccountForm()
-##### Functionality: 
-    This form is presented to the user when they select the 'Delete Account' button in their User Profile. The form asks the user to enter their account password and once the user submits the form, their account is hard (entirely) deleted from the application's database. 
-##### Fields:
-    password
-##### Template used:
-    delete_account.html
+Contains the Form class 'DeleteAccountForm()', which is used to simply ask the user to confirm whether/not they want to delete their user account on this application. The user is only asked to complete 1 field: their account password. 
+
+The idea behind this form is to ensure that the user is making a conscious decision to delete their account, thereby ruling out the possibility of the user accidentally clicking the 'delete account' button on their account. It simply acts to confirm the user's choice. 
+
+The link to this form can be found on the User Profile, which can be accessed from the top navigational bar on the right hand side. 
 
 #### delete_form.py
-##### Form name:
-    DeleteCompanyForm()
-##### Functionality: 
-    The user is presented with a select fields with 2 options. I believe by asking the user to manually select an option, they're less likely to make this choice by accident or by using a bot. If the user chooses the "Yes....", & submits the form, then the company (and all data related to this company) will be hard deleted from the application's databases. For this reason, there is a warning presented above this option to notify the user of the consequences of deleting this company contact.
-##### Fields:
-    confirm_choice
-##### Template used:
-    delete_company_profile.html
+Contains the Form class 'DeleteCompanyForm()', which is used to allow the user to delete a company they've added to their company directory. 
+
+The idea behind this form is to give the user the functionality to delete a company account if they ever need it. The form presents the user with 1 field: a drop list with 2 options: 
+-   No, take me back to the company profile
+-   Yes, please delete this company profile
+
+'No, take me back to the company profile' is the default selection, so if the user doesn't make a selection on this form, no changes are made to the company account. Once again this is aimed at preventing accidental mistakes from being made by the user. This is especially important since a company account is hard deleted from the database with no ways to retrieve that company information at a later date. 
+
+The link to this form can be found by viewing the company's 'company profile', which displays on the template 'view_company_profile.html'
 
 #### login_form.py
-##### Form name: 
-    LoginForm()
-##### Functionality: 
-    Presents the user with a simple form, which allows the user to log into their account on the application. 
-##### Fields:
-    username, password
-##### Template used:
-    login.html
+Contains the Form class 'LoginForm()', which is used to display the login form that can be used (by the user) to log in their account on the application. The form simply has 2 fields: 'username' and 'password'.  
+
+This form can be found via the 'Login' link on the top navigational bar of the application. 
 
 #### register_form.py
-##### Form name: 
-    RegisterUserForm()  
-##### Functionality: 
-    This form as the registration form & the values of this form will be used to create an account for the user. The user is asked to provide an unique username & email address. If either already exists in our database, the user will be asked to provide another username / email address. The 'confirm_password' field serves to ask the user to type a password in twice & ensure that both password values match. 
-##### Fields:
-    username, email_address, password, confirm_password. 
-##### Template used:
-    register.html
+Contains the Form class 'RegisterUserForm()', which is used to display an account registration form to the user. The form has the following fields: username, email_address, password, confirm_password. Each of these fields are required, so if any field is left blank, the user will be redirected to this form. 
+
+This form can be found via the 'Register' link on the top navigational bar of the application.
 
 #### update_company_form.py
-##### Form name: 
-    UpdateCompany() 
-##### Functionality: 
-    This form is very similar to the AddApplicationForm(), except it doesn't include any fields relevant to a company. 
-##### Fields:
-    date_posted, job_role, emp_type, job_ref, job_description, job_perks, tech_stack, salary, user_notes, platform, job_url. 
-##### Template used:
-    update_company_profile.html
+Contains the Form class 'UpdateCompany()', but it has all fields found on the 'AddCompanyForm()'. It's important to note was this form was created before I created the 'AddCompanyForm()', when I didn't yet have the 'add company' functionality. 
+    
+This form gets called with all the information already provided for a specific company, & serves to allow the update the details for a specific company already in the user's company directory. This form can be found by viewing a company's 'company profile'. 
 
 #### update_interview_status_form.py
-##### Form name: 
-    UpdateInterviewStatusForm() 
-##### Functionality: 
-    This form is very simple and serves to allow the user to update only the status of an interview. Once an interview has been completed/deleted/post-poned, the user will want to update the status without having to worry/focus on any of the other interview fields (on AddInterviewForm()). 
-##### Fields:
-    status
-##### Template used:
-    update_interview_status.html
+Contains the Form class 'UpdateInterviewStatusForm()', which allows the user to simply update the 'status' for a specific interview. The link to this form can be found by viewing a specific job interview. 
+
+The reason I created this form was to give the user the option to specifically update a specific interview field, without having to focus/worry about any of the other interview-related fields, which should make updating the status really quick & easy. The form presents the user with 1 field, which is a drop-down list with 4 options: Upcoming Interview, Interview Done, Interview Cancelled' & Interview has been post-poned.
+
 
 #### update_user_details.py
 ##### Form name: 
@@ -669,7 +629,7 @@ Responsible for cleaning up all fields to related to the 'interviews' SQL table.
 Responsible for cleaning up all fields to related to the 'job_offers' SQL table.
 
 #### company:
-Responsible for cleaning up all fields to related to the 'company' SQL table. 
+This where you'll find all the Python files related to a 'company'. 
 
 The files in this directory:
 ##### add_company.py
@@ -762,29 +722,65 @@ Handles the functionality behind displaying all the companies that the user has 
 ###### Functions:
 -   display_all_companies_for_user()
     -   Grabs all existing company entries in the 'company' SQL table (if there are any)
-    -   
+    -   Iterates through every entry in the SQL query and adds each company to a 'company_contacts' dictionary, calling on the cleanup_company_fields() function to 'clean' a company entry's values/attributes for presentation. 
+    -   Renders the template "view_company_directory.html" with access to the information in the 'company_contacts' dictionary. 
 
 ##### view_company_profile.py
+Handles the functionality behind displaying the details for a specific company, using its unique 'company_id'. It also offers to links to: 
+-   Add a job application
+-   View the company website 
+-   Add a note for this specific company
+-   View all notes for this specific company 
+
+###### Functions:
+-   display_company_profile():
+    -   Calls on the method 'getCompanyById' (from the companyRepo) to get a specific entry from the 'company' SQL table. 
+    -   All information for the company is extracted from this sql query and stored in a dictionary: company_details. 
+    -   This information is then 'cleaned' using the 'cleanup_company_profile()' function found in the file: services/clean_files/cleanup_company_fields.py. 
+    -   Its grabs & stores all the routes (required for the links to be presented to the user) in a 'general_details' dictionary. 
+    -   Renders this dictionary together with the template: "view_company_profile.html" 
 
 
 #### company_notes:
-Responsible for cleaning up all fields to related to the 'company_notes' SQL table.
+This where you'll find all the Python files related to a company note / list of company notes. 
+
+Files in this directory:
+##### add_company_note.py
+Handles the functionality behind displaying the 'AddCompanyNoteForm' form to the user & saving the information (the user has provided/entered into the form) into the 'company_notes' SQL table. 
+
+###### Functions:
+-   display_add_company_note_form()
+    -   Responsible for displaying the 'AddCompanyNoteForm' form to the user, together with all information needed to be displayed to the user. 
+    -   
+-   post_add_company_note()
+    -  Extracts the values from the 'AddCompanyNoteForm' form, saving it into a dictionary ('fields')
+    -   Calls on the method 'insertNewNotes' (from the 'companyNotesRepo' repo. ) to insert these values into the 'company_notes' SQL table. 
+    -   This SQL query returns the unique ID ('company_note_id') for this newly-created entry, which is then used to redirect the user to the template 'view_specific_company_note.html'. 
+
+##### delete_company_note.py
+
+
+##### update_company_note.py
+
+##### view_all_company_notes.py
+
+##### view_specific_note.py
 
 #### contacts_directory:
-Responsible for cleaning up all fields to related to the 'indiv_contacts' SQL table.
+This where you'll find all the Python files related to a contact / list of contacts . 
 
 #### interview_preparation:
-Responsible for cleaning up all fields to related to the 'interview_preparation' SQL table.
+This where you'll find all the Python files related to an interview preparation entry / list of interview preparation entries. 
 
 #### interviews:
-Responsible for cleaning up all fields to related to the 'interviews' SQL table.
+This where you'll find all the Python files related to an interview entry / list of interview entries. 
 
 #### job_offers:
-Responsible for cleaning up all fields to related to the 'job_offers' SQL table.
+This where you'll find all the Python files related to a job offer entry / list of job offer entries. 
 
 
 #### users:
-Responsible for cleaning up all fields to related to the 'users' SQL table.
+This where you'll find all the Python files related to a user  entry / list of user entries. 
 
 # ---------------------------------------------------------------
 ### 5: Static:
