@@ -207,10 +207,7 @@ This is a repository file which relates specifically to Job Applications & inclu
 This is a repository file which relates specifically to a Company Note & includes the following 2 classes: CompanyNotes & CompanyNotesRepository. Company Notes are notes that link directly to a specific Company. The CompanyNotesRepository includes all the SQL queries which connect to the 'company_notes' table in the SQL database 'jhmanager.db'.
 
 #### company.py:
-##### SQL Table:
-    company
-##### Classes:
-    Company, CompanyRepository
+This is a repository file which relates specifically to a Company & includes the following 2 classes: Company & CompanyRepository. The CompanyRepository includes all the SQL queries which connect to the 'company' table in the SQL database 'jhmanager.db'.
 
 #### contacts.py:
 ##### SQL Table:

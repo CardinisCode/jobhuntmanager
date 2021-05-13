@@ -13,7 +13,7 @@ def display_update_application_form(session, user_id, application_id, update_for
 
 def post_update_application(session, user_id, update_form, application_id, company_id, applicationsRepo, companyRepo):
 
-    # application details:
+    # Fields to be inserted into the 'job_application' table:
     application_fields = {
         "job_role": update_form.job_role.data, 
         "employment_type": update_form.emp_type.data,
@@ -30,7 +30,7 @@ def post_update_application(session, user_id, update_form, application_id, compa
 
     applicationsRepo.updateApplicationByID(application_fields)
 
-    # Company details:
+    # Fields to be inserted into the 'company' table:
     company_details = {
         "name" : update_form.company_name.data, 
         "description" : update_form.company_description.data, 
@@ -40,7 +40,7 @@ def post_update_application(session, user_id, update_form, application_id, compa
         "company_id": company_id
     }
     
-    companyRepo.updateUsingApplicationDetails(company_details)
+    companyRepo.updateCompanyByApplication(company_details)
     
     # Finally once all details have been updated, 
     # we want to direct the user back to the current application:

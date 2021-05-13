@@ -310,7 +310,7 @@ This class contains methods which interact with the 'application_notes' table in
     application_notes
 
 These methods include: 
-###### insertNewNote
+###### createApplicationNote
 Takes (input): 
     A dictionary of values for a specific note to be inserted (as a single entry) into the 'application_notes' table
 Functionality (Algorithm):
@@ -418,7 +418,6 @@ LINE:       27
 
 #### applications_history.py:
 This is a repository file which relates specifically to a Job Application & includes the following 2 classes: Application & ApplicationsHistoryRepository. 
-
 ##### Application
 This is the class which defines the fields for a specific job application, where each field is a column name found in the 'job_applications' SQL table. 
 
@@ -612,12 +611,12 @@ This class contains methods which interact with the 'company_notes' table in the
 -   Delete
 
 ###### Connects to SQL table:
-    job_applications
+    company_notes
 
 These methods include: 
 ###### createNewCompanyNote
 Takes (input): 
-    user_id
+    A dictionary of fields which relate to a specific company note
 Functionality (Algorithm):
 -   Runs a SQL 'INSERT' query to create an entry in the 'company_notes' table, with the dictionary fields being allocated to the relevant columns in the table.
 Returns (output): 
@@ -660,6 +659,7 @@ Takes (input):
     user_id
 Functionality (Algorithm):
 -   Runs a SQL query to 'SELECT' all entries in the 'company_notes' table where the foreign key 'user_id' matches the provided 'user_id' (input / argument). Each query that meets the requirements for this query is added to a list.
+-   Iterates through each entry in the list, instantiating each entry using the 'CompanyNotes' class, before adding these entries to a list of its own. 
 Returns (output): 
     A list of 'CompanyNotes' objects.
 
@@ -747,3 +747,113 @@ This class contains methods which interact with the 'company' table in the SQL d
 
 These methods include: 
 ###### createCompany
+Takes (input): 
+    A dictionary of fields which relate to a specific company
+Functionality (Algorithm):
+-   Runs a SQL 'INSERT' query to create an entry in the 'company' table, with the dictionary fields being allocated to the relevant columns in the table.
+Returns (output): 
+    The unique identifier (company_id) for the newly created entry.  
+
+An instance where this method is called:
+FUNCTION:   post_add_company()
+FILE:       services/company/add_company.py
+LINE:       41
+
+###### getCompanyById:
+Takes (input): 
+    company_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to grab a specific entry in the 'company' table, using the company's primary key 'company_id'. It then instantiates the 'Company' class with the values received from the SQL query. 
+Returns (output): 
+    An instantiated object ('Company') with the values for a specific company note. 
+
+An instance where this method is called:
+FUNCTION:   display_company_profile()
+FILE:       services/company/view_company_profile.py
+LINE:       7
+
+###### grabCompanyByNameAndUserID
+Takes (input): 
+    company_name, user_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to find & return any entry in the 'company' table where the 'company_name' (input) matches the 'name' column value & the provided 'user_id' matches the entry's foreign key 'user_id'.
+-   It instantiates the 'Company' class with the values it gets from the 'company' entry (returned from the SQL query). 
+Returns (output): 
+    A single 'Company' object.
+
+Note: This method accesses the 'company' table by calling on the 'getByName()' method which exists in 'databases.py'.
+
+An instance where this method is called:
+FUNCTION:   post_add_company()
+FILE:       services/company/add_company.py
+LINE:       19
+
+###### getCompanyEntriesByUserID
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to find all entries in the 'company' table where the 'user_id' (input) matches the entry's foreign key 'user_id'.
+-   Iterates through each entry in the list, instantiating each entry using the 'Company' class, before adding these entries to a list of its own. 
+Returns (output): 
+    A list of 'Company' objects
+
+An instance where this method is called:
+FUNCTION:   display_all_companies_for_user()
+FILE:       services/company/view_all_companies.py
+LINE:       7
+
+###### getTop8CompaniesByUserID
+This method carries out the exact same functionality as the above 'getCompanyEntriesByUserID()', except it only returns to the top 8 entries, in the form of 'Company' objects. 
+
+An instance where this method is called:
+FUNCTION:   display_address_book()
+FILE:       services/addressbook/view_addressbook.py
+LINE:       7
+
+###### updateCompanyByID
+Takes (input): 
+    A dictionary of fields which relate to a specific company
+Functionality (Algorithm):
+-   Runs a SQL 'UPDATE' query to update an entry which already exists in the 'company' table, with the dictionary fields being allocated to the relevant columns in the table.
+Returns (output): 
+    No output returned
+
+An instance where this method is called:
+FUNCTION:   post_update_company_profile()
+FILE:       services/company/update_company.py
+LINE:       25
+
+###### updateCompanyByApplication
+This method carries out the exact same functionality as the method 'updateCompanyByID' (above), except this query does not update all the columns for a company. It specifically focuses on updating the company fields which are found on the 'AddApplicationForm()':
+-   name, description, industry, location
+
+An instance where this method is called:
+FUNCTION:   post_update_application()
+FILE:       services/applications/update_application.py
+LINE:       31
+
+###### deleteCompanyByID
+Takes (input): 
+    company_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' an entry, from the 'company' table, using the company's primary key 'company_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_company_from_db()
+FILE:       services/company/delete_company.py
+LINE:       32
+
+###### deleteCompanyByUserID
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'company' table, where the provided 'user_id' matches an entry's foreign key 'user_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   post_delete_user()
+FILE:       services/users/delete_user_account.py
+LINE:       30

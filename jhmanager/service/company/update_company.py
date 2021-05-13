@@ -22,7 +22,7 @@ def post_update_company_profile(company_id, user_id, update_form, company, appli
         "company_id": company_id
     }
 
-    companyRepo.updateByID(company_details)
+    companyRepo.updateCompanyByID(company_details)
 
     redirect_url = '/company/{}/view_company'.format(company_id)
     flash("Company Details updated!")

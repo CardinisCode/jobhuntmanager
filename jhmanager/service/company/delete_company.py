@@ -29,7 +29,7 @@ def delete_company_from_db(company_id, delete_company_form, companyRepo, applica
         # Knowing they selected 'yes', we can now delete the company profile:
 
         # When deleting a company, we're also deleting everything connected to that company ID:
-        companyRepo.deleteByCompanyID(company_id)
+        companyRepo.deleteCompanyByID(company_id)
         companyNotesRepo.deleteCompanyNotesByCompanyID(company_id)
         jobOffersRepo.deleteByCompanyID(company_id)
 

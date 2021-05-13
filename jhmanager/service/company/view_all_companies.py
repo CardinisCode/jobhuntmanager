@@ -4,7 +4,7 @@ from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_compa
 
 
 def display_all_companies_for_user(user_id, companyRepo, applicationsRepo):
-    company_entries = companyRepo.getAllCompanyEntriesForUser(user_id)
+    company_entries = companyRepo.getCompanyEntriesByUserID(user_id)
 
     company_contacts = {
         "empty_list": True, 

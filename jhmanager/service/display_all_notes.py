@@ -12,7 +12,7 @@ def display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo,
     application_count = get_count(all_applications)
     app_note_count = get_count(application_notes)
 
-    all_companies = companyRepo.getAllCompanyEntriesForUser(user_id)
+    all_companies = companyRepo.getCompanyEntriesByUserID(user_id)
     company_count = get_count(all_companies)
 
     general_details = {

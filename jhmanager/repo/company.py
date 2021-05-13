@@ -32,22 +32,6 @@ class CompanyRepository:
         self.db.commit()
 
         return result.lastrowid
-    
-    def updateUsingApplicationDetails(self, fields):
-        cursor = self.db.cursor()
-
-        command = """
-        UPDATE company 
-        SET name = ?,
-            description = ?,
-            industry = ?,
-            location = ?
-        WHERE user_id = ? and company_id = ?"""
-
-        cursor.execute(command, tuple(fields.values()))
-
-        self.db.commit()
-
 
     def getCompanyById(self, company_id):
         result = self.sql.getByField('company', 'company_id', company_id)
@@ -55,14 +39,6 @@ class CompanyRepository:
         company = Company(result)
 
         return company
-
-    def grab_company_name(self, user_id, company_id):
-        cursor = self.db.cursor()
-        command = "SELECT name FROM company WHERE company_id = {} AND user_id = {}".format(company_id, user_id)
-        result = cursor.execute(command)
-        self.db.commit()
-
-        return [x for x in result][0][0]
 
     def grabCompanyByNameAndUserID(self, company_name, user_id) -> Company:
         result = self.sql.getByName('company', 'name', company_name, 'user_id', user_id)
@@ -74,35 +50,12 @@ class CompanyRepository:
 
         return company
 
-    def getAllCompanyEntriesForUser(self, user_id):
+    def getCompanyEntriesByUserID(self, user_id):
         cursor = self.db.cursor()
         command = """  
         SELECT * FROM company
         WHERE user_id = {}
         ORDER BY name
-        """.format(user_id)
-
-        result = cursor.execute(command)
-        self.db.commit()
-
-        company_list = []
-
-        if not result: 
-            return None
-
-        for company in result:
-            company_result = Company(company)
-            company_list.append(company_result)
-
-        return company_list
-
-    def getTop6CompaniesByUserID(self, user_id):
-        cursor = self.db.cursor()
-        command = """  
-        SELECT * FROM company
-        WHERE user_id = {}
-        ORDER BY name
-        LIMIT 6
         """.format(user_id)
 
         result = cursor.execute(command)
@@ -142,10 +95,8 @@ class CompanyRepository:
 
         return company_list
 
-    
-    def updateByID(self, fields):
+    def updateCompanyByID(self, fields):
         cursor = self.db.cursor()
-
         command = """
         UPDATE company 
         SET name = ?,
@@ -161,7 +112,22 @@ class CompanyRepository:
 
         self.db.commit()
 
-    def deleteByCompanyID(self, company_id):
+    # This method updates a company entry using details received from a job application. 
+    def updateCompanyByApplication(self, fields):
+        cursor = self.db.cursor()
+        command = """
+        UPDATE company 
+        SET name = ?,
+            description = ?,
+            industry = ?,
+            location = ?, 
+        WHERE user_id = ? and company_id = ?"""
+
+        cursor.execute(command, tuple(fields.values()))
+        self.db.commit()
+
+
+    def deleteCompanyByID(self, company_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -175,7 +141,7 @@ class CompanyRepository:
         finally:
             return message
 
-    def deleteByUserID(self, user_id):
+    def deleteCompanyByUserID(self, user_id):
         message = ""
         try: 
             cursor = self.db.cursor()

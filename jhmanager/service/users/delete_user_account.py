@@ -27,7 +27,7 @@ def post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, a
     interviewPrepRepo.deleteByUserID(user_id)
     appNotesRepo.deleteNoteByUserID(user_id)
     companyNotesRepo.deleteCompanyNoteByUserID(user_id)
-    companyRepo.deleteByUserID(user_id)
+    companyRepo.deleteCompanyByUserID(user_id)
     jobOffersRepo.deleteByUserID(user_id)
     contactRepo.deleteByUserID(user_id)
 
