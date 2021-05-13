@@ -51,7 +51,7 @@ def add_new_application_to_application_history(user_id, companyRepo, application
             fields[heading] = "N/A"
 
     # Now we finish off by adding the details into the SQL db:
-    application_id = applicationsRepo.addApplicationToHistory(fields)
+    application_id = applicationsRepo.createApplication(fields)
 
     return application_id
 
@@ -73,7 +73,7 @@ def add_or_update_company(user_id, application_form, companyRepo, applicationsRe
 
     if not existing_company:
         # Add the details into the company table for this user and return the company_id:
-        company_id = companyRepo.create(fields)
+        company_id = companyRepo.createCompany(fields)
 
     else:
         # Grab the existing company_id and update the details in the 'company' table for this company and user_id:

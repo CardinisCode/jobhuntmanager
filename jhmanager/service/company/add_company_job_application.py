@@ -50,7 +50,7 @@ def add_new_application_to_application_history(user_id, companyRepo, application
             fields[heading] = "N/A"
 
     # Now we finish off by adding the details into the SQL db:
-    application_id = applicationsRepo.addApplicationToHistory(fields)
+    application_id = applicationsRepo.createApplication(fields)
 
     return application_id
 

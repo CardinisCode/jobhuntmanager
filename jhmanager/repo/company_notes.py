@@ -19,7 +19,7 @@ class CompanyNotesRepository:
         self.db = db
         self.sql = SqlDatabase(db=db)
 
-    def insertNewCompanyNote(self, fields): 
+    def createNewCompanyNote(self, fields): 
         cursor = self.db.cursor()
         command = """ 
         INSERT INTO company_notes (user_id, company_id, date, subject, note_text)

@@ -20,7 +20,7 @@ class ApplicationNotesRepository:
         self.db = db
         self.sql = SqlDatabase(db=db)
 
-    def insertNewNote(self, fields): 
+    def createApplicationNote(self, fields): 
         cursor = self.db.cursor()
         command = """ 
         INSERT INTO application_notes (user_id, application_id, company_id, entry_date, description, notes_text)

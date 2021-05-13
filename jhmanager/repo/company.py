@@ -21,9 +21,6 @@ class CompanyRepository:
         self.sql = SqlDatabase(db=db)
         self.db = db
 
-    def create(self, fields):
-        return self.sql.insert('company', fields)
-
     def createCompany(self, fields):
         cursor = self.db.cursor()
         command = """

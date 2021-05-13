@@ -452,7 +452,7 @@ This class contains methods which interact with the 'job_applications' table in 
     job_applications
 
 These methods include: 
-###### addApplicationToHistory
+###### createApplication
 Takes (input): 
     A dictionary of fields related to a specific job application.
 Functionality (Algorithm):
@@ -605,7 +605,7 @@ Setting this class up allowed me to instantiate a specific Note with a pre-set l
 These field names are also the names for the columns in the 'company_notes' table.
 
 ##### CompanyNotesRepository:
-This class contains methods which interact with the 'job_applications' table in the SQL database, which carry out one of the following functions:
+This class contains methods which interact with the 'company_notes' table in the SQL database, which carry out one of the following functions:
 -   Insert
 -   Select
 -   Update
@@ -615,7 +615,7 @@ This class contains methods which interact with the 'job_applications' table in 
     job_applications
 
 These methods include: 
-###### insertNewCompanyNote
+###### createNewCompanyNote
 Takes (input): 
     user_id
 Functionality (Algorithm):
@@ -720,3 +720,30 @@ FUNCTION:   delete_company_from_db()
 FILE:       services/company/delete_company.py
 LINE:       33
 
+#### company.py
+This is a repository file which relates specifically to a Company & includes the following 2 classes: Company & CompanyRepository. 
+
+##### Company
+This is the class which defines the fields for a specific Company, where each field is a column name found in the 'company' SQL table. 
+
+Setting this class up allowed me to instantiate a specific company with a pre-set list of fields, which can be called on by another function in the Service directory for any company.
+
+###### Fields:
+-   company_id (Primary key)
+-   user_id (Foreign key)
+    -   Connecting this table to the 'users' table
+-   name, description, location, industry, url, interviewers, contact_number
+
+These field names are also the names for the columns in the 'company' table.
+
+This class contains methods which interact with the 'company' table in the SQL database, which carry out one of the following functions:
+-   Insert (Starts with 'create...')
+-   Select ('starts with 'get....')
+-   Update
+-   Delete
+
+###### Connects to SQL table:
+    company
+
+These methods include: 
+###### createCompany

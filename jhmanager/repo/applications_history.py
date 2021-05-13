@@ -43,7 +43,7 @@ class ApplicationsHistoryRepository:
         self.db = db
         self.sql = SqlDatabase(db=db)
 
-    def addApplicationToHistory(self, fields):
+    def createApplication(self, fields):
         cursor = self.db.cursor()
         command = """ 
             INSERT INTO job_applications

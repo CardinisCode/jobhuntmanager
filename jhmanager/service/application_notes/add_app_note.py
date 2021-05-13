@@ -32,7 +32,7 @@ def post_application_add_note(notes_form, application_id, user_id, appNotesRepo,
         "notes_text": notes_form.notes_text.data
     }
 
-    app_notes_id = appNotesRepo.insertNewNote(details)
+    app_notes_id = appNotesRepo.createApplicationNote(details)
 
     redirect_url = '/applications/{}/app_notes/{}/view_note'.format(application_id, app_notes_id)
     flash("Notes successfully saved.")
