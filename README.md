@@ -224,10 +224,7 @@ The difference between the 'ContactRepository' & the 'CompanyRepository':
 This is a repository file which relates specifically to Interview Preparation & includes the following 2 classes: InterviewPreparation & InterviewPreparationRepository. The InterviewPreparationRepository includes all the SQL queries which connect to the 'interview_preparation' table in the SQL database 'jhmanager.db'.
 
 #### interviewsHistory.py:
-##### SQL Table:
-    interviews
-##### Classes:
-    Interview, InterviewsHistoryRepository
+This is a repository file which relates specifically to Interview Preparation & includes the following 2 classes: InterviewPreparation & InterviewPreparationRepository. The InterviewPreparationRepository includes all the SQL queries which connect to the 'interview_preparation' table in the SQL database 'jhmanager.db'.
 
 #### job_offers_history.py:
 ##### SQL Table:

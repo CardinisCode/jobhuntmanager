@@ -981,9 +981,9 @@ FUNCTION:   post_delete_user()
 FILE:       services/users/delete_user_account.py
 LINE:       32
 
-##### database.py
+#### database.py
 
-##### interview_prep_history.py
+#### interview_prep_history.py
 This is a repository file which relates specifically to Interview Preparation & includes the following 2 classes: InterviewPreparation & InterviewPreparationRepository. 
 
 ##### InterviewPreparation
@@ -1121,6 +1121,32 @@ FILE:       services/users/delete_user_account.py
 LINE:       27
 
 #### interviews_history.py
+This is a repository file which relates specifically to Interviews & includes the following 2 classes: Interview & InterviewsHistoryRepository. 
 
+##### Interview
+This is the class which defines the fields for a specific Interview (or a list of Interview entries), where each field is a column name found in the 'interviews' SQL table. 
 
+Setting this class up allowed me to instantiate a specific Interview with a pre-set list of fields, which can be called on by another function in the Service directory for any Interview entry.
+
+###### Fields:
+-   interview_id (Primary key)
+-   application_id (Foreign key)
+    -   Connecting this table to the 'job_applications' table
+-   user_id (Foreign key)
+    -   Connecting this table to the 'users' table
+-   entry_date, interview_date, interview_time, interview_type, location, medium, other_medium, contact_number, status, interviewer_names, video_link, extra_notes. 
+
+These field names are also the names for the columns in the 'interviews' table.
+
+##### InterviewsHistoryRepository
+This class contains methods which interact with the 'interviews' table in the SQL database, which carry out one of the following functions:
+-   Insert (Starts with 'create...')
+-   Select ('starts with 'get....')
+-   Update
+-   Delete
+
+###### Connects to SQL table:
+    interviews
+
+These methods include: 
 
