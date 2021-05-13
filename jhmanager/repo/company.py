@@ -141,7 +141,7 @@ class CompanyRepository:
         finally:
             return message
 
-    def deleteCompanyByUserID(self, user_id):
+    def deleteAllCompaniesByUserID(self, user_id):
         message = ""
         try: 
             cursor = self.db.cursor()

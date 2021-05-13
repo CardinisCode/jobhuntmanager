@@ -26,7 +26,7 @@ def post_update_contact(contact_id, user_id, update_contact_form, contactRepo):
         if not value:
             details[heading] = "N/A"
 
-    contactRepo.updateByContactID(details)
+    contactRepo.updateContactByID(details)
 
     redirect_url = '/address_book/contact_list/{}/view_contact'.format(contact_id)
     flash("Contact has been successfully updated!")

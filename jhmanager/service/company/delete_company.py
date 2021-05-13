@@ -39,7 +39,7 @@ def delete_company_from_db(company_id, delete_company_form, companyRepo, applica
             for application in applications:
                 application_id = application.app_id
                 interviewsRepo.deleteByApplicationID(application_id)
-                interviewPrepRepo.deleteByApplicationID(application_id)
+                interviewPrepRepo.deleteInterviewPrepByApplicationID(application_id)
                 appNotesRepo.deleteNoteByApplicationID(application_id)
 
         # Now we can delete all applications & Notes linked to this Company Id:

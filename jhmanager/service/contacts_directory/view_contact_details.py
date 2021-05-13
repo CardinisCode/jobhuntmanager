@@ -3,7 +3,7 @@ from jhmanager.service.cleanup_files.cleanup_contact_fields import cleanup_speci
 
 
 def display_contact_details(contact_id, contactRepo):
-    contact = contactRepo.getContactByContactID(contact_id)
+    contact = contactRepo.getContactByID(contact_id)
 
     contact_details = {
         "empty_contact": True, 

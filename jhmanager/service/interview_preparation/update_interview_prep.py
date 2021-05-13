@@ -65,7 +65,7 @@ def post_update_interview_preparation(application_id, interview_id, interview_pr
         if value == "":
             prep_fields[heading] = "N/A"
 
-    output = interviewPrepRepo.updateByInterviewPrepID(prep_fields)
+    output = interviewPrepRepo.updateInterviewPrepByID(prep_fields)
     if not output: 
         flash("Failed to update the details. Please try again.")
         redirect_url = '/applications/{}/interview/{}/interview_preparation/{}/update_interview_prep_entry'.format(application_id, interview_id, interview_prep_id)

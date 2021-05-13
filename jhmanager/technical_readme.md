@@ -694,7 +694,7 @@ FUNCTION:   delete_specific_company_note()
 FILE:       services/company_notes/delete_company_note.py
 LINE:       5
 
-###### deleteCompanyNoteByUserID
+###### deleteAllCompanyNotesByUserID
 Takes (input): 
     user_id
 Functionality (Algorithm):
@@ -736,6 +736,7 @@ Setting this class up allowed me to instantiate a specific company with a pre-se
 
 These field names are also the names for the columns in the 'company' table.
 
+##### CompanyRepository
 This class contains methods which interact with the 'company' table in the SQL database, which carry out one of the following functions:
 -   Insert (Starts with 'create...')
 -   Select ('starts with 'get....')
@@ -765,7 +766,7 @@ Takes (input):
 Functionality (Algorithm):
 -   Runs a SQL 'SELECT' query to grab a specific entry in the 'company' table, using the company's primary key 'company_id'. It then instantiates the 'Company' class with the values received from the SQL query. 
 Returns (output): 
-    An instantiated object ('Company') with the values for a specific company note. 
+    An instantiated object ('Company') with the values for a specific company. 
 
 An instance where this method is called:
 FUNCTION:   display_company_profile()
@@ -845,7 +846,7 @@ FUNCTION:   delete_company_from_db()
 FILE:       services/company/delete_company.py
 LINE:       32
 
-###### deleteCompanyByUserID
+###### deleteAllCompaniesByUserID
 Takes (input): 
     user_id
 Functionality (Algorithm):
@@ -857,3 +858,269 @@ An instance where this method is called:
 FUNCTION:   post_delete_user()
 FILE:       services/users/delete_user_account.py
 LINE:       30
+
+#### contacts.py
+This is a repository file which relates specifically to a Contact & includes the following 2 classes: Contact & ContactRepository. 
+
+The difference between the 'ContactRepository' & the 'CompanyRepository':
+-   'ContactRepository' 
+    -   connects to the 'indiv_contacts' SQL table, 
+    -   Relates to data specific to people / individuals, 
+-   'CompanyRepository' 
+    -   connects to the 'company' SQL table
+    -   Relates to data specific to a corporate/business.
+
+##### Contact
+This is the class which defines the fields for a specific (individual) Contact, where each field is a column name found in the 'indiv_contacts' SQL table. 
+
+Setting this class up allowed me to instantiate a specific Contact with a pre-set list of fields, which can be called on by another function in the Service directory for any (individual) contact.
+
+###### Fields:
+-   contact_id (Primary key)
+-   user_id (Foreign key)
+    -   Connecting this table to the 'users' table
+-   full_name, job_title, contact_number, company_name, email_address, linkedin_profile
+
+These field names are also the names for the columns in the 'company' table.
+
+##### ContactRepository
+This class contains methods which interact with the 'indiv_contacts' table in the SQL database, which carry out one of the following functions:
+-   Insert (Starts with 'create...')
+-   Select ('starts with 'get....')
+-   Update
+-   Delete
+
+###### Connects to SQL table:
+    indiv_contacts
+
+These methods include: 
+###### create_contact
+Takes (input): 
+    A dictionary of fields which relate to a specific contact
+Functionality (Algorithm):
+-   Runs a SQL 'INSERT' query to create an entry in the 'indiv_contacts' table, with the dictionary fields being allocated to the relevant columns in the table.
+Returns (output): 
+    The unique identifier (contact_id) for the newly created entry.  
+
+An instance where this method is called:
+FUNCTION:   post_add_new_contact()
+FILE:       services/contacts_directory/add_new_contact.py
+LINE:       28
+
+###### getContactByID
+Takes (input): 
+    contact_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to grab a specific entry in the 'indiv_contacts' table, using the contact's primary key 'contact_id'. It then instantiates the 'Company' class with the values received from the SQL query. 
+Returns (output): 
+    An instantiated object ('Contact') with the values for a specific contact. 
+
+An instance where this method is called:
+FUNCTION:   display_contact_details()
+FILE:       services/contacts_directory/view_contact_details.py
+LINE:       6
+
+###### getContactsByUserID
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to find all entries in the 'indiv_contacts' table where the 'user_id' (input) matches the entry's foreign key 'user_id'.
+-   Iterates through each entry in the list, instantiating each entry using the 'Contact' class, before adding these entries to a list of its own. 
+Returns (output): 
+    A list of 'Contact' objects
+
+An instance where this method is called:
+FUNCTION:   display_contacts_for_user()
+FILE:       services/contacts_directory/view_contact_list.py
+LINE:       6
+
+###### getTop8ContactsByUserID
+Carries out the same functionality as the above 'getContactsByUserID', except it returns the top 8 entries, where each entry is an instantiated 'Contact' object.
+
+An instance where this method is called:
+FUNCTION:   display_address_book()
+FILE:       services/address_book/view_address_book.py
+LINE:       29
+
+###### updateContactByID
+Takes (input): 
+    A dictionary of fields which relate to a specific contact.
+Functionality (Algorithm):
+-   Runs a SQL 'UPDATE' query to update an entry in the 'indiv_contacts' table, with the dictionary fields being allocated to the relevant columns in the table.
+Returns (output): 
+    No output returned
+
+An instance where this method is called:
+FUNCTION:   post_update_contact()
+FILE:       services/contacts_directory/update_contact.py
+LINE:       29
+
+###### deleteContactByID
+Takes (input): 
+    contact_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' an entry, from the 'indiv_contacts' table, using the company's primary key 'contact_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_contact_details()
+FILE:       services/contacts_directory/delete_contact.py
+LINE:       5
+
+###### deleteAllContactsByUserID
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'indiv_contacts' table, where the provided 'user_id' matches an entry's foreign key 'user_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   post_delete_user()
+FILE:       services/users/delete_user_account.py
+LINE:       32
+
+##### database.py
+
+##### interview_prep_history.py
+This is a repository file which relates specifically to Interview Preparation & includes the following 2 classes: InterviewPreparation & InterviewPreparationRepository. 
+
+##### InterviewPreparation
+This is the class which defines the fields for a specific Interview Preparation entry (or a list of Interview Preparation entries), where each field is a column name found in the 'interview_preparation' SQL table. 
+
+Setting this class up allowed me to instantiate a specific Interview Preparation with a pre-set list of fields, which can be called on by another function in the Service directory for any Interview Preparation.
+
+###### Fields:
+-   interview_prep_id (Primary key)
+-   interview_id (Foreign key)
+    -   Connecting this table to the 'interviews' table
+-   application_id (Foreign key)
+    -   Connecting this table to the 'job_applications' table
+-   user_id (Foreign key)
+    -   Connecting this table to the 'users' table
+-   question, answer
+
+These field names are also the names for the columns in the 'interview_preparation' table.
+
+##### InterviewPreparationRepository
+This class contains methods which interact with the 'interview_preparation' table in the SQL database, which carry out one of the following functions:
+-   Insert (Starts with 'create...')
+-   Select ('starts with 'get....')
+-   Update
+-   Delete
+
+###### Connects to SQL table:
+    interview_preparation
+
+These methods include: 
+###### createInterviewPreparation
+Takes (input): 
+    A dictionary of fields which relate to a specific interview preparation (entry)
+Functionality (Algorithm):
+-   Runs a SQL 'INSERT' query to create an entry in the 'interview_preparation' table, with the dictionary fields being allocated to the relevant columns in the table.
+Returns (output): 
+    The unique identifier (interview_prep_id) for the newly created entry.  
+
+An instance where this method is called:
+FUNCTION:   post_add_interview_preparation()
+FILE:       services/interview_preparation/add_interview_prep.py
+LINE:       92
+
+###### getInterviewPrepByID
+Takes (input): 
+    interview_prep_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to grab a specific entry in the 'interview_preparation' table, where the provided 'interview_prep_id' (input) matches the entry's primary key 'interview_prep_id'.
+-   It then instantiates the 'InterviewPreparation' class with the values received from the SQL query. 
+Returns (output): 
+    An instantiated object ('InterviewPreparation') with the values for a specific Interview Preparation entry. 
+
+An instance where this method is called:
+FUNCTION:   display_interview_prep_details()
+FILE:       services/interview_preparation/view_interview_prep_details.py
+LINE:       11
+
+###### getAllInterviewPrepEntriesByInterviewId
+Takes (input): 
+    interview_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to find all entries in the 'interview_preparation' table where the 'interview_id' (input) matches the entry's foreign key 'interview_id'.
+-   Iterates through each entry in the list, instantiating each entry using the 'InterviewPreparation' class, before adding these entries to a list of its own. 
+Returns (output): 
+    A list of 'InterviewPreparation' objects
+
+An instance where this method is called:
+FUNCTION:   display_all_interview_prep_entries()
+FILE:       services/interview_preparation/view_all_interview_prep.py
+LINE:       12
+
+###### updateInterviewPrepByID
+Takes (input): 
+    A dictionary of fields which relate to a specific interview preparation entry.
+Functionality (Algorithm):
+-   Runs a SQL 'UPDATE' query to update an entry in the 'interview_preparation' table, with the dictionary fields being allocated to the relevant columns in the table.
+Returns (output): 
+    No output returned
+
+An instance where this method is called:
+FUNCTION:   post_update_interview_preparation()
+FILE:       services/interview_preparation/update_interview_prep.py
+LINE:       68
+
+###### deleteInterviewPrepByID
+Takes (input): 
+    interview_prep_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' an entry, from the 'interview_preparation' table, using the company's primary key 'interview_prep_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_interview_prep_details()
+FILE:       services/interview_preparation/delete_interview_prep.py
+LINE:       8
+
+###### deleteInterviewPrepByInterviewID
+Takes (input): 
+    interview_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'interview_preparation' table, where the provided 'interview_id' matches an entry's foreign key 'interview_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_interview()
+FILE:       services/interviews/delete_an_interview.py
+LINE:       7
+
+###### deleteInterviewPrepByApplicationID
+Takes (input): 
+    application_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'interview_preparation' table, where the provided 'application_id' matches an entry's foreign key 'application_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_company_from_db()
+FILE:       services/company/delete_company.py
+LINE:       34
+
+###### deleteInterviewPrepByUserID
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'interview_preparation' table, where the provided 'user_id' matches an entry's foreign key 'user_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   post_delete_user()
+FILE:       services/users/delete_user_account.py
+LINE:       27
+
+#### interviews_history.py
+
+
+

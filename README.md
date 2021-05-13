@@ -210,16 +210,18 @@ This is a repository file which relates specifically to a Company Note & include
 This is a repository file which relates specifically to a Company & includes the following 2 classes: Company & CompanyRepository. The CompanyRepository includes all the SQL queries which connect to the 'company' table in the SQL database 'jhmanager.db'.
 
 #### contacts.py:
-##### SQL Table:
-    indiv_contacts
-##### Classes:
-    Contact, ContactRepository
+This is a repository file which relates specifically to a Contact & includes the following 2 classes: Contact & ContactRepository. The ContactRepository includes all the SQL queries which connect to the 'indiv_contacts' table in the SQL database 'jhmanager.db'.
+
+The difference between the 'ContactRepository' & the 'CompanyRepository':
+-   'ContactRepository' 
+    -   connects to the 'indiv_contacts' SQL table, 
+    -   Relates to data specific to people / individuals, 
+-   'CompanyRepository' 
+    -   connects to the 'company' SQL table
+    -   Relates to data specific to a corporate/business.
 
 #### interview_prep_history.py:
-##### SQL Table:
-    interview_preparation
-##### Classes:
-    InterviewPreparation, InterviewPreparationRepository
+This is a repository file which relates specifically to Interview Preparation & includes the following 2 classes: InterviewPreparation & InterviewPreparationRepository. The InterviewPreparationRepository includes all the SQL queries which connect to the 'interview_preparation' table in the SQL database 'jhmanager.db'.
 
 #### interviewsHistory.py:
 ##### SQL Table:

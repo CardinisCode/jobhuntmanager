@@ -21,7 +21,7 @@ from jhmanager.helpers_from_cs50_finance import login_required, apology
 from jhmanager.repo.users import UserRepository
 from jhmanager.repo.company import CompanyRepository
 from jhmanager.repo.applications_history import ApplicationsHistoryRepository
-from jhmanager.repo.interviewsHistory import InterviewsHistoryRepository
+from jhmanager.repo.interviews_history import InterviewsHistoryRepository
 from jhmanager.repo.interview_prep_history import InterviewPreparationRepository
 from jhmanager.repo.company_notes import CompanyNotesRepository
 from jhmanager.repo.job_offers_history import JobOffersRepository
@@ -580,7 +580,7 @@ def view_contact_details(contact_id):
 @login_required
 def update_contact(contact_id):
     user_id = session["user_id"]
-    contact = contactRepo.getContactByContactID(contact_id)
+    contact = contactRepo.getContactByID(contact_id)
     update_contact_form = AddNewContactForm(obj=contact)
 
     if request.method == "GET":

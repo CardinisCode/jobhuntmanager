@@ -17,7 +17,7 @@ class InterviewPreparationRepository:
         self.sql = SqlDatabase(db=db)
         self.db = db
 
-    def addInterviewPrep(self, fields):
+    def createInterviewPreparation(self, fields):
         cursor = self.db.cursor()
         command = "INSERT INTO interview_preparation (user_id, application_id, interview_id, specific_question, specific_answer) VALUES (?, ?, ?, ?, ?)"
         result = cursor.execute(command, tuple(fields.values()))
@@ -25,7 +25,7 @@ class InterviewPreparationRepository:
 
         return result.lastrowid
 
-    def getEntryByInterviewPrepID(self, interview_prep_id):
+    def getInterviewPrepByID(self, interview_prep_id):
         cursor = self.db.cursor()
         command = "SELECT * FROM interview_preparation WHERE interview_prep_id = {}".format(interview_prep_id)
         result = cursor.execute(command)
@@ -59,7 +59,7 @@ class InterviewPreparationRepository:
 
         return interview_prep_entries_list
 
-    def updateByInterviewPrepID(self, fields):
+    def updateInterviewPrepByID(self, fields):
         output = None
         try: 
             cursor = self.db.cursor()
@@ -78,7 +78,7 @@ class InterviewPreparationRepository:
             return output
     
 
-    def deleteByInterviewPrepID(self, interview_prep_id):
+    def deleteInterviewPrepByID(self, interview_prep_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -92,7 +92,7 @@ class InterviewPreparationRepository:
         finally:
             return message
 
-    def deleteByInterviewID(self, interview_prep_id):
+    def deleteInterviewPrepByInterviewID(self, interview_prep_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -106,7 +106,7 @@ class InterviewPreparationRepository:
         finally:
             return message
 
-    def deleteByApplicationID(self, application_id):
+    def deleteInterviewPrepByApplicationID(self, application_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -120,7 +120,7 @@ class InterviewPreparationRepository:
         finally:
             return message
 
-    def deleteByUserID(self, user_id):
+    def deleteInterviewPrepByUserID(self, user_id):
         message = ""
         try: 
             cursor = self.db.cursor()

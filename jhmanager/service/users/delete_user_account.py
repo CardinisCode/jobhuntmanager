@@ -24,12 +24,12 @@ def post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, a
     userRepo.deleteByUserID(user_id)
     applicationsRepo.deleteApplicationsByUserID(user_id)
     interviewsRepo.deleteByUserID(user_id)
-    interviewPrepRepo.deleteByUserID(user_id)
+    interviewPrepRepo.deleteInterviewPrepByUserID(user_id)
     appNotesRepo.deleteNoteByUserID(user_id)
-    companyNotesRepo.deleteCompanyNoteByUserID(user_id)
-    companyRepo.deleteCompanyByUserID(user_id)
+    companyNotesRepo.deleteAllCompanyNotesByUserID(user_id)
+    companyRepo.deleteAllCompaniesByUserID(user_id)
     jobOffersRepo.deleteByUserID(user_id)
-    contactRepo.deleteByUserID(user_id)
+    contactRepo.deleteAllContactsByUserID(user_id)
 
     session.clear()
 

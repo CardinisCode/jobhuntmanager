@@ -89,7 +89,7 @@ def post_add_interview_preparation(user_id, application_id, interview_id, interv
         "answer_data": interview_prep_form.answer.data,
     }
 
-    interviewPrepRepo.addInterviewPrep(form_details)
+    interviewPrepRepo.createInterviewPreparation(form_details)
     
     flash("Interview Preparation entry saved successfully.")
 
