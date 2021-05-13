@@ -657,7 +657,7 @@ def delete_company_profile(company_id):
 
     if request.method == "POST":
         if delete_company_form.validate_on_submit():
-            return delete_company_from_db(company_id, delete_company_form, companyRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, companyNotesRepo, jobOffersRepo)
+            return delete_company_from_db(company_id, delete_company_form, companyRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, companyNotesRepo, jobOffersRepo, appNotesRepo)
         
         else:
             flash("Complete all the fields.")

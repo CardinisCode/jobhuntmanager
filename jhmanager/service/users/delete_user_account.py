@@ -10,7 +10,6 @@ def display_delete_user_form(user_id, delete_account_form):
     return render_template("delete_account.html", delete_account_form=delete_account_form, display=display)
 
 
-
 def post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, appNotesRepo, interviewPrepRepo, interviewsRepo, companyRepo, companyNotesRepo, jobOffersRepo, contactRepo): 
     password = delete_account_form.password.data
 
@@ -26,7 +25,7 @@ def post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, a
     applicationsRepo.deleteByUserID(user_id)
     interviewsRepo.deleteByUserID(user_id)
     interviewPrepRepo.deleteByUserID(user_id)
-    appNotesRepo.deleteByUserID(user_id)
+    appNotesRepo.deleteNoteByUserID(user_id)
     companyNotesRepo.deleteByUserID(user_id)
     companyRepo.deleteByUserID(user_id)
     jobOffersRepo.deleteByUserID(user_id)

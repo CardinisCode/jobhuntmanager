@@ -5,7 +5,7 @@ def delete_application(application_id, applicationsRepo, interviewsRepo, intervi
     # To delete an application, I simply the relevant SQL query in applicationsRepo, using the application_id.
     applicationsRepo.deleteEntryByApplicationID(application_id)
     interviewsRepo.deleteByApplicationID(application_id)
-    appNotesRepo.deleteByApplicationID(application_id)
+    appNotesRepo.deleteNoteByApplicationID(application_id)
     jobOffersRepo.deleteByApplicationID(application_id)
 
     # Once the application is deleted, the user will be redirected the 'Applications' page:

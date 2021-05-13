@@ -18,7 +18,7 @@ def display_delete_company_form(company_id, delete_company_form, companyRepo):
     return render_template("delete_company_profile.html", display=display, delete_company_form=delete_company_form)
 
 
-def delete_company_from_db(company_id, delete_company_form, companyRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, companyNotesRepo, jobOffersRepo):
+def delete_company_from_db(company_id, delete_company_form, companyRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, companyNotesRepo, jobOffersRepo, appNotesRepo):
     # Let's review the user's selection:
     customer_choice = delete_company_form.confirm_choice.data
     if customer_choice == 1:
@@ -40,6 +40,7 @@ def delete_company_from_db(company_id, delete_company_form, companyRepo, applica
                 application_id = application.app_id
                 interviewsRepo.deleteByApplicationID(application_id)
                 interviewPrepRepo.deleteByApplicationID(application_id)
+                appNotesRepo.deleteNoteByApplicationID(application_id)
 
         # Now we can delete all applications & Notes linked to this Company Id:
         applicationsRepo.deleteByCompanyID(company_id)

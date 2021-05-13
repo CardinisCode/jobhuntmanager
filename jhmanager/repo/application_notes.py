@@ -46,26 +46,6 @@ class ApplicationNotesRepository:
 
         return note_details
 
-    def getApplicationNotesForCompany(self, company_id, user_id):
-        cursor = self.db.cursor()
-        command = "SELECT * FROM application_notes WHERE user_id = {} and company_id = {} ORDER BY date DESC".format(user_id, company_id)
-        result = cursor.execute(command)
-        self.db.commit()
-
-        if not result:
-            return None
-        
-        notes_list = []
-        for note in result:
-            user_notes_entry = ApplicationNotes(note)
-            notes_list.append(user_notes_entry)
-
-        if notes_list == []:
-            return None
-
-        return notes_list
-
-
     def getAppNotesByApplicationID(self, application_id, user_id):
         cursor = self.db.cursor()
         command = "SELECT * FROM application_notes WHERE user_id = {} and application_id = {} ORDER BY entry_date DESC".format(user_id, application_id)
@@ -120,7 +100,7 @@ class ApplicationNotesRepository:
         finally:
             return message 
 
-    def deleteByApplicationID(self, application_id):
+    def deleteNoteByApplicationID(self, application_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -135,7 +115,7 @@ class ApplicationNotesRepository:
             return message  
 
 
-    def deleteByUserID(self, user_id): 
+    def deleteNoteByUserID(self, user_id): 
         message = ""
         try: 
             cursor = self.db.cursor()

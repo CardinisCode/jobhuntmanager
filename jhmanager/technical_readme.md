@@ -23,6 +23,8 @@ These are the files in this directory:
     This form includes all the fields that I've commonly seen on job application forms (online and in person). 
 #### Form Fields:
     date_posted, job_role, emp_type, job_ref, company_name, company_description, industry, job_description, job_perks, tech_stack, location, salary, user_notes, platform, job_url. 
+##### An instance where this method is called:
+
 #### Renders to the template:
     add_job_application.html
 ##### Related to SQL table: 
@@ -35,6 +37,8 @@ These are the files in this directory:
     This form is simple in nature and only has 2 fields: The subject and content for a form. 
 ##### Form Fields:
     description, notes_text
+##### An instance where this method is called:
+
 ##### Renders to the template:
     add_application_note.html
 ##### Related to SQL table: 
@@ -47,6 +51,8 @@ These are the files in this directory:
     This Form has fields relevant to a company and puts together 'contact' info for a specific company.
 ##### Fields:
     name, description, location, industry, interviewers, url
+##### An instance where this method is called:
+
 ##### Renders to the template:
     add_company_form.html
 ##### Related to SQL table: 
@@ -59,6 +65,8 @@ These are the files in this directory:
     This form is very similar to the AddApplicationForm(), except it doesn't include any fields relevant to a company. 
 ##### Fields:
     date_posted, job_role, emp_type, job_ref, job_description, job_perks, tech_stack, salary, user_notes, platform, job_url. 
+##### An instance where this method is called:
+
 ##### Renders to the template:
     add_company_job_application.html
 ##### Related to SQL table: 
@@ -71,6 +79,8 @@ These are the files in this directory:
     I kept this form simple in nature, so that it resembles a note we'd scribble in a note book. 
 ##### Fields:
     subject, note_text
+##### An instance where this method is called:
+
 ##### Renders to the template:
     add_company_note.html
 ##### Related to SQL table: 
@@ -83,6 +93,8 @@ These are the files in this directory:
     This form includes fields relevant to an interview. I added fields relevant to interviews done 1) in person, 2) over video call & 3) over a phone call. 
 ##### Fields:
     interview_date, interview_time, interviewer_names, interview_type, interview_location, interview_medium, other_medium, video_link, phone_call, status, extra_notes. 
+##### An instance where this method is called:
+
 ##### Renders to the template:
     add_interview.html
 ##### Related to SQL table: 
@@ -95,6 +107,8 @@ These are the files in this directory:
     This form is similar in nature to the note forms, except the 2 fields are 'Question' and 'Answer'. It allows the user to add the interview Question and the answer the user is planning to say in response to the Question. 
 ##### Fields:
     question, answer
+##### An instance where this method is called:
+
 ##### Renders to the template:
     interview_prep.html
 ##### Related to SQL table: 
@@ -107,6 +121,8 @@ These are the files in this directory:
     This form allows the user to add a job offer they've received and gives the user the field 'offer_response' so the user can select if they've accepted (or rejected) the offer or if they're still thinking about it. 
 ##### Fields: 
     job_role, salary_offered, perks_offered, offer_response, starting_date. 
+##### An instance where this method is called:
+
 ##### Renders to the template:
     add_job_offer.html
 ##### Related to SQL table: 
@@ -119,6 +135,8 @@ These are the files in this directory:
     This form asks the user for information very much relevant for putting together contact information. Making connections is very important when looking for work as we often have a higher chance of getting a job when we know someone on the inside of the company we're looking to work for. We're also more likely to know of a vacacy through the network we build. 
 ##### Fields:
     full_name, job_title, contact_number, company_name, email_address, linkedin_profile.
+##### An instance where this method is called:
+
 ##### Renders to the template:
     add_new_contact.html
 ##### Related to SQL table: 
@@ -131,6 +149,8 @@ These are the files in this directory:
     This form is presented to the user when they select the 'Delete Account' button in their User Profile. The form asks the user to enter their account password and once the user submits the form, their account is hard (entirely) deleted from the application's database. 
 ##### Fields:
     password
+##### An instance where this method is called:
+
 ##### Renders to the template:
     delete_account.html
 ##### Related to SQL table: 
@@ -145,6 +165,8 @@ These are the files in this directory:
     If the user chooses the "Yes....", & submits the form, then the company (and all data related to this company) will be hard deleted from the application's databases. For this reason, there is a warning presented above this option to notify the user of the consequences of deleting this company contact.
 ##### Fields:
     confirm_choice
+##### An instance where this method is called:
+
 ##### Renders to the template:
     delete_company_profile.html
 ##### Related to SQL table: 
@@ -157,6 +179,8 @@ These are the files in this directory:
     Presents the user with a simple form, which allows the user to log into their account on the application. 
 ##### Fields:
     username, password
+##### An instance where this method is called:
+
 ##### Renders to the template:
     login.html
 ##### Related to SQL table: 
@@ -168,7 +192,9 @@ These are the files in this directory:
 ##### Functionality: 
     This form as the registration form & the values of this form will be used to create an account for the user. The user is asked to provide an unique username & email address. If either already exists in our database, the user will be asked to provide another username / email address. The 'confirm_password' field serves to ask the user to type a password in twice & ensure that both password values match. 
 ##### Fields:
-    username, email_address, password, confirm_password. 
+    username, email_address, password, confirm_password.
+##### An instance where this method is called:
+
 ##### Renders to the template:
     register.html
 ##### Related to SQL table: 
@@ -181,6 +207,8 @@ These are the files in this directory:
     This form has all the functionality found on the ''AddCompanyForm()' Form, yet the 'UpdateCompany()' Form was created first. This form gets instantiated using the details from a specific entry in the 'company' SQL table. 
 ##### Fields:
     date_posted, job_role, emp_type, job_ref, job_description, job_perks, tech_stack, salary, user_notes, platform, job_url. 
+##### An instance where this method is called:
+
 ##### Renders to the template:
     update_company_profile.html
 ##### Related to SQL table: 
@@ -193,6 +221,8 @@ These are the files in this directory:
     This form is very simple and serves to allow the user to update only the status of an interview. Once an interview has been completed/deleted/post-poned, the user will want to update the status without having to worry/focus on any of the other interview fields (on AddInterviewForm()). 
 ##### Fields:
     status
+##### An instance where this method is called:
+
 ##### Renders to the template:
     update_interview_status.html
 ##### Related to SQL table: 
@@ -205,6 +235,8 @@ These are the files in this directory:
     This form serves to allow the user to update the email address linked to their account. The user is asked to provide the new email address twice. I added validators to ensure that the user provides the same email address in both fields.
 ##### Fields:
     email, confirm_email
+##### An instance where this method is called:
+
 ##### Renders to the template:
     update_email.html
 ##### Related to SQL table: 
@@ -216,6 +248,8 @@ These are the files in this directory:
     This form serves to allow the user to change the password on their account. The user is asked to provide the new password twice. I added validators to ensure that the user provides the same password in both fields. Since these two fields are each designated as a 'PasswordField', the fields hide what the user enters into these fields, even as they're typing. 
 ##### Fields:
     password, confirm_password
+##### An instance where this method is called:
+
 ##### Renders to the template:
     change_password.html
 ##### Related to SQL table: 
@@ -272,6 +306,11 @@ Functionality (Algorithm):
 Returns (output): 
     The unique identifier (app_notes_id) for the newly created entry. 
 
+An instance where this method is called:
+FUNCTION:   post_application_add_note()
+FILE:       services/application_notes/add_app_note.py
+LINE:       35
+
 ###### getNoteByAppNoteID
 Takes (input): 
     The app_notes_id for a specific application note
@@ -280,14 +319,10 @@ Functionality (Algorithm):
 Returns (output): 
     An instantiated object ('ApplicationNotes') with the values for a specific application note. 
 
-###### getApplicationNotesForCompany
-Takes (input): 
-    company_id, user_id
-Functionality (Algorithm):
--   Runs a SQL query to 'SELECT' all entries in the 'application_notes' table for a specific company (via the company_id) & for a specific user (via their user_id). The SQL query returns a list of entries. 
--   Iterates through each entry in the list, instantiating each entry using the 'ApplicationNotes' class, before adding these entries to a list of its own. 
-Returns (output): 
-    A list of application notes, where each note is an object. 
+An instance where this method is called:
+FUNCTION:   display_application_note_details()
+FILE:       services/application_notes/view_app_note_details.py
+LINE:       8
 
 ###### getAppNotesByApplicationID
 Takes (input): 
@@ -298,6 +333,11 @@ Functionality (Algorithm):
 Returns (output): 
     A list of application notes, where each note is an object. 
 
+An instance where this method is called:
+FUNCTION:   display_application_notes()
+FILE:       services/application_notes/view_application_notes.py
+LINE:       8
+
 ###### getAppNotesByUserId
 Takes (input): 
     user_id
@@ -307,6 +347,11 @@ Functionality (Algorithm):
 Returns (output): 
     A list of application notes, where each note is an object. 
 
+An instance where this method is called:
+FUNCTION:   display_all_user_notes()
+FILE:       services/display_all_notes.py
+LINE:       9
+
 ###### deleteByAppNoteID
 Takes (input): 
     app_notes_id
@@ -314,6 +359,11 @@ Functionality (Algorithm):
 -   Runs a Try statement, which runs a SQL query to 'DELETE' an entry, from the 'application_notes' table, using the note's app_notes_id. 
 Returns (output): 
     No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_application_note()
+FILE:       services/application_notes/delete_app_note.py
+LINE:       5
 
 ###### deleteByApplicationID
 Takes (input): 
@@ -323,13 +373,23 @@ Functionality (Algorithm):
 Returns (output): 
     No output is returned
 
-###### deleteByUserID
+An instance where this method is called:
+FUNCTION:   delete_application()
+FILE:       services/applications/delete_an_application.py
+LINE:       8
+
+###### deleteNoteByUserID
 Takes (input): 
     user_id
 Functionality (Algorithm):
 -   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'application_notes' table, linked to the note's foreign key 'user_id'. 
 Returns (output): 
     No output is returned
+
+An instance where this method is called:
+FUNCTION:   post_delete_user()
+FILE:       services/users/delete_user_account.py
+LINE:       29
 
 ###### updateByID
 Takes (input): 
@@ -338,6 +398,11 @@ Functionality (Algorithm):
 -   Runs a SQL query to 'UPDATE' the entry in the 'application_notes' table where the 'app_notes_id' for a specific note matches with the primary key for an existing entry in the table.
 Returns (output): 
     No output is returned
+
+An instance where this method is called:
+FUNCTION:   add_new_application_to_application_history()
+FILE:       services/applications/add_application.py
+LINE:       54
 
 #### applications_history.py:
 This is a repository file which relates specifically to a Job Application & includes the following 2 classes: Application & ApplicationsHistoryRepository. 
@@ -359,6 +424,31 @@ This class contains methods which interact with the 'job_applications' table in 
 
 These methods include: 
 ###### addApplicationToHistory
+An instance where this method is called:
+FUNCTION:   add_new_application_to_application_history()
+FILE:       services/applications/add_application.py
+LINE:       54
+
+
+###### grabTop10ApplicationsFromHistory
+An instance where this method is called:
+FUNCTION:   display_all_applications_current_user()
+FILE:       services/applications/view_all_applications.py. 
+LINE:       8
+
+
+###### getAllApplicationsByUserID
+An instance where this method is called:
+FUNCTION:   get_users_stats()
+FILE:       services/display_dashboard_content.py
+LINE:       170
+
+###### grabApplicationByID
+An instance where this method is called:
+FUNCTION:   display_upcoming_interviews() 
+FILE:       services/display_dashboard_content.py 
+LINE:       83
+
 
 
 

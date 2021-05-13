@@ -56,37 +56,6 @@ class ApplicationsHistoryRepository:
 
         return result.lastrowid
 
-    def grabTodaysApplicationCount(self, todays_date, user_id):
-        cursor = self.db.cursor()
-        result = cursor.execute("SELECT * FROM job_applications WHERE app_date = ? AND user_id = ?", (todays_date, user_id,))
-        self.db.commit()
-
-        return result
-
-    def grabTop5ApplicationsFromHistory(self, user_id):
-        cursor = self.db.cursor()
-        result = cursor.execute("SELECT app_date, job_ref, c.name, job_role, platform, employment_type, interview_stage, contact_received, salary FROM applications AS A INNER JOIN company C ON A.company_id = C.company_id WHERE A.user_id = ? ORDER BY app_date DESC LIMIT 5", (user_id,))
-        self.db.commit()
-
-        return result
-
-    def grabTop5ApplicationsByUserID(self, user_id):
-        cursor = self.db.cursor()
-        command = "SELECT * FROM job_applications WHERE user_id = {} LIMIT 5".format(user_id)
-        result = cursor.execute(command)
-        self.db.commit()
-        
-        applications_list = []
-
-        if not result: 
-            return None
-
-        for application in result:
-            application_result = Application(application)
-            applications_list.append(application_result)
-
-        return applications_list
-
     def grabTop10ApplicationsFromHistory(self, user_id):
         cursor = self.db.cursor()
         result = cursor.execute("SELECT * FROM job_applications WHERE user_id = ? ORDER BY application_id DESC LIMIT 10", (user_id,))
@@ -131,16 +100,6 @@ class ApplicationsHistoryRepository:
             applications_list.append(application_result)
 
         return applications_list
-
-
-    def grabApplicationDetailsByApplicationID(self, application_id):
-        cursor = self.db.cursor()
-        command = "SELECT * FROM job_applications WHERE application_id = {}".format(application_id)
-        result = cursor.execute(command)
-        self.db.commit()
-
-        return result  
-
 
     def grabApplicationByID(self, application_id):
         cursor = self.db.cursor()

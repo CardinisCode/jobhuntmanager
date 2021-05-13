@@ -5,7 +5,7 @@ def delete_all_applications_for_user(user_id, userRepo, applicationsRepo, appNot
     applicationsRepo.deleteByUserID(user_id)
     interviewsRepo.deleteByUserID(user_id)
     interviewPrepRepo.deleteByUserID(user_id)
-    appNotesRepo.deleteByUserID(user_id)
+    appNotesRepo.deleteNoteByUserID(user_id)
     jobOffersRepo.deleteByUserID(user_id)
 
     flash("All Your Job Applications have been deleted.")
