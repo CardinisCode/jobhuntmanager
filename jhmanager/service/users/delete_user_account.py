@@ -22,11 +22,11 @@ def post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, a
         return redirect(redirect_url)
 
     userRepo.deleteByUserID(user_id)
-    applicationsRepo.deleteByUserID(user_id)
+    applicationsRepo.deleteApplicationsByUserID(user_id)
     interviewsRepo.deleteByUserID(user_id)
     interviewPrepRepo.deleteByUserID(user_id)
     appNotesRepo.deleteNoteByUserID(user_id)
-    companyNotesRepo.deleteByUserID(user_id)
+    companyNotesRepo.deleteCompanyNoteByUserID(user_id)
     companyRepo.deleteByUserID(user_id)
     jobOffersRepo.deleteByUserID(user_id)
     contactRepo.deleteByUserID(user_id)

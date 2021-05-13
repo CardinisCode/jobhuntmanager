@@ -24,7 +24,7 @@ def post_update_company_form(update_note_form, company_id, company_note_id, comp
         "note_text": update_note_form.note_text.data, 
         "company_note_id": company_note_id
     }
-    companyNotesRepo.UpdateByCompanyNoteID(details)
+    companyNotesRepo.UpdateCompanyNoteByID(details)
 
     flash("Note ID #{} has been updated successfully!".format(company_note_id))
     redirect_url = '/company/{}/company_note/{}/view_note_details'.format(company_id, company_note_id)

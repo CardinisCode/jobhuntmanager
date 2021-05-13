@@ -86,7 +86,7 @@ class ApplicationNotesRepository:
         return notes_list    
         
 
-    def deleteByAppNoteID(self, app_notes_id):
+    def deleteNoteByAppNoteID(self, app_notes_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -129,7 +129,7 @@ class ApplicationNotesRepository:
         finally:
             return message                          
 
-    def updateByID(self, fields):
+    def updateNoteByID(self, fields):
         message = ""
 
         try: 

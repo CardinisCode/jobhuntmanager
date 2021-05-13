@@ -30,7 +30,7 @@ def delete_company_from_db(company_id, delete_company_form, companyRepo, applica
 
         # When deleting a company, we're also deleting everything connected to that company ID:
         companyRepo.deleteByCompanyID(company_id)
-        companyNotesRepo.deleteByCompanyID(company_id)
+        companyNotesRepo.deleteCompanyNotesByCompanyID(company_id)
         jobOffersRepo.deleteByCompanyID(company_id)
 
         # Lets grab all the applications linked to this company's ID:
@@ -43,8 +43,7 @@ def delete_company_from_db(company_id, delete_company_form, companyRepo, applica
                 appNotesRepo.deleteNoteByApplicationID(application_id)
 
         # Now we can delete all applications & Notes linked to this Company Id:
-        applicationsRepo.deleteByCompanyID(company_id)
-        companyNotesRepo.deleteByCompanyID(company_id)
+        applicationsRepo.deleteApplicationByCompanyID(company_id)
 
         flash("All Applications, Notes, Interviews & Prep related to this company have been deleted.")
 

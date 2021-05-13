@@ -198,19 +198,13 @@ The methods in each of these files are used / called on by the functions within 
 #### __init__.py
 
 #### application_notes.py:
-This is a repository file which relates specifically to Application notes & includes the following 2 classes: ApplicationNotes & ApplicationNotesRepository. 
+This is a repository file which relates specifically to Application notes & includes the following 2 classes: ApplicationNotes & ApplicationNotesRepository. The ApplicationNotesRepository includes all the SQL queries which connect to the 'application_notes' table in the SQL database 'jhmanager.db'.
 
 #### applications_history.py:
-##### SQL Table:
-    job_applications
-##### Classes:
-    Application, ApplicationsHistoryRepository
+This is a repository file which relates specifically to Job Applications & includes the following 2 classes: Application & ApplicationsHistoryRepository. The ApplicationsHistoryRepository includes all the SQL queries which connect to the 'job_applications' table in the SQL database 'jhmanager.db'.
 
 #### company_notes.py:
-##### SQL Table:
-    company_notes
-##### Classes:
-    CompanyNotes, CompanyNotesRepository
+This is a repository file which relates specifically to a Company Note & includes the following 2 classes: CompanyNotes & CompanyNotesRepository. Company Notes are notes that link directly to a specific Company. The CompanyNotesRepository includes all the SQL queries which connect to the 'company_notes' table in the SQL database 'jhmanager.db'.
 
 #### company.py:
 ##### SQL Table:

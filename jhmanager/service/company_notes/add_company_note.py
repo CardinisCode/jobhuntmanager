@@ -26,7 +26,7 @@ def post_add_company_note(user_id, company_id, company_note_form, companyNotesRe
         "subject": company_note_form.subject.data, 
         "note_text": company_note_form.note_text.data, 
     }
-    company_note_id = companyNotesRepo.insertNewNotes(fields)
+    company_note_id = companyNotesRepo.insertNewCompanyNote(fields)
 
     flash("Note saved successfully!")
     redirect_url = '/company/{}/company_note/{}/view_note_details'.format(company_id, company_note_id)

@@ -19,7 +19,7 @@ class CompanyNotesRepository:
         self.db = db
         self.sql = SqlDatabase(db=db)
 
-    def insertNewNotes(self, fields): 
+    def insertNewCompanyNote(self, fields): 
         cursor = self.db.cursor()
         command = """ 
         INSERT INTO company_notes (user_id, company_id, date, subject, note_text)
@@ -86,7 +86,7 @@ class CompanyNotesRepository:
         return notes_list
 
 
-    def UpdateByCompanyNoteID(self, fields):
+    def UpdateCompanyNoteByID(self, fields):
         cursor = self.db.cursor()
 
         command = """
@@ -99,7 +99,7 @@ class CompanyNotesRepository:
 
         self.db.commit()
 
-    def deleteByCompanyNotesID(self, company_note_id):
+    def deleteCompanyNoteByID(self, company_note_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -114,7 +114,7 @@ class CompanyNotesRepository:
             return message 
 
 
-    def deleteByUserID(self, user_id):
+    def deleteCompanyNoteByUserID(self, user_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -128,7 +128,7 @@ class CompanyNotesRepository:
         finally:
             return message 
 
-    def deleteByCompanyID(self, company_id):
+    def deleteCompanyNotesByCompanyID(self, company_id):
         message = ""
         try: 
             cursor = self.db.cursor()

@@ -24,7 +24,7 @@ def post_update_app_note(update_app_note_form, appNotesRepo, app_notes_id, appli
         "note_id": app_notes_id
     }
 
-    message = appNotesRepo.updateByID(details)
+    message = appNotesRepo.updateNoteByID(details)
 
     redirect_url = '/applications/{}/app_notes/{}/view_note'.format(application_id, app_notes_id)
     flash(message)

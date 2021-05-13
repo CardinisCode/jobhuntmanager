@@ -179,9 +179,7 @@ class ApplicationsHistoryRepository:
         self.db.commit()
         
 
-
-
-    def deleteEntryByApplicationID(self, application_id):
+    def deleteApplicationByID(self, application_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -195,7 +193,7 @@ class ApplicationsHistoryRepository:
         finally:
             return message 
 
-    def deleteByUserID(self, user_id):
+    def deleteApplicationsByUserID(self, user_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -209,7 +207,7 @@ class ApplicationsHistoryRepository:
         finally:
             return message 
 
-    def deleteByCompanyID(self, company_id):
+    def deleteApplicationByCompanyID(self, company_id):
         message = ""
         try: 
             cursor = self.db.cursor()

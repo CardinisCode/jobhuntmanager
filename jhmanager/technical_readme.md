@@ -204,7 +204,7 @@ These are the files in this directory:
 ##### Form name: 
     UpdateCompany() 
 ##### Functionality: 
-    This form has all the functionality found on the ''AddCompanyForm()' Form, yet the 'UpdateCompany()' Form was created first. This form gets instantiated using the details from a specific entry in the 'company' SQL table. 
+    This form has all the functionality found on the 'AddCompanyForm()' Form, yet the 'UpdateCompany()' Form was created first. This form gets instantiated using the details from a specific entry in the 'company' SQL table. 
 ##### Fields:
     date_posted, job_role, emp_type, job_ref, job_description, job_perks, tech_stack, salary, user_notes, platform, job_url. 
 ##### An instance where this method is called:
@@ -287,6 +287,18 @@ This is the class which defines the fields for a specific application note, wher
 
 Setting this class up allowed me to instantiate a specific ApplicationNote with a pre-set list of fields, which can be called on by another function in the Service directory for any application note.
 
+###### Fields:
+-   app_notes_id (Primary key)
+-   user_id (Foreign key)
+    -   Connecting this table to the 'users' table
+-   application_id (Foreign key)
+    -   Connecting this table to the 'job_applications' table
+-   company_id (Foreign key)
+    -   Connecting this table to the 'company' table
+-   entry_date, description, notes_text
+
+These field names are also the names for the columns in the 'job_applications' table.
+
 ##### ApplicationNotesRepository:
 This class contains methods which interact with the 'application_notes' table in the SQL database, which carry out one of the following functions:
 -   Insert
@@ -352,7 +364,7 @@ FUNCTION:   display_all_user_notes()
 FILE:       services/display_all_notes.py
 LINE:       9
 
-###### deleteByAppNoteID
+###### deleteNoteByAppNoteID
 Takes (input): 
     app_notes_id
 Functionality (Algorithm):
@@ -365,7 +377,7 @@ FUNCTION:   delete_application_note()
 FILE:       services/application_notes/delete_app_note.py
 LINE:       5
 
-###### deleteByApplicationID
+###### deleteNoteByApplicationID
 Takes (input): 
     application_id
 Functionality (Algorithm):
@@ -391,7 +403,7 @@ FUNCTION:   post_delete_user()
 FILE:       services/users/delete_user_account.py
 LINE:       29
 
-###### updateByID
+###### updateNoteByID
 Takes (input): 
     A dictionary of fields related to a specific application note
 Functionality (Algorithm):
@@ -400,9 +412,9 @@ Returns (output):
     No output is returned
 
 An instance where this method is called:
-FUNCTION:   add_new_application_to_application_history()
-FILE:       services/applications/add_application.py
-LINE:       54
+FUNCTION:   post_update_app_note()
+FILE:       services/application_notes/update_app_note.py
+LINE:       27
 
 #### applications_history.py:
 This is a repository file which relates specifically to a Job Application & includes the following 2 classes: Application & ApplicationsHistoryRepository. 
@@ -411,6 +423,23 @@ This is a repository file which relates specifically to a Job Application & incl
 This is the class which defines the fields for a specific job application, where each field is a column name found in the 'job_applications' SQL table. 
 
 Setting this class up allowed me to instantiate a specific Application with a pre-set list of fields, which can be called on by another function in the Service directory for any job application.
+
+###### Fields:
+-   app_id (Primary key)
+-   user_id (Foreign key)
+    -   Connecting this table to the 'users' table
+-   company_id (Foreign key)
+    -   Connecting this table to the 'company' table
+-   app_date, app_time, date_posted, job_role, platform, interview_stage, employment_type, contact_received, location,job_description, user_notes, job_perks, tech_stack, job_url, job_ref, salary. 
+
+These field names are also the names for the columns in the 'job_applications' table.
+
+There are 2 additional methods to this class:
+-   withCompanyDetails
+    -   This method let me call an application with the company fields included. 
+    -   This method also came about because the full job application form 'AddApplicationForm() also takes 'company'-related information.
+-   '__str__'
+    -   Returns a string with the main field values for an application.
 
 ##### ApplicationsHistoryRepository
 This class contains methods which interact with the 'job_applications' table in the SQL database, which carry out one of the following functions:
@@ -424,34 +453,270 @@ This class contains methods which interact with the 'job_applications' table in 
 
 These methods include: 
 ###### addApplicationToHistory
+Takes (input): 
+    A dictionary of fields related to a specific job application.
+Functionality (Algorithm):
+-   Runs a SQL 'INSERT' query to create an entry in the 'job_applications' table, with the dictionary fields being allocated to the relevant columns in the table.
+Returns (output): 
+    The unique identifier (application_id) for the newly created entry.  
+
 An instance where this method is called:
 FUNCTION:   add_new_application_to_application_history()
 FILE:       services/applications/add_application.py
 LINE:       54
 
-
 ###### grabTop10ApplicationsFromHistory
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to get the top 10 applications where the foreign key 'user_id' matches the provided 'user_id' (input / argument), adding each query it finds into a list.
+-   Iterates through each entry in the list, instantiating each entry using the 'ApplicationNotes' class, before adding these entries to a list of its own. 
+Returns (output): 
+    A list of 'application' objects.
+
 An instance where this method is called:
 FUNCTION:   display_all_applications_current_user()
 FILE:       services/applications/view_all_applications.py. 
 LINE:       8
 
-
 ###### getAllApplicationsByUserID
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to get all applications where the foreign key 'user_id' matches the provided 'user_id' (input / argument), adding each query it finds into a list.
+-   Iterates through each entry in the list, instantiating each entry using the 'Applications' class, before adding these entries to a list of its own. 
+Returns (output): 
+    A list of 'application' objects.
+
 An instance where this method is called:
 FUNCTION:   get_users_stats()
 FILE:       services/display_dashboard_content.py
 LINE:       170
 
 ###### grabApplicationByID
+Takes (input): 
+    application_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to get a specific application entry the primary key 'application_id' matches the provided 'application_id' (input / argument).
+-   It instantiates the 'Application' class with the values it gets from the 'application' entry (returned from the SQL query). 
+Returns (output): 
+    A single 'Application' object
+
 An instance where this method is called:
 FUNCTION:   display_upcoming_interviews() 
 FILE:       services/display_dashboard_content.py 
 LINE:       83
 
+###### getApplicationsByCompanyID
+Takes (input): 
+    company_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to get all applications where the foreign key 'company_id' matches the provided 'company_id' (input / argument), adding each query it finds into a list.
+-   Iterates through each entry in the list, instantiating each entry using the 'Applications' class, before adding these entries to a list of its own. 
+Returns (output): 
+    A list of 'application' objects.
 
+An instance where this method is called:
+FUNCTION:   delete_company_from_db() 
+FILE:       services/company/delete_company.py 
+LINE:       37
 
+###### updateInterviewStage
+Takes (input): 
+    A dictionary of fields, which includes the interview_stage & the application_id
+Functionality (Algorithm):
+-   Runs a SQL query to 'UPDATE' the column 'interview_stage' for a specific entry in the 'job_application' table where the 'application_id' for a specific note matches with the primary key for an existing entry in the table.
+Returns (output): 
+    No output is returned
 
+An instance where this method is called:
+FUNCTION:   update_interview_stage_in_applications_repo() 
+FILE:       services/interviews/add_interview.py 
+LINE:       86
 
+###### updateApplicationByID
+Takes (input): 
+    A dictionary of fields related to a specific job application entry. 
+Functionality (Algorithm):
+-   Runs a SQL query to 'UPDATE' a specific entry in the 'job_application' table where the 'application_id' for a specific note matches with the primary key for an existing entry in the table.
+Returns (output): 
+    No output is returned
 
+An instance where this method is called:
+FUNCTION:   post_update_application() 
+FILE:       services/applications/update_application.py 
+LINE:       31
+
+###### deleteApplicationByID
+Takes (input): 
+    application_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' any entry (from the 'job_application' table) linked to a specific application's primary key 'application_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_application()
+FILE:       services/applications/delete_an_application.py
+LINE:       6
+
+###### deleteApplicationsByUserID
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'job_application' table, linked to the application's foreign key 'user_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   post_delete_user()
+FILE:       services/users/delete_user_account.py
+LINE:       25
+
+###### deleteApplicationByCompanyID
+Takes (input): 
+    company_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'job_application' table, linked to the application's foreign key 'company_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_company_from_db()
+FILE:       services/company/delete_company.py
+LINE:       46
+
+#### company_notes.py
+This is a repository file which relates specifically to a Company Note & includes the following 2 classes: CompanyNotes & CompanyNotesRepository. 
+
+##### CompanyNotes
+This is the class which defines the fields for a specific Company Note, where each field is a column name found in the 'company_notes' SQL table. 
+
+Setting this class up allowed me to instantiate a specific Note with a pre-set list of fields, which can be called on by another function in the Service directory for any company note.
+
+###### Fields:
+-   company_note_id (Primary key)
+-   user_id (Foreign key)
+    -   Connecting this table to the 'users' table
+-   company_id (Foreign key)
+    -   Connecting this table to the 'company' table
+-   entry_date, subject, note_text
+
+These field names are also the names for the columns in the 'company_notes' table.
+
+##### CompanyNotesRepository:
+This class contains methods which interact with the 'job_applications' table in the SQL database, which carry out one of the following functions:
+-   Insert
+-   Select
+-   Update
+-   Delete
+
+###### Connects to SQL table:
+    job_applications
+
+These methods include: 
+###### insertNewCompanyNote
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a SQL 'INSERT' query to create an entry in the 'company_notes' table, with the dictionary fields being allocated to the relevant columns in the table.
+Returns (output): 
+    The unique identifier (company_note_id) for the newly created entry.  
+
+An instance where this method is called:
+FUNCTION:   post_add_company_note()
+FILE:       services/company_notes/add_company_note.py
+LINE:       29
+
+###### getAllNotesByCompanyID
+Takes (input): 
+    A dictionary which includes the company_id & user_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to get all entries from the 'company_notes' table where the foreign key 'company_id' matches the provided 'company_id' (input / argument) & the foreign key 'user_id' matches the provided 'user_id' (input / argument). Each query that meets the requirements for this query is added to a list.
+-   Iterates through each entry in the list, instantiating each entry using the 'CompanyNotes' class, before adding these entries to a list of its own. 
+Returns (output): 
+    A list of 'CompanyNotes' objects.
+
+An instance where this method is called:
+FUNCTION:   display_all_notes_for_a_company()
+FILE:       services/company_notes/view_all_company_notes.py
+LINE:       15
+
+###### getCompanyNoteByID
+Takes (input): 
+    company_note_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to grab a specific entry in the 'company_notes' table, using the note's primary key 'company_note_id'. It then instantiates the 'CompanyNotes' class with the values received from the SQL query. 
+Returns (output): 
+    An instantiated object ('CompanyNotes') with the values for a specific company note. 
+
+An instance where this method is called:
+FUNCTION:   display_company_note_details()
+FILE:       services/company_notes/view_specific_note.py
+LINE:       8
+
+###### getCompanyNotesByUserID
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a SQL query to 'SELECT' all entries in the 'company_notes' table where the foreign key 'user_id' matches the provided 'user_id' (input / argument). Each query that meets the requirements for this query is added to a list.
+Returns (output): 
+    A list of 'CompanyNotes' objects.
+
+An instance where this method is called:
+FUNCTION:   display_all_user_notes()
+FILE:       services/display_all_notes.py
+LINE:       10
+
+###### UpdateCompanyNoteByID
+Takes (input): 
+    A dictionary of fields related to a specific company note entry. 
+Functionality (Algorithm):
+-   Runs a SQL query to 'UPDATE' a specific entry in the 'company_notes' table where the provided 'company_note_id' matches with the primary key for an existing entry in the table.
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   post_update_company_form()
+FILE:       services/company_note/update_company_note.py
+LINE:       27
+
+###### deleteCompanyNoteByID
+Takes (input): 
+    company_note_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' an entry, from the 'company_notes' table, using the note's company_note_id. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_specific_company_note()
+FILE:       services/company_notes/delete_company_note.py
+LINE:       5
+
+###### deleteCompanyNoteByUserID
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'company_notes' table, linked to the note's foreign key 'user_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   post_delete_user()
+FILE:       services/users/delete_user_account.py
+LINE:       29
+
+###### deleteCompanyNotesByCompanyID
+Takes (input): 
+    company_note_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'company_notes' table, linked to the note's foreign key 'user_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_company_from_db()
+FILE:       services/company/delete_company.py
+LINE:       33
 
