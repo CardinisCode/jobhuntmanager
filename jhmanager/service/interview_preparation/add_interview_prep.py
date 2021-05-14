@@ -9,7 +9,7 @@ from jhmanager.service.cleanup_files.cleanup_general_fields import replace_na_va
 
 def display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo, interviewsRepo):
     application = applicationsRepo.grabApplicationByID(application_id)
-    interview = interviewsRepo.grabInterviewByID(interview_id)
+    interview = interviewsRepo.getInterviewByID(interview_id)
     company = companyRepo.getCompanyById(application.company_id)
     company_id = company.company_id
     interview_prep_entries = interviewPrepRepo.getAllInterviewPrepEntriesByInterviewId(interview_id, user_id)

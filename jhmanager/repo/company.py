@@ -40,7 +40,7 @@ class CompanyRepository:
 
         return company
 
-    def grabCompanyByNameAndUserID(self, company_name, user_id) -> Company:
+    def getCompanyByName(self, company_name, user_id) -> Company:
         result = self.sql.getByName('company', 'name', company_name, 'user_id', user_id)
 
         if not result:

@@ -10,7 +10,7 @@ from jhmanager.service.cleanup_files.cleanup_general_fields import get_count
 
 def get_users_stats(user_id, interviewsRepo, applicationsRepo, companyRepo, jobOffersRepo):
     applications = applicationsRepo.getAllApplicationsByUserID(user_id)
-    interviews = interviewsRepo.grabAllInterviewsForUserID(user_id)
+    interviews = interviewsRepo.getInterviewsByUserID(user_id)
     job_offers = jobOffersRepo.getJobOffersByUserId(user_id)
     
     users_stats = {
@@ -123,7 +123,7 @@ def display_upcoming_interviews(user_id, interviewsRepo, applicationsRepo, compa
 
 
 def display_today_interviews(user_id, applicationsRepo, interviewsRepo, companyRepo):
-    interviews = interviewsRepo.grabAllInterviewsForUserID(user_id)
+    interviews = interviewsRepo.getInterviewsByUserID(user_id)
 
     todays_interviews = {
         "empty_table": True, 

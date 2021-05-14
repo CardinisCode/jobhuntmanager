@@ -5,7 +5,7 @@ from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_int
 
 
 def display_update_status_form(update_status_form, application_id, interview_id, interviewsRepo, applicationsRepo, companyRepo):
-    interview = interviewsRepo.grabInterviewByID(interview_id)
+    interview = interviewsRepo.getInterviewByID(interview_id)
     application = applicationsRepo.grabApplicationByID(application_id)
     company = companyRepo.getCompanyById(application.company_id)
     current_status = interview.status
@@ -30,7 +30,7 @@ def post_update_interview_status(update_status_form, application_id, interview_i
         "status": update_status_form.status.data, 
         "interview_id": interview_id
     }
-    interviewsRepo.updateInterviewStatus(fields)
+    interviewsRepo.updateInterviewStatusByID(fields)
 
     flash("Interview Status has been updated!")
     redirect_url = '/applications/{}/interview/{}'.format(application_id, interview_id)

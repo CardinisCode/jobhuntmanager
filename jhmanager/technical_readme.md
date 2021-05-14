@@ -764,7 +764,8 @@ LINE:       41
 Takes (input): 
     company_id
 Functionality (Algorithm):
--   Runs a SQL 'SELECT' query to grab a specific entry in the 'company' table, using the company's primary key 'company_id'. It then instantiates the 'Company' class with the values received from the SQL query. 
+-   Calls on the 'getByField()' from the 'database' repo, to get a specific entry in the 'company' table, using the table's primary key 'company_id'. 
+-   Instantiates the entry, returned from the SQL query, using the 'Company' class. 
 Returns (output): 
     An instantiated object ('Company') with the values for a specific company. 
 
@@ -773,7 +774,7 @@ FUNCTION:   display_company_profile()
 FILE:       services/company/view_company_profile.py
 LINE:       7
 
-###### grabCompanyByNameAndUserID
+###### getCompanyByName
 Takes (input): 
     company_name, user_id
 Functionality (Algorithm):
@@ -1072,7 +1073,7 @@ LINE:       68
 Takes (input): 
     interview_prep_id
 Functionality (Algorithm):
--   Runs a Try statement, which runs a SQL query to 'DELETE' an entry, from the 'interview_preparation' table, using the company's primary key 'interview_prep_id'. 
+-   Runs a Try statement, which runs a SQL query to 'DELETE' an entry, from the 'interview_preparation' table, where the provided 'interview_prep_id' matches the entry's primary key 'interview_prep_id'. 
 Returns (output): 
     No output is returned
 
@@ -1149,4 +1150,140 @@ This class contains methods which interact with the 'interviews' table in the SQ
     interviews
 
 These methods include: 
+###### CreateInterview()
+Takes (input): 
+    A dictionary of fields which relate to a specific interview (entry)
+Functionality (Algorithm):
+-   Runs a SQL 'INSERT' query to create an entry in the 'interviews' table, with the dictionary fields being allocated to the relevant columns in the table.
+Returns (output): 
+    The unique identifier (interview_id) for the newly created entry.  
+
+An instance where this method is called:
+FUNCTION:   InsertFieldsIntoInterviewHistory()
+FILE:       services/interviews/add_interview.py
+LINE:       42
+
+###### getInterviewByID()
+Takes (input): 
+    interview_id
+Functionality (Algorithm):
+-   Calls on the 'getByField()' from the 'database' repo, to get a specific entry in the 'interviews' table, using the table's primary key 'interview_id'. 
+-   Instantiates the entry, returned from the SQL query, using the 'Interview' class. 
+Returns (output): 
+    An instantiated object ('Interview') with the values for a specific Interview entry.
+
+An instance where this method is called:
+FUNCTION:   display_interview_details()
+FILE:       services/interviews/view_interview_details.py
+LINE:       11
+
+###### getInterviewsByUserID
+Takes (input): 
+    userID
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to find all entries in the 'interviews' table where the 'interview_id' (input) matches the entry's foreign key 'userID'.
+-   Iterates through each entry in the list, instantiating each entry using the 'Interview' class, before adding these entries to a list of its own. 
+Returns (output): 
+    A list of 'Interviews' objects
+
+An instance where this method is called:
+FUNCTION:   display_today_interviews()
+FILE:       services/display_dashboard_content.py
+LINE:       126
+
+###### getInterviewsByApplicationID
+Takes (input): 
+    application_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to find all entries in the 'interviews' table where the 'application_id' (input) matches the entry's foreign key 'application_id'.
+-   Iterates through each entry in the list, instantiating each entry using the 'Interview' class, before adding these entries to a list of its own. 
+Returns (output): 
+    A list of 'Interviews' objects
+
+An instance where this method is called:
+FUNCTION:   display_all_interviews_for_application()
+FILE:       services/interviews/view_all_interviews.py
+LINE:       10
+
+###### getTop6InterviewsByApplicationID
+Carries out the same functionality as the above function 'getInterviewsByApplicationID()', except it only limits its query to only return the top 6 entries. These 6 entries are then instantiated using the 'Interview' class, before adding these entries to a list of its own. 
+
+An instance where this method is called:
+FUNCTION:   grab_and_display_interviews()
+FILE:       services/applications/view_application_details.py
+LINE:       51
+
+###### updateInterview
+Takes (input): 
+    A dictionary of fields which relate to a specific interview entry.
+Functionality (Algorithm):
+-   Runs a SQL 'UPDATE' query to update an entry in the 'interviews' table, with the dictionary fields being allocated to the relevant columns in the table.
+Returns (output): 
+    No output returned
+
+An instance where this method is called:
+FUNCTION:   post_update_interview()
+FILE:       services/interviews/update_interview.py
+LINE:       46
+
+###### updateInterviewStatusByID
+Takes (input): 
+    A dictionary of fields which includes the updated value for 'status' & interview_id. 
+Functionality (Algorithm):
+-   Runs a SQL 'UPDATE' query to specifically update the value stored in the 'interviews' table's 'status' column for a specific entry, where the provided 'interview_id' matches the entry's primary key 'interview_id'.
+Returns (output): 
+    No output returned
+
+An instance where this method is called:
+FUNCTION:   post_update_interview_status()
+FILE:       services/interviews/update_interview_status.py
+LINE:       33
+
+###### deleteInterviewByID
+Takes (input): 
+    interview_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' an entry, from the 'interviews' table, where the provided 'interview_id' matches the entry's primary key 'interview_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_interview()
+FILE:       services/interviews/delete_an_interview.py
+LINE:       6
+
+###### deleteInterviewsByApplicationID
+Takes (input): 
+    application_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'interviews' table, where the provided 'application_id' matches an entry's foreign key 'application_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_application()
+FILE:       services/application/delete_an_application.py
+LINE:       7
+
+###### deleteInterviewsByUserID
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'interviews' table, where the provided 'user_id' matches an entry's foreign key 'user_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   post_delete_user()
+FILE:       services/users/delete_user_account.py
+LINE:       26
+
+
+
+
+
+
+
+
+
 

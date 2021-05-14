@@ -39,7 +39,7 @@ def InsertFieldsIntoInterviewHistory(interview_fields, interviewsRepo):
     interview_fields["entry_date"] = entry_date_str
 
     # Now let's insert our values into interview_history:
-    interview_id = interviewsRepo.InsertNewInterviewDetails(interview_fields)
+    interview_id = interviewsRepo.CreateInterview(interview_fields)
 
     # If it gets here, the new interview has been successfully added to the repo.
     return interview_id
@@ -71,7 +71,7 @@ def check_if_interview_is_past_dated(interview_date, interview_time):
 def update_interview_stage_in_applications_repo(interviewsRepo, application_id, applicationsRepo):
     application = applicationsRepo.grabApplicationByID(application_id)
     current_interview_stage = application.interview_stage
-    all_interviews_for_app_id = interviewsRepo.grabInterviewsByApplicationID(application_id)
+    all_interviews_for_app_id = interviewsRepo.getInterviewsByApplicationID(application_id)
     interview_count = 0
 
     if all_interviews_for_app_id:

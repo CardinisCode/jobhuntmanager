@@ -7,7 +7,7 @@ from jhmanager.service.cleanup_files.cleanup_general_fields import replace_na_va
 
 
 def display_all_interviews_for_application(application_id, interviewsRepo, companyRepo, applicationsRepo):
-    interviews_list = interviewsRepo.grabInterviewsByApplicationID(application_id)
+    interviews_list = interviewsRepo.getInterviewsByApplicationID(application_id)
     application = applicationsRepo.grabApplicationByID(application_id)
     company = companyRepo.getCompanyById(application.company_id)
     

@@ -43,7 +43,7 @@ def post_update_interview(update_interview_form, user_id, application_id, interv
         "application_id": application_id,
     }    
     # Now to use these details to use this interview in the DB:
-    interviewsRepo.updateInterview(interview_details)
+    interviewsRepo.updateInterviewByID(interview_details)
 
     flash("Interview details updated!")
     redirect_url = "/applications/{}/interview/{}".format(application_id, interview_id)

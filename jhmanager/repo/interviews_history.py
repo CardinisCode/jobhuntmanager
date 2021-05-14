@@ -29,7 +29,7 @@ class InterviewsHistoryRepository:
         self.db = db
         self.sql = SqlDatabase(db=db)
 
-    def InsertNewInterviewDetails(self, fields):
+    def CreateInterview(self, fields):
         cursor = self.db.cursor()
         command = """
         INSERT INTO interviews 
@@ -42,32 +42,14 @@ class InterviewsHistoryRepository:
 
         return result.lastrowid
 
-    def grabTop5InterviewsForUser(self, user_id):
-        cursor = self.db.cursor()
-        result = cursor.execute("SELECT * FROM interviews WHERE user_id = ? ORDER BY interview_date DESC, interview_time DESC LIMIT 5;", (user_id,))
-        self.db.commit()
+    def getInterviewByID(self, interview_ID):
+        result = self.sql.getByField('interviews', 'interview_id', interview_ID)
 
-        return result
+        interview_result = Interview(result)
 
-    def grabUpcomingInterviewsByUserID(self, user_id):
-        cursor = self.db.cursor()
-        command = "SELECT * FROM interviews WHERE user_id={} ORDER BY interview_date, interview_time".format(user_id)
-        result = cursor.execute(command)
-        self.db.commit()
+        return interview_result
 
-        interviews_list = [] 
-
-        for interview in result:
-            interview_result = Interview(interview)
-            interviews_list.append(interview_result)
-
-        if interviews_list == []:
-            return None
-
-        return interviews_list
-
-    
-    def grabAllInterviewsForUserID(self, user_id):
+    def getInterviewsByUserID(self, user_id):
         cursor = self.db.cursor()
         command = "SELECT * FROM interviews WHERE user_id={} ORDER BY interview_date DESC, interview_time DESC".format(user_id)
         result = cursor.execute(command)
@@ -84,16 +66,7 @@ class InterviewsHistoryRepository:
 
         return interviews_list
 
-
-    def grabInterviewByID(self, interview_ID):
-        result = self.sql.getByField('interviews', 'interview_id', interview_ID)
-
-        interview_result = Interview(result)
-
-        return interview_result
-
-    
-    def grabInterviewsByApplicationID(self, application_id):
+    def getInterviewsByApplicationID(self, application_id):
         cursor = self.db.cursor()
         command = "SELECT * FROM interviews where application_id = {} ORDER BY interview_date DESC, interview_time DESC".format(application_id)
         result = cursor.execute(command)
@@ -127,8 +100,7 @@ class InterviewsHistoryRepository:
 
         return interviews_list
 
-
-    def updateInterview(self, fields):
+    def updateInterviewByID(self, fields):
         cursor = self.db.cursor()
 
         command = """
@@ -151,7 +123,7 @@ class InterviewsHistoryRepository:
         self.db.commit()
 
 
-    def updateInterviewStatus(self, fields):
+    def updateInterviewStatusByID(self, fields):
         cursor = self.db.cursor()
 
         command = """
@@ -163,7 +135,7 @@ class InterviewsHistoryRepository:
 
         self.db.commit()
 
-    def deleteByInterviewID(self, interview_id):
+    def deleteInterviewByID(self, interview_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -177,7 +149,7 @@ class InterviewsHistoryRepository:
         finally: 
             return message
 
-    def deleteByApplicationID(self, application_id):
+    def deleteInterviewsByApplicationID(self, application_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -191,7 +163,7 @@ class InterviewsHistoryRepository:
         finally: 
             return message
 
-    def deleteByUserID(self, user_id):
+    def deleteInterviewsByUserID(self, user_id):
         message = ""
         try: 
             cursor = self.db.cursor()

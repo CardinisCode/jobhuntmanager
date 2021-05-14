@@ -38,7 +38,7 @@ def delete_company_from_db(company_id, delete_company_form, companyRepo, applica
         if applications:
             for application in applications:
                 application_id = application.app_id
-                interviewsRepo.deleteByApplicationID(application_id)
+                interviewsRepo.deleteInterviewsByApplicationID(application_id)
                 interviewPrepRepo.deleteInterviewPrepByApplicationID(application_id)
                 appNotesRepo.deleteNoteByApplicationID(application_id)
 

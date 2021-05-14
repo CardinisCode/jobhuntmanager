@@ -16,7 +16,7 @@ def post_add_company(user_id, add_company_form, applicationsRepo, companyRepo):
     existing = False 
 
     # Let's first make sure this company doesn't already exist for this user:
-    existing_company = companyRepo.grabCompanyByNameAndUserID(company_name, user_id)
+    existing_company = companyRepo.getCompanyByName(company_name, user_id)
     if existing_company != None:
         flash("A company already exists by this name in your Addressbook.")
         details = {

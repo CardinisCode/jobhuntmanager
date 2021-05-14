@@ -69,7 +69,7 @@ def add_or_update_company(user_id, application_form, companyRepo, applicationsRe
         "user_id" : user_id, 
     }
 
-    existing_company = companyRepo.grabCompanyByNameAndUserID(company_name, user_id)
+    existing_company = companyRepo.getCompanyByName(company_name, user_id)
 
     if not existing_company:
         # Add the details into the company table for this user and return the company_id:

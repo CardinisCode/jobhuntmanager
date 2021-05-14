@@ -401,7 +401,7 @@ def display_interview(application_id, interview_id):
 @login_required
 def update_specific_interview(application_id, interview_id):
     user_id = session["user_id"]
-    interview_details = interviewsRepo.grabInterviewByID(interview_id)
+    interview_details = interviewsRepo.getInterviewByID(interview_id)
     update_interview_form = AddInterviewForm(obj=interview_details)
 
     if request.method == "POST":

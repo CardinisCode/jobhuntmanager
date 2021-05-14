@@ -8,7 +8,7 @@ from datetime import datetime, time
 
 def display_interview_details(session, user_id, interviewsRepo, application_id, interview_id, applicationsRepo, companyRepo):
     application = applicationsRepo.grabApplicationByID(application_id)
-    interview = interviewsRepo.grabInterviewByID(interview_id)
+    interview = interviewsRepo.getInterviewByID(interview_id)
     company = companyRepo.getCompanyById(application.company_id)
 
     other_medium = interview.other_medium
