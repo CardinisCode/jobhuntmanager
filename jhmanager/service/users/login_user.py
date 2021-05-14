@@ -15,7 +15,7 @@ def post_login(login_form, userRepo):
     username = login_form.username.data
     password = login_form.password.data
 
-    user_exists = userRepo.getByUserName(username)
+    user_exists = userRepo.getUserByUsername(username)
     details = {
         "register_url": '/register'
     }

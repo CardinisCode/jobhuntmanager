@@ -9,7 +9,7 @@ from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_spe
 
 def display_interview_prep_details(application_id, interview_id, interview_prep_id, interviewPrepRepo, applicationsRepo, companyRepo, interviewsRepo):
     interview_prep = interviewPrepRepo.getInterviewPrepByID(interview_prep_id)
-    application = applicationsRepo.grabApplicationByID(application_id)
+    application = applicationsRepo.getApplicationByID(application_id)
     interview = interviewsRepo.getInterviewByID(interview_id)
     company = companyRepo.getCompanyById(application.company_id)
 

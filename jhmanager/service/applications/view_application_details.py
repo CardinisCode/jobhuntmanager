@@ -89,7 +89,7 @@ def get_interviews(interviewsRepo, application_id):
 
 
 def display_application_details(session, user_id, applicationsRepo, application_id, companyRepo, interviewsRepo, jobOffersRepo):
-    application = applicationsRepo.grabApplicationByID(application_id)
+    application = applicationsRepo.getApplicationByID(application_id)
     app_date = application.app_date
     app_time = application.app_time
     company = companyRepo.getCompanyById(application.company_id)

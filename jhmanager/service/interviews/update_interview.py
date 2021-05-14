@@ -3,7 +3,7 @@ from datetime import datetime, time
 
 
 def display_update_interview_form(update_interview_form, application_id, interview_id, applicationsRepo, companyRepo):
-    company_id = applicationsRepo.grabApplicationByID(application_id).company_id
+    company_id = applicationsRepo.getApplicationByID(application_id).company_id
     company_name = companyRepo.getCompanyById(company_id).name
 
     details = {

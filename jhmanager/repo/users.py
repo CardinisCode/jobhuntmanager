@@ -19,19 +19,20 @@ class UserRepository:
 
     def createUser(self, username, hashed_password, email, date):
         cursor = self.db.cursor()
-        result = cursor.execute("INSERT INTO users (username, hash, email, date) VALUES (?, ?, ?, ?)", (username, hashed_password, email, date,))
-        # this was needed. It is a modification to the database and the way that sql works it needs to commit those changes (transaction)
+        # The line of code is a modification to the database and the way that sql works it needs to commit those changes (transaction)
         # which means it saves it to the database. otherwise it forgets the change. This is done to protect the database from corrupting
         # changes
+        command = """ 
+        INSERT INTO users 
+            (username, hash, email, date) 
+        VALUES (?, ?, ?, ?)
+        """
+        result = cursor.execute(command, (username, hashed_password, email, date,))
         self.db.commit()
 
         return result.lastrowid
-
-    # def getById(self, user_id):
-    #     return self.db.execute("SELECT * FROM users WHERE id = :user_id", user_id=user_id)
-
     
-    def getByUserID(self, user_id): 
+    def getUserByID(self, user_id): 
         cursor = self.db.cursor()
         result = cursor.execute("SELECT * FROM users WHERE user_id=?", (user_id,))
         self.db.commit()
@@ -39,35 +40,22 @@ class UserRepository:
         user_result = User(result.fetchone()) 
 
         return user_result
-
     
-    def getByUserName(self, username):
+    def getUserByUsername(self, username):
         cursor = self.db.cursor()
         result = cursor.execute("SELECT * FROM users WHERE username=?", (username,))
         self.db.commit()        
 
         return result.fetchone()
 
-    def getByUserEmail(self, email):
+    def getUserByEmail(self, email):
         cursor = self.db.cursor()
         result = cursor.execute("SELECT * FROM users WHERE email=?", (email,))
+        self.db.commit()
 
         return result.fetchone()
 
-    def getUsernameByUserID(self, user_id):
-        cursor = self.db.cursor()
-        result = cursor.execute("SELECT username FROM users WHERE user_id=?", (user_id,))
-
-        return result.fetchone()[0]
-
-    def getEmailAddressByUserID(self, user_id):
-        cursor = self.db.cursor()
-        result = cursor.execute("SELECT email FROM users WHERE user_id=?", (user_id,))
-
-        return result.fetchone()[0]
-
-
-    def updateEmail(self, fields): 
+    def updateUserEmailByID(self, fields): 
         cursor = self.db.cursor()
         command = """ 
         UPDATE users 
@@ -78,7 +66,7 @@ class UserRepository:
         self.db.commit()
 
 
-    def updateHash(self, fields):
+    def updateUserHashByID(self, fields):
         cursor = self.db.cursor()
         command = """ 
         UPDATE users 
@@ -88,8 +76,7 @@ class UserRepository:
         cursor.execute(command, tuple(fields.values()))
         self.db.commit()        
 
-
-    def deleteByUserID(self, user_id):
+    def deleteUserByID(self, user_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -102,5 +89,3 @@ class UserRepository:
             message = "User details failed to delete. " + error
         finally: 
             return message
-
-    

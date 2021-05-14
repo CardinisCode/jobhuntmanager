@@ -227,15 +227,11 @@ This is a repository file which relates specifically to Interview Preparation & 
 This is a repository file which relates specifically to (job) Interviews & includes the following 2 classes: Interview & InterviewsHistoryRepository. The InterviewsHistoryRepository includes all the SQL queries which connect to the 'interviews' table in the SQL database 'jhmanager.db'.
 
 #### job_offers_history.py:
-This is a repository file which relates specifically to (job) Job Offer & includes the following 2 classes: JobOffer & JobOffersRepository. The JobOffersRepository includes all the SQL queries which connect to the 'job_offers' table in the SQL database 'jhmanager.db'.
+This is a repository file which relates specifically to a (job) Job Offer & includes the following 2 classes: JobOffer & JobOffersRepository. The JobOffersRepository includes all the SQL queries which connect to the 'job_offers' table in the SQL database 'jhmanager.db'.
 
 #### users.py
-##### SQL Table:
-    users
-##### Classes:
-    User, UserRepository
+This is a repository file which relates specifically to a User (of the application) & includes the following 2 classes: User & UserRepository. The UserRepository includes all the SQL queries which connect to the 'users' table in the SQL database 'jhmanager.db'.
 
-# ---------------------------------------------------------------
 ### 4: Service:
 This includes all the Python functionality to build the 'back-end' of the application. 
 These files are broken down into the 11 directories that cover specific sections / functionality of the application. 
@@ -402,7 +398,7 @@ In this file we find the functionality to:
     and to add these entries to a dictionary (together with a few other necessary details). These details are displayed to the user on the template 'applications.html'. 
 
 Function:
--   display_all_applications_current_user()
+-   display_applications_for_user()
     -   Grabs the top 10 Application entries for a specific User
         -   From the 'job_applications' SQL table
     -   Creates a Dictionary

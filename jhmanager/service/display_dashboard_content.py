@@ -80,7 +80,7 @@ def display_job_offers(user_id, jobOffersRepo, companyRepo):
 
 
 def display_upcoming_interviews(user_id, interviewsRepo, applicationsRepo, companyRepo):
-    all_interviews = interviewsRepo.grabUpcomingInterviewsByUserID(user_id)
+    all_interviews = interviewsRepo.getInterviewsByUserID(user_id)
     current_date = datetime.now().date()
 
     upcoming_interviews = {
@@ -92,7 +92,7 @@ def display_upcoming_interviews(user_id, interviewsRepo, applicationsRepo, compa
     if all_interviews: 
         for interview in all_interviews:
             interview_id = interview.interview_id
-            application = applicationsRepo.grabApplicationByID(interview.application_id)
+            application = applicationsRepo.getApplicationByID(interview.application_id)
             company = companyRepo.getCompanyById(application.company_id)
             interview_date = interview.interview_date
             interview_time = interview.interview_time
@@ -121,7 +121,6 @@ def display_upcoming_interviews(user_id, interviewsRepo, applicationsRepo, compa
 
     return upcoming_interviews
 
-
 def display_today_interviews(user_id, applicationsRepo, interviewsRepo, companyRepo):
     interviews = interviewsRepo.getInterviewsByUserID(user_id)
 
@@ -135,7 +134,7 @@ def display_today_interviews(user_id, applicationsRepo, interviewsRepo, companyR
 
     for interview in interviews:
         interview_id = interview.interview_id
-        application = applicationsRepo.grabApplicationByID(interview.application_id)
+        application = applicationsRepo.getApplicationByID(interview.application_id)
         company = companyRepo.getCompanyById(application.company_id)
 
         interview_date = interview.interview_date
@@ -164,7 +163,6 @@ def display_today_interviews(user_id, applicationsRepo, interviewsRepo, companyR
         cleanup_interview_fields(todays_interviews, interview_id)
 
     return todays_interviews
-
 
 def display_applications_added_today(user_id, current_date, applicationsRepo, companyRepo):
     applications = applicationsRepo.getAllApplicationsByUserID(user_id)

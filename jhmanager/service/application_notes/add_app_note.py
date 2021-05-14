@@ -3,7 +3,7 @@ from datetime import datetime, date
 
 
 def display_application_note_form(notes_form, application_id, companyRepo, applicationsRepo):
-    application = applicationsRepo.grabApplicationByID(application_id)
+    application = applicationsRepo.getApplicationByID(application_id)
     company = companyRepo.getCompanyById(application.company_id)
 
     details = {
@@ -16,7 +16,7 @@ def display_application_note_form(notes_form, application_id, companyRepo, appli
 
 
 def post_application_add_note(notes_form, application_id, user_id, appNotesRepo, applicationsRepo):
-    application = applicationsRepo.grabApplicationByID(application_id)
+    application = applicationsRepo.getApplicationByID(application_id)
     company_id = application.company_id
 
     date_of_entry = datetime.now().date()

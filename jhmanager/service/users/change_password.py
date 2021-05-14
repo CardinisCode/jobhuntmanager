@@ -14,7 +14,7 @@ def post_change_password(user_id, change_password_form, userRepo):
     password = change_password_form.password.data
 
     # Lets ensure this password is not the same password we currently have stored for this user:
-    current_user_hash = userRepo.getByUserID(user_id).hash
+    current_user_hash = userRepo.getUserByID(user_id).hash
 
     match = sha256_crypt.verify(password, current_user_hash)
     if match: 
@@ -28,7 +28,7 @@ def post_change_password(user_id, change_password_form, userRepo):
         "hash": hashed_password, 
         "user_id": user_id
     }
-    userRepo.updateHash(fields)
+    userRepo.updateUserHashByID(fields)
 
     flash("Password updated!")
     return redirect("/userprofile")

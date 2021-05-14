@@ -30,7 +30,7 @@ from jhmanager.repo.contacts import ContactRepository
 
 from jhmanager.service.users.register_user import display_register_form
 from jhmanager.service.users.register_user import post_register_user
-from jhmanager.service.users.user_profile import create_userprofile_content
+from jhmanager.service.users.user_profile import display_user_profile
 from jhmanager.service.users.login_user import display_login_form
 from jhmanager.service.users.login_user import post_login
 from jhmanager.service.users.change_password import display_change_password_form
@@ -46,7 +46,7 @@ from jhmanager.service.applications.delete_an_application import delete_applicat
 from jhmanager.service.applications.update_application import display_update_application_form
 from jhmanager.service.applications.update_application import post_update_application
 from jhmanager.service.applications.view_application_details import display_application_details
-from jhmanager.service.applications.view_all_applications import display_all_applications_current_user
+from jhmanager.service.applications.view_all_applications import display_applications_for_user
 from jhmanager.service.applications.delete_all_applications import delete_all_applications_for_user
 
 from jhmanager.service.interviews.add_interview import display_add_interview
@@ -238,60 +238,16 @@ def display_dashboard():
     user_id = session["user_id"]
     return create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo, jobOffersRepo)
 
-
 @app.route("/about_us")
 def read_about_us():
     return render_template("about_us.html")
-
-
-"""
-CRUD? 
-Create -> post
-Read -> get
-Update -> put
-Delete -> delete
-
-GET: /application
-    -> all applications
-POST: /application
-    -> create a single application
-
-GET: /application/{application_id}
-        -> view a single application  -> DONE
-DELETE: /application/{application_id}
-        -> delete this application
-PUT: /application/{application_id}
-        -> update this application
-
-
-START HERE
-GET: /application/{application_id} 
-
-http://127.0.0.1:5000/application/2
-
-flask example
-@app.route('/application/<int:application_id>', methods=["GET"])
-def show_application(post_id):
-    # show the post with the given id, the id is an integer
-    return 'Post %d' % post_id
-"""
-
-"""
-In the case of interview routes:
-GET /application/{application_id}/interview/
-        -> gets all interviews for an application
-
-GET /application/{application_id}/interview/{interview_id}
-        -> gets a specific interview
-"""
-
 
 @app.route("/applications")
 @login_required
 def display_applications():
     """ Display User's Job Applications """
     user_id = session["user_id"]
-    return display_all_applications_current_user(session, user_id, applicationsRepo, companyRepo)
+    return display_applications_for_user(session, user_id, applicationsRepo, companyRepo)
 
 """ View a specific application """
 @app.route('/applications/<int:application_id>')
@@ -342,7 +298,7 @@ def delete_all_applications():
 def update_specific_application(application_id):
     user_id = session["user_id"]
 
-    application_details = applicationsRepo.grabApplicationByID(application_id)
+    application_details = applicationsRepo.getApplicationByID(application_id)
     company = companyRepo.getCompanyById(application_details.company_id)
     application_details.withCompanyDetails(company)
     company_id = application_details.company_id
@@ -811,7 +767,7 @@ def display_all_notes():
 def display_user_profile():
     """ Display User Profile """
     user_id = session["user_id"]
-    return create_userprofile_content(session, userRepo, user_id)
+    return display_user_profile(session, userRepo, user_id)
 
 
 @app.route('/userprofile/<int:user_id>/update_email', methods=["GET", "POST"])

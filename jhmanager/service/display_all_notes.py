@@ -54,7 +54,7 @@ def display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo,
             app_notes_id = app_note.app_notes_id
 
             company = companyRepo.getCompanyById(app_note.company_id)
-            application = applicationsRepo.grabApplicationByID(app_note.application_id)
+            application = applicationsRepo.getApplicationByID(app_note.application_id)
             entry_date_obj =  datetime.strptime(app_note.entry_date, "%Y-%m-%d")
             
             # In case a note exists for an application that's already been deleted:

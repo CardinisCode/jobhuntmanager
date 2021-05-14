@@ -14,14 +14,14 @@ def post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, a
     password = delete_account_form.password.data
 
     # Lets verify the password is correct:
-    current_hash = userRepo.getByUserID(user_id).hash
+    current_hash = userRepo.getUserByID(user_id).hash
     match = sha256_crypt.verify(password, current_hash)
     if not match:
         flash("Incorrect password.")
         redirect_url = '/userprofile/{}/delete_account'.format(user_id)
         return redirect(redirect_url)
 
-    userRepo.deleteByUserID(user_id)
+    userRepo.deleteUserByID(user_id)
     applicationsRepo.deleteApplicationsByUserID(user_id)
     interviewsRepo.deleteInterviewsByUserID(user_id)
     interviewPrepRepo.deleteInterviewPrepByUserID(user_id)

@@ -6,7 +6,7 @@ from datetime import datetime, date
 
 def display_application_notes(user_id, application_id, applicationsRepo, appNotesRepo, companyRepo):
     application_notes = appNotesRepo.getAppNotesByApplicationID(application_id, user_id)
-    application = applicationsRepo.grabApplicationByID(application_id)
+    application = applicationsRepo.getApplicationByID(application_id)
     company = companyRepo.getCompanyById(application.company_id)
 
     links = {

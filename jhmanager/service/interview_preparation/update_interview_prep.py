@@ -8,7 +8,7 @@ from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_int
 
 
 def display_update_interview_prep_form(application_id, interview_id, interview_prep_id, update_interview_prep_form, applicationsRepo, companyRepo, interviewsRepo):
-    application = applicationsRepo.grabApplicationByID(application_id)
+    application = applicationsRepo.getApplicationByID(application_id)
     company = companyRepo.getCompanyById(application.company_id)
     interview = interviewsRepo.getInterviewByID(interview_id)
 

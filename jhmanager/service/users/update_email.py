@@ -15,7 +15,7 @@ def post_update_email_address(update_email_form, userRepo, user_id):
         "user_id": user_id
     }
 
-    userRepo.updateEmail(details)
+    userRepo.updateUserEmailByID(details)
 
 
     flash("Email Updated.")

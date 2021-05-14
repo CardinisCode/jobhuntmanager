@@ -56,7 +56,7 @@ class ApplicationsHistoryRepository:
 
         return result.lastrowid
 
-    def grabTop10ApplicationsFromHistory(self, user_id):
+    def getTop10Applications(self, user_id):
         cursor = self.db.cursor()
         result = cursor.execute("SELECT * FROM job_applications WHERE user_id = ? ORDER BY application_id DESC LIMIT 10", (user_id,))
         self.db.commit()
@@ -76,7 +76,6 @@ class ApplicationsHistoryRepository:
 
         return applications_list
  
-
     def getAllApplicationsByUserID(self, user_id):
         cursor = self.db.cursor()
         command = """  
@@ -101,7 +100,7 @@ class ApplicationsHistoryRepository:
 
         return applications_list
 
-    def grabApplicationByID(self, application_id):
+    def getApplicationByID(self, application_id):
         cursor = self.db.cursor()
         command = "SELECT * FROM job_applications WHERE application_id = {}".format(application_id)
         result = cursor.execute(command)
@@ -118,7 +117,6 @@ class ApplicationsHistoryRepository:
         
         return application  
 
-    
     def getApplicationsByCompanyID(self, company_id):
         cursor = self.db.cursor()
         command = "SELECT * FROM job_applications WHERE company_id = {}".format(company_id)
@@ -139,8 +137,7 @@ class ApplicationsHistoryRepository:
         
         return application_list  
  
-
-    def updateInterviewStage(self, fields):
+    def updateInterviewStageByID(self, fields):
         try: 
             cursor = self.db.cursor()
             command = """
@@ -155,7 +152,6 @@ class ApplicationsHistoryRepository:
             message = "Interview Stage failed to update. " + error
         finally:
             return message
-
 
     def updateApplicationByID(self, fields):
         cursor = self.db.cursor()
@@ -178,7 +174,6 @@ class ApplicationsHistoryRepository:
 
         self.db.commit()
         
-
     def deleteApplicationByID(self, application_id):
         message = ""
         try: 

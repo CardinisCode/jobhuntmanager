@@ -8,7 +8,7 @@ from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_speci
 def display_job_offer(job_offer_id, jobOffersRepo, companyRepo, applicationsRepo):
     job_offer = jobOffersRepo.getJobOfferByID(job_offer_id)
     company = companyRepo.getCompanyById(job_offer.company_id)
-    application = applicationsRepo.grabApplicationByID(job_offer.application_id)
+    application = applicationsRepo.getApplicationByID(job_offer.application_id)
 
     job_offer_details = {
         "job_role": job_offer.job_role, 

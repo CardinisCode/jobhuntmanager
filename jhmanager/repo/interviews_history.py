@@ -122,7 +122,6 @@ class InterviewsHistoryRepository:
 
         self.db.commit()
 
-
     def updateInterviewStatusByID(self, fields):
         cursor = self.db.cursor()
 

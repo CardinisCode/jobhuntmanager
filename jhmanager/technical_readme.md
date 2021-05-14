@@ -464,7 +464,7 @@ FUNCTION:   add_new_application_to_application_history()
 FILE:       services/applications/add_application.py
 LINE:       54
 
-###### grabTop10ApplicationsFromHistory
+###### getTop10Applications
 Takes (input): 
     user_id
 Functionality (Algorithm):
@@ -492,7 +492,7 @@ FUNCTION:   get_users_stats()
 FILE:       services/display_dashboard_content.py
 LINE:       170
 
-###### grabApplicationByID
+###### getApplicationByID
 Takes (input): 
     application_id
 Functionality (Algorithm):
@@ -520,7 +520,7 @@ FUNCTION:   delete_company_from_db()
 FILE:       services/company/delete_company.py 
 LINE:       37
 
-###### updateInterviewStage
+###### updateInterviewStageByID
 Takes (input): 
     A dictionary of fields, which includes the interview_stage & the application_id
 Functionality (Algorithm):
@@ -1213,7 +1213,7 @@ FUNCTION:   get_interviews()
 FILE:       services/applications/view_application_details.py
 LINE:       51
 
-###### updateInterview
+###### updateInterviewByID
 Takes (input): 
     A dictionary of fields which relate to a specific interview entry.
 Functionality (Algorithm):
@@ -1416,12 +1416,123 @@ FUNCTION:   delete_application()
 FILE:       services/applications/delete_an_application.py
 LINE:       9
 
+#### users.py
+This is a repository file which relates specifically to Users & includes the following 2 classes: User & UserRepository. 
 
+##### User
+This is the class which defines the fields for a specific User (or a list of User entries), where each field is a column name found in the 'users' SQL table. 
 
+Setting this class up allowed me to instantiate a specific User with a pre-set list of fields, which can be called on by another function in the Service directory for any User entry.
 
+###### Fields:
+-   user_id (Primary key)
+-   username, hash, email, date.
 
+These field names are also the names for the columns in the 'users' table.
 
+##### UserRepository
+This class contains methods which interact with the 'interviews' table in the SQL database, which carry out one of the following functions:
+-   Insert (Starts with 'create...')
+-   Select ('starts with 'get....')
+-   Update
+-   Delete
 
+###### Connects to SQL table:
+    users
 
+These methods include: 
 
+###### createUser()
+Takes (input): 
+    A dictionary of fields which relate to a specific User (entry)
+Functionality (Algorithm):
+-   Runs a SQL 'INSERT' query to create an entry in the 'users' table, with the dictionary fields being allocated to the relevant columns in the table.
+Returns (output): 
+    The unique identifier (user_id) for the newly created entry.  
+
+An instance where this method is called:
+FUNCTION:   post_register_user()
+FILE:       services/users/register_user.py
+LINE:       34
+
+###### getUserByID()
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to grab a specific entry in the 'users' table, where the provided input matches the entry's primary key 'user_id'.
+-   Instantiates the entry, returned from the SQL query, using the 'User' class. 
+Returns (output): 
+    An instantiated object ('User') with the values for a specific User entry.
+
+An instance where this method is called:
+FUNCTION:   display_user_profile()
+FILE:       services/users/user_profile.py
+LINE:       6
+
+###### getUserByUsername()
+Takes (input): 
+    username
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to find & return any entry in the 'user' table where the input matches the 'username' column value.
+-   It instantiates the 'User' class with the values received from the SQL query. 
+Returns (output): 
+    A single 'User' object.
+
+An instance where this method is called:
+FUNCTION:   post_register_user()
+FILE:       services/users/register_user.py
+LINE:       21
+
+###### getUserByEmail
+Takes (input): 
+    email
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to find & return any entry in the 'user' table where the input matches the 'email' column value.
+-   It instantiates the 'User' class with the values received from the SQL query. 
+Returns (output): 
+    A single 'User' object.
+
+An instance where this method is called:
+FUNCTION:   post_register_user()
+FILE:       services/users/register_user.py
+LINE:       26
+
+###### updateUserEmailByID
+Takes (input): 
+    A dictionary of fields which includes the updated value for 'email' & user_id. 
+Functionality (Algorithm):
+-   Runs a SQL 'UPDATE' query to specifically update the value stored in the 'user' table's 'email' column for a specific entry, where the provided 'user_id' matches the entry's primary key 'user_id'.
+Returns (output): 
+    No output returned
+
+An instance where this method is called:
+FUNCTION:   post_update_email_address()
+FILE:       services/users/update_email.py
+LINE:       18
+
+###### updateUserHashByID
+Takes (input): 
+    A dictionary of fields which includes the updated value for 'hash' & user_id. 
+Functionality (Algorithm):
+-   Runs a SQL 'UPDATE' query to specifically update the value stored in the 'user' table's 'hash' column for a specific entry, where the provided 'user_id' matches the entry's primary key 'user_id'.
+Returns (output): 
+    No output returned
+
+An instance where this method is called:
+FUNCTION:   post_change_password()
+FILE:       services/users/change_password.py
+LINE:       31
+
+###### deleteUserByID
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' an entry, from the 'users' table, where the provided input matches the entry's primary key 'user_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   post_delete_user()
+FILE:       services/users/delete_user_account.py
+LINE:       24
 

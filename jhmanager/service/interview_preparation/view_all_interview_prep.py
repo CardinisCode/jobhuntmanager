@@ -10,7 +10,7 @@ from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_emp_type_
 
 def display_all_interview_prep_entries(application_id, interview_id, user_id, applicationsRepo, interviewsRepo, interviewPrepRepo, companyRepo):
     interview_prep_list = interviewPrepRepo.getAllInterviewPrepEntriesByInterviewId(interview_id, user_id)
-    application = applicationsRepo.grabApplicationByID(application_id)
+    application = applicationsRepo.getApplicationByID(application_id)
     interview = interviewsRepo.getInterviewByID(interview_id)
     company = companyRepo.getCompanyById(application.company_id)
 

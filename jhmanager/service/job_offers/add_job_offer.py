@@ -3,7 +3,7 @@ from datetime import datetime, time
 
 
 def display_add_job_offer_form(application_id, user_id, add_job_offer, companyRepo, applicationsRepo):
-    application = applicationsRepo.grabApplicationByID(application_id)
+    application = applicationsRepo.getApplicationByID(application_id)
     company = companyRepo.getCompanyById(application.company_id)
     action_url = '/applications/{}/add_job_offer'.format(application_id)
 
@@ -16,7 +16,7 @@ def display_add_job_offer_form(application_id, user_id, add_job_offer, companyRe
 
 
 def post_add_job_offer(application_id, user_id, add_job_offer, companyRepo, applicationsRepo, jobOffersRepo):
-    application = applicationsRepo.grabApplicationByID(application_id)
+    application = applicationsRepo.getApplicationByID(application_id)
     company = companyRepo.getCompanyById(application.company_id)
     current_date = datetime.now().date()
 

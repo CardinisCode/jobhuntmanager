@@ -4,8 +4,8 @@ from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_dat
 from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_application_fields
 
 
-def display_all_applications_current_user(session, user_id, applicationsRepo, companyRepo):
-    top_ten_applications = applicationsRepo.grabTop10ApplicationsFromHistory(user_id)
+def display_applications_for_user(session, user_id, applicationsRepo, companyRepo):
+    top_ten_applications = applicationsRepo.getTop10Applications(user_id)
 
     display_details = {
         "fields": {}, 

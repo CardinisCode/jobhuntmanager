@@ -2,8 +2,8 @@ from flask import Flask, render_template, session, flash
 from datetime import datetime, date
 
 
-def create_userprofile_content(session, userRepo, user_id):
-    user_details = userRepo.getByUserID(user_id)
+def display_user_profile(session, userRepo, user_id):
+    user_details = userRepo.getUserByID(user_id)
     username = user_details.username
     email_address = user_details.email
 
