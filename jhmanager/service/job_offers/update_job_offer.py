@@ -24,7 +24,7 @@ def post_update_job_offer(application_id, job_offer_id, user_id, update_job_offe
         "job_offer_id": job_offer_id
     }
 
-    jobOffersRepo.updateByJobOfferID(fields)
+    jobOffersRepo.updateJobOfferByID(fields)
     flash("Job offer details updated.")
     redirect_url = '/applications/{}/job_offers/{}'.format(application_id, job_offer_id)
 

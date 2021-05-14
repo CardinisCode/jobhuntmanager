@@ -8,7 +8,6 @@ class JobOffer:
     date_str = '%Y-%m-%d'
     
     def __init__(self, db_fields):
-        # raise  ValueError(db_fields)
         self.job_offer_id = db_fields[0]
         self.user_id = db_fields[1]
         self.company_id = db_fields[2]
@@ -26,7 +25,7 @@ class JobOffersRepository:
         self.db = db
         self.sql = SqlDatabase(db=db)
 
-    def addJobOfferToHistory(self, fields):
+    def CreateJobOffer(self, fields):
         cursor = self.db.cursor()
         command  = """ 
         INSERT INTO job_offers(user_id, company_id, application_id, entry_date, job_role, starting_date, salary_offered, perks_offered, offer_response)
@@ -37,7 +36,7 @@ class JobOffersRepository:
 
         return result.lastrowid
 
-    def getJobOfferByJobOfferID(self, job_offer_id):
+    def getJobOfferByID(self, job_offer_id):
         cursor = self.db.cursor()
         command = """ 
             SELECT * FROM job_offers
@@ -57,7 +56,6 @@ class JobOffersRepository:
         job_offer = JobOffer(data[0])
 
         return job_offer
-
 
     def getJobOffersByUserId(self, user_id):
         cursor = self.db.cursor()
@@ -80,9 +78,8 @@ class JobOffersRepository:
             return None
 
         return offers_list
-       
 
-    def updateByJobOfferID(self, fields):
+    def updateJobOfferByID(self, fields):
         cursor = self.db.cursor()
 
         command = """
@@ -98,36 +95,7 @@ class JobOffersRepository:
 
         self.db.commit()
     
-
-    def deleteByUserID(self, user_id):
-        message = ""
-        try: 
-            cursor = self.db.cursor()
-            command = "DELETE FROM job_offers WHERE user_id = {}".format(user_id)
-            cursor.execute(command)
-            self.db.commit()
-            message = "Job offer successfully deleted"
-
-        except sqlite3.Error as error:
-            message = "Failed to delete all Job offers for this user. " + error
-        finally:
-            return message 
-
-    def deleteByCompanyID(self, company_id):
-        message = ""
-        try: 
-            cursor = self.db.cursor()
-            command = "DELETE FROM job_offers WHERE company_id = {}".format(company_id)
-            cursor.execute(command)
-            self.db.commit()
-            message = "Job offer successfully deleted"
-
-        except sqlite3.Error as error:
-            message = "Failed to delete all Job offers for this company. " + error
-        finally:
-            return message 
-
-    def deleteByJobOfferID(self, job_offer_id):
+    def deleteJobOfferByID(self, job_offer_id):
         message = ""
         try: 
             cursor = self.db.cursor()
@@ -141,7 +109,35 @@ class JobOffersRepository:
         finally:
             return message 
 
-    def deleteByApplicationID(self, application_id):
+    def deleteJobOfferByUserID(self, user_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM job_offers WHERE user_id = {}".format(user_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Job offer successfully deleted"
+
+        except sqlite3.Error as error:
+            message = "Failed to delete all Job offers for this user. " + error
+        finally:
+            return message 
+
+    def deleteJobOfferByCompanyID(self, company_id):
+        message = ""
+        try: 
+            cursor = self.db.cursor()
+            command = "DELETE FROM job_offers WHERE company_id = {}".format(company_id)
+            cursor.execute(command)
+            self.db.commit()
+            message = "Job offer successfully deleted"
+
+        except sqlite3.Error as error:
+            message = "Failed to delete all Job offers for this company. " + error
+        finally:
+            return message 
+
+    def deleteJobOfferByApplicationID(self, application_id):
         message = ""
         try: 
             cursor = self.db.cursor()

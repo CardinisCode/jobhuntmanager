@@ -99,7 +99,7 @@ from jhmanager.service.job_offers.add_job_offer import post_add_job_offer
 from jhmanager.service.job_offers.view_job_offer import display_job_offer
 from jhmanager.service.job_offers.update_job_offer import display_update_job_offer_form
 from jhmanager.service.job_offers.update_job_offer import post_update_job_offer
-from jhmanager.service.job_offers.delete_job_offer import delete_job_offer_from_db
+from jhmanager.service.job_offers.delete_job_offer import delete_job_offer_entry
 
 from jhmanager.service.display_dashboard_content import create_dashboard_content
 from jhmanager.service.display_all_notes import display_all_user_notes
@@ -518,7 +518,7 @@ def view_job_offer_details(application_id, job_offer_id):
 def update_job_offer_details(application_id, job_offer_id):
     user_id = session["user_id"]
 
-    job_offer = jobOffersRepo.getJobOfferByJobOfferID(job_offer_id)
+    job_offer = jobOffersRepo.getJobOfferByID(job_offer_id)
     update_job_offer_form = AddJobOffer(obj=job_offer)
 
     if request.method == "GET":
@@ -536,7 +536,7 @@ def update_job_offer_details(application_id, job_offer_id):
 @app.route('/applications/<int:application_id>/job_offers/<int:job_offer_id>/delete_job_offer')
 @login_required
 def delete_job_offer_details(application_id, job_offer_id):
-    return delete_job_offer_from_db(application_id, job_offer_id, jobOffersRepo)    
+    return delete_job_offer_entry(application_id, job_offer_id, jobOffersRepo)    
 
 
 @app.route('/address_book')

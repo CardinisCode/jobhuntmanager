@@ -1209,7 +1209,7 @@ LINE:       10
 Carries out the same functionality as the above function 'getInterviewsByApplicationID()', except it only limits its query to only return the top 6 entries. These 6 entries are then instantiated using the 'Interview' class, before adding these entries to a list of its own. 
 
 An instance where this method is called:
-FUNCTION:   grab_and_display_interviews()
+FUNCTION:   get_interviews()
 FILE:       services/applications/view_application_details.py
 LINE:       51
 
@@ -1277,6 +1277,144 @@ An instance where this method is called:
 FUNCTION:   post_delete_user()
 FILE:       services/users/delete_user_account.py
 LINE:       26
+
+#### job_offers_history.py
+This is a repository file which relates specifically to Job Offers & includes the following 2 classes: JobOffer & JobOffersRepository.
+
+##### JobOffer
+This is the class which defines the fields for a specific Job Offer (or a list of Job Offer entries), where each field is a column name found in the 'job_offers' SQL table. 
+
+Setting this class up allowed me to instantiate a specific Job Offer with a pre-set list of fields, which can be called on by another function in the Service directory for any Job Offer entry.
+
+###### Fields:
+-   job_offer_id (Primary key)
+-   user_id (Foreign key)
+    -   Connecting this table to the 'users' table
+-   company_id (Foreign key)
+    -   Connecting this table to the 'company' table
+-   application_id (Foreign key)
+    -   Connecting this table to the 'job_applications' table
+-   entry_date, job_role, starting_date, salary_offered, perks_offered, offer_response.
+
+These field names are also the names for the columns in the 'job_offers' table.
+
+##### JobOffersRepository
+This class contains methods which interact with the 'job_offers' table in the SQL database, which carry out one of the following functions:
+-   Insert (Starts with 'create...')
+-   Select ('starts with 'get....')
+-   Update
+-   Delete
+
+###### Connects to SQL table:
+    job_offers
+
+These methods include: 
+
+###### CreateJobOffer
+Takes (input): 
+    A dictionary of fields which relate to a specific job offer (entry)
+Functionality (Algorithm):
+-   Runs a SQL 'INSERT' query to create an entry in the 'job_offers' table, with the dictionary fields being allocated to the relevant columns in the table.
+Returns (output): 
+    The unique identifier (job_offer_id) for the newly created entry.  
+
+An instance where this method is called:
+FUNCTION:   InsertFieldsIntoInterviewHistory()
+FILE:       services/job_offers/add_job_offer.py
+LINE:       35
+
+###### getJobOfferByID()
+Takes (input): 
+    job_offer_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to grab a specific entry in the 'job_offers' table, where the provided input matches the entry's primary key 'job_offer_id'.
+-   Instantiates the entry, returned from the SQL query, using the 'JobOffer' class. 
+Returns (output): 
+    An instantiated object ('JobOffer') with the values for a specific Job Offer entry.
+
+An instance where this method is called:
+FUNCTION:   display_job_offer()
+FILE:       services/job_offers/view_job_offer.py
+LINE:       9
+
+###### getJobOffersByUserId()
+Takes (input): 
+    userID
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to find all entries in the 'job_offers' table where the provided input matches the entry's foreign key 'userID'.
+-   Iterates through each entry in the list, instantiating each entry using the 'JobOffer' class, before adding these entries to a list of its own. 
+Returns (output): 
+    A list of 'JobOffer' objects
+
+An instance where this method is called:
+FUNCTION:   get_job_offers()
+FILE:       services/applications/view_application_details.py
+LINE:       126
+
+###### updateJobOfferByID
+Takes (input): 
+    A dictionary of fields which relate to a specific job offer (entry), which includes the job_offer_id for the entry.
+Functionality (Algorithm):
+-   Runs a SQL 'UPDATE' query to update a specific entry in the 'job_offers' table, with the dictionary fields being allocated to the relevant columns in the table.
+Returns (output): 
+    No output returned
+
+An instance where this method is called:
+FUNCTION:   post_update_job_offer()
+FILE:       services/job_offers/update_job_offer.py
+LINE:       27
+
+###### deleteJobOfferByID
+Takes (input): 
+    job_offer_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' an entry, from the 'job_offers' table, where the provided input matches the entry's primary key 'job_offer_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_job_offer_entry()
+FILE:       services/job_offers/delete_job_offer.py
+LINE:       5
+
+###### deleteJobOfferByUserID
+Takes (input): 
+    user_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'job_offers' table, where the provided input matches an entry's foreign key 'user_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   post_delete_user()
+FILE:       services/users/delete_user_account.py
+LINE:       31
+
+###### deleteJobOfferByCompanyID
+Takes (input): 
+    company_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'job_offers' table, where the provided input matches an entry's foreign key 'company_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_company_from_db()
+FILE:       services/company/delete_company.py
+LINE:       34
+
+###### deleteJobOfferByApplicationID
+Takes (input): 
+    application_id
+Functionality (Algorithm):
+-   Runs a Try statement, which runs a SQL query to 'DELETE' all entries, from the 'job_offers' table, where the provided input matches an entry's foreign key 'application_id'. 
+Returns (output): 
+    No output is returned
+
+An instance where this method is called:
+FUNCTION:   delete_application()
+FILE:       services/applications/delete_an_application.py
+LINE:       9
 
 
 

@@ -227,10 +227,7 @@ This is a repository file which relates specifically to Interview Preparation & 
 This is a repository file which relates specifically to (job) Interviews & includes the following 2 classes: Interview & InterviewsHistoryRepository. The InterviewsHistoryRepository includes all the SQL queries which connect to the 'interviews' table in the SQL database 'jhmanager.db'.
 
 #### job_offers_history.py:
-##### SQL Table:
-    job_offers
-##### Classes:
-    JobOffer, JobOffersRepository
+This is a repository file which relates specifically to (job) Job Offer & includes the following 2 classes: JobOffer & JobOffersRepository. The JobOffersRepository includes all the SQL queries which connect to the 'job_offers' table in the SQL database 'jhmanager.db'.
 
 #### users.py
 ##### SQL Table:
@@ -430,9 +427,9 @@ In this file we find the functionality to:
 -   Display all this information to the user on the template 'view_application.html'
 
 Functions:
--   grab_and_display_job_offers()
+-   get_job_offers()
         Extracts the job offer entries from the 'job_offers' SQL table & adds the information to a dictionary
--   grab_and_display_interviews()
+-   get_interviews()
         Extracts the interview entries from the 'interviews' SQL table & adds the information to a dictionary
 -   display_application_details()
     -   Extracts the job application entries from the 'job_applications' SQL table & adds the information to a dictionary

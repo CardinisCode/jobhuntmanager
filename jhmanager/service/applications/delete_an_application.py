@@ -6,7 +6,7 @@ def delete_application(application_id, applicationsRepo, interviewsRepo, intervi
     applicationsRepo.deleteApplicationByID(application_id)
     interviewsRepo.deleteInterviewsByApplicationID(application_id)
     appNotesRepo.deleteNoteByApplicationID(application_id)
-    jobOffersRepo.deleteByApplicationID(application_id)
+    jobOffersRepo.deleteJobOfferByApplicationID(application_id)
 
     # Once the application is deleted, the user will be redirected the 'Applications' page:
     return redirect('/applications')

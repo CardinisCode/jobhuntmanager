@@ -32,7 +32,7 @@ def post_add_job_offer(application_id, user_id, add_job_offer, companyRepo, appl
         "offer_response": add_job_offer.offer_response.data
     }
 
-    job_offer_id = jobOffersRepo.addJobOfferToHistory(fields)
+    job_offer_id = jobOffersRepo.CreateJobOffer(fields)
     flash("Job offer saved in the DB.")
 
     redirect_url = '/applications/{}/job_offers/{}'.format(application_id, job_offer_id)

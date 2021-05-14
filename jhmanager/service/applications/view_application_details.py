@@ -8,7 +8,7 @@ from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_compa
 from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_specific_company
     
 
-def grab_and_display_job_offers(application_id, user_id, company, jobOffersRepo):
+def get_job_offers(application_id, user_id, company, jobOffersRepo):
     job_offers = jobOffersRepo.getJobOffersByUserId(user_id)
 
     job_offers_details = {
@@ -47,7 +47,7 @@ def grab_and_display_job_offers(application_id, user_id, company, jobOffersRepo)
     return job_offers_details
 
 
-def grab_and_display_interviews(interviewsRepo, application_id):
+def get_interviews(interviewsRepo, application_id):
     all_interviews_for_app_id = interviewsRepo.getTop6InterviewsByApplicationID(application_id)
     
     # Lets build the interview dict to be displayed to the user.
@@ -120,8 +120,8 @@ def display_application_details(session, user_id, applicationsRepo, application_
     cleanup_specific_company(company_details)
 
     # Now I want to display all the interviews & Job offers for this application_id:
-    interview_details = grab_and_display_interviews(interviewsRepo, application_id)
-    job_offer_details = grab_and_display_job_offers(application_id, user_id, company, jobOffersRepo) 
+    interview_details = get_interviews(interviewsRepo, application_id)
+    job_offer_details = get_job_offers(application_id, user_id, company, jobOffersRepo) 
     
     general_details = {
         "links": {}, 
