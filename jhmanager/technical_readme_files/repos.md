@@ -1,5 +1,5 @@
-
-## Repo:
+# Technical Readme
+## Repo directory:
 This file contains all the Repositories used for this project, with each Repository (Repo) interacting with a specific table in the database. 
 
 In each Repo, there are two classes:

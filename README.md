@@ -265,77 +265,63 @@ These files are broken down into the 11 directories that cover specific sections
 
 Note: The technical readme covering the Forms is covered in jhmanager/technical_readme_files/services.md.
 
-Within each directory are the CRUD elements: 
--   Create
-    -   I started such files & functions with 'add_...'
--   Read
-    -   I started 'Read' files with 'view_...'
-    -   & 'Read' functions with 'get_...'
--   Update
-    -   These files / functions start with 'update_...'
--   Delete 
-    -   These files / functions start with 'delete_...'
-
 The directories found in the Services directory:
+-   address_book
+-   
 
 #### address_book:
-This manages the functionality for the address book template. 
+This includes the functionality behind displaying the user's contacts to the template: 'view_address_book.html'.
 
 ##### view_address_book.py
-###### display_address_book():
-    Calls on both the 'Company' and 'indiv_contacts' tables & grabs the top 8 entries from each table. 
-    Linked to Template: 'view_address_book.html'
+Gets the top individual & company contacts that the user has added & renders these contacts (& all the relevant links) to the 'view_address_book.html' template. Each of these contacts is a link to view that specific contact in more detail.  
 
 #### application_notes:
-This where you'll find all the Python files related to Application Notes.
+This where you'll find all the Python functions related to Application Notes.
+
+The files in this directory:
+-   add_app_note.py
+-   delete_app_note.py
+-   update_app_note.py
+-   view_app_note_details.py
+-   view_application_notes.py
 
 ###### add_app_note.py:
-    Functions:
-    -   display_application_note_form()
-        -   Stores the company_name & action_url to be displayed to the user.
-        -   Renders the template:  add_application_note.html
-            -   with a blank instance of the AddApplicationNoteForm() Form. 
-    -   post_application_add_note()
-        -   Grabs the values added to the form fields & the current date
-        -   Calls on the insertNewNote() function to insert these values, 
-            as a single entry, into the SQL table 'application_notes'. 
+This file contains the functionality behind:
+    -   Presenting the AddApplicationNoteForm() form to the user
+    -   Processing the information submitted on the form & adding the values (for the application note) to the 'application_notes' table in the 'jhmanager.db database.
+
+Includes the functions:
+-   display_application_note_form()
+-   post_application_add_note()
 
 ###### delete_app_note.py:
-    Function:
-    -   delete_application_note()
-        -   Deletes a specific application note from the 'application_notes' table in
-            the SQL database, using the note's specific ID. 
-        -   Redirects the user to template: 'view_notes_for_application.html'
+This file contains the functionality behind deleting an application note. 
+
+Includes the function:
+-   delete_application_note()
 
 ###### update_app_note.py:
-    Functions:
-    -   display_update_app_note_form()
-        -   Stores the company_name & action_url to be displayed to the user.
-        -   Renders the template:  update_application_note.html
-            -   with an instance of the AddApplicationNoteForm() Form, populated with the values for a specific application note entry. 
+This file contains the functionality behind:
+    -   Presenting the AddApplicationNoteForm() form to the user, with the values for an existing application note.
+    -   Processing the information submitted on the form & updating the values (for the application note) for an entry in the 'application_notes' table in the 'jhmanager.db database.
 
-    -   post_update_app_note():
-        1)  Grabs the values added to the form fields
-        2)  Calls on the updateByID() function to update these values for a specific entry in the SQL table 'application_notes'. 
-        3)  Redirects the user to template: 'view_app_note_details.html'
+Includes the functions:
+-   display_update_app_note_form()
+-   post_update_app_note()
 
 ###### view_app_note_details.py:
-    Functions:
-    -   display_application_note_details()
-        -   Grabs all the values / attributes for a specific application note entry
-        -   Grabs the values needed for URL links to be presented to the user
-        -   Values are 'cleaned' using functions from the 'clean_files' directory.
-            -   To improve the presention of the values
-            -   To implement consistency of string formats across all templates. 
-        -   Renders the Template: 'view_app_note_details.html'
+This file contains the functionality behind:
+    -   Presenting the user with the details they've provided for a specific note. This note is linked to a job application.
+
+Includes the function:
+-   display_application_note_details()
 
 ###### view_application_notes.py:
-    Function:
-    -   display_application_notes():
-        -   Grabs all entries from the appNotesRepo for a specific user. 
-        -   Grabs & stores all information to be displayed to the user, including URL links
-        -   Renders the template: 'view_notes_for_application.html'
+This file contains the functionality behind:
+    -   Presenting the user with all the notes they've added for a specific application, where each note is a link to view the details for that specific note.
 
+Includes the function:
+-   display_application_notes()
 
 #### applications:
 This where you'll find all the Python files related to job applications. 
