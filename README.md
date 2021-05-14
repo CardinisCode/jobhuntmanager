@@ -33,13 +33,32 @@ I have narrowed down the application for fellow software engineers, so the Job a
 ## Please note: 
 -   Deletes are hard deletes, for the purpose of this pilot product. So if the user selects to delete something, it will permanently delete the information from the SQLite3 database.
 
--   This Readme simply describes what each function & file does/serves, so I'll give a brief TLDR for each file/function. I'll go into more technical depth in the technical_readme.md (jhmanager/technical_readme.md).
+-   This Readme simply describes what each function & file does/serves, so I'll give a brief TLDR for each file/function. I'll go into more technical depth in the relevant files found within the technical_readme_files (jhmanager/technical_readme_files). 
+    -   Read line 761 (below) for more information.
 
 ## Files:
 The files in this project are divided into the following sections:
+-   Forms
+-   Preparation & Management
+-   Repo
+-   Service
+-   Static
+-   Technical Readme files
+-   Pages / Templates
+-   Tests
+-   __init__
+-   helpers_from_cs50_finance
+-   jhmanager.db
+-   schema.sql
+-   Makefiles
+-   requirements.txt
+-   setup.py
+-   wsgi.py
 
 ### 1: Forms:
 Each of the below forms request specific information from the user and link to a specific SQL database table. 
+
+Note: The technical readme covering the Forms is covered in jhmanager/technical_readme_files/forms.md.
 
 Below are the names of the files stored in the 'Forms' directory: 
 
@@ -162,9 +181,10 @@ Offers the user the option to update the password they have saved to their user 
 
 The links to both these forms can be found on the 'User Profile', the link to which is found on the top navigational bar.
 
-# ---------------------------------------------------------------
+---------------------------------------------------------------
 ### 2: Preparation & Management:
 These are the files:
+
 #### credits_and_resources_used.md
     This is where I stored links / resources I used / found useful for this project. 
 
@@ -185,13 +205,15 @@ These are the files:
 
     I ended up using Trello, for this functionality, towards the end of the development process. I always had a notepad on me throughout the development process, and when I came up with new ideas/concepts that needed to get done, I added them to Trello. This allowed me to keep on track & focused, without losing those interesting ideas that come to mind while working. 
 
-# ---------------------------------------------------------------
+---------------------------------------------------------------
 ### 3: Repo:
 Each file in the Repo directory interacts with a specific table in the SQL database & includes the following types of SQL queries:
 -   Insert
 -   Select
 -   Update
 -   Delete
+
+Note: The technical readme covering the Repo is covered in jhmanager/technical_readme_files/templates.md.
 
 The methods in each of these files are used / called on by the functions within the Services directory.
 
@@ -220,6 +242,11 @@ The difference between the 'ContactRepository' & the 'CompanyRepository':
     -   connects to the 'company' SQL table
     -   Relates to data specific to a corporate/business.
 
+#### database.py
+This is a repository file which connects to the SQL database 'jhmanager.db' & includes two classes: Database & SqlDatabase. 
+-   The Database class doesn't relate a specific database table, but rather it sets the rules for how the SqlDatabase() should interact with the database. 
+-   SqlDatabase includes methods which can be called on by any of the repositories, when connecting to the SQL database.
+
 #### interview_prep_history.py:
 This is a repository file which relates specifically to Interview Preparation & includes the following 2 classes: InterviewPreparation & InterviewPreparationRepository. The InterviewPreparationRepository includes all the SQL queries which connect to the 'interview_preparation' table in the SQL database 'jhmanager.db'.
 
@@ -236,6 +263,8 @@ This is a repository file which relates specifically to a User (of the applicati
 This includes all the Python functionality to build the 'back-end' of the application. 
 These files are broken down into the 11 directories that cover specific sections / functionality of the application. 
 
+Note: The technical readme covering the Forms is covered in jhmanager/technical_readme_files/services.md.
+
 Within each directory are the CRUD elements: 
 -   Create
     -   I started such files & functions with 'add_...'
@@ -246,6 +275,8 @@ Within each directory are the CRUD elements:
     -   These files / functions start with 'update_...'
 -   Delete 
     -   These files / functions start with 'delete_...'
+
+The directories found in the Services directory:
 
 #### address_book:
 This manages the functionality for the address book template. 
@@ -751,13 +782,27 @@ This where you'll find all the Python files related to a job offer entry / list 
 #### users:
 This where you'll find all the Python files related to a user  entry / list of user entries. 
 
-# ---------------------------------------------------------------
+---------------------------------------------------------------
 ### 5: Static:
+### 6: Technical Readme files:
 
+I had initially intended to write up the technical readme in 1 file, however once I exceeded 1000 lines, I decided to split it up into 6 files: 
+-   forms.md
+    -   Goes over all the files in the Forms directory, in technical detail.
+-   repos.md
+    -   Goes over all the files in the Repos directory, in technical detail.
+-   Services
+    -   Goes over all the files in the Services directory, in technical detail.
+-   Static
+    -   Goes over the CSS file (found in the Services directory), in technical detail.
+-   Templates
+    -   Goes over all the files in the Templates directory, in technical detail.
+-   technical_readme.md
+    -   I realised that this readme can get pretty technical, which isn't easy for the everyday-Jo to understand / follow. Since this is an academic piece, I've create the technical_readme files to cover what the functions do from a technical perspective. These files will cover:
+    -   What the function does.
+    -   Which other directories / files the function / method interacts with. 
 
-
-# ---------------------------------------------------------------
-### 6: Pages / Templates:
+### 7: Pages / Templates:
 These templates can be divided into the following categories:
 -   General
 -   Users
@@ -771,6 +816,8 @@ These templates can be divided into the following categories:
 -   Notes
     -   Company Notes
     -   Application Notes
+
+Note: The technical readme covering the Forms is covered in jhmanager/technical_readme_files/templates.md.
 
 #### General:
 
@@ -1304,7 +1351,6 @@ Presents the user with the 'AddApplicationNoteForm()' but pre-filled with the en
 
 The note is designed to let the user update their existing notes; to fix minor mistakes or to add more content to a note. Once this form has been successfully submitted & processed, the user will be redirected to 'view_app_note_details.html'.
 
-# ---------------------------------------------------------------
 ### 7: Tests: 
 ### 8: __init__.py:
 ### 8: helpers_from_cs50_finance.py

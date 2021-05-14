@@ -34,7 +34,6 @@ class SqlDatabase(Database):
 
         return result.lastrowid
 
-
     def getByField(self, table, field, value):
         cursor = self.db.cursor()
         result = cursor.execute("SELECT * FROM {} WHERE {}={}".format(table, field, value))
@@ -45,18 +44,6 @@ class SqlDatabase(Database):
             return None
 
         return data[0]
-
-    def getByID(self, table, field, value):
-        cursor = self.db.cursor()
-        result = cursor.execute("SELECT * FROM {} WHERE {}={} ORDER BY date DESC, time DESC".format(table, field, value))
-        self.db.commit()
-
-        data = [x for x in result]
-        if len(data) < 1:
-            return None
-
-        return data
-
 
     def getByName(self, table, name, name_value, user_id, userID_value):
         cursor = self.db.cursor()
@@ -73,13 +60,3 @@ class SqlDatabase(Database):
             return None
         
         return data[0]
-
-
-    """
-    TODO
-    
-    getById
-    delete
-    query across multiple tables
-    update
-    """

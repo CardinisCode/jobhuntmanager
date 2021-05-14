@@ -25,10 +25,3 @@ class TestDatabase:
         test_id = self.sql.insert('test', {'name': 'hello'})
 
         assert test_id == 2
-
-    def test_should_get_by_id(self):
-        test_id = self.sql.insert('test', {'name': 'hello'})
-
-        result = self.sql.getById('test', 1)
-
-        assert result == (1, 'hello')
