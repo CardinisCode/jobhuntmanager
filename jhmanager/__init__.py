@@ -289,7 +289,7 @@ def delete_specific_application(application_id):
 @login_required
 def delete_all_applications():
     user_id = session["user_id"]
-    return delete_all_applications_for_user(user_id, userRepo, applicationsRepo, appNotesRepo, interviewPrepRepo, interviewsRepo, jobOffersRepo)
+    return delete_all_applications_for_user(user_id, applicationsRepo, appNotesRepo, interviewPrepRepo, interviewsRepo, jobOffersRepo)
 
 
 """ Update a Specific application """
@@ -443,7 +443,6 @@ def update_interview_prep(application_id, interview_id, interview_prep_id):
 @login_required
 def delete_interview_prep(application_id, interview_id, interview_prep_id):
     return delete_interview_prep_details(application_id, interview_id, interview_prep_id, interviewPrepRepo)
-
 
 
 @app.route('/applications/<int:application_id>/add_job_offer', methods=["GET", "POST"])
@@ -693,8 +692,6 @@ def add_company_job_application(company_id):
         else: 
             flash("All fields are required.")
             return display_add_company_application_form(add_job_app_form, company_id, companyRepo)
-
-
 
 # Add Note for application:
 @app.route('/applications/<int:application_id>/app_notes/add_note', methods=["GET", "POST"])

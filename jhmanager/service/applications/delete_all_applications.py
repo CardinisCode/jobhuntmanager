@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, flash
 
 
-def delete_all_applications_for_user(user_id, userRepo, applicationsRepo, appNotesRepo, interviewPrepRepo, interviewsRepo, jobOffersRepo):
+def delete_all_applications_for_user(user_id, applicationsRepo, appNotesRepo, interviewPrepRepo, interviewsRepo, jobOffersRepo):
     applicationsRepo.deleteApplicationsByUserID(user_id)
     interviewsRepo.deleteInterviewsByUserID(user_id)
     interviewPrepRepo.deleteInterviewPrepByUserID(user_id)

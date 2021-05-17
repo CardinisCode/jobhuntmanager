@@ -56,7 +56,7 @@ def add_new_application_to_application_history(user_id, companyRepo, application
     return application_id
 
 
-def add_or_update_company(user_id, application_form, companyRepo, applicationsRepo):
+def add_or_update_company(user_id, application_form, companyRepo):
     #Grab fields from form:
 
     company_name = application_form.company_name.data
@@ -86,7 +86,7 @@ def add_or_update_company(user_id, application_form, companyRepo, applicationsRe
 
 def post_add_application(session, user_id, applicationsRepo, companyRepo, application_form):
     # Lets get the company_id:
-    company_id = add_or_update_company(user_id, application_form, companyRepo, applicationsRepo)
+    company_id = add_or_update_company(user_id, application_form, companyRepo)
 
     # Lets add these fields to our function that will structure this data into a dict:
     application_id = add_new_application_to_application_history(user_id, companyRepo, applicationsRepo, application_form, company_id)

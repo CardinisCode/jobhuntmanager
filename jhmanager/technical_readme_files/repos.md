@@ -1140,9 +1140,23 @@ Returns (output):
     A list of 'JobOffer' objects
 
 An instance where this method is called:
+FUNCTION:   get_users_stats()
+FILE:       services/display_dashboard_content.py
+LINE:       14
+
+###### getJobOffersByApplicationId()
+Takes (input): 
+    application_id
+Functionality (Algorithm):
+-   Runs a SQL 'SELECT' query to find all entries in the 'job_offers' table where the provided input matches the entry's foreign key 'application_id'.
+-   Iterates through each entry in the list, instantiating each entry using the 'JobOffer' class, before adding these entries to a list of its own. 
+Returns (output): 
+    A list of 'JobOffer' objects
+
+An instance where this method is called:
 FUNCTION:   get_job_offers()
 FILE:       services/applications/view_application_details.py
-LINE:       126
+LINE:       12
 
 ###### updateJobOfferByID
 Takes (input): 

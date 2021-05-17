@@ -290,37 +290,19 @@ This file contains the functionality behind:
     -   Presenting the AddApplicationNoteForm() form to the user
     -   Processing the information submitted on the form & adding the values (for the application note) to the 'application_notes' table in the 'jhmanager.db database.
 
-Includes the functions:
--   display_application_note_form()
--   post_application_add_note()
-
 ###### delete_app_note.py:
 This file contains the functionality behind deleting an application note. 
-
-Includes the function:
--   delete_application_note()
 
 ###### update_app_note.py:
 This file contains the functionality behind:
     -   Presenting the AddApplicationNoteForm() form to the user, with the values for an existing application note.
     -   Processing the information submitted on the form & updating the values (for the application note) for an entry in the 'application_notes' table in the 'jhmanager.db database.
 
-Includes the functions:
--   display_update_app_note_form()
--   post_update_app_note()
-
 ###### view_app_note_details.py:
-This file contains the functionality behind:
-    -   Presenting the user with the details they've provided for a specific note. This note is linked to a job application.
-
-Includes the function:
--   display_application_note_details()
+This file contains the functionality behind presenting the user with the details they've provided for a specific note, where the note displayed is linked to a specific job application.
 
 ###### view_application_notes.py:
 This file contains the functionality behind presenting the user with all the notes they've added for a specific application, where each note is a link to view the details for that specific note.
-
-Includes the function:
--   display_application_notes()
 
 #### applications:
 This where you'll find all the Python files related to job applications. 
@@ -333,36 +315,11 @@ The files in this directory:
 -   delete_an_application.py
 -   delete_all_applications.py
 
-
-
-##### add_application.py:
-In this file we find the functionality to:
--   display the form to the user, 
--   extract the form field values
--   Insert these values into the relevant SQL table
--   Redirect the user to the template: 'view_application.html'
-
-Functions:
--   display_add_application_form():
-    -   Handles GET functionality
-        -   with a blank instance of the AddApplicationForm() Form. 
-    -   Renders Template: 'add_job_application.html'
-
--   add_new_application_to_application_history():
-    -   Grabs the 'date' and 'time' form values & converts the values to the string type
-    -   Grabs all the value arguments it receives & stores them in a single dictionary
-    -   Inserts the values into the 'job_applications' table.
-
--   add_or_update_company():
-    -   Determines if a company already exists in the 'company' table
-        -   If yes: It updates the existing entry for this company
-        -   Else: It inserts a new entry for this company. 
-
--   post_add_application():
-    -   Handles POST functionality
-    -   Calls on the add_or_update_company() function
-    -   Calls on the add_new_application_to_application_history() function
-    -   Redirects to the template: 'view_application.html'
+###### add_application.py
+This file contains the functionality behind:
+    -   Displaying the AddApplicationForm() form to the user
+    -   Extracting the information submitted on the form & adding the values (for the job application) to the 'job_applications' table in the 'jhmanager.db database.
+    -   Redirecting the user to the template: 'view_application.html'
 
 ##### delete_all_applications.py:
 In this file we find the functionality to:

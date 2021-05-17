@@ -9,7 +9,7 @@ from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_speci
     
 
 def get_job_offers(application_id, user_id, company, jobOffersRepo):
-    job_offers = jobOffersRepo.getJobOffersByUserId(user_id)
+    job_offers = jobOffersRepo.getJobOffersByApplicationId(application_id)
 
     job_offers_details = {
         "empty_table": True,
