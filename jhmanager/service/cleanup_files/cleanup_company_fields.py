@@ -1,15 +1,6 @@
 from flask import Flask, render_template, session, request, redirect
 from jhmanager.service.cleanup_files.cleanup_general_fields import cleanup_field_value
-
-
-def cleanup_company_website(company_url): 
-    if company_url == "N/A" or company_url == "n/a":
-        return None
-
-    elif company_url == "http://" or company_url == "https://":
-        return None
-
-    return company_url
+from jhmanager.service.cleanup_files.cleanup_general_fields import cleanup_urls
 
 
 def check_if_all_company_fields_empty(company_details):
@@ -54,8 +45,8 @@ def cleanup_company_fields(company_contacts, company_id):
                 # If the value is N/A it means this field was left blank. So lets replace it with 'None'
                 company_contacts["fields"][company_id][heading] = None
             elif heading == "view_company":
-                # If we come across the URL 'view_company', then we'd want to clean up using 'cleanup_company_website'
-                company_contacts["fields"][company_id][heading] = cleanup_company_website(value)
+                # If we come across the URL 'view_company', then we'd want to clean up using 'cleanup_urls'
+                company_contacts["fields"][company_id][heading] = cleanup_urls(value)
             else:
                 company_contacts["fields"][company_id][heading] = cleanup_field_value(value)
 

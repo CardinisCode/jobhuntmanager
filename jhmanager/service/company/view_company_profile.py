@@ -1,6 +1,6 @@
 from flask import Flask, render_template, session, request, redirect, flash
 from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_company_profile
-from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_company_website
+from jhmanager.service.cleanup_files.cleanup_general_fields import cleanup_urls
 
 
 def display_company_profile(company_id, applicationsRepo, companyRepo):
@@ -38,7 +38,7 @@ def display_company_profile(company_id, applicationsRepo, companyRepo):
     }
 
     general_details["links"] = {
-        "company_website": cleanup_company_website(company.url),
+        "company_website": cleanup_urls(company.url),
         "update_company": '/company/{}/update_company'.format(company_id), 
         "add_note": '/company/{}/add_company_note'.format(company_id),
         "view_notes": '/company/{}/view_all_company_notes'.format(company_id), 

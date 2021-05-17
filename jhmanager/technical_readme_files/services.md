@@ -335,10 +335,8 @@ Functionality (algorithm):
         ->   Found in: services/cleanup_files/cleanup_app_fields.py. 
     -   cleanup_specific_company()
         ->   Found in: services/cleanup_files/cleanup_company_fields.py. 
-    -   cleanup_company_website()
-        ->   Found in: services/cleanup_files/cleanup_company_fields.py. 
     -   cleanup_urls()
-        ->   Found in: services/cleanup_files/cleanup_app_fields.py. 
+        ->   Found in: services/cleanup_files/cleanup_general_fields.py. 
 
     -   Finally all dictionaries are stored as keys in a parent dictionary 'general_details'. 
 
@@ -464,6 +462,211 @@ Functionality (algorithm):
 Finally:
     The user is redirected to the route:
 '/dashboard'. 
+
+### cleanup_files:
+The files found in this directory focus on formating the data it receives, to improves how values are presented to the user (on the templates). 
+
+I found that I was creating functions (in the service directory) to solve a specific problem, but noticed certain functions were all carrying out the same functionality. This caused unnecesary duplication of functionality. 
+
+So, to address this, I created this directory 'cleanup_files', into which I created the following Python files:
+-   cleanup_app_fields.py
+-   cleanup_app_note_fields.py
+-   cleanup_company_fields.py
+-   cleanup_contact_fields.py
+-   cleanup_datetime_display.py
+-   cleanup_general_fields.py
+-   cleanup_interview_fields.py
+-   cleanup_job_offer_fields.py
+
+By storing these functions in 1 directory, there's a center point where all similar functionality can be found. These functions also allow me to maintain consistent string formating, for each value presented, across all the templates. 
+
+#### cleanup_app_fields.py
+This file includes functions which specifically focus on the fields related to the 'job_application' SQL table. 
+
+Functions included:
+-   cleanup_emp_type_field()
+-   cleanup_interview_stage()
+-   cleanup_specific_job_application()
+-   cleanup_application_fields()
+
+##### cleanup_emp_type_field()
+This function specifically focuses on the field 'employment_type', found in the 'job_applications' SQl table. 
+
+Takes (input):
+    employment_type (as received from a SQL query)
+
+Functionality (algorithm):
+-   Uses a 'if' statement to run through all potential values for the 'employment_type' field, formating how the value will be presented to the user in each case. The string is format to read like everyday language. 
+
+EG: If 'emp_type' is 'full_time', 
+    -   it updates the value to "Full Time". 
+
+Returns: 
+    The updated value (for the 'employment_type' field). 
+
+##### cleanup_interview_stage()
+This function specifically focuses on the field 'interview_stage', found in the 'job_applications' SQL table. 
+
+Takes (input):
+    interview_stage (as received from a SQL query), which is an integer-type value
+
+Functionality (algorithm):
+-   Creates an 'updated_interview_stage' variable, which will store the string to be displayed to the user. 
+
+-   Uses 'if' conditional logic to checks the value for the 'interview_stage':
+    -   If its 0, then the value for 'updated_interview_stage' will be updated to "No interview lined up yet."
+    -   Otherwise, the value for the 'updated_interview_stage' will be updated to "Interview #{x}.", where x is the value stored for 'interview_stage'.  
+
+EG: 
+    If interview_stage is 0:
+        updated_interview_stage = "No interview lined up yet."
+
+    If Interview_stage is 1:
+        updated_interview_stage = Interview #1."
+
+Returns: 
+    The 'updated_interview_stage' string. 
+
+
+
+##### cleanup_specific_job_application()
+This function specifically focuses on a specific entry from the 'job application' SQL table. 
+
+Takes (input):
+    application (a dictionary of fields related to a specific job application)
+
+Functionality (algorithm):
+-   Iterates through the dictionary keys & values, (stored in the 'application' dictionary). 
+    -   Using conditional logic, it updates each value according to the key's ('heading') name, calling on another function to 'clean' it's value. 
+
+Since this function only serves to update the values in the dictionary, this function doesn't need to return anything.
+
+All changes made to this dictionary are automatically updated & are available outside the scope of the function without the need for this function to return the "updated" dictionary. This is due to the fact that dictionaries are an object, which passes values by reference (not by value).  
+
+##### cleanup_application_fields()
+This function receives a dictionary with various job applications (from the 'job_applications' SQL table), & focuses on improving how the fields' values are presented to the user.  
+
+Takes (input):
+-   A dictionary of job applications
+-   An unique ID (app_id) for a specific job application found in this dictionary
+
+Functionality (algorithm):
+-   Uses the application's unique ID (app_id), it can focus on a specific job application found within the dictionary.
+
+-   Iterates through the keys & their perspective values,  for the job application. If any value is stored as "N/A", its value is replaced with "None" (a NoneType data type). If any field is saved as "None", it will not be displaying to the user.  
+
+-   Calls on the function 'cleanup_interview_stage()' for update how the application's 'interview stage' field value will be displayed to the user. 
+
+-   Calls on the function 'cleanup_emp_type_field()' for update how the application's 'employment_type' field value will be displayed to the user. 
+
+-   Converts the 'app_date' value, for the job application's entry date, to a datetime object. It then calls on the 'cleanup_date_format()' to update how the date will be displayed to the user.  
+
+Since this function only serves to update the values in the dictionary, this function doesn't need to return anything.
+
+All changes made to this dictionary are automatically updated & are available outside the scope of the function without the need for this function to return the "updated" dictionary. This is due to the fact that dictionaries are an object, which passes values by reference (not by value).  
+
+#### cleanup_app_note_fields.py
+This file includes functions which specifically focus on the fields related to the 'application_notes' SQL table.
+
+Function included:
+-   cleanup_app_notes()
+
+##### cleanup_app_notes()
+This function receives a dictionary with various application notes (from the 'application_notes' SQL table), & specifically focuses on improving how the field 'entry_date's values are presented to the user.  
+
+Takes (input):
+-   A dictionary of application notes
+-   An unique ID (app_notes_id) for a specific job application found in this dictionary
+
+Functionality (algorithm):
+-   Uses the application note's unique ID (app_notes_id), it can focus on a specific note found within the dictionary.
+
+-   Converts the note's 'entry_date' value to a datetime object, before calling on the function 'cleanup_date_format()' to update how the 'entry_date' will be displayed to the user.  
+
+Since this function only serves to update the values in the dictionary, this function doesn't need to return anything.
+
+All changes made to this dictionary are automatically updated & are available outside the scope of the function without the need for this function to return the "updated" dictionary. This is due to the fact that dictionaries are an object, which passes values by reference (not by value).  
+
+#### cleanup_company_fields.py
+This file includes functions which specifically focus on the fields related to the 'company' SQL table.
+
+Function included:
+-   check_if_all_company_fields_empty()
+-   cleanup_company_profile()
+-   cleanup_specific_company()
+-   cleanup_company_fields()
+
+##### check_if_all_company_fields_empty()
+This function checks all the values stored in a 'company'-related dictionary, for any value that isn't stored as 'None'. If this function returns False, then the dictionary is not blank / empty. 
+
+This is used by the 'cleanup_company_profile()' to check if the user has not yet provided any details for the company. If this is the case, the user gets a message, prompting them to update the company profile if they want to see more details for this company.
+
+Takes (input):
+    company_details (a dictionary containing fields for a specific company entry)
+
+Functionality (algorithm):
+-   Iterates through all the keys & values in the dictionary. Using conditional logic, it checks each value, whilst ignoring the 'key' named 'company_name'. If it finds a value that's not 'None', it instantly returns 'False. Otherwise it returns 'True' once it has completed iterating through all the values in the dictionary. 
+
+Returns:
+    True or False
+
+##### cleanup_company_profile()
+Takes (input):
+    company_details (a dictionary containing fields for a specific company entry)
+
+Functionality (algorithm):
+-   Calls the function 'check_if_all_company_fields_empty()' to check if all the fields in the dictionary are 'empty' (storing blank values). The "all_fields_empty" key in this dictionary is updated with the output from the 'check_if_all_company_fields_empty() function.  
+
+-   Iterates through all the keys & values in the dictionary, ignoring the key names 'company_name' & 'all_fields_empty'. 
+    -   Using conditional logic, it checks if the value is empty (stored as "N/A", "Unknown at present" or ""). 
+        -   If so, replaces the value with 'None' (NoneType data type).
+        -   Otherwise: it calls on the 'cleanup_field_value()' function & uses the returned value to update the dictionary value.  
+
+##### cleanup_specific_company()
+
+##### cleanup_company_fields()
+
+
+#### cleanup_contact_fields.py
+This file includes functions which specifically focus on the fields related to the 'indiv_contacts' SQL table.
+
+#### cleanup_datetime_display.py
+This file includes functions which specifically focus on the fields related  to a 'Date' & 'Time'. 
+
+#### cleanup_general_fields.py
+This file includes functions which are general in natural & therefore can be used by any function in the Service directory. 
+
+##### cleanup_urls()
+This function specifically focuses on fields related to URL's and can be accessed by any function found in the Service directory.
+
+Takes (input):
+    url (as received from a SQL query)
+
+Functionality (algorithm):
+-   Uses 'if' conditional logic to checks the value stored for the field 'url':
+    -   If it's "N/A" or "n/a", then its a blank field:
+        -   So its value is replaced with "None". 
+    -   If its "http://" or "https://", then the field was incomplete:
+        -   So its value is replaced with "None".
+        -   This is especially important since 'update....' forms will display "https://" in 'URL-related fields. If the user submitted the form, without updating this field value, it will be stored in the SQL database as "https://". 
+
+EG: 
+    If 'url' is "N/A", "n/a", "http://" or "https://":
+    -   Then its value is replaced with "None" (a NoneType value). 
+
+Return:
+    The updated value for 'job_url'. This value can now  get displayed to the user only when its value is not 'None'. 
+
+#### cleanup_interview_fields.py
+This file includes functions which specifically focus on the fields related to the 'interviews' SQL table.
+
+#### cleanup_job_offer_fields.py
+This file includes functions which specifically focus on the fields related to the 'job_offers' SQL table.
+
+
+
+
+
 
 
 

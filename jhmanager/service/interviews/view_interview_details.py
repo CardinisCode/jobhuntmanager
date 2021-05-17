@@ -1,8 +1,8 @@
 from flask import Flask, render_template, session, request, redirect
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_specific_interview
-from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_company_website
 from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_specific_company
 from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_specific_job_application
+from jhmanager.service.cleanup_files.cleanup_general_fields import cleanup_urls
 from datetime import datetime, time
 
 
@@ -54,7 +54,7 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
     }
 
     general_details["links"] = {
-        "company_website": cleanup_company_website(company.url),
+        "company_website": cleanup_urls(company.url),
         "company_profile": '/company/{}/view_company'.format(company.company_id), 
         "update_interview": "/applications/{}/interview/{}/update_interview".format(application_id, interview_id),
         "delete_interview": "/applications/{}/interview/{}/delete_interview".format(application_id, interview_id),

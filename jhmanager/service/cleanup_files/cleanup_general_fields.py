@@ -24,3 +24,13 @@ def cleanup_field_value(field_value):
     if field_value:
         field_value = (" ".join([x.capitalize() for x in field_value.split(' ')]))
     return field_value
+
+
+def cleanup_urls(url):
+    if url == "N/A" or url == "n/a":
+        return None
+
+    elif url == "http://" or url == "https://":
+        return None
+
+    return url

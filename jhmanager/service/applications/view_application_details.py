@@ -2,9 +2,8 @@ from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime, time
 from jhmanager.service.cleanup_files.cleanup_job_offer_fields import cleanup_job_offer
 from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_specific_job_application
-from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_urls
+from jhmanager.service.cleanup_files.cleanup_general_fields import cleanup_urls
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_fields
-from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_company_website
 from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_specific_company
     
 
@@ -139,7 +138,7 @@ def display_application_details(session, user_id, applicationsRepo, application_
         "add_interview": '/applications/{}/add_interview'.format(application_id), 
         "view_interviews": '/applications/{}/view_all_interviews'.format(application_id), 
         "company_profile": '/company/{}/view_company'.format(company.company_id), 
-        "company_website": cleanup_company_website(company.url), 
+        "company_website": cleanup_urls(company.url), 
         "update_company": '/company/{}/update_company'.format(company.company_id),
         "view_job_posting": cleanup_urls(application.job_url),
         "add_job_offer": '/applications/{}/add_job_offer'.format(application_id), 

@@ -31,16 +31,6 @@ def cleanup_interview_stage(interview_stage):
     return updated_interview_stage
 
 
-def cleanup_urls(url):
-    if url == "N/A" or url == "n/a":
-        return None
-
-    elif url == "http://" or url == "https://":
-        return None
-
-    return url
-
-
 def cleanup_specific_job_application(application):
     for heading, value in application["fields"].items():
         if value == "N/A":
@@ -51,10 +41,10 @@ def cleanup_specific_job_application(application):
             application["fields"][heading] = cleanup_emp_type_field(value)
         elif heading == "time":
             time_obj = datetime.strptime(value, '%H:%M')
-            application["fields"]["time"] = cleanup_time_format(time_obj)
+            application["fields"][heading] = cleanup_time_format(time_obj)
         elif heading == "date":
             date_obj = datetime.strptime(value, "%Y-%m-%d")
-            application["fields"]["date"] = cleanup_date_format(date_obj)
+            application["fields"][heading] = cleanup_date_format(date_obj)
         
         else:
             application["fields"][heading] = cleanup_field_value(value)

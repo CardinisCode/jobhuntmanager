@@ -317,103 +317,31 @@ The files in this directory:
 
 ###### add_application.py
 This file contains the functionality behind:
-    -   Displaying the AddApplicationForm() form to the user
-    -   Extracting the information submitted on the form & adding the values (for the job application) to the 'job_applications' table in the 'jhmanager.db database.
-    -   Redirecting the user to the template: 'view_application.html'
+-   Displaying the AddApplicationForm() form to the user
+-   Extracting the information submitted on the form & adding the values (for the job application) to the 'job_applications' table in the 'jhmanager.db database.
+-   Redirecting the user to the template: 'view_application.html'
 
 ##### delete_all_applications.py:
 In this file we find the functionality to:
 -   Delete all job application, and all interview, interview_preparation, note, & job offer entries linked to these applications, from their perspective SQL tables. 
 -   Redirect the user back to the 'dashboard.html' template.
 
-Function:
--   delete_all_applications_for_user()
-    -   Deletes all application entries linked to the current user's user_id.
-        -   These application entries are deleted from the 'job_applications' table
-    -   This also deletes the following entries linked to this UserID:
-        -   interviews (Table: interviews)
-        -   interview preparations (Table: interview_preparation)
-        -   application notes (Table: application_notes)
-        -   job offers (Table: job_offers)
-    -   Redirects to template: 'dashboard.html'
-
 ##### delete_an_application.py:
 In this file we find the functionality to:
 -   Delete both a specific job application, and all interview, interview_preparation, note, & job offer entries linked to this application, from their perspective SQL tables. 
 -   Redirect the user back to the 'applications.html' template.
 
-Function:
--   delete_application()
-    -   Deletes a specific entry in the 'job_applications' table. 
-    -   Deletes all entries linked to a specific application ID:
-        -   interviews (Table: interviews)
-        -   interview preparations (Table: interview_preparation)
-        -   application notes (Table: application_notes)
-        -   job offers (Table: job_offers)
-    -   Redirects to template: 'applications.html'    
-
 ##### update_application.py:
 In this file we find the functionality to:
 -   Display the AddApplicationForm(), with the details of a specific application, to the user via the template 'update_application.html'
--   Grab the details from the form, update the relevant entry in the 'job_applications'
-    table, and then redirect the user to 'view_application.html' so that the user can view the application they've just updated. 
-
-Functions:
--   display_update_application_form()
-    -   Handles GET functionality
-    -   Stores the company_name & action_url to be displayed to the user.
-    -   Renders the template:  update_application.html
-        -   With an instance of the AddApplicationForm() Form, 
-            populated with the values for a specific application entry.
-
--   post_update_application()
-    -   Handles POST functionality
-    -   Gets all the form values & stores them in a single dictionary
-    -   Calls on the updateApplicationByID() method, in the 'ApplicationsHistoryRepository', to update a specific entry in the 'job_applications' (SQL) table.
-    -   Gets all form values relevant to a Company & stores them in their own dictionary
-    -   Using the 'Company' values, it calls on the updateUsingApplicationDetails(), in the CompanyRepository(), 
-        to update a specific entry in the 'job_applications' (SQL) table.
-    -   Redirects to the template: 'view_application.html'
+-   Grab the details from the form, update the relevant entry in the 'job_applications' table.
+-    Redirect the user to 'view_application.html' so that the user can view the application they've just updated. 
 
 ##### view_all_applications.py:
-In this file we find the functionality to:
--   Grab the top 10 application entries (if there are any), 
-    and to add these entries to a dictionary (together with a few other necessary details). These details are displayed to the user on the template 'applications.html'. 
-
-Function:
--   display_applications_for_user()
-    -   Grabs the top 10 Application entries for a specific User
-        -   From the 'job_applications' SQL table
-    -   Creates a Dictionary
-        -   With a key: 'empty_table' & value: True
-    -   Determines if there are any applications in the SQL table for the User
-        -   If yes: 
-            -   It structures the values for each application in a dictionary
-            -   Cleans up the values
-            -   Updates the value for the 'empty_table' key to False
-    -   Adds the links, to be displayed to the user, in the main dictionary.
-    -   Renders the template: 'applications.html'
+This file contains the functionality behind displaying the top 10 application entries (if there are any), added by current user, to the template 'applications.html'.  
 
 ##### view_application_details.py:
-In this file we find the functionality to:
--   Grab the entry details for a specific application 
--   Grab the entry details for the company linked to this application
--   Grab all Job offers linked to this Job Application
--   Grab all interviews linked to this Job Application
--   Store the links to be presented to the user
--   Store these details to a dictionary (together with a few other necessary details)
-    in a dictionary. 
--   Display all this information to the user on the template 'view_application.html'
-
-Functions:
--   get_job_offers()
-        Extracts the job offer entries from the 'job_offers' SQL table & adds the information to a dictionary
--   get_interviews()
-        Extracts the interview entries from the 'interviews' SQL table & adds the information to a dictionary
--   display_application_details()
-    -   Extracts the job application entries from the 'job_applications' SQL table & adds the information to a dictionary
-    -   Renders the "view_application.html" template, with the above 3 dictionaries. 
-
+This file contains the functionality behind presenting the user with the details they've provided for a specific job application. 
 
 #### cleanup_files:
 In this file we find the functionality to clean up values in the various functions in the 'service' directory. So once a value has been extracted from the relevant SQL table, it will be "cleaned" to ensure it looks both presentable and just more like every day language. 
@@ -421,164 +349,29 @@ EG: random_value => Random Value.
 
 The files in this directory:
 ##### cleanup_app_fields.py
-Responsible for cleaning up all fields to related to the 'job_applications' SQL table. 
-
-###### Functions:
--   cleanup_emp_type_field()
-    -   Responsible for "cleaning up" how the 'employment_type' value is presented
--   cleanup_interview_stage()
-    -   Responsible for "cleaning up" how the 'interview_stage' value is presented
--   cleanup_urls()
-    -   Responsible for verifying a URL, provided by the user, to see if it's left blank or incomplete. If so, its value is replaced with 'None'. 
--   cleanup_specific_job_application()
-    -   Responsible for "cleaning up" how the values for a specific 'job_application' entry is presented.
--   cleanup_application_fields()
-    -   Responsible for "cleaning up" how the values, for each entry in a SQL query, are presented. It's related specifically to the 'job_applications' table. 
+This file includes functions which specifically focus on the fields related to the 'job_application' SQL table. 
 
 ##### cleanup_app_note_fields.py
-Responsible for cleaning up all fields to related to the 'application_notes' SQL table. 
-
-###### Functions:
--   cleanup_app_notes()
-    -   Responsible for cleaning up the presentation of a specific application note's 'date' value. 
+This file includes functions which specifically focus on the fields related to the 'application_notes' SQL table.
 
 ##### cleanup_company_fields.py
-Responsible for cleaning up all fields to related to the 'company' SQL table.
+This file includes functions which specifically focus on the fields related to the 'company' SQL table.
 
-###### Functions:
--   cleanup_company_website()
-    -   Takes a company URL that the user has provided and checks to see if its blank (which saves as "N/A") or incomplete ("Http://" or "https://"). If the value is classified as invalid, the function returns None. 
-
--   check_if_all_company_fields_empty()
-    -   Runs through the field values stored for a company, and if all the values are empty (saved as "N/A"), then the function returns True.
-    -   I created this function for the 'cleanup_company_profile()' function, which is in turn called on by the 'display_company_profile()' function in services/company/view_company_profile.py
-
--   cleanup_company_profile()
-    -   This functions cleans the field values stored for a company, to improve how these values are presented to the user. If a field value is stored as "N/A", "Unknown at present" or if its entirely empty (""), then it's value is replaced with "None". 
-    -   This allows me to only present information that that the user would actually want to see. If a field was left blank, then there's no point in displaying "N/A" or "" to the user.
-    -   This function is used exclusively by the 'display_company_profile()' function in services/company/view_company_profile.py 
-
--   cleanup_specific_company()
-    -   This function runs through all the field values for a specific company entry. For each entry, it checks if the field value is "N/A", "Unknown at present" or simply blank. 
-        -   If so, it replaces those values with "None".
-        -   Otherwise it "cleans" the value using the 'cleanup_field_value()' functionality. 
-
--   cleanup_company_fields()
-    -   This works pretty much in the same way as cleanup_specific_company() except it's specifically used when iterating through several company entries. The dictionary format it receives will therefore have  a slightly different structure and use a "company_id" key to distinguish one company entry from the other entries in the dictionary. 
-    -   This function also cleans a company's "view_company" field value (company website URL). 
-
-
-##### cleanup_contact.py
-Responsible for cleaning up all fields to related to the 'indiv_contacts' SQL table.
-
-###### Functions:
--   cleanup_full_name()
-    -   Specifically focuses on "cleaning" a "full_name" field. 
-    -   Takes a long string, splits the string by its spaces, capitalises the first letter, and then joins everything together back together, seperated by spaces, before returning the final string. 
-
--   cleanup_specific_contact_entry()
-    -   Responsible for dealing with a specific contact. 
-    -   Takes a 'contact' dictionary & cleans up the values for each of the dictionary's keys (contact attributes)
-    -   Calls on the functions cleanup_full_name() & cleanup_field_value to improve the presentation of the 'contact' attributes / keys. 
-
--   cleanup_each_contact_entry()
-    -   Takes a 'contact' dictionary and is responsible for dealing with a 'contact' entry within a bigger dictionary of contacts. 
-    -   Otherwise it works pretty much the same as cleanup_specific_contact_entry(), cleaning each value for a contact to improve it's presentation before a contact is displayed to the user. 
-
+##### cleanup_contact_fields.py
+This file includes functions which specifically focus on the fields related to the 'indiv_contacts' SQL table.
 
 ##### cleanup_datetime_display.py
-Responsible for cleaning up all datetime, date & time type fields across all the files in the Service directory.
-
-###### Functions:
--   cleanup_date_format()
-    -   Takes a date object and restructures how the date object will be dsiplayed to the user (as a string)
-    -   EG: "02-01-2021" / "%Y-%m-%d" -> "02 Jan 2021".
-    -   One instance: services/application_notes/view_app_note_details.py, Line 30
-
--   cleanup_time_format()
-    -   Takes a time object and determines if the time is before or after 12pm. It will then convert the date value back to string and add "am" or "pm" at the end, based on whether/not it's morning or afternoon/evening, before returning the final string. 
-    -   EG: 
-        -   "11:35" / "%H:%M" -> "11:35am".
-        -   "15:09" / "%H:%M" -> "15:09pm". 
-    -   One instance: services/cleanup_files/cleanup_app_fields.py, Line 54
-
--   verify_value_is_date_obj()
-    -   Takes a 'date' value, and checks to see if the data type for this value value is the 'str' type. 
-        ->  If yes, it will converts the 'date' value to its 'datetime.date' eqivalent & returns the result
-        ->  Else: The 'date' value remains unchanged and is returned. 
-    -   I created this function to ensure that the 'date' value provided when calling the 'past_dated()' function is in fact a 'datetime.date' data type. 
-    -   Used by / called by the 'past_dated() function. 
-
--   verify_value_is_time_obj()
-    -   Takes a 'time' value and checks to see if the data type for this value value is the 'str' type, pretty much the same as the 'verify_value_is_date_obj()' function does. 
-    -   Like the 'verify_value_is_date_obj()' function, if the value is a 'str' value, this functions converts the value to a 'datetime.time' data type. 
-    -   Used by / called by the 'past_dated() function. 
-
--   past_dated()
-    -   Takes 2 arguments: a datetime.date and a datetime.time calues. 
-    -   It compares these 2 values to the current date & time to establish if the provided date & time are past-dated / in the past.  
-        -   If yes: It returns True
-        -   Otherwise: False 
-    -   One instance: services/display_dashboard_content.py, Line 102
-
--   present_dated()
-    -   Takes a datetime.date-type value and compares it to the current day's date. 
-        -   If the provided datetime value matches the current day's date, then it returns True
-        -   Else: it returns False 
-    -   One instance: services/display_dashboard_content.py, Line 66
-
+This file includes functions which specifically focus on the fields related  to a 'Date' & 'Time'. 
 
 ##### cleanup_general_fields.py
-Responsible for cleaning up fields that are used by multiple different functions across the Service directory, including files & functions from within the 'cleanup_files' directory.
-
-###### Functions:
--   replace_na_value_with_none()
-    -   Takes a 'str'-type value and checks if the value is "N/A". 
-        -   If yes, it will return True
-        -   Else: Returns False 
-    -   Since I've replaced empty form values with "N/A" before storing / updating these values in the SQL database, this function replaces these values with 'None'. This serves to represent the fact that the user has not yet provided a value for that field.
-    -   One instance: services/interview_preparation/view_all_interview_prep.py, Line 27
-
--   get_count()
-    -   Takes a SQL list of entries, counts the number of entries and returns the end result/figure. 
-    -   One instance: services/display_dashboard_content.py, Line 30
-
--   cleanup_field_value()
-    -   Takes a string value, splits the string by the spaces, capitalizes the first letter of every word, and then adds  a space before joining everything back to together as a new string. 
-    -   One instance: services/cleanup_files/acleanup_contact_fields.py, Line 16
+This file includes functions which are general in natural & therefore can be used by any function in the Service directory. 
 
 ##### cleanup_interview_fields.py
-Responsible for cleaning up all fields to related to the 'interviews' SQL table.
-
-###### Functions:
--   cleanup_interview_type()
-    -   Takes a string value, specifically for the 'interview_type' field. 
-    -   This function runs through the possible values for this field, since it as provided to the user as a Select list, and improves the presentation of the value. Once complete, it returns the updated value.
-    -   This is used by the 'cleanup_interview_fields()' function from within the same file: 'cleanup_interview_fields.py'
-
--   cleanup_interview_status()
-    -   Takes a string value, specifically for the interview 'status' field. 
-    -   This function runs through the possible values for this field, since it as provided to the user as a Select list, and improves the presentation of the value. Once complete, it returns the updated value.
-    -   This is used by the 'cleanup_interview_fields()' function from within the same file: 'cleanup_interview_fields.py'
-
--   cleanup_medium()
-    -   Takes a string value, specifically for the 'interview_medium' field. 
-    -   This function runs through the possible values for this field, since it as provided to the user as a Select list, and improves the presentation of the value. Once complete, it returns the updated value.
-    -   This is used by the 'cleanup_interview_fields()' function from within the same file: 'cleanup_interview_fields.py'  
-
--   cleanup_interview_fields()
-    -   Takes a dictionary of interview entries and a specific interview ID. 
-    -   It cleans up all the values for a specific interview, using its unique interview ID, to improve how each value will be presented to the user (so it's in plain everyday language).
-    -   One instance: services/applications/view_application_details.py, Line 85
-
--   cleanup_specific_interview()
-    -   Takes a dictionary for a specific interview entry, with the interview attributes as its keys. 
-    -   It cleans up the interview values to improve how each value will be presented to the user (so it's in plain everyday language).
-    -   One instance: services/interviews/view_interview_details.py, Line 31
-
+This file includes functions which specifically focus on the fields related to the 'interviews' SQL table.
 
 ##### cleanup_job_offer_fields.py
-Responsible for cleaning up all fields to related to the 'job_offers' SQL table.
+This file includes functions which specifically focus on the fields related to the 'job_offers' SQL table.
+
 
 #### company:
 This where you'll find all the Python files related to a 'company'. 
