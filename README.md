@@ -267,7 +267,7 @@ Note: The technical readme covering the Forms is covered in jhmanager/technical_
 
 The directories found in the Services directory:
 -   address_book
--   
+-   application_notes
 
 #### address_book:
 This includes the functionality behind displaying the user's contacts to the template: 'view_address_book.html'.
@@ -317,14 +317,23 @@ Includes the function:
 -   display_application_note_details()
 
 ###### view_application_notes.py:
-This file contains the functionality behind:
-    -   Presenting the user with all the notes they've added for a specific application, where each note is a link to view the details for that specific note.
+This file contains the functionality behind presenting the user with all the notes they've added for a specific application, where each note is a link to view the details for that specific note.
 
 Includes the function:
 -   display_application_notes()
 
 #### applications:
 This where you'll find all the Python files related to job applications. 
+
+The files in this directory:
+-   add_application.py
+-   view_application_details.py
+-   view_all_applications.py
+-   update_application.py
+-   delete_an_application.py
+-   delete_all_applications.py
+
+
 
 ##### add_application.py:
 In this file we find the functionality to:
