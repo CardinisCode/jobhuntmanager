@@ -478,7 +478,6 @@ I found that I was creating functions (in the service directory) to solve a spec
 
 So, to address this, I created this directory 'cleanup_files', into which I created the following Python files:
 -   cleanup_app_fields.py
--   cleanup_app_note_fields.py
 -   cleanup_company_fields.py
 -   cleanup_contact_fields.py
 -   cleanup_datetime_display.py
@@ -513,6 +512,7 @@ Returns:
     The updated value (for the 'employment_type' field). 
 
 An instance where this method is called:
+    cleanup_application_fields(), in services/cleanup_files/cleanup_app_fields.py
 
 ##### cleanup_interview_stage()
 This function specifically focuses on the field 'interview_stage', found in the 'job_applications' SQL table. 
@@ -538,7 +538,7 @@ Returns:
     The 'updated_interview_stage' string. 
 
 An instance where this method is called:
-
+    cleanup_specific_job_application(), in services/cleanup_files/cleanup_app_fields.py
 
 ##### cleanup_specific_job_application()
 This function specifically focuses on a specific entry from the 'job application' SQL table. 
@@ -555,6 +555,7 @@ This function doesn't return anything & it doesn't need to. This is due to the f
 TLDR: Change the values in a dictionary here (in this function), and it changes the dictionary everywhere (where this dictionary is used).
 
 An instance where this method is called:
+    display_interview_preparation_form(), Line 31 in services/interview_preparation/add_interview_prep.py
 
 ##### cleanup_application_fields()
 This function receives a dictionary with various job applications (from the 'job_applications' SQL table), & focuses on improving how the fields' values are presented to the user.  
@@ -579,29 +580,7 @@ This function doesn't return anything & it doesn't need to. This is due to the f
 TLDR: Change the values in a dictionary here (in this function), and it changes the dictionary everywhere (where this dictionary is used). 
 
 An instance where this method is called:
-
-
-#### cleanup_app_note_fields.py
-This file includes functions which specifically focus on the fields related to the 'application_notes' SQL table.
-
-Function included:
--   cleanup_app_notes()
-
-##### cleanup_app_notes()
-This function receives a dictionary with various application notes (from the 'application_notes' SQL table), & specifically focuses on improving how the field 'entry_date's values are presented to the user.  
-
-Takes (input):
--   A dictionary of application notes
--   An unique ID (app_notes_id) for a specific job application found in this dictionary
-
-Functionality (algorithm):
--   Uses the application note's unique ID (app_notes_id), it can focus on a specific note found within the dictionary.
-
--   Converts the note's 'entry_date' value to a datetime object, before calling on the function 'cleanup_date_format()' to update how the 'entry_date' will be displayed to the user.  
-
-This function doesn't return anything & it doesn't need to. This is due to the fact that dictionaries are an object, which passes values by reference (not by value). So any/ all updates made to the values in this dictionary, by this function, are made to the actual dictionary itself & go beyond the scope of this function. 
-
-TLDR: Change the values in a dictionary here (in this function), and it changes the dictionary everywhere (where this dictionary is used).
+    display_applications_for_user(), Line 38 in services/applications/view_all_applications.py
 
 #### cleanup_company_fields.py
 This file includes functions which specifically focus on the fields related to the 'company' SQL table.

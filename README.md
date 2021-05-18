@@ -351,9 +351,6 @@ The files in this directory:
 ##### cleanup_app_fields.py
 This file includes functions which specifically focus on the fields related to the 'job_application' SQL table. 
 
-##### cleanup_app_note_fields.py
-This file includes functions which specifically focus on the fields related to the 'application_notes' SQL table.
-
 ##### cleanup_company_fields.py
 This file includes functions which specifically focus on the fields related to the 'company' SQL table.
 

@@ -2,7 +2,6 @@ from flask import Flask, render_template, session, request, redirect
 from datetime import datetime, date
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
 from jhmanager.service.cleanup_files.cleanup_general_fields import get_count
-from jhmanager.service.cleanup_files.cleanup_app_note_fields import cleanup_app_notes
 
 
 def display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo, companyNotesRepo):
