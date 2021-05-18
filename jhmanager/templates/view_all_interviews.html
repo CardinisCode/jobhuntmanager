@@ -20,7 +20,7 @@
     <div class="alignfull background-colour">
         <div class="aligncenter"> 
             <div class="three-col-grid extra-margins">
-                {% for interview_id, interview in interview_details.fields.items() %}
+                {% for interview_id, interview in general_details.interview_details.fields.items() %}
                     <a href={{ interview.view_interview }} class="link-cards-alt-colour">
                         <i class="fas fa-hand-pointer"></i><h3 class="card-headings"> {{ interview.date }} @ {{ interview.time }}</h3>
                         <div class="card-content"> 

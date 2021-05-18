@@ -3,78 +3,83 @@ from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_dat
 from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_type
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_status
-from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_interview_stage
 from jhmanager.service.cleanup_files.cleanup_general_fields import replace_na_value_with_none
+from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_specific_company
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_specific_job_application
+from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_specific_interview
 
 
 def display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo, interviewsRepo):
     application = applicationsRepo.getApplicationByID(application_id)
     interview = interviewsRepo.getInterviewByID(interview_id)
     company = companyRepo.getCompanyById(application.company_id)
-    company_id = company.company_id
     interview_prep_entries = interviewPrepRepo.getAllInterviewPrepEntriesByInterviewId(interview_id, user_id)
 
-    general_details = {
-        "interview_prep_details": None,
-        "company_details": {}, 
-        "application_details": {}, 
-        "interview_details": {},
-        "links": {},
-    }
-
-    general_details["company_details"] = {
+    company_details= {
         "name": company.name, 
-        "description": replace_na_value_with_none(company.description), 
-        "location": replace_na_value_with_none(company.location), 
+        "description": company.description, 
         "website": company.url, 
         "interviewers": interview.interviewer_names, 
-        "view_profile": '/company/{}/view_company'.format(company_id), 
-        "view_notes": '/company/{}/view_all_company_notes'.format(company_id)
     }
-    
+    cleanup_specific_company(company_details)
 
-    general_details["application_details"] = {
+    application_details = {
         "job_role": application.job_role, 
-        "job_description": replace_na_value_with_none(application.job_description), 
-        "interview_stage": cleanup_interview_stage(application.interview_stage)
+        "job_description": application.job_description, 
+        "interview_stage": application.interview_stage     
     }
+    cleanup_specific_job_application(application_details)
 
-    general_details["interview_details"] = {
-        "date": cleanup_date_format(interview.interview_date), 
-        "time": cleanup_time_format(interview.interview_time), 
-        "status": cleanup_interview_status(interview.status), 
-        "interview_type": cleanup_interview_type(interview.interview_type)
+    interview_details = {
+        "date": interview.interview_date, 
+        "time": interview.interview_time, 
+        "status": interview.status, 
+        "interview_type": interview.interview_type,
+    }
+    cleanup_specific_interview(interview_details, interview.other_medium)
+
+    interview_prep_details = {
+        "fields": None, 
+        "empty_table": True
     }
 
     # If there are any interview_prep entries to display, lets add them to our dict:
     question_number = 0
     if interview_prep_entries: 
-        general_details["interview_prep_details"] = {}
-        general_details["interview_prep_details"]["fields"] = {}
-        interview_prep_details = {} 
+        interview_prep_details["fields"] = {}
+        interview_prep_details["empty_table"] = False 
         for entry in interview_prep_entries: 
             question_number += 1
             prep_id = entry.interview_prep_id
             view_prep_entry = '/applications/{}/interview/{}/interview_preparation/{}/view_interview_prep_entry'.format(application_id, interview_id, prep_id)
-            general_details["interview_prep_details"]["fields"][prep_id] = {
+            interview_prep_details["fields"][prep_id] = {
                 "Question": entry.question,
                 "Answer": replace_na_value_with_none(entry.answer), 
                 "question_number": question_number,
                 "view_prep_entry": view_prep_entry,
             }
-
     view_all_interview_prep = '/applications/{}/interview/{}/view_all_preparation'.format(application_id, interview_id)
-    general_details["links"] = {
+    links = {
         "application_id": application_id,
         "interview_id": interview_id,
         "action_url": '/applications/{}/interview/{}/interview_preparation'.format(application_id, interview_id), 
         "view_interview": '/applications/{}/interview/{}'.format(application_id, interview_id),
         "view_application": '/applications/{}'.format(application_id), 
         "view_all_interview_prep": view_all_interview_prep,
+        "view_company_profile": '/company/{}/view_company'.format(company.company_id), 
+        "view_company_notes": '/company/{}/view_all_company_notes'.format(company.company_id),
         "glassdoor": "https://www.glassdoor.co.uk/blog/50-common-interview-questions/", 
         "the_muse": "https://www.themuse.com/advice/interview-questions-and-answers", 
         "monster": "https://www.monster.com/career-advice/article/100-potential-interview-questions", 
         "national_careers_service_UK": "https://nationalcareers.service.gov.uk/careers-advice/top-10-interview-questions" 
+    }
+
+    general_details = {
+        "interview_prep_details": interview_prep_details,
+        "company_details": company_details, 
+        "application_details": application_details, 
+        "interview_details": interview_details,
+        "links": links,
     }
 
     return render_template("interview_prep.html", general_details=general_details, interview_prep_form=interview_prep_form)

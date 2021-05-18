@@ -5,8 +5,16 @@ This file will cover all the files & functions, found in the services directory,
 
 I've broken these functions up into 11 directories, each of which covers a specific area of functionality for the application:
 -   Address book
--   
-
+-   Application Notes
+-   Applications
+-   Cleaning the values for presentation
+-   Company
+-   Company Notes
+-   Contacts
+-   Interview Preparation
+-   Interviews
+-   Job Offers
+-   Users
 
 Within each directory are the CRUD elements: 
 -   Create
@@ -504,6 +512,8 @@ EG: If 'emp_type' is 'full_time',
 Returns: 
     The updated value (for the 'employment_type' field). 
 
+An instance where this method is called:
+
 ##### cleanup_interview_stage()
 This function specifically focuses on the field 'interview_stage', found in the 'job_applications' SQL table. 
 
@@ -527,6 +537,7 @@ EG:
 Returns: 
     The 'updated_interview_stage' string. 
 
+An instance where this method is called:
 
 
 ##### cleanup_specific_job_application()
@@ -539,9 +550,11 @@ Functionality (algorithm):
 -   Iterates through the dictionary keys & values, (stored in the 'application' dictionary). 
     -   Using conditional logic, it updates each value according to the key's ('heading') name, calling on another function to 'clean' it's value. 
 
-Since this function only serves to update the values in the dictionary, this function doesn't need to return anything.
+This function doesn't return anything & it doesn't need to. This is due to the fact that dictionaries are an object, which passes values by reference (not by value). So any/ all updates made to the values in this dictionary, by this function, are made to the actual dictionary itself & go beyond the scope of this function. 
 
-All changes made to this dictionary are automatically updated & are available outside the scope of the function without the need for this function to return the "updated" dictionary. This is due to the fact that dictionaries are an object, which passes values by reference (not by value).  
+TLDR: Change the values in a dictionary here (in this function), and it changes the dictionary everywhere (where this dictionary is used).
+
+An instance where this method is called:
 
 ##### cleanup_application_fields()
 This function receives a dictionary with various job applications (from the 'job_applications' SQL table), & focuses on improving how the fields' values are presented to the user.  
@@ -561,9 +574,12 @@ Functionality (algorithm):
 
 -   Converts the 'app_date' value, for the job application's entry date, to a datetime object. It then calls on the 'cleanup_date_format()' to update how the date will be displayed to the user.  
 
-Since this function only serves to update the values in the dictionary, this function doesn't need to return anything.
+This function doesn't return anything & it doesn't need to. This is due to the fact that dictionaries are an object, which passes values by reference (not by value). So any/ all updates made to the values in this dictionary, by this function, are made to the actual dictionary itself & go beyond the scope of this function. 
 
-All changes made to this dictionary are automatically updated & are available outside the scope of the function without the need for this function to return the "updated" dictionary. This is due to the fact that dictionaries are an object, which passes values by reference (not by value).  
+TLDR: Change the values in a dictionary here (in this function), and it changes the dictionary everywhere (where this dictionary is used). 
+
+An instance where this method is called:
+
 
 #### cleanup_app_note_fields.py
 This file includes functions which specifically focus on the fields related to the 'application_notes' SQL table.
@@ -583,9 +599,9 @@ Functionality (algorithm):
 
 -   Converts the note's 'entry_date' value to a datetime object, before calling on the function 'cleanup_date_format()' to update how the 'entry_date' will be displayed to the user.  
 
-Since this function only serves to update the values in the dictionary, this function doesn't need to return anything.
+This function doesn't return anything & it doesn't need to. This is due to the fact that dictionaries are an object, which passes values by reference (not by value). So any/ all updates made to the values in this dictionary, by this function, are made to the actual dictionary itself & go beyond the scope of this function. 
 
-All changes made to this dictionary are automatically updated & are available outside the scope of the function without the need for this function to return the "updated" dictionary. This is due to the fact that dictionaries are an object, which passes values by reference (not by value).  
+TLDR: Change the values in a dictionary here (in this function), and it changes the dictionary everywhere (where this dictionary is used).
 
 #### cleanup_company_fields.py
 This file includes functions which specifically focus on the fields related to the 'company' SQL table.
@@ -610,7 +626,12 @@ Functionality (algorithm):
 Returns:
     True or False
 
+An instance where this method is called:
+
+
 ##### cleanup_company_profile()
+This function is used specifically to clean the values of a 'company' dictionary.
+
 Takes (input):
     company_details (a dictionary containing fields for a specific company entry)
 
@@ -619,8 +640,18 @@ Functionality (algorithm):
 
 -   Iterates through all the keys & values in the dictionary, ignoring the key names 'company_name' & 'all_fields_empty'. 
     -   Using conditional logic, it checks if the value is empty (stored as "N/A", "Unknown at present" or ""). 
-        -   If so, replaces the value with 'None' (NoneType data type).
-        -   Otherwise: it calls on the 'cleanup_field_value()' function & uses the returned value to update the dictionary value.  
+        -   If value is empty, 
+                The value is replaced with 'None' (NoneType data type).
+        -   Otherwise: 
+                The function calls on the 'cleanup_field_value()' function & uses the returned value to update the dictionary value.  
+
+This function doesn't return anything & it doesn't need to. This is due to the fact that dictionaries are an object, which passes values by reference (not by value). So any/ all updates made to the values in this dictionary, by this function, are made to the actual dictionary itself & go beyond the scope of this function. 
+
+TLDR: Change the values in a dictionary here (in this function), and it changes the dictionary everywhere (where this dictionary is used).
+
+An instance where this method is called:
+
+
 
 ##### cleanup_specific_company()
 

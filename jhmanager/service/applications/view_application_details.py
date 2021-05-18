@@ -68,20 +68,20 @@ def get_interviews(interviewsRepo, application_id):
         for interview in all_interviews_for_app_id:
             count += 1
             interview_id = interview.interview_id
+            other_medium = interview.other_medium
             interview_details["fields"][interview_id] = {
                 "number": count, 
                 "date": interview.interview_date, 
                 "time": interview.interview_time,
                 "interview_type": interview.interview_type, 
                 "interview_medium": interview.medium, 
-                "other_medium": interview.other_medium,
                 "contact_number": interview.contact_number,
                 "status": interview.status,
                 "location": interview.location,
                 "past_dated": False,
                 "view_more": "/applications/{}/interview/{}".format(application_id, interview_id),
             }
-            cleanup_interview_fields(interview_details, interview_id)
+            cleanup_interview_fields(interview_details, interview_id, other_medium)
 
     interview_details["interviews_count"] =  count 
     return interview_details

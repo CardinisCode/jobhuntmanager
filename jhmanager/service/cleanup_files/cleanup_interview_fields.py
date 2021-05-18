@@ -4,6 +4,7 @@ from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_tim
 from jhmanager.service.cleanup_files.cleanup_datetime_display import present_dated
 from jhmanager.service.cleanup_files.cleanup_datetime_display import past_dated
 from jhmanager.service.cleanup_files.cleanup_general_fields import cleanup_field_value
+from jhmanager.service.cleanup_files.cleanup_general_fields import cleanup_urls
 from datetime import datetime, time
 
 
@@ -51,32 +52,29 @@ def cleanup_medium(medium, other_medium):
     return updated_medium
 
 
-def cleanup_interview_fields(interview_fields, interview_id):
-    # Lets start by grabbing the fields we want from the dict:
-    interview_type = interview_fields["fields"][interview_id]["interview_type"]
-    interview_fields["fields"][interview_id]["interview_type"] = cleanup_interview_type(interview_type)
-
-    status = interview_fields["fields"][interview_id]["status"]
-    interview_fields["fields"][interview_id]["status"] = cleanup_interview_status(status)
-
-    location = interview_fields["fields"][interview_id]["location"]
-    if location == "N/A" or location == "Remote":
-        interview_fields["fields"][interview_id]["location"] = None
-
-    interview_date = interview_fields["fields"][interview_id]["date"]
-    interview_fields["fields"][interview_id]["date"] = cleanup_date_format(interview_date)
-
-    interview_time = interview_fields["fields"][interview_id]["time"]
-    interview_fields["fields"][interview_id]["time"] = cleanup_time_format(interview_time)
-    interview_fields["fields"][interview_id]["past_dated"] = past_dated(interview_date, interview_time)
-
-    contact_number = interview_fields["fields"][interview_id]["contact_number"]
-    if contact_number == "N/A":
-        interview_fields["fields"][interview_id]["contact_number"] = "Not Provided"
-
-    medium = interview_fields["fields"][interview_id]["interview_medium"]
-    other_medium = interview_fields["fields"][interview_id]["other_medium"]
-    interview_fields["fields"][interview_id]["interview_medium"] = cleanup_medium(medium, other_medium)
+def cleanup_interview_fields(interview_details, interview_id, other_medium): 
+    for heading, value in interview_details["fields"][interview_id].items():
+        if value == "N/A":
+            interview_details["fields"][interview_id][heading] = None
+        elif heading == "status":
+            interview_details["fields"][interview_id][heading] = cleanup_interview_status(value)
+        elif heading == "medium" or heading == "interview_medium":
+            interview_details["fields"][interview_id][heading] = cleanup_medium(value, other_medium)
+        elif heading == "interview_type":
+            interview_details["fields"][interview_id][heading] = cleanup_interview_type(value)
+        elif heading == "time":
+            interview_details["fields"][interview_id][heading] = cleanup_time_format(value)
+        elif heading == "date":
+            interview_details["fields"][interview_id][heading] = cleanup_date_format(value)
+        elif heading == "contact_number" or heading == "video_link":
+            if value:
+                continue
+            else:
+                interview_details["fields"][interview_id][heading] = "Not Provided"
+        elif heading == "number" or heading == "past_dated" or heading == "view_more":
+            continue
+        else:
+            interview_details["fields"][interview_id][heading] = cleanup_field_value(value)
 
 
 def cleanup_specific_interview(interview_details, other_medium):

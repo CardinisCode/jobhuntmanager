@@ -97,7 +97,7 @@ def display_upcoming_interviews(user_id, interviewsRepo, applicationsRepo, compa
             interview_date = interview.interview_date
             interview_time = interview.interview_time
             past_dated_interview = past_dated(interview.interview_date, interview.interview_time)
-            interviews_list[interview_id] = [interview_date, interview_time, past_dated_interview]
+            other_medium = interview.other_medium
 
             if not past_dated_interview:
                 upcoming_interviews["empty_table"] = False 
@@ -109,17 +109,16 @@ def display_upcoming_interviews(user_id, interviewsRepo, applicationsRepo, compa
                     "status": interview.status,
                     "interview_type": interview.interview_type,
                     "interview_medium": interview.medium, 
-                    "other_medium": interview.other_medium,
                     "contact_number": interview.contact_number,
                     "interviewers": interview.interviewer_names,
                     "job_role": application.job_role,
                     "interview_today": False,
-                    "interview_string": None,
                     "view_interview": '/applications/{}/interview/{}'.format(application.app_id, interview_id), 
                 }
-                cleanup_interview_fields(upcoming_interviews, interview_id)
+                cleanup_interview_fields(upcoming_interviews, interview_id, other_medium)
 
     return upcoming_interviews
+
 
 def display_today_interviews(user_id, applicationsRepo, interviewsRepo, companyRepo):
     interviews = interviewsRepo.getInterviewsByUserID(user_id)
@@ -136,7 +135,6 @@ def display_today_interviews(user_id, applicationsRepo, interviewsRepo, companyR
         interview_id = interview.interview_id
         application = applicationsRepo.getApplicationByID(interview.application_id)
         company = companyRepo.getCompanyById(application.company_id)
-
         interview_date = interview.interview_date
         present_day_interview = present_dated(interview_date)
 
@@ -144,6 +142,7 @@ def display_today_interviews(user_id, applicationsRepo, interviewsRepo, companyR
             continue
 
         todays_interviews["empty_table"] = False 
+        other_medium = interview.other_medium
         todays_interviews["fields"][interview_id] = {
             "date": interview_date, 
             "time": interview.interview_time,
@@ -152,15 +151,13 @@ def display_today_interviews(user_id, applicationsRepo, interviewsRepo, companyR
             "status": interview.status,
             "interview_type": interview.interview_type,
             "interview_medium": interview.medium, 
-            "other_medium": interview.other_medium,
             "contact_number": interview.contact_number,
             "interviewers": interview.interviewer_names,
             "job_role": application.job_role,
             "interview_today": False,
-            "interview_string": None,
             "view_interview": '/applications/{}/interview/{}'.format(application.app_id, interview_id), 
         }
-        cleanup_interview_fields(todays_interviews, interview_id)
+        cleanup_interview_fields(todays_interviews, interview_id, other_medium)
 
     return todays_interviews
 
