@@ -606,10 +606,10 @@ Returns:
     True or False
 
 An instance where this method is called:
-
+    cleanup_company_profile() (below)
 
 ##### cleanup_company_profile()
-This function is used specifically to clean the values of a 'company' dictionary.
+This function is used specifically to clean the values of a 'company' dictionary, focusing specifically on a particular company's 'company profile'. 
 
 Takes (input):
     company_details (a dictionary containing fields for a specific company entry)
@@ -629,19 +629,262 @@ This function doesn't return anything & it doesn't need to. This is due to the f
 TLDR: Change the values in a dictionary here (in this function), and it changes the dictionary everywhere (where this dictionary is used).
 
 An instance where this method is called:
-
+    display_company_profile(), Line 33 in services/company/view_company_profile.py
 
 
 ##### cleanup_specific_company()
+This function is used specifically to clean the values of a 'company' dictionary & is called on by various functions across the 'services' directory, with the except of 'services/company/view_company_profile.py'.
+
+Takes (input):
+    company_details (a dictionary containing fields for a specific company entry)
+
+Functionality (algorithm):
+-   Iterates through all the keys & values in the 'company' dictionary. 
+    -   Where it finds a value is "N/A", "Unknown at present" or "" (blank field):
+        -   It replaces this value with 'None' ('NoneType' data type.)
+    -   Otherwise, it 'cleans' the value by calling on the function 'cleanup_field_value' (found in 'services/cleanup_files/cleanup_general_fields.py'), with the value as its argument. The value (in the dictionary) is then updated, using the output returned by this 'cleanup_field_value()' function. 
+
+This function doesn't return anything & it doesn't need to. This is due to the fact that dictionaries are an object, which passes values by reference (not by value). So any/ all updates made to the values in this dictionary, by this function, are made to the actual dictionary itself & go beyond the scope of this function. 
+
+TLDR: Change the values in a dictionary here (in this function), and it changes the dictionary everywhere (where this dictionary is used).
+
+An instance where this method is called:
+    display_interview_preparation_form(), Line 24 in services/interview_preparation/add_interview_prep.py
 
 ##### cleanup_company_fields()
+This function receives a dictionary with multiple companies (from the 'company' SQL table), & focuses on improving how the fields' values are presented to the user.  
 
+Takes (input):
+-   A dictionary of 'company' entries' details
+-   An unique ID (company_id) for a specific company entry found in this dictionary
+
+Functionality (algorithm):
+-   It first checks the value stored in the dictionary's key: 'empty_list'. If its False, then it proceeds with the next steps (below):
+
+-   It iterates through the keys & values in the 'fields' dictionary (stored within the 'company' dictionary). 
+    -   If any value is stored as "N/A":
+        -   The value is replaced with 'None' ('NoneType' Data type). This allows me to only present 'company' fields to the user if the user didn't leave these fields blank when creating this company's profile. 
+    
+    -   If it comes across the key 'view_company', then it moves along to the next key in the dictionary. It needs not change the value for this key.
+
+    -   Otherwise (for all remaining values)
+        -   It calls the function 'cleanup_field_value()' with the value & updates the value with the output from this function (cleanup_field_value()). This function focuses on formating the string (value) to improve how its displayed to the user. 
+
+This function doesn't return anything & it doesn't need to. This is due to the fact that dictionaries are an object, which passes values by reference (not by value). So any/ all updates made to the values in this dictionary, by this function, are made to the actual dictionary itself & go beyond the scope of this function. 
+
+TLDR: Change the values in a dictionary here (in this function), and it changes the dictionary everywhere (where this dictionary is used).
+
+An instance where this method is called:
+    display_address_book(), Line 26 in services/address_book/view_address_book.py
 
 #### cleanup_contact_fields.py
 This file includes functions which specifically focus on the fields related to the 'indiv_contacts' SQL table.
 
+Function included:
+-   cleanup_full_name()
+-   cleanup_specific_contact_entry()
+-   cleanup_each_contact_entry()
+
+##### cleanup_full_name()
+Takes (input):
+    A string 'full_name', which represents the contact's Full Name.
+
+Functionality (algorithm):
+-  Uses the function 'join()' to break the string up into a string of 'words', capitalise the first letter of the word & then put the string back together separated by spaces. 
+
+Returns:
+    The updated version of the string, with the first letter of every word (in the string) capitalised. 
+Eg: peter parker -> Peter Parker
+
+An instance where this method is called:
+    cleanup_specific_contact_entry(), Line 11 which is also found in the same file (cleanup_contact_fields.py). 
+
+##### cleanup_specific_contact_entry()
+This function is used specifically to clean the values of a 'indiv_contacts' dictionary & is called on by various functions across the 'services' directory.
+
+Takes (input):
+-   contact_details (a dictionary containing fields for a specific contact entry)
+
+Functionality (algorithm):
+-   Iterates through all the keys & values in the 'contact_details' dictionary. 
+    -   Where it finds a value is "N/A" (blank field):
+        -   It replaces this value with 'None' ('NoneType' data type.)
+
+-   It calls on the function 'cleanup_field_value()' to update the value, stored in the dictionary, for the keys 'company_name' & 'job_title'. 
+
+-   It calls on the function 'cleanup_full_name()' to update the value, stored in the dictionary, for the key 'full_name'. 
+
+Since this function makes changes directly to the values stored in the dictionary itself, there is no need to return the dictionary (or its changes). 
+
+This is due to the fact that dictionaries pass their values by reference. This means that all changes made to this dictionary are permanent / automatic changes to the dictionary itself & affects all occurrences of this dictionary (across all functions in the service directory).
+
+An instance where this method is called:
+    display_contact_details(), Line 32 in services/contacts_directory/view_contact_details.py. 
+
+##### cleanup_each_contact_entry()
+This function receives a dictionary with multiple contacts (from the 'company' SQL table), & focuses on improving how the fields' values are presented to the user.  
+
+Takes (input):
+-   contact_details (a dictionary containing fields for multiple contact entries)
+-   a unique ID (contact_id) for a specific contact entry
+
+Functionality (algorithm):
+-   Iterates through all the keys & values in the 'contact_details' dictionary for a specific contact entry, using its unique ID (contact_id). 
+    -   Where it finds a value is "N/A" (blank field):
+        -   It replaces this value with 'None' ('NoneType' data type.)
+
+-   It calls on the function 'cleanup_field_value()' to update the value, stored in the dictionary, for the keys 'company_name' & 'job_title'. 
+
+-   It calls on the function 'cleanup_full_name()' to update the value, stored in the dictionary, for the key 'full_name'. 
+
+Since this function makes changes directly to the values stored in the dictionary itself, there is no need to return the dictionary (or its changes). 
+
+This is due to the fact that dictionaries pass their values by reference. This means that all changes made to this dictionary are permanent / automatic changes to the dictionary itself & affects all occurrences of this dictionary (across all functions in the service directory).
+
+An instance where this method is called:
+    display_contacts_for_user(), Line 28 in services/contacts_directory/view_contact_list.py. 
+
 #### cleanup_datetime_display.py
 This file includes functions which specifically focus on the fields related  to a 'Date' & 'Time'. 
+
+Functions included:
+-   cleanup_date_format()
+-   cleanup_time_format()
+-   verify_value_is_date_obj()
+-   verify_value_is_time_obj()
+-   past_dated()
+-   present_dated()
+
+##### cleanup_date_format()
+This function takes a date object & creates a string to represent that date in simple, everyday language to the user. 
+
+Takes (input):
+    A 'date' object.
+
+Functionality (algorithm):
+-   It breaks the date up into its 'year', 'month' & 'day' components. 
+
+-   It replaces the 'month' with a string shortcut for that month (from a list of 'months' shortcuts).
+Eg: if the month is 3 
+    -   the 'month' becomes 'Mar'. 
+
+-   It converts the 'date' & 'year' values to string, and then builds a string with the new string values for 'date', 'month' & 'year'. 
+Eg: If the date is Y: 2021 M: 5 D: 18:
+    -   The string will be '18 May 2021'. 
+
+Returns:
+    The newly created date string. 
+
+An instance where this method is called:
+    display_all_user_notes(), Line 88 in services/display_all_notes.py. 
+
+##### cleanup_time_format()
+This function takes a 'time' object & creates a string to represent that date in simple, everyday language to the user. 
+
+Takes (input):
+    A 'time' object.
+
+Functionality (algorithm):
+-   It converts the 'time' object to a string. 
+
+-   It grabs the 'hour' value from the 'time' object & determines whether the hour is before or after 12pm. 
+    -   If before 12pm
+            It adds 'am' to the string. 
+    -   Else:
+            It adds 'pm' to the string. 
+
+EG: 
+If the 'Hour' is 11 & the 'minute' is 30:
+    -   Then the string will be '11:30am'
+If the 'Hour' is 15 & the 'minute' is 30:
+    -   Then the string will be '3:30pm'
+
+Returns:
+    The newly-created time string. 
+
+An instance where this method is called:
+    cleanup_specific_job_application(), Line 44 in services/cleanup_files/cleanup_app_fields.py.
+
+##### verify_value_is_date_obj()
+This function serves to ensure that the value it receives is returned as a 'date' object. 
+
+Takes (input):
+    A 'date' value. 
+
+Functionality (algorithm):
+-   It checks the data type for the value it receives, to see if its a string. 
+    -   If yes:
+            It converts the string to a 'date' object & returns this updated 'date' object. 
+    -   Else:
+            If it gets here then it should already be a 'date' object. So it gets returned without any changes. 
+
+Returns:
+    A 'Date' object
+
+An instance where this method is called:
+    past_dated(), Line 50 which is also found in services/cleanup_files/cleanup_app_fields.py.
+    
+##### verify_value_is_time_obj()
+This function serves to ensure that the value it receives is returned as a 'time' object. 
+
+Takes (input):
+    A 'time' value. 
+
+Functionality (algorithm):
+-   It checks the data type for the value it receives, to see if its a string. 
+    -   If yes:
+            It converts the string to a 'time' object & returns this updated 'time' object. 
+    -   Else:
+            If it gets here then it should already be a 'time' object. So it gets returned without any changes. 
+
+Returns:
+    A 'time' object
+
+An instance where this method is called:
+    past_dated(), Line 51 which is also found in services/cleanup_files/cleanup_app_fields.py.
+
+##### past_dated()
+This function receives a 'date' & 'time' value for an event & determines whether / not the event is dated in the past.
+
+Takes (input):
+    -   A 'date' value. 
+    -   A 'time' value. 
+
+Functionality (algorithm):
+-   It creates a boolean variable 'date_is_past_dated', with the default value of 'False'. 
+
+-   It calls on functions 'verify_value_is_date_obj()' & 'verify_value_is_time_obj()' to ensure that the 'date' & 'time' values it receives are in fact 'date' & 'time' objects. 
+
+-   It gets the current day's date & time.
+
+-   It then compares the date and time objects it receives (as input) to the current date & time. 
+    -   If the input 'date and time objects' are dated in the past:
+            It updates the value for 'date_is_past_dated' to be True. 
+
+Returns:
+    The value stored in 'date_is_past_dated' (our boolean variable).
+
+An instance where this method is called:
+    display_upcoming_interviews(), Line 99 which is also found in services/display_dashboard_content.py.
+
+##### present_dated()
+This function receives a 'date' value for an event & determines whether / not the event is dated 'today'.
+
+Takes (input):
+    -   A 'date' value. 
+
+Functionality (algorithm):
+-   It creates a boolean variable 'date_is_today', with the default value of 'False'. 
+-   It gets the current day's date.
+-   It then compares the date object (it receives as input) to the current date.
+    -   If these 2 date values match up:
+            -   It updates the value for 'date_is_today' to be True. 
+
+Returns:
+    The value stored in 'date_is_today' (our boolean variable).
+
+An instance where this method is called:
+    get_users_stats(), Line 63 which is also found in services/display_dashboard_content.py.
 
 #### cleanup_general_fields.py
 This file includes functions which are general in natural & therefore can be used by any function in the Service directory. 
@@ -655,9 +898,9 @@ Takes (input):
 Functionality (algorithm):
 -   Uses 'if' conditional logic to checks the value stored for the field 'url':
     -   If it's "N/A" or "n/a", then its a blank field:
-        -   So its value is replaced with "None". 
+        -   Its value is replaced with "None",  (a 'NoneType' datatype). 
     -   If its "http://" or "https://", then the field was incomplete:
-        -   So its value is replaced with "None".
+        -   So its value is replaced with "None" (a 'NoneType' datatype).
         -   This is especially important since 'update....' forms will display "https://" in 'URL-related fields. If the user submitted the form, without updating this field value, it will be stored in the SQL database as "https://". 
 
 EG: 
@@ -667,11 +910,247 @@ EG:
 Return:
     The updated value for 'job_url'. This value can now  get displayed to the user only when its value is not 'None'. 
 
+An instance where this method is called:
+    display_application_details(), Line 141 which is also found in services/applications/view_application_details.py.
+
 #### cleanup_interview_fields.py
 This file includes functions which specifically focus on the fields related to the 'interviews' SQL table.
 
+Functions include:
+-   cleanup_interview_type()
+-   cleanup_interview_status()
+-   cleanup_medium()
+-   cleanup_interview_fields()
+-   cleanup_specific_interview()
+
+##### cleanup_interview_type()
+This function takes a 'interview_type' field value & improves how the value will be presented to the user. 
+
+Takes (input):
+-   interview_type (a string value)
+
+Functionality (algorithm):
+-   It uses conditional logic to run through all the interview types, as stored in the 'interviews' SQL table, & returns a string (to represent that value to the user).
+
+EG:  If interview_type is "video_or_online":
+    The function returns the string "Video / Online"
+
+Returns:
+    A string to represent the interview type for an interview, based on the input the function received.
+
+An instance where this method is called:
+    cleanup_specific_interview(), Line 89 which is also found in services/cleanup_files/cleanup_interview_fields.py.
+
+##### cleanup_interview_status()
+This function takes a 'interview_status' / 'status' field value & improves how the value will be presented to the user. 
+
+Takes (input):
+-   status (a string value)
+
+Functionality (algorithm):
+-   It uses conditional logic to run through all the possible options offered for an interview's 'status', as stored in the 'interviews' SQL table, & returns a string (to represent that value to the user).
+
+EG:  If interview_type is "upcoming":
+    The function returns the string 'Upcoming Interview'
+
+Returns:
+    A string to represent an interview's current status, based on the input the function received.
+
+An instance where this method is called:
+    display_update_interview_prep_form(), Line 38 in services/interview_preparation/update_interview_prep.py.
+
+##### cleanup_medium()
+This function takes a 'interview_medium' / 'medium' field value & improves how the value will be presented to the user. 
+
+Takes (input):
+-   medium (a string value)
+-   other_medium (a string value)
+
+Functionality (algorithm):
+-   It checks to see if the value of 'other_medium' is "N/A":
+    -   IF yes, it replaces it's value with "Not provided" (since the user hasn't provided a value for this field yet).
+
+-   It creates an empty string variable 'updated_medium'. 
+
+-   It uses conditional logic to run through all the possible options offered for an interview's 'medium', as they're stored in the 'interviews' SQL table. It then updates the variable 'updated_medium' with the appropriate string representation of this value. 
+    -   If the value for 'medium' is 'other':
+        -   then the variable 'updated_medium' will be updated with the value stored in 'other_medium'. 
+
+EG:  
+If other_medium is "N/A" & 'medium' is 'other':
+    The function returns the string 'Not provided'
+
+If medium is "ms_teams":
+    The function returns the string "Microsoft Teams"
+
+Returns:
+    The value stored in the variable 'updated_medium'.
+
+An instance where this method is called:
+    cleanup_specific_interview(), Line 87 which is also found in services/cleanup_files/cleanup_interview_fields.py.
+
+##### cleanup_interview_fields()
+This function receives a dictionary with multiple interviews (from the 'interviews' SQL table), & focuses on improving how the fields' values are presented to the user. 
+
+Takes (input):
+-   interview_details (a dictionary containing fields for multiple interview entries)
+-   a unique ID (interview_id) for a specific interview entry
+-   'other_medium' (a string value)
+
+Functionality (algorithm):
+-   Uses an interview's unique ID (interview_id), it can focus on a specific job interview found within the dictionary.
+
+-   Iterates through all the keys & values in the 'interview_details' dictionary for a specific interview entry, using its unique ID (interview_id). 
+    -   If the value is "N/A" (blank field):
+        -   It replaces this value with 'None' ('NoneType' data type). If any field is saved as "None", it will not be displaying to the user.  
+
+    -   If the key is 'status':
+        -   It calls the function 'cleanup_interview_status()' with the value & uses the value returned (from cleanup_interview_status()) to update the interview's 'status' (in the dictionary).
+
+    -   If the key is 'medium' or 'interview_medium:
+        -   It calls the function 'cleanup_medium()' with both the value & 'other_medium (provided as input to the function cleanup_interview_fields()). It then uses the value returned (from cleanup_interview_fields()) to update the interview's 'medium' (in the dictionary).
+
+    -   If the key is 'interview_type':
+        -   It calls the function 'cleanup_interview_type()' with the value & uses the value returned (from cleanup_interview_type()) to update the interview's 'interview_type' (in the dictionary).
+
+    -   If the key is 'time':
+        -   It calls the function 'cleanup_time_format()' with the value & uses the value returned (from cleanup_time_format()) to update the interview's 'time' (in the dictionary).
+
+    -   If the key is 'date':
+        -   It calls the function 'cleanup_date_format()' with the value & uses the value returned (from cleanup_date_format()) to update the interview's 'date' (in the dictionary).
+
+    -   If the key is 'contact_number' or 'video_link':
+        -   If the value is empty:
+            -   It replaces the value (for this key) with "Not Provided"
+        -   Otherwise: It makes no changes & just moves along to the next key:value pair in the dictionary.
+
+    -   If the key is 'number', 'past_dated' or 'view_more':
+        -   It makes no changes & moves along to the next key:value pair in the dictionary. 
+
+    -   If none of the above criteria is met:
+        -   It calls the function 'cleanup_field_value()' with the value & updates the value (for this key) with the output returned from cleanup_field_value().
+
+Since this function makes changes directly to the values stored in the dictionary itself, there is no need to return the dictionary (or its changes). 
+
+This is due to the fact that dictionaries pass their values by reference. This means that all changes made to this dictionary are permanent / automatic changes to the dictionary itself & affects all occurrences of this dictionary (across all functions in the service directory).
+
+An instance where this method is called:
+    display_upcoming_interviews(), Line 118 in services/display_dashboard_content.py. 
+
+##### cleanup_specific_interview()
+This function is used specifically to clean the values of a 'interview' dictionary & is called on by various functions across the 'services' directory.
+
+Takes (input):
+-   interview_details (a dictionary containing fields for a specific interview entry)
+-   'other_medium' (a string value)
+
+Functionality (algorithm):
+-   Carries out the exact same conditional logic as the function above 'cleanup_interview_fields()', except it receives a dictionary with the fields for a single interview.
+
+Since this function makes changes directly to the values stored in the dictionary itself, there is no need to return the dictionary (or its changes). 
+
+This is due to the fact that dictionaries pass their values by reference. This means that all changes made to this dictionary are permanent / automatic changes to the dictionary itself & affects all occurrences of this dictionary (across all functions in the service directory).
+
+An instance where this method is called:
+    display_interview_preparation_form(), Line 35 in services/interview_preparation/add_interview_prep.py. 
+
 #### cleanup_job_offer_fields.py
 This file includes functions which specifically focus on the fields related to the 'job_offers' SQL table.
+
+Functions include:
+-   cleanup_offer_response()
+-   cleanup_specific_job_offer()
+-   cleanup_job_offer()
+
+##### cleanup_offer_response()
+This function takes a job 'offer response' field value & improves how the value will be presented to the user. 
+
+Takes (input):
+-   offer_response (a string value)
+-   company_name (a string value)
+
+Functionality (algorithm):
+-   It creates an empty string variable 'updated_offer_response'. 
+
+-   It uses conditional logic to run through all the possible options offered for an interview's 'offer_response', as they're stored in the 'job_offers' SQL table. It then updates the variable 'updated_offer_response' with the appropriate string representation of this value, with the 'company name' included into this string. 
+
+EG:  
+
+If offer_response is "company_pulled_offer" & the company's name is "Barclays Bank":
+    The function returns the string "Barclays Bank pulled the offer."
+
+If offer_response is 'user_accepted':
+    The function returns the string "Offer Accepted!"
+
+Returns:
+    The value stored in the variable 'updated_offer_response'.
+
+An instance where this method is called:
+    cleanup_specific_job_offer(), Line 28 which is also found in services/cleanup_files/cleanup_job_offer_fields.py.
+
+##### cleanup_specific_job_offer()
+This function is used specifically to clean the values of a 'job offer' dictionary & is called on by various functions across the 'services' directory.
+
+Takes (input):
+-   job_offer_details (a dictionary containing fields for a specific job offer entry)
+
+Functionality (algorithm):
+-   It gets the value, stored for the key 'company_name' within the dictionary, & stores it in a local variable.
+
+-   Iterates through all the keys & values in the 'job_offer_details' dictionary. 
+   
+    -   If the key is 'starting_date':
+        -   It calls the function 'cleanup_date_format()' with the value & uses the value returned (from cleanup_date_format()) to update the interview's 'starting_date' (in the dictionary).
+
+    -   If the key is 'offer_response':
+        -   It calls the function 'cleanup_offer_response()' with both the value & the variable 'company_name'. It then uses the value returned (from cleanup_offer_response()) to update the interview's 'offer_response' (in the dictionary).
+
+    -   If the key is 'company_name' or 'job_offer':
+        -   It calls the function 'cleanup_field_value()' with the value & uses the value returned (from cleanup_field_value()) to update that key's value' in the dictionary).
+
+    -   If none of the above criteria is met:
+        -   It makes no changes & moves onto the next key:value pair in the dictionary. 
+
+Since this function makes changes directly to the values stored in the dictionary itself, there is no need to return the dictionary (or its changes). 
+
+This is due to the fact that dictionaries pass their values by reference. This means that all changes made to this dictionary are permanent / automatic changes to the dictionary itself & affects all occurrences of this dictionary (across all functions in the service directory).
+
+An instance where this method is called:
+    display_job_offer(), Line 21 in services/job_offers/view_job_offer.py.
+
+##### cleanup_job_offer()
+This function receives a dictionary with multiple job offers (from the 'job_offers' SQL table), & focuses on improving how the fields' values are presented to the user. 
+
+Takes (input):
+-   job_offers_details (a dictionary containing fields for multiple interview entries)
+-   'count', which is a key which serves as the 'unique ID' for job offer in this dictionary.
+
+Functionality (algorithm):
+-   It carries out the same functionality (basically) as the above function 'cleanup_specific_job_offer()', with a few exceptions:
+
+-   1) This dictionary has multiple 'job offer' entries & so this function 'cleanup_job_offer()' uses the key 'count' to focus on the keys & values for a specific job offer in the dictionary.
+
+-   2) If the value for the key 'offer_response' is 'Offer Accepted!' (after getting cleaned by the 'cleanup_offer_response()' function):
+    -   Then it updates the value, for the key 'offer_accepted', to True.
+
+Since this function makes changes to the dictionary directly, like the above function 'cleanup_specific_job_offer()', it does not return anything. 
+
+An instance where this method is called:
+    display_job_offers(), Line 77 in services/display_dashboard_content.py.
+
+### company
+This where you'll find all the Python functions related to 'Company' contacts.
+
+The files in this directory:
+-   add_company_job_applications.py
+-   add_company.py
+-   delete_company.py
+-   update_company.py
+-   view_all_companies.py
+-   view_company_profile.py
+
+### add_company_job_applications.py
+
 
 
 
