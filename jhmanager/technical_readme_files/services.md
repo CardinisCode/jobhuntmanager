@@ -1418,9 +1418,199 @@ Renders the template:
 -   via the route ''
 -   With the dictionary 'general_details', created by this function. 
 
+### company_notes:
+This where you'll find all the Python files related to a company note / list of company notes. 
+
+Files in this directory:
+-   add_company_note.py
+-   view_specific_note.py
+-   view_all_company_notes.py
+-   update_company_note.py
+-   delete_company_note.py
+
+#### add_company_note.py
+Handles the functionality behind displaying the 'AddCompanyNoteForm' form to the user & saving the information (the user has provided/entered into the form) into the 'company_notes' SQL table. 
+
+Functions include:
+-   display_add_company_note_form()
+-   post_add_company_note()
+
+##### display_add_company_note_form()
+This function handles the GET functionality for the route: '/company/<int:company_id>/add_company_note'.
+
+Takes (input):
+-   company_note_form (a blank instance of the AddCompanyNoteForm())
+-   company_id, companyRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getCompanyById' (from the companyRepo) to get a specific entry from the 'company' SQL table. This will allow us to display the company's name on the template. 
+
+-   Puts together a 'details' dictionary with:
+    -   The company's name & unique ID (company_id)
+    -   The action URL (the route responsible for displaying the form to the user)
+
+Renders the template:
+-   "add_company_note.html"
+-   With the dictionary created by this function. 
+
+##### post_add_company_note()
+This function handles the POST functionality for the route: '/company/<int:company_id>/add_company_note'.
+
+Takes (input):
+-   company_note_form (as completed by the user)
+-   company_id, user_id, companyNotesRepo
+
+Functionality (algorithm):
+-   Gets the current date & converts the date to string. This will represent the date that this note was created & entered into the database. 
+
+-   Extracts the field values from the form & stores these values in a dictionary 'fields', together with the 'user_id' & 'company_id' for this entry. 
+
+-   Calls on the method 'createNewCompanyNote()' (found in the CompanyNotesRepository), to insert this company note as entry in the 'company_notes' SQL table. The method returns the unique ID (company_note_id) for the newly-created entry. 
+
+Redirects the user to the template:
+-   'view_specific_company_note.html' 
+-   via the route:
+    '/company/<int:company_id>/company_note/<int:company_note_id>/view_note_details'
 
 
 
+
+
+
+
+#### view_specific_note.py
+Handles the functionality behind displaying the details for a specific note, linked to a specific company, from the 'company_notes' SQL table (using its unique 'company_note_id'). 
+
+Function included:
+-   display_company_note_details()
+
+##### display_company_note_details()
+This function handles the GET functionality for the route: 
+-   '/company/<int:company_id>/company_note/<int:company_note_id>/view_note_details'.
+
+Takes (input):
+-   company_id, company_note_id, companyRepo, companyNotesRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getCompanyById' (from the companyRepo) to get a specific entry from the 'company' SQL table. This will allow us to display the company's name on the template. 
+
+-   Calls on the method 'getCompanyNoteByID' (from the CompanyNotesRepository) to get a specific entry from the 'company_notes' SQL table. 
+
+-   It puts together a dictionary 'general_details', which will act as a 'parent' dictionary & given the keys 'links' & 'note_details'. 
+
+-   The 'links' key is then given a dictionary of route URL's, which will be utilized to displays button links to the user. 
+
+-   The note's 'entry date' is extracted & converted to a string, so that its ready to be displayed to the user. 
+
+-   The 'note_details' key is itself set up as a dictionary & is given the values to present a specific application note. This dictionary includes the company's name, the entry date, & the note's subject & note text (content). 
+
+Renders the template:
+-   "view_specific_company_note.html"
+-   With the values stored in the parent dictionary 'general_details'. 
+
+#### view_all_company_notes.py
+Handles the functionality behind displaying all the notes, from the 'company_notes' SQL table (using its unique 'company_note_id'), which are linked to a specific company. 
+
+Function included:
+-   display_all_notes_for_a_company()
+
+##### display_all_notes_for_a_company()
+This function handles the GET functionality for the route: 
+-   '/company/<int:company_id>/view_all_company_notes'.
+
+Takes (input):
+-   company_id, user_id, companyRepo, companyNotesRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getCompanyById' (from the companyRepo) to get a specific entry from the 'company' SQL table. This will allow us to display the company's name on the template. 
+
+-   Creates a dictionary 'general_details', which is used to store all the URL routes which will be used to display button links to the user. 
+
+-   Calls the method 'getAllNotesByCompanyID()' (found in the Repo CompanyNotesRepository), to get all the notes from the 'company_notes' table which are linked to a specific company (for the current user).
+
+-   If the above query 'notes_history' returns any note entries, then 2 additional keys are created in the dictionary 'general_details'. It also creates a second dictionary 'note_details'.
+
+-   Iterates through every entry in the 'notes_history' (the list of notes returned from the method 'getAllNotesByCompanyID()'), storing each entry in the 'note_details' dictionary. The details for each note is stored in its own dictionary, with the note's unique ID (company_note_id) as the name of the dictionary. 
+
+EG: If the 'notes_history' has 3 entries, then the 'note_details' dictionary will store 3 keys, with each key being a dictionary storing the details for a specific note.
+
+In this case the 'note_details' dictionary would look like this:
+
+note_details = {
+    1: {}, 
+    2: {},
+    3: {},
+}
+
+Ofcourse each of these dictionaries are not empty; they'll be storing the details for a specific company note & the keys will be the very same fields / columns found in the 'company_notes' SQL table & in the 'Company' class. 
+
+Renders the template:
+-   "view_company_notes.html"
+-   With the dictionaries: 'general_details' & 'note_details' (both created by this function)
+
+#### update_company_note.py
+Handles the functionality behind updating an existing note linked to a specific company. This covers everything from displaying the form (to the user) to updating the values for this company in the 'company_notes' SQL table.
+
+Functions included:
+-   display_update_company_note_form()
+-   post_update_company_form()
+
+##### display_update_company_note_form()
+This function handles the GET functionality for the route: 
+-   '/company/<int:company_id>/company_note/<int:company_note_id>/update_note'
+
+Takes (input):
+-   update_note_form (an instance of the 'AddCompanyNoteForm', with the values for a specific CompanyNotes object)
+-   company_note_id, companyRepo, companyNotesRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getCompanyById' (from the companyRepo) to get a specific entry from the 'company' SQL table. This will allow us to display the company's name on the template. 
+
+-   Puts together a 'details' dictionary with:
+    -   The company's name & unique ID (company_id)
+    -   The action URL (the route responsible for displaying the form to the user)
+
+Renders the template:
+-   "update_company_note.html"
+-   With the update_note_form & the 'details' dictionary
+
+##### post_update_company_form()
+This function handles the POST functionality for the route: 
+-   '/company/<int:company_id>/company_note/<int:company_note_id>/update_note'
+
+Takes (input):
+-   update_note_form (as completed by the user)
+-   company_id, company_note_id, companyNotesRepo
+
+Functionality (algorithm):
+-   Gets the current day's date & converts it to string. This update date is stored as the note's entry date. 
+
+-   Extracts the field values from the update_note_form & stores these in a dictionary 'details', together with the entry date & note's unique ID (company_note_id). 
+
+-   Calls on the method 'UpdateCompanyNoteByID()' (found in the Repo CompanyNotesRepository), with the dictionary created above. This updates an existing entry in the 'company_notes' SQL table.
+
+Redirects to the template:
+-   "view_specific_company_note.html"
+-   Via the route: '/company/<int:company_id>/company_note/<int:company_note_id>/view_note_details'
+
+#### delete_company_note.py
+Handles the functionality behind deleting a note, from the 'company_notes' SQL table, which is linked to a specific 'company'.
+
+Functions included:
+-   delete_specific_company_note()
+
+##### delete_specific_company_note()
+This function handles the request to delete a company note from the 'company_notes' SQL table. 
+
+Takes (input):
+-   company_id, company_note_id, companyNotesRepo
+
+Functionality (algorithm):
+-   Calls on the method 'deleteCompanyNoteByID()' (found in the Repo CompanyNotesRepository), delete a specific entry from the 'company_notes' SQL table, using the note's unique ID (company_note_id).
+
+Redirects to the template:
+-   'view_company_profile.html'
+-   Via the route: '/company/<int:company_id>/view_company'
 
 
 

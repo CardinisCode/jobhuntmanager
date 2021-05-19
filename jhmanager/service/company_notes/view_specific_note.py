@@ -3,7 +3,7 @@ from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_dat
 from datetime import datetime, time
 
 
-def display_company_note_details(company_id, company_note_id, companyRepo, companyNotesRepo, user_id):
+def display_company_note_details(company_id, company_note_id, companyRepo, companyNotesRepo):
     company = companyRepo.getCompanyById(company_id)
     note_details = companyNotesRepo.getCompanyNoteByID(company_note_id)
 

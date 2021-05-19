@@ -405,23 +405,17 @@ Files in this directory:
 ##### add_company_note.py
 Handles the functionality behind displaying the 'AddCompanyNoteForm' form to the user & saving the information (the user has provided/entered into the form) into the 'company_notes' SQL table. 
 
-###### Functions:
--   display_add_company_note_form()
-    -   Responsible for displaying the 'AddCompanyNoteForm' form to the user, together with all information needed to be displayed to the user. 
-    -   
--   post_add_company_note()
-    -  Extracts the values from the 'AddCompanyNoteForm' form, saving it into a dictionary ('fields')
-    -   Calls on the method 'insertNewNotes' (from the 'companyNotesRepo' repo. ) to insert these values into the 'company_notes' SQL table. 
-    -   This SQL query returns the unique ID ('company_note_id') for this newly-created entry, which is then used to redirect the user to the template 'view_specific_company_note.html'. 
-
-##### delete_company_note.py
-
-
-##### update_company_note.py
+##### view_specific_note.py
+Handles the functionality behind displaying the details for a specific note, linked to a specific company, from the 'company_notes' SQL table (using its unique 'company_note_id').  
 
 ##### view_all_company_notes.py
+Handles the functionality behind displaying all the notes, from the 'company_notes' SQL table (using its unique 'company_note_id'), which are linked to a specific company. 
 
-##### view_specific_note.py
+##### update_company_note.py
+Handles the functionality behind updating an existing note linked to a specific company. This covers everything from displaying the form (to the user) to updating the values for this company in the 'company_notes' SQL table.
+
+##### delete_company_note.py
+Handles the functionality behind deleting a note, from the 'company_notes' SQL table, which is linked to a specific 'company'.
 
 #### contacts_directory:
 This where you'll find all the Python files related to a contact / list of contacts . 

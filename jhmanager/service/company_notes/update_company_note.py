@@ -4,7 +4,6 @@ from datetime import datetime, date
 
 def display_update_company_note_form(update_note_form, company_id, company_note_id, companyRepo, companyNotesRepo):
     company = companyRepo.getCompanyById(company_id)
-    note_details = companyNotesRepo.getCompanyNoteByID(company_note_id)
     details = {
         "company_name": company.name,
         "action_url": '/company/{}/company_note/{}/update_note'.format(company_id, company_note_id),
@@ -13,7 +12,7 @@ def display_update_company_note_form(update_note_form, company_id, company_note_
     return render_template("update_company_note.html", details=details, update_note_form=update_note_form)
 
 
-def post_update_company_form(update_note_form, company_id, company_note_id, companyRepo, companyNotesRepo):
+def post_update_company_form(update_note_form, company_id, company_note_id, companyNotesRepo):
     entry_date = datetime.now().date()
     date_format = "%Y-%m-%d"
     entry_date_str = entry_date.strftime(date_format)

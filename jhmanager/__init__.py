@@ -649,7 +649,7 @@ def add_company_notes(company_id):
 def display_a_specific_note_for_company(company_id, company_note_id):
     user_id = session["user_id"]
     if request.method == "GET":
-        return display_company_note_details(company_id, company_note_id, companyRepo, companyNotesRepo, user_id)
+        return display_company_note_details(company_id, company_note_id, companyRepo, companyNotesRepo)
 
 
 @app.route('/company/<int:company_id>/company_note/<int:company_note_id>/update_note', methods=["GET", "POST"])
@@ -664,7 +664,7 @@ def update_company_note(company_id, company_note_id):
     
     if request.method == "POST":
         if update_note_form.validate_on_submit():
-            return post_update_company_form(update_note_form, company_id, company_note_id, companyRepo, companyNotesRepo)
+            return post_update_company_form(update_note_form, company_id, company_note_id, companyNotesRepo)
         else: 
             flash("All fields are required.")
             return display_update_company_note_form(update_note_form, company_id, company_note_id, companyRepo, companyNotesRepo)
