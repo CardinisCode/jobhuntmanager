@@ -3,7 +3,7 @@ from flask import Flask, render_template, session, request, redirect, flash
 from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_company_fields
 
 
-def display_all_companies_for_user(user_id, companyRepo, applicationsRepo):
+def display_all_companies_for_user(user_id, companyRepo):
     company_entries = companyRepo.getCompanyEntriesByUserID(user_id)
 
     company_contacts = {

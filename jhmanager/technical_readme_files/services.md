@@ -1144,21 +1144,279 @@ This where you'll find all the Python functions related to 'Company' contacts.
 The files in this directory:
 -   add_company_job_applications.py
 -   add_company.py
--   delete_company.py
 -   update_company.py
+-   delete_company.py
 -   view_all_companies.py
 -   view_company_profile.py
 
-### add_company_job_applications.py
+#### add_company_job_applications.py
+Handles the functionality behind adding a job application for a specific company. This covers everything from presenting the form to processing the information that the user provides & storing that data as a single entry in the 'job_applications' SQL table. 
+
+Functions included:
+-   display_add_company_application_form()
+-   add_new_application_to_application_history()
+-   post_add_company_job_application()
+
+
+##### display_add_company_application_form()
+This function handles the GET functionality for the route: '/company/<int:company_id>/add_job_application'. 
+
+Takes: 
+-   add_application_form (a blank instance of the 'AddCompanyJobApplicationForm()' class), 
+-   company_id, companyRepo
+
+Functionality (algorithm):
+-   It puts together a dictionary consisting of the company name for a specific company (to which this application entry will link to) & the URL to be actioned (the very same route used display a job application form to the user). 
+
+Renders the template:
+-   'add_company_job_application.html'
+-   With the add_application_form & the dictionary created by this function. 
+
+##### add_new_application_to_application_history()
+This function is called, by the 'post_add_company_job_application()', to extract the values from the application form & to insert these values into the 'job_applications' SQL table. 
+
+Takes (input):
+-   application_form (as completed by the user)
+-   user_id, company_id, applicationsRepo
+
+Functionality (algorithm):
+-   Gets the date & time, for the current day, & converts these 2 values into strings (using the method 'strftime()'). 
+
+-   It extracts the field values from the application_form, as completed by the user, & saves these values in a dictionary 'fields'. Since this dictionary will be used to insert this application's details into the 'job_applications' SQL table, the values 'user_id' & 'company_id' are also added to the dictionary. 
+
+-   Iterates through every key:value pair in this dictionary, & where it finds a blank value (""), it replaces the value with 'N/A'. This is because the majority of the columns in the 'job_applications' SQL table require input (of some sort). 
+
+-   Calls on the method 'createApplication()' (from the ApplicationsHistoryRepository), with the dictionary as its argument. This method returns the unique ID (application_id) for this newly-created entry. 
+
+Returns:
+    The application_id for the job_application.
+
+##### post_add_company_job_application()
+This function handles the POST functionality for the route: '/company/<int:company_id>/add_job_application'. 
+
+Takes (input):
+-   add_job_app_form (as completed by the user)
+-   user_id, company_id, applicationsRepo
+
+Functionality (algorithm):
+-   Calls on the function 'add_new_application_to_application_history()' to insert the values for this job appliction into the 'job_applications' SQL table. 
+
+Finally:
+-   It redirects the user to the template 'view_application.html', via the route '/applications/<int:application_id>'.
+
+#### add_company.py
+Handles the functionality behind adding a company contact, and handles everything from presenting the form to processing the information that the user provides & storing that data as a single entry in the 'company' SQL table. 
+
+Functions included:
+-   display_add_company_form()
+-   post_add_company()
+
+##### display_add_company_form()
+This function handles the GET functionality for the route: '/address_book/add_company'. 
+
+Takes: 
+-   add_company_form(), (a blank instance of the 'AddCompanyForm()' class)
+
+Functionality (algorithm):
+-   Creates a dictionary to store:
+    - The 'action_url' responsible for displaying the add_company_form to the template. 
+
+    -   A variable 'existing_company', which gets used by the 'post_add_company()', in the case that the user is redirected back to this form. This would happen if the user tries to add a company, which already exists in their company directory. 
+
+Renders the template:
+-   "add_company_form.html"
+-   With the dictionary created by this function. 
+
+##### post_add_company()
+This function handles the POST functionality for the route: '/address_book/add_company'. 
+
+Takes: 
+-   add_company_form (as completed by the user)
+-   user_id, companyRepo
+
+Functionality (algorithm):
+-   Extracts the value 'company name', from the form 'add_company_form' (provided by the user), & saves it in a variable. 
+
+-   Calls on the method 'getCompanyByName()' (from the CompanyRepository), which checks if theres a 'company' by this name in the 'company' SQL table. 
+
+-   If the above method returns a 'company' object, then this function redirects the user back to the template "add_company_form.html", with the message that there's already a company by this name in this user's company directory. The user will now see a link to update the company's profile, if they wish to do so. 
+
+-   If the method produces no results (however), then this function puts together a dictionary with the values from the add_company_form & calls on the method 'createCompany()' to insert this company into the 'company' SQL table. 
+
+Redirects to the template:
+-   'view_company_profile.html'
+-   via the route '/company/<int:company_id>/view_company', so that the user can view the company profile for the new company they've just created.
+
+#### update_company.py
+Handles the functionality behind updating an existing company. This covers everything from displaying the form (to the user) to updating the values for this company in the 'company' SQL table.
+
+Functions included:
+-   display_update_company_profile_form()
+-   post_update_company_profile()
+
+##### display_update_company_profile_form()
+This function handles the GET functionality for the route: '/company/<int:company_id>/update_company'. 
+
+Takes (input):
+-   update_form (An instance of the 'UpdateCompany' form, which is given the values for a specific company entry)
+-   company_id, company (the 'Company' object)
+
+Functionality (algorithm):
+-   Puts together a dictionary with:
+    -   The 'action_url' responsible for displaying the form to the user
+    -   The Company's name. 
+
+Renders the template:
+    -   "update_company_profile.html"
+    -   The update_form 
+    -   The dictionary created by this function.
+
+##### post_update_company_profile()
+This function handles the POST functionality for the route: '/company/<int:company_id>/update_company'. 
+
+Takes (input):
+-   update_form (as completed by the user)
+-   company_id, user_id, companyRepo
+
+Functionality (algorithm):
+-   Extracts the field values from the update_form & stores them in a dictionary 'company_details', together with the values for 'user_id' & 'company_id'. 
+
+-   Calls on the method 'updateCompanyByID()' (in the CompanyRepository), to update an entry in the 'company' SQL table with the values provided by the user. 
+
+Redirects to the template:
+-   'view_company_profile.html'
+-   via the route '/company/<int:company_id>/view_company'
 
 
 
+#### delete_company.py
+Handles the functionality behind deleting a specific 'company'. 
 
+Functions Include:
+-   display_delete_company_form()
+-   post_delete_company()
 
+##### display_delete_company_form()
+This function handles the GET functionality for the route: '/company/<int:company_id>/delete_company'.
 
+Takes (input):
+-   delete_company_form (a blank instance of the form class 'DeleteCompanyForm()')
+-   company_id, companyRepo
 
+Functionality (algorithm):
+-   Puts together a dictionary with:
+    -   The 'action_url' responsible for displaying the form to the user
+    -   The Company's name. 
 
+-   Puts together a list of choices to be presented to the user, via the form field 'confirm_choice'. 
 
+-   The form field 'confirm_choice' is then updated with this new list of options. Now the user will be presented with a dropdown list with 2 choices to choose from. 
+
+-   A default choice is selected for the 'confirm_choice' form field. The default option would take the user back to the company profile, with no changes made. This is so that the user doesn't speed through the form and choose something they may not actually want. They would have to consciously choose the option, which would actually delete the company profile if submitted.
+
+Renders the template:
+-   "delete_company_profile.html"
+-   With the dictionary (created by this function) & the delete_company_form. 
+
+##### post_delete_company()
+This function handles the POST functionality for the route: '/company/<int:company_id>/delete_company'.
+
+Takes (input):
+-   delete_company_form (as submitted by the user)
+-   company_id, 
+-   companyRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, companyNotesRepo, jobOffersRepo, appNotesRepo
+
+Functionality (algorithm):
+-   It stores the option that the user selected, in the field 'confirm_choice', in a variable 'customer_choice'. 
+
+-   It checks the choice the user selected (which is now stored in our variable 'customer_choice') & what the function does going forward depends entirely on which choice the user selected. 
+
+-   If the user selects the option 1 ('No....):
+    -   No changes are made to this company & the user is redirected back to their Addressbook. 
+
+-   Otherwise:
+    -   The function carries out the following delete requests:
+        -   'deleteCompanyByID()' to delete this company from the 'company' SQL table. 
+        -   'deleteCompanyNotesByCompanyID()' to delete all the note entries, which link to this company. 
+        -   'deleteJobOfferByCompanyID()' to delete any/all job offers which link to this company. 
+
+    -   The function grabs all applications linked to this company & then for each company, it runs the following delete requests:
+        -   'deleteInterviewsByApplicationID()' to delete all interviews linked to every job application (in the above list of applications). 
+        -   'deleteInterviewPrepByApplicationID()' to delete all interview entries linked to every job application (in the above list of applications).  
+        -   'deleteNoteByApplicationID()' to delete all note entries linked to every job application (in the above list of applications).  
+    
+    -   Finally it runs the method 'deleteApplicationByCompanyID()' to delete all the job applications linked to this company (being deleted by this function).
+
+Redirects to the template:
+-   'view_address_book.html'
+-   via the route "/address_book"
+-   With a flash message, confirming that the company (and all Applications, Notes, Interviews & Interview Prep, & job offers linked to this company) has been successfully deleted. 
+
+#### view_all_companies.py
+Handles the functionality behind displaying all the companies that the user has already added/created so far, with each company being a link to the 'view_company_profile.html' template for the selected company. 
+
+Function included:
+-   display_all_companies_for_user()
+
+##### display_all_companies_for_user()
+This function handles the GET functionality for the route: '/address_book/company_directory'.
+
+Takes (input):
+-   user_id, companyRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getCompanyEntriesByUserID()' to get all the company entries for the current user, where each entry has been instantiated using the 'Company' class. By doing this, its so much easier to get the values, from the database, for each company entry. 
+
+-   Creates a dictionary 'company_contacts' with 3 keys 'empty_list', 'fields' & 'message'. 
+
+-   If there are any company entries, then the function iterates through every company in the list (received by the above method). Every entry is saved in the dictionary 'fields' (found within the bigger dictionary 'company_contacts'), with the company's unique ID (company_id) as it's dictionary key. 
+
+-   Calls the function 'cleanup_company_fields()' on every entry in the company list (received from the SQL query), to improve how the company's values will be presented to the user. 
+
+-   Creates a second dictionary 'general_details' to store:
+    -   The 'action_url' (add_company_url, which is the route responsible for displaying this form to the user)
+    -   The dictionary 'company_contacts', put together by this function. 
+
+Renders the template:
+-   "view_company_directory.html"
+-   With the dictionary 'general_details'. 
+
+#### view_company_profile.py
+Handles the functionality behind displaying the details for a specific company, using its unique ID 'company_id'.
+
+It also offers to links to: 
+-   Add a job application
+-   View the company website 
+-   Add a note for this specific company
+-   View all notes for this specific company 
+
+Function included:
+-   display_company_profile()
+
+##### display_company_profile()
+This function handles the GET functionality for the route: '/company/<int:company_id>/view_company'.
+
+Takes (input):
+-   company_id, companyRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getCompanyById' (from the companyRepo) to get a specific entry from the 'company' SQL table. 
+
+-   All information for the company is extracted from this sql query and stored in a dictionary: company_details. 
+    
+-   This information is then 'cleaned' using the 'cleanup_company_profile()' function found in the file: services/clean_files/cleanup_company_fields.py.
+
+-   Its grabs & stores all the routes (required for the links to be presented to the user), together with the dictionary 'company_details', in a 'general_details' dictionary. 
+
+-   Calls the function 'cleanup_urls()' (found in services/cleanup_files/cleanup_general_fields.py), with the company URL. This is to ensure that the link the user provided (when creating this company profile) is actually a valid link. 
+
+Note: 
+    If the link is in fact valid (its not blank or incomplete), then it will be displayed on the company profile as a button which directs the user to the company's website. 
+
+Renders the template:
+-   "view_company_profile.html" 
+-   via the route ''
+-   With the dictionary 'general_details', created by this function. 
 
 
 

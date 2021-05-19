@@ -11,7 +11,7 @@ def display_add_company_application_form(add_application_form, company_id, compa
     return render_template('add_company_job_application.html', add_application_form=add_application_form, details=details)
 
 
-def add_new_application_to_application_history(user_id, companyRepo, applicationsRepo, application_form, company_id):
+def add_new_application_to_application_history(user_id, applicationsRepo, application_form, company_id):
     # We need to grab current day's date & time when user adds a new application:
     application_datetime = datetime.now()
 
@@ -55,10 +55,10 @@ def add_new_application_to_application_history(user_id, companyRepo, application
     return application_id
 
 
-def post_add_company_job_application(user_id, company_id, applicationsRepo, companyRepo, add_job_app_form):
+def post_add_company_job_application(user_id, company_id, applicationsRepo, add_job_app_form):
 
     # Lets add these fields to our function that will structure this data into a dict:
-    application_id = add_new_application_to_application_history(user_id, companyRepo, applicationsRepo, add_job_app_form, company_id)
+    application_id = add_new_application_to_application_history(user_id, applicationsRepo, add_job_app_form, company_id)
 
     redirect_url = '/applications/{}'.format(application_id)
     return redirect(redirect_url)

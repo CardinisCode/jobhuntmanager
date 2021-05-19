@@ -11,9 +11,8 @@ def display_add_company_form(add_company_form):
     return render_template("add_company_form.html", add_company_form=add_company_form, details=details)
 
 
-def post_add_company(user_id, add_company_form, applicationsRepo, companyRepo):
+def post_add_company(user_id, add_company_form, companyRepo):
     company_name = add_company_form.name.data
-    existing = False 
 
     # Let's first make sure this company doesn't already exist for this user:
     existing_company = companyRepo.getCompanyByName(company_name, user_id)

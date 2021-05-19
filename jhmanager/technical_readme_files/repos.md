@@ -261,7 +261,7 @@ Returns (output):
     A list of 'application' objects.
 
 An instance where this method is called:
-FUNCTION:   delete_company_from_db() 
+FUNCTION:   post_delete_company() 
 FILE:       services/company/delete_company.py 
 LINE:       37
 
@@ -326,7 +326,7 @@ Returns (output):
     No output is returned
 
 An instance where this method is called:
-FUNCTION:   delete_company_from_db()
+FUNCTION:   post_delete_company()
 FILE:       services/company/delete_company.py
 LINE:       46
 
@@ -461,7 +461,7 @@ Returns (output):
     No output is returned
 
 An instance where this method is called:
-FUNCTION:   delete_company_from_db()
+FUNCTION:   post_delete_company()
 FILE:       services/company/delete_company.py
 LINE:       33
 
@@ -588,7 +588,7 @@ Returns (output):
     No output is returned
 
 An instance where this method is called:
-FUNCTION:   delete_company_from_db()
+FUNCTION:   post_delete_company()
 FILE:       services/company/delete_company.py
 LINE:       32
 
@@ -897,7 +897,7 @@ Returns (output):
     No output is returned
 
 An instance where this method is called:
-FUNCTION:   delete_company_from_db()
+FUNCTION:   post_delete_company()
 FILE:       services/company/delete_company.py
 LINE:       34
 
@@ -1206,7 +1206,7 @@ Returns (output):
     No output is returned
 
 An instance where this method is called:
-FUNCTION:   delete_company_from_db()
+FUNCTION:   post_delete_company()
 FILE:       services/company/delete_company.py
 LINE:       34
 

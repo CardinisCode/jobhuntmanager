@@ -3,7 +3,7 @@ from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_compa
 from jhmanager.service.cleanup_files.cleanup_general_fields import cleanup_urls
 
 
-def display_company_profile(company_id, applicationsRepo, companyRepo):
+def display_company_profile(company_id, companyRepo):
     company = companyRepo.getCompanyById(company_id)
 
     company_details = {

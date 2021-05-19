@@ -9,7 +9,7 @@ def display_update_company_profile_form(company_id, update_company_form, company
     return render_template("update_company_profile.html", update_company_form=update_company_form, details=details)
 
 
-def post_update_company_profile(company_id, user_id, update_form, company, applicationsRepo, companyRepo):
+def post_update_company_profile(company_id, user_id, update_form, companyRepo):
     company_details = {
         "name": update_form.name.data, 
         "description": update_form.description.data,

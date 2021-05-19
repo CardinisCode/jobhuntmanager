@@ -84,7 +84,7 @@ from jhmanager.service.company.view_company_profile import display_company_profi
 from jhmanager.service.company.add_company_job_application import display_add_company_application_form
 from jhmanager.service.company.add_company_job_application import post_add_company_job_application
 from jhmanager.service.company.delete_company import display_delete_company_form
-from jhmanager.service.company.delete_company import delete_company_from_db
+from jhmanager.service.company.delete_company import post_delete_company
 
 from jhmanager.service.company_notes.add_company_note import display_add_company_note_form
 from jhmanager.service.company_notes.add_company_note import post_add_company_note
@@ -559,7 +559,7 @@ def delete_contact(contact_id):
 @login_required
 def display_company_directory():
     user_id = session["user_id"]
-    return display_all_companies_for_user(user_id, companyRepo, applicationsRepo)
+    return display_all_companies_for_user(user_id, companyRepo)
 
 
 @app.route('/address_book/add_company', methods=["GET", "POST"])
@@ -572,7 +572,7 @@ def add_company():
 
     if request.method == "POST":
         if add_company_form.validate_on_submit():
-            return post_add_company(user_id, add_company_form, applicationsRepo, companyRepo)
+            return post_add_company(user_id, add_company_form, companyRepo)
         else:
             flash("Complete all the fields.")
             return display_add_company_form(add_company_form)
@@ -581,7 +581,7 @@ def add_company():
 @app.route('/company/<int:company_id>/view_company', methods=["GET"])
 @login_required
 def display_company_details(company_id):
-    return display_company_profile(company_id, applicationsRepo, companyRepo)
+    return display_company_profile(company_id, companyRepo)
 
 
 @app.route('/company/<int:company_id>/update_company', methods=["GET", "POST"])
@@ -596,7 +596,7 @@ def update_company_profile(company_id):
 
     if request.method == "POST":
         if update_form.validate_on_submit():
-            return post_update_company_profile(company_id, user_id, update_form, company_obj, applicationsRepo, companyRepo)
+            return post_update_company_profile(company_id, user_id, update_form, companyRepo)
         else:
             flash("Complete all the fields.")
             return display_update_company_profile_form(company_id, update_form, company_obj)
@@ -611,7 +611,7 @@ def delete_company_profile(company_id):
 
     if request.method == "POST":
         if delete_company_form.validate_on_submit():
-            return delete_company_from_db(company_id, delete_company_form, companyRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, companyNotesRepo, jobOffersRepo, appNotesRepo)
+            return post_delete_company(company_id, delete_company_form, companyRepo, applicationsRepo, interviewsRepo, interviewPrepRepo, companyNotesRepo, jobOffersRepo, appNotesRepo)
         
         else:
             flash("Complete all the fields.")
@@ -687,7 +687,7 @@ def add_company_job_application(company_id):
 
     if request.method == "POST":
         if add_job_app_form.validate_on_submit(): 
-            return post_add_company_job_application(user_id, company_id, applicationsRepo, companyRepo, add_job_app_form)
+            return post_add_company_job_application(user_id, company_id, applicationsRepo, add_job_app_form)
         else: 
             flash("All fields are required.")
             return display_add_company_application_form(add_job_app_form, company_id, companyRepo)
