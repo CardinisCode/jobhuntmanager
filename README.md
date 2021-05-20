@@ -488,9 +488,37 @@ Handles the functionality behind deleting a specific interview preparation entry
 
 ---------------------------------------------------
 
-
 #### interviews:
 This where you'll find all the Python files related to an interview entry / list of interview entries. 
+
+Files in this directory:
+-   add_interview_py
+-   view_interview_details.py
+-   view_all_interviews.py
+-   update_interview_status.py
+-   update_interview.py
+-   delete_an_interview.py
+
+##### add_interview_py
+Handles the functionality behind displaying the 'AddInterviewForm()' (form) to the user & saving the information (the user has provided/entered into the form) into the 'interviews' SQL table. 
+
+##### view_interview_details.py
+Handles the functionality behind displaying the details for a specific entry, from the 'interviews' SQL table, to the template 'view_interview_details.html'.
+
+##### view_all_interviews.py
+Handles the functionality behind displaying all the interview entries (added by the current user), from the 'interviews' SQL table, which relate to a specific job application. These interview entries are then displayed to the template 'view_all_interviews.html'. 
+
+##### update_interview_status.py
+Handles the functionality behind displaying the 'UpdateInterviewStatusForm()' (form) to the user. Once the form is submitted, the interview's status, for a specific interview entry, is updated in the 'interviews' SQL table. 
+
+##### update_interview.py
+Handles the functionality behind displaying the 'AddInterviewForm()' (form), with the values for a specific interview entry, to the user. Once the form is submitted, the form values are extracted & used to update an existing entry in the 'interviews' SQL table.
+
+##### delete_an_interview.py
+Handles the functionality behind deleting a specific interview entry from the 'interviews' SQL table. 
+
+---------------------------------------------------
+
 
 #### job_offers:
 This where you'll find all the Python files related to a job offer entry / list of job offer entries. 

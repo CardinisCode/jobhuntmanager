@@ -1985,6 +1985,22 @@ Redirects the user:
 
 
 ### interviews:
-This where you'll find all the Python files related to an interview entry / list of interview entries.
-
 This file contains all the Python files which relate specifically to the 'InterviewsHistoryRepository', which draws its entries from the SQL table 'interviews'. However, where necessary, it does also connect to the other repositories & SQL tables where necessary.  
+
+Files in this directory:
+-   add_interview_py
+-   view_interview_details.py
+-   view_all_interviews.py
+-   update_interview_status.py
+-   update_interview.py
+-   delete_an_interview.py
+
+#### add_interview_py
+Handles the functionality behind displaying the 'AddInterviewForm()' (form) to the user & saving the information (the user has provided/entered into the form) into the 'interviews' SQL table. 
+
+Functions include:
+-   display_add_interview()
+-   InsertFieldsIntoInterviewHistory()
+-   check_if_interview_is_past_dated()
+-   update_interview_stage_in_applications_repo()
+-   post_add_interview()
