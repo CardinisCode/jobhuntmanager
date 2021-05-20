@@ -2,15 +2,14 @@ from flask import Flask, render_template, session, request, redirect, flash
 
 
 def display_update_contact_form(contact_id, update_contact_form):
-    action_url = '/address_book/contact_list/{}/update_contact'.format(contact_id)
     details = {
-        "action_url": action_url
+        "action_url": '/address_book/contact_list/{}/update_contact'.format(contact_id)
     }
 
     return render_template("update_contact_form.html", update_contact_form=update_contact_form, details=details)
 
 
-def post_update_contact(contact_id, user_id, update_contact_form, contactRepo):
+def post_update_contact(contact_id, update_contact_form, contactRepo):
     details = {
         "full_name": update_contact_form.full_name.data, 
         "job_title": update_contact_form.job_title.data, 

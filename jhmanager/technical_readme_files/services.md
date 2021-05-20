@@ -28,7 +28,9 @@ Within each directory are the CRUD elements:
     -   These files / functions start with 'delete_...'
 
 ### address_book:
-This includes the functionality behind displaying the user's contacts to the template: 'view_address_book.html'.
+This includes the functionality behind displaying the user's contacts (both company & individual) to the template: 'view_address_book.html'. 
+
+This file relates to the respositories 'ContactRepository' & 'CompanyRepository', & draws its 'contact' entries from the SQL tables 'indiv_contacts' & 'company'. However, where necessary, it does also connect to the other repositories & SQL tables where necessary. 
 
 #### view_address_book.py
 Function in this directory:
@@ -49,7 +51,7 @@ Renders to template:
     'view_address_book.html'
 
 ### application_notes:
-This where you'll find all the Python functions related to Application Notes.
+This where you'll find all the Python functions related to Application Notes.  This file relates specifically to the 'ApplicationNotesRepository' & draws its 'application note' entries from the SQL table 'application_notes'. However, where necessary, it does also connect to the other repositories & SQL tables where necessary. 
 
 The files in this directory:
 
@@ -95,8 +97,9 @@ Functionality (algorithm):
 -   Extracts the values from the form fields & stores these fields, the date string, user_id, application_id & company_id. 
 -   Calls on the createApplicationNote() function (in the ApplicationNotesRepository), with the values from the dictionary, to create a note entry in the 'application_notes' SQL table.
 
-Finally: 
-    The User is redirected via the route: '/applications/<int:application_id>/app_notes/<int:app_notes_id>/view_note'
+Redirects the user:
+-   To the template: 'view_app_note_details.html'
+-   Via the route: '/applications/<int:application_id>/app_notes/<int:app_notes_id>/view_note'
 
 #### delete_app_note.py
 This includes the functionality behind:
@@ -115,8 +118,9 @@ Takes (input):
 Functionality (algorithm):
 -   Calls on the 'deleteNoteByAppNoteID() method in the ApplicationNotesRepository. This hard deletes an entry from the 'application_notes' table in the SQL database, using the note's unique ID (app_notes_id). 
 
-Finally: 
-    The User is redirected via the route: '/applications/<int:application_id>/view_application_notes'
+Redirects the user:
+-   To the template: 'view_notes_for_application.html'
+-   Via the route: '/applications/<int:application_id>/view_application_notes'
 
 #### update_app_note.py
 This includes the functionality behind:
@@ -160,8 +164,9 @@ Functionality (algorithm):
 -   Extracts the field values from the update_app_note_form & saves it all to a 'details' dictionary, including the note's unique ID ('note_id'). 
 -   Calls on the 'updateNoteByID' method (linked to the ApplicationNotesRepository), to update an entry in the 'application_notes' (SQL) table.
 
-Finally: 
-    The User is redirected via the route: '/applications/<int:application_id>/app_notes/<int:app_notes_id>/view_note'
+Redirects the user:
+-   To the template: 'view_app_note_details.html'
+-   Via the route: '/applications/<int:application_id>/app_notes/<int:app_notes_id>/view_note'
 
 #### view_app_note_details.py
 This includes the functionality behind:
@@ -216,7 +221,7 @@ Renders the template:
     -   With a dictionary containing the links/URLS & notes to be displayed to the user. 
 
 ### applications
-This where you'll find all the Python functions related to Application Notes.
+This where you'll find all the Python functions related to Job Applications. This file relates specifically to the 'ApplicationsHistoryRepository' & draws its 'job application' entries from the SQL table 'job_applications'. However, where necessary, it does also connect to the other repositories & SQL tables where necessary. 
 
 The files in this directory:
 
@@ -278,8 +283,9 @@ Functionality (algorithm):
 
 -   Calls on the function (above) 'add_new_application_to_application_history()' to insert the details for the job application into the 'job_applications' SQL table as a new entry. 
 
-Finally: 
-    The User is redirected via the route: '/applications/<int:application_id>'.
+Redirects the user:
+-   To the template: 'view_application.html'
+-   Via the route: '/applications/<int:application_id>'.
 
 #### view_application_details.py
 This includes the functionality behind:
@@ -415,8 +421,9 @@ Functionality (algorithm):
 
 -   Calls on the repo method 'updateCompanyByApplication', (in the CompanyRepository) with the 'company_details' dictionary, to update the entry in the 'company' (SQL) table, using the entry's unique ID (company_id).   
 
-Finally:
-    The user is redirected to the route '/applications/<int:application_id>'. 
+Redirects the user:
+-   To the template 'view_application.html'
+-   Via the route: '/applications/<int:application_id>'. 
 
 #### delete_an_application.py
 This includes the functionality behind:
@@ -442,9 +449,9 @@ Functionality (algorithm):
     -   deleteNoteByApplicationID(), found in the ApplicationNotesRepository. 
     -   deleteJobOfferByApplicationID(), found in the JobOffersRepository.
 
-Finally:
-    The user is redirected to the route:
-'/applications'. 
+Redirects the user:
+-   To the template: 'applications.html'
+-   Via the route: '/applications'. 
 
 #### delete_all_applications.py
 This includes the functionality behind deleting all application entries from the 'job_applications' table (in the SQL database), which are linked to the current user's unique ID (user_id). 
@@ -467,9 +474,9 @@ Functionality (algorithm):
     -   deleteNoteByUserID(), found in the ApplicationNotesRepository. 
     -   deleteJobOfferByUserID(), found in the JobOffersRepository.
 
-Finally:
-    The user is redirected to the route:
-'/dashboard'. 
+Redirects the user:
+-   To the template: 'dashboard.html'
+-   Via the route: '/dashboard'. 
 
 ### cleanup_files:
 The files found in this directory focus on formating the data it receives, to improves how values are presented to the user (on the templates). 
@@ -1139,7 +1146,7 @@ An instance where this method is called:
     display_job_offers(), Line 77 in services/display_dashboard_content.py.
 
 ### company
-This where you'll find all the Python functions related to 'Company' contacts.
+This where you'll find all the Python functions related to 'Company' contacts. This file relates specifically to the 'CompanyRepository' & draws its 'company' entries from the SQL table 'company'. However, where necessary, it does also connect to the other repositories & SQL tables where necessary. 
 
 The files in this directory:
 -   add_company_job_applications.py
@@ -1201,8 +1208,9 @@ Takes (input):
 Functionality (algorithm):
 -   Calls on the function 'add_new_application_to_application_history()' to insert the values for this job appliction into the 'job_applications' SQL table. 
 
-Finally:
--   It redirects the user to the template 'view_application.html', via the route '/applications/<int:application_id>'.
+Redirects the user:
+-   To the template: 'view_application.html', 
+-   Via the route: '/applications/<int:application_id>'.
 
 #### add_company.py
 Handles the functionality behind adding a company contact, and handles everything from presenting the form to processing the information that the user provides & storing that data as a single entry in the 'company' SQL table. 
@@ -1243,9 +1251,9 @@ Functionality (algorithm):
 
 -   If the method produces no results (however), then this function puts together a dictionary with the values from the add_company_form & calls on the method 'createCompany()' to insert this company into the 'company' SQL table. 
 
-Redirects to the template:
--   'view_company_profile.html'
--   via the route '/company/<int:company_id>/view_company', so that the user can view the company profile for the new company they've just created.
+Redirects the user:
+-   To the template: 'view_company_profile.html'
+-   Via the route '/company/<int:company_id>/view_company', so that the user can view the company profile for the new company they've just created.
 
 #### update_company.py
 Handles the functionality behind updating an existing company. This covers everything from displaying the form (to the user) to updating the values for this company in the 'company' SQL table.
@@ -1283,9 +1291,9 @@ Functionality (algorithm):
 
 -   Calls on the method 'updateCompanyByID()' (in the CompanyRepository), to update an entry in the 'company' SQL table with the values provided by the user. 
 
-Redirects to the template:
--   'view_company_profile.html'
--   via the route '/company/<int:company_id>/view_company'
+Redirects the user:
+-   To the template: 'view_company_profile.html'
+-   via the route: '/company/<int:company_id>/view_company'
 
 
 
@@ -1347,8 +1355,8 @@ Functionality (algorithm):
     
     -   Finally it runs the method 'deleteApplicationByCompanyID()' to delete all the job applications linked to this company (being deleted by this function).
 
-Redirects to the template:
--   'view_address_book.html'
+Redirects the user:
+-   To the template: 'view_address_book.html'
 -   via the route "/address_book"
 -   With a flash message, confirming that the company (and all Applications, Notes, Interviews & Interview Prep, & job offers linked to this company) has been successfully deleted. 
 
@@ -1419,7 +1427,7 @@ Renders the template:
 -   With the dictionary 'general_details', created by this function. 
 
 ### company_notes:
-This where you'll find all the Python files related to a company note / list of company notes. 
+This where you'll find all the Python files related to a company note / list of company notes. This file relates specifically to the 'CompanyNotesRepository' & draws its 'company note' entries from the SQL table 'company_notes'. However, where necessary, it does also connect to the other repositories & SQL tables where necessary.  
 
 Files in this directory:
 -   add_company_note.py
@@ -1467,8 +1475,8 @@ Functionality (algorithm):
 
 -   Calls on the method 'createNewCompanyNote()' (found in the CompanyNotesRepository), to insert this company note as entry in the 'company_notes' SQL table. The method returns the unique ID (company_note_id) for the newly-created entry. 
 
-Redirects the user to the template:
--   'view_specific_company_note.html' 
+Redirects the user:
+-   To the template 'view_specific_company_note.html' 
 -   via the route:
     '/company/<int:company_id>/company_note/<int:company_note_id>/view_note_details'
 
@@ -1608,9 +1616,193 @@ Takes (input):
 Functionality (algorithm):
 -   Calls on the method 'deleteCompanyNoteByID()' (found in the Repo CompanyNotesRepository), delete a specific entry from the 'company_notes' SQL table, using the note's unique ID (company_note_id).
 
-Redirects to the template:
--   'view_company_profile.html'
+Redirects the user:
+-   To the template 'view_company_profile.html'
 -   Via the route: '/company/<int:company_id>/view_company'
+
+
+
+### contacts_directory:
+This where you'll find all the Python files related to a contact / list of contacts. This file relates specifically to the 'ContactRepository' & draws its 'contact' entries from the SQL table 'indiv_contacts'. However, where necessary, it does also connect to the other repositories & SQL tables where necessary.  
+
+Files in this directory:
+-   add_new_contact.py
+-   view_contact_details.py
+-   view_contact_list.py
+-   update_contact.py
+-   delete_contact.py
+
+#### add_new_contact.py
+Handles the functionality behind displaying the 'AddNewContactForm()' (form) to the user & saving the information (the user has provided/entered into the form) into the 'indiv_contacts' SQL table. 
+
+Functions included:
+-   display_add_new_contact_form()
+-   post_add_new_contact()
+
+##### display_add_new_contact_form()
+This function handles the GET functionality for the route: '/address_book/contact_list/add_contact'.
+
+Takes (input):
+    -   new_contact_form (a blank instance of the 'AddNewContactForm()' (form class))
+
+Functionality (algorithm):
+-   Puts together a 'details' dictionary with the action URL (the route responsible for displaying the form to the user). 
+
+Renders the template:
+-   "add_new_contact.html"
+-   With the new_contact_form & the 'details' dictionary
+
+##### post_add_new_contact()
+This function handles the POST functionality for the route: '/address_book/contact_list/add_contact'.
+
+Takes (input):
+-   new_contact_form (as completed by the user)
+-   user_id, contactRepo
+
+Functionality (algorithm):
+-   Extracts all the field values, from the 'new_contact_form', & saves these values in a 'details' dictionary, together with the 'user_id' for this user. 
+
+-   Iterates through the values in the dictionary, & if any form value has not been completed by the user then it's value is replaced with 'N/A'.  
+
+-   Calls on the method 'create_contact()' (from the ContactRepository), with the 'details' dictionary. This method then returns the unique ID (contact_id) for the newly-created contact entry. 
+
+Redirects the user:
+-   To the template 'view_contacts.html'
+-   Via the route '/address_book/contact_list'
+
+#### view_contact_details.py
+Handles the functionality behind displaying the details for a specific 'contact', from the 'indiv_contacts' SQL table, to the template 'view_contact_details.html'.
+
+Function included:
+-   display_contact_details()
+
+##### display_contact_details()
+This function handles the GET functionality for the route: '/address_book/contact_list/<int:contact_id>/view_contact'.
+
+Takes (input):
+    contact_id, contactRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getContactByID' (from the ContactRepository) to get a specific entry from the 'indiv_contacts' SQL table. 
+
+-   Creates a 'contact_details' dictionary with a few base key:value pairs, which will be needed whether/not there are any details to display. 
+
+-   If there is in fact a 'contact' to display, then it updates the key 'empty_contact' to be False & sets the key 'fields' as a dictionary. 
+
+-   Extracts the relevant values from the 'contact' object & saves these field values in the 'fields' dictionary. This URL / routes to 'update_contact' & 'delete_contact' are also added to this dictionary. 
+
+-   Calls on the function 'cleanup_specific_contact_entry()' (found in services/cleanup_files/cleanup_contact_fields.py), with this dictionary. This function will then improve how this contact's field values will be displayed to the user. 
+
+Renders the template:
+-   "view_contact_details.html"
+-   With the 'contact_details' dictionary, created by this function.
+
+#### view_contact_list.py
+Handles the functionality behind displaying all the (individual) contact entries (added by the current user), from the 'indiv_contacts' SQL table, to the template 'view_contact_details.html'. 
+
+Function included:
+-   display_contacts_for_user()
+
+##### display_contacts_for_user()
+This function handles the GET functionality for the route: '/address_book/contact_list'.
+
+Takes (input):
+    user_id, contactRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getContactsByUserID' (from the ContactRepository) to get all the contact entries, from the 'indiv_contacts' SQL table, for a specific user (using their unique ID 'user_id').
+
+-   Creates a 'general_details' dictionary with a few base keys: 'empty_list' (set to True) & 'add_new_contact' (a route which will be used to display a link to the user). These key:value pairs will be useful, whether/not there are any contacts to display.
+
+-   If there are any contact entries returned from the method 'getContactsByUserID()', then it iterates through each contact entry returned from the method. 
+
+-   For each contact entry, the relevant field values are extracted & stored in its own dictionary, with the contact's unique ID (contact_id) set up as the dictionary's name. This helps to distinguish one contact entry from another. All entries are stored within the dictionary 'fields', which is a key in a parent dictionary 'contact_details'. 
+
+EG: If there is 2 contact entries. 
+
+contact_details["fields] = {
+    1: {contact key:pairs go in here}, 
+    2: {contact key:pairs go in here},
+}
+
+-   Calls on the function 'cleanup_each_contact_entry()' (found in services/cleanup_files/cleanup_contact_fields.py), for each contact entry, to improve how the contact's field values will be displayed to the user. 
+
+Renders the template:
+-   "view_contacts.html"
+-   With the dictionaries: 'general_details' & 'contact_details'
+
+#### update_contact.py
+Handles the functionality behind displaying the 'AddNewContactForm()' (form), with the values for a specific contact entry, to the user. 
+
+Once the form is submitted, the form values are extracted & used to update an existing entry in the 'indiv_contacts' SQL table (using the contact's unique ID (contact_id)).
+
+Functions included:
+-   display_update_contact_form()
+-   post_update_contact()
+
+##### display_update_contact_form()
+This function handles the GET functionality for the route: '/address_book/contact_list/<int:contact_id>/update_contact'.
+
+Takes (input):
+-   update_contact_form (an instance of the 'AddNewContactForm()', with the values for a specific Contact object)
+-   contact_id
+
+Functionality (algorithm):
+-   Puts together a 'details' dictionary with the action URL (the route responsible for displaying the form to the user). 
+
+Renders the template:
+-   "update_contact_form.html"
+-   With the 'details' dictionary created by this function. 
+
+##### post_update_contact()
+This function handles the POST functionality for the route: '/address_book/contact_list/<int:contact_id>/update_contact'.
+
+Takes (input):
+-   update_contact_form (as completed / updated by the user)
+-   contact_id, contactRepo
+
+Functionality (algorithm):
+-   Extracts the field values from the 'update_contact_form' & stores them in a dictionary 'details'. 
+
+-   Iterates through the values in the dictionary, & if any form value has not been completed by the user then it's value is replaced with 'N/A'.  
+
+-   Calls on the method 'updateContactByID()' (from the ContactRepository), with the 'details' dictionary. 
+
+Redirects the user:
+-   To the template 'view_contact_details.html'
+-   Via the route '/address_book/contact_list/<int:contact_id>/view_contact'. 
+-   With a message to confirm that the contact entry has been updated successfully. 
+
+#### delete_contact.py
+Handles the functionality behind deleting a specific contact entry from the 'indiv_contacts' SQL table. The user will then be redirected to the template 'view_address_book.html'. 
+
+Function included:
+-   delete_contact_details()
+
+##### delete_contact_details()
+Takes (input):
+    contact_id, contactRepo
+
+Functionality (algorithm):
+-   Calls on the method 'deleteContactByID()' (in the repo ContactRepository), to delete a specific 'contact' entry from the 'indiv_contacts' SQL table. 
+
+Redirects the user:
+-   To the template 'view_address_book.html'
+-   Via the route '/address_book'. 
+-   With a message to confirm that the contact entry has been deleted successfully. 
+
+### interview_preparation:
+This file contains all the Python files which relate specifically to the 'InterviewPreparationRepository', which draws its entries from the SQL table 'interview_preparation'. However, where necessary, it does also connect to the other repositories & SQL tables where necessary.  
+
+Files in this directory:
+-   add_interview_prep.py
+-   view_interview_prep_details.py
+-   view_all_interview_prep.py
+-   update_interview_prep.py
+-   delete_interview_prep.py
+
+
+
 
 
 

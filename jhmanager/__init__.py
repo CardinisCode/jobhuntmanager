@@ -542,7 +542,7 @@ def update_contact(contact_id):
 
     if request.method == "POST":
         if update_contact_form.validate_on_submit():
-            return post_update_contact(contact_id, user_id, update_contact_form, contactRepo)
+            return post_update_contact(contact_id, update_contact_form, contactRepo)
 
         else: 
             flash("Complete all the fields.")

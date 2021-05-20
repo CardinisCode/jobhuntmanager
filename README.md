@@ -316,24 +316,17 @@ The files in this directory:
 -   delete_all_applications.py
 
 ###### add_application.py
-This file contains the functionality behind:
--   Displaying the AddApplicationForm() form to the user
--   Extracting the information submitted on the form & adding the values (for the job application) to the 'job_applications' table in the 'jhmanager.db database.
--   Redirecting the user to the template: 'view_application.html'
+This file contains the functionality behind displaying the 'AddApplicationForm' (form) to the user & inserting these values into the 'job_applications' table in the 'jhmanager.db database, before redirecting the user to the template 'view_application.html' for this newly-created job application.  
 
 ##### delete_all_applications.py:
-In this file we find the functionality to:
--   Delete all job application, and all interview, interview_preparation, note, & job offer entries linked to these applications, from their perspective SQL tables. 
--   Redirect the user back to the 'dashboard.html' template.
+In this file we find the functionality to delete all job applications, & all interview, interview_preparation, note, & job offer entries linked to these applications, from their perspective SQL tables. The user is then redirected back to the dashboard (template: 'dashboard.html'). 
 
 ##### delete_an_application.py:
-In this file we find the functionality to:
--   Delete both a specific job application, and all interview, interview_preparation, note, & job offer entries linked to this application, from their perspective SQL tables. 
--   Redirect the user back to the 'applications.html' template.
+In this file we find the functionality to delete both a specific job application, and all interview, interview_preparation, note, & job offer entries linked to this application, from their perspective SQL tables. The user is then redirected back to the 'applications.html' template.
 
 ##### update_application.py:
 In this file we find the functionality to:
--   Display the AddApplicationForm(), with the details of a specific application, to the user via the template 'update_application.html'
+-    Display the AddApplicationForm() (form), with the details of a specific application, to the user via the template 'update_application.html'. 
 -   Grab the details from the form, update the relevant entry in the 'job_applications' table.
 -    Redirect the user to 'view_application.html' so that the user can view the application they've just updated. 
 
@@ -343,11 +336,21 @@ This file contains the functionality behind displaying the top 10 application en
 ##### view_application_details.py:
 This file contains the functionality behind presenting the user with the details they've provided for a specific job application. 
 
+---------------------------------------------------
+
 #### cleanup_files:
 In this file we find the functionality to clean up values in the various functions in the 'service' directory. So once a value has been extracted from the relevant SQL table, it will be "cleaned" to ensure it looks both presentable and just more like every day language. 
 EG: random_value => Random Value. 
 
 The files in this directory:
+-   cleanup_app_fields.py
+-   cleanup_company_fields.py
+-   cleanup_contact_fields.py
+-   cleanup_datetime_display.py
+-   cleanup_general_fields.py
+-   cleanup_interview_fields.py
+-   cleanup_job_offer_fields.py
+
 ##### cleanup_app_fields.py
 This file includes functions which specifically focus on the fields related to the 'job_application' SQL table. 
 
@@ -369,11 +372,19 @@ This file includes functions which specifically focus on the fields related to t
 ##### cleanup_job_offer_fields.py
 This file includes functions which specifically focus on the fields related to the 'job_offers' SQL table.
 
+---------------------------------------------------
 
 #### company:
 This where you'll find all the Python files related to a 'company'. 
 
 The files in this directory:
+-   add_company.py
+-   add_company_job_application.py
+-   update_company.py
+-   delete_company.py
+-   view_all_companies.py
+-   view_company_profile.py
+
 ##### add_company.py
 Handles the functionality behind adding a company contact, and handles everything from presenting the form to processing the information that the user provides & storing that data as a single entry in the 'company' SQL table. 
 
@@ -392,16 +403,20 @@ Handles the functionality behind displaying all the companies that the user has 
 ##### view_company_profile.py
 Handles the functionality behind displaying the details for a specific company, using its unique 'company_id'. 
 
-It also offers to links to: 
--   Add a job application
--   View the company website 
--   Add a note for this specific company
--   View all notes for this specific company 
+It also offers to links to: Add a job application, View the company website, Add a note for this specific company & View all notes for this specific company.
+
+---------------------------------------------------
 
 #### company_notes:
 This where you'll find all the Python files related to a company note / list of company notes. 
 
 Files in this directory:
+-   add_company_note.py
+-   view_specific_note.py
+-   view_all_company_notes.py
+-   update_company_note.py
+-   delete_company_note.py
+
 ##### add_company_note.py
 Handles the functionality behind displaying the 'AddCompanyNoteForm' form to the user & saving the information (the user has provided/entered into the form) into the 'company_notes' SQL table. 
 
@@ -417,18 +432,68 @@ Handles the functionality behind updating an existing note linked to a specific 
 ##### delete_company_note.py
 Handles the functionality behind deleting a note, from the 'company_notes' SQL table, which is linked to a specific 'company'.
 
+---------------------------------------------------
+
 #### contacts_directory:
-This where you'll find all the Python files related to a contact / list of contacts . 
+This where you'll find all the Python files related to a contact / list of contacts. 
+
+Files in this directory:
+-   add_new_contact.py
+-   view_contact_details.py
+-   view_contact_list.py
+-   update_contact.py
+-   delete_contact.py
+
+##### add_new_contact.py
+Handles the functionality behind displaying the 'AddNewContactForm()' (form) to the user & saving the information (the user has provided/entered into the form) into the 'indiv_contacts' SQL table. 
+
+##### view_contact_details.py
+Handles the functionality behind displaying the details for a specific 'contact', from the 'indiv_contacts' SQL table, to the template 'view_contact_details.html'.
+
+##### view_contact_list.py
+Handles the functionality behind displaying all the (individual) contact entries (added by the current user), from the 'indiv_contacts' SQL table, to the template 'view_contact_details.html'. 
+
+##### update_contact.py
+Handles the functionality behind displaying the 'AddNewContactForm()' (form), with the values for a specific contact entry, to the user. Once the form is submitted, the form values are extracted & used to update an existing entry in the 'indiv_contacts' SQL table.
+
+##### delete_contact.py
+Handles the functionality behind deleting a specific contact entry from the 'indiv_contacts' SQL table. The user will then be redirected to the Addressbook (template: 'view_address_book.html'). 
+
+---------------------------------------------------
 
 #### interview_preparation:
 This where you'll find all the Python files related to an interview preparation entry / list of interview preparation entries. 
+
+Files in this directory:
+-   add_interview_prep.py
+-   view_interview_prep_details.py
+-   view_all_interview_prep.py
+-   update_interview_prep.py
+-   delete_interview_prep.py
+
+##### add_interview_prep.py
+Handles the functionality behind displaying the 'AddInterviewPrepForm()' (form) to the user & saving the information (the user has provided/entered into the form) into the 'interview_preparation' SQL table. 
+
+##### view_interview_prep_details.py
+Handles the functionality behind displaying the details for a specific entry, from the 'interview_preparation' SQL table, to the template 'interview_prep.html'.
+
+##### view_all_interview_prep.py
+Handles the functionality behind displaying all the interview preparation entries (added by the current user), from the 'interview_preparation' SQL table, to the template 'view_all_interview_prep.html'. 
+
+##### update_interview_prep.py
+Handles the functionality behind displaying the 'AddInterviewPrepForm()' (form), with the values for a specific interview preparation entry, to the user. Once the form is submitted, the form values are extracted & used to update an existing entry in the 'interview_preparation' SQL table.
+
+##### delete_interview_prep.py
+Handles the functionality behind deleting a specific interview preparation entry from the 'interview_preparation' SQL table. 
+
+---------------------------------------------------
+
 
 #### interviews:
 This where you'll find all the Python files related to an interview entry / list of interview entries. 
 
 #### job_offers:
 This where you'll find all the Python files related to a job offer entry / list of job offer entries. 
-
 
 #### users:
 This where you'll find all the Python files related to a user  entry / list of user entries. 
