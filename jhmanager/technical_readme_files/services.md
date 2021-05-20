@@ -1801,8 +1801,190 @@ Files in this directory:
 -   update_interview_prep.py
 -   delete_interview_prep.py
 
+#### add_interview_prep.py
+Handles the functionality behind displaying the 'AddInterviewPrepForm()' (form) to the user & saving the information (the user has provided/entered into the form) into the 'interview_preparation' SQL table. 
+
+Functions included:
+-   display_interview_preparation_form()
+-   post_add_interview_preparation()
+
+##### display_interview_preparation_form()
+This function handles the GET functionality for the route: '/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation'.
+
+Takes (input):
+-   interview_prep_form (an instance of the 'AddInterviewPrepForm()', with the values for a specific 'InterviewPreparation' object)
+-   application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo, interviewsRepo
+
+Functionality (algorithm):
+-   Calls on the methods 'getApplicationByID()',  'getCompanyById()' & 'getInterviewByID()' to get the entry details for a specific job application, company & interview perspectively. These details are then extracted & stored in their own dictionaries 'application_details', 'company_details' & 'interview_details' perspectively. 
+
+-   Calls on the functions 'cleanup_specific_job_application()', 'cleanup_specific_company()', & 'cleanup_specific_interview()' with the relevant dictionaries (application_details, company_details, & interview_details perspectively), to improve how these values will be presented to the user. 
+
+-   Calls on the method 'getAllInterviewPrepEntriesByInterviewId()' to get all interviews linked to a specific interview, using the interview's unique ID (interview_id). If there are any interview preparation entries linked to this interview, then the details for each entry is extracted & stored in a dictionary 'interview_prep_details'. 
+
+-   Stores all the URL's / routes, which will be used to display button links to the user, in a dictionary 'links'. 
+
+-   Finally it takes all dictionaries, created so far by this function, & stores them all in a parent dictionary 'general_details'. This is so that all dictionaries can be can accessed via 1 single source: 'general_details'. 
+
+Renders the template:
+-   "interview_prep.html" 
+-   With the parent dictionary 'general_details' & the form 'interview_prep_form'. 
+
+Its important to note that the template 'interview_prep.html' displays not only the interview_prep_form, but also all the 'interview preparation' entries, which the user has already created for the current interview (that the user is preparing for). 
+
+##### post_add_interview_preparation()
+This function handles the POST functionality for the route: '/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation'.
+
+Takes (input):
+-   interview_prep_form (as completed by the user)
+-   user_id, application_id, interview_id, interviewPrepRepo
+
+Functionality (algorithm):
+-   Extracts all the field values, for the 'interview_prep_form' (form), & stores these values in a dictionary 'form_details', together with the 'user_id', 'application_id' & 'interview_id' (which relate to this specific interview preparation entry). 
+
+-   Calls on the method 'createInterviewPreparation' (found in the repo 'InterviewPreparationRepository') & returns the unique ID 'interview_prep_id' for the newly-created entry. 
+
+Redirects the user:
+-   To the template: 'interview_prep.html'
+-   Via the route: '/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation'. 
+-   With a message to confirm that the interview preparation entry has been created (in the 'interview_preparation' SQL table) successfully. 
+
+#### view_interview_prep_details.py
+Handles the functionality behind displaying the details for a specific entry, from the 'interview_preparation' SQL table, to the template 'interview_prep.html'.
+
+Function included:
+-   display_interview_prep_details()
+
+##### display_interview_prep_details()
+This function handles the GET functionality for the route: '/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation/<int:interview_prep_id>/view_interview_prep_entry'.
+
+Takes (input):
+-   application_id, interview_id, interview_prep_id, interviewPrepRepo, applicationsRepo, companyRepo, interviewsRepo
+
+Functionality (algorithm):
+-   Calls on the methods 'getApplicationByID()',  'getCompanyById()', 'getInterviewByID()' & 'getInterviewPrepByID()' to get the entry details for a specific job application, company, interview & interview preparation (entry) perspectively. These details are then extracted & stored in their own dictionaries 'application_details', 'company_details', 'interview_details' & 'interview_prep_details' perspectively. 
+
+-   Calls on the functions 'cleanup_specific_job_application()', 'cleanup_specific_company()', & 'cleanup_specific_interview()' with the relevant dictionaries (application_details, company_details, & interview_details perspectively), to improve how these values will be presented to the user. 
+
+-   Stores all the URL's / routes, which will be used to display button links to the user, in a dictionary 'links'. 
+
+-   Finally it takes all dictionaries, created so far by this function, & stores them all in a parent dictionary 'general_details'. This is so that all dictionaries can be can accessed via 1 single source: 'general_details'. 
+
+Renders the template:
+-   "view_interview_prep_details.html"
+-   With the parent dictionary 'general_details', created by this function. 
+
+#### view_all_interview_prep.py
+Handles the functionality behind displaying all the interview preparation entries (added by the current user), from the 'interview_preparation' SQL table, to the template 'view_all_interview_prep.html'. 
+
+Function included:
+-   display_all_interview_prep_entries()
+
+##### display_all_interview_prep_entries()
+This function handles the GET functionality for the route: '/applications/<int:application_id>/interview/<int:interview_id>/view_all_preparation'.
+
+Takes (input):
+-   application_id, interview_id, user_id, applicationsRepo, interviewsRepo, interviewPrepRepo, companyRepo
+
+Functionality (algorithm):
+-   Calls on the methods 'getApplicationByID()',  'getCompanyById()' & 'getInterviewByID()' to get the entry details for a specific job application, company & interview perspectively. These details are then extracted & stored in their own dictionaries 'application_details', 'company_details' & 'interview_details' perspectively. 
+
+-   Calls on the functions 'cleanup_specific_job_application()', 'cleanup_specific_company()', & 'cleanup_specific_interview()' with the relevant dictionaries (application_details, company_details, & interview_details perspectively), to improve how these values will be presented to the user. 
+
+-   Calls on the method 'getAllInterviewPrepEntriesByInterviewId()' to get all interviews linked to a specific interview, using the interview's unique ID (interview_id). If there are any interview preparation entries linked to this interview, then the details for each entry is extracted & stored in a dictionary 'interview_prep_details'. 
+
+-   Stores all the URL's / routes, which will be used to display button links to the user, in a dictionary 'links'. 
+
+-   Finally it takes all dictionaries, created so far by this function, & stores them all in a parent dictionary 'general_details'. This is so that all dictionaries can be can accessed via 1 single source: 'general_details'. 
+
+Renders the template:
+-   "view_all_interview_prep.html"
+-   With the parent dictionary 'general_details', created by this function.
+
+#### update_interview_prep.py
+Handles the functionality behind displaying the 'AddInterviewPrepForm()' (form), with the values for a specific interview preparation entry, to the user. Once the form is submitted, the form values are extracted & used to update an existing entry in the 'interview_preparation' SQL table.
+
+Functions included:
+-   display_update_interview_prep_form()
+-   post_update_interview_preparation()
+
+##### display_update_interview_prep_form()
+This function handles the GET functionality for the route: '/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation/<int:interview_prep_id>/update_interview_prep_entry'.
+
+Takes (input):
+-   update_interview_prep_form (an instance of the 'AddInterviewPrepForm()' (form) with the values for a specific 'InterviewPreparation' object)
+-   application_id, interview_id, interview_prep_id applicationsRepo, interviewsRepo, companyRepo
+
+Functionality (algorithm):
+-   Calls on the methods 'getApplicationByID()',  'getCompanyById()' & 'getInterviewByID()' to get the entry details for a specific job application, company & interview perspectively. These details are then extracted & stored in their own dictionaries 'application_details', 'company_details' & 'interview_details' perspectively. 
+
+-   Calls on the functions 'cleanup_specific_job_application()', 'cleanup_specific_company()', & 'cleanup_specific_interview()' with the relevant dictionaries (application_details, company_details, & interview_details perspectively), to improve how these values will be presented to the user. 
+
+-   Stores all the URL's / routes, which will be used to display button links to the user, in a dictionary 'links'. 
+
+-   Finally it takes all dictionaries, created so far by this function, & stores them all in a parent dictionary 'general_details'. This is so that all dictionaries can be can accessed via 1 single source: 'general_details'. 
+
+Renders the template:
+-   "view_all_interview_prep.html"
+-   With the parent dictionary 'general_details', created by this function & the form 'update_interview_prep_form'.
+
+##### post_update_interview_preparation()
+This function handles the POST functionality for the route: '/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation/<int:interview_prep_id>/update_interview_prep_entry'.
+
+Takes (input):
+-   update_interview_prep_form (as completed by the user)
+-   application_id, interview_id, interview_prep_id, interviewPrepRepo
+
+Functionality (algorithm):
+-   Extracts all the field values, for the 'interview_prep_form' (form), & stores these values in a dictionary 'prep_fields', together with the 'interview_prep_id' (which relate to this specific interview preparation entry).
+
+-   Iterates through the values in the dictionary, & if any form value has not been completed by the user then it's value is replaced with 'N/A'.  
+
+-   Calls on the method 'updateInterviewPrepByID()' (found in the Repo InterviewPreparationRepository), with the 'details' dictionary. If the entry (linked to this interview preparation's unique ID 'interview_prep_id') was updated successfully, then this method will return True. Otherwise the method will return False.
+
+Output of this function:
+-   If the above method returns False, the function redirects the user:
+    -   To the template: 'update_interview_prep.html',
+    -   Via the route: '/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation/<int:interview_prep_id>/update_interview_prep_entry'
+    -   With a message notifying the user that the update request was not successful.
+
+-   (Else) If the above method was successful (most likely case), then the function redirects the user:
+    -   To the template: 'interview_prep.html'
+    -   Via the route '/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation'
+    -   With the message to notify the user that the interview preparation entry has been updated successfully. 
+
+
+
+#### delete_interview_prep.py
+Handles the functionality behind deleting a specific interview preparation entry from the 'interview_preparation' SQL table. 
+
+Function included:
+-   delete_interview_prep_entry()
+
+##### delete_interview_prep_entry()
+This function hard deletes an entry from the 'interview_preparation' SQL table, using the entry's unique ID 'interview_prep_id'.
+
+Takes (input):
+-   application_id, interview_id, interview_prep_id, interviewPrepRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getInterviewPrepByID' (from the InterviewPreparationRepository) to get a specific entry from the 'interview_preparation' SQL table.
+
+-   Extracts, and stores' the entry's 'specific_question' field value. 
+
+-   Calls on the method 'deleteByInterviewPrepID()' (in the repo InterviewPreparationRepository), to delete the entry, from the 'interview_preparation' SQL table. 
+
+Redirects the user:
+-   To the template: 'interview_prep.html'
+-   Via the route: '/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation'. 
+-   With a message: "Interview preparation for subject: {} has been deleted.", where {} represents the subject of the entry that has been deleted by this function. 
 
 
 
 
 
+
+### interviews:
+This where you'll find all the Python files related to an interview entry / list of interview entries.
+
+This file contains all the Python files which relate specifically to the 'InterviewsHistoryRepository', which draws its entries from the SQL table 'interviews'. However, where necessary, it does also connect to the other repositories & SQL tables where necessary.  

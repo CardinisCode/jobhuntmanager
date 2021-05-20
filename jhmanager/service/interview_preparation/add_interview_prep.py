@@ -54,6 +54,7 @@ def display_interview_preparation_form(user_id, interview_prep_form, application
                 "question_number": question_number,
                 "view_prep_entry": view_prep_entry,
             }
+
     view_all_interview_prep = '/applications/{}/interview/{}/view_all_preparation'.format(application_id, interview_id)
     links = {
         "application_id": application_id,
@@ -81,7 +82,7 @@ def display_interview_preparation_form(user_id, interview_prep_form, application
     return render_template("interview_prep.html", general_details=general_details, interview_prep_form=interview_prep_form)
 
 
-def post_add_interview_preparation(user_id, application_id, interview_id, interview_prep_form, applicationsRepo, interviewPrepRepo):
+def post_add_interview_preparation(user_id, application_id, interview_id, interview_prep_form, interviewPrepRepo):
     form_details = {
         "user_id": user_id,
         "application_id": application_id,
@@ -94,6 +95,5 @@ def post_add_interview_preparation(user_id, application_id, interview_id, interv
     
     flash("Interview Preparation entry saved successfully.")
 
-    # '/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation'
     redirect_url = "/applications/{}/interview/{}/interview_preparation".format(application_id, interview_id)
     return redirect(redirect_url)

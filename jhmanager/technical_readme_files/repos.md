@@ -871,7 +871,7 @@ Returns (output):
     No output is returned
 
 An instance where this method is called:
-FUNCTION:   delete_interview_prep_details()
+FUNCTION:   delete_interview_prep_entry()
 FILE:       services/interview_preparation/delete_interview_prep.py
 LINE:       8
 

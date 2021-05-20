@@ -1,10 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, flash
-from jhmanager.service.cleanup_files.cleanup_general_fields import replace_na_value_with_none
-from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_interview_stage
-from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_date_format
-from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_time_format
-from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_type
-from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_status
+from jhmanager.service.cleanup_files.cleanup_company_fields import cleanup_specific_company
+from jhmanager.service.cleanup_files.cleanup_app_fields import cleanup_specific_job_application
+from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_specific_interview
 
 
 def display_update_interview_prep_form(application_id, interview_id, interview_prep_id, update_interview_prep_form, applicationsRepo, companyRepo, interviewsRepo):
@@ -12,35 +9,34 @@ def display_update_interview_prep_form(application_id, interview_id, interview_p
     company = companyRepo.getCompanyById(application.company_id)
     interview = interviewsRepo.getInterviewByID(interview_id)
 
-    general_details = {
-        "company_details": {}, 
-        "application_details": {},
-        "interview_details": {}, 
-        "links": {}
-    }
-
-    general_details["company_details"] = {
-        "name": company.name, 
-        "description": replace_na_value_with_none(company.description), 
-        "location": replace_na_value_with_none(company.location), 
-        "interviewers": replace_na_value_with_none(interview.interviewer_names)
-    }
-
-    general_details["application_details"] = {
+    application_details = {}
+    application_details["fields"] = {
         "job_role": application.job_role, 
-        "job_description": replace_na_value_with_none(application.job_description), 
-        "interview_stage": cleanup_interview_stage(application.interview_stage)
+        "job_description": application.job_description, 
+        "interview_stage": application.interview_stage
     }
+    cleanup_specific_job_application(application_details)
 
-    general_details["interview_details"] = {
-        "date": cleanup_date_format(interview.interview_date), 
-        "time": cleanup_time_format(interview.interview_time), 
-        "status": cleanup_interview_status(interview.status), 
-        "interview_type": cleanup_interview_type(interview.interview_type)
+    company_details = {}
+    company_details["fields"] = {
+        "name": company.name, 
+        "description": company.description, 
+        "location": company.location, 
+        "interviewers": company.interviewer_names
     }
+    cleanup_specific_company(company_details)
+
+    interview_details = {}
+    interview_details["fields"] = {
+        "date": interview.interview_date,
+        "time": interview.interview_time,
+        "status": interview.status, 
+        "interview_type": interview.interview_type,
+    }
+    cleanup_specific_interview(interview_details, interview.other_medium)
 
     view_all_interview_prep = '/applications/{}/interview/{}/view_all_preparation'.format(application_id, interview_id)
-    general_details["links"] = {
+    links = {
         "action_url": '/applications/{}/interview/{}/interview_preparation/{}/update_interview_prep_entry'.format(application_id, interview_id, interview_prep_id),
         "view_interview": '/applications/{}/interview/{}'.format(application_id, interview_id),
         "view_application": '/applications/{}'.format(application_id), 
@@ -49,6 +45,13 @@ def display_update_interview_prep_form(application_id, interview_id, interview_p
         "the_muse": "https://www.themuse.com/advice/interview-questions-and-answers", 
         "monster": "https://www.monster.com/career-advice/article/100-potential-interview-questions", 
         "national_careers_service_UK": "https://nationalcareers.service.gov.uk/careers-advice/top-10-interview-questions" 
+    }
+
+    general_details = {
+        "company_details": company_details, 
+        "application_details": application_details,
+        "interview_details": interview_details, 
+        "links": links
     }
 
     return render_template("update_interview_prep.html", general_details=general_details, update_interview_prep_form=update_interview_prep_form)

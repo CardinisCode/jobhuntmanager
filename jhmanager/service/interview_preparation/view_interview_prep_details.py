@@ -47,17 +47,9 @@ def display_interview_prep_details(application_id, interview_id, interview_prep_
     }
     cleanup_specific_interview(interview_details, interview_details["fields"]["other_medium"])
 
-    general_details = {
-        "links": {},
-        "interview_prep_details": interview_prep_details,
-        "company_details": company_details,
-        "application_details": application_details, 
-        "interview_details": interview_details
-    }
-
     update_prep_link = '/applications/{}/interview/{}/interview_preparation/{}/update_interview_prep_entry'.format(application.app_id, interview.interview_id, interview_prep.interview_prep_id)
     delete_prep_link = '/applications/{}/interview/{}/interview_preparation/{}/delete_interview_prep_entry'.format(application.app_id, interview.interview_id, interview_prep.interview_prep_id)
-    general_details["links"] = {
+    links = {
         "company_profile": '/company/{}/view_company'.format(company.company_id),
         "company_website": company.url,
         "view_application": '/applications/{}'.format(application.app_id), 
@@ -66,6 +58,14 @@ def display_interview_prep_details(application_id, interview_id, interview_prep_
         "view_all_interview_prep": '/applications/{}/interview/{}/view_all_preparation'.format(application.app_id, interview.interview_id),
         "delete_prep": delete_prep_link, 
         "add_interview_prep": '/applications/{}/interview/{}/interview_preparation'.format(application.app_id, interview.interview_id)
+    }
+
+    general_details = {
+        "links": links,
+        "interview_prep_details": interview_prep_details,
+        "company_details": company_details,
+        "application_details": application_details, 
+        "interview_details": interview_details
     }
 
     return render_template("view_interview_prep_details.html", general_details=general_details)
