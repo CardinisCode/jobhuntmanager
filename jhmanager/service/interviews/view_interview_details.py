@@ -6,7 +6,7 @@ from jhmanager.service.cleanup_files.cleanup_general_fields import cleanup_urls
 from datetime import datetime, time
 
 
-def display_interview_details(session, user_id, interviewsRepo, application_id, interview_id, applicationsRepo, companyRepo):
+def display_interview_details(interviewsRepo, application_id, interview_id, applicationsRepo, companyRepo):
     application = applicationsRepo.getApplicationByID(application_id)
     interview = interviewsRepo.getInterviewByID(interview_id)
     company = companyRepo.getCompanyById(application.company_id)
@@ -47,13 +47,7 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
     }
     cleanup_specific_job_application(application_details)
 
-    general_details = {
-        "application_details": application_details,
-        "company_details": company_details, 
-        "links": {}
-    }
-
-    general_details["links"] = {
+    links = {
         "company_website": cleanup_urls(company.url),
         "company_profile": '/company/{}/view_company'.format(company.company_id), 
         "update_interview": "/applications/{}/interview/{}/update_interview".format(application_id, interview_id),
@@ -67,4 +61,11 @@ def display_interview_details(session, user_id, interviewsRepo, application_id, 
         "add_new_note": '/applications/{}/app_notes/add_note'.format(application_id)
     }
 
-    return render_template("view_interview_details.html", general_details=general_details, interview_details=interview_details)
+    general_details = {
+        "application_details": application_details,
+        "company_details": company_details, 
+        "interview_details": interview_details,
+        "links": links
+    }
+
+    return render_template("view_interview_details.html", general_details=general_details)

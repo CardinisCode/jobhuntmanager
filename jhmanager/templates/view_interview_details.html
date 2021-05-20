@@ -26,58 +26,58 @@
                     <div class="form-row">
                         <label class="col left-padding"><i class="fas fa-calendar-alt"></i> Date & Time:</label>
                         <div class="col right-padding"> 
-                            {{ interview_details.fields.date }} @ {{ interview_details.fields.time }}
+                            {{ general_details.interview_details.fields.date }} @ {{ general_details.interview_details.fields.time }}
                         </div>
                     </div>
                     <div class="form-row">
                         <label class="col left-padding"><i class="fas fa-exclamation"></i> Interview Status:</label>
                         <div class="col right-padding"> 
-                            {{ interview_details.fields.status }} <a href={{ general_details.links.update_interview_status }} class="link-alt-colour"><i class="fas fa-pencil-alt"> Update</i></a>
+                            {{ general_details.interview_details.fields.status }} <a href={{ general_details.links.update_interview_status }} class="link-alt-colour"><i class="fas fa-pencil-alt"> Update</i></a>
                         </div>
                     </div>
-                    {% if interview_details.fields.interviewer_names %}
+                    {% if general_details.interview_details.fields.interviewer_names %}
                         <div class="form-row">
                             <label class="col left-padding"><i class="fas fa-users"></i> Interviewer/s' Names:</label>
                             <div class="col right-padding"> 
-                                {{ interview_details.fields.interviewer_names }}
+                                {{ general_details.interview_details.fields.interviewer_names }}
                             </div>
                         </div>
                     {% endif %}
-                    {% if interview_details.fields.interview_type == 'Video / Online' %}
+                    {% if general_details.interview_details.fields.interview_type == 'Video / Online' %}
                         <div class="form-row">
                             <label class="col left-padding"><i class="fas fa-video"></i> Medium:</label>
                             <div class="col right-padding"> 
-                                {{ interview_details.fields.medium }}
+                                {{ general_details.interview_details.fields.medium }}
                             </div>
                         </div>
-                    {% elif interview_details.fields.interview_type == 'Phone Call' %}
+                    {% elif general_details.interview_details.fields.interview_type == 'Phone Call' %}
                         <div class="form-row">
                             <label class="col left-padding"><i class="fas fa-mobile-alt"></i> Contact Number:</label>
                             <div class="col right-padding"> 
-                                {{ interview_details.fields.contact_number }}
+                                {{ general_details.interview_details.fields.contact_number }}
                             </div>
                         </div>
                     {% endif %}
-                    {% if interview_details.fields.location %}
+                    {% if general_details.interview_details.fields.location %}
                         <div class="form-row">
                             <label class="col left-padding"><i class="fas fa-thumbtack"></i> Location:</label>
                             <div class="col right-padding"> 
-                                {{ interview_details.fields.location }}
+                                {{ general_details.interview_details.fields.location }}
                             </div>
                         </div>
                     {% endif %}
                     <br/>
-                    {% if interview_details.fields.extra_notes %}
+                    {% if general_details.interview_details.fields.extra_notes %}
                         <div class="form-row">
                             <label class="col left-padding"><i class="fas fa-sticky-note"></i> Interview Notes:</label>
                         </div>
                         <div class="form-row">
                             <div class="col left-padding"> 
-                                {{ interview_details.fields.extra_notes }}
+                                {{ general_details.interview_details.fields.extra_notes }}
                             </div>
                         </div>
                     {% endif %}
-                    {% if interview_details.fields.past_dated and interview_details.fields.status != "Interview Done" %}
+                    {% if general_details.interview_details.fields.past_dated and general_details.interview_details.fields.status != "Interview Done" %}
                         <div class="form-row">
                             <div class="col card-warning-message"> 
                                 <i class="fas fa-exclamation"></i> This is a past-dated interview!
@@ -86,8 +86,8 @@
                     {% endif %}
                 </div>
                 <div class="text-center link-button-margins"> 
-                    {% if interview_details.fields.display_video_link %}
-                        <a href={{ interview_details.fields.video_link }} class="link_button"> <i class="fas fa-video"> Join Interview</i></a>
+                    {% if general_details.interview_details.fields.display_video_link %}
+                        <a href={{ general_details.interview_details.fields.video_link }} class="link_button"> <i class="fas fa-video"> Join Interview</i></a>
                     {% endif %}
                     <a href={{ general_details.links.update_interview }} class="link_button" data-toggle="tooltip" data-placement="top" title="Update"> <i class="fas fa-pencil-alt"> Update</i></a>
                     <a href={{ general_details.links.delete_interview }} class="link_button"> <i class="fas fa-trash"> Delete</i></a>
@@ -103,7 +103,7 @@
         <div class="aligncenter"> 
             <h2 class="card-headings"><i class="fas fa-pencil-alt"> </i> Preparation</h2> 
             <div class="text-center link-button-margins">
-                {% if interview_details.fields.status == 'Upcoming Interview' and not interview_details.fields.past_dated %}
+                {% if general_details.interview_details.fields.status == 'Upcoming Interview' and not general_details.interview_details.fields.past_dated %}
                     <a href={{ general_details.links.view_interview_prep_url }} class="link_button_primary text-center"><i class="fas fa-clipboard"> Prepare</i></a>
                 {% endif %}
                 <a href={{ general_details.links.view_all_interview_prep }} class="link_button_primary text-center"> <i class="fas fa-eye"> View All Interview Preparation </i></a>

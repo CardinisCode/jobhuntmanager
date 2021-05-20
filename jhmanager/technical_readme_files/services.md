@@ -1164,7 +1164,6 @@ Functions included:
 -   add_new_application_to_application_history()
 -   post_add_company_job_application()
 
-
 ##### display_add_company_application_form()
 This function handles the GET functionality for the route: '/company/<int:company_id>/add_job_application'. 
 
@@ -1953,8 +1952,6 @@ Output of this function:
     -   Via the route '/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation'
     -   With the message to notify the user that the interview preparation entry has been updated successfully. 
 
-
-
 #### delete_interview_prep.py
 Handles the functionality behind deleting a specific interview preparation entry from the 'interview_preparation' SQL table. 
 
@@ -2001,6 +1998,153 @@ Handles the functionality behind displaying the 'AddInterviewForm()' (form) to t
 Functions include:
 -   display_add_interview()
 -   InsertFieldsIntoInterviewHistory()
--   check_if_interview_is_past_dated()
 -   update_interview_stage_in_applications_repo()
 -   post_add_interview()
+
+##### display_add_interview()
+This function handles the GET functionality for the route: '/applications/<int:application_id>/add_interview'.
+
+Takes (input):
+-   add_interview_form (an blank instance of the 'AddInterviewForm()' (form))
+-   application_id, applicationsRepo, companyRepo
+
+Functionality (algorithm):
+-   Get a specific job application entry from the  'job_applications' (SQL table), by calling on the method 'getApplicationByID()' (in the ApplicationsHistoryRepository). The returned 'Application' object is then stored in a variable 'application'.
+
+-   Get a specific company entry from the  'company' (SQL table), by calling on the method 'getCompanyById()' (in the ApplicationsHistoryRepository), using the company's unique ID. This company Id is extracted from the 'Application' object (using dot notation). 
+
+-   It puts together a dictionary 'details', consisting of the 'application_id', the company name for this specific company (to which this application entry will link to) & the URL to be actioned (the very same route used display the form to the user). 
+
+Renders the template:
+-   'add_interview.html'
+-   With the dictionary 'details' & the add_interview_form (form) to be displayed to the template. 
+
+##### InsertFieldsIntoInterviewHistory()
+This function extracts the field values from the 'add_interview_form' (form) & stores these values into the 'interviews' SQL table as a new entry, before returning the unique ID for the newly-created entry. 
+
+Takes (input):
+-   add_interview_form (the 'AddInterviewForm()' as completed by the user)
+-   user_id, application_id, interviewsRepo
+
+Functionality (algorithm):
+-   Extracts the field values from the 'add_interview_form' form & stores these values in a dictionary 'interview_fields', together with the 'application_id' & 'user_id' (unique keys linked to this interview), & the entry date (the current day's date). 
+
+-   Iterates through the values in the dictionary, & if any form value has not been completed by the user then it's value is replaced with 'N/A'.  
+
+-   It converts the date values 'interview_date' & 'entry_date', & the time values 'interview_time', to their string equivalent, using the method 'strftime()' & the appropriate date/time format.
+EG:  If the date is '2021-05-20', it's converted to a string using the format '%Y-%m-%d'. The end result will look the same but will be stored in the string data type instead.
+
+-   Calls on the method 'CreateInterview()' (found in the Repo: InterviewsHistoryRepository), with the dictionary 'interview_fields'.
+
+Returns:
+-   The unique ID (interview_id) for the newly-created interview entry. 
+
+##### update_interview_stage_in_applications_repo()
+The 'interview stage' (for a job application), represents the interview stage this application. So a job application's interview stage should be updated whenever a new interview is added for this application. This function is responsible for counting how many interviews are currently linked to this application & then to update the interview stage accordingly. 
+
+Takes (input):
+-   interviewsRepo, application_id, applicationsRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getInterviewsByApplicationID()' (found in the Repo: InterviewsHistoryRepository), to get all the interviews which are linked to this application's unique ID. This method returns a list of 'Interview' objects if there are any interviews linked to this application. Otherwise it just returns None.
+
+-   Calls on the function 'get_count' (in services/cleanup_files/cleanup_general_fields.py), count the number of entries returned from 'getInterviewsByApplicationID()' & stores this value in the variable 'interview_count'. 
+
+-   Puts together a dictionary 'fields', with the interview_count & the application's unique ID. 
+
+-   Calls on the method 'updateInterviewStageByID()' (in the Repo: ApplicationsHistoryRepository), which simply updates the value for a specific entry's 'interview_stage' column. This method will then return a message to be flashed to the user.
+
+Returns:
+-   The message, as returned from the method 'updateInterviewStageByID()', to be displayed to the user.
+
+##### post_add_interview()
+This function handles the POST functionality for the route: '/applications/<int:application_id>/add_interview'.
+
+Takes (input):
+-   add_interview_form (the 'AddInterviewForm()' (form) as completed by the user)
+-   user_id, interviewsRepo, applicationsRepo, application_id, companyRepo
+
+Functionality (algorithm):
+-   Extracts the field values for the 'interview_date', 'interview_time' & status from the AddInterviewForm(), each of which is stored in its own variable. 
+
+-   Calls the function 'past_dated()' (from the services/cleanup_files/cleanup_datetime_display.py), with the interview's 'interview_date' & 'interview_time'. The method determines whether/not this interview has already passed & returns True or False accordingly. 
+
+-   Runs the conditional logic:
+    If the interview is past dated & the interview's status is still 'upcoming', then the user is redirected back to the 'add_interview_form', with a message notifying the user why they've been redirected back to this page. 
+
+-   Calls the function 'InsertFieldsIntoInterviewHistory(), to handle the functionality behind inserting the values (for this interview) into the 'interviews' SQL table. 
+
+-   Calls on the function 'update_interview_stage_in_applications_repo()' to handle the functionality behind updating the job application's 'interview status'. 
+
+Redirects the user:
+-   To the template: 'view_interview_details.html'
+-   Via the route '/applications/<int:application_id>/interview/<int:interview_id>'
+-   With a message flashed to the user, to confirm that the interview stage, for this application linked to this interview, has been updated. 
+
+
+
+
+
+
+
+
+
+
+
+#### view_interview_details.py
+Handles the functionality behind displaying the details for a specific entry, from the 'interviews' SQL table, to the template 'view_interview_details.html'.
+
+Function included:
+-   display_interview_details()
+
+##### display_interview_details()
+This function handles the GET functionality for the route: '/applications/<int:application_id>/interview/<int:interview_id>'.
+
+Takes (input):
+-   interviewsRepo, application_id, interview_id, applicationsRepo, companyRepo
+
+Functionality (algorithm):
+-   Calls on the methods 'getApplicationByID()',  'getCompanyById()' & 'getInterviewByID()' to get the entry details for a specific job application, company & interview perspectively. These details are then extracted & stored in their own dictionaries 'application_details', 'company_details' & 'interview_details' perspectively. 
+
+-   Calls on the functions 'cleanup_specific_job_application()', 'cleanup_specific_company()', & 'cleanup_specific_interview()' with the relevant dictionaries (application_details, company_details, & interview_details perspectively), to improve how these values will be presented to the user. 
+
+-   Stores all the URL's / routes, which will be used to display button links to the user, in a dictionary 'links'. 
+
+-   Finally it takes all dictionaries, created so far by this function, & stores them all in a parent dictionary 'general_details'. This is so that all dictionaries can be can accessed via 1 single source: 'general_details'. 
+
+Renders the template:
+-   "view_interview_details.html"
+-   With the parent dictionary 'general_details', created by this function.
+
+
+#### view_all_interviews.py
+Handles the functionality behind displaying all the interview entries (added by the current user), from the 'interviews' SQL table, which relate to a specific job application. These interview entries are then displayed to the template 'view_all_interviews.html'. 
+
+Function included:
+-   display_all_interviews_for_application()
+
+##### display_all_interviews_for_application()
+This function handles the GET functionality for the route: '/applications/<int:application_id>/view_all_interviews'.
+
+Takes (input):
+-   application_id, interviewsRepo, companyRepo, applicationsRepo
+
+Functionality (algorithm):
+-   Calls on the methods 'getApplicationByID()' &   'getCompanyById()' to get the entry details for a specific job application & company perspectively. These details are then extracted & stored in their own dictionaries 'application_details' & 'company_details' perspectively. 
+
+-   Calls on the functions 'cleanup_specific_job_application()' & 'cleanup_specific_company()' with the relevant dictionaries (application_details & company_details perspectively), to improve how these values will be presented to the user. 
+
+-   Calls the method 'getInterviewsByApplicationID()' (in the Repo: InterviewsHistoryRepository), to get all the interviews linked to a specific job application. It returns a list of 'Interview' objects if there are any interviews linked to the job application. Otherwise it simply returns None. 
+
+-   If the above method doesn't return None, then this function iterates through every entry in the list & stores the value for each interview in a dictionary. The function 'cleanup_interview_fields()' is then called to improve how each interview's values are presented to the user. 
+
+-   Stores all the URL's / routes, which will be used to display button links to the user, in a dictionary 'links'. 
+
+-   Finally it takes all dictionaries, created so far by this function, & stores them all in a parent dictionary 'general_details'. This is so that all dictionaries can be can accessed via 1 single source: 'general_details'. 
+
+Renders the template:
+-   "view_all_interviews.html"
+-   With the parent dictionary 'general_details', created by this function.
+
+#### update_interview_status.py
+Handles the functionality behind displaying the 'UpdateInterviewStatusForm()' (form) to the user. Once the form is submitted, the interview's status, for a specific interview entry, is updated in the 'interviews' SQL table. 

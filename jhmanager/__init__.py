@@ -326,7 +326,7 @@ def add_interview(application_id):
     # POST
     if request.method == "POST":
         if add_interview_form.validate_on_submit():
-            return post_add_interview(session, user_id, add_interview_form, interviewsRepo, applicationsRepo, application_id, companyRepo)
+            return post_add_interview(user_id, add_interview_form, interviewsRepo, applicationsRepo, application_id, companyRepo)
         else:
             flash("Complete all the fields.")
             return display_add_interview(add_interview_form, application_id, applicationsRepo, companyRepo)
@@ -349,7 +349,7 @@ def view_all_interviews_for_application(application_id):
 def display_interview(application_id, interview_id):
     """ Display Interview Details for a specific interview to the user """
     user_id = session["user_id"]
-    return display_interview_details(session, user_id, interviewsRepo, application_id, interview_id, applicationsRepo, companyRepo)
+    return display_interview_details(interviewsRepo, application_id, interview_id, applicationsRepo, companyRepo)
 
 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/update_interview', methods=["GET", "POST"])

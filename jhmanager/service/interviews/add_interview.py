@@ -17,23 +17,23 @@ def display_add_interview(add_interview_form, application_id, applicationsRepo, 
     return render_template('add_interview.html', add_interview_form=add_interview_form, details=details)
 
 
-def InsertFieldsIntoInterviewHistory(form, user_id, application_id, interviewsRepo): 
+def InsertFieldsIntoInterviewHistory(add_interview_form, user_id, application_id, interviewsRepo): 
     # The fields we'll need for our SQL insert query:
     interview_fields = {
         "application_id": application_id,
         "user_id": user_id, 
         "entry_date": datetime.now().date(),
-        "interview_date": form.interview_date.data, 
-        "interview_time": form.interview_time.data, 
-        "interview_type": form.interview_type.data, 
-        "interview_location": form.interview_location.data, 
-        "interview_medium": form.interview_medium.data, 
-        "other_medium": form.other_medium.data,
-        "contact_number": form.phone_call.data, 
-        "status": form.status.data,
-        "interviewer_names": form.interviewer_names.data,
-        "video_link": form.video_link.data,
-        "extra_notes": form.extra_notes.data
+        "interview_date": add_interview_form.interview_date.data, 
+        "interview_time": add_interview_form.interview_time.data, 
+        "interview_type": add_interview_form.interview_type.data, 
+        "interview_location": add_interview_form.interview_location.data, 
+        "interview_medium": add_interview_form.interview_medium.data, 
+        "other_medium": add_interview_form.other_medium.data,
+        "contact_number": add_interview_form.phone_call.data, 
+        "status": add_interview_form.status.data,
+        "interviewer_names": add_interview_form.interviewer_names.data,
+        "video_link": add_interview_form.video_link.data,
+        "extra_notes": add_interview_form.extra_notes.data
     }
 
     # Lets make sure none of the fields have been left empty by the user:
@@ -69,17 +69,16 @@ def update_interview_stage_in_applications_repo(interviewsRepo, application_id, 
         "application_id": application_id
     }
 
-    message = applicationsRepo.updateInterviewStageByID(fields)
-    flash(message)
+    return applicationsRepo.updateInterviewStageByID(fields)
 
 
-def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo, application_id, companyRepo):
+def post_add_interview(user_id, add_interview_form, interviewsRepo, applicationsRepo, application_id, companyRepo):
     #Grab and verify field data:
 
     # We'll need these values for the conditional logic we'll need in a bit:
-    interview_date = form.interview_date.data
-    interview_time = form.interview_time.data
-    status = form.status.data
+    interview_date = add_interview_form.interview_date.data
+    interview_time = add_interview_form.interview_time.data
+    status = add_interview_form.status.data
 
     # I want to check if the interview  date & time are future dated or in the past. 
     # & if its a past-dated interview, we want the user to verify if they've had the interview or if it was cancelled.
@@ -87,14 +86,14 @@ def post_add_interview(session, user_id, form, interviewsRepo, applicationsRepo,
     past_interview = past_dated(interview_date, interview_time)
     if past_interview and status == "upcoming": 
         flash("The interview date & time provided are past-dated. If this is correct, please choose the appropriate status for this interview.")
-        return display_add_interview(form, application_id, applicationsRepo, companyRepo)
+        return display_add_interview(add_interview_form, application_id, applicationsRepo, companyRepo)
 
     # Add details to interview_history in SQL DB:
-    interview_id = InsertFieldsIntoInterviewHistory(form, user_id, application_id, interviewsRepo)
+    interview_id = InsertFieldsIntoInterviewHistory(add_interview_form, user_id, application_id, interviewsRepo)
 
     # Now we can update interview stage for this user:
-    update_interview_stage_in_applications_repo(interviewsRepo, application_id, applicationsRepo)
-
+    message = update_interview_stage_in_applications_repo(interviewsRepo, application_id, applicationsRepo)
+    flash(message)
     redirect_url = "/applications/{}/interview/{}".format(application_id, interview_id)
 
     return redirect(redirect_url)
