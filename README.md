@@ -592,48 +592,20 @@ I had initially intended to write up the technical readme in 1 file, however onc
     -   Which other directories / files the function / method interacts with. 
 
 ### 7: Pages / Templates:
-These templates can be divided into the following categories:
--   General
--   Users
--   Applications
--   Interviews
--   Interview Preparation
--   Job offers
--   Address Book
-    -   Contacts Directory
-    -   Company Directory
--   Notes
-    -   Company Notes
-    -   Application Notes
+This file will cover all the templates used for this application, which are utilized by the files & functions in the Services directory.
 
-Note: The technical readme covering the Forms is covered in jhmanager/technical_readme_files/templates.md.
-
-#### General:
+Note: The technical readme, covering these template is found in jhmanager/technical_readme_files/templates.md.
 
 ##### layout.html: 
-The general layout for all html templates, which is referenced to by all the remaining html templates. This template also includes the:
--   Meta data
--   links (favicons, styles, bootstrap & stylesheets)
--   Scripts (JQuery)
--   Page structure (header, body & footer)
--   Nav Bar links 
+This template is used as the 'layout' / reference template, from which all templates (in this directory) get their structure, as well the necessary meta data, links & routes, & scripts. 
 
 ##### about_us.html:
-This page tells/informs the user:
--   what this application is about, 
--   why I developed this application, 
--   the research I carried out before putting this application together,
--   security, & 
--   how they could contact me if they want to. 
+This template gives the user information about the 'Job Hunt Manager, about the developer (myself), & the research carried out (prior to developing this application). I also included a means for the user to contact me if there any issues or if the user would like to provide any feedback related to this application. 
+
+This page can be accessed via the 'About' link in the footer, on every page. 
 
 ##### dashboard.html
-This page is the landing page for a user once they've logged in. The page contains the following: 
--   Upcoming interviews
--   Interviews the user has today
--   Applications submitted today
--   Job offers received
--   Progress stats:
-    -   This shows the user how many applications, interviews and job offers they've submitted up til this point. 
+This page is the landing page for a user once they've logged in. This page serves as the 'update' center, where the user will see any/all interviews & job applications they've added today, as well any job offers they've received & any interviews they have coming up.  
 
 ##### view_all_user_notes.html:
 This page displays all the notes the user has added and is split up into 2 sections: 
