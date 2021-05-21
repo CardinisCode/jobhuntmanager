@@ -3,20 +3,18 @@ from datetime import datetime, time
 
 
 def display_update_interview_form(update_interview_form, application_id, interview_id, applicationsRepo, companyRepo):
-    company_id = applicationsRepo.getApplicationByID(application_id).company_id
-    company_name = companyRepo.getCompanyById(company_id).name
+    application = applicationsRepo.getApplicationByID(application_id)
+    company = companyRepo.getCompanyById(application.company_id)
 
     details = {
-        "application_id": application_id, 
-        "interview_id": interview_id, 
-        "company_name": company_name, 
+        "company_name": company.name, 
         "action_url": '/applications/{}/interview/{}/update_interview'.format(application_id, interview_id)
     }
 
     return render_template("update_interview.html", update_interview_form=update_interview_form, details=details)
 
 
-def post_update_interview(update_interview_form, user_id, application_id, interview_id, interviewsRepo):
+def post_update_interview(update_interview_form, application_id, interview_id, interviewsRepo):
     # The interview date & time need to be in str format before added to the db:
     interview_date = update_interview_form.interview_date.data
     interview_time = update_interview_form.interview_time.data
@@ -42,6 +40,7 @@ def post_update_interview(update_interview_form, user_id, application_id, interv
         "interview_id": interview_id,
         "application_id": application_id,
     }    
+
     # Now to use these details to use this interview in the DB:
     interviewsRepo.updateInterviewByID(interview_details)
 

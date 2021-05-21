@@ -1976,11 +1976,6 @@ Redirects the user:
 -   Via the route: '/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation'. 
 -   With a message: "Interview preparation for subject: {} has been deleted.", where {} represents the subject of the entry that has been deleted by this function. 
 
-
-
-
-
-
 ### interviews:
 This file contains all the Python files which relate specifically to the 'InterviewsHistoryRepository', which draws its entries from the SQL table 'interviews'. However, where necessary, it does also connect to the other repositories & SQL tables where necessary.  
 
@@ -2148,3 +2143,114 @@ Renders the template:
 
 #### update_interview_status.py
 Handles the functionality behind displaying the 'UpdateInterviewStatusForm()' (form) to the user. Once the form is submitted, the interview's status, for a specific interview entry, is updated in the 'interviews' SQL table. 
+
+Functions included:
+-   display_update_status_form()
+-   post_update_interview_status()
+
+##### display_update_status_form()
+This function handles the GET functionality for the route: '/applications/<int:application_id>/interview/<int:interview_id>/update_interview_status'.
+
+Takes (input):
+-   update_status_form (a blank instance of the 'UpdateInterviewStatusForm()' (form))
+-   application_id, interview_id, applicationsRepo, companyRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getApplicationByID(), which returns the 'Application' object instantiated with the details for a specific job application. This object is used to get the company's unique ID (company_id). 
+
+-   Calls on the method 'getCompanyById()', with the company_id, which returns the 'Company' object instantiated with the details for the company (linked to the job application in question). This is used to get the company's name. 
+
+-   Puts together a dictionary 'general_details' with the company's name & another dictionary 'links', which stores all the links (routes) to be displayed to the template.  
+
+Renders the template:
+-   "update_interview_status.html"
+-   With the dictionary 'general_details' & the update_status_form. 
+
+##### post_update_interview_status()()
+This function handles the POST functionality for the route: '/applications/<int:application_id>/interview/<int:interview_id>/update_interview_status'.
+
+Takes (input):
+-   update_status_form (the form 'UpdateInterviewStatusForm()', as completed by the user)
+-   application_id, interview_id, interviewsRepo
+
+Functionality (algorithm):
+-   Puts together a dictionary 'fields' with the 2 fields ('status' & 'interview_id'), which relate to a specific interview entry.
+
+-   Calls on the method 'updateInterviewStatusByID()' (in the Repo: InterviewsHistoryRepository). This method updates the 'status' value for a specific entry in the 'interviews' SQL table. 
+
+Redirects the user:
+-   To the template: 'view_interview_details.html'
+-   Via the route: '/applications/<int:application_id>/interview/<int:interview_id>' 
+-   With a message, confirming that the 'Status', for this interview, has been updated successfully.
+
+#### update_interview.py
+Handles the functionality behind displaying the 'AddInterviewForm()' (form), with the values for a specific interview entry, to the user. Once the form is submitted, the form values are extracted & used to update an existing entry in the 'interviews' SQL table.
+
+Functions included:
+-   display_update_interview_form()
+-   post_update_interview()
+
+##### display_update_interview_form()
+This function handles the GET functionality for the route: '/applications/<int:application_id>/interview/<int:interview_id>/update_interview'.
+
+Takes (input):
+-   update_interview_form (an instance of the 'AddInterviewForm()' (form), with the values for a specific interview entry)
+-   application_id, interview_id, applicationsRepo, companyRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getApplicationByID(), which returns the 'Application' object instantiated with the details for a specific job application. This object is used to get the company's unique ID (company_id). 
+
+-   Calls on the method 'getCompanyById()', with the company_id, which returns the 'Company' object instantiated with the details for the company (linked to the job application in question). This is used to get the company's name. 
+
+-   Puts together a dictionary 'details' with the company's name & the action url (the route which ensures the form gets displayed to the user). 
+
+Renders the template:
+-   "update_interview.html"
+-   With the dictionary 'details' & the update_interview_form. 
+
+##### post_update_interview()
+This function handles the POST functionality for the route: '/applications/<int:application_id>/interview/<int:interview_id>/update_interview'.
+
+Takes (input):
+-   update_interview_form (the 'AddInterviewForm()' (form), as completed by the user)
+-   application_id, interview_id, interviewsRepo
+
+Functionality (algorithm):
+-   Extracts the field values 'interview_date' & 'interview_time', from the update_interview_form. These values are then converted to string. 
+
+-   Extracts the remaining field values, from the update_interview_form, & stores them in a dictionary 'interview_details', together with the 'interview_id', 'application_id' & the updated 'interview_date' & 'interview_time' (string) values. 
+
+-   Calls on the method 'updateInterviewByID()', (from the Repo: 'InterviewsHistoryRepository'), to update an entry in the 'interviews' SQL table, using the interview's unique ID (interview_id). 
+
+Redirects the user:
+-   To the template: 'view_interview_details.html'
+-   Via the route: '/applications/<int:application_id>/interview/<int:interview_id>' 
+-   With a message, confirming that the interview has been updated successfully.
+
+#### delete_an_interview.py
+Handles the functionality behind deleting a specific interview entry from the 'interviews' SQL table. 
+
+Function included:
+-   delete_interview()
+
+##### delete_interview()
+Takes (input): 
+-   application_id, interview_id, interviewsRepo, interviewPrepRepo, applicationsRepo
+
+Functionality (algorithm):
+-   Calls on the method 'deleteInterviewByID()' (in the repo InterviewsHistoryRepository), to delete the entry, from the 'interviews' SQL table. 
+
+-   Calls on the method 'deleteInterviewPrepByInterviewID()' (in the repo InterviewPreparationRepository), to delete all the interview preparation entries, which link to this interview's unique ID (interview_id). 
+
+-   Calls on the function 'update_interview_stage_in_applications_repo()', to update the interview stage for the job application linked to this interview. 
+
+Redirects the user:
+-   To the template: 'view_application.html'
+-   Via the route '/applications/<int:application_id>'
+-   With a message, confirming that the interview has been deleted successfully.
+
+### job_offers:
+This file contains all the Python files which relate specifically to the 'JobOffersRepository', which draws its entries from the SQL table 'job_offers'. However, where necessary, it does also connect to the other repositories & SQL tables where necessary.  
+
+Files in this directory:
+-   

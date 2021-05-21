@@ -180,12 +180,13 @@ jobOffersRepo = JobOffersRepository(db)
 appNotesRepo = ApplicationNotesRepository(db)
 contactRepo = ContactRepository(db)
 
+""" Display the landing 'Home' page """
 @app.route("/")
 def index():
     """ Landing page that everyone sees """
     return render_template("index.html")
 
-
+""" Display the Register Page """
 @app.route("/register", methods=["GET", "POST"])
 def register_user():
     register_form = RegisterUserForm()
@@ -202,7 +203,7 @@ def register_user():
 
 
 # Taken from CS50's Finance source code & modified
-
+""" Display the Login Page """
 @app.route("/login", methods=["GET", "POST"])
 def test_login():
     """Log user in"""
@@ -220,6 +221,7 @@ def test_login():
     if request.method == "GET":
         return display_login_form(login_form)
 
+""" Log User out of their account """
 @app.route("/logout")
 @login_required
 def logout():
@@ -231,16 +233,19 @@ def logout():
     # Redirect user to login form
     return redirect("/")
 
+""" Display the 'Dashboard' page """
 @app.route("/dashboard")
 @login_required
 def display_dashboard():
     user_id = session["user_id"]
     return create_dashboard_content(user_id, applicationsRepo, interviewsRepo, userRepo, companyRepo, jobOffersRepo)
 
+""" Display the 'About Us' page """
 @app.route("/about_us")
 def read_about_us():
     return render_template("about_us.html")
 
+""" View all job applications """
 @app.route("/applications")
 @login_required
 def display_applications():
@@ -275,13 +280,11 @@ def add_job_application():
     if request.method == "GET":
         return display_add_application_form(add_application_form)
         
-
 """ Delete a specific application """
 @app.route('/applications/<int:application_id>/delete', methods=["GET"])
 @login_required
 def delete_specific_application(application_id):
     return delete_application(application_id, applicationsRepo, interviewsRepo, interviewPrepRepo, appNotesRepo, jobOffersRepo)
-
 
 """ Delete all applications """
 @app.route('/applications/delete_all_applications', methods=["GET"])
@@ -289,7 +292,6 @@ def delete_specific_application(application_id):
 def delete_all_applications():
     user_id = session["user_id"]
     return delete_all_applications_for_user(user_id, applicationsRepo, appNotesRepo, interviewPrepRepo, interviewsRepo, jobOffersRepo)
-
 
 """ Update a Specific application """
 @app.route('/applications/<int:application_id>/update_application', methods=["GET", "POST"])
@@ -316,14 +318,13 @@ def update_specific_application(application_id):
     if request.method == "GET":
         return display_update_application_form(session, user_id, application_id, update_form, company)
 
-
+""" Add a Job Interview """
 @app.route('/applications/<int:application_id>/add_interview', methods=["GET", "POST"])
 @login_required
 def add_interview(application_id):
     add_interview_form = AddInterviewForm()
     user_id = session["user_id"]
 
-    # POST
     if request.method == "POST":
         if add_interview_form.validate_on_submit():
             return post_add_interview(user_id, add_interview_form, interviewsRepo, applicationsRepo, application_id, companyRepo)
@@ -335,15 +336,14 @@ def add_interview(application_id):
     if request.method == "GET":
         return display_add_interview(add_interview_form, application_id, applicationsRepo, companyRepo)
 
-
-# View all interviews for an application:
+""" View all interviews for an application:""" 
 @app.route('/applications/<int:application_id>/view_all_interviews')
 @login_required
 def view_all_interviews_for_application(application_id):
     return display_all_interviews_for_application(application_id, interviewsRepo, companyRepo, applicationsRepo)
 
 
-# View a specific interview:
+""" View a specific interview: """ 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>')
 @login_required
 def display_interview(application_id, interview_id):
@@ -351,7 +351,7 @@ def display_interview(application_id, interview_id):
     user_id = session["user_id"]
     return display_interview_details(interviewsRepo, application_id, interview_id, applicationsRepo, companyRepo)
 
-
+""" Update a specific interview: """ 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/update_interview', methods=["GET", "POST"])
 @login_required
 def update_specific_interview(application_id, interview_id):
@@ -361,7 +361,7 @@ def update_specific_interview(application_id, interview_id):
 
     if request.method == "POST":
         if update_interview_form.validate_on_submit():
-            return post_update_interview(update_interview_form, user_id, application_id, interview_id, interviewsRepo)
+            return post_update_interview(update_interview_form, application_id, interview_id, interviewsRepo)
         else:
             flash("Complete all the fields.")
             return display_update_interview_form(update_interview_form, application_id, interview_id, applicationsRepo, companyRepo)
@@ -369,35 +369,35 @@ def update_specific_interview(application_id, interview_id):
     if request.method == "GET":
         return display_update_interview_form(update_interview_form, application_id, interview_id, applicationsRepo, companyRepo)
 
-
+""" Update the 'Status' for a specific interview: """ 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/update_interview_status', methods=["GET", "POST"])
 @login_required
 def update_interview_status(application_id, interview_id):
     update_status_form = UpdateInterviewStatusForm()
     if request.method == "GET":
-        return display_update_status_form(update_status_form, application_id, interview_id, interviewsRepo, applicationsRepo, companyRepo)
+        return display_update_status_form(update_status_form, application_id, interview_id, applicationsRepo, companyRepo)
 
     if request.method == "POST":
         if update_status_form.validate_on_submit():
             return post_update_interview_status(update_status_form, application_id, interview_id, interviewsRepo)
         else:
             flash("Complete all the fields.")
-            return display_update_status_form(update_status_form, application_id, interview_id, interviewsRepo, applicationsRepo, companyRepo)
+            return display_update_status_form(update_status_form, application_id, interview_id, applicationsRepo, companyRepo)
 
-
+""" Delete a specific interview: """ 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/delete_interview')
 @login_required
 def delete_specific_interview(application_id, interview_id):
     return delete_interview(application_id, interview_id, interviewsRepo, interviewPrepRepo, applicationsRepo)
 
-
+""" View all Interview Preparation: """ 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/view_all_preparation')
 @login_required
 def view_all_interview_preparation(application_id, interview_id):
     user_id = session["user_id"]
     return display_all_interview_prep_entries(application_id, interview_id, user_id, applicationsRepo, interviewsRepo, interviewPrepRepo, companyRepo)
 
-
+""" Add Interview Preparation: """ 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation', methods=["GET", "POST"])
 @login_required
 def interview_preparation(application_id, interview_id):
@@ -414,13 +414,13 @@ def interview_preparation(application_id, interview_id):
     if request.method == "GET":
         return display_interview_preparation_form(user_id, interview_prep_form, application_id, interview_id, applicationsRepo, companyRepo, interviewPrepRepo, interviewsRepo)
 
-
+""" View a specific Interview Preparation (entry): """ 
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation/<int:interview_prep_id>/view_interview_prep_entry')
 @login_required
 def view_interview_prep_entry(application_id, interview_id, interview_prep_id):
     return display_interview_prep_details(application_id, interview_id, interview_prep_id, interviewPrepRepo, applicationsRepo, companyRepo, interviewsRepo)
 
-
+""" Update a specific Interview Preparation (entry): """
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation/<int:interview_prep_id>/update_interview_prep_entry', methods=["GET", "POST"])
 @login_required
 def update_interview_prep(application_id, interview_id, interview_prep_id):
@@ -437,13 +437,13 @@ def update_interview_prep(application_id, interview_id, interview_prep_id):
             flash("Complete all the fields.")
             return display_update_interview_prep_form(application_id, interview_id, interview_prep_id, update_interview_prep_form, applicationsRepo, companyRepo, interviewsRepo)
 
-
+""" Delete a specific Interview Preparation (entry): """
 @app.route('/applications/<int:application_id>/interview/<int:interview_id>/interview_preparation/<int:interview_prep_id>/delete_interview_prep_entry', methods=["GET", "POST"])
 @login_required
 def delete_interview_prep(application_id, interview_id, interview_prep_id):
     return delete_interview_prep_entry(application_id, interview_id, interview_prep_id, interviewPrepRepo)
 
-
+""" Add a Job Offer: """
 @app.route('/applications/<int:application_id>/add_job_offer', methods=["GET", "POST"])
 @login_required
 def job_offer_form(application_id):
@@ -459,14 +459,14 @@ def job_offer_form(application_id):
             flash("Complete all fields.")
             return display_add_job_offer_form(application_id, user_id, add_job_offer, companyRepo, applicationsRepo)
 
-
+""" View a Job Offer: """
 @app.route('/applications/<int:application_id>/job_offers/<int:job_offer_id>', methods=["GET", "POST"])
 @login_required
 def view_job_offer_details(application_id, job_offer_id):
     if request.method == "GET":
         return display_job_offer(job_offer_id, jobOffersRepo, companyRepo, applicationsRepo)
 
-
+""" Update a Job Offer: """
 @app.route('/applications/<int:application_id>/job_offers/<int:job_offer_id>/update_job_offer', methods=["GET", "POST"])
 @login_required
 def update_job_offer_details(application_id, job_offer_id):
@@ -486,13 +486,13 @@ def update_job_offer_details(application_id, job_offer_id):
             flash("Complete all the fields.")
             return display_update_job_offer_form(application_id, user_id, job_offer_id, update_job_offer_form, job_offer, companyRepo)
 
-
+""" Delete a Job Offer: """
 @app.route('/applications/<int:application_id>/job_offers/<int:job_offer_id>/delete_job_offer')
 @login_required
 def delete_job_offer_details(application_id, job_offer_id):
     return delete_job_offer_entry(application_id, job_offer_id, jobOffersRepo)    
 
-
+""" Display the 'Addressbook' page: """
 @app.route('/address_book')
 @login_required
 def view_address_book():
@@ -500,13 +500,14 @@ def view_address_book():
     user_id = session["user_id"]
     return display_address_book(user_id, companyRepo, contactRepo)
 
-
+""" View all the 'Contact' entries: """
 @app.route('/address_book/contact_list')
 @login_required
 def view_contact_list():
     user_id = session["user_id"]
     return display_contacts_for_user(user_id, contactRepo)
 
+""" Add a new Contact: """
 @app.route('/address_book/contact_list/add_contact', methods=["GET", "POST"])
 @login_required
 def add_contact():
@@ -523,13 +524,13 @@ def add_contact():
             flash("Complete all the fields.")
             return display_add_new_contact_form(new_contact_form)
 
-
+""" View a new Contact: """
 @app.route('/address_book/contact_list/<int:contact_id>/view_contact')
 @login_required
 def view_contact_details(contact_id):
     return display_contact_details(contact_id, contactRepo)
 
-
+""" Update a new Contact: """
 @app.route('/address_book/contact_list/<int:contact_id>/update_contact', methods=["GET", "POST"])
 @login_required
 def update_contact(contact_id):
@@ -548,20 +549,20 @@ def update_contact(contact_id):
             flash("Complete all the fields.")
             return display_update_contact_form(contact_id, update_contact_form)
 
-
+""" Delete a new Contact: """
 @app.route('/address_book/contact_list/<int:contact_id>/delete_contact')
 @login_required
 def delete_contact(contact_id):
     return delete_contact_details(contact_id, contactRepo)
 
-
+""" View all the 'Company' entries: """
 @app.route('/address_book/company_directory')
 @login_required
 def display_company_directory():
     user_id = session["user_id"]
     return display_all_companies_for_user(user_id, companyRepo)
 
-
+""" Add a Company: """
 @app.route('/address_book/add_company', methods=["GET", "POST"])
 @login_required
 def add_company():
@@ -577,13 +578,13 @@ def add_company():
             flash("Complete all the fields.")
             return display_add_company_form(add_company_form)
 
-
+""" View a Company: """
 @app.route('/company/<int:company_id>/view_company', methods=["GET"])
 @login_required
 def display_company_details(company_id):
     return display_company_profile(company_id, companyRepo)
 
-
+""" Update a Company: """
 @app.route('/company/<int:company_id>/update_company', methods=["GET", "POST"])
 @login_required
 def update_company_profile(company_id):
@@ -601,6 +602,7 @@ def update_company_profile(company_id):
             flash("Complete all the fields.")
             return display_update_company_profile_form(company_id, update_form, company_obj)
 
+""" Delete a Company: """
 @app.route('/company/<int:company_id>/delete_company', methods=["GET", "POST"])
 @login_required
 def delete_company_profile(company_id):
@@ -617,8 +619,7 @@ def delete_company_profile(company_id):
             flash("Complete all the fields.")
             return display_delete_company_form(company_id, delete_company_form, companyRepo)
 
-
-# View all notes for a specific company:
+""" View all notes for a specific company: """
 @app.route('/company/<int:company_id>/view_all_company_notes')
 @login_required
 def display_company_notes(company_id):
@@ -626,7 +627,7 @@ def display_company_notes(company_id):
     return display_all_notes_for_a_company(company_id, user_id, companyRepo, companyNotesRepo)
 
 
-# Add Note for a specific company:
+""" Add a Company Note: """
 @app.route('/company/<int:company_id>/add_company_note', methods=["GET", "POST"])
 @login_required
 def add_company_notes(company_id):
@@ -642,8 +643,7 @@ def add_company_notes(company_id):
             flash("Complete all the fields.")
             return display_add_company_note_form(company_id, company_note_form, companyRepo)
 
-
-# View a specific note for a company:
+""" View a Company Note: """
 @app.route('/company/<int:company_id>/company_note/<int:company_note_id>/view_note_details')
 @login_required
 def display_a_specific_note_for_company(company_id, company_note_id):
@@ -651,7 +651,7 @@ def display_a_specific_note_for_company(company_id, company_note_id):
     if request.method == "GET":
         return display_company_note_details(company_id, company_note_id, companyRepo, companyNotesRepo)
 
-
+""" Update a Company Note: """
 @app.route('/company/<int:company_id>/company_note/<int:company_note_id>/update_note', methods=["GET", "POST"])
 @login_required
 def update_company_note(company_id, company_note_id):
@@ -669,14 +669,13 @@ def update_company_note(company_id, company_note_id):
             flash("All fields are required.")
             return display_update_company_note_form(update_note_form, company_id, company_note_id, companyRepo, companyNotesRepo)
 
-
+""" Delete a Company Note: """
 @app.route('/company/<int:company_id>/company_note/<int:company_note_id>/delete_note', methods=["GET", "POST"])
 @login_required
 def delete_company_note(company_id, company_note_id):
     return delete_specific_company_note(company_id, company_note_id, companyNotesRepo)
 
-
-# Add a job application for a specific company
+""" Add a job application (for a specific company): """ 
 @app.route('/company/<int:company_id>/add_job_application', methods=["GET", "POST"])
 @login_required
 def add_company_job_application(company_id):
@@ -692,7 +691,7 @@ def add_company_job_application(company_id):
             flash("All fields are required.")
             return display_add_company_application_form(add_job_app_form, company_id, companyRepo)
 
-# Add Note for application:
+""" Add an Application Note for a job application: """
 @app.route('/applications/<int:application_id>/app_notes/add_note', methods=["GET", "POST"])
 @login_required
 def add_application_note(application_id):
@@ -709,23 +708,20 @@ def add_application_note(application_id):
     if request.method == "GET":
         return display_application_note_form(notes_form, application_id, companyRepo, applicationsRepo)
 
-
-# View all application notes:
+""" View all Application Notes: """
 @app.route('/applications/<int:application_id>/view_application_notes')
 @login_required
 def view_application_notes(application_id):
     user_id = session["user_id"]
     return display_application_notes(user_id, application_id, applicationsRepo, appNotesRepo, companyRepo)
 
-
-# View Details for an Application Note:
+""" View (an) Application Note: """
 @app.route('/applications/<int:application_id>/app_notes/<int:app_notes_id>/view_note')
 @login_required
 def view_specific_application_note(application_id, app_notes_id):
     return display_application_note_details(application_id, app_notes_id, appNotesRepo, companyRepo)
 
-
-# Update an Application Note:
+""" Update an Application Note: """
 @app.route('/applications/<int:application_id>/app_notes/<int:app_notes_id>/update_note', methods=["GET", "POST"])
 @login_required
 def update_user_note(application_id, app_notes_id):
@@ -743,21 +739,20 @@ def update_user_note(application_id, app_notes_id):
     if request.method == "GET":
         return display_update_app_note_form(application_id, user_id, app_notes_id, update_app_note_form, companyRepo, appNotesRepo)
 
-
-# Delete Note:
+""" Delete an Application Note: """
 @app.route('/applications/<int:application_id>/app_notes/<int:app_notes_id>/delete_note')
 @login_required
 def delete_an_application_note(application_id, app_notes_id):
     return delete_application_note(application_id, app_notes_id, appNotesRepo)
 
-# View all user notes:
+""" View all user notes: """
 @app.route('/view_all_notes')
 @login_required
 def display_all_notes():
     user_id = session["user_id"]
     return display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo, companyNotesRepo)
 
-
+""" Display User Profile """
 @app.route("/userprofile")
 @login_required
 def display_user_profile():
@@ -765,7 +760,7 @@ def display_user_profile():
     user_id = session["user_id"]
     return display_user_profile(session, userRepo, user_id)
 
-
+""" Update User's Email """
 @app.route('/userprofile/<int:user_id>/update_email', methods=["GET", "POST"])
 @login_required
 def update_email_address(user_id):
@@ -783,7 +778,7 @@ def update_email_address(user_id):
     if request.method == "GET":
         return display_update_email_form(user_id, userRepo, update_email_form)
 
-
+""" Update User's account password """
 @app.route('/userprofile/<int:user_id>/change_password', methods=["GET", "POST"])
 @login_required
 def change_user_password(user_id):
@@ -800,7 +795,7 @@ def change_user_password(user_id):
     if request.method == "GET":
         return display_change_password_form(user_id, change_password_form, userRepo)
 
-
+""" Update User's account """
 @app.route('/userprofile/<int:user_id>/delete_account', methods=["GET", "POST"])
 @login_required
 def delete_user_account(user_id):

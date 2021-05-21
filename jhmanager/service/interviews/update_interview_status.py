@@ -4,14 +4,11 @@ from jhmanager.service.cleanup_files.cleanup_datetime_display import cleanup_tim
 from jhmanager.service.cleanup_files.cleanup_interview_fields import cleanup_interview_type
 
 
-def display_update_status_form(update_status_form, application_id, interview_id, interviewsRepo, applicationsRepo, companyRepo):
-    interview = interviewsRepo.getInterviewByID(interview_id)
+def display_update_status_form(update_status_form, application_id, interview_id, applicationsRepo, companyRepo):
     application = applicationsRepo.getApplicationByID(application_id)
     company = companyRepo.getCompanyById(application.company_id)
-    current_status = interview.status
 
     general_details = {
-        "interview_details": {},
         "links": {}, 
         "company_name": company.name
     }
@@ -32,7 +29,7 @@ def post_update_interview_status(update_status_form, application_id, interview_i
     }
     interviewsRepo.updateInterviewStatusByID(fields)
 
-    flash("Interview Status has been updated!")
+    flash("Interview Status has been successfully updated!")
     redirect_url = '/applications/{}/interview/{}'.format(application_id, interview_id)
 
     return redirect(redirect_url)

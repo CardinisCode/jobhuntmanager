@@ -519,9 +519,20 @@ Handles the functionality behind deleting a specific interview entry from the 'i
 
 ---------------------------------------------------
 
-
 #### job_offers:
 This where you'll find all the Python files related to a job offer entry / list of job offer entries. 
+
+Files in this directory:
+-   add_job_offer.py
+-   view_job_offer.py
+-   update_job_offer.py
+-   delete_job_offer.py
+
+##### add_job_offer
+Handles the functionality behind displaying the 'AddInterviewForm()' (form) to the user & saving the information (the user has provided/entered into the form) into the 'interviews' SQL table. 
+
+
+---------------------------------------------------
 
 #### users:
 This where you'll find all the Python files related to a user  entry / list of user entries. 
