@@ -17,17 +17,14 @@ class UserRepository:
     def __init__(self, db):
         self.db = db
 
-    def createUser(self, username, hashed_password, email, date):
+    def createUser(self, fields):
         cursor = self.db.cursor()
-        # The line of code is a modification to the database and the way that sql works it needs to commit those changes (transaction)
-        # which means it saves it to the database. otherwise it forgets the change. This is done to protect the database from corrupting
-        # changes
         command = """ 
-        INSERT INTO users 
-            (username, hash, email, date) 
-        VALUES (?, ?, ?, ?)
+            INSERT INTO users 
+                (username, hash, email, date) 
+            VALUES (?, ?, ?, ?)
         """
-        result = cursor.execute(command, (username, hashed_password, email, date,))
+        result = cursor.execute(command, tuple(fields.values()))
         self.db.commit()
 
         return result.lastrowid

@@ -23,15 +23,15 @@
                 <div class="grid_child"> 
                     <h2 class="heading-extra-margins"> Your Details </h2>
                     <div class="form-row">
-                        <label class="col left-padding"><i class="fas fa-user-alt"></i> {{ user_details.username.heading }}</label>
+                        <label class="col left-padding"><i class="fas fa-user-alt"></i> User Name:</label>
                         <div class="col right-padding"> 
-                            {{ user_details.username.data }} 
+                            {{ general_details.user_details.username }} 
                         </div>
                     </div>
                     <div class="form-row">
-                        <label class="col left-padding"><i class="fas fa-at"></i> {{ user_details.user_email.heading }}</label>
+                        <label class="col left-padding"><i class="fas fa-at"></i> Email Address:</label>
                         <div class="col right-padding"> 
-                            {{ user_details.user_email.data }}  <a href={{ user_details.user_email.update_url }} class="link-alt-colour"> <i class="fas fa-pencil-alt"> Update</i></a>
+                            {{ general_details.user_details.user_email }}  <a href={{ general_details.links.user_email.update_email }} class="link-alt-colour"> <i class="fas fa-pencil-alt"> Update</i></a>
                         </div>
                     </div>
                 </div>
@@ -42,8 +42,8 @@
     <div class="alignfull">
         <div class="aligncenter"> 
             <div class="text-center xxx-margins"> 
-                <a href={{ details.change_password_url }} class="link_button_primary text-center"><i class="fas fa-lock"> Change Password</i></a>
-                <a href={{ details.delete_account_url }} class="link_button_primary text-center"> <i class="fas fa-trash"> Delete Account</i></a>
+                <a href={{ general_details.links.change_password }} class="link_button_primary text-center"><i class="fas fa-lock"> Change Password</i></a>
+                <a href={{ general_details.links.delete_account }} class="link_button_primary text-center"> <i class="fas fa-trash"> Delete Account</i></a>
             </div>
         </div>
     </div>

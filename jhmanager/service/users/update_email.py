@@ -1,7 +1,7 @@
 from flask import Flask, render_template, session, request, redirect, flash
 
 
-def display_update_email_form(user_id, userRepo, update_email_form):
+def display_update_email_form(user_id, update_email_form):
     details = {
         "update_url": '/userprofile/{}/update_email'.format(user_id),
     }
@@ -14,9 +14,7 @@ def post_update_email_address(update_email_form, userRepo, user_id):
         "email": update_email_form.email.data, 
         "user_id": user_id
     }
-
     userRepo.updateUserEmailByID(details)
-
 
     flash("Email Updated.")
     return redirect("/userprofile")

@@ -186,6 +186,14 @@ def index():
     """ Landing page that everyone sees """
     return render_template("index.html")
 
+""" Display User Profile """
+@app.route("/userprofile")
+@login_required
+def display_user_profile():
+    """ Display User Profile """
+    user_id = session["user_id"]
+    return display_user_profile(userRepo, user_id)
+
 """ Display the Register Page """
 @app.route("/register", methods=["GET", "POST"])
 def register_user():
@@ -200,7 +208,6 @@ def register_user():
     """Provide registration form to user"""
     if request.method == "GET":
         return display_register_form(register_form)
-
 
 # Taken from CS50's Finance source code & modified
 """ Display the Login Page """
@@ -232,6 +239,57 @@ def logout():
 
     # Redirect user to login form
     return redirect("/")
+
+""" Update User's Email """
+@app.route('/userprofile/<int:user_id>/update_email', methods=["GET", "POST"])
+@login_required
+def update_email_address(user_id):
+    user_id = session["user_id"]
+    user_details = userRepo.getByUserID(user_id)
+    update_email_form = UpdateEmailAddressForm(obj=user_details)
+
+    if request.method == "POST":
+        if update_email_form.validate_on_submit():
+            return post_update_email_address(update_email_form, userRepo, user_id)
+        else:
+            flash("All fields are required.")
+            return display_update_email_form(user_id, update_email_form)
+
+    if request.method == "GET":
+        return display_update_email_form(user_id, update_email_form)
+
+""" Update User's account password """
+@app.route('/userprofile/<int:user_id>/change_password', methods=["GET", "POST"])
+@login_required
+def change_user_password(user_id):
+    user_id = session["user_id"]
+    change_password_form = ChangePasswordForm()
+
+    if request.method == "POST":
+        if change_password_form.validate_on_submit() == False:
+            flash("All fields are required.")
+            return display_change_password_form(user_id, change_password_form)
+        if change_password_form.validate_on_submit():
+            return post_change_password(change_password_form, user_id, userRepo)
+
+    if request.method == "GET":
+        return display_change_password_form(user_id, change_password_form)
+
+""" Delete User's account """
+@app.route('/userprofile/<int:user_id>/delete_account', methods=["GET", "POST"])
+@login_required
+def delete_user_account(user_id):
+    delete_account_form = DeleteAccountForm()
+
+    if request.method == "GET":
+        return display_delete_user_form(user_id, delete_account_form)
+        
+    if request.method == "POST":
+        if delete_account_form.validate_on_submit():
+            return post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, appNotesRepo, interviewPrepRepo, interviewsRepo, companyRepo, companyNotesRepo, jobOffersRepo, contactRepo)
+        else:
+            flash("Failed to delete the account.")
+            return display_delete_user_form(user_id, delete_account_form)
 
 """ Display the 'Dashboard' page """
 @app.route("/dashboard")
@@ -450,14 +508,14 @@ def job_offer_form(application_id):
     user_id = session["user_id"]
     add_job_offer = AddJobOffer()
     if request.method == "GET":
-        return display_add_job_offer_form(application_id, user_id, add_job_offer, companyRepo, applicationsRepo)
+        return display_add_job_offer_form(application_id, add_job_offer, companyRepo, applicationsRepo)
 
     if request.method == "POST":
         if add_job_offer.validate_on_submit():
             return post_add_job_offer(application_id, user_id, add_job_offer, companyRepo, applicationsRepo, jobOffersRepo)
         else: 
             flash("Complete all fields.")
-            return display_add_job_offer_form(application_id, user_id, add_job_offer, companyRepo, applicationsRepo)
+            return display_add_job_offer_form(application_id, add_job_offer, companyRepo, applicationsRepo)
 
 """ View a Job Offer: """
 @app.route('/applications/<int:application_id>/job_offers/<int:job_offer_id>', methods=["GET", "POST"])
@@ -476,15 +534,15 @@ def update_job_offer_details(application_id, job_offer_id):
     update_job_offer_form = AddJobOffer(obj=job_offer)
 
     if request.method == "GET":
-        return display_update_job_offer_form(application_id, user_id, job_offer_id, update_job_offer_form, job_offer, companyRepo)
+        return display_update_job_offer_form(application_id, job_offer_id, update_job_offer_form, jobOffersRepo, companyRepo)
 
     if request.method == "POST":
         if update_job_offer_form.validate_on_submit():
-            return post_update_job_offer(application_id, job_offer_id, user_id, update_job_offer_form, jobOffersRepo)
+            return post_update_job_offer(application_id, job_offer_id, update_job_offer_form, jobOffersRepo)
 
         else: 
             flash("Complete all the fields.")
-            return display_update_job_offer_form(application_id, user_id, job_offer_id, update_job_offer_form, job_offer, companyRepo)
+            return display_update_job_offer_form(application_id, job_offer_id, update_job_offer_form, jobOffersRepo, companyRepo)
 
 """ Delete a Job Offer: """
 @app.route('/applications/<int:application_id>/job_offers/<int:job_offer_id>/delete_job_offer')
@@ -619,62 +677,6 @@ def delete_company_profile(company_id):
             flash("Complete all the fields.")
             return display_delete_company_form(company_id, delete_company_form, companyRepo)
 
-""" View all notes for a specific company: """
-@app.route('/company/<int:company_id>/view_all_company_notes')
-@login_required
-def display_company_notes(company_id):
-    user_id = session["user_id"]
-    return display_all_notes_for_a_company(company_id, user_id, companyRepo, companyNotesRepo)
-
-
-""" Add a Company Note: """
-@app.route('/company/<int:company_id>/add_company_note', methods=["GET", "POST"])
-@login_required
-def add_company_notes(company_id):
-    user_id = session["user_id"]
-    company_note_form = AddCompanyNoteForm()
-    if request.method == "GET":
-        return display_add_company_note_form(company_id, company_note_form, companyRepo)
-
-    if request.method == "POST":
-        if company_note_form.validate_on_submit():
-            return post_add_company_note(user_id, company_id, company_note_form, companyNotesRepo)
-        else:
-            flash("Complete all the fields.")
-            return display_add_company_note_form(company_id, company_note_form, companyRepo)
-
-""" View a Company Note: """
-@app.route('/company/<int:company_id>/company_note/<int:company_note_id>/view_note_details')
-@login_required
-def display_a_specific_note_for_company(company_id, company_note_id):
-    user_id = session["user_id"]
-    if request.method == "GET":
-        return display_company_note_details(company_id, company_note_id, companyRepo, companyNotesRepo)
-
-""" Update a Company Note: """
-@app.route('/company/<int:company_id>/company_note/<int:company_note_id>/update_note', methods=["GET", "POST"])
-@login_required
-def update_company_note(company_id, company_note_id):
-    user_id = session["user_id"]
-    company_note_obj = companyNotesRepo.getCompanyNoteByID(company_note_id)
-    update_note_form = AddCompanyNoteForm(obj=company_note_obj)
-
-    if request.method == "GET":
-        return display_update_company_note_form(update_note_form, company_id, company_note_id, companyRepo, companyNotesRepo)
-    
-    if request.method == "POST":
-        if update_note_form.validate_on_submit():
-            return post_update_company_form(update_note_form, company_id, company_note_id, companyNotesRepo)
-        else: 
-            flash("All fields are required.")
-            return display_update_company_note_form(update_note_form, company_id, company_note_id, companyRepo, companyNotesRepo)
-
-""" Delete a Company Note: """
-@app.route('/company/<int:company_id>/company_note/<int:company_note_id>/delete_note', methods=["GET", "POST"])
-@login_required
-def delete_company_note(company_id, company_note_id):
-    return delete_specific_company_note(company_id, company_note_id, companyNotesRepo)
-
 """ Add a job application (for a specific company): """ 
 @app.route('/company/<int:company_id>/add_job_application', methods=["GET", "POST"])
 @login_required
@@ -690,6 +692,13 @@ def add_company_job_application(company_id):
         else: 
             flash("All fields are required.")
             return display_add_company_application_form(add_job_app_form, company_id, companyRepo)
+
+""" View all user notes: """
+@app.route('/view_all_notes')
+@login_required
+def display_all_notes():
+    user_id = session["user_id"]
+    return display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo, companyNotesRepo)
 
 """ Add an Application Note for a job application: """
 @app.route('/applications/<int:application_id>/app_notes/add_note', methods=["GET", "POST"])
@@ -745,71 +754,59 @@ def update_user_note(application_id, app_notes_id):
 def delete_an_application_note(application_id, app_notes_id):
     return delete_application_note(application_id, app_notes_id, appNotesRepo)
 
-""" View all user notes: """
-@app.route('/view_all_notes')
+""" View all notes for a specific company: """
+@app.route('/company/<int:company_id>/view_all_company_notes')
 @login_required
-def display_all_notes():
+def display_company_notes(company_id):
     user_id = session["user_id"]
-    return display_all_user_notes(user_id, appNotesRepo, companyRepo, applicationsRepo, companyNotesRepo)
+    return display_all_notes_for_a_company(company_id, user_id, companyRepo, companyNotesRepo)
 
-""" Display User Profile """
-@app.route("/userprofile")
+""" Add a Company Note: """
+@app.route('/company/<int:company_id>/add_company_note', methods=["GET", "POST"])
 @login_required
-def display_user_profile():
-    """ Display User Profile """
+def add_company_notes(company_id):
     user_id = session["user_id"]
-    return display_user_profile(session, userRepo, user_id)
-
-""" Update User's Email """
-@app.route('/userprofile/<int:user_id>/update_email', methods=["GET", "POST"])
-@login_required
-def update_email_address(user_id):
-    user_id = session["user_id"]
-    user_details = userRepo.getByUserID(user_id)
-    update_email_form = UpdateEmailAddressForm(obj=user_details)
+    company_note_form = AddCompanyNoteForm()
+    if request.method == "GET":
+        return display_add_company_note_form(company_id, company_note_form, companyRepo)
 
     if request.method == "POST":
-        if update_email_form.validate_on_submit():
-            return post_update_email_address(update_email_form, userRepo, user_id)
+        if company_note_form.validate_on_submit():
+            return post_add_company_note(user_id, company_id, company_note_form, companyNotesRepo)
         else:
-            flash("All fields are required.")
-            return display_update_email_form(user_id, userRepo, update_email_form)
+            flash("Complete all the fields.")
+            return display_add_company_note_form(company_id, company_note_form, companyRepo)
 
-    if request.method == "GET":
-        return display_update_email_form(user_id, userRepo, update_email_form)
-
-""" Update User's account password """
-@app.route('/userprofile/<int:user_id>/change_password', methods=["GET", "POST"])
+""" View a Company Note: """
+@app.route('/company/<int:company_id>/company_note/<int:company_note_id>/view_note_details')
 @login_required
-def change_user_password(user_id):
+def display_a_specific_note_for_company(company_id, company_note_id):
     user_id = session["user_id"]
-    change_password_form = ChangePasswordForm()
-
-    if request.method == "POST":
-        if change_password_form.validate_on_submit() == False:
-            flash("All fields are required.")
-            return display_change_password_form(user_id, change_password_form, userRepo)
-        if change_password_form.validate_on_submit():
-            return post_change_password(user_id, change_password_form, userRepo)
-
     if request.method == "GET":
-        return display_change_password_form(user_id, change_password_form, userRepo)
+        return display_company_note_details(company_id, company_note_id, companyRepo, companyNotesRepo)
 
-""" Update User's account """
-@app.route('/userprofile/<int:user_id>/delete_account', methods=["GET", "POST"])
+""" Update a Company Note: """
+@app.route('/company/<int:company_id>/company_note/<int:company_note_id>/update_note', methods=["GET", "POST"])
 @login_required
-def delete_user_account(user_id):
-    delete_account_form = DeleteAccountForm()
+def update_company_note(company_id, company_note_id):
+    user_id = session["user_id"]
+    company_note_obj = companyNotesRepo.getCompanyNoteByID(company_note_id)
+    update_note_form = AddCompanyNoteForm(obj=company_note_obj)
 
     if request.method == "GET":
-        return display_delete_user_form(user_id, delete_account_form)
-        
+        return display_update_company_note_form(update_note_form, company_id, company_note_id, companyRepo, companyNotesRepo)
+    
     if request.method == "POST":
-        if delete_account_form.validate_on_submit():
-            return post_delete_user(delete_account_form, user_id, userRepo, applicationsRepo, appNotesRepo, interviewPrepRepo, interviewsRepo, companyRepo, companyNotesRepo, jobOffersRepo, contactRepo)
-        else:
-            flash("Failed to delete the account.")
-            return display_delete_user_form(user_id, delete_account_form)
+        if update_note_form.validate_on_submit():
+            return post_update_company_form(update_note_form, company_id, company_note_id, companyNotesRepo)
+        else: 
+            flash("All fields are required.")
+            return display_update_company_note_form(update_note_form, company_id, company_note_id, companyRepo, companyNotesRepo)
 
+""" Delete a Company Note: """
+@app.route('/company/<int:company_id>/company_note/<int:company_note_id>/delete_note', methods=["GET", "POST"])
+@login_required
+def delete_company_note(company_id, company_note_id):
+    return delete_specific_company_note(company_id, company_note_id, companyNotesRepo)
 
 

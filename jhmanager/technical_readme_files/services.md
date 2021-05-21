@@ -2111,7 +2111,6 @@ Renders the template:
 -   "view_interview_details.html"
 -   With the parent dictionary 'general_details', created by this function.
 
-
 #### view_all_interviews.py
 Handles the functionality behind displaying all the interview entries (added by the current user), from the 'interviews' SQL table, which relate to a specific job application. These interview entries are then displayed to the template 'view_all_interviews.html'. 
 
@@ -2253,4 +2252,411 @@ Redirects the user:
 This file contains all the Python files which relate specifically to the 'JobOffersRepository', which draws its entries from the SQL table 'job_offers'. However, where necessary, it does also connect to the other repositories & SQL tables where necessary.  
 
 Files in this directory:
--   
+-   add_job_offer.py
+-   view_job_offer.py
+-   update_job_offer.py
+-   delete_job_offer.py
+
+#### add_job_offer.py
+Handles the functionality behind displaying the 'AddJobOffer()' (form) to the user & saving the information (the user has provided/entered into the form) into the 'job_offers' SQL table. 
+
+Functions include:
+-   display_add_job_offer_form()
+-   post_add_job_offer()
+
+##### display_add_job_offer_form()
+This function handles the GET functionality for the route: '/applications/<int:application_id>/add_job_offer'.
+
+Takes (input):
+-   add_job_offer (a blank instance of the 'AddJobOffer()' (form))
+-   application_id, interview_id, applicationsRepo, companyRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getApplicationByID(), which returns the 'Application' object instantiated with the details for a specific job application. This object is used to get the company's unique ID (company_id). 
+
+-   Calls on the method 'getCompanyById()', with the company_id, which returns the 'Company' object instantiated with the details for the company (linked to the job application in question). This is used to get the company's name. 
+
+-   Puts together a dictionary 'details' with the company's name & the action url (the route which ensures the form gets displayed to the user). 
+
+Renders the template:
+-   "add_job_offer.html"
+-   With the dictionary 'details' & the form: add_job_offer. 
+
+##### post_add_job_offer()
+This function handles the POST functionality for the route: '/applications/<int:application_id>/add_job_offer'.
+
+Takes (input):
+-   add_job_offer (the form 'AddJobOffer()' as completed by the user)
+-   application_id, companyRepo, applicationsRepo, jobOffersRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getApplicationByID(), which returns the 'Application' object instantiated with the details for a specific job application. This object is used to get the company's unique ID (company_id). 
+
+-   Calls on the method 'getCompanyById()', with the company_id, which returns the 'Company' object instantiated with the details for the company (linked to the job application in question). This is used to get the company's name. 
+
+-   Gets the current day's date, using the datetime python library, storing it in a variable 'current_date'. 
+
+-   Extracts the remaining field values, from the form 'add_job_offer', & stores these values in a dictionary 'fields', together with the 'user_id', 'company_id',  'application_id' & the 'current_date'. 
+
+-   Calls on the method 'CreateJobOffer()', (from the Repo: 'JobOffersRepository'), with the details in the dictionary 'fields', to create a new entry in the 'job_offers' SQL table. The method returns the unique ID for the newly-created 'job_offer' entry. 
+
+Redirects the user:
+-   To the template: 'view_job_offer.html'
+-   Via the route: '/applications/<int:application_id>/job_offers/<int:job_offer_id>' 
+-   With a message, confirming that the job offer has been successfully added (as a new entry) to the 'job offer' SQL table.
+
+#### view_job_offer.py
+Handles the functionality behind displaying the details for a specific entry, from the 'job_offers' SQL table, to the template 'view_job_offer.html'.
+
+Function include:
+-   display_job_offer()
+
+##### display_job_offer()
+This function handles the GET functionality for the route: '/applications/<int:application_id>/job_offers/<int:job_offer_id>'.
+
+Takes (input):
+-   job_offer_id, jobOffersRepo, companyRepo, applicationsRepo
+
+Functionality (algorithm):
+-   Calls on the methods 'getApplicationByID()',  'getCompanyById()' & 'getJobOfferByID()' to get the entry details for a specific job application, company & job offer perspectively. These details are then extracted & stored in their own dictionaries 'application_details', 'company_details' & 'job_offer_details' perspectively. 
+
+-   Calls on the functions 'cleanup_specific_job_application()', 'cleanup_specific_company()', & 'cleanup_specific_job_offer()' with the relevant dictionaries (application_details, company_details, & job_offer_details perspectively), to improve how these values will be presented to the user. 
+
+-   Stores all the URL's / routes, which will be used to display button links to the user, in a dictionary 'links'. 
+
+-   Finally it takes all dictionaries, created so far by this function, & stores them all in a parent dictionary 'general_details'. This is so that all dictionaries can be can accessed via 1 single source: 'general_details'. 
+
+Renders the template:
+-   "view_job_offer.html"
+-   With the parent dictionary 'general_details', created by this function.
+
+#### update_job_offer.py
+Handles the functionality behind displaying the 'AddJobOffer()' (form), with the values for a specific job offer entry, to the user. Once the form is submitted, the form values are extracted & used to update an existing entry in the 'job_offers' SQL table.
+
+Function include:
+-   display_update_job_offer_form()
+-   post_update_job_offer()
+
+##### display_update_job_offer_form()
+This function handles the GET functionality for the route: '/applications/<int:application_id>/job_offers/<int:job_offer_id>/update_job_offer'.
+
+Takes (input):
+-   update_job_offer (an instance of the form 'AddJobOffer()', instantiated with the details for a specific job offer entry)
+-   application_id, job_offer_id, jobOffersRepo, companyRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getJobOfferByID(), which returns the 'JobOffer' object instantiated with the details for a specific job offer. This object is used to get the company's unique ID (company_id). 
+
+-   Calls on the method 'getCompanyById()', with the company_id, which returns the 'Company' object instantiated with the details for the company (linked to the job application in question). This is used to get the company's name. 
+
+-   Puts together a dictionary 'details' with the company's name & the action url (the route which ensures the form gets displayed to the user). 
+
+Renders the template:
+-   "update_job_offer.html"
+-   With the dictionary 'details' & the form: update_job_offer. 
+
+##### post_update_job_offer()
+This function handles the POST functionality for the route: '/applications/<int:application_id>/job_offers/<int:job_offer_id>/update_job_offer'.
+
+Takes (input):
+-   update_job_offer (the form 'AddJobOffer()', as completed by the user)
+-   application_id, job_offer_id, jobOffersRepo
+
+Functionality (algorithm):
+-   Extracts the field values, from the form 'update_job_offer', & stores these values in a dictionary 'fields', together with the 'job_offer_id'.
+
+-   Calls on the method 'updateJobOfferByID()', (from the Repo: 'JobOffersRepository'), to update an entry in the 'job_offers' SQL table, using the job offer's unique ID (job_offer_id). 
+
+Redirects the user:
+-   To the template: 'view_job_offer.html'
+-   Via the route: '/applications/<int:application_id>/job_offers/<int:job_offer_id>'
+-   With a message, confirming that the job offer entry has been updated successfully.
+
+#### delete_job_offer.py
+Handles the functionality behind deleting a specific job offer entry from the 'job_offers' SQL table. 
+
+Function included:
+-   delete_job_offer_entry()
+
+##### delete_job_offer_entry()
+Takes (input): 
+-   application_id, job_offer_id, jobOffersRepo
+
+Functionality (algorithm):
+-   Calls on the method 'deleteJobOfferByID()' (in the repo JobOffersRepository), to delete the entry, from the 'job_offers' SQL table. 
+
+Redirects the user:
+-   To the template: 'view_application.html'
+-   Via the route '/applications/<int:application_id>'
+-   With a message, confirming that the Job Offer has been deleted successfully.
+
+### users:
+This file contains all the Python files which relate specifically to the 'UserRepository', which draws its entries from the SQL table 'users'. However, where necessary, it does also connect to the other repositories & SQL tables where necessary.  
+
+Files in this directory:
+-   register_user.py
+-   login_user.py
+-   user_profile.py
+-   change_password.py
+-   update_email.py
+-   delete_user_account.py
+
+#### register_user.py
+Handles the functionality behind displaying the 'RegisterUserForm()' (form) to the user & saving the user's details (provided/entered into the form) into the 'users' SQL table. 
+
+Functions included:
+-   display_register_form()
+-   post_register_user()
+
+##### display_register_form()
+This function handles the GET functionality for the route: '/register'.
+
+Takes (input):
+-   register_form (a blank instance of the 'RegisterUserForm()' (form))
+
+Renders the template:
+-   'register.html'
+-   With the form 'RegisterUserForm'
+
+##### post_register_user()
+This function handles the POST functionality for the route: '/register'.
+
+Takes (input):
+-   register_form (the form  'RegisterUserForm()', as completed by the user)
+-   session, userRepo
+
+Functionality (algorithm):
+-   Extracts the field values 'username', 'email_address', & 'hashed_password', from the form 'register_form', together with the current day's date (after it's converted to string) & stores these values in a dictionary 'fields'. 
+
+-   Before the user's password is stored in the dictionary 'fields', it is first hashed by calling on the method 'encrypt(), from the library 'sha256_crypt'. The output of this variable is stored as the 'hashed_password' in the dictionary 'fields'. 
+
+-   Calls the method 'getUserByUsername()', with the field value 'username' (from the form), to check if there are any entries in the 'users' table with the same username. 
+    -   If yes:
+        -   The user is redirected back to the register form, with a flashed message to advise the user that this username already exists. 
+
+-   Calls the method 'getUserByEmail()', with the field value 'email_address' (from the form), to check if there are any entries in the 'users' table with the same email. 
+    -   If yes:
+        -   The user is redirected back to the register form, with a flashed message to advise the user that this email address already exists. 
+
+-   Calls on the method 'createUser()', (in the Repo UserRepository) with the 'fields' dictionary. This method creates an entry (account) for this user & returns the unique ID for this newly-created entry. 
+
+-   Updates the session dictionary with the user's new unique ID. 
+
+Redirects the user:
+-   To the template: 'dashboard.html'
+-   Via the route: '/dashboard'
+-   With a flash message, confirming that the registration is complete. 
+
+#### login_user.py
+Handles the functionality behind displaying the 'LoginForm()' (form) to the user & validating the details provided by the user. If (and only if) the provided details are correct & valid, the user is logged into their account (on the application). 
+
+Functions included:
+-   display_login_form()
+-   post_login()
+
+##### display_login_form()
+This function handles the GET functionality for the route: '/login'.
+
+Takes (input):
+-   login_form (a blank instance of the 'LoginForm()' (form))
+
+Functionality (algorithm):
+-   Puts together a dictionary 'details', with the action URL, which will display the register form to the user. 
+
+Renders the template:
+-   'login.html'
+-   With the form 'login_form' & the dictionary 'details'
+
+##### post_login()
+This function handles the POST functionality for the route: '/login'.
+
+Takes (input):
+-   login_form (the form 'LoginForm()', as completed by the user)
+
+Functionality (algorithm):
+-   Extracts the field values 'username' & 'password' & stores the values each in their own variable. 
+
+-   Calls the method 'getUserByUsername()' (in the Repo UserRepository), which checks if there any entries (in the 'users' SQL table) with this username. 
+    -   If not:
+        -   The user is redirected back to the template 'login.html', with the message that the username the user provided doesn't exist.
+
+    -   If yes:
+        -   It gets the password stored for this user entry, & calls on the method 'verify' (using sha256_crypt), to compare the 2 passwords. 
+
+-   If the password provided by the user does not matche the hashed password stored for that user, the user is redirected back to the template 'login.html', with the message 'Incorrect Username or Password'. 
+
+-   If its gets to this point, then it means both the username & password provided are both valid & match an existing entry in the 'users' SQL table. 
+
+-   Updates the session dictionary with the user's unique ID. 
+
+Redirects the user:
+-   To the template: 'dashboard.html'
+-   Via the route: '/dashboard'
+-   With a flash message, confirming that the user has been successfully logged in. 
+
+#### user_profile.py
+Handles the functionality behind displaying the user's  account details to their User Profile. From the User Profile, the user has the option to update their account email or password, or to even delete their account entirely. 
+
+Functions include:
+-   display_user_profile()
+
+##### display_user_profile()
+This function handles the functionality for the route: '/userprofile'.
+
+Takes (input):
+-   user_id, userRepo
+
+Functionality (algorithm):
+-   Calls on the method 'getUserByID(), which returns the 'User' object instantiated with the details for the current user. 
+
+-   Puts together a dictionary 'links' with all the action URL's (routes) to be displayed as button links to the user. 
+
+-   The user's username & email address are extracted from the 'User' object & stored in a dictionary 'user_details'. 
+
+-   Both the 'link' & 'user_details' dictionaries are stored in a parent dictionary 'general_details'. 
+
+Renders the template:
+-   'userprofile.html'
+-   With the dictionary 'general_details', created by this function. 
+
+#### change_password.py
+Handles the functionality behind displaying the 'ChangePasswordForm()' (form) to the user & using the new password (provided/entered into the form) to update the user's entry in the 'users' SQL table. The user is then redirected back to the User Profile. 
+
+Functions included:
+-   display_change_password_form()
+-   post_change_password()
+
+##### display_change_password_form()
+This function handles the GET functionality for the route: '/userprofile/<int:user_id>/change_password'.
+
+Takes (input):
+-   change_password_form (a blank instance of the 'ChangePasswordForm()' (form))
+-   user_id 
+
+Functionality (algorithm):
+-   Puts together a dictionary 'details', with the change_password_url, which will render the form 'change_password_form' to the user.  
+
+Renders the template:
+-   'change_password.html'
+-   With the form 'change_password_form' & the dictionary 'details'
+
+##### post_change_password()
+This function handles the POST functionality for the route: '/userprofile/<int:user_id>/change_password'.
+
+Takes (input):
+-   change_password_form (the form 'ChangePasswordForm()', as completed by the user)
+-   user_id, userRepo 
+
+Functionality (algorithm):
+-   Extracts the 'password' field (from the ChangePasswordForm()), & the user's current password. It then calls on the method 'verify' (from the library sha256_crypt), to check if the 2 passwords match. 
+    -   If the passwords match:
+        -   The user is redirected back to the change_password_form, with the message to notify the user that the 'new' password matches the user's current password.
+
+-   Now that we know the user hasn't used their current password to 'update' the password, we can hash this new password using the method 'encrypt' (in the library sha256_crypt). 
+
+-   Stores the new hashed password & the user's unique (user_id) in a dictionary 'fields'. 
+
+-   Calls the method 'updateUserHashByID()', (in the repo UserRepository), to update the user's 'hash' (hashed password) in the 'users' SQL table. 
+
+Redirects the user:
+-   To the template: 'userprofile.html'
+-   Via the route: '/userprofile'
+-   With a flash message, confirming that the 'password has been updated' for this user. 
+
+#### update_email.py
+Handles the functionality behind displaying the 'UpdateEmailAddressForm()' (form) to the user & using the new email (provided/entered into the form) to update the user's entry in the 'users' SQL table. The user is then redirected back to the User Profile. 
+
+Functions included:
+-   display_update_email_form()
+-   post_update_email_address()
+
+##### display_update_email_form()
+This function handles the GET functionality for the route: '/userprofile/<int:user_id>/update_email'.
+
+Takes (input):
+-   update_email_form (an instance of the 'UpdateEmailAddressForm()' (form), with the details for a specific user)
+-   user_id 
+
+Functionality (algorithm):
+-   Puts together a dictionary 'details', with the update_url, which will render the form 'update_email_form' to the user.  
+
+Renders the template:
+-   'update_email.html'
+-   With the form 'update_email_form' & the dictionary 'details'
+
+##### post_update_email_address()
+This function handles the POST functionality for the route: '/userprofile/<int:user_id>/update_email'.
+
+Takes (input):
+-   update_email_form (the form 'UpdateEmailAddressForm()', as completed by the user)
+-   userRepo, user_id 
+
+Functionality (algorithm):
+-   Extracts the field value 'email', from the update_email_form & stores both this email & the user's unique ID in a dictionary 'details'. 
+
+-   Calls on the method 'updateUserEmailByID()' (in the Repo: UserRepository), to update the 'email' for this user in the 'users' SQL table. 
+
+Redirects the user:
+-   To the template: 'userprofile.html'
+-   Via the route: '/userprofile'
+-   With a flash message, confirming that the 'Email has been updated' for this user.
+
+#### delete_user_account.py
+Handles the functionality behind displaying the 'DeleteAccountForm()' (form) to the user. If the user selects to proceed with deleting their account (and submits this request), then their user account is deleted from the 'users' SQL table, & the user is redirected back to the landing page. 
+
+Functions included:
+-   display_delete_user_form()
+-   post_delete_user()
+
+##### display_delete_user_form()
+This function handles the GET functionality for the route: '/userprofile/<int:user_id>/delete_account'.
+
+Takes (input):
+-   delete_account_form (a blank instance of the 'DeleteAccountForm()' (form))
+-   user_id 
+
+Functionality (algorithm):
+-   Puts together a dictionary 'details', with the action_url, which will render the form 'delete_account_form' to the user.  
+
+Renders the template:
+-   'delete_account.html'
+-   With the form 'delete_account_form' & the dictionary 'display'
+
+##### post_delete_user()
+This function handles the POST functionality for the route: '/userprofile/<int:user_id>/delete_account'.
+
+Takes (input):
+-   delete_account_form (the form 'DeleteAccountForm()', as completed by the user)
+-   user_id, userRepo, applicationsRepo, appNotesRepo, interviewPrepRepo, interviewsRepo, companyRepo, companyNotesRepo, jobOffersRepo, contactRepo 
+
+Functionality (algorithm):
+-   Extracts the 'password' field (from the delete_account_form()), & the user's current password (by calling on the method 'getUserByID()'). It then calls on the method 'verify' (from the library sha256_crypt), to check if the 2 passwords match. 
+    -   If the passwords do not match:
+        -   The user is redirected back to the delete_account_form, with the message to notify the user that they've provided an incorrect password.
+
+-   Carries out the following 'delete' requests to delete everything linked to this user:
+    -    Delete this user's account, by calling the method 'deleteUserByID()' (in the repo: UserRepository).
+
+    -   Delete all job applications added by this user, by calling the method 'deleteApplicationsByUserID()' (in the repo: ApplicationsHistoryRepository).
+
+    -   Delete all interviews added by this user, by calling the method 'deleteInterviewsByUserID()' (in the repo: InterviewsHistoryRepository).
+
+    -   Delete all interview preparation entries added by this user, by calling the method 'deleteInterviewPrepByUserID()' (in the repo: InterviewPreparationRepository).
+
+    -   Delete all notes added by this user, by calling the methods 'deleteNoteByUserID()' (in the repo: ApplicationNotesRepository). & 'deleteAllCompanyNotesByUserID()' (in the repo: CompanyNotesRepository). 
+
+    -   Delete all company entries added by this user, by calling the method 'deleteAllCompaniesByUserID()' (in the repo: CompanyRepository).
+
+    -   Delete all job offers added by this user, by calling the method 'deleteJobOfferByUserID()' (in the repo: JobOffersRepository).
+
+    -   Delete all contact entries added by this user, by calling the method 'deleteAllContactsByUserID()' (in the repo: ContactRepository).
+
+-   Clears the current session for this user, which effectively 'logs' this person out (of this account). 
+
+Redirects the user:
+-   To the template: 'index.html'
+-   Via the route: '/'
+-   With a flash message, confirming that the user's account has been successfully deleted.
+
+
+    

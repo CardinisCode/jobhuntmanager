@@ -529,13 +529,47 @@ Files in this directory:
 -   delete_job_offer.py
 
 ##### add_job_offer
-Handles the functionality behind displaying the 'AddInterviewForm()' (form) to the user & saving the information (the user has provided/entered into the form) into the 'interviews' SQL table. 
+Handles the functionality behind displaying the 'AddJobOffer()' (form) to the user & saving the information (the user has provided/entered into the form) into the 'job_offers' SQL table. 
 
+##### view_job_offer.py
+Handles the functionality behind displaying the details for a specific entry, from the 'job_offers' SQL table, to the template 'view_job_offer.html'.
+
+##### update_job_offer.py
+Handles the functionality behind displaying the 'AddJobOffer()' (form), with the values for a specific job offer entry, to the user. Once the form is submitted, the form values are extracted & used to update an existing entry in the 'job_offers' SQL table.
+
+##### delete_job_offer.py
+Handles the functionality behind deleting a specific job offer entry from the 'job_offers' SQL table. 
 
 ---------------------------------------------------
 
 #### users:
-This where you'll find all the Python files related to a user  entry / list of user entries. 
+This where you'll find all the Python files, with functionality related to a user entry / list of user entries, from the 'users' SQL table. 
+
+Files in this directory:
+-   register_user.py
+-   login_user.py
+-   user_profile.py
+-   change_password.py
+-   update_email.py
+-   delete_user_account.py
+
+##### register_user()
+Handles the functionality behind displaying the 'RegisterUserForm()' (form) to the user & saving the user's details (provided/entered into the form) into the 'users' SQL table. The user is then logged into their newly-created account on the application. 
+
+##### login_user.py
+Handles the functionality behind displaying the 'LoginForm()' (form) to the user & validating the details provided by the user. If (and only if) the provided details are correct & valid, the user is logged into their account (on the application). 
+
+##### user_profile.py
+Handles the functionality behind displaying the user's  account details to their User Profile. From the User Profile, the user has the option to update their account email or password, or to even delete their account entirely. 
+
+##### change_password.py
+Handles the functionality behind displaying the 'ChangePasswordForm()' (form) to the user & using the new password (provided/entered into the form) to update the user's entry in the 'users' SQL table. The user is then redirected back to the User Profile. 
+
+##### update_email.py
+Handles the functionality behind displaying the 'UpdateEmailAddressForm()' (form) to the user & using the new email (provided/entered into the form) to update the user's entry in the 'users' SQL table. The user is then redirected back to the User Profile. 
+
+##### delete_user_account.py
+Handles the functionality behind displaying the 'DeleteAccountForm()' (form) to the user. If the user selects to proceed with deleting their account (and submits this request), then their user account is deleted from the 'users' SQL table, & the user is redirected back to the landing page. 
 
 ---------------------------------------------------------------
 ### 5: Static:

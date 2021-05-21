@@ -2,7 +2,7 @@ from flask import Flask, render_template, session, request, redirect, flash
 from datetime import datetime, time
 
 
-def display_add_job_offer_form(application_id, user_id, add_job_offer, companyRepo, applicationsRepo):
+def display_add_job_offer_form(application_id, add_job_offer, companyRepo, applicationsRepo):
     application = applicationsRepo.getApplicationByID(application_id)
     company = companyRepo.getCompanyById(application.company_id)
     action_url = '/applications/{}/add_job_offer'.format(application_id)

@@ -2,26 +2,23 @@ from flask import Flask, render_template, session, flash
 from datetime import datetime, date
 
 
-def display_user_profile(session, userRepo, user_id):
-    user_details = userRepo.getUserByID(user_id)
-    username = user_details.username
-    email_address = user_details.email
+def display_user_profile(user_id, userRepo):
+    user = userRepo.getUserByID(user_id)
 
-    details = {
-        "change_password_url": '/userprofile/{}/change_password'.format(user_id),
-        "delete_account_url": '/userprofile/{}/delete_account'.format(user_id)
+    links = {
+        "change_password": '/userprofile/{}/change_password'.format(user_id),
+        "delete_account": '/userprofile/{}/delete_account'.format(user_id),
+        "update_email": '/userprofile/{}/update_email'.format(user_id)
     }
 
     user_details = {
-        "username": {
-            "heading": "User Name", 
-            "data": username
-        },
-        "user_email": {
-            "heading": "Email Address", 
-            "data": email_address, 
-            "update_url": '/userprofile/{}/update_email'.format(user_id)
-        }, 
+        "username": user.username, 
+        "user_email": user.email,
+    }
+
+    general_details = {
+        "links": links, 
+        "user_details": user_details
     }
     
-    return render_template("userprofile.html", user_details=user_details, details=details)
+    return render_template("userprofile.html", general_details=general_details)

@@ -2,7 +2,7 @@ from flask import Flask, render_template, session, request, redirect, flash
 from passlib.hash import sha256_crypt
 
 
-def display_change_password_form(user_id, change_password_form, userRepo):
+def display_change_password_form(user_id, change_password_form):
     details = {
         "change_password_url": '/userprofile/{}/change_password'.format(user_id)
     }
@@ -10,7 +10,7 @@ def display_change_password_form(user_id, change_password_form, userRepo):
     return render_template("change_password.html", change_password_form=change_password_form, details=details)
 
 
-def post_change_password(user_id, change_password_form, userRepo): 
+def post_change_password(change_password_form, user_id, userRepo): 
     password = change_password_form.password.data
 
     # Lets ensure this password is not the same password we currently have stored for this user:
