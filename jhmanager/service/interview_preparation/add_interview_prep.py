@@ -11,7 +11,8 @@ def display_interview_preparation_form(user_id, interview_prep_form, application
     company = companyRepo.getCompanyById(application.company_id)
     interview_prep_entries = interviewPrepRepo.getAllInterviewPrepEntriesByInterviewId(interview_id, user_id)
 
-    company_details= {
+    company_details = {}
+    company_details["fields"]= {
         "name": company.name, 
         "description": company.description, 
         "website": company.url, 
@@ -19,14 +20,16 @@ def display_interview_preparation_form(user_id, interview_prep_form, application
     }
     cleanup_specific_company(company_details)
 
-    application_details = {
+    application_details = {}
+    application_details["fields"] = {
         "job_role": application.job_role, 
         "job_description": application.job_description, 
         "interview_stage": application.interview_stage     
     }
     cleanup_specific_job_application(application_details)
 
-    interview_details = {
+    interview_details = {}
+    interview_details["fields"] = {
         "date": interview.interview_date, 
         "time": interview.interview_time, 
         "status": interview.status, 

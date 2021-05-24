@@ -9,14 +9,16 @@ def display_all_interviews_for_application(application_id, interviewsRepo, compa
     application = applicationsRepo.getApplicationByID(application_id)
     company = companyRepo.getCompanyById(application.company_id)
 
-    application_details = {
+    application_details = {}
+    application_details["fields"] = {
         "job_role": application.job_role, 
         "interview_stage": application.interview_stage, 
         "employment_type": application.employment_type
     }
     cleanup_specific_job_application(application_details)
 
-    company_details = {
+    company_details = {}
+    company_details["fields"] = {
         "name": company.name, 
         "description": company.description, 
         "location": company.location

@@ -189,10 +189,10 @@ def index():
 """ Display User Profile """
 @app.route("/userprofile")
 @login_required
-def display_user_profile():
+def display_userprofile():
     """ Display User Profile """
     user_id = session["user_id"]
-    return display_user_profile(userRepo, user_id)
+    return display_user_profile(user_id, userRepo)
 
 """ Display the Register Page """
 @app.route("/register", methods=["GET", "POST"])
@@ -245,7 +245,7 @@ def logout():
 @login_required
 def update_email_address(user_id):
     user_id = session["user_id"]
-    user_details = userRepo.getByUserID(user_id)
+    user_details = userRepo.getUserByID(user_id)
     update_email_form = UpdateEmailAddressForm(obj=user_details)
 
     if request.method == "POST":
