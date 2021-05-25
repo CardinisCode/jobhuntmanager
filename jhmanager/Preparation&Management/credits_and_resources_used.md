@@ -14,6 +14,11 @@ Related to:
 ```
 
 ## Flask:
+### Setting up the WSGI file for the application
+```
+    https://flask.palletsprojects.com/en/1.1.x/deploying/mod_wsgi/#:~:text=wsgi%20file.,is%20then%20used%20as%20application.&text=If%20you%20don't%20have%20a%20factory%20function%20for%20application,import%20that%20one%20as%20application%20.
+```
+
 ### Date picker in Flask:
 ```
 -   https://pypi.org/project/Flask-Datepicker/

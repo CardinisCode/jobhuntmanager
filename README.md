@@ -898,4 +898,5 @@ For each library needed, it lists the version used to develop this application. 
 ### 15: setup.py
 
 
-### 16: wsgi.py
+### 16: jhmanager.wsgi
+This is the WSGI file for the application, which will be run / executed upon start up, to get the 'app' application object. 
