@@ -868,9 +868,34 @@ Each route includes:
     -   Use conditional logic which checks that the user completes all required fields, in a form, & that the input meets the requirements set out by the form class & its attributes. If the requirements are met, the input is processed by the relevant 'post...' function. Otherwise, the user is redirected back to the form, with a notification message to let the user know why they've been redirected back to the form. 
 
 ### 10: helpers_from_cs50_finance.py
+I chose to import the helper functions from the Finance section of Harvard's CS50's Computer Science course. In this file, you'll find the login & 'apology' functions, & although I didnt use these functions directly in my project, I used the concepts behind the login() function to create the login function for this project. 
+
+I decided not to create an apology function in this project, mainly due to the scope of this project getting far too big. So I never did end up making use of an apology function in the end. 
+
 ### 11: jhmanager.db
+This is the SQL Database used for storing all the information provided by the user everytime the user completes a form. I chose to use SQLite3, mainly because I had previously used SQLite3 whilst working through the modules of the CS50 course. Although SQLite3 didn't cause me any issues whilst building this application, I have become aware that it may not be the best choice of database for large datasets. Due to the nature of this application & how much data the database could end up storing, if this application were used by a large number of users, SQLite3 is definitely not ideal for long term.
+
+For this reason, although this application has been launched online (via Heroku), I don't plan to promote the product until I find, & implement, a database tool - one that can offer a lot more storage to handle larger datasets. 
+
 ### 12: schema.sql
+This file includes all the schematics for every table in the SQL database 'jhmanager.db'. This basically shows the user:
+-   The name of every table
+-   The names for every column in each table, together with the data type that column holds. If the column accepts an empty input, then it defines the default value that will be stored in that column. 
+-   The primary key & all the foreign keys, which gives the user an idea which (of the other) tables connect to this table. 
+
+I chose to lay out each table's columns like I define a dictionary, with each column on its own line, for better readability for anyone reading through the table fields / schematics. I believe this really makes a difference, especially when tables have several columns.  
+
 ### 13: Makefiles
+This file defines the flask application & the flask environment. I set up this file to make it quicker & more convenient to run the flask environment. Now, to run the flask environment, I can simply run the application, from the terminal, using 'make start'. 
+
+This is especially important since I had to run the environment on a daily basis through out the development process. 
+
 ### 14: requirements.txt
+This file is really important for any one wanting to run this application as it includes all the required dependencies. This is basically a list of all the libraries that the user would need to have installed in order to run this application. 
+
+For each library needed, it lists the version used to develop this application. As an example, whenever I run this application on Heroku, Heroku will set up a virtual environment for this application, with all these dependencies are installed.
+
 ### 15: setup.py
+
+
 ### 16: wsgi.py
