@@ -573,8 +573,17 @@ Handles the functionality behind displaying the 'DeleteAccountForm()' (form) to 
 
 ---------------------------------------------------------------
 ### 5: Static:
-### 6: Technical Readme files:
+This directory includes:
+-   Images
+-   The CSS file
 
+#### Images
+The images directory simply includes all the screenshots used for the landing page. I took screenshots of various pages on the application, completed with fictional data, to demonstrate how the information would be displayed to each page. 
+
+#### styles.css
+This is the CSS file for the project, which determines how the content, for each page, is displayed to you as the user. 
+
+### 6: Technical Readme files:
 I had initially intended to write up the technical readme in 1 file, however once I exceeded 1000 lines, I decided to split it up into 6 files: 
 -   forms.md
     -   Goes over all the files in the Forms directory, in technical detail.
@@ -582,8 +591,6 @@ I had initially intended to write up the technical readme in 1 file, however onc
     -   Goes over all the files in the Repos directory, in technical detail.
 -   Services
     -   Goes over all the files in the Services directory, in technical detail.
--   Static
-    -   Goes over the CSS file (found in the Services directory), in technical detail.
 -   Templates
     -   Goes over all the files in the Templates directory, in technical detail.
 -   technical_readme.md
@@ -599,6 +606,13 @@ Note: The technical readme, covering these template is found in jhmanager/techni
 
 ##### layout.html: 
 This template is used as the 'layout' / reference template, from which all templates (in this directory) get their structure, as well the necessary meta data, links & routes, & scripts. 
+
+##### index.html
+This is the landing page, the first page that the user sees when they're taken to this web application. Here the user is welcomed with the concept / pitch of the application, who I am & why I built this application. The user has the option to contact me or find out more about me / this project. 
+
+Below this, I include screenshots of the application across the various pages. This serves to demonstrate the features & functionality of the application: what the user could do when using the Job Hunt Manager. 
+
+I used background colouring to implement a clear set of sections, each highlighting something different. 
 
 ##### about_us.html:
 This template gives the user information about the 'Job Hunt Manager, about the developer (myself), & the research carried out (prior to developing this application). I also included a means for the user to contact me if there any issues or if the user would like to provide any feedback related to this application. 
@@ -830,12 +844,33 @@ Presents the user with a form, pre-filled with the entry details for a specific 
 
 A link to this page is found on the 'view_app_note_details.html' page. Once the form has been successfully submitted and processed, the user will be redirected back to the template 'view_app_note_details.html'.
 
-### 7: Tests: 
-### 8: __init__.py:
-### 8: helpers_from_cs50_finance.py
-### 9: jhmanager.db
-### 10: schema.sql
-### 11: Makefiles
-### 12: requirements.txt
-### 13: setup.py
-### 14: wsgi.py
+
+### 9: __init__.py:
+This file:
+-   Imports all the required libraries, & files across the repository, forms & service directories
+-   Sets up all the configurations for the Flask application
+-   Sets up a connection to the application's database file 'jhmanager.db'
+-   Connects all the Repositories to the above database, whilst also creating a variable for each Repository, which will then be accessed by the routes to access a specific table in the database. 
+-   Sets up (& defines) all the routes to be used by the application
+
+Each route includes:
+-   The routing path & which methods will be used, which determines whether a page will:
+    1)  simply display content or 
+    2)  display content & process input from the user. 
+
+-   A function which carries out the following functionality (where relevant):
+    -   Define what information is rendered & to which template, by calling on the relevant function or by rendering the template directly. 
+
+    -   Instantiate form classes, which can then be handed over to a function, from within the function, to display a form or extract user input from the form. 
+
+    -   Extract the user's unique ID (user_id), from the current session, to ensure data is displayed, or extracted & stored in the database, for the user currently logged in. 
+
+    -   Use conditional logic which checks that the user completes all required fields, in a form, & that the input meets the requirements set out by the form class & its attributes. If the requirements are met, the input is processed by the relevant 'post...' function. Otherwise, the user is redirected back to the form, with a notification message to let the user know why they've been redirected back to the form. 
+
+### 10: helpers_from_cs50_finance.py
+### 11: jhmanager.db
+### 12: schema.sql
+### 13: Makefiles
+### 14: requirements.txt
+### 15: setup.py
+### 16: wsgi.py

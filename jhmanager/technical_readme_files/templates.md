@@ -25,6 +25,17 @@ This template is used as the 'reference' template, from which all templates (in 
 
 By allocating one template to 'hold' all the above (required) elements, I could remove unnecessary duplication & thereby reduce the amount of storage required to store the 'templates' directory. 
 
+##### index.html
+This is the landing page, the first page that the user sees when they're taken to this web application. Here the user is welcomed with the concept / pitch of the application, who I am & why I built this application. The user is presented with a few button links, which offer the user 3 ways to contact me or find out more about me / this project. I used a background colour, for this section, to make this section stand out & get the users attention when the user lands on the site. 
+
+Below this, I include screenshots of the application across the various pages, with each screenshot displayed as a 'card', within a grid of multiple cards. Each card serves to demonstrate a particular the feature / functionality of the application & what the user could do when using the Job Hunt Manager. 
+
+The first 'card' displays how the dashboard displays the user's 'notification' cards, from job offers to the applications submitted today. Since the dashboard is a big part of the experience, since the user is directed to this page once they've logged in, I've used background colour to highlight the value the dashboard would bring the user on a daily basis, in their job hunting journey.  
+
+Next I created a grid of cards to display screenshots of the various pages / forms across the application. I made the grid responsive, so that it adapts how the cards within it are displayed to the user, depending on the user's screen size. Behind this grid, this section of the page has a coloured grey-blue background, to make the cards stand out. The colour was chosen to co-ordinate well with the colour of the footer's background colour. 
+
+Each card has a header to describe a specific functionality / feature of the application, & the screenshot demonstrating that functionality/feature. For example, the first card demonstrates the functionality of adding a job application, with a screenshot of the top section of the form to 'add job application'. I chose to make the outer grid, of each card, white so that the card stands out against the coloured background. 
+
 ##### about_us.html:
 This page tells/informs the user:
 -   what this application is about, 
